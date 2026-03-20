@@ -1092,7 +1092,8 @@ function renderSeances(){
         ${s.parties[0]?.criteres?`<div class="scard-sec"><div class="scard-sec-lbl">Critères de réussite</div><div class="scard-sec-val">${s.parties.find(p=>p.titre&&p.titre.toLowerCase().includes('situ'))?.criteres||s.parties[0]?.criteres||''}</div></div>`:''}
         ${s.parties[0]?.contenus?`<div class="scard-sec"><div class="scard-sec-lbl">Contenus d'enseignement</div><div class="scard-sec-val">${s.parties.find(p=>p.titre&&p.titre.toLowerCase().includes('situ'))?.contenus||s.parties[0]?.contenus||''}</div></div>`:''}
       </div>`:''}
-      ${objData.obj1?`<div class="scard-body" style="border-top:1px solid #1a1d2a;padding-top:.6rem;"><div class="scard-sec"><div class="scard-sec-lbl">🎯 Objectif élèves</div><div class="scard-sec-val">${objData.obj1}${objData.obj2?' / '+objData.obj2:''}</div></div></div>`:''}      ${np?`<div class="scard-parts">${(s.parties||[]).map((p,i)=>`<span class="scard-part-pill">Partie ${i+1}${p.titre?' — '+p.titre:''}</span>`).join('')}</div>`:''}
+      ${objData.obj1?`<div class="scard-body" style="border-top:1px solid #1a1d2a;padding-top:.6rem;"><div class="scard-sec"><div class="scard-sec-lbl">🎯 Objectif élèves</div><div class="scard-sec-val">${objData.obj1}${objData.obj2?' / '+objData.obj2:''}</div></div></div>`:''}
+      ${np?`<div class="scard-parts">${(s.parties||[]).map((p,i)=>`<span class="scard-part-pill">Partie ${i+1}${p.titre?' — '+p.titre:''}</span>`).join('')}</div>`:''}
       ${aflpT.length&&aflpData?`<div class="scard-aflp-row"><span class="scard-aflp-lbl">AFLP :</span>${aflpT.map(n=>`<span class="scard-aflp-tag">${n}</span>`).join('')}</div>`:''}
     </div>`;
   }).join('');
@@ -1353,20 +1354,20 @@ function showAppel(sid){
       </div>
     </div>
     <div class="card"><div class="tw"><table>
-      <thead><tr><th>Élève</th><th>Statut</th><th>Obj. 1 atteint ?</th><th>Obj. 2 atteint ?</th><th>Maîtrise (auto-éval.)</th><th>Qté travail /20 (note prof)</th></tr></thead>
+      <thead><tr><th>Élève</th><th>Statut</th><th>Obj. 1 — Maîtrise</th><th>Obj. 2 — Maîtrise</th><th>Qté travail /20 (note prof)</th></tr></thead>
       <tbody>${sorted.map(e=>{
         const pres=state.presences[sid][e.id]||'Présent';
         const ae=state.autoEval[sid][e.id]||{};
         const ini=e.nom.split(' ').map(w=>w[0]).slice(0,2).join('').toUpperCase();
         const ci=(e.id.charCodeAt(1)||0)%COLORS.length;const dis=pres!=='Présent';
         const hasObj2=objData.obj2&&objData.obj2.trim();
+        const MAITRISE=['Maîtrise insuffisante','Maîtrise fragile','Maîtrise satisfaisante','Très bonne maîtrise'];
         return`<tr>
           <td><div class="nb"><div class="avatar" style="background:${COLORS[ci]}22;color:${COLORS[ci]}">${ini}</div>
           <div><span style="font-size:.82rem;font-weight:500;">${e.nom}</span>${e.amenagement?`<br><span style="font-size:.7rem;color:#ffd166;">⚠ ${e.amenagement}</span>`:''}</div></div></td>
           <td><select class="ss" onchange="setPres('${sid}','${e.id}',this.value)">${STATUTS.map(st=>`<option${st===pres?' selected':''}>${st}</option>`).join('')}</select></td>
-          <td><select class="ss" onchange="setAE('${sid}','${e.id}','obj1',this.value)"${dis?' disabled':''}><option value="">—</option><option${ae.obj1==='Oui'?' selected':''}>Oui</option><option${ae.obj1==='Partiel'?' selected':''}>Partiel</option><option${ae.obj1==='Non'?' selected':''}>Non</option></select></td>
-          <td><select class="ss" onchange="setAE('${sid}','${e.id}','obj2',this.value)"${dis||!hasObj2?' disabled':''}><option value="">—</option><option${ae.obj2==='Oui'?' selected':''}>Oui</option><option${ae.obj2==='Partiel'?' selected':''}>Partiel</option><option${ae.obj2==='Non'?' selected':''}>Non</option></select></td>
-          <td><select class="ss" onchange="setAE('${sid}','${e.id}','maitrise',this.value)"${dis?' disabled':''}><option value="">— Maîtrise —</option><option${ae.maitrise==='Maîtrise insuffisante'?' selected':''}>Maîtrise insuffisante</option><option${ae.maitrise==='Maîtrise fragile'?' selected':''}>Maîtrise fragile</option><option${ae.maitrise==='Maîtrise satisfaisante'?' selected':''}>Maîtrise satisfaisante</option><option${ae.maitrise==='Très bonne maîtrise'?' selected':''}>Très bonne maîtrise</option></select></td>
+          <td><select class="ss" onchange="setAE('${sid}','${e.id}','maitrise1',this.value)"${dis?' disabled':''}><option value="">—</option>${MAITRISE.map(v=>`<option${ae.maitrise1===v?' selected':''}>${v}</option>`).join('')}</select></td>
+          <td><select class="ss" onchange="setAE('${sid}','${e.id}','maitrise2',this.value)"${dis||!hasObj2?' disabled':''}><option value="">—</option>${MAITRISE.map(v=>`<option${ae.maitrise2===v?' selected':''}>${v}</option>`).join('')}</select></td>
           <td><input class="ni" type="number" min="0" max="20" step="1" value="${ae.qte!==undefined?ae.qte:''}" placeholder="—"${dis?' disabled':''} onchange="setAE('${sid}','${e.id}','qte',this.value)" style="width:65px;"></td>
         </tr>`;
       }).join('')}</tbody>
@@ -1508,7 +1509,8 @@ function renderNotes(){
       if(st==='Présent')pres++;else if(st==='Absent')abs++;else if(st==='Dispensé')disp++;
       const ae=(state.autoEval[s.id]||{})[e.id]||{};
       if(ae.qte!==undefined&&ae.qte!=='')qtes.push(parseFloat(ae.qte));
-      if(ae.maitrise&&nm[ae.maitrise])mts.push(nm[ae.maitrise]);
+      if(ae.maitrise1&&nm[ae.maitrise1])mts.push(nm[ae.maitrise1]);
+      if(ae.maitrise2&&nm[ae.maitrise2])mts.push(nm[ae.maitrise2]);
     });
     const mQ=qtes.length>0?(qtes.reduce((a,b)=>a+b,0)/qtes.length).toFixed(1):'—';
     const mM=mts.length>0?(['','Maîtrise insuff.','Maîtrise fragile','Maîtrise satisf.','Très bonne maîtrise'][Math.round(mts.reduce((a,b)=>a+b,0)/mts.length)]):'—';
