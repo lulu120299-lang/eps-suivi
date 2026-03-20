@@ -4,73 +4,85 @@
       "id": "e001",
       "nom": "BEN ALI Dhiaeddine",
       "amenagement": "",
-      "noteFinale": null
+      "noteFinale": null,
+      "fiche": null
     },
     {
       "id": "e002",
       "nom": "BOUTELOUP Nathan",
       "amenagement": "",
-      "noteFinale": null
+      "noteFinale": null,
+      "fiche": null
     },
     {
       "id": "e003",
       "nom": "CAMARA Mohamed",
       "amenagement": "",
-      "noteFinale": null
+      "noteFinale": null,
+      "fiche": null
     },
     {
       "id": "e004",
       "nom": "FONGILU Geremy-Pedro",
       "amenagement": "",
-      "noteFinale": null
+      "noteFinale": null,
+      "fiche": null
     },
     {
       "id": "e005",
       "nom": "HADDOU Yassine",
       "amenagement": "",
-      "noteFinale": null
+      "noteFinale": null,
+      "fiche": null
     },
     {
       "id": "e006",
       "nom": "KEDADRA Rihab",
       "amenagement": "PAI",
-      "noteFinale": null
+      "noteFinale": null,
+      "fiche": null
     },
     {
       "id": "e007",
       "nom": "KINDEL Zelya",
       "amenagement": "",
-      "noteFinale": null
+      "noteFinale": null,
+      "fiche": null
     },
     {
       "id": "e008",
       "nom": "NOBLE Lubin",
       "amenagement": "",
-      "noteFinale": null
+      "noteFinale": null,
+      "fiche": null
     },
     {
       "id": "e009",
       "nom": "RODULFO Flavio",
       "amenagement": "",
-      "noteFinale": null
+      "noteFinale": null,
+      "fiche": null
     },
     {
       "id": "e010",
       "nom": "RULLIAT CRESPO Tymeo",
       "amenagement": "Asthmatique",
-      "noteFinale": null
+      "noteFinale": null,
+      "fiche": null
     },
     {
       "id": "e011",
       "nom": "SBARDELLA--CHEVALIER Andréa",
       "amenagement": "Asthmatique",
-      "noteFinale": null
+      "noteFinale": null,
+      "fiche": null
     },
     {
       "id": "e012",
       "nom": "SVONGCHAN Juan",
       "amenagement": "",
-      "noteFinale": null
+      "noteFinale": null,
+      "fiche": null
     }
   ],
   "seances": [
@@ -178,5 +190,6 @@
         "quantite": "3"
       }
     }
-  }
+  },
+  "seanceObjectifs": {}
 }
