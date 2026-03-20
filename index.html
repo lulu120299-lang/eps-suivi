@@ -239,7 +239,38 @@ textarea{resize:vertical;min-height:70px}
 .modal-title{font-family:'DM Serif Display',serif;font-size:1.4rem;margin-bottom:1.3rem}
 .modal-acts{display:flex;gap:7px;justify-content:flex-end;margin-top:1.4rem;border-top:1px solid #252836;padding-top:1rem}
 .sec-title{font-size:.78rem;color:#6b7280;font-weight:600;text-transform:uppercase;letter-spacing:.06em;margin-bottom:.6rem;margin-top:1.1rem}
-@media(max-width:960px){
+/* GRILLE EVAL */
+.grille-table{width:100%;border-collapse:collapse;font-size:.8rem;border-radius:10px;overflow:hidden;border:1px solid #252836}
+.grille-table th{background:#13161f;padding:9px 10px;text-align:left;font-weight:600;font-size:.72rem;color:#6b7280;text-transform:uppercase;letter-spacing:.04em;border-bottom:1px solid #252836;border-right:1px solid #252836}
+.grille-table th:last-child{border-right:none}
+.grille-table td{padding:8px 10px;border-bottom:1px solid rgba(37,40,54,.5);border-right:1px solid rgba(37,40,54,.3);vertical-align:top}
+.grille-table td:last-child{border-right:none}
+.grille-table tr:last-child td{border-bottom:none}
+.grille-table .crit-name{font-weight:600;font-size:.82rem;color:#e4e6ef}
+.grille-table .crit-pts{font-family:'DM Mono',monospace;font-size:.68rem;color:#6b7280}
+.grille-lvl{background:#13161f;border-radius:6px;padding:5px 8px;font-size:.74rem;color:#9aa0b8;line-height:1.4;margin-bottom:3px}
+.grille-lvl-pts{font-family:'DM Mono',monospace;font-size:.7rem;font-weight:700;margin-bottom:2px}
+.grille-lvl.ins .grille-lvl-pts{color:#ff6b6b}
+.grille-lvl.fra .grille-lvl-pts{color:#ffd166}
+.grille-lvl.sat .grille-lvl-pts{color:#56cfb2}
+.grille-lvl.tres .grille-lvl-pts{color:#4f8aff}
+.grille-eleve-sel{background:#13161f;border:1px solid #252836;border-radius:5px;color:#e4e6ef;font-family:'DM Sans',sans-serif;font-size:.8rem;padding:3px 7px;cursor:pointer;outline:none;width:100%}
+.grille-eleve-sel:focus{border-color:#4f8aff}
+.critere-block{background:#13161f;border:1px solid #2a2f42;border-radius:10px;padding:1rem 1.2rem;margin-bottom:.75rem}
+.critere-row{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:.6rem;margin-top:.75rem}
+.critere-lvl-inp{background:#0d1018;border:1px solid #252836;border-radius:6px;padding:.5rem .6rem}
+.critere-lvl-inp label{font-size:.65rem;color:#6b7280;display:block;margin-bottom:3px;font-weight:600}
+.critere-lvl-inp input[type=text],.critere-lvl-inp textarea{background:#13161f;border:1px solid #252836;border-radius:5px;color:#e4e6ef;font-family:'DM Sans',sans-serif;font-size:.78rem;padding:5px 7px;outline:none;width:100%}
+.critere-lvl-inp input[type=number]{background:#13161f;border:1px solid #252836;border-radius:5px;color:#e4e6ef;font-family:'DM Mono',monospace;font-size:.78rem;padding:5px 7px;outline:none;width:60px}
+.critere-lvl-inp input:focus,.critere-lvl-inp textarea:focus{border-color:#4f8aff}
+.ins-col{border-top:3px solid #ff6b6b!important}
+.fra-col{border-top:3px solid #ffd166!important}
+.sat-col{border-top:3px solid #56cfb2!important}
+.tres-col{border-top:3px solid #4f8aff!important}
+.grille-note-input{background:#13161f;border:1px solid #252836;border-radius:5px;color:#e4e6ef;font-family:'DM Mono',monospace;font-size:.82rem;padding:3px 7px;text-align:center;outline:none;width:65px}
+.grille-note-input:focus{border-color:#4f8aff}
+.grille-empty{text-align:center;padding:3rem;color:#6b7280;background:#1c1f2c;border:1px solid #252836;border-radius:12px}
+
   .acc-cls-grid{grid-template-columns:repeat(3,1fr)}
   .appel-lay{grid-template-columns:1fr}
   .g4{grid-template-columns:1fr 1fr}
@@ -355,6 +386,7 @@ textarea{resize:vertical;min-height:70px}
       <button class="s-tab" data-view="v-appel">Appel</button>
       <button class="s-tab" data-view="v-eleves">Élèves</button>
       <button class="s-tab" data-view="v-eval">Évaluation</button>
+      <button class="s-tab" data-view="v-grille">Ma grille</button>
     </div>
   </div>
   <div class="s-main">
@@ -410,12 +442,43 @@ textarea{resize:vertical;min-height:70px}
         <div id="eval-aflp-list"></div>
       </div>
       <div class="card"><div class="tw"><table>
-        <thead><tr><th>Élève</th><th>Présences</th><th>Absences</th><th>Dispensé</th><th>Qté travail /20</th><th>Maîtrise moy.</th><th>Note finale /20</th></tr></thead>
+        <thead><tr><th>Élève</th><th>Présences</th><th>Absences</th><th>Dispensé</th><th>Qté travail /4</th><th>Maîtrise moy.</th><th>Note finale /20</th></tr></thead>
         <tbody id="nt-tbody"></tbody>
       </table></div></div>
     </div>
 
+    <!-- VUE MA GRILLE D'ÉVALUATION -->
+    <div id="v-grille" class="view">
+      <div class="ph">
+        <div><div class="ph-title">Ma grille d'évaluation</div><div class="ph-sub">Créez vos propres critères et niveaux — style fiche CCF</div></div>
+        <div style="display:flex;gap:8px">
+          <button class="btn btn-g" id="btn-grille-cfg">⚙ Configurer la grille</button>
+          <button class="btn btn-g" id="btn-grille-pdf">📄 Export PDF</button>
+          <button class="btn btn-g" id="btn-grille-csv">⬇ CSV</button>
+        </div>
+      </div>
+      <!-- Zone grille -->
+      <div id="grille-zone"></div>
+    </div>
+
   </div>
+
+  <!-- Modal config grille -->
+  <div class="mb" id="m-grille-cfg"><div class="modal modal-xl">
+    <div class="modal-title">⚙ Configurer ma grille d'évaluation</div>
+    <div style="margin-bottom:1rem">
+      <div class="sec-title">Titre de la grille</div>
+      <input type="text" id="grille-titre-inp" placeholder="Ex: Grille CCF Orientation — CAP EPC 1">
+    </div>
+    <div class="sec-title">Critères d'évaluation</div>
+    <p style="font-size:.78rem;color:#6b7280;margin-bottom:.75rem">Définissez vos critères (lignes) et pour chaque critère les 4 niveaux de maîtrise avec leur barème.</p>
+    <div id="criteres-container"></div>
+    <button class="add-partie-btn" id="btn-add-critere">＋ Ajouter un critère</button>
+    <div class="modal-acts">
+      <button class="btn btn-g" data-close="m-grille-cfg">Annuler</button>
+      <button class="btn btn-p" id="btn-save-grille-cfg">Enregistrer la grille</button>
+    </div>
+  </div></div>
 
   <!-- Modal nouvelle séance -->
   <div class="mb" id="m-seance"><div class="modal modal-xl">
@@ -811,6 +874,271 @@ function toast(msg,type){
 }
 
 // ============================================================
+// GRILLE D'ÉVALUATION PERSONNALISÉE
+// ============================================================
+const GRILLE_DEFAULT={
+  titre:'Grille d\'évaluation CCF',
+  criteres:[
+    {id:'c1',nom:'Efficacité motrice',pts:8,niveaux:[
+      {label:'Insuffisant',desc:'Ne réalise pas ou très peu les actions attendues.',pts:0},
+      {label:'Fragile',desc:'Réalise partiellement les actions avec des erreurs fréquentes.',pts:2},
+      {label:'Satisfaisant',desc:'Réalise correctement les actions dans la plupart des situations.',pts:5},
+      {label:'Très bien',desc:'Réalise avec efficacité et régularité dans toutes les situations.',pts:8},
+    ]},
+    {id:'c2',nom:'Connaissance de l\'activité',pts:4,niveaux:[
+      {label:'Insuffisant',desc:'Aucune connaissance des règles ou techniques.',pts:0},
+      {label:'Fragile',desc:'Connaissances partielles et peu mobilisées.',pts:1},
+      {label:'Satisfaisant',desc:'Connaît les règles et sait les appliquer.',pts:3},
+      {label:'Très bien',desc:'Maîtrise les règles et les utilise à son avantage.',pts:4},
+    ]},
+    {id:'c3',nom:'Engagement et rôles sociaux',pts:4,niveaux:[
+      {label:'Insuffisant',desc:'Refus ou absence d\'engagement. Ne tient pas les rôles.',pts:0},
+      {label:'Fragile',desc:'Engagement irrégulier. Rôles tenus avec des erreurs.',pts:1},
+      {label:'Satisfaisant',desc:'S\'engage régulièrement. Tient les rôles demandés.',pts:3},
+      {label:'Très bien',desc:'Engagement total. Assume spontanément plusieurs rôles.',pts:4},
+    ]},
+    {id:'c4',nom:'Verbalisation / argumentation',pts:4,niveaux:[
+      {label:'Insuffisant',desc:'Incapable de verbaliser ses actions ou ses choix.',pts:0},
+      {label:'Fragile',desc:'Verbalisation limitée, imprécise.',pts:1},
+      {label:'Satisfaisant',desc:'Explique ses choix de manière simple et correcte.',pts:3},
+      {label:'Très bien',desc:'Argumente avec précision et vocabulaire adapté.',pts:4},
+    ]},
+  ]
+};
+
+function grilleGetData(){
+  try{
+    const s=localStorage.getItem(STORAGE_KEY+'-grille');
+    if(s)return JSON.parse(s);
+  }catch(e){}
+  return JSON.parse(JSON.stringify(GRILLE_DEFAULT));
+}
+function grilleSaveData(g){
+  localStorage.setItem(STORAGE_KEY+'-grille',JSON.stringify(g));
+}
+function grilleGetNotes(){
+  try{
+    const s=localStorage.getItem(STORAGE_KEY+'-grille-notes');
+    if(s)return JSON.parse(s);
+  }catch(e){}
+  return {};
+}
+function grilleSaveNotes(n){
+  localStorage.setItem(STORAGE_KEY+'-grille-notes',JSON.stringify(n));
+}
+
+function renderGrille(){
+  const zone=document.getElementById('grille-zone');
+  const g=grilleGetData();
+  const notes=grilleGetNotes();
+  const eleves=state.eleves.slice().sort(function(a,b){return a.nom.localeCompare(b.nom);});
+
+  if(!g.criteres||!g.criteres.length){
+    zone.innerHTML='<div class="grille-empty"><div style="font-size:2rem;margin-bottom:.75rem">📋</div><div>Aucune grille configurée.<br>Cliquez sur <strong>⚙ Configurer la grille</strong> pour créer votre évaluation personnalisée.</div></div>';
+    return;
+  }
+  if(!eleves.length){
+    zone.innerHTML='<div class="grille-empty"><div style="font-size:2rem;margin-bottom:.75rem">👥</div><div>Aucun élève dans cette séquence.</div></div>';
+    return;
+  }
+
+  const totalMax=g.criteres.reduce(function(a,c){return a+c.pts;},0);
+
+  // En-tête tableau
+  let html='<div style="margin-bottom:1rem">';
+  html+='<div style="font-family:DM Serif Display,serif;font-size:1.3rem;color:#e4e6ef">'+htmlE(g.titre)+'</div>';
+  html+='<div style="font-size:.78rem;color:#6b7280;margin-top:3px">Total sur '+totalMax+' points · '+g.criteres.length+' critère'+(g.criteres.length>1?'s':'')+'</div></div>';
+
+  // Tableau des critères (référentiel)
+  html+='<div style="overflow-x:auto;margin-bottom:1.5rem"><table class="grille-table">';
+  html+='<thead><tr><th style="min-width:140px">Critère</th>';
+  html+='<th class="ins-col" style="min-width:160px">Maîtrise insuffisante</th>';
+  html+='<th class="fra-col" style="min-width:160px">Maîtrise fragile</th>';
+  html+='<th class="sat-col" style="min-width:160px">Maîtrise satisfaisante</th>';
+  html+='<th class="tres-col" style="min-width:160px">Très bonne maîtrise</th>';
+  html+='</tr></thead><tbody>';
+  g.criteres.forEach(function(c){
+    html+='<tr><td><div class="crit-name">'+htmlE(c.nom)+'</div><div class="crit-pts">/'+c.pts+' pts</div></td>';
+    c.niveaux.forEach(function(n,i){
+      const cls=['ins','fra','sat','tres'][i];
+      html+='<td><div class="grille-lvl '+cls+'"><div class="grille-lvl-pts">'+n.pts+' pts — '+htmlE(n.label)+'</div>'+htmlE(n.desc)+'</div></td>';
+    });
+    html+='</tr>';
+  });
+  html+='</tbody></table></div>';
+
+  // Tableau notes élèves
+  html+='<div style="font-family:DM Mono,monospace;font-size:.65rem;text-transform:uppercase;letter-spacing:.12em;color:#6b7280;margin-bottom:.6rem">Notes des élèves</div>';
+  html+='<div style="overflow-x:auto"><table class="grille-table"><thead><tr>';
+  html+='<th style="min-width:160px">Élève</th>';
+  g.criteres.forEach(function(c){
+    html+='<th style="min-width:100px">'+htmlE(c.nom)+'<br><span style="font-weight:400;color:#6b7280">/'+c.pts+'</span></th>';
+  });
+  html+='<th style="min-width:80px">Total /'+totalMax+'</th>';
+  html+='<th style="min-width:80px">Note /20</th>';
+  html+='</tr></thead><tbody>';
+
+  eleves.forEach(function(e){
+    const en=notes[e.id]||{};
+    let total=0;
+    let hasAll=true;
+    html+='<tr><td><div style="font-weight:600;font-size:.82rem">'+htmlE(e.nom)+'</div>'+(e.amenagement?'<div style="font-size:.7rem;color:#ffd166">⚠ '+htmlE(e.amenagement)+'</div>':'')+'</td>';
+    g.criteres.forEach(function(c){
+      const v=en[c.id];
+      if(v!==undefined&&v!=='')total+=parseFloat(v);
+      else hasAll=false;
+      html+='<td><input class="grille-note-input" type="number" min="0" max="'+c.pts+'" step="0.5" value="'+(v!==undefined?v:'')+'" placeholder="—" data-eid="'+e.id+'" data-cid="'+c.id+'"></td>';
+    });
+    const note20=hasAll?(total/totalMax*20).toFixed(1):'—';
+    const noteColor=hasAll?(parseFloat(note20)>=12?'#56cfb2':parseFloat(note20)>=10?'#ffd166':'#ff6b6b'):'#6b7280';
+    html+='<td style="font-family:DM Mono,monospace;font-weight:700;color:#e4e6ef">'+(hasAll?total:'—')+'</td>';
+    html+='<td><span style="font-family:DM Mono,monospace;font-weight:700;font-size:.9rem;color:'+noteColor+'">'+note20+(hasAll?'/20':'')+'</span></td>';
+    html+='</tr>';
+  });
+  html+='</tbody></table></div>';
+  zone.innerHTML=html;
+
+  // Écouter les changements
+  zone.querySelectorAll('.grille-note-input').forEach(function(inp){
+    inp.addEventListener('change',function(){
+      const eid=this.dataset.eid,cid=this.dataset.cid;
+      const allNotes=grilleGetNotes();
+      if(!allNotes[eid])allNotes[eid]={};
+      allNotes[eid][cid]=this.value===''?undefined:parseFloat(this.value);
+      grilleSaveNotes(allNotes);
+      renderGrille();
+    });
+  });
+}
+
+// Config grille
+function openGrilleConfig(){
+  const g=grilleGetData();
+  document.getElementById('grille-titre-inp').value=g.titre||'';
+  const container=document.getElementById('criteres-container');
+  container.innerHTML='';
+  g.criteres.forEach(function(c,idx){renderCritereBlock(c,idx);});
+  openM('m-grille-cfg');
+}
+function renderCritereBlock(c,idx){
+  const container=document.getElementById('criteres-container');
+  const div=document.createElement('div');
+  div.className='critere-block';
+  div.id='critere-'+c.id;
+  const noms=['Insuffisant','Fragile','Satisfaisant','Très bien'];
+  const cols=['#ff6b6b','#ffd166','#56cfb2','#4f8aff'];
+  div.innerHTML='<div style="display:flex;align-items:center;gap:10px;margin-bottom:.75rem">'
+    +'<span style="background:#4f8aff;color:#fff;font-family:DM Mono,monospace;font-size:.68rem;padding:3px 9px;border-radius:5px;flex-shrink:0">Critère '+(idx+1)+'</span>'
+    +'<input type="text" class="crit-nom-inp" value="'+htmlE(c.nom)+'" placeholder="Nom du critère…" style="flex:1">'
+    +'<label style="font-size:.72rem;color:#6b7280;white-space:nowrap">Max :</label>'
+    +'<input type="number" class="crit-pts-inp ni" min="1" max="20" value="'+c.pts+'" style="width:55px">'
+    +'<span style="font-size:.78rem;color:#6b7280">pts</span>'
+    +'<button class="partie-del crit-del-btn" title="Supprimer">✕</button>'
+    +'</div>'
+    +'<div class="critere-row">'
+    +c.niveaux.map(function(n,i){
+      return'<div class="critere-lvl-inp" style="border-top:3px solid '+cols[i]+'">'
+        +'<label style="color:'+cols[i]+'">'+noms[i]+'</label>'
+        +'<input type="number" class="crit-lvl-pts" min="0" max="20" value="'+n.pts+'" placeholder="pts">'
+        +'<textarea class="crit-lvl-desc" rows="2" placeholder="Description…">'+htmlE(n.desc)+'</textarea>'
+        +'</div>';
+    }).join('')
+    +'</div>';
+  div.querySelector('.crit-del-btn').addEventListener('click',function(){
+    div.remove();
+  });
+  container.appendChild(div);
+}
+function saveGrilleConfig(){
+  const titre=document.getElementById('grille-titre-inp').value.trim();
+  const criteres=[];
+  document.querySelectorAll('.critere-block').forEach(function(div,idx){
+    const nom=div.querySelector('.crit-nom-inp').value.trim();
+    const pts=parseFloat(div.querySelector('.crit-pts-inp').value)||10;
+    const descs=div.querySelectorAll('.crit-lvl-desc');
+    const ptsArr=div.querySelectorAll('.crit-lvl-pts');
+    const noms=['Insuffisant','Fragile','Satisfaisant','Très bien'];
+    const niveaux=noms.map(function(n,i){
+      return{label:n,desc:descs[i]?descs[i].value:'',pts:ptsArr[i]?parseFloat(ptsArr[i].value)||0:0};
+    });
+    if(nom)criteres.push({id:'c'+(idx+1),nom:nom,pts:pts,niveaux:niveaux});
+  });
+  if(!criteres.length){alert('Ajoutez au moins un critère');return;}
+  grilleSaveData({titre:titre||'Ma grille',criteres:criteres});
+  closeM('m-grille-cfg');renderGrille();toast('Grille enregistrée ✓');
+}
+
+function exportGrillePDF(){
+  const g=grilleGetData();
+  const notes=grilleGetNotes();
+  const eleves=state.eleves.slice().sort(function(a,b){return a.nom.localeCompare(b.nom);});
+  const totalMax=g.criteres.reduce(function(a,c){return a+c.pts;},0);
+  const cols=['#ff6b6b','#ffd166','#56cfb2','#4f8aff'];
+  const nomsCols=['Maîtrise insuffisante','Maîtrise fragile','Maîtrise satisfaisante','Très bonne maîtrise'];
+  let html='<!DOCTYPE html><html><head><meta charset="UTF-8"><title>'+htmlE(g.titre)+'</title>';
+  html+='<style>body{font-family:Arial,sans-serif;font-size:10px;margin:15px;line-height:1.35}h1{font-size:14px;margin-bottom:2px}h2{font-size:11px;margin:10px 0 4px;border-bottom:1px solid #ccc;padding-bottom:2px}table{width:100%;border-collapse:collapse;margin-bottom:10px}th,td{border:1px solid #ccc;padding:5px 7px;vertical-align:top;text-align:left}th{background:#f0f0f0;font-size:9px}td{font-size:10px}.ins{border-top:3px solid #ff6b6b}.fra{border-top:3px solid #ffd166}.sat{border-top:3px solid #56cfb2}.tres{border-top:3px solid #4f8aff}.lvl-title{font-weight:bold;font-size:9px}.note{font-weight:bold;text-align:center}@media print{body{margin:8px}}</style>';
+  html+='</head><body>';
+  html+='<div style="border-bottom:2px solid #333;padding-bottom:6px;margin-bottom:10px">';
+  html+='<div style="font-size:9px;color:#666">'+htmlE(CTX.cls?CTX.cls.label:'')+' · '+(CTX.apsa?CTX.apsa.ca+' — '+CTX.apsa.name:'')+' · T'+(CTX.trim||'')+'</div>';
+  html+='<h1>'+htmlE(g.titre)+'</h1>';
+  html+='<div style="font-size:9px;color:#666">Total sur '+totalMax+' pts</div></div>';
+
+  // Référentiel
+  html+='<h2>Référentiel de compétences</h2><table><thead><tr><th>Critère</th>';
+  nomsCols.forEach(function(n,i){html+='<th class="'+ ['ins','fra','sat','tres'][i]+'">'+n+'</th>';});
+  html+='</tr></thead><tbody>';
+  g.criteres.forEach(function(c){
+    html+='<tr><td><strong>'+htmlE(c.nom)+'</strong><br><span style="color:#888">/'+c.pts+' pts</span></td>';
+    c.niveaux.forEach(function(n,i){
+      html+='<td class="'+['ins','fra','sat','tres'][i]+'"><div class="lvl-title">'+n.pts+' pts — '+htmlE(n.label)+'</div>'+htmlE(n.desc)+'</td>';
+    });
+    html+='</tr>';
+  });
+  html+='</tbody></table>';
+
+  // Notes élèves
+  html+='<h2>Résultats des élèves</h2><table><thead><tr><th>Élève</th>';
+  g.criteres.forEach(function(c){html+='<th>'+htmlE(c.nom)+'<br>/'+c.pts+'</th>';});
+  html+='<th>Total /'+totalMax+'</th><th>Note /20</th></tr></thead><tbody>';
+  eleves.forEach(function(e){
+    const en=notes[e.id]||{};
+    let total=0,hasAll=true;
+    html+='<tr><td>'+htmlE(e.nom)+(e.amenagement?'<br><small>'+htmlE(e.amenagement)+'</small>':'')+'</td>';
+    g.criteres.forEach(function(c){
+      const v=en[c.id];
+      if(v!==undefined&&v!=='')total+=parseFloat(v);else hasAll=false;
+      html+='<td class="note">'+(v!==undefined?v:'')+'</td>';
+    });
+    const note20=hasAll?(total/totalMax*20).toFixed(1):'';
+    html+='<td class="note"><strong>'+(hasAll?total:'')+'</strong></td><td class="note"><strong>'+note20+'</strong></td></tr>';
+  });
+  html+='</tbody></table>';
+  html+='<script>window.onload=function(){window.print();}<\/script></body></html>';
+  const w=window.open('','_blank');w.document.write(html);w.document.close();
+}
+
+function exportGrilleCSV(){
+  const g=grilleGetData();
+  const notes=grilleGetNotes();
+  const eleves=state.eleves.slice().sort(function(a,b){return a.nom.localeCompare(b.nom);});
+  const totalMax=g.criteres.reduce(function(a,c){return a+c.pts;},0);
+  const h=['Élève'].concat(g.criteres.map(function(c){return c.nom+' /'+c.pts;})).concat(['Total /'+totalMax,'Note /20']).join(';');
+  const rows=eleves.map(function(e){
+    const en=notes[e.id]||{};
+    let total=0,hasAll=true;
+    const vals=g.criteres.map(function(c){
+      const v=en[c.id];
+      if(v!==undefined&&v!=='')total+=parseFloat(v);else hasAll=false;
+      return v!==undefined?v:'';
+    });
+    return[e.nom].concat(vals).concat([hasAll?total:'',hasAll?(total/totalMax*20).toFixed(1):'']).join(';');
+  });
+  const a=document.createElement('a');
+  a.href='data:text/csv;charset=utf-8,\uFEFF'+encodeURIComponent([h].concat(rows).join('\n'));
+  a.download='grille_'+(CTX.cls?CTX.cls.id:'eps')+'.csv';a.click();
+}
+
+// ============================================================
 // ACCUEIL INIT
 // ============================================================
 function accInit(){
@@ -1016,7 +1344,7 @@ function showView(id){
   renderAll();
   if(id==='v-eval')highlightEvalAflp();
 }
-function renderAll(){renderStats();renderSeances();renderApList();renderEleves();renderNotes();}
+function renderAll(){renderStats();renderSeances();renderApList();renderEleves();renderNotes();renderGrille();}
 function highlightEvalAflp(){
   const worked=new Set(state.seances.flatMap(function(s){return s.aflpTravailles||[];}));
   document.querySelectorAll('.eval-aflp-item').forEach(function(el){
@@ -1294,7 +1622,7 @@ function showAppel(sid){
     +'<div style="color:#6b7280;font-size:.75rem;margin-top:3px">'+(s.date?fmtDate(s.date):'')+'</div>'
     +'<div style="margin-top:.5rem"><span class="chip c-gr">'+nbP+'/'+state.eleves.length+' présents</span></div></div>';
   html+='<div class="card"><div class="tw"><table>';
-  html+='<thead><tr><th>Élève</th><th>Statut</th><th>Obj. 1 — Maîtrise</th><th>Obj. 2 — Maîtrise</th><th>Qté travail /20</th></tr></thead><tbody>';
+  html+='<thead><tr><th>Élève</th><th>Statut</th><th>Obj. 1 — Maîtrise</th><th>Obj. 2 — Maîtrise</th><th>Qté travail /4</th></tr></thead><tbody>';
   sorted.forEach(function(e){
     const pres=state.presences[sid][e.id]||'Présent';
     const ae=state.autoEval[sid][e.id]||{};
@@ -1316,7 +1644,7 @@ function showAppel(sid){
       +'<option value="">— Maîtrise —</option>'+mOpts+'</select></td>'
       +'<td><select class="ss" data-sid="'+sid+'" data-eid="'+e.id+'" data-f="maitrise2"'+(dis||!hasObj2?' disabled':'')+'>'
       +'<option value="">— Maîtrise —</option>'+mOpts2+'</select></td>'
-      +'<td><input class="ni" type="number" min="0" max="20" step="1" value="'+(ae.qte!==undefined?ae.qte:'')+'" placeholder="—"'+(dis?' disabled':'')+' data-sid="'+sid+'" data-eid="'+e.id+'" data-f="qte" style="width:65px"></td>'
+      +'<td><input class="ni" type="number" min="0" max="4" step="1" value="'+(ae.qte!==undefined?ae.qte:'')+'" placeholder="—"'+(dis?' disabled':'')+' data-sid="'+sid+'" data-eid="'+e.id+'" data-f="qte" style="width:55px"></td>'
       +'</tr>';
   });
   html+='</tbody></table></div></div>';
@@ -1443,6 +1771,7 @@ function renderNotes(){
       if(ae.maitrise2&&nmv[ae.maitrise2])mts.push(nmv[ae.maitrise2]);
     });
     const mQ=qtes.length>0?(qtes.reduce(function(a,b){return a+b;},0)/qtes.length).toFixed(1):'—';
+    const mQdisp=mQ!=='—'?'<span class="nd '+(parseFloat(mQ)>=3?'nh':parseFloat(mQ)>=2?'nm':'nl')+'">'+mQ+'/4</span>':'<span style="color:#6b7280">—</span>';
     const mMavg=mts.length>0?mts.reduce(function(a,b){return a+b;},0)/mts.length:null;
     const mMlbl=mMavg?MAITRISE[Math.round(mMavg)-1]:'—';
     const mMcl=mMavg?(mMavg>=3?'nh':mMavg>=2?'nm':'nl'):'';
@@ -1451,7 +1780,7 @@ function renderNotes(){
       +'<td><span class="chip c-gr">'+pres+'</span></td>'
       +'<td><span class="chip c-rd">'+abs+'</span></td>'
       +'<td><span class="chip c-yw">'+disp+'</span></td>'
-      +'<td>'+(mQ!=='—'?ndsp(parseFloat(mQ)):'<span style="color:#6b7280">—</span>')+'</td>'
+      +'<td>'+(mQ!=='—'?'<span class="nd '+(parseFloat(mQ)>=3?'nh':parseFloat(mQ)>=2?'nm':'nl')+'">'+mQ+'/4</span>':'<span style="color:#6b7280">—</span>')+'</td>'
       +'<td>'+(mMlbl!=='—'?'<span class="nd '+mMcl+'" style="font-size:.72rem">'+mMlbl+'</span>':'<span style="color:#6b7280">—</span>')+'</td>'
       +'<td><input class="ni" type="number" min="0" max="20" step="0.5" value="'+(e.noteFinale!=null?e.noteFinale:'')+'" placeholder="—" data-eid="'+e.id+'" style="width:65px"></td>';
     tr.querySelector('input.ni').addEventListener('change',function(){
@@ -1677,6 +2006,22 @@ function initEvents(){
   document.getElementById('btn-pdf-all').addEventListener('click',function(){document.querySelectorAll('#pdf-names input[type=checkbox]').forEach(function(cb){cb.checked=true;});});
   document.getElementById('btn-pdf-none').addEventListener('click',function(){document.querySelectorAll('#pdf-names input[type=checkbox]').forEach(function(cb){cb.checked=false;});});
   document.getElementById('btn-pdf-import').addEventListener('click',pdfImport);
+  // Grille
+  document.getElementById('btn-grille-cfg').addEventListener('click',openGrilleConfig);
+  document.getElementById('btn-grille-pdf').addEventListener('click',exportGrillePDF);
+  document.getElementById('btn-grille-csv').addEventListener('click',exportGrilleCSV);
+  document.getElementById('btn-add-critere').addEventListener('click',function(){
+    const g=grilleGetData();
+    const idx=document.querySelectorAll('.critere-block').length;
+    const newC={id:'c'+Date.now(),nom:'',pts:4,niveaux:[
+      {label:'Insuffisant',desc:'',pts:0},
+      {label:'Fragile',desc:'',pts:2},
+      {label:'Satisfaisant',desc:'',pts:3},
+      {label:'Très bien',desc:'',pts:4},
+    ]};
+    renderCritereBlock(newC,idx);
+  });
+  document.getElementById('btn-save-grille-cfg').addEventListener('click',saveGrilleConfig);
 }
 
 // ============================================================
