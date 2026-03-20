@@ -1,5 +1,28 @@
 {
-  "seances": [],
+  "seances": [
+    {
+      "id": "s1774043615763",
+      "num": 1,
+      "date": "2026-03-20",
+      "objectif": "Séance 1",
+      "bilan": "",
+      "aflpTravailles": [
+        "AFLP 1",
+        "AFLP 3"
+      ],
+      "parties": [
+        {
+          "id": "p17740435851202nk",
+          "titre": "Test",
+          "objectif": "Test",
+          "consignes": "Test",
+          "criteres": "Test",
+          "contenus": "Test",
+          "bilan": ""
+        }
+      ]
+    }
+  ],
   "eleves": [
     {
       "id": "e1774043076078",
@@ -9,7 +32,15 @@
       "noteFinale": null
     }
   ],
-  "presences": {},
-  "autoEval": {},
-  "seanceObjectifs": {}
+  "presences": {
+    "s1774043615763": {
+      "e1774043076078": "Présent"
+    }
+  },
+  "autoEval": {
+    "s1774043615763": {}
+  },
+  "seanceObjectifs": {
+    "s1774043615763": {}
+  }
 }
