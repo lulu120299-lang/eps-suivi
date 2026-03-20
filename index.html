@@ -56,6 +56,12 @@
 .aflp-acc-num{font-family:'JetBrains Mono',monospace;font-size:.65rem;background:#c8400a18;color:#c8400a;padding:2px 7px;border-radius:4px;white-space:nowrap;flex-shrink:0;margin-top:2px;font-weight:700;}
 .aflp-acc-text{color:#3a3530;}
 .acc-custom{display:flex;gap:8px;align-items:center;margin-top:1rem;}
+.acc-trim{background:#faf7f0;border:2px solid #ddd8ce;border-radius:8px;padding:1rem 1.5rem;cursor:pointer;transition:all .15s;box-shadow:0 2px 0 #bdb8ae;text-align:center;flex:1;max-width:160px;}
+.acc-trim:hover{border-color:var(--tc);transform:translateY(-2px);}
+.acc-trim.sel{border-color:var(--tc);background:#faf7f0;}
+.acc-trim.sel .acc-trim-num{color:var(--tc);}
+.acc-trim-num{font-family:'Instrument Serif',serif;font-size:1.8rem;line-height:1;color:#9a9080;transition:color .15s;}
+.acc-trim-label{font-size:.72rem;color:#7a7060;margin-top:3px;font-weight:600;}
 .acc-custom span{font-size:.78rem;color:#7a7060;font-weight:700;white-space:nowrap;}
 .acc-custom input{flex:1;background:#faf7f0;border:2px solid #ddd8ce;border-radius:6px;padding:9px 12px;font-family:'Syne',sans-serif;font-size:.85rem;color:#1a1810;outline:none;box-shadow:0 2px 0 #bdb8ae;}
 .acc-custom input:focus{border-color:#1a1810;}
@@ -313,7 +319,9 @@ textarea{resize:vertical;min-height:70px;}
       <div class="acc-step-line"></div>
       <div class="acc-step" id="acc-s2"><div class="acc-step-num">2</div>APSA</div>
       <div class="acc-step-line"></div>
-      <div class="acc-step" id="acc-s3"><div class="acc-step-num">3</div>Ouvrir</div>
+      <div class="acc-step" id="acc-s3"><div class="acc-step-num">3</div>Trimestre</div>
+      <div class="acc-step-line"></div>
+      <div class="acc-step" id="acc-s4"><div class="acc-step-num">4</div>Ouvrir</div>
     </div>
 
     <div class="acc-sec-tag">Étape 1</div>
@@ -325,6 +333,21 @@ textarea{resize:vertical;min-height:70px;}
     <div class="acc-sec-title">Quelle APSA ?</div>
     <div id="acc-apsa-container"></div>
     <div class="acc-custom"><span>Autre APSA :</span><input type="text" id="acc-custom" placeholder="Ex: Natation, Escalade…" oninput="accCustom(this.value)"></div>
+    <div class="acc-divider"></div>
+
+    <div class="acc-sec-tag">Étape 3</div>
+    <div class="acc-sec-title">Quel trimestre ?</div>
+    <div style="display:flex;gap:10px;margin-bottom:1.5rem;">
+      <div class="acc-trim" id="tr-1" onclick="accPickTrim(1)" style="--tc:#4f8aff;">
+        <div class="acc-trim-num">T1</div><div class="acc-trim-label">Trimestre 1</div>
+      </div>
+      <div class="acc-trim" id="tr-2" onclick="accPickTrim(2)" style="--tc:#56cfb2;">
+        <div class="acc-trim-num">T2</div><div class="acc-trim-label">Trimestre 2</div>
+      </div>
+      <div class="acc-trim" id="tr-3" onclick="accPickTrim(3)" style="--tc:#ffd166;">
+        <div class="acc-trim-num">T3</div><div class="acc-trim-label">Trimestre 3</div>
+      </div>
+    </div>
     <div class="acc-divider"></div>
 
     <div id="aflp-acc-zone" style="display:none;">
@@ -790,8 +813,8 @@ const PRELOADED={'eps-cap-epc-1-orientation':{
 // =============================================
 // ÉTAT GLOBAL
 // =============================================
-let CTX={cls:null,apsa:null,key:null};
-let selCls=null,selApsa=null;
+let CTX={cls:null,apsa:null,key:null,trim:null};
+let selCls=null,selApsa=null,selTrim=null;
 let STORAGE_KEY='eps-default';
 let state={seances:[],eleves:[],presences:{},autoEval:{},seanceObjectifs:{}};
 let partiesNew=[],partiesEdit=[];
@@ -899,6 +922,12 @@ function accInit(){
     </div>`).join('');
   ghLoadConfig();accRenderRecent();
 }
+function accPickTrim(n){
+  selTrim=n;
+  document.querySelectorAll('.acc-trim').forEach(e=>e.classList.remove('sel'));
+  document.getElementById('tr-'+n).classList.add('sel');
+  accUpd();
+}
 function accPickCls(id){
   selCls=CLASSES.find(c=>c.id===id);
   document.querySelectorAll('.acc-cls').forEach(e=>e.classList.remove('sel'));
@@ -931,22 +960,25 @@ function showAccAflp(apsa){
 function accUpd(){
   document.getElementById('acc-s1').className='acc-step'+(selCls?' done':' active');
   document.getElementById('acc-s2').className='acc-step'+(selCls&&!selApsa?' active':selApsa?' done':'');
-  document.getElementById('acc-s3').className='acc-step'+(selCls&&selApsa?' active':'');
+  document.getElementById('acc-s3').className='acc-step'+(selApsa&&!selTrim?' active':selTrim?' done':'');
+  document.getElementById('acc-s4').className='acc-step'+(selApsa&&selTrim?' active':'');
   const btn=document.getElementById('acc-btn'),sum=document.getElementById('acc-sum');
-  if(selCls&&selApsa){
+  if(selCls&&selApsa&&selTrim){
     const fil=FILIERES[selCls.filiere];
-    sum.innerHTML=`<em>${selCls.label}</em> · ${selApsa.emoji} ${selApsa.ca} — ${selApsa.name} <span style="font-size:.75rem;background:${fil.color}22;color:${fil.color};padding:2px 7px;border-radius:4px;font-family:'JetBrains Mono',monospace;">${fil.label}</span>`;
+    sum.innerHTML=`<em>${selCls.label}</em> · ${selApsa.emoji} ${selApsa.ca} — ${selApsa.name} · <strong>T${selTrim}</strong> <span style="font-size:.75rem;background:${fil.color}22;color:${fil.color};padding:2px 7px;border-radius:4px;font-family:'JetBrains Mono',monospace;">${fil.label}</span>`;
     btn.disabled=false;
-  } else if(selCls){sum.textContent=selCls.label+' · Choisissez une APSA';btn.disabled=true;}
+  } else if(selCls&&selApsa){sum.textContent=selCls.label+' · '+selApsa.name+' · Choisissez un trimestre';btn.disabled=true;}
+  else if(selCls){sum.textContent=selCls.label+' · Choisissez une APSA';btn.disabled=true;}
   else{sum.textContent='Choisissez une classe et une APSA';btn.disabled=true;}
 }
-function accLaunch(c,a){
-  const cls=c||selCls,apsa=a||selApsa;if(!cls||!apsa)return;
-  const key=`eps-${cls.id}-${apsa.id}`;
+function accLaunch(c,a,tr){
+  const cls=c||selCls,apsa=a||selApsa,trim=tr||selTrim;
+  if(!cls||!apsa||!trim)return;
+  const key=`eps-${cls.id}-${apsa.id}-t${trim}`;
   let s=JSON.parse(localStorage.getItem('eps-recent')||'[]');
-  s=s.filter(x=>x.key!==key);s.unshift({key,cls,apsa,ts:Date.now()});
+  s=s.filter(x=>x.key!==key);s.unshift({key,cls,apsa,trim,ts:Date.now()});
   localStorage.setItem('eps-recent',JSON.stringify(s.slice(0,8)));
-  openSuivi(cls,apsa,key);
+  openSuivi(cls,apsa,key,trim);
 }
 function accRenderRecent(){
   const sessions=JSON.parse(localStorage.getItem('eps-recent')||'[]');
@@ -957,15 +989,26 @@ function accRenderRecent(){
     const cls=CLASSES.find(c=>c.id===s.cls.id)||s.cls;
     const fil=cls.filiere?FILIERES[cls.filiere]:null;
     const d=new Date(s.ts);
-    return`<div class="acc-chip" onclick="accLaunch(${JSON.stringify(s.cls).replace(/"/g,"'")},${JSON.stringify(s.apsa).replace(/"/g,"'")})">
+    const trimStr=s.trim?` · T${s.trim}`:'';
+    return`<div class="acc-chip" data-key="${s.key}">
       <div class="dot" style="background:${cls.color||'#888'};"></div>
       <span>${s.cls.label}</span><span style="color:#9a9080;">·</span>
       <span>${s.apsa.emoji||'🏅'} ${s.apsa.ca} ${s.apsa.name}</span>
+      ${s.trim?`<span style="font-weight:800;color:#4f8aff;">T${s.trim}</span>`:''}
       ${fil?`<span style="font-size:.65rem;background:${fil.color}18;color:${fil.color};padding:1px 5px;border-radius:3px;">${fil.label}</span>`:''}
       <span style="color:#9a9080;font-size:.68rem;">${d.getDate()}/${d.getMonth()+1}</span>
-      <span class="x" onclick="event.stopPropagation();accDelRecent('${s.key}')">×</span>
+      <span class="x" data-delkey="${s.key}">×</span>
     </div>`;
   }).join('');
+  document.getElementById('acc-chips').onclick=e=>{
+    const x=e.target.closest('[data-delkey]');
+    if(x){e.stopPropagation();accDelRecent(x.dataset.delkey);return;}
+    const chip=e.target.closest('[data-key]');
+    if(chip){
+      const s=JSON.parse(localStorage.getItem('eps-recent')||'[]').find(x=>x.key===chip.dataset.key);
+      if(s)accLaunch(s.cls,s.apsa,s.trim||1);
+    }
+  };
 }
 function accDelRecent(key){
   let s=JSON.parse(localStorage.getItem('eps-recent')||'[]');
@@ -976,10 +1019,10 @@ function accDelRecent(key){
 // =============================================
 // NAVIGATION
 // =============================================
-function openSuivi(cls,apsa,key){
-  CTX={cls,apsa,key};STORAGE_KEY=key;loadState();
+function openSuivi(cls,apsa,key,trim){
+  CTX={cls,apsa,key,trim};STORAGE_KEY=key;loadState();
   document.getElementById('s-logo').innerHTML=`${apsa.emoji||'🏅'} ${apsa.name} <span class="s-badge">${apsa.ca}</span>`;
-  const ctx=document.getElementById('s-ctx');ctx.textContent=cls.label;ctx.style.display='inline';
+  const ctx=document.getElementById('s-ctx');ctx.textContent=cls.label+(trim?' · T'+trim:'');ctx.style.display='inline';
   document.getElementById('s-pg-title').textContent=`${apsa.ca} — ${apsa.name}`;
   const filiere=cls.filiere||'bacpro';
   const fil=FILIERES[filiere];
@@ -1202,8 +1245,6 @@ function openEditS(id){
   document.getElementById('es-n').value=s.num;
   document.getElementById('es-d').value=s.date||'';
   document.getElementById('es-o').value=s.objectif||'';
-  document.getElementById('es-cr').value=s.criteresReussite||'';
-  document.getElementById('es-ce').value=s.contenusEnseignement||'';
   document.getElementById('es-b').value=s.bilan||'';
   const c=document.getElementById('parties-edit');c.innerHTML='';
   partiesEdit=JSON.parse(JSON.stringify(s.parties||[]));
