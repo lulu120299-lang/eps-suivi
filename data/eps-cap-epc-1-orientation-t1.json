@@ -180,7 +180,10 @@
     "s001": {
       "e005": "Absent",
       "e008": "Absent",
-      "e001": "Présent"
+      "e001": "Présent",
+      "e002": "Présent",
+      "e003": "Présent",
+      "e004": "Présent"
     },
     "s002": {
       "e003": "Absent",
