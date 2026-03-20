@@ -3,640 +3,290 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 <title>EPS — Carnet de suivi</title>
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Syne:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&family=DM+Serif+Display&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
-/* ===== GLOBAL ===== */
-* { box-sizing: border-box; margin: 0; padding: 0; }
-::-webkit-scrollbar { width: 6px; height: 6px; }
-::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { background: #2a2f42; border-radius: 99px; }
+*{box-sizing:border-box;margin:0;padding:0;}
+::-webkit-scrollbar{width:5px;height:5px;}
+::-webkit-scrollbar-thumb{background:#2a2f42;border-radius:99px;}
 
 /* ===== ACCUEIL ===== */
-#page-accueil {
-font-family: ‘Syne’, sans-serif;
-background: #f5f2eb;
-color: #1a1810;
-min-height: 100vh;
-}
-
-#page-accueil::before {
-content: ‘’;
-position: fixed;
-inset: 0;
-background-image: url(“data:image/svg+xml,%3Csvg viewBox=‘0 0 256 256’ xmlns=‘http://www.w3.org/2000/svg’%3E%3Cfilter id=‘noise’%3E%3CfeTurbulence type=‘fractalNoise’ baseFrequency=‘0.9’ numOctaves=‘4’ stitchTiles=‘stitch’/%3E%3C/filter%3E%3Crect width=‘100%25’ height=‘100%25’ filter=‘url(%23noise)’ opacity=‘0.04’/%3E%3C/svg%3E”);
-pointer-events: none;
-z-index: 0;
-opacity: 0.4;
-}
-
-.acc-header {
-padding: 2rem 3rem 1.5rem;
-display: flex;
-align-items: flex-end;
-justify-content: space-between;
-border-bottom: 2px solid #1a1810;
-position: relative;
-z-index: 1;
-}
-
-.acc-brand-eyebrow {
-font-family: ‘JetBrains Mono’, monospace;
-font-size: 0.68rem;
-text-transform: uppercase;
-letter-spacing: 0.2em;
-color: #5a5648;
-margin-bottom: 2px;
-}
-
-.acc-brand-name {
-font-family: ‘Instrument Serif’, serif;
-font-size: 2.4rem;
-line-height: 1;
-color: #1a1810;
-}
-
-.acc-brand-name em { font-style: italic; color: #d4470c; }
-
-.acc-header-meta {
-font-family: ‘JetBrains Mono’, monospace;
-font-size: 0.72rem;
-color: #5a5648;
-text-align: right;
-line-height: 1.7;
-}
-
-.acc-main {
-max-width: 1100px;
-margin: 0 auto;
-padding: 2.5rem 2rem 4rem;
-position: relative;
-z-index: 1;
-}
-
-.acc-steps {
-display: flex;
-align-items: center;
-margin-bottom: 2.5rem;
-}
-
-.acc-step {
-display: flex;
-align-items: center;
-gap: 10px;
-font-size: 0.78rem;
-font-weight: 600;
-text-transform: uppercase;
-letter-spacing: 0.08em;
-color: #5a5648;
-transition: color 0.2s;
-}
-
-.acc-step.active { color: #1a1810; }
-.acc-step.done { color: #1a6b3a; }
-
-.acc-step-num {
-width: 28px; height: 28px;
-border-radius: 50%;
-border: 2px solid currentColor;
-display: flex; align-items: center; justify-content: center;
-font-family: ‘JetBrains Mono’, monospace;
-font-size: 0.75rem;
-transition: all 0.2s;
-}
-
-.acc-step.active .acc-step-num { background: #1a1810; color: #f5f2eb; border-color: #1a1810; }
-.acc-step.done .acc-step-num { background: #1a6b3a; color: white; border-color: #1a6b3a; }
-
-.acc-step-line { height: 2px; width: 40px; background: #e2ddd4; margin: 0 8px; }
-
-.acc-section-tag {
-font-family: ‘JetBrains Mono’, monospace;
-font-size: 0.68rem;
-text-transform: uppercase;
-letter-spacing: 0.15em;
-color: #5a5648;
-margin-bottom: 6px;
-}
-
-.acc-section-title {
-font-family: ‘Instrument Serif’, serif;
-font-size: 1.7rem;
-margin-bottom: 1.25rem;
-}
-
-.acc-classes-grid {
-display: grid;
-grid-template-columns: repeat(5, 1fr);
-gap: 12px;
-margin-bottom: 2.5rem;
-}
-
-.acc-class-card {
-background: #faf8f3;
-border: 2px solid #e2ddd4;
-border-radius: 4px;
-padding: 1.25rem 1rem;
-cursor: pointer;
-transition: all 0.15s;
-box-shadow: 0 2px 0 #c8c3b8, 0 4px 20px rgba(0,0,0,0.08);
-text-align: center;
-position: relative;
-overflow: hidden;
-}
-
-.acc-class-card::before {
-content: ‘’;
-position: absolute;
-top: 0; left: 0; right: 0;
-height: 4px;
-background: var(–c);
-transform: scaleX(0);
-transition: transform 0.2s;
-}
-
-.acc-class-card:hover { border-color: var(–c); transform: translateY(-2px); box-shadow: 0 4px 0 #c8c3b8, 0 8px 30px rgba(0,0,0,0.1); }
-.acc-class-card:hover::before { transform: scaleX(1); }
-.acc-class-card.selected { border-color: var(–c); background: var(–c-light); }
-.acc-class-card.selected::before { transform: scaleX(1); }
-
-.acc-class-level { font-family: ‘JetBrains Mono’, monospace; font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.1em; color: #5a5648; margin-bottom: 4px; }
-.acc-class-name { font-family: ‘Instrument Serif’, serif; font-size: 1.4rem; line-height: 1; }
-.acc-class-sub { font-size: 0.72rem; color: #5a5648; margin-top: 6px; font-weight: 500; }
-.acc-class-dot { width: 10px; height: 10px; border-radius: 50%; background: var(–c); margin: 8px auto 0; opacity: 0; transition: opacity 0.2s; }
-.acc-class-card.selected .acc-class-dot { opacity: 1; }
-
-.acc-apsa-grid {
-display: grid;
-grid-template-columns: repeat(4, 1fr);
-gap: 10px;
-margin-bottom: 1rem;
-}
-
-.acc-apsa-card {
-background: #faf8f3;
-border: 2px solid #e2ddd4;
-border-radius: 4px;
-padding: 1rem;
-cursor: pointer;
-transition: all 0.15s;
-box-shadow: 0 2px 0 #c8c3b8;
-display: flex;
-align-items: center;
-gap: 12px;
-}
-
-.acc-apsa-card:hover { border-color: #1a1810; transform: translateY(-1px); }
-.acc-apsa-card.selected { border-color: #1a1810; background: #1a18100a; }
-
-.acc-apsa-emoji {
-font-size: 1.6rem;
-width: 40px; height: 40px;
-display: flex; align-items: center; justify-content: center;
-background: #f5f2eb;
-border-radius: 8px;
-border: 1px solid #e2ddd4;
-flex-shrink: 0;
-}
-
-.acc-apsa-cat { font-family: ‘JetBrains Mono’, monospace; font-size: 0.6rem; text-transform: uppercase; letter-spacing: 0.1em; color: #5a5648; margin-bottom: 2px; }
-.acc-apsa-name { font-weight: 700; font-size: 0.88rem; line-height: 1.2; }
-
-.acc-custom-apsa {
-display: flex; gap: 8px; align-items: center; margin-bottom: 2rem;
-}
-
-.acc-custom-apsa input {
-flex: 1;
-background: #faf8f3;
-border: 2px solid #e2ddd4;
-border-radius: 4px;
-padding: 10px 14px;
-font-family: ‘Syne’, sans-serif;
-font-size: 0.88rem;
-color: #1a1810;
-outline: none;
-box-shadow: 0 2px 0 #c8c3b8;
-}
-
-.acc-custom-apsa input:focus { border-color: #1a1810; }
-.acc-custom-apsa span { font-size: 0.8rem; color: #5a5648; font-weight: 600; white-space: nowrap; }
-
-.acc-cta-zone {
-display: flex;
-align-items: center;
-justify-content: space-between;
-padding-top: 2rem;
-border-top: 2px solid #e2ddd4;
-flex-wrap: wrap;
-gap: 1rem;
-}
-
-.acc-summary-label { font-family: ‘JetBrains Mono’, monospace; font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.12em; color: #5a5648; margin-bottom: 4px; }
-.acc-summary-value { font-family: ‘Instrument Serif’, serif; font-size: 1.4rem; line-height: 1; }
-
-.acc-btn-launch {
-background: #1a1810;
-color: #f5f2eb;
-border: none;
-border-radius: 4px;
-padding: 16px 40px;
-font-family: ‘Syne’, sans-serif;
-font-size: 1rem;
-font-weight: 700;
-text-transform: uppercase;
-letter-spacing: 0.08em;
-cursor: pointer;
-transition: all 0.15s;
-box-shadow: 0 3px 0 #555;
-position: relative;
-top: 0;
-}
-
-.acc-btn-launch:hover:not(:disabled) { top: 2px; box-shadow: 0 1px 0 #555; }
-.acc-btn-launch:disabled { background: #e2ddd4; color: #5a5648; cursor: not-allowed; box-shadow: none; }
-
-.acc-existing { margin-top: 2.5rem; padding-top: 2rem; border-top: 2px solid #e2ddd4; }
-.acc-existing-title { font-family: ‘JetBrains Mono’, monospace; font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.15em; color: #5a5648; margin-bottom: 1rem; }
-.acc-sessions-list { display: flex; flex-wrap: wrap; gap: 8px; }
-
-.acc-session-chip {
-display: flex; align-items: center; gap: 8px;
-background: #faf8f3;
-border: 2px solid #e2ddd4;
-border-radius: 4px;
-padding: 8px 14px;
-font-size: 0.82rem; font-weight: 600;
-cursor: pointer;
-transition: all 0.15s;
-box-shadow: 0 2px 0 #c8c3b8;
-}
-
-.acc-session-chip:hover { border-color: #1a1810; }
-.acc-session-chip .dot { width: 8px; height: 8px; border-radius: 50%; }
-.acc-session-chip .x { color: #5a5648; margin-left: 4px; opacity: 0.4; cursor: pointer; font-size: 1.1rem; line-height: 1; }
-.acc-session-chip .x:hover { opacity: 1; color: #d4470c; }
-
-.acc-divider { border: none; border-top: 1px dashed #e2ddd4; margin: 2rem 0; }
-
-@keyframes accSlideUp { from { opacity:0; transform:translateY(12px); } to { opacity:1; transform:translateY(0); } }
-.acc-anim { animation: accSlideUp 0.3s ease forwards; }
+#pg-acc{font-family:‘Syne’,sans-serif;background:#f0ece3;color:#1a1810;min-height:100vh;}
+.acc-header{padding:1.75rem 2.5rem 1.5rem;display:flex;align-items:flex-end;justify-content:space-between;border-bottom:2.5px solid #1a1810;background:#f0ece3;}
+.acc-eyebrow{font-family:‘JetBrains Mono’,monospace;font-size:.65rem;text-transform:uppercase;letter-spacing:.2em;color:#7a7060;margin-bottom:3px;}
+.acc-title{font-family:‘Instrument Serif’,serif;font-size:2.2rem;line-height:1;}
+.acc-title em{font-style:italic;color:#c8400a;}
+.acc-meta{font-family:‘JetBrains Mono’,monospace;font-size:.68rem;color:#7a7060;text-align:right;line-height:1.8;}
+.acc-main{max-width:1060px;margin:0 auto;padding:2rem 2rem 4rem;}
+.acc-steps{display:flex;align-items:center;margin-bottom:2.5rem;}
+.acc-step{display:flex;align-items:center;gap:9px;font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#9a9080;}
+.acc-step.active{color:#1a1810;}.acc-step.done{color:#1a6b3a;}
+.acc-step-num{width:26px;height:26px;border-radius:50%;border:2px solid currentColor;display:flex;align-items:center;justify-content:center;font-family:‘JetBrains Mono’,monospace;font-size:.72rem;}
+.acc-step.active .acc-step-num{background:#1a1810;color:#f0ece3;border-color:#1a1810;}
+.acc-step.done .acc-step-num{background:#1a6b3a;color:#fff;border-color:#1a6b3a;}
+.acc-step-line{height:2px;width:36px;background:#d8d4cc;margin:0 8px;}
+.acc-sec-tag{font-family:‘JetBrains Mono’,monospace;font-size:.65rem;text-transform:uppercase;letter-spacing:.15em;color:#7a7060;margin-bottom:5px;}
+.acc-sec-title{font-family:‘Instrument Serif’,serif;font-size:1.6rem;margin-bottom:1.25rem;}
+.acc-cls-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-bottom:2.5rem;}
+.acc-cls{background:#faf7f0;border:2px solid #ddd8ce;border-radius:6px;padding:1.1rem .9rem;cursor:pointer;transition:all .15s;box-shadow:0 2px 0 #bdb8ae;position:relative;overflow:hidden;text-align:center;}
+.acc-cls::before{content:’’;position:absolute;top:0;left:0;right:0;height:4px;background:var(–c);transform:scaleX(0);transition:transform .2s;}
+.acc-cls:hover{border-color:var(–c);transform:translateY(-2px);}.acc-cls:hover::before,.acc-cls.sel::before{transform:scaleX(1);}
+.acc-cls.sel{border-color:var(–c);background:var(–cl);}
+.acc-cls-lv{font-family:‘JetBrains Mono’,monospace;font-size:.6rem;text-transform:uppercase;letter-spacing:.1em;color:#7a7060;margin-bottom:3px;}
+.acc-cls-name{font-family:‘Instrument Serif’,serif;font-size:1.3rem;line-height:1.1;}
+.acc-cls-sub{font-size:.68rem;color:#7a7060;margin-top:5px;font-weight:600;}
+.acc-cls-dot{width:9px;height:9px;border-radius:50%;background:var(–c);margin:7px auto 0;opacity:0;transition:opacity .2s;}
+.acc-cls.sel .acc-cls-dot{opacity:1;}
+.acc-apsa-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:1rem;}
+.acc-apsa{background:#faf7f0;border:2px solid #ddd8ce;border-radius:6px;padding:.9rem 1rem;cursor:pointer;transition:all .15s;box-shadow:0 2px 0 #bdb8ae;display:flex;align-items:center;gap:11px;}
+.acc-apsa:hover{border-color:#1a1810;transform:translateY(-1px);}.acc-apsa.sel{border-color:#1a1810;background:#1a18100a;}
+.acc-apsa-emoji{font-size:1.5rem;width:38px;height:38px;display:flex;align-items:center;justify-content:center;background:#f0ece3;border-radius:7px;border:1px solid #ddd8ce;flex-shrink:0;}
+.acc-apsa-ca{font-family:‘JetBrains Mono’,monospace;font-size:.58rem;text-transform:uppercase;letter-spacing:.1em;margin-bottom:2px;font-weight:700;}
+.acc-apsa-name{font-weight:700;font-size:.85rem;line-height:1.2;}
+.acc-custom{display:flex;gap:8px;align-items:center;margin-bottom:2rem;}
+.acc-custom span{font-size:.78rem;color:#7a7060;font-weight:700;white-space:nowrap;}
+.acc-custom input{flex:1;background:#faf7f0;border:2px solid #ddd8ce;border-radius:6px;padding:9px 12px;font-family:‘Syne’,sans-serif;font-size:.85rem;color:#1a1810;outline:none;box-shadow:0 2px 0 #bdb8ae;}
+.acc-custom input:focus{border-color:#1a1810;}
+.acc-divider{border:none;border-top:1.5px dashed #d0ccc4;margin:1.75rem 0;}
+.acc-cta{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;}
+.acc-sum-lbl{font-family:‘JetBrains Mono’,monospace;font-size:.65rem;text-transform:uppercase;letter-spacing:.12em;color:#7a7060;margin-bottom:4px;}
+.acc-sum-val{font-family:‘Instrument Serif’,serif;font-size:1.3rem;line-height:1.1;}
+.acc-btn{background:#1a1810;color:#f0ece3;border:none;border-radius:5px;padding:15px 36px;font-family:‘Syne’,sans-serif;font-size:.95rem;font-weight:800;text-transform:uppercase;letter-spacing:.08em;cursor:pointer;transition:all .15s;box-shadow:0 3px 0 #555;position:relative;top:0;}
+.acc-btn:hover:not(:disabled){top:2px;box-shadow:0 1px 0 #555;}.acc-btn:disabled{background:#d8d4cc;color:#9a9080;cursor:not-allowed;box-shadow:none;}
+.acc-recent{margin-top:2.5rem;padding-top:2rem;border-top:2px solid #d8d4cc;}
+.acc-recent-title{font-family:‘JetBrains Mono’,monospace;font-size:.65rem;text-transform:uppercase;letter-spacing:.15em;color:#7a7060;margin-bottom:.9rem;}
+.acc-chips{display:flex;flex-wrap:wrap;gap:8px;}
+.acc-chip{display:flex;align-items:center;gap:8px;background:#faf7f0;border:2px solid #ddd8ce;border-radius:5px;padding:7px 12px;font-size:.8rem;font-weight:600;cursor:pointer;transition:all .15s;box-shadow:0 2px 0 #bdb8ae;}
+.acc-chip:hover{border-color:#1a1810;}
+.acc-chip .dot{width:7px;height:7px;border-radius:50%;}
+.acc-chip .x{color:#9a9080;margin-left:4px;opacity:.4;cursor:pointer;font-size:1rem;}
+.acc-chip .x:hover{opacity:1;color:#c8400a;}
 
 /* ===== SUIVI ===== */
-#page-suivi {
-font-family: ‘DM Sans’, sans-serif;
-background: #0f1117;
-color: #e8eaf0;
-min-height: 100vh;
+#pg-suivi{font-family:‘DM Sans’,sans-serif;background:#0d1018;color:#e4e6ef;min-height:100vh;display:none;}
+.s-header{background:#13161f;border-bottom:1px solid #252836;padding:0 1.5rem;display:flex;align-items:center;justify-content:space-between;height:60px;position:sticky;top:0;z-index:100;gap:1rem;}
+.s-logo{font-family:‘DM Serif Display’,serif;font-size:1.1rem;display:flex;align-items:center;gap:9px;}
+.s-badge{background:#4f8aff;color:#fff;font-family:‘DM Mono’,monospace;font-size:.6rem;padding:2px 7px;border-radius:4px;letter-spacing:.05em;}
+.s-ctx{font-family:‘DM Mono’,monospace;font-size:.68rem;padding:4px 9px;border-radius:16px;background:rgba(79,138,255,.1);color:#4f8aff;border:1px solid rgba(79,138,255,.2);}
+.s-back{background:none;border:1px solid #252836;border-radius:7px;color:#6b7280;font-family:‘DM Sans’,sans-serif;font-size:.8rem;padding:5px 12px;cursor:pointer;transition:all .15s;white-space:nowrap;}
+.s-back:hover{border-color:#e4e6ef;color:#e4e6ef;}
+.s-nav{display:flex;gap:3px;}
+.s-tab{background:none;border:none;color:#6b7280;font-family:‘DM Sans’,sans-serif;font-size:.82rem;font-weight:500;padding:7px 14px;border-radius:7px;cursor:pointer;transition:all .15s;white-space:nowrap;}
+.s-tab:hover{background:#1c1f2c;color:#e4e6ef;}.s-tab.active{background:#4f8aff;color:#fff;}
+.s-main{padding:1.5rem;max-width:1350px;margin:0 auto;}
+.view{display:none;}.view.active{display:block;animation:fadeIn .2s ease;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
+.ph{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:1.5rem;gap:1rem;flex-wrap:wrap;}
+.ph-title{font-family:‘DM Serif Display’,serif;font-size:1.8rem;line-height:1.1;}
+.ph-sub{color:#6b7280;font-size:.85rem;margin-top:3px;}
+.btn{display:inline-flex;align-items:center;gap:5px;padding:7px 14px;border-radius:7px;font-family:‘DM Sans’,sans-serif;font-size:.82rem;font-weight:500;cursor:pointer;border:none;transition:all .15s;}
+.btn-p{background:#4f8aff;color:#fff;}.btn-p:hover{background:#3a79ff;}
+.btn-d{background:#ff6b6b;color:#fff;}.btn-d:hover{background:#e55;}
+.btn-g{background:#1c1f2c;color:#e4e6ef;border:1px solid #252836;}.btn-g:hover{background:#252836;}
+.btn-sm{padding:4px 9px;font-size:.75rem;}
+.card{background:#1c1f2c;border:1px solid #252836;border-radius:11px;padding:1.25rem;margin-bottom:1rem;}
+.card-hd{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.1rem;}
+.card-title{font-weight:600;font-size:.9rem;}
+.g4{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;}
+.stat{background:#1c1f2c;border:1px solid #252836;border-radius:11px;padding:1.1rem 1.3rem;position:relative;overflow:hidden;}
+.stat::before{content:’’;position:absolute;top:0;left:0;right:0;height:3px;}
+.stat.bl::before{background:#4f8aff;}.stat.gr::before{background:#56cfb2;}.stat.rd::before{background:#ff6b6b;}.stat.yw::before{background:#ffd166;}
+.stat-lbl{font-size:.72rem;color:#6b7280;text-transform:uppercase;letter-spacing:.05em;margin-bottom:5px;}
+.stat-val{font-family:‘DM Serif Display’,serif;font-size:2rem;line-height:1;}
+.stat-sub{font-size:.74rem;color:#6b7280;margin-top:3px;}
+.aflp-box{background:#13161f;border:1px solid #252836;border-radius:9px;padding:1rem 1.2rem;margin-bottom:1rem;}
+.aflp-title{font-family:‘DM Mono’,monospace;font-size:.65rem;text-transform:uppercase;letter-spacing:.12em;color:#4f8aff;margin-bottom:.75rem;font-weight:500;}
+.aflp-list{display:flex;flex-direction:column;gap:6px;}
+.aflp-item{display:flex;gap:10px;align-items:flex-start;font-size:.8rem;line-height:1.45;}
+.aflp-num{font-family:‘DM Mono’,monospace;font-size:.68rem;background:rgba(79,138,255,.12);color:#4f8aff;padding:2px 7px;border-radius:4px;white-space:nowrap;flex-shrink:0;margin-top:1px;}
+.aflp-text{color:#b0b4c4;}
+.slist{display:flex;flex-direction:column;gap:7px;}
+.si{background:#13161f;border:1px solid #252836;border-radius:9px;padding:.9rem 1.1rem;display:flex;align-items:center;gap:1rem;cursor:pointer;transition:all .15s;}
+.si:hover{border-color:#4f8aff;background:#1c1f2c;}.si.act{border-color:#4f8aff;background:rgba(79,138,255,.04);}
+.si-num{width:34px;height:34px;background:#4f8aff;color:#fff;border-radius:7px;display:flex;align-items:center;justify-content:center;font-family:‘DM Mono’,monospace;font-size:.85rem;font-weight:500;flex-shrink:0;}
+.si-info{flex:1;min-width:0;}.si-title{font-weight:500;font-size:.88rem;}.si-date{font-size:.74rem;color:#6b7280;margin-top:1px;}
+.si-meta{display:flex;align-items:center;gap:7px;}
+.chip{font-size:.7rem;padding:2px 7px;border-radius:16px;font-weight:500;white-space:nowrap;}
+.c-bl{background:rgba(79,138,255,.15);color:#4f8aff;}.c-gr{background:rgba(86,207,178,.15);color:#56cfb2;}
+.c-rd{background:rgba(255,107,107,.15);color:#ff6b6b;}.c-yw{background:rgba(255,209,102,.15);color:#ffd166;}
+.tw{overflow-x:auto;border-radius:9px;border:1px solid #252836;}
+table{width:100%;border-collapse:collapse;font-size:.82rem;}
+th{background:#13161f;padding:9px 12px;text-align:left;font-weight:500;font-size:.72rem;color:#6b7280;text-transform:uppercase;letter-spacing:.04em;white-space:nowrap;border-bottom:1px solid #252836;}
+td{padding:9px 12px;border-bottom:1px solid rgba(37,40,54,.5);vertical-align:middle;}
+tr:last-child td{border-bottom:none;}
+select.ss{background:#13161f;border:1px solid #252836;border-radius:5px;color:#e4e6ef;font-family:‘DM Sans’,sans-serif;font-size:.8rem;padding:3px 7px;cursor:pointer;outline:none;}
+select.ss:focus{border-color:#4f8aff;}select.ss:disabled{opacity:.35;cursor:not-allowed;}
+input.ni{background:#13161f;border:1px solid #252836;border-radius:5px;color:#e4e6ef;font-family:‘DM Mono’,monospace;font-size:.82rem;padding:3px 7px;text-align:center;outline:none;}
+input.ni:focus{border-color:#4f8aff;}input.ni:disabled{opacity:.35;}
+.fg{display:grid;grid-template-columns:1fr 1fr;gap:.9rem;}
+.fgrp{display:flex;flex-direction:column;gap:5px;}.fgrp.full{grid-column:1/-1;}
+label{font-size:.76rem;color:#6b7280;font-weight:500;}
+input[type=text],input[type=date],input[type=number],textarea{background:#13161f;border:1px solid #252836;border-radius:7px;color:#e4e6ef;font-family:‘DM Sans’,sans-serif;font-size:.85rem;padding:8px 11px;outline:none;transition:border-color .15s;width:100%;}
+input:focus,textarea:focus{border-color:#4f8aff;}
+textarea{resize:vertical;min-height:75px;}
+.mb{position:fixed;inset:0;background:rgba(0,0,0,.75);backdrop-filter:blur(4px);z-index:200;display:flex;align-items:center;justify-content:center;padding:1rem;opacity:0;pointer-events:none;transition:opacity .2s;}
+.mb.open{opacity:1;pointer-events:all;}
+.modal{background:#1c1f2c;border:1px solid #252836;border-radius:14px;padding:1.75rem;width:100%;max-width:580px;max-height:90vh;overflow-y:auto;transform:translateY(10px);transition:transform .2s;}
+.mb.open .modal{transform:translateY(0);}
+.modal-title{font-family:‘DM Serif Display’,serif;font-size:1.3rem;margin-bottom:1.3rem;}
+.modal-acts{display:flex;gap:7px;justify-content:flex-end;margin-top:1.3rem;}
+.appel-lay{display:grid;grid-template-columns:260px 1fr;gap:1.25rem;}
+.nd{font-family:‘DM Mono’,monospace;font-size:.85rem;font-weight:500;padding:2px 7px;border-radius:5px;display:inline-block;}
+.nh{background:rgba(86,207,178,.15);color:#56cfb2;}.nm{background:rgba(255,209,102,.15);color:#ffd166;}.nl{background:rgba(255,107,107,.15);color:#ff6b6b;}
+.avatar{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.68rem;font-weight:600;flex-shrink:0;}
+.nb{display:inline-flex;align-items:center;gap:7px;}
+.empty{text-align:center;padding:2.5rem;color:#6b7280;}.empty .icon{font-size:2.5rem;margin-bottom:.75rem;}
+.slbl{font-size:.72rem;text-transform:uppercase;letter-spacing:.08em;color:#6b7280;font-weight:600;margin-bottom:.6rem;}
+
+@media(max-width:900px){
+.acc-cls-grid{grid-template-columns:repeat(3,1fr);}
+.acc-apsa-grid{grid-template-columns:repeat(2,1fr);}
+.acc-header{padding:1.25rem;flex-direction:column;align-items:flex-start;gap:.75rem;}
+.acc-main{padding:1.25rem 1.25rem 3rem;}
+.appel-lay{grid-template-columns:1fr;}
+.g4{grid-template-columns:1fr 1fr;}
+.fg{grid-template-columns:1fr;}
+.s-header{flex-wrap:wrap;height:auto;padding:.6rem 1rem;gap:6px;}
+.s-nav{order:3;width:100%;justify-content:center;}
+.s-main{padding:.9rem;}
 }
-
-.suivi-header {
-background: #1a1d27;
-border-bottom: 1px solid #2a2f42;
-padding: 0 2rem;
-display: flex;
-align-items: center;
-justify-content: space-between;
-height: 64px;
-position: sticky;
-top: 0;
-z-index: 100;
-}
-
-.suivi-logo {
-font-family: ‘DM Serif Display’, serif;
-font-size: 1.2rem;
-color: #e8eaf0;
-display: flex; align-items: center; gap: 10px;
-}
-
-.suivi-badge {
-background: #4f8aff;
-color: white;
-font-family: ‘DM Mono’, monospace;
-font-size: 0.65rem;
-padding: 2px 8px;
-border-radius: 4px;
-letter-spacing: 0.05em;
-}
-
-.suivi-ctx-badge {
-font-family: ‘DM Mono’, monospace;
-font-size: 0.7rem;
-padding: 4px 10px;
-border-radius: 20px;
-background: rgba(79,138,255,0.1);
-color: #4f8aff;
-border: 1px solid rgba(79,138,255,0.2);
-}
-
-.back-btn {
-background: none;
-border: 1px solid #2a2f42;
-border-radius: 8px;
-color: #6b7280;
-font-family: ‘DM Sans’, sans-serif;
-font-size: 0.82rem;
-padding: 6px 14px;
-cursor: pointer;
-transition: all 0.15s;
-}
-.back-btn:hover { border-color: #e8eaf0; color: #e8eaf0; }
-
-.nav-tabs { display: flex; gap: 4px; }
-
-.tab-btn {
-background: none; border: none;
-color: #6b7280;
-font-family: ‘DM Sans’, sans-serif;
-font-size: 0.85rem; font-weight: 500;
-padding: 8px 16px;
-border-radius: 8px;
-cursor: pointer; transition: all 0.15s;
-}
-.tab-btn:hover { background: #1f2333; color: #e8eaf0; }
-.tab-btn.active { background: #4f8aff; color: white; }
-
-.suivi-main { padding: 2rem; max-width: 1400px; margin: 0 auto; }
-
-.view { display: none; }
-.view.active { display: block; animation: fadeIn 0.2s ease; }
-@keyframes fadeIn { from { opacity:0; transform:translateY(4px); } to { opacity:1; transform:translateY(0); } }
-
-.page-header { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 2rem; gap: 1rem; flex-wrap: wrap; }
-.page-title { font-family: ‘DM Serif Display’, serif; font-size: 2rem; line-height: 1.1; }
-.page-subtitle { color: #6b7280; font-size: 0.9rem; margin-top: 4px; }
-
-.btn {
-display: inline-flex; align-items: center; gap: 6px;
-padding: 8px 16px; border-radius: 8px;
-font-family: ‘DM Sans’, sans-serif; font-size: 0.85rem; font-weight: 500;
-cursor: pointer; border: none; transition: all 0.15s;
-}
-.btn-primary { background: #4f8aff; color: white; }
-.btn-primary:hover { background: #3a79ff; }
-.btn-danger { background: #ff6b6b; color: white; }
-.btn-danger:hover { background: #e55; }
-.btn-ghost { background: #1f2333; color: #e8eaf0; border: 1px solid #2a2f42; }
-.btn-ghost:hover { background: #2a2f42; }
-.btn-success { background: #56cfb2; color: #0f1117; }
-.btn-sm { padding: 5px 10px; font-size: 0.78rem; }
-
-.card { background: #1f2333; border: 1px solid #2a2f42; border-radius: 12px; padding: 1.5rem; margin-bottom: 1rem; }
-.card-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.25rem; }
-.card-title { font-weight: 600; font-size: 0.95rem; }
-
-.grid-4 { display: grid; grid-template-columns: repeat(4,1fr); gap: 1rem; }
-
-.stat-card { background: #1f2333; border: 1px solid #2a2f42; border-radius: 12px; padding: 1.25rem 1.5rem; position: relative; overflow: hidden; }
-.stat-card::before { content:’’; position:absolute; top:0;left:0;right:0; height:3px; }
-.stat-card.blue::before { background:#4f8aff; }
-.stat-card.green::before { background:#56cfb2; }
-.stat-card.red::before { background:#ff6b6b; }
-.stat-card.yellow::before { background:#ffd166; }
-.stat-label { font-size:0.75rem; color:#6b7280; text-transform:uppercase; letter-spacing:0.05em; margin-bottom:6px; }
-.stat-value { font-family:‘DM Serif Display’,serif; font-size:2.2rem; line-height:1; }
-.stat-sub { font-size:0.78rem; color:#6b7280; margin-top:4px; }
-
-.seance-list { display:flex; flex-direction:column; gap:8px; }
-.seance-item { background:#1a1d27; border:1px solid #2a2f42; border-radius:10px; padding:1rem 1.25rem; display:flex; align-items:center; gap:1rem; cursor:pointer; transition:all 0.15s; }
-.seance-item:hover { border-color:#4f8aff; background:#1f2333; }
-.seance-item.active-item { border-color:#4f8aff; background:rgba(79,138,255,0.05); }
-.seance-num { width:36px;height:36px; background:#4f8aff; color:white; border-radius:8px; display:flex;align-items:center;justify-content:center; font-family:‘DM Mono’,monospace; font-size:0.9rem; font-weight:500; flex-shrink:0; }
-.seance-info { flex:1; min-width:0; }
-.seance-title { font-weight:500; font-size:0.9rem; }
-.seance-date { font-size:0.78rem; color:#6b7280; margin-top:2px; }
-.seance-meta { display:flex;align-items:center;gap:8px; }
-.chip { font-size:0.72rem; padding:3px 8px; border-radius:20px; font-weight:500; white-space:nowrap; }
-.chip-blue { background:rgba(79,138,255,0.15); color:#4f8aff; }
-.chip-green { background:rgba(86,207,178,0.15); color:#56cfb2; }
-.chip-red { background:rgba(255,107,107,0.15); color:#ff6b6b; }
-.chip-yellow { background:rgba(255,209,102,0.15); color:#ffd166; }
-
-.table-wrap { overflow-x:auto; border-radius:10px; border:1px solid #2a2f42; }
-table { width:100%; border-collapse:collapse; font-size:0.85rem; }
-th { background:#1a1d27; padding:10px 14px; text-align:left; font-weight:500; font-size:0.78rem; color:#6b7280; text-transform:uppercase; letter-spacing:0.04em; white-space:nowrap; border-bottom:1px solid #2a2f42; }
-td { padding:10px 14px; border-bottom:1px solid rgba(42,47,66,0.5); vertical-align:middle; }
-tr:last-child td { border-bottom:none; }
-
-select.status-sel { background:#1a1d27; border:1px solid #2a2f42; border-radius:6px; color:#e8eaf0; font-family:‘DM Sans’,sans-serif; font-size:0.82rem; padding:4px 8px; cursor:pointer; outline:none; }
-select.status-sel:focus { border-color:#4f8aff; }
-select.status-sel:disabled { opacity:0.4; cursor:not-allowed; }
-
-input.note-input { background:#1a1d27; border:1px solid #2a2f42; border-radius:6px; color:#e8eaf0; font-family:‘DM Mono’,monospace; font-size:0.85rem; padding:4px 8px; width:60px; text-align:center; outline:none; }
-input.note-input:focus { border-color:#4f8aff; }
-input.note-input:disabled { opacity:0.4; }
-
-.form-grid { display:grid; grid-template-columns:1fr 1fr; gap:1rem; }
-.form-group { display:flex; flex-direction:column; gap:6px; }
-.form-group.full { grid-column:1/-1; }
-label { font-size:0.8rem; color:#6b7280; font-weight:500; }
-
-input[type=text], input[type=date], input[type=number], textarea { background:#1a1d27; border:1px solid #2a2f42; border-radius:8px; color:#e8eaf0; font-family:‘DM Sans’,sans-serif; font-size:0.88rem; padding:9px 12px; outline:none; transition:border-color 0.15s; width:100%; }
-input:focus, textarea:focus { border-color:#4f8aff; }
-textarea { resize:vertical; min-height:80px; }
-
-.modal-bg { position:fixed; inset:0; background:rgba(0,0,0,0.7); backdrop-filter:blur(4px); z-index:200; display:flex; align-items:center; justify-content:center; padding:1rem; opacity:0; pointer-events:none; transition:opacity 0.2s; }
-.modal-bg.open { opacity:1; pointer-events:all; }
-.modal { background:#1f2333; border:1px solid #2a2f42; border-radius:16px; padding:2rem; width:100%; max-width:600px; max-height:90vh; overflow-y:auto; transform:translateY(10px); transition:transform 0.2s; }
-.modal-bg.open .modal { transform:translateY(0); }
-.modal-title { font-family:‘DM Serif Display’,serif; font-size:1.4rem; margin-bottom:1.5rem; }
-.modal-actions { display:flex; gap:8px; justify-content:flex-end; margin-top:1.5rem; }
-
-.appel-layout { display:grid; grid-template-columns:280px 1fr; gap:1.5rem; }
-
-.note-display { font-family:‘DM Mono’,monospace; font-size:0.88rem; font-weight:500; padding:2px 8px; border-radius:6px; display:inline-block; }
-.note-high { background:rgba(86,207,178,0.15); color:#56cfb2; }
-.note-mid { background:rgba(255,209,102,0.15); color:#ffd166; }
-.note-low { background:rgba(255,107,107,0.15); color:#ff6b6b; }
-
-.avatar { width:30px;height:30px; border-radius:50%; display:flex;align-items:center;justify-content:center; font-size:0.7rem;font-weight:600; flex-shrink:0; }
-.name-badge { display:inline-flex;align-items:center;gap:8px; }
-
-.empty { text-align:center;padding:3rem;color:#6b7280; }
-.empty .icon { font-size:3rem;margin-bottom:1rem; }
-.section-label { font-size:0.75rem;text-transform:uppercase;letter-spacing:0.08em;color:#6b7280;font-weight:600;margin-bottom:0.75rem; }
-
-@media (max-width:900px) {
-.acc-classes-grid { grid-template-columns:repeat(3,1fr); }
-.acc-apsa-grid { grid-template-columns:repeat(2,1fr); }
-.acc-header { padding:1.5rem; flex-direction:column; align-items:flex-start; gap:1rem; }
-.acc-main { padding:1.5rem; }
-.appel-layout { grid-template-columns:1fr; }
-.grid-4 { grid-template-columns:1fr 1fr; }
-.form-grid { grid-template-columns:1fr; }
-.suivi-header { flex-wrap:wrap; height:auto; padding:0.75rem 1rem; gap:8px; }
-.nav-tabs { order:3; width:100%; justify-content:center; }
-.suivi-main { padding:1rem; }
-}
-@media (max-width:600px) {
-.acc-classes-grid { grid-template-columns:repeat(2,1fr); }
-.acc-apsa-grid { grid-template-columns:1fr 1fr; }
+@media(max-width:580px){
+.acc-cls-grid{grid-template-columns:repeat(2,1fr);}
+.acc-apsa-grid{grid-template-columns:1fr 1fr;}
+.g4{grid-template-columns:1fr 1fr;}
 }
 </style>
 
 </head>
 <body>
 
-<!-- ========== PAGE ACCUEIL ========== -->
+<!-- ======== ACCUEIL ======== -->
 
-<div id="page-accueil">
-
+<div id="pg-acc">
   <div class="acc-header">
     <div>
-      <div class="acc-brand-eyebrow">Carnet numérique</div>
-      <div class="acc-brand-name">EPS — <em>Suivi séquence</em></div>
+      <div class="acc-eyebrow">Carnet numérique · EPS Lycée Professionnel</div>
+      <div class="acc-title">Suivi de <em>séquence</em></div>
     </div>
-    <div class="acc-header-meta" id="acc-date"></div>
+    <div class="acc-meta" id="acc-date"></div>
   </div>
-
   <div class="acc-main">
+    <div class="acc-steps">
+      <div class="acc-step active" id="acc-s1"><div class="acc-step-num">1</div>Classe</div>
+      <div class="acc-step-line"></div>
+      <div class="acc-step" id="acc-s2"><div class="acc-step-num">2</div>APSA</div>
+      <div class="acc-step-line"></div>
+      <div class="acc-step" id="acc-s3"><div class="acc-step-num">3</div>Ouvrir</div>
+    </div>
 
 ```
-<div class="acc-steps acc-anim" id="acc-steps">
-  <div class="acc-step active" id="acc-step1">
-    <div class="acc-step-num">1</div>
-    Classe
-  </div>
-  <div class="acc-step-line"></div>
-  <div class="acc-step" id="acc-step2">
-    <div class="acc-step-num">2</div>
-    APSA
-  </div>
-  <div class="acc-step-line"></div>
-  <div class="acc-step" id="acc-step3">
-    <div class="acc-step-num">3</div>
-    Ouvrir
-  </div>
-</div>
+<div class="acc-sec-tag">Étape 1 — Votre classe</div>
+<div class="acc-sec-title">Quelle classe ?</div>
+<div class="acc-cls-grid" id="acc-cls-grid"></div>
 
-<div class="acc-section-tag">Étape 1</div>
-<div class="acc-section-title">Quelle classe ?</div>
-<div class="acc-classes-grid" id="acc-classes-grid"></div>
+<div class="acc-divider"></div>
 
-<hr class="acc-divider">
-
-<div class="acc-section-tag">Étape 2</div>
-<div class="acc-section-title">Quelle APSA ?</div>
+<div class="acc-sec-tag">Étape 2 — Champ d'apprentissage & APSA</div>
+<div class="acc-sec-title">Quelle APSA ?</div>
 <div class="acc-apsa-grid" id="acc-apsa-grid"></div>
-<div class="acc-custom-apsa">
+<div class="acc-custom">
   <span>Autre APSA :</span>
-  <input type="text" id="acc-custom-apsa" placeholder="Ex: Natation, Escalade, Danse…" oninput="accSelectCustomApsa(this.value)">
+  <input type="text" id="acc-custom" placeholder="Ex: Natation, Escalade, Musculation…" oninput="accCustom(this.value)">
 </div>
 
-<hr class="acc-divider">
-
-<div class="acc-cta-zone">
+<div class="acc-divider"></div>
+<div class="acc-cta">
   <div>
-    <div class="acc-summary-label">Sélection actuelle</div>
-    <div class="acc-summary-value" id="acc-summary">Choisissez une classe et une APSA</div>
+    <div class="acc-sum-lbl">Sélection</div>
+    <div class="acc-sum-val" id="acc-sum">Choisissez une classe et une APSA</div>
   </div>
-  <button class="acc-btn-launch" id="acc-btn-launch" disabled onclick="accLaunch()">
-    Ouvrir le suivi →
-  </button>
+  <button class="acc-btn" id="acc-btn" disabled onclick="accLaunch()">Ouvrir le suivi →</button>
 </div>
 
-<div class="acc-existing" id="acc-existing" style="display:none;">
-  <div class="acc-existing-title">Sessions récentes</div>
-  <div class="acc-sessions-list" id="acc-sessions-list"></div>
+<div class="acc-recent" id="acc-recent" style="display:none;">
+  <div class="acc-recent-title">Sessions récentes</div>
+  <div class="acc-chips" id="acc-chips"></div>
 </div>
 ```
 
   </div>
 </div>
 
-<!-- ========== PAGE SUIVI ========== -->
+<!-- ======== SUIVI ======== -->
 
-<div id="page-suivi" style="display:none;">
-
-  <div class="suivi-header">
-    <div style="display:flex;align-items:center;gap:12px;">
-      <button class="back-btn" onclick="goAccueil()">← Classes</button>
-      <div class="suivi-logo" id="suivi-logo">🏅 Suivi <span class="suivi-badge">EPS</span></div>
+<div id="pg-suivi">
+  <div class="s-header">
+    <div style="display:flex;align-items:center;gap:10px;flex-shrink:0;">
+      <button class="s-back" onclick="goAcc()">← Classes</button>
+      <div class="s-logo" id="s-logo">🏅 EPS <span class="s-badge">SUIVI</span></div>
     </div>
-    <span class="suivi-ctx-badge" id="suivi-ctx-badge" style="display:none;"></span>
-    <div class="nav-tabs">
-      <button class="tab-btn active" onclick="showView('vue-seances')">Séances</button>
-      <button class="tab-btn" onclick="showView('vue-appel')">Appel</button>
-      <button class="tab-btn" onclick="showView('vue-eleves')">Élèves</button>
-      <button class="tab-btn" onclick="showView('vue-notes')">Notes</button>
+    <span class="s-ctx" id="s-ctx" style="display:none;"></span>
+    <div class="s-nav">
+      <button class="s-tab active" onclick="showView('v-seances')">Séances</button>
+      <button class="s-tab" onclick="showView('v-appel')">Appel</button>
+      <button class="s-tab" onclick="showView('v-eleves')">Élèves</button>
+      <button class="s-tab" onclick="showView('v-notes')">Notes</button>
     </div>
   </div>
 
-  <div class="suivi-main">
+  <div class="s-main">
+    <div id="v-seances" class="view active">
+      <div class="ph">
+        <div>
+          <div class="ph-title" id="s-pg-title">Séquence</div>
+          <div class="ph-sub" id="s-pg-sub"></div>
+        </div>
+        <button class="btn btn-p" onclick="openM('m-seance')">＋ Nouvelle séance</button>
+      </div>
+      <div class="g4" style="margin-bottom:1.25rem;">
+        <div class="stat bl"><div class="stat-lbl">Séances</div><div class="stat-val" id="ss-s">—</div><div class="stat-sub">programmées</div></div>
+        <div class="stat gr"><div class="stat-lbl">Élèves</div><div class="stat-val" id="ss-e">—</div><div class="stat-sub">dans la classe</div></div>
+        <div class="stat yw"><div class="stat-lbl">Présence moy.</div><div class="stat-val" id="ss-p">—</div><div class="stat-sub">sur les séances</div></div>
+        <div class="stat rd"><div class="stat-lbl">Note moy.</div><div class="stat-val" id="ss-n">—</div><div class="stat-sub">/20</div></div>
+      </div>
+      <div class="aflp-box" id="aflp-box" style="display:none;">
+        <div class="aflp-title" id="aflp-ca-title"></div>
+        <div class="aflp-list" id="aflp-list"></div>
+      </div>
+      <div class="card">
+        <div class="card-hd">
+          <div class="card-title">📋 Séances</div>
+          <input type="text" id="srch" placeholder="Rechercher…" style="width:180px;padding:5px 10px;font-size:.8rem;" oninput="renderSeances()">
+        </div>
+        <div class="slist" id="slist"></div>
+      </div>
+    </div>
 
 ```
-<!-- SÉANCES -->
-<div id="vue-seances" class="view active">
-  <div class="page-header">
-    <div>
-      <div class="page-title" id="suivi-page-title">Séquence</div>
-      <div class="page-subtitle" id="suivi-subtitle">Chargement…</div>
-    </div>
-    <button class="btn btn-primary" onclick="openModal('modal-seance')">＋ Nouvelle séance</button>
-  </div>
-  <div class="grid-4" style="margin-bottom:1.5rem;">
-    <div class="stat-card blue"><div class="stat-label">Séances</div><div class="stat-value" id="stat-seances">—</div><div class="stat-sub">programmées</div></div>
-    <div class="stat-card green"><div class="stat-label">Élèves</div><div class="stat-value" id="stat-eleves">—</div><div class="stat-sub">dans la classe</div></div>
-    <div class="stat-card yellow"><div class="stat-label">Taux présence</div><div class="stat-value" id="stat-presence">—</div><div class="stat-sub">moyen</div></div>
-    <div class="stat-card red"><div class="stat-label">Moy. classe</div><div class="stat-value" id="stat-note">—</div><div class="stat-sub">note /20</div></div>
-  </div>
-  <div class="card">
-    <div class="card-header">
-      <div class="card-title">📋 Liste des séances</div>
-      <input type="text" id="search-seance" placeholder="Rechercher…" style="width:200px;padding:6px 12px;font-size:0.82rem;" oninput="renderSeances()">
-    </div>
-    <div class="seance-list" id="seance-list"></div>
+<div id="v-appel" class="view">
+  <div class="ph"><div><div class="ph-title">Appel & Présence</div><div class="ph-sub">Présences et auto-évaluations</div></div></div>
+  <div class="appel-lay">
+    <div><div class="slbl">Séance</div><div class="slist" id="ap-slist"></div></div>
+    <div id="ap-content"><div class="empty"><div class="icon">📋</div><div>Sélectionnez une séance</div></div></div>
   </div>
 </div>
 
-<!-- APPEL -->
-<div id="vue-appel" class="view">
-  <div class="page-header">
-    <div><div class="page-title">Appel & Présence</div><div class="page-subtitle">Saisir les présences par séance</div></div>
+<div id="v-eleves" class="view">
+  <div class="ph">
+    <div><div class="ph-title">Élèves</div><div class="ph-sub">Gestion, aménagements, PAP</div></div>
+    <button class="btn btn-p" onclick="openM('m-eleve')">＋ Ajouter</button>
   </div>
-  <div class="appel-layout">
-    <div>
-      <div class="section-label">Choisir une séance</div>
-      <div class="seance-list" id="appel-seance-list"></div>
-    </div>
-    <div id="appel-content">
-      <div class="empty"><div class="icon">📋</div><div>Sélectionnez une séance</div></div>
-    </div>
-  </div>
+  <div class="card"><div class="tw"><table>
+    <thead><tr><th>Élève</th><th>Aménagement</th><th>Auto-éval. moy.</th><th>Note /20</th><th></th></tr></thead>
+    <tbody id="el-tbody"></tbody>
+  </table></div></div>
 </div>
 
-<!-- ÉLÈVES -->
-<div id="vue-eleves" class="view">
-  <div class="page-header">
-    <div><div class="page-title">Gestion des élèves</div><div class="page-subtitle">Aménagements, PAP, notes spéciales</div></div>
-    <button class="btn btn-primary" onclick="openModal('modal-eleve')">＋ Ajouter un élève</button>
+<div id="v-notes" class="view">
+  <div class="ph">
+    <div><div class="ph-title">Notes finales</div><div class="ph-sub">Récapitulatif CCF</div></div>
+    <button class="btn btn-g" onclick="exportCSV()">⬇ Export CSV</button>
   </div>
-  <div class="card">
-    <div class="table-wrap">
-      <table>
-        <thead><tr><th>Élève</th><th>Aménagement</th><th>Moy. auto-éval.</th><th>Note finale /20</th><th>Actions</th></tr></thead>
-        <tbody id="eleve-table-body"></tbody>
-      </table>
-    </div>
-  </div>
-</div>
-
-<!-- NOTES -->
-<div id="vue-notes" class="view">
-  <div class="page-header">
-    <div><div class="page-title">Notes finales</div><div class="page-subtitle">Récapitulatif par élève</div></div>
-    <button class="btn btn-ghost" onclick="exportCSV()">⬇ Export CSV</button>
-  </div>
-  <div class="card">
-    <div class="table-wrap">
-      <table>
-        <thead><tr><th>Élève</th><th>Présences</th><th>Absences</th><th>Dispensé</th><th>Quantité travail /4</th><th>Auto-éval. moy.</th><th>Note /20</th></tr></thead>
-        <tbody id="notes-table-body"></tbody>
-      </table>
-    </div>
-  </div>
+  <div class="card"><div class="tw"><table>
+    <thead><tr><th>Élève</th><th>Présences</th><th>Absences</th><th>Dispensé</th><th>Qté travail /4</th><th>Auto-éval. moy.</th><th>Note /20</th></tr></thead>
+    <tbody id="nt-tbody"></tbody>
+  </table></div></div>
 </div>
 ```
 
@@ -644,674 +294,521 @@ textarea { resize:vertical; min-height:80px; }
 
   <!-- MODALS -->
 
-  <div class="modal-bg" id="modal-seance">
-    <div class="modal">
-      <div class="modal-title">📅 Nouvelle séance</div>
-      <div class="form-grid">
-        <div class="form-group"><label>Numéro</label><input type="number" id="f-num" min="1" max="20" placeholder="Ex: 1"></div>
-        <div class="form-group"><label>Date</label><input type="date" id="f-date"></div>
-        <div class="form-group full"><label>Objectif principal</label><input type="text" id="f-objectif" placeholder="Ex: Service flottant / Smash"></div>
-        <div class="form-group full"><label>Consignes</label><textarea id="f-consignes" placeholder="Consignes détaillées…"></textarea></div>
-        <div class="form-group full"><label>Critères de réalisation</label><textarea id="f-criteres" placeholder="Critères de réussite…"></textarea></div>
-        <div class="form-group full"><label>Bilan / Remarques</label><textarea id="f-bilan" placeholder="Bilan de la séance…"></textarea></div>
-      </div>
-      <div class="modal-actions">
-        <button class="btn btn-ghost" onclick="closeModal('modal-seance')">Annuler</button>
-        <button class="btn btn-primary" onclick="saveSeance()">Créer</button>
-      </div>
+  <div class="mb" id="m-seance"><div class="modal">
+    <div class="modal-title">📅 Nouvelle séance</div>
+    <div class="fg">
+      <div class="fgrp"><label>Numéro</label><input type="number" id="fn" min="1" max="20"></div>
+      <div class="fgrp"><label>Date</label><input type="date" id="fd"></div>
+      <div class="fgrp full"><label>Objectif / Situation</label><input type="text" id="fo" placeholder="Ex: Construction de l'attaque…"></div>
+      <div class="fgrp full"><label>Consignes détaillées</label><textarea id="fc" placeholder="Consignes, organisation…"></textarea></div>
+      <div class="fgrp full"><label>Critères de réalisation</label><textarea id="fcr" placeholder="Critères de réussite, contenus d'enseignement…"></textarea></div>
+      <div class="fgrp full"><label>Bilan de séance</label><textarea id="fb" placeholder="Observations, ajustements…"></textarea></div>
     </div>
-  </div>
-
-  <div class="modal-bg" id="modal-edit-seance">
-    <div class="modal">
-      <div class="modal-title">✏️ Modifier la séance</div>
-      <input type="hidden" id="edit-seance-id">
-      <div class="form-grid">
-        <div class="form-group"><label>Numéro</label><input type="number" id="edit-f-num"></div>
-        <div class="form-group"><label>Date</label><input type="date" id="edit-f-date"></div>
-        <div class="form-group full"><label>Objectif principal</label><input type="text" id="edit-f-objectif"></div>
-        <div class="form-group full"><label>Consignes</label><textarea id="edit-f-consignes"></textarea></div>
-        <div class="form-group full"><label>Critères de réalisation</label><textarea id="edit-f-criteres"></textarea></div>
-        <div class="form-group full"><label>Bilan / Remarques</label><textarea id="edit-f-bilan"></textarea></div>
-      </div>
-      <div class="modal-actions">
-        <button class="btn btn-danger btn-sm" onclick="deleteSeance()">Supprimer</button>
-        <div style="flex:1"></div>
-        <button class="btn btn-ghost" onclick="closeModal('modal-edit-seance')">Annuler</button>
-        <button class="btn btn-primary" onclick="updateSeance()">Enregistrer</button>
-      </div>
+    <div class="modal-acts">
+      <button class="btn btn-g" onclick="closeM('m-seance')">Annuler</button>
+      <button class="btn btn-p" onclick="saveSeance()">Créer</button>
     </div>
-  </div>
+  </div></div>
 
-  <div class="modal-bg" id="modal-eleve">
-    <div class="modal">
-      <div class="modal-title">👤 Ajouter un élève</div>
-      <div class="form-grid">
-        <div class="form-group full"><label>Nom Prénom</label><input type="text" id="f-nom" placeholder="Ex: DUPONT Jean"></div>
-        <div class="form-group full"><label>Aménagements / PAP / GEVASCO</label><textarea id="f-amenagement" placeholder="Ex: PAP - 1/3 temps…"></textarea></div>
-      </div>
-      <div class="modal-actions">
-        <button class="btn btn-ghost" onclick="closeModal('modal-eleve')">Annuler</button>
-        <button class="btn btn-primary" onclick="saveEleve()">Ajouter</button>
-      </div>
+  <div class="mb" id="m-edit-seance"><div class="modal">
+    <div class="modal-title">✏️ Modifier la séance</div>
+    <input type="hidden" id="es-id">
+    <div class="fg">
+      <div class="fgrp"><label>Numéro</label><input type="number" id="es-n"></div>
+      <div class="fgrp"><label>Date</label><input type="date" id="es-d"></div>
+      <div class="fgrp full"><label>Objectif</label><input type="text" id="es-o"></div>
+      <div class="fgrp full"><label>Consignes</label><textarea id="es-c"></textarea></div>
+      <div class="fgrp full"><label>Critères de réalisation</label><textarea id="es-cr"></textarea></div>
+      <div class="fgrp full"><label>Bilan</label><textarea id="es-b"></textarea></div>
     </div>
-  </div>
-
-  <div class="modal-bg" id="modal-edit-eleve">
-    <div class="modal">
-      <div class="modal-title">✏️ Modifier l'élève</div>
-      <input type="hidden" id="edit-eleve-id">
-      <div class="form-grid">
-        <div class="form-group full"><label>Nom Prénom</label><input type="text" id="edit-f-nom"></div>
-        <div class="form-group full"><label>Aménagements / PAP / GEVASCO</label><textarea id="edit-f-amenagement"></textarea></div>
-        <div class="form-group"><label>Note finale /20</label><input type="number" id="edit-f-note" min="0" max="20" step="0.5" placeholder="Ex: 14"></div>
-      </div>
-      <div class="modal-actions">
-        <button class="btn btn-danger btn-sm" onclick="deleteEleve()">Supprimer</button>
-        <div style="flex:1"></div>
-        <button class="btn btn-ghost" onclick="closeModal('modal-edit-eleve')">Annuler</button>
-        <button class="btn btn-primary" onclick="updateEleve()">Enregistrer</button>
-      </div>
+    <div class="modal-acts">
+      <button class="btn btn-d btn-sm" onclick="delSeance()">Supprimer</button>
+      <div style="flex:1"></div>
+      <button class="btn btn-g" onclick="closeM('m-edit-seance')">Annuler</button>
+      <button class="btn btn-p" onclick="updSeance()">Enregistrer</button>
     </div>
-  </div>
+  </div></div>
 
+  <div class="mb" id="m-eleve"><div class="modal">
+    <div class="modal-title">👤 Ajouter un élève</div>
+    <div class="fg">
+      <div class="fgrp full"><label>Nom Prénom</label><input type="text" id="en" placeholder="Ex: DUPONT Jean"></div>
+      <div class="fgrp full"><label>Aménagements / PAP / GEVASCO / ULIS</label><textarea id="ea" placeholder="Ex: PAP - 1/3 temps, évaluations aménagées…"></textarea></div>
+    </div>
+    <div class="modal-acts">
+      <button class="btn btn-g" onclick="closeM('m-eleve')">Annuler</button>
+      <button class="btn btn-p" onclick="saveEleve()">Ajouter</button>
+    </div>
+  </div></div>
+
+  <div class="mb" id="m-edit-eleve"><div class="modal">
+    <div class="modal-title">✏️ Modifier l'élève</div>
+    <input type="hidden" id="ee-id">
+    <div class="fg">
+      <div class="fgrp full"><label>Nom Prénom</label><input type="text" id="ee-n"></div>
+      <div class="fgrp full"><label>Aménagements</label><textarea id="ee-a"></textarea></div>
+      <div class="fgrp"><label>Note finale /20</label><input type="number" id="ee-note" min="0" max="20" step="0.5" placeholder="Ex: 14"></div>
+    </div>
+    <div class="modal-acts">
+      <button class="btn btn-d btn-sm" onclick="delEleve()">Supprimer</button>
+      <div style="flex:1"></div>
+      <button class="btn btn-g" onclick="closeM('m-edit-eleve')">Annuler</button>
+      <button class="btn btn-p" onclick="updEleve()">Enregistrer</button>
+    </div>
+  </div></div>
 </div>
 
 <script>
-// ==========================================
-// ACCUEIL DATA
-// ==========================================
-const CLASSES = [
-  { id:'2nde-ener-b', label:'2NDE ENER B', level:'2NDE', sub:'Énergie · Groupe B', color:'#d4470c', light:'#d4470c0d' },
-  { id:'2nde-mrc-b',  label:'2NDE MRC B',  level:'2NDE', sub:'MRC · Groupe B',    color:'#1a6b3a', light:'#1a6b3a0d' },
-  { id:'cap-epc-1',   label:'CAP EPC 1',   level:'CAP',  sub:'Électrotechnique',  color:'#1e4fa0', light:'#1e4fa00d' },
-  { id:'cap-elec-2',  label:'CAP ELEC 2',  level:'CAP',  sub:'Électricité',       color:'#8b2fc9', light:'#8b2fc90d' },
-  { id:'3e-pm',       label:'3e PM',        level:'3e',   sub:'Prépa Métiers',     color:'#b8860b', light:'#b8860b0d' },
+const CLASSES=[
+  {id:'2nde-ener-b',label:'2NDE ENER B',level:'2NDE',sub:'Énergie · Gr. B',color:'#c8400a',light:'#c8400a0d'},
+  {id:'2nde-mrc-b', label:'2NDE MRC B', level:'2NDE',sub:'MRC · Gr. B',   color:'#1a6b3a',light:'#1a6b3a0d'},
+  {id:'cap-epc-1',  label:'CAP EPC 1', level:'CAP', sub:'Électrotechnique',color:'#1e4fa0',light:'#1e4fa00d'},
+  {id:'cap-elec-2', label:'CAP ELEC 2',level:'CAP', sub:'Électricité',    color:'#7c28b8',light:'#7c28b80d'},
+  {id:'3e-pm',      label:'3e PM',     level:'3e',  sub:'Prépa Métiers',  color:'#a07800',light:'#a078000d'},
 ];
 
-const APSA_LIST = [
-  { id:'volley',    name:'Volley-Ball',    cat:'Collectif',   emoji:'🏐' },
-  { id:'basket',    name:'Basket-Ball',    cat:'Collectif',   emoji:'🏀' },
-  { id:'foot',      name:'Football',       cat:'Collectif',   emoji:'⚽' },
-  { id:'hand',      name:'Handball',       cat:'Collectif',   emoji:'🤾' },
-  { id:'badminton', name:'Badminton',      cat:'Raquette',    emoji:'🏸' },
-  { id:'tennis-t',  name:'Tennis de table',cat:'Raquette',    emoji:'🏓' },
-  { id:'course',    name:'Course de durée',cat:'Athlétisme',  emoji:'🏃' },
-  { id:'athletisme',name:'Athlétisme',     cat:'Athlétisme',  emoji:'🏋️' },
-  { id:'gym',       name:'Gymnastique',    cat:'Artistique',  emoji:'🤸' },
-  { id:'boxe',      name:'Boxe / Lutte',   cat:'Combat',      emoji:'🥊' },
-  { id:'escalade',  name:'Escalade',       cat:'Pleine nature',emoji:'🧗' },
-  { id:'natation',  name:'Natation',       cat:'Aquatique',   emoji:'🏊' },
+const APSA_LIST=[
+  {id:'volley',      name:'Volley-Ball',           ca:'CA 4',caFull:'CA4',emoji:'🏐',caColor:'#4f8aff'},
+  {id:'vitesse',     name:'Course de vitesse',      ca:'CA 1',caFull:'CA1',emoji:'⚡',caColor:'#ff6b6b'},
+  {id:'duree',       name:'Course de durée',        ca:'CA 5',caFull:'CA5',emoji:'🏃',caColor:'#56cfb2'},
+  {id:'acrosport',   name:'Acrosport',              ca:'CA 3',caFull:'CA3',emoji:'🤸',caColor:'#ffd166'},
+  {id:'orientation', name:"Course d'orientation",   ca:'CA 2',caFull:'CA2',emoji:'🧭',caColor:'#a78bfa'},
+  {id:'tdt',         name:'Tennis de Table',        ca:'CA 4',caFull:'CA4',emoji:'🏓',caColor:'#4f8aff'},
+  {id:'athle',       name:'Athlétisme multisport',  ca:'CA 1',caFull:'CA1',emoji:'🏋️',caColor:'#ff6b6b'},
+  {id:'badminton',   name:'Badminton',              ca:'CA 4',caFull:'CA4',emoji:'🏸',caColor:'#4f8aff'},
 ];
 
-let accSelectedClass = null;
-let accSelectedApsa = null;
+const AFLP={
+  CA1:{
+    titre:'CA1 — Réaliser sa performance motrice maximale, mesurable à une échéance donnée',
+    items:[
+      {n:'AFLP 1',t:'Produire et répartir lucidement ses efforts en mobilisant de façon optimale ses ressources pour gagner ou battre un record.'},
+      {n:'AFLP 2',t:'Connaître et mobiliser les techniques efficaces pour produire la meilleure performance possible.'},
+      {n:'AFLP 3',t:'Préparer et réguler sa performance en utilisant les connaissances sur soi et sur l\'activité.'},
+      {n:'AFLP 4',t:'Assumer des rôles sociaux pour organiser une épreuve de production de performance ou un concours.'},
+      {n:'AFLP 5',t:'Assurer la prise en charge de sa préparation et de son échauffement.'},
+      {n:'AFLP 6',t:'Développer sa capacité à verbaliser ses choix et à argumenter pour convaincre.'},
+    ]
+  },
+  CA2:{
+    titre:"CA2 — Adapter son déplacement à des environnements variés et/ou incertains",
+    items:[
+      {n:'AFLP 1',t:"Anticiper et planifier son itinéraire pour concevoir et conduire dans sa totalité un projet de déplacement."},
+      {n:'AFLP 2',t:"Adapter ses déplacements en mobilisant les techniques efficaces pour évoluer en sécurité dans l'environnement."},
+      {n:'AFLP 3',t:"Préparer et réguler son projet de déplacement en utilisant les connaissances sur soi et sur l'activité."},
+      {n:'AFLP 4',t:"Assumer les rôles sociaux pour organiser la pratique des activités de pleine nature."},
+      {n:'AFLP 5',t:"Assurer la prise en charge de sa préparation et de son échauffement."},
+      {n:'AFLP 6',t:"Développer sa capacité à verbaliser ses choix et à argumenter pour convaincre."},
+    ]
+  },
+  CA3:{
+    titre:'CA3 — Réaliser une prestation corporelle destinée à être vue et appréciée par autrui',
+    items:[
+      {n:'AFLP 1',t:"Accomplir une prestation animée d'une intention dans la perspective d'être jugé et/ou apprécié."},
+      {n:'AFLP 2',t:"Connaître et mobiliser les éléments techniques et artistiques pour produire une prestation de qualité."},
+      {n:'AFLP 3',t:"Préparer et réguler sa prestation en utilisant les connaissances sur soi et sur l'activité."},
+      {n:'AFLP 4',t:"Assumer les rôles inhérents à la pratique artistique et acrobatique, notamment en exprimant et en écoutant des arguments sur la base de critères partagés pour situer une prestation."},
+      {n:'AFLP 5',t:"Assurer la prise en charge de sa préparation et de son échauffement."},
+      {n:'AFLP 6',t:"Développer sa capacité à verbaliser ses choix et à argumenter pour convaincre."},
+    ]
+  },
+  CA4:{
+    titre:"CA4 — Conduire un affrontement interindividuel ou collectif pour gagner",
+    items:[
+      {n:'AFLP 1',t:"Réaliser des choix tactiques et stratégiques pour faire basculer le rapport de force en sa faveur et marquer le point."},
+      {n:'AFLP 2',t:"Connaître et mobiliser les techniques efficaces pour conduire et maîtriser l'affrontement."},
+      {n:'AFLP 3',t:"Préparer et réguler sa performance en utilisant les connaissances sur soi et sur l'activité."},
+      {n:'AFLP 4',t:"Respecter et faire respecter les règles partagées pour que le jeu puisse se dérouler sereinement ; assumer plusieurs rôles sociaux pour permettre le bon déroulement du jeu."},
+      {n:'AFLP 5',t:"Assurer la prise en charge de sa préparation et de son échauffement."},
+      {n:'AFLP 6',t:"Développer sa capacité à verbaliser ses choix et à argumenter pour convaincre."},
+    ]
+  },
+  CA5:{
+    titre:"CA5 — Réaliser et orienter son activité physique pour développer ses ressources et s'entretenir",
+    items:[
+      {n:'AFLP 1',t:"Concevoir et mettre en œuvre un projet d'entraînement pour répondre à un mobile personnel de développement."},
+      {n:'AFLP 2',t:"Connaître et mobiliser les techniques efficaces pour optimiser son entraînement."},
+      {n:'AFLP 3',t:"Préparer et réguler son projet d'entraînement en utilisant les connaissances sur soi et sur l'activité."},
+      {n:'AFLP 4',t:"Agir avec et pour les autres en vue de la réalisation du projet d'entraînement, en assurant spontanément les rôles sociaux."},
+      {n:'AFLP 5',t:"Assurer la prise en charge de sa préparation et de son échauffement."},
+      {n:'AFLP 6',t:"Développer sa capacité à verbaliser ses choix et à argumenter pour convaincre."},
+    ]
+  }
+};
 
-// ==========================================
-// ACCUEIL INIT
-// ==========================================
-function accInit() {
-  const now = new Date();
-  const jours = ['Dimanche','Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi'];
-  const mois = ['janv.','févr.','mars','avr.','mai','juin','juil.','août','sept.','oct.','nov.','déc.'];
-  document.getElementById('acc-date').innerHTML = `${jours[now.getDay()]} ${now.getDate()} ${mois[now.getMonth()]} ${now.getFullYear()}<br>Année scolaire 2025–2026`;
+let CTX={cls:null,apsa:null,key:null};
+let selCls=null,selApsa=null;
 
-  // Classes
-  const cg = document.getElementById('acc-classes-grid');
-  cg.innerHTML = CLASSES.map(c => `
-    <div class="acc-class-card" id="acc-cls-${c.id}" style="--c:${c.color};--c-light:${c.light};" onclick="accSelectClass('${c.id}')">
-      <div class="acc-class-level">${c.level}</div>
-      <div class="acc-class-name">${c.label.replace(c.level+' ','').replace(c.level,'') || c.label}</div>
-      <div class="acc-class-sub">${c.sub}</div>
-      <div class="acc-class-dot" style="background:${c.color};"></div>
+function accInit(){
+  const now=new Date();
+  const J=['Dimanche','Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi'];
+  const M=['janv.','févr.','mars','avr.','mai','juin','juil.','août','sept.','oct.','nov.','déc.'];
+  document.getElementById('acc-date').innerHTML=`${J[now.getDay()]} ${now.getDate()} ${M[now.getMonth()]} ${now.getFullYear()}<br>Année scolaire 2025–2026`;
+  document.getElementById('acc-cls-grid').innerHTML=CLASSES.map(c=>`
+    <div class="acc-cls" id="cl-${c.id}" style="--c:${c.color};--cl:${c.light};" onclick="accPickCls('${c.id}')">
+      <div class="acc-cls-lv">${c.level}</div>
+      <div class="acc-cls-name">${c.label}</div>
+      <div class="acc-cls-sub">${c.sub}</div>
+      <div class="acc-cls-dot"></div>
     </div>`).join('');
-
-  // APSA
-  const ag = document.getElementById('acc-apsa-grid');
-  ag.innerHTML = APSA_LIST.map(a => `
-    <div class="acc-apsa-card" id="acc-apsa-${a.id}" onclick="accSelectApsa('${a.id}')">
+  document.getElementById('acc-apsa-grid').innerHTML=APSA_LIST.map(a=>`
+    <div class="acc-apsa" id="ap-${a.id}" onclick="accPickApsa('${a.id}')">
       <div class="acc-apsa-emoji">${a.emoji}</div>
       <div>
-        <div class="acc-apsa-cat">${a.cat}</div>
+        <div class="acc-apsa-ca" style="color:${a.caColor};">${a.ca}</div>
         <div class="acc-apsa-name">${a.name}</div>
       </div>
     </div>`).join('');
-
   accRenderRecent();
 }
 
-function accSelectClass(id) {
-  accSelectedClass = CLASSES.find(c => c.id === id);
-  document.querySelectorAll('.acc-class-card').forEach(el => el.classList.remove('selected'));
-  document.getElementById('acc-cls-' + id).classList.add('selected');
-  accUpdateSteps(); accUpdateSummary();
+function accPickCls(id){
+  selCls=CLASSES.find(c=>c.id===id);
+  document.querySelectorAll('.acc-cls').forEach(e=>e.classList.remove('sel'));
+  document.getElementById('cl-'+id).classList.add('sel');
+  accUpdSteps();accUpdSum();
 }
 
-function accSelectApsa(id) {
-  accSelectedApsa = APSA_LIST.find(a => a.id === id);
-  document.getElementById('acc-custom-apsa').value = '';
-  document.querySelectorAll('.acc-apsa-card').forEach(el => el.classList.remove('selected'));
-  document.getElementById('acc-apsa-' + id).classList.add('selected');
-  accUpdateSteps(); accUpdateSummary();
+function accPickApsa(id){
+  selApsa=APSA_LIST.find(a=>a.id===id);
+  document.getElementById('acc-custom').value='';
+  document.querySelectorAll('.acc-apsa').forEach(e=>e.classList.remove('sel'));
+  document.getElementById('ap-'+id).classList.add('sel');
+  accUpdSteps();accUpdSum();
 }
 
-function accSelectCustomApsa(val) {
-  const v = val.trim();
-  accSelectedApsa = v ? { id:'custom', name:v, cat:'Autre', emoji:'🏅' } : null;
-  document.querySelectorAll('.acc-apsa-card').forEach(el => el.classList.remove('selected'));
-  accUpdateSteps(); accUpdateSummary();
+function accCustom(v){
+  const val=v.trim();
+  selApsa=val?{id:'custom',name:val,ca:'CA ?',caFull:'CA4',emoji:'🏅',caColor:'#6b7280'}:null;
+  document.querySelectorAll('.acc-apsa').forEach(e=>e.classList.remove('sel'));
+  accUpdSteps();accUpdSum();
 }
 
-function accUpdateSteps() {
-  const s1 = document.getElementById('acc-step1');
-  const s2 = document.getElementById('acc-step2');
-  const s3 = document.getElementById('acc-step3');
-  s1.className = 'acc-step' + (accSelectedClass ? ' done' : ' active');
-  s2.className = 'acc-step' + (accSelectedClass && !accSelectedApsa ? ' active' : accSelectedApsa ? ' done' : '');
-  s3.className = 'acc-step' + (accSelectedClass && accSelectedApsa ? ' active' : '');
+function accUpdSteps(){
+  document.getElementById('acc-s1').className='acc-step'+(selCls?' done':' active');
+  document.getElementById('acc-s2').className='acc-step'+(selCls&&!selApsa?' active':selApsa?' done':'');
+  document.getElementById('acc-s3').className='acc-step'+(selCls&&selApsa?' active':'');
 }
 
-function accUpdateSummary() {
-  const btn = document.getElementById('acc-btn-launch');
-  const sum = document.getElementById('acc-summary');
-  if (accSelectedClass && accSelectedApsa) {
-    sum.innerHTML = `<em>${accSelectedClass.label}</em> · ${accSelectedApsa.emoji} ${accSelectedApsa.name}`;
-    btn.disabled = false;
-  } else if (accSelectedClass) {
-    sum.textContent = accSelectedClass.label + ' · Choisissez une APSA';
-    btn.disabled = true;
-  } else {
-    sum.textContent = 'Choisissez une classe et une APSA';
-    btn.disabled = true;
+function accUpdSum(){
+  const btn=document.getElementById('acc-btn');
+  const sum=document.getElementById('acc-sum');
+  if(selCls&&selApsa){
+    sum.innerHTML=`<em>${selCls.label}</em> · ${selApsa.emoji} ${selApsa.ca} — ${selApsa.name}`;
+    btn.disabled=false;
+  }else if(selCls){
+    sum.textContent=selCls.label+' · Choisissez une APSA';btn.disabled=true;
+  }else{
+    sum.textContent='Choisissez une classe et une APSA';btn.disabled=true;
   }
 }
 
-function accLaunch(cls, apsa) {
-  const c = cls || accSelectedClass;
-  const a = apsa || accSelectedApsa;
-  if (!c || !a) return;
-  const key = `eps-${c.id}-${a.id}`;
-  accSaveRecent(c, a, key);
-  openSuivi(c, a, key);
+function accLaunch(c,a){
+  const cls=c||selCls;const apsa=a||selApsa;
+  if(!cls||!apsa)return;
+  const key=`eps-${cls.id}-${apsa.id}`;
+  accSaveRecent(cls,apsa,key);
+  openSuivi(cls,apsa,key);
 }
 
-function accSaveRecent(cls, apsa, key) {
-  let sessions = JSON.parse(localStorage.getItem('eps-recent') || '[]');
-  sessions = sessions.filter(s => s.key !== key);
-  sessions.unshift({ key, cls, apsa, ts: Date.now() });
-  sessions = sessions.slice(0, 8);
-  localStorage.setItem('eps-recent', JSON.stringify(sessions));
+function accSaveRecent(cls,apsa,key){
+  let s=JSON.parse(localStorage.getItem('eps-recent')||'[]');
+  s=s.filter(x=>x.key!==key);
+  s.unshift({key,cls,apsa,ts:Date.now()});
+  localStorage.setItem('eps-recent',JSON.stringify(s.slice(0,8)));
 }
 
-function accRenderRecent() {
-  const sessions = JSON.parse(localStorage.getItem('eps-recent') || '[]');
-  const zone = document.getElementById('acc-existing');
-  const list = document.getElementById('acc-sessions-list');
-  if (!sessions.length) { zone.style.display='none'; return; }
+function accRenderRecent(){
+  const sessions=JSON.parse(localStorage.getItem('eps-recent')||'[]');
+  const zone=document.getElementById('acc-recent');
+  if(!sessions.length){zone.style.display='none';return;}
   zone.style.display='block';
-  list.innerHTML = sessions.map(s => {
-    const cls = CLASSES.find(c=>c.id===s.cls.id)||s.cls;
-    const color = cls.color||'#888';
-    const d = new Date(s.ts);
-    const dateStr = `${d.getDate()}/${d.getMonth()+1}/${d.getFullYear()}`;
-    return `<div class="acc-session-chip" onclick="accQuickLaunch('${s.key}')">
-      <div class="dot" style="background:${color};width:8px;height:8px;border-radius:50%;"></div>
+  document.getElementById('acc-chips').innerHTML=sessions.map(s=>{
+    const cls=CLASSES.find(c=>c.id===s.cls.id)||s.cls;
+    const d=new Date(s.ts);
+    return`<div class="acc-chip" onclick="accQuick('${s.key}')">
+      <div class="dot" style="background:${cls.color||'#888'};"></div>
       <span>${s.cls.label}</span>
-      <span style="color:#5a5648;">·</span>
-      <span>${s.apsa.emoji||'🏅'} ${s.apsa.name}</span>
-      <span style="color:#5a5648;font-size:0.72rem;font-weight:400;">${dateStr}</span>
-      <span class="x" onclick="event.stopPropagation();accDeleteRecent('${s.key}')">×</span>
+      <span style="color:#9a9080;">·</span>
+      <span>${s.apsa.emoji||'🏅'} ${s.apsa.ca} ${s.apsa.name}</span>
+      <span style="color:#9a9080;font-size:.68rem;">${d.getDate()}/${d.getMonth()+1}</span>
+      <span class="x" onclick="event.stopPropagation();accDel('${s.key}')">×</span>
     </div>`;
   }).join('');
 }
 
-function accQuickLaunch(key) {
-  const sessions = JSON.parse(localStorage.getItem('eps-recent')||'[]');
-  const s = sessions.find(x=>x.key===key);
-  if (!s) return;
-  accSaveRecent(s.cls, s.apsa, key);
-  openSuivi(s.cls, s.apsa, key);
+function accQuick(key){
+  const s=JSON.parse(localStorage.getItem('eps-recent')||'[]').find(x=>x.key===key);
+  if(!s)return;
+  accSaveRecent(s.cls,s.apsa,key);
+  openSuivi(s.cls,s.apsa,key);
 }
 
-function accDeleteRecent(key) {
-  let sessions = JSON.parse(localStorage.getItem('eps-recent')||'[]');
-  sessions = sessions.filter(s=>s.key!==key);
-  localStorage.setItem('eps-recent', JSON.stringify(sessions));
+function accDel(key){
+  let s=JSON.parse(localStorage.getItem('eps-recent')||'[]');
+  localStorage.setItem('eps-recent',JSON.stringify(s.filter(x=>x.key!==key)));
   accRenderRecent();
 }
 
-// ==========================================
-// NAVIGATION PAGES
-// ==========================================
-function openSuivi(cls, apsa, key) {
-  // Mettre à jour le header suivi
-  const logo = document.getElementById('suivi-logo');
-  const ctxBadge = document.getElementById('suivi-ctx-badge');
-  logo.innerHTML = `${apsa.emoji||'🏅'} ${apsa.name} <span class="suivi-badge">EPS</span>`;
-  ctxBadge.textContent = cls.label;
-  ctxBadge.style.display = 'inline';
-
-  // Charger les données de cette classe/apsa
-  STORAGE_KEY = key;
+function openSuivi(cls,apsa,key){
+  CTX={cls,apsa,key};
+  STORAGE_KEY=key;
   loadState();
-
-  // Afficher
-  document.getElementById('page-accueil').style.display = 'none';
-  document.getElementById('page-suivi').style.display = 'block';
-  showView('vue-seances');
+  document.getElementById('s-logo').innerHTML=`${apsa.emoji||'🏅'} ${apsa.name} <span class="s-badge">${apsa.ca||'EPS'}</span>`;
+  const ctx=document.getElementById('s-ctx');
+  ctx.textContent=cls.label;ctx.style.display='inline';
+  document.getElementById('s-pg-title').textContent=`${apsa.ca} — ${apsa.name}`;
+  const aflpData=AFLP[apsa.caFull];
+  if(aflpData){
+    document.getElementById('aflp-box').style.display='block';
+    document.getElementById('aflp-ca-title').textContent=aflpData.titre;
+    document.getElementById('aflp-list').innerHTML=aflpData.items.map(i=>`
+      <div class="aflp-item"><span class="aflp-num">${i.n}</span><span class="aflp-text">${i.t}</span></div>`).join('');
+  }
+  document.getElementById('pg-acc').style.display='none';
+  document.getElementById('pg-suivi').style.display='block';
+  showView('v-seances');
   renderAll();
 }
 
-function goAccueil() {
-  document.getElementById('page-suivi').style.display = 'none';
-  document.getElementById('page-accueil').style.display = 'block';
+function goAcc(){
+  document.getElementById('pg-suivi').style.display='none';
+  document.getElementById('pg-acc').style.display='block';
   accRenderRecent();
 }
 
-// ==========================================
-// SUIVI DATA
-// ==========================================
-let STORAGE_KEY = 'eps-default';
+let STORAGE_KEY='eps-default';
+let state={seances:[],eleves:[],presences:{},autoEval:{}};
+const STATUTS=['Présent','Absent','Dispensé','Pas affaire','Pas tenue'];
+const COLORS=['#4f8aff','#ff6b6b','#56cfb2','#ffd166','#a78bfa','#fb923c','#34d399','#f472b6','#60a5fa','#facc15'];
 
-let state = { seances: [], eleves: [], presences: {}, autoEval: {} };
-
-const STATUTS = ['Présent','Absent','Dispensé','Pas affaire','Pas tenue'];
-const COLORS = ['#4f8aff','#ff6b6b','#56cfb2','#ffd166','#a78bfa','#fb923c','#34d399','#f472b6','#60a5fa','#facc15'];
-
-function loadState() {
-  const saved = localStorage.getItem(STORAGE_KEY);
-  if (saved) {
-    try { state = JSON.parse(saved); return; } catch(e) {}
-  }
-  // Données vides par défaut
-  state = { seances: [], eleves: [], presences: {}, autoEval: {} };
+function loadState(){
+  try{const s=localStorage.getItem(STORAGE_KEY);state=s?JSON.parse(s):{seances:[],eleves:[],presences:{},autoEval:{}};}
+  catch(e){state={seances:[],eleves:[],presences:{},autoEval:{}};}
 }
+function save(){localStorage.setItem(STORAGE_KEY,JSON.stringify(state));}
 
-function save() {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
-}
-
-// ==========================================
-// NAVIGATION SUIVI
-// ==========================================
-function showView(id) {
-  document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
-  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+function showView(id){
+  document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
+  document.querySelectorAll('.s-tab').forEach(b=>b.classList.remove('active'));
   document.getElementById(id).classList.add('active');
-  const idx = ['vue-seances','vue-appel','vue-eleves','vue-notes'].indexOf(id);
-  if (idx >= 0) document.querySelectorAll('.tab-btn')[idx].classList.add('active');
+  const idx=['v-seances','v-appel','v-eleves','v-notes'].indexOf(id);
+  if(idx>=0)document.querySelectorAll('.s-tab')[idx].classList.add('active');
   renderAll();
 }
 
-function renderAll() {
-  renderStats();
-  renderSeances();
-  renderAppelList();
-  renderEleveTable();
-  renderNotesTable();
+function renderAll(){renderStats();renderSeances();renderApList();renderEleves();renderNotes();}
+
+function renderStats(){
+  document.getElementById('ss-s').textContent=state.seances.length;
+  document.getElementById('ss-e').textContent=state.eleves.length;
+  document.getElementById('s-pg-sub').textContent=`${state.eleves.length} élèves · ${state.seances.length} séances`;
+  let tot=0,pres=0;
+  state.seances.forEach(s=>state.eleves.forEach(e=>{tot++;if((state.presences[s.id]||{})[e.id]==='Présent')pres++;}));
+  document.getElementById('ss-p').textContent=tot>0?Math.round(pres/tot*100)+'%':'—';
+  const noted=state.eleves.filter(e=>e.noteFinale!=null);
+  document.getElementById('ss-n').textContent=noted.length>0?(noted.reduce((a,e)=>a+parseFloat(e.noteFinale),0)/noted.length).toFixed(1):'—';
 }
 
-// ==========================================
-// STATS
-// ==========================================
-function renderStats() {
-  document.getElementById('stat-seances').textContent = state.seances.length;
-  document.getElementById('stat-eleves').textContent = state.eleves.length;
-  document.getElementById('suivi-subtitle').textContent = `${state.eleves.length} élèves · ${state.seances.length} séances`;
-
-  let total=0, present=0;
-  state.seances.forEach(s => {
-    state.eleves.forEach(e => {
-      total++;
-      if ((state.presences[s.id]||{})[e.id] === 'Présent') present++;
-    });
-  });
-  document.getElementById('stat-presence').textContent = total > 0 ? Math.round(present/total*100)+'%' : '—';
-
-  const noted = state.eleves.filter(e => e.noteFinale != null);
-  document.getElementById('stat-note').textContent = noted.length > 0
-    ? (noted.reduce((a,e)=>a+parseFloat(e.noteFinale),0)/noted.length).toFixed(1) : '—';
+function fmtDate(d){
+  if(!d)return'';const[y,m,j]=d.split('-');
+  const M=['jan.','fév.','mars','avr.','mai','juin','juil.','août','sept.','oct.','nov.','déc.'];
+  return`${parseInt(j)} ${M[parseInt(m)-1]} ${y}`;
 }
 
-// ==========================================
-// SÉANCES
-// ==========================================
-function formatDate(d) {
-  if (!d) return '';
-  const [y,m,j] = d.split('-');
-  const mois = ['jan.','fév.','mars','avr.','mai','juin','juil.','août','sept.','oct.','nov.','déc.'];
-  return `${parseInt(j)} ${mois[parseInt(m)-1]} ${y}`;
-}
-
-function renderSeances() {
-  const list = document.getElementById('seance-list');
-  const q = (document.getElementById('search-seance')||{}).value?.toLowerCase()||'';
-  const sorted = [...state.seances].sort((a,b)=>a.num-b.num);
-  const filtered = sorted.filter(s =>
-    (s.objectif||'').toLowerCase().includes(q) ||
-    String(s.num).includes(q) ||
-    (s.date||'').includes(q)
-  );
-  if (!filtered.length) {
-    list.innerHTML = '<div class="empty"><div class="icon">📋</div><div>Aucune séance. Créez la première !</div></div>';
-    return;
-  }
-  list.innerHTML = filtered.map(s => {
-    const nbP = Object.values(state.presences[s.id]||{}).filter(v=>v==='Présent').length;
-    return `<div class="seance-item" onclick="openEditSeance('${s.id}')">
-      <div class="seance-num">S${s.num}</div>
-      <div class="seance-info">
-        <div class="seance-title">${s.objectif||'Sans titre'}</div>
-        <div class="seance-date">${s.date?formatDate(s.date):'Date non définie'}</div>
-      </div>
-      <div class="seance-meta">
-        <span class="chip chip-green">${nbP}/${state.eleves.length} présents</span>
-        ${s.bilan?'<span class="chip chip-blue">Bilan ✓</span>':''}
-      </div>
+function renderSeances(){
+  const el=document.getElementById('slist');
+  const q=(document.getElementById('srch')||{}).value?.toLowerCase()||'';
+  const sorted=[...state.seances].sort((a,b)=>a.num-b.num).filter(s=>(s.objectif||'').toLowerCase().includes(q)||String(s.num).includes(q));
+  if(!sorted.length){el.innerHTML='<div class="empty"><div class="icon">📋</div><div>Aucune séance. Créez la première !</div></div>';return;}
+  el.innerHTML=sorted.map(s=>{
+    const nbP=Object.values(state.presences[s.id]||{}).filter(v=>v==='Présent').length;
+    return`<div class="si" onclick="openEditS('${s.id}')">
+      <div class="si-num">S${s.num}</div>
+      <div class="si-info"><div class="si-title">${s.objectif||'Sans titre'}</div><div class="si-date">${s.date?fmtDate(s.date):'Date non définie'}</div></div>
+      <div class="si-meta"><span class="chip c-gr">${nbP}/${state.eleves.length}</span>${s.bilan?'<span class="chip c-bl">Bilan ✓</span>':''}</div>
     </div>`;
   }).join('');
 }
 
-// ==========================================
-// APPEL
-// ==========================================
-function renderAppelList() {
-  const list = document.getElementById('appel-seance-list');
-  const sorted = [...state.seances].sort((a,b)=>a.num-b.num);
-  if (!sorted.length) { list.innerHTML='<div style="color:#6b7280;font-size:0.85rem;">Aucune séance créée.</div>'; return; }
-  list.innerHTML = sorted.map(s => `
-    <div class="seance-item" onclick="showAppel('${s.id}')" id="appel-btn-${s.id}">
-      <div class="seance-num" style="background:#1a1d27;color:#6b7280;border:1px solid #2a2f42;">S${s.num}</div>
-      <div class="seance-info">
-        <div class="seance-title" style="font-size:0.85rem;">${s.objectif||'Sans titre'}</div>
-        <div class="seance-date">${s.date?formatDate(s.date):''}</div>
-      </div>
+function renderApList(){
+  const el=document.getElementById('ap-slist');
+  const sorted=[...state.seances].sort((a,b)=>a.num-b.num);
+  if(!sorted.length){el.innerHTML='<div style="color:#6b7280;font-size:.82rem;">Aucune séance.</div>';return;}
+  el.innerHTML=sorted.map(s=>`
+    <div class="si" onclick="showAppel('${s.id}')" id="ab-${s.id}">
+      <div class="si-num" style="background:#13161f;color:#6b7280;border:1px solid #252836;">S${s.num}</div>
+      <div class="si-info"><div class="si-title" style="font-size:.82rem;">${s.objectif||'Sans titre'}</div><div class="si-date">${s.date?fmtDate(s.date):''}</div></div>
     </div>`).join('');
 }
 
-function showAppel(seanceId) {
-  document.querySelectorAll('#appel-seance-list .seance-item').forEach(el=>el.classList.remove('active-item'));
-  const btn = document.getElementById('appel-btn-'+seanceId);
-  if (btn) btn.classList.add('active-item');
-
-  const s = state.seances.find(x=>x.id===seanceId);
-  if (!s) return;
-  if (!state.presences[seanceId]) state.presences[seanceId]={};
-  if (!state.autoEval[seanceId]) state.autoEval[seanceId]={};
-
-  const sorted = [...state.eleves].sort((a,b)=>a.nom.localeCompare(b.nom));
-  const nbP = sorted.filter(e=>(state.presences[seanceId][e.id]||'Présent')==='Présent').length;
-
-  document.getElementById('appel-content').innerHTML = `
-    <div class="card" style="margin-bottom:1rem;">
+function showAppel(sid){
+  document.querySelectorAll('#ap-slist .si').forEach(e=>e.classList.remove('act'));
+  const btn=document.getElementById('ab-'+sid);if(btn)btn.classList.add('act');
+  const s=state.seances.find(x=>x.id===sid);if(!s)return;
+  if(!state.presences[sid])state.presences[sid]={};
+  if(!state.autoEval[sid])state.autoEval[sid]={};
+  const sorted=[...state.eleves].sort((a,b)=>a.nom.localeCompare(b.nom));
+  const nbP=sorted.filter(e=>(state.presences[sid][e.id]||'Présent')==='Présent').length;
+  document.getElementById('ap-content').innerHTML=`
+    <div class="card" style="margin-bottom:.75rem;">
       <div style="display:flex;align-items:center;gap:1rem;flex-wrap:wrap;">
-        <div>
-          <div style="font-family:'DM Serif Display',serif;font-size:1.2rem;">Séance ${s.num} — ${s.objectif||'Sans titre'}</div>
-          <div style="color:#6b7280;font-size:0.82rem;margin-top:2px;">${s.date?formatDate(s.date):'Date non définie'}</div>
-        </div>
-        <span class="chip chip-green" style="margin-left:auto;">${nbP}/${state.eleves.length} présents</span>
+        <div><div style="font-family:'DM Serif Display',serif;font-size:1.1rem;">S${s.num} — ${s.objectif||'Sans titre'}</div><div style="color:#6b7280;font-size:.78rem;margin-top:2px;">${s.date?fmtDate(s.date):''}</div></div>
+        <span class="chip c-gr" style="margin-left:auto;">${nbP}/${state.eleves.length} présents</span>
       </div>
     </div>
-    <div class="card">
-      <div class="table-wrap">
-        <table>
-          <thead><tr><th>Élève</th><th>Statut</th><th>Auto-éval. (qualité)</th><th>Quantité /4</th></tr></thead>
-          <tbody>
-            ${sorted.map(e => {
-              const pres = state.presences[seanceId][e.id]||'Présent';
-              const ae = state.autoEval[seanceId][e.id]||{};
-              const initials = e.nom.split(' ').map(w=>w[0]).slice(0,2).join('').toUpperCase();
-              const colorIdx = (e.id.charCodeAt(1)||0) % COLORS.length;
-              const dis = pres!=='Présent';
-              return `<tr>
-                <td>
-                  <div class="name-badge">
-                    <div class="avatar" style="background:${COLORS[colorIdx]}22;color:${COLORS[colorIdx]}">${initials}</div>
-                    <span style="font-size:0.85rem;font-weight:500;">${e.nom}</span>
-                    ${e.amenagement?`<span title="${e.amenagement}" style="cursor:help;font-size:0.78rem;">⚠️</span>`:''}
-                  </div>
-                </td>
-                <td>
-                  <select class="status-sel" onchange="setPresence('${seanceId}','${e.id}',this.value)">
-                    ${STATUTS.map(st=>`<option ${st===pres?'selected':''}>${st}</option>`).join('')}
-                  </select>
-                </td>
-                <td>
-                  <select class="status-sel" onchange="setAutoEval('${seanceId}','${e.id}','note',this.value)" ${dis?'disabled':''}>
-                    <option value="">—</option>
-                    ${['Travail insuff.','Fragile','Satisf.','Très satisf.'].map(v=>`<option ${ae.note===v?'selected':''}>${v}</option>`).join('')}
-                  </select>
-                </td>
-                <td>
-                  <input class="note-input" type="number" min="0" max="4" step="0.5"
-                    value="${ae.quantite!==undefined?ae.quantite:''}"
-                    placeholder="—" ${dis?'disabled':''}
-                    onchange="setAutoEval('${seanceId}','${e.id}','quantite',this.value)"
-                    style="width:70px;">
-                </td>
-              </tr>`;
-            }).join('')}
-          </tbody>
-        </table>
-      </div>
-    </div>`;
+    <div class="card"><div class="tw"><table>
+      <thead><tr><th>Élève</th><th>Statut</th><th>Auto-éval.</th><th>Qté /4</th></tr></thead>
+      <tbody>${sorted.map(e=>{
+        const pres=state.presences[sid][e.id]||'Présent';
+        const ae=state.autoEval[sid][e.id]||{};
+        const ini=e.nom.split(' ').map(w=>w[0]).slice(0,2).join('').toUpperCase();
+        const ci=(e.id.charCodeAt(1)||0)%COLORS.length;
+        const dis=pres!=='Présent';
+        return`<tr>
+          <td><div class="nb"><div class="avatar" style="background:${COLORS[ci]}22;color:${COLORS[ci]}">${ini}</div><span style="font-size:.82rem;font-weight:500;">${e.nom}</span>${e.amenagement?`<span title="${e.amenagement}" style="cursor:help;">⚠️</span>`:''}</div></td>
+          <td><select class="ss" onchange="setPres('${sid}','${e.id}',this.value)">${STATUTS.map(st=>`<option${st===pres?' selected':''}>${st}</option>`).join('')}</select></td>
+          <td><select class="ss" onchange="setAE('${sid}','${e.id}','note',this.value)"${dis?' disabled':''}><option value="">—</option>${['Travail insuff.','Fragile','Satisf.','Très satisf.'].map(v=>`<option${ae.note===v?' selected':''}>${v}</option>`).join('')}</select></td>
+          <td><input class="ni" type="number" min="0" max="4" step="0.5" value="${ae.quantite!==undefined?ae.quantite:''}" placeholder="—"${dis?' disabled':''} onchange="setAE('${sid}','${e.id}','quantite',this.value)" style="width:65px;"></td>
+        </tr>`;
+      }).join('')}</tbody>
+    </table></div></div>`;
 }
 
-function setPresence(seanceId, eleveId, val) {
-  if (!state.presences[seanceId]) state.presences[seanceId]={};
-  state.presences[seanceId][eleveId] = val;
-  save(); renderStats(); showAppel(seanceId);
+function setPres(sid,eid,val){
+  if(!state.presences[sid])state.presences[sid]={};
+  state.presences[sid][eid]=val;save();renderStats();showAppel(sid);
+}
+function setAE(sid,eid,f,v){
+  if(!state.autoEval[sid])state.autoEval[sid]={};
+  if(!state.autoEval[sid][eid])state.autoEval[sid][eid]={};
+  state.autoEval[sid][eid][f]=v;save();
 }
 
-function setAutoEval(seanceId, eleveId, field, val) {
-  if (!state.autoEval[seanceId]) state.autoEval[seanceId]={};
-  if (!state.autoEval[seanceId][eleveId]) state.autoEval[seanceId][eleveId]={};
-  state.autoEval[seanceId][eleveId][field] = val;
-  save();
-}
-
-// ==========================================
-// ÉLÈVES
-// ==========================================
-function renderEleveTable() {
-  const tbody = document.getElementById('eleve-table-body');
-  if (!state.eleves.length) {
-    tbody.innerHTML='<tr><td colspan="5" style="text-align:center;color:#6b7280;padding:2rem;">Aucun élève. Ajoutez-en un !</td></tr>';
-    return;
-  }
-  const noteMap={'Travail insuff.':1,'Fragile':2,'Satisf.':3,'Très satisf.':4};
-  const sorted = [...state.eleves].sort((a,b)=>a.nom.localeCompare(b.nom));
-  tbody.innerHTML = sorted.map(e => {
-    const colorIdx = (e.id.charCodeAt(1)||0) % COLORS.length;
-    const initials = e.nom.split(' ').map(w=>w[0]).slice(0,2).join('').toUpperCase();
-    const notes = state.seances.map(s=>{ const ae=(state.autoEval[s.id]||{})[e.id]||{}; return ae.note?noteMap[ae.note]:null; }).filter(n=>n!==null);
-    const moyAE = notes.length>0 ? (notes.reduce((a,b)=>a+b,0)/notes.length).toFixed(1) : null;
-    return `<tr>
-      <td><div class="name-badge">
-        <div class="avatar" style="background:${COLORS[colorIdx]}22;color:${COLORS[colorIdx]}">${initials}</div>
-        <span style="font-weight:500;font-size:0.88rem;">${e.nom}</span>
-      </div></td>
-      <td style="font-size:0.82rem;color:${e.amenagement?'#ffd166':'#6b7280'};">${e.amenagement||'—'}</td>
-      <td>${moyAE!==null?`<span class="note-display ${parseFloat(moyAE)>=3?'note-high':parseFloat(moyAE)>=2?'note-mid':'note-low'}">${moyAE}/4</span>`:'<span style="color:#6b7280">—</span>'}</td>
-      <td>${e.noteFinale!=null?noteDisp(e.noteFinale,20):'<span style="color:#6b7280">non saisie</span>'}</td>
-      <td><button class="btn btn-ghost btn-sm" onclick="openEditEleve('${e.id}')">✏️ Modifier</button></td>
+function renderEleves(){
+  const tb=document.getElementById('el-tbody');
+  if(!state.eleves.length){tb.innerHTML='<tr><td colspan="5" style="text-align:center;color:#6b7280;padding:2rem;">Aucun élève.</td></tr>';return;}
+  const nm={'Travail insuff.':1,'Fragile':2,'Satisf.':3,'Très satisf.':4};
+  tb.innerHTML=[...state.eleves].sort((a,b)=>a.nom.localeCompare(b.nom)).map(e=>{
+    const ci=(e.id.charCodeAt(1)||0)%COLORS.length;
+    const ini=e.nom.split(' ').map(w=>w[0]).slice(0,2).join('').toUpperCase();
+    const notes=state.seances.map(s=>{const ae=(state.autoEval[s.id]||{})[e.id]||{};return ae.note?nm[ae.note]:null;}).filter(n=>n!==null);
+    const moyAE=notes.length>0?(notes.reduce((a,b)=>a+b,0)/notes.length).toFixed(1):null;
+    return`<tr>
+      <td><div class="nb"><div class="avatar" style="background:${COLORS[ci]}22;color:${COLORS[ci]}">${ini}</div><span style="font-weight:500;font-size:.85rem;">${e.nom}</span></div></td>
+      <td style="font-size:.78rem;color:${e.amenagement?'#ffd166':'#6b7280'};">${e.amenagement||'—'}</td>
+      <td>${moyAE!==null?`<span class="nd ${parseFloat(moyAE)>=3?'nh':parseFloat(moyAE)>=2?'nm':'nl'}">${moyAE}/4</span>`:'<span style="color:#6b7280">—</span>'}</td>
+      <td>${e.noteFinale!=null?ndsp(e.noteFinale,20):'<span style="color:#6b7280">—</span>'}</td>
+      <td><button class="btn btn-g btn-sm" onclick="openEditE('${e.id}')">✏️</button></td>
     </tr>`;
   }).join('');
 }
 
-function noteDisp(n, max) {
-  const p=n/max;
-  const cls=p>=0.7?'note-high':p>=0.5?'note-mid':'note-low';
-  return `<span class="note-display ${cls}">${n}/${max}</span>`;
-}
+function ndsp(n,max){const p=n/max;return`<span class="nd ${p>=.7?'nh':p>=.5?'nm':'nl'}">${n}/${max}</span>`;}
 
-// ==========================================
-// NOTES
-// ==========================================
-function renderNotesTable() {
-  const tbody = document.getElementById('notes-table-body');
-  const noteMap={'Travail insuff.':1,'Fragile':2,'Satisf.':3,'Très satisf.':4};
-  const sorted = [...state.eleves].sort((a,b)=>a.nom.localeCompare(b.nom));
-  tbody.innerHTML = sorted.map(e => {
-    let pres=0,abs=0,disp=0,quantities=[],autoEvals=[];
-    state.seances.forEach(s => {
-      const st=(state.presences[s.id]||{})[e.id]||'Présent';
-      if(st==='Présent')pres++; else if(st==='Absent')abs++; else if(st==='Dispensé')disp++;
-      const ae=(state.autoEval[s.id]||{})[e.id]||{};
-      if(ae.quantite!==undefined&&ae.quantite!=='')quantities.push(parseFloat(ae.quantite));
-      if(ae.note)autoEvals.push(noteMap[ae.note]);
-    });
-    const moyQ=quantities.length>0?(quantities.reduce((a,b)=>a+b,0)/quantities.length).toFixed(1):'—';
-    const moyAE=autoEvals.length>0?(autoEvals.reduce((a,b)=>a+b,0)/autoEvals.length).toFixed(1):'—';
-    return `<tr>
-      <td style="font-weight:500;">${e.nom}</td>
-      <td><span class="chip chip-green">${pres}</span></td>
-      <td><span class="chip chip-red">${abs}</span></td>
-      <td><span class="chip chip-yellow">${disp}</span></td>
-      <td><input class="note-input" type="number" min="0" max="4" step="0.5" value="${moyQ!=='—'?moyQ:''}" placeholder="—" style="width:65px;" onchange="setNoteFinale('${e.id}',this.value)"></td>
-      <td>${moyAE!=='—'?`<span class="note-display ${parseFloat(moyAE)>=3?'note-high':parseFloat(moyAE)>=2?'note-mid':'note-low'}">${moyAE}/4</span>`:'<span style="color:#6b7280">—</span>'}</td>
-      <td><input class="note-input" type="number" min="0" max="20" step="0.5" value="${e.noteFinale!=null?e.noteFinale:''}" placeholder="—" style="width:70px;" onchange="setNoteFinale('${e.id}',this.value)"></td>
-    </tr>`;
-  }).join('');
-}
-
-function setNoteFinale(eleveId, val) {
-  const e = state.eleves.find(x=>x.id===eleveId);
-  if (e) { e.noteFinale=val===''?null:parseFloat(val); save(); renderStats(); }
-}
-
-// ==========================================
-// MODALS
-// ==========================================
-function openModal(id) { document.getElementById(id).classList.add('open'); }
-function closeModal(id) { document.getElementById(id).classList.remove('open'); }
-document.querySelectorAll('.modal-bg').forEach(bg => {
-  bg.addEventListener('click', e => { if(e.target===bg) bg.classList.remove('open'); });
-});
-
-// ==========================================
-// CRUD SÉANCES
-// ==========================================
-function saveSeance() {
-  const objectif = document.getElementById('f-objectif').value.trim();
-  if (!objectif) { alert("L'objectif est requis."); return; }
-  state.seances.push({
-    id:'s'+Date.now(),
-    num:parseInt(document.getElementById('f-num').value)||(state.seances.length+1),
-    date:document.getElementById('f-date').value,
-    objectif,
-    consignes:document.getElementById('f-consignes').value,
-    criteres:document.getElementById('f-criteres').value,
-    bilan:document.getElementById('f-bilan').value,
-  });
-  save(); closeModal('modal-seance');
-  ['f-num','f-date','f-objectif','f-consignes','f-criteres','f-bilan'].forEach(id=>document.getElementById(id).value='');
-  renderAll();
-}
-
-function openEditSeance(id) {
-  const s = state.seances.find(x=>x.id===id);
-  if (!s) return;
-  document.getElementById('edit-seance-id').value=id;
-  document.getElementById('edit-f-num').value=s.num;
-  document.getElementById('edit-f-date').value=s.date;
-  document.getElementById('edit-f-objectif').value=s.objectif;
-  document.getElementById('edit-f-consignes').value=s.consignes;
-  document.getElementById('edit-f-criteres').value=s.criteres;
-  document.getElementById('edit-f-bilan').value=s.bilan;
-  openModal('modal-edit-seance');
-}
-
-function updateSeance() {
-  const id=document.getElementById('edit-seance-id').value;
-  const s=state.seances.find(x=>x.id===id);
-  if (!s) return;
-  s.num=parseInt(document.getElementById('edit-f-num').value)||s.num;
-  s.date=document.getElementById('edit-f-date').value;
-  s.objectif=document.getElementById('edit-f-objectif').value;
-  s.consignes=document.getElementById('edit-f-consignes').value;
-  s.criteres=document.getElementById('edit-f-criteres').value;
-  s.bilan=document.getElementById('edit-f-bilan').value;
-  save(); closeModal('modal-edit-seance'); renderAll();
-}
-
-function deleteSeance() {
-  const id=document.getElementById('edit-seance-id').value;
-  if (!confirm('Supprimer cette séance ?')) return;
-  state.seances=state.seances.filter(s=>s.id!==id);
-  delete state.presences[id]; delete state.autoEval[id];
-  save(); closeModal('modal-edit-seance'); renderAll();
-}
-
-// ==========================================
-// CRUD ÉLÈVES
-// ==========================================
-function saveEleve() {
-  const nom=document.getElementById('f-nom').value.trim();
-  if (!nom) { alert('Le nom est requis.'); return; }
-  state.eleves.push({ id:'e'+Date.now(), nom, amenagement:document.getElementById('f-amenagement').value, noteFinale:null });
-  save(); closeModal('modal-eleve');
-  document.getElementById('f-nom').value='';
-  document.getElementById('f-amenagement').value='';
-  renderAll();
-}
-
-function openEditEleve(id) {
-  const e=state.eleves.find(x=>x.id===id);
-  if (!e) return;
-  document.getElementById('edit-eleve-id').value=id;
-  document.getElementById('edit-f-nom').value=e.nom;
-  document.getElementById('edit-f-amenagement').value=e.amenagement;
-  document.getElementById('edit-f-note').value=e.noteFinale!=null?e.noteFinale:'';
-  openModal('modal-edit-eleve');
-}
-
-function updateEleve() {
-  const id=document.getElementById('edit-eleve-id').value;
-  const e=state.eleves.find(x=>x.id===id);
-  if (!e) return;
-  e.nom=document.getElementById('edit-f-nom').value;
-  e.amenagement=document.getElementById('edit-f-amenagement').value;
-  const n=document.getElementById('edit-f-note').value;
-  e.noteFinale=n===''?null:parseFloat(n);
-  save(); closeModal('modal-edit-eleve'); renderAll();
-}
-
-function deleteEleve() {
-  const id=document.getElementById('edit-eleve-id').value;
-  if (!confirm('Supprimer cet élève ?')) return;
-  state.eleves=state.eleves.filter(e=>e.id!==id);
-  save(); closeModal('modal-edit-eleve'); renderAll();
-}
-
-// ==========================================
-// EXPORT CSV
-// ==========================================
-function exportCSV() {
-  const noteMap={'Travail insuff.':1,'Fragile':2,'Satisf.':3,'Très satisf.':4};
-  const headers=['Élève','Aménagement','Présences','Absences','Dispensés','Moy. Quantité/4','Moy. Auto-éval./4','Note finale/20'];
-  const rows=[...state.eleves].sort((a,b)=>a.nom.localeCompare(b.nom)).map(e=>{
-    let pres=0,abs=0,disp=0,q=[],ae=[];
+function renderNotes(){
+  const tb=document.getElementById('nt-tbody');
+  const nm={'Travail insuff.':1,'Fragile':2,'Satisf.':3,'Très satisf.':4};
+  tb.innerHTML=[...state.eleves].sort((a,b)=>a.nom.localeCompare(b.nom)).map(e=>{
+    let pres=0,abs=0,disp=0,qs=[],aes=[];
     state.seances.forEach(s=>{
       const st=(state.presences[s.id]||{})[e.id]||'Présent';
       if(st==='Présent')pres++;else if(st==='Absent')abs++;else if(st==='Dispensé')disp++;
-      const a=(state.autoEval[s.id]||{})[e.id]||{};
-      if(a.quantite!==undefined&&a.quantite!=='')q.push(parseFloat(a.quantite));
-      if(a.note)ae.push(noteMap[a.note]);
+      const ae=(state.autoEval[s.id]||{})[e.id]||{};
+      if(ae.quantite!==undefined&&ae.quantite!=='')qs.push(parseFloat(ae.quantite));
+      if(ae.note)aes.push(nm[ae.note]);
     });
-    const moyQ=q.length>0?(q.reduce((a,b)=>a+b,0)/q.length).toFixed(1):'';
-    const moyAE=ae.length>0?(ae.reduce((a,b)=>a+b,0)/ae.length).toFixed(1):'';
-    return [e.nom,e.amenagement,pres,abs,disp,moyQ,moyAE,e.noteFinale??''].join(';');
-  });
-  const csv=[headers.join(';'),...rows].join('\n');
-  const a=document.createElement('a');
-  a.href='data:text/csv;charset=utf-8,\uFEFF'+encodeURIComponent(csv);
-  a.download='suivi_eps.csv'; a.click();
+    const mQ=qs.length>0?(qs.reduce((a,b)=>a+b,0)/qs.length).toFixed(1):'—';
+    const mA=aes.length>0?(aes.reduce((a,b)=>a+b,0)/aes.length).toFixed(1):'—';
+    return`<tr>
+      <td style="font-weight:500;font-size:.85rem;">${e.nom}</td>
+      <td><span class="chip c-gr">${pres}</span></td>
+      <td><span class="chip c-rd">${abs}</span></td>
+      <td><span class="chip c-yw">${disp}</span></td>
+      <td><input class="ni" type="number" min="0" max="4" step="0.5" value="${mQ!=='—'?mQ:''}" placeholder="—" style="width:60px;" onchange="setNF('${e.id}',this.value)"></td>
+      <td>${mA!=='—'?`<span class="nd ${parseFloat(mA)>=3?'nh':parseFloat(mA)>=2?'nm':'nl'}">${mA}/4</span>`:'<span style="color:#6b7280">—</span>'}</td>
+      <td><input class="ni" type="number" min="0" max="20" step="0.5" value="${e.noteFinale!=null?e.noteFinale:''}" placeholder="—" style="width:65px;" onchange="setNF('${e.id}',this.value)"></td>
+    </tr>`;
+  }).join('');
 }
 
-// ==========================================
-// START
-// ==========================================
+function setNF(eid,v){const e=state.eleves.find(x=>x.id===eid);if(e){e.noteFinale=v===''?null:parseFloat(v);save();renderStats();}}
+
+function openM(id){document.getElementById(id).classList.add('open');}
+function closeM(id){document.getElementById(id).classList.remove('open');}
+document.querySelectorAll('.mb').forEach(bg=>bg.addEventListener('click',e=>{if(e.target===bg)bg.classList.remove('open');}));
+
+function saveSeance(){
+  const o=document.getElementById('fo').value.trim();if(!o){alert('Objectif requis');return;}
+  state.seances.push({id:'s'+Date.now(),num:parseInt(document.getElementById('fn').value)||(state.seances.length+1),date:document.getElementById('fd').value,objectif:o,consignes:document.getElementById('fc').value,criteres:document.getElementById('fcr').value,bilan:document.getElementById('fb').value});
+  save();closeM('m-seance');['fn','fd','fo','fc','fcr','fb'].forEach(id=>document.getElementById(id).value='');renderAll();
+}
+
+function openEditS(id){
+  const s=state.seances.find(x=>x.id===id);if(!s)return;
+  document.getElementById('es-id').value=id;document.getElementById('es-n').value=s.num;document.getElementById('es-d').value=s.date;
+  document.getElementById('es-o').value=s.objectif;document.getElementById('es-c').value=s.consignes;document.getElementById('es-cr').value=s.criteres;document.getElementById('es-b').value=s.bilan;
+  openM('m-edit-seance');
+}
+
+function updSeance(){
+  const id=document.getElementById('es-id').value;const s=state.seances.find(x=>x.id===id);if(!s)return;
+  s.num=parseInt(document.getElementById('es-n').value)||s.num;s.date=document.getElementById('es-d').value;
+  s.objectif=document.getElementById('es-o').value;s.consignes=document.getElementById('es-c').value;
+  s.criteres=document.getElementById('es-cr').value;s.bilan=document.getElementById('es-b').value;
+  save();closeM('m-edit-seance');renderAll();
+}
+
+function delSeance(){
+  const id=document.getElementById('es-id').value;if(!confirm('Supprimer cette séance ?'))return;
+  state.seances=state.seances.filter(s=>s.id!==id);delete state.presences[id];delete state.autoEval[id];
+  save();closeM('m-edit-seance');renderAll();
+}
+
+function saveEleve(){
+  const n=document.getElementById('en').value.trim();if(!n){alert('Nom requis');return;}
+  state.eleves.push({id:'e'+Date.now(),nom:n,amenagement:document.getElementById('ea').value,noteFinale:null});
+  save();closeM('m-eleve');document.getElementById('en').value='';document.getElementById('ea').value='';renderAll();
+}
+
+function openEditE(id){
+  const e=state.eleves.find(x=>x.id===id);if(!e)return;
+  document.getElementById('ee-id').value=id;document.getElementById('ee-n').value=e.nom;
+  document.getElementById('ee-a').value=e.amenagement;document.getElementById('ee-note').value=e.noteFinale!=null?e.noteFinale:'';
+  openM('m-edit-eleve');
+}
+
+function updEleve(){
+  const id=document.getElementById('ee-id').value;const e=state.eleves.find(x=>x.id===id);if(!e)return;
+  e.nom=document.getElementById('ee-n').value;e.amenagement=document.getElementById('ee-a').value;
+  const n=document.getElementById('ee-note').value;e.noteFinale=n===''?null:parseFloat(n);
+  save();closeM('m-edit-eleve');renderAll();
+}
+
+function delEleve(){
+  const id=document.getElementById('ee-id').value;if(!confirm('Supprimer ?'))return;
+  state.eleves=state.eleves.filter(e=>e.id!==id);save();closeM('m-edit-eleve');renderAll();
+}
+
+function exportCSV(){
+  const nm={'Travail insuff.':1,'Fragile':2,'Satisf.':3,'Très satisf.':4};
+  const h=['Élève','Aménagement','Présences','Absences','Dispensés','Moy.Qté/4','Moy.AutoEval/4','Note/20'];
+  const rows=[...state.eleves].sort((a,b)=>a.nom.localeCompare(b.nom)).map(e=>{
+    let p=0,ab=0,d=0,q=[],ae=[];
+    state.seances.forEach(s=>{
+      const st=(state.presences[s.id]||{})[e.id]||'Présent';
+      if(st==='Présent')p++;else if(st==='Absent')ab++;else if(st==='Dispensé')d++;
+      const a=(state.autoEval[s.id]||{})[e.id]||{};
+      if(a.quantite!==undefined&&a.quantite!=='')q.push(parseFloat(a.quantite));
+      if(a.note)ae.push(nm[a.note]);
+    });
+    return[e.nom,e.amenagement,p,ab,d,q.length?(q.reduce((a,b)=>a+b,0)/q.length).toFixed(1):'',ae.length?(ae.reduce((a,b)=>a+b,0)/ae.length).toFixed(1):'',e.noteFinale??''].join(';');
+  });
+  const a=document.createElement('a');
+  a.href='data:text/csv;charset=utf-8,\uFEFF'+encodeURIComponent([h.join(';'),...rows].join('\n'));
+  a.download=`suivi_${CTX.cls?.id||'eps'}_${CTX.apsa?.id||''}.csv`;a.click();
+}
+
 accInit();
 </script>
 
