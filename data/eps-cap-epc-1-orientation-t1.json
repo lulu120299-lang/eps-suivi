@@ -176,7 +176,56 @@
       ]
     }
   ],
-  "presences": {},
-  "autoEval": {},
-  "seanceObjectifs": {}
+  "presences": {
+    "s001": {
+      "e005": "Absent",
+      "e008": "Absent"
+    },
+    "s002": {
+      "e003": "Absent",
+      "e004": "Absent",
+      "e005": "Absent",
+      "e008": "Absent",
+      "e009": "Absent"
+    }
+  },
+  "autoEval": {
+    "s001": {},
+    "s002": {
+      "e001": {
+        "maitrise1": "Maîtrise fragile",
+        "qte": "3"
+      },
+      "e002": {
+        "qte": "3",
+        "maitrise1": "Maîtrise fragile"
+      },
+      "e006": {
+        "qte": "1",
+        "maitrise1": "Maîtrise insuffisante"
+      },
+      "e010": {
+        "qte": "4",
+        "maitrise1": "Maîtrise satisfaisante"
+      },
+      "e011": {
+        "qte": "4",
+        "maitrise1": "Maîtrise satisfaisante"
+      },
+      "e012": {
+        "qte": "3",
+        "maitrise1": "Maîtrise satisfaisante"
+      },
+      "e007": {
+        "maitrise1": "Maîtrise insuffisante"
+      }
+    }
+  },
+  "seanceObjectifs": {
+    "s001": {},
+    "s002": {
+      "obj1": "Se repérer dans l'espace",
+      "obj2": "Créer un itinéraire simple"
+    }
+  }
 }
