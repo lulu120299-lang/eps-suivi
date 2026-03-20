@@ -194,30 +194,37 @@
     "s002": {
       "e001": {
         "maitrise1": "Maîtrise fragile",
-        "qte": "3"
+        "qte": "3",
+        "maitrise2": "Maîtrise fragile"
       },
       "e002": {
         "qte": "3",
-        "maitrise1": "Maîtrise fragile"
+        "maitrise1": "Maîtrise insuffisante",
+        "maitrise2": "Maîtrise fragile"
       },
       "e006": {
         "qte": "1",
-        "maitrise1": "Maîtrise insuffisante"
+        "maitrise1": "Maîtrise insuffisante",
+        "maitrise2": "Maîtrise insuffisante"
       },
       "e010": {
         "qte": "4",
-        "maitrise1": "Maîtrise satisfaisante"
+        "maitrise1": "Maîtrise satisfaisante",
+        "maitrise2": "Maîtrise fragile"
       },
       "e011": {
         "qte": "4",
-        "maitrise1": "Maîtrise satisfaisante"
+        "maitrise1": "Maîtrise satisfaisante",
+        "maitrise2": "Maîtrise fragile"
       },
       "e012": {
         "qte": "3",
-        "maitrise1": "Maîtrise satisfaisante"
+        "maitrise1": "Maîtrise satisfaisante",
+        "maitrise2": "Maîtrise satisfaisante"
       },
       "e007": {
-        "maitrise1": "Maîtrise insuffisante"
+        "maitrise1": "Maîtrise insuffisante",
+        "maitrise2": "Maîtrise insuffisante"
       }
     }
   },
