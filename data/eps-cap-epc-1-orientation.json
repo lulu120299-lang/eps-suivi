@@ -102,7 +102,7 @@
     {
       "id": "s002",
       "num": 2,
-      "date": "",
+      "date": "2026-03-11",
       "objectif": "Construction d'un itinéraire — Anticipation",
       "bilan": "Bonne séance dans l’ensemble, séance évaluation diagnostique ",
       "parties": [
@@ -148,6 +148,35 @@
   },
   "autoEval": {
     "s001": {},
-    "s002": {}
+    "s002": {
+      "e007": {
+        "note": "Travail insuff.",
+        "quantite": "1"
+      },
+      "e006": {
+        "note": "Travail insuff.",
+        "quantite": "1"
+      },
+      "e001": {
+        "note": "Satisf.",
+        "quantite": "3"
+      },
+      "e002": {
+        "note": "Fragile",
+        "quantite": "2"
+      },
+      "e010": {
+        "note": "Satisf.",
+        "quantite": "2"
+      },
+      "e011": {
+        "note": "Satisf.",
+        "quantite": "2"
+      },
+      "e012": {
+        "note": "Satisf.",
+        "quantite": "3"
+      }
+    }
   }
 }
