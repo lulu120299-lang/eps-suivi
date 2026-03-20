@@ -1,0 +1,138 @@
+{
+  "eleves": [
+    {
+      "id": "e001",
+      "nom": "BEN ALI Dhiaeddine",
+      "amenagement": "",
+      "noteFinale": null
+    },
+    {
+      "id": "e002",
+      "nom": "BOUTELOUP Nathan",
+      "amenagement": "",
+      "noteFinale": null
+    },
+    {
+      "id": "e003",
+      "nom": "CAMARA Mohamed",
+      "amenagement": "",
+      "noteFinale": null
+    },
+    {
+      "id": "e004",
+      "nom": "FONGILU Geremy-Pedro",
+      "amenagement": "",
+      "noteFinale": null
+    },
+    {
+      "id": "e005",
+      "nom": "HADDOU Yassine",
+      "amenagement": "",
+      "noteFinale": null
+    },
+    {
+      "id": "e006",
+      "nom": "KEDADRA Rihab",
+      "amenagement": "PAI",
+      "noteFinale": null
+    },
+    {
+      "id": "e007",
+      "nom": "KINDEL Zelya",
+      "amenagement": "",
+      "noteFinale": null
+    },
+    {
+      "id": "e008",
+      "nom": "NOBLE Lubin",
+      "amenagement": "",
+      "noteFinale": null
+    },
+    {
+      "id": "e009",
+      "nom": "RODULFO Flavio",
+      "amenagement": "",
+      "noteFinale": null
+    },
+    {
+      "id": "e010",
+      "nom": "RULLIAT CRESPO Tymeo",
+      "amenagement": "Asthmatique",
+      "noteFinale": null
+    },
+    {
+      "id": "e011",
+      "nom": "SBARDELLA--CHEVALIER Andréa",
+      "amenagement": "Asthmatique",
+      "noteFinale": null
+    },
+    {
+      "id": "e012",
+      "nom": "SVONGCHAN Juan",
+      "amenagement": "",
+      "noteFinale": null
+    }
+  ],
+  "seances": [
+    {
+      "id": "s001",
+      "num": 1,
+      "date": "",
+      "objectif": "Découverte — Se repérer dans l'espace",
+      "bilan": "",
+      "parties": [
+        {
+          "id": "p01",
+          "titre": "Échauffement",
+          "objectif": "Préparer le corps et les articulations",
+          "consignes": "5 min course légère, mobilité (bras, épaules, chevilles), inclure passes actives et petits déplacements latéraux",
+          "criteres": "Active, amplitude correcte",
+          "bilan": ""
+        },
+        {
+          "id": "p02",
+          "titre": "Situation principale",
+          "objectif": "Se repérer dans l'espace et identifier l'emplacement d'une balise",
+          "consignes": "Retrouver 6 balises disposées autour du lycée (zone sécurisée). Travail par binôme imposé (mix profils). Carte donnée avant départ. Temps maximum : 20 min. Retour obligatoire au point central. Respecter les règles de sécurité.",
+          "criteres": "Points correctement trouvés. Orienter la carte au nord. Utiliser les lignes directrices (bâtiments, murs). Se placer en restant dans sa vision.",
+          "bilan": ""
+        }
+      ]
+    },
+    {
+      "id": "s002",
+      "num": 2,
+      "date": "",
+      "objectif": "Construction d'un itinéraire — Anticipation",
+      "bilan": "",
+      "parties": [
+        {
+          "id": "p03",
+          "titre": "Échauffement",
+          "objectif": "Préparation physique et mentale",
+          "consignes": "Course légère + passes actives et petits déplacements",
+          "criteres": "Engagement moteur",
+          "bilan": ""
+        },
+        {
+          "id": "p04",
+          "titre": "Apprentissage",
+          "objectif": "Identifier et créer un itinéraire le plus rapide et adapté",
+          "consignes": "Analyser la carte avant le départ (échelle, relief, lignes directrices, obstacles). Identifier plusieurs choix dès le départ et sélectionner le plus pertinent. Construire une stratégie globale (ordre des postes). Utiliser des points d'appui/d'attaque pour progresser. Conduire le parcours sans assistance extérieure.",
+          "criteres": "Stratégie globale construite. Points d'appui utilisés. Parcours conduit en autonomie.",
+          "bilan": ""
+        },
+        {
+          "id": "p05",
+          "titre": "Bilan collectif",
+          "objectif": "Verbaliser et argumenter ses choix",
+          "consignes": "Chaque binôme présente son itinéraire. Identifier rapidement une erreur éventuelle.",
+          "criteres": "Capacité à expliquer et argumenter ses choix.",
+          "bilan": ""
+        }
+      ]
+    }
+  ],
+  "presences": {},
+  "autoEval": {}
+}
