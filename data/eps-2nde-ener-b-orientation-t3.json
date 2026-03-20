@@ -1,0 +1,15 @@
+{
+  "seances": [],
+  "eleves": [
+    {
+      "id": "e1774043076078",
+      "nom": "AIT-ALI Hichem",
+      "amenagement": "",
+      "fiche": null,
+      "noteFinale": null
+    }
+  ],
+  "presences": {},
+  "autoEval": {},
+  "seanceObjectifs": {}
+}
