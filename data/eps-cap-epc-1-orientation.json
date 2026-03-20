@@ -140,7 +140,10 @@
     },
     "s002": {
       "e004": "Absent",
-      "e003": "Absent"
+      "e003": "Absent",
+      "e005": "Absent",
+      "e008": "Absent",
+      "e009": "Absent"
     }
   },
   "autoEval": {
