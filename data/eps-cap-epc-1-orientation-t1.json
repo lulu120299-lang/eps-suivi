@@ -179,7 +179,8 @@
   "presences": {
     "s001": {
       "e005": "Absent",
-      "e008": "Absent"
+      "e008": "Absent",
+      "e001": "Présent"
     },
     "s002": {
       "e003": "Absent",
