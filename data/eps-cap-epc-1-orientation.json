@@ -77,7 +77,7 @@
     {
       "id": "s001",
       "num": 1,
-      "date": "",
+      "date": "2026-02-25",
       "objectif": "Découverte — Se repérer dans l'espace",
       "bilan": "",
       "parties": [
@@ -133,6 +133,18 @@
       ]
     }
   ],
-  "presences": {},
-  "autoEval": {}
+  "presences": {
+    "s001": {
+      "e005": "Absent",
+      "e008": "Absent"
+    },
+    "s002": {
+      "e004": "Absent",
+      "e003": "Absent"
+    }
+  },
+  "autoEval": {
+    "s001": {},
+    "s002": {}
+  }
 }
