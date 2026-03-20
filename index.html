@@ -449,9 +449,7 @@ textarea{resize:vertical;min-height:70px;}
       <div class="fgrp"><label>Numéro</label><input type="number" id="fn" min="1" max="30"></div>
       <div class="fgrp"><label>Date</label><input type="date" id="fd"></div>
       <div class="fgrp full"><label>Titre / Thème général</label><input type="text" id="fo" placeholder="Ex: Orientation débutant — Se repérer dans l'espace…"></div>
-      <div class="fgrp full"><label>Critères de réussite généraux</label><textarea id="fcr" style="min-height:55px;" placeholder="Ce que l'élève doit réussir pour que la séance soit une réussite…"></textarea></div>
-      <div class="fgrp full"><label>Contenus d'enseignement</label><textarea id="fce" style="min-height:55px;" placeholder="Ce que j'enseigne concrètement : notions, techniques, savoirs…"></textarea></div>
-      <div class="fgrp full"><label>Bilan général</label><textarea id="fb" style="min-height:55px;" placeholder="Observations globales après la séance…"></textarea></div>
+      <div class="fgrp full"><label>Bilan général de séance</label><textarea id="fb" style="min-height:55px;" placeholder="Observations globales après la séance…"></textarea></div>
     </div>
 
     <div class="sec-title">AFLP travaillés cette séance</div>
@@ -475,9 +473,7 @@ textarea{resize:vertical;min-height:70px;}
       <div class="fgrp"><label>Numéro</label><input type="number" id="es-n"></div>
       <div class="fgrp"><label>Date</label><input type="date" id="es-d"></div>
       <div class="fgrp full"><label>Titre</label><input type="text" id="es-o"></div>
-      <div class="fgrp full"><label>Critères de réussite</label><textarea id="es-cr" style="min-height:55px;"></textarea></div>
-      <div class="fgrp full"><label>Contenus d'enseignement</label><textarea id="es-ce" style="min-height:55px;"></textarea></div>
-      <div class="fgrp full"><label>Bilan</label><textarea id="es-b" style="min-height:55px;"></textarea></div>
+      <div class="fgrp full"><label>Bilan général</label><textarea id="es-b" style="min-height:55px;"></textarea></div>
     </div>
 
     <div class="sec-title">AFLP travaillés cette séance</div>
@@ -637,90 +633,90 @@ const CA_GROUPS=[
 ];
 const APSA_FLAT=CA_GROUPS.flatMap(g=>g.apsa.map(a=>({...a,ca:g.ca,caFull:g.caFull,caColor:g.color})));
 
-// AFLP par filière et CA
+// AFLP par filière et CA — textes officiels BO 2019
 const AFLP={
   bacpro:{
     CA1:{titre:'CA1 — Réaliser sa performance motrice maximale, mesurable à une échéance donnée',items:[
-      {n:'AFLP 1',t:'Produire et répartir lucidement ses efforts en mobilisant de façon optimale ses ressources pour gagner ou battre un record.'},
+      {n:'AFLP 1',t:'Produire et répartir lucidement ses efforts en mobilisant de façon optimale ses ressources pour gagner ou pour battre un record.'},
       {n:'AFLP 2',t:'Connaître et mobiliser les techniques efficaces pour produire la meilleure performance possible.'},
-      {n:'AFLP 3',t:"Préparer et réguler sa performance en utilisant les connaissances sur soi et sur l'activité."},
-      {n:'AFLP 4',t:'Assumer des rôles sociaux pour organiser une épreuve de production de performance ou un concours.'},
-      {n:'AFLP 5',t:'Assurer la prise en charge de sa préparation et de son échauffement.'},
-      {n:'AFLP 6',t:'Développer sa capacité à verbaliser ses choix et à argumenter pour convaincre.'},
+      {n:'AFLP 3',t:"Analyser sa performance pour adapter son projet et progresser."},
+      {n:'AFLP 4',t:"Assumer des rôles sociaux pour organiser une épreuve de production de performance, un concours."},
+      {n:'AFLP 5',t:"Assurer la prise en charge de sa préparation et de celle d'un groupe, de façon autonome pour produire la meilleure performance possible."},
+      {n:'AFLP 6',t:"Connaître son niveau pour établir un projet de performance située culturellement."},
     ]},
     CA2:{titre:"CA2 — Adapter son déplacement à des environnements variés et/ou incertains",items:[
       {n:'AFLP 1',t:"Anticiper et planifier son itinéraire pour concevoir et conduire dans sa totalité un projet de déplacement."},
-      {n:'AFLP 2',t:"Adapter ses déplacements en mobilisant les techniques efficaces pour évoluer en sécurité dans l'environnement."},
-      {n:'AFLP 3',t:"Préparer et réguler son projet de déplacement en utilisant les connaissances sur soi et sur l'activité."},
+      {n:'AFLP 2',t:"Mobiliser des techniques efficaces pour adapter et optimiser son déplacement aux caractéristiques du milieu."},
+      {n:'AFLP 3',t:"Analyser sa prestation pour comprendre les alternatives possibles et ajuster son projet en fonction de ses ressources et de celles du milieu."},
       {n:'AFLP 4',t:"Assumer les rôles sociaux pour organiser la pratique des activités de pleine nature."},
-      {n:'AFLP 5',t:"Assurer la prise en charge de sa préparation et de son échauffement."},
-      {n:'AFLP 6',t:"Développer sa capacité à verbaliser ses choix et à argumenter pour convaincre."},
+      {n:'AFLP 5',t:"Se préparer et maintenir un engagement optimal permettant de garder sa lucidité tout au long de son parcours pour pouvoir réévaluer son itinéraire ou renoncer le cas échéant."},
+      {n:'AFLP 6',t:"Respecter et faire respecter la réglementation et les procédures d'urgence pour les mettre en œuvre dans les différents environnements de pratique."},
     ]},
-    CA3:{titre:'CA3 — Réaliser une prestation corporelle destinée à être vue et appréciée',items:[
+    CA3:{titre:'CA3 — Réaliser une prestation corporelle destinée à être vue et appréciée par autrui',items:[
       {n:'AFLP 1',t:"Accomplir une prestation animée d'une intention dans la perspective d'être jugé et/ou apprécié."},
-      {n:'AFLP 2',t:"Connaître et mobiliser les éléments techniques et artistiques pour produire une prestation de qualité."},
-      {n:'AFLP 3',t:"Préparer et réguler sa prestation en utilisant les connaissances sur soi et sur l'activité."},
-      {n:'AFLP 4',t:"Assumer les rôles inhérents à la pratique artistique et acrobatique, notamment en exprimant et en écoutant des arguments sur la base de critères partagés."},
-      {n:'AFLP 5',t:"Assurer la prise en charge de sa préparation et de son échauffement."},
-      {n:'AFLP 6',t:"Développer sa capacité à verbaliser ses choix et à argumenter pour convaincre."},
+      {n:'AFLP 2',t:"Mobiliser des techniques de plus en plus complexes pour rendre plus fluide la prestation et pour l'enrichir de formes corporelles variées et maîtrisées."},
+      {n:'AFLP 3',t:"Composer et organiser dans le temps et l'espace le déroulement des moments forts et faibles de sa prestation pour se produire devant des spectateurs/juges."},
+      {n:'AFLP 4',t:"Assumer les rôles inhérents à la pratique artistique et acrobatique notamment en exprimant et en écoutant des arguments sur la base de critères partagés, pour situer une prestation."},
+      {n:'AFLP 5',t:"Se préparer et s'engager pour présenter une prestation optimale et sécurisée à une échéance donnée."},
+      {n:'AFLP 6',t:"S'enrichir de la connaissance de productions de qualité issues du patrimoine culturel artistique et gymnique pour progresser dans sa propre pratique et aiguiser son regard de spectateur."},
     ]},
     CA4:{titre:"CA4 — Conduire un affrontement interindividuel ou collectif pour gagner",items:[
       {n:'AFLP 1',t:"Réaliser des choix tactiques et stratégiques pour faire basculer le rapport de force en sa faveur et marquer le point."},
-      {n:'AFLP 2',t:"Connaître et mobiliser les techniques efficaces pour conduire et maîtriser l'affrontement."},
-      {n:'AFLP 3',t:"Préparer et réguler sa performance en utilisant les connaissances sur soi et sur l'activité."},
-      {n:'AFLP 4',t:"Respecter et faire respecter les règles partagées pour que le jeu puisse se dérouler sereinement ; assumer plusieurs rôles sociaux."},
-      {n:'AFLP 5',t:"Assurer la prise en charge de sa préparation et de son échauffement."},
-      {n:'AFLP 6',t:"Développer sa capacité à verbaliser ses choix et à argumenter pour convaincre."},
+      {n:'AFLP 2',t:"Mobiliser des techniques d'attaque efficaces pour se créer et exploiter des occasions de marquer ; résister et neutraliser individuellement ou collectivement l'attaque adverse pour rééquilibrer le rapport de force."},
+      {n:'AFLP 3',t:"Analyser les forces et les faiblesses en présence par l'exploitation de données objectives pour faire des choix tactiques et stratégiques adaptés à une prochaine confrontation."},
+      {n:'AFLP 4',t:"Respecter et faire respecter les règles partagées pour que le jeu puisse se dérouler sereinement ; assumer plusieurs rôles sociaux pour permettre le bon déroulement du jeu."},
+      {n:'AFLP 5',t:"Savoir se préparer, s'entraîner et récupérer pour faire preuve d'autonomie."},
+      {n:'AFLP 6',t:"Porter un regard critique sur les pratiques sportives pour comprendre le sens des pratiques scolaires."},
     ]},
     CA5:{titre:"CA5 — Réaliser et orienter son activité physique pour développer ses ressources et s'entretenir",items:[
       {n:'AFLP 1',t:"Concevoir et mettre en œuvre un projet d'entraînement pour répondre à un mobile personnel de développement."},
-      {n:'AFLP 2',t:"Connaître et mobiliser les techniques efficaces pour optimiser son entraînement."},
-      {n:'AFLP 3',t:"Préparer et réguler son projet d'entraînement en utilisant les connaissances sur soi et sur l'activité."},
-      {n:'AFLP 4',t:"Agir avec et pour les autres en vue de la réalisation du projet d'entraînement, en assurant spontanément les rôles sociaux."},
-      {n:'AFLP 5',t:"Assurer la prise en charge de sa préparation et de son échauffement."},
-      {n:'AFLP 6',t:"Développer sa capacité à verbaliser ses choix et à argumenter pour convaincre."},
+      {n:'AFLP 2',t:"Éprouver différentes méthodes d'entraînement et en identifier les principes pour les réutiliser dans sa séance."},
+      {n:'AFLP 3',t:"Systématiser un retour réflexif sur sa pratique pour réguler sa charge de travail en fonction d'indicateurs de l'effort (fréquence cardiaque, ressenti musculaire et respiratoire, fatigue générale)."},
+      {n:'AFLP 4',t:"Agir avec et pour les autres en vue de la réalisation du projet d'entraînement en assurant spontanément les rôles sociaux."},
+      {n:'AFLP 5',t:"Construire une motricité contrôlée pour évoluer dans des conditions de sécurité."},
+      {n:'AFLP 6',t:"Intégrer des conseils d'entraînement, de diététique, d'hygiène de vie pour se construire un mode de vie sain et une pratique raisonnée."},
     ]},
   },
   cap:{
-    CA1:{titre:'CA1 — Réaliser sa performance motrice maximale (CAP)',items:[
-      {n:'AFLP 1',t:'Produire la meilleure performance possible en gérant ses ressources physiques.'},
-      {n:'AFLP 2',t:'Utiliser les techniques de base pour améliorer sa performance.'},
-      {n:'AFLP 3',t:"Connaître ses points forts et ses axes de progrès dans l'activité."},
-      {n:'AFLP 4',t:'Tenir un rôle social (juge, arbitre, starter) pour permettre la compétition.'},
-      {n:'AFLP 5',t:"S'échauffer de manière autonome avant l'effort."},
-      {n:'AFLP 6',t:"Savoir parler de sa performance et des facteurs d'amélioration."},
+    CA1:{titre:'CA1 — Réaliser sa performance motrice maximale, mesurable à une échéance donnée (CAP)',items:[
+      {n:'AFLP 1',t:"Produire et répartir intentionnellement ses efforts en mobilisant ses ressources pour gagner ou pour battre un record."},
+      {n:'AFLP 2',t:"Connaître et utiliser des techniques efficaces pour produire la meilleure performance possible."},
+      {n:'AFLP 3',t:"S'engager et persévérer, seul ou à plusieurs, dans des efforts répétés pour progresser dans une activité de performance."},
+      {n:'AFLP 4',t:"S'impliquer dans des rôles sociaux pour assurer le bon déroulement d'une épreuve de production de performance."},
+      {n:'AFLP 5',t:"Se préparer à un effort long ou intense pour être efficace dans la production d'une performance à une échéance donnée."},
+      {n:'AFLP 6',t:"Identifier ses progrès et connaître sa meilleure performance réalisée pour la situer culturellement."},
     ]},
-    CA2:{titre:"CA2 — Se déplacer dans des environnements variés (CAP)",items:[
-      {n:'AFLP 1',t:"Utiliser une carte pour se déplacer de manière autonome dans un espace inconnu."},
-      {n:'AFLP 2',t:"Adapter sa vitesse et ses déplacements selon l'environnement et les obstacles."},
-      {n:'AFLP 3',t:"Gérer ses efforts sur la durée du parcours."},
-      {n:'AFLP 4',t:"Respecter les règles de sécurité et les consignes de pratique."},
-      {n:'AFLP 5',t:"S'échauffer de manière autonome."},
-      {n:'AFLP 6',t:"Décrire ses choix d'itinéraire et les expliquer simplement."},
+    CA2:{titre:"CA2 — Adapter son déplacement à des environnements variés et/ou incertains (CAP)",items:[
+      {n:'AFLP 1',t:"Planifier et conduire un déplacement adapté à ses ressources pour effectuer le trajet prévu dans sa totalité ; le cas échéant, savoir renoncer."},
+      {n:'AFLP 2',t:"Utiliser des techniques efficaces pour adapter son déplacement aux caractéristiques du milieu."},
+      {n:'AFLP 3',t:"Sélectionner des informations utiles pour planifier son itinéraire et l'adapter éventuellement en cours de déplacement."},
+      {n:'AFLP 4',t:"S'impliquer dans des rôles sociaux pour assurer le bon fonctionnement d'une activité de pleine nature."},
+      {n:'AFLP 5',t:"Contrôler ses émotions pour accepter de s'engager dans un environnement partiellement connu."},
+      {n:'AFLP 6',t:"Se préparer, connaître les risques, respecter la réglementation et appliquer les procédures d'urgence à mettre en œuvre dans les différents environnements de pratique pour s'y engager en sécurité."},
     ]},
-    CA3:{titre:'CA3 — Réaliser une prestation corporelle (CAP)',items:[
-      {n:'AFLP 1',t:"Produire une prestation qui respecte les éléments imposés et exprime une intention."},
-      {n:'AFLP 2',t:"Maîtriser les éléments techniques de base de l'activité."},
-      {n:'AFLP 3',t:"Identifier ce qui fonctionne et ce qu'il faut améliorer dans sa prestation."},
-      {n:'AFLP 4',t:"Observer et apprécier la prestation d'un camarade selon des critères définis."},
-      {n:'AFLP 5',t:"Préparer son corps avant la prestation."},
-      {n:'AFLP 6',t:"Expliquer ses choix artistiques ou acrobatiques."},
+    CA3:{titre:'CA3 — Réaliser une prestation corporelle destinée à être vue et appréciée par autrui (CAP)',items:[
+      {n:'AFLP 1',t:"S'engager devant des spectateurs ou des juges pour produire ou reproduire des formes corporelles maîtrisées au service d'une intention."},
+      {n:'AFLP 2',t:"Utiliser des techniques efficaces pour enrichir sa motricité, la rendre plus originale, plus efficace au service de la prestation prévue."},
+      {n:'AFLP 3',t:"Prévoir et mémoriser le déroulement des temps forts et des temps faibles de sa prestation pour la réaliser dans son intégralité en restant concentré."},
+      {n:'AFLP 4',t:"Utiliser des critères explicites pour apprécier et/ou évaluer la prestation indépendamment de la personne."},
+      {n:'AFLP 5',t:"Se préparer pour présenter une prestation complète, maîtrisée et sécurisée à une échéance donnée."},
+      {n:'AFLP 6',t:"S'enrichir d'éléments de culture liés à la pratique abordée pour éveiller une curiosité culturelle."},
     ]},
-    CA4:{titre:"CA4 — S'affronter pour gagner (CAP)",items:[
-      {n:'AFLP 1',t:"Utiliser des stratégies simples pour marquer des points et gagner."},
-      {n:'AFLP 2',t:"Maîtriser les gestes techniques de base pour jouer efficacement."},
-      {n:'AFLP 3',t:"Identifier ses points forts et ses points faibles en situation de jeu."},
-      {n:'AFLP 4',t:"Respecter les règles du jeu et arbitrer."},
-      {n:'AFLP 5',t:"S'échauffer de manière adaptée à l'activité."},
-      {n:'AFLP 6',t:"Expliquer ses choix tactiques et ses erreurs."},
+    CA4:{titre:"CA4 — Conduire un affrontement interindividuel ou collectif pour gagner (CAP)",items:[
+      {n:'AFLP 1',t:"Identifier le déséquilibre adverse et en profiter pour produire rapidement l'action décisive choisie et marquer le point."},
+      {n:'AFLP 2',t:"Utiliser des techniques et des tactiques d'attaque adaptées pour favoriser des occasions de marquer et mobiliser des moyens de défense pour s'opposer."},
+      {n:'AFLP 3',t:"Persévérer face à la difficulté et accepter la répétition pour améliorer son efficacité motrice."},
+      {n:'AFLP 4',t:"Terminer la rencontre et accepter la défaite ou la victoire dans le respect de l'adversaire ; intégrer les règles et s'impliquer dans les rôles sociaux pour permettre le bon déroulement du jeu."},
+      {n:'AFLP 5',t:"Se préparer et systématiser sa préparation générale et spécifique pour être en pleine possession de ses moyens lors de la confrontation."},
+      {n:'AFLP 6',t:"Connaître les pratiques sportives dans la société contemporaine pour situer et comprendre le sens des pratiques scolaires."},
     ]},
-    CA5:{titre:"CA5 — Pratiquer pour s'entretenir (CAP)",items:[
-      {n:'AFLP 1',t:"Suivre un plan d'entraînement simple et en mesurer les effets."},
-      {n:'AFLP 2',t:"Connaître les principes de base de l'entraînement (intensité, récupération)."},
-      {n:'AFLP 3',t:"Adapter son effort à ses sensations et à ses possibilités."},
-      {n:'AFLP 4',t:"Pratiquer en autonomie et aider les autres."},
-      {n:'AFLP 5',t:"Gérer son échauffement de manière autonome."},
-      {n:'AFLP 6',t:"Parler de ses ressentis et de ses progrès."},
+    CA5:{titre:"CA5 — Réaliser et orienter son activité physique pour développer ses ressources et s'entretenir (CAP)",items:[
+      {n:'AFLP 1',t:"Construire et stabiliser une motricité spécifique pour être efficace dans le suivi d'un thème d'entraînement en cohérence avec un mobile personnel de développement."},
+      {n:'AFLP 2',t:"Mettre en lien des ressentis avec une charge de travail pour réguler cette charge de manière autonome."},
+      {n:'AFLP 3',t:"Mobiliser différentes méthodes d'entraînement, analyser ses ressentis pour fonder ses choix."},
+      {n:'AFLP 4',t:"Coopérer et assurer les rôles sociaux pour aider au progrès individuel dans des conditions de sécurité."},
+      {n:'AFLP 5',t:"S'engager avec une intensité ciblée et persévérer dans l'effort pour envisager des progrès."},
+      {n:'AFLP 6',t:"Intégrer des conseils d'entraînement, de diététique, d'hygiène de vie pour se construire un mode de vie sain et une pratique raisonnée."},
     ]},
   },
   '3e':{
@@ -1090,13 +1086,13 @@ function renderSeances(){
           </div>
         </div>
       </div>
-      ${(s.criteresReussite||s.contenusEnseignement||objData.obj1)?`
+      ${(s.parties&&s.parties.length)?`
       <div class="scard-body">
-        ${s.criteresReussite?`<div class="scard-sec"><div class="scard-sec-lbl">Critères de réussite</div><div class="scard-sec-val">${s.criteresReussite}</div></div>`:''}
-        ${s.contenusEnseignement?`<div class="scard-sec"><div class="scard-sec-lbl">Contenus d'enseignement</div><div class="scard-sec-val">${s.contenusEnseignement}</div></div>`:''}
-        ${objData.obj1?`<div class="scard-sec"><div class="scard-sec-lbl">Objectif élèves</div><div class="scard-sec-val">${objData.obj1}${objData.obj2?'<br>'+objData.obj2:''}</div></div>`:''}
+        ${s.parties[0]?.objectif?`<div class="scard-sec"><div class="scard-sec-lbl">Objectif S.P. 1</div><div class="scard-sec-val">${s.parties.find(p=>p.titre&&p.titre.toLowerCase().includes('situ'))?.objectif||s.parties[0]?.objectif||''}</div></div>`:''}
+        ${s.parties[0]?.criteres?`<div class="scard-sec"><div class="scard-sec-lbl">Critères de réussite</div><div class="scard-sec-val">${s.parties.find(p=>p.titre&&p.titre.toLowerCase().includes('situ'))?.criteres||s.parties[0]?.criteres||''}</div></div>`:''}
+        ${s.parties[0]?.contenus?`<div class="scard-sec"><div class="scard-sec-lbl">Contenus d'enseignement</div><div class="scard-sec-val">${s.parties.find(p=>p.titre&&p.titre.toLowerCase().includes('situ'))?.contenus||s.parties[0]?.contenus||''}</div></div>`:''}
       </div>`:''}
-      ${np?`<div class="scard-parts">${(s.parties||[]).map((p,i)=>`<span class="scard-part-pill">Partie ${i+1}${p.titre?' — '+p.titre:''}</span>`).join('')}</div>`:''}
+      ${objData.obj1?`<div class="scard-body" style="border-top:1px solid #1a1d2a;padding-top:.6rem;"><div class="scard-sec"><div class="scard-sec-lbl">🎯 Objectif élèves</div><div class="scard-sec-val">${objData.obj1}${objData.obj2?' / '+objData.obj2:''}</div></div></div>`:''}      ${np?`<div class="scard-parts">${(s.parties||[]).map((p,i)=>`<span class="scard-part-pill">Partie ${i+1}${p.titre?' — '+p.titre:''}</span>`).join('')}</div>`:''}
       ${aflpT.length&&aflpData?`<div class="scard-aflp-row"><span class="scard-aflp-lbl">AFLP :</span>${aflpT.map(n=>`<span class="scard-aflp-tag">${n}</span>`).join('')}</div>`:''}
     </div>`;
   }).join('');
@@ -1124,7 +1120,8 @@ function renderPartieBlock(cid,p,idx,mode){
     <div class="partie-grid">
       <div class="pf"><label>Objectif</label><textarea rows="2" placeholder="Objectif de cette partie…">${esc(p.objectif)}</textarea></div>
       <div class="pf"><label>Consignes</label><textarea rows="2" placeholder="Consignes détaillées…">${esc(p.consignes)}</textarea></div>
-      <div class="pf"><label>Critères de réalisation</label><textarea rows="2" placeholder="Critères de réussite…">${esc(p.criteres)}</textarea></div>
+      <div class="pf"><label>Critères de réussite</label><textarea rows="2" placeholder="Ce que l'élève doit réussir…">${esc(p.criteres)}</textarea></div>
+      <div class="pf"><label>Contenus d'enseignement</label><textarea rows="2" placeholder="Ce que j'enseigne : techniques, notions, savoirs…">${esc(p.contenus||'')}</textarea></div>
       <div class="pf"><label>Bilan de partie</label><textarea rows="2" placeholder="Observations…">${esc(p.bilan)}</textarea></div>
     </div>`;
   c.appendChild(div);
@@ -1144,7 +1141,7 @@ function readParties(cid,arr){
     const b=document.getElementById('pb-'+p.id);if(!b)return p;
     const ti=b.querySelector('.partie-title-input');
     const ta=b.querySelectorAll('textarea');
-    return{id:p.id,titre:ti?ti.value:'',objectif:ta[0]?ta[0].value:'',consignes:ta[1]?ta[1].value:'',criteres:ta[2]?ta[2].value:'',bilan:ta[3]?ta[3].value:''};
+    return{id:p.id,titre:ti?ti.value:'',objectif:ta[0]?ta[0].value:'',consignes:ta[1]?ta[1].value:'',criteres:ta[2]?ta[2].value:'',contenus:ta[3]?ta[3].value:'',bilan:ta[4]?ta[4].value:''};
   });
 }
 
@@ -1181,14 +1178,12 @@ function saveSeance(){
     num:parseInt(document.getElementById('fn').value)||(state.seances.length+1),
     date:document.getElementById('fd').value,
     objectif:o,
-    criteresReussite:document.getElementById('fcr').value,
-    contenusEnseignement:document.getElementById('fce').value,
     bilan:document.getElementById('fb').value,
     aflpTravailles:[...aflpNewSel],
     parties:readParties('parties-new',partiesNew)
   });
   save();closeM('m-seance');
-  ['fn','fd','fo','fcr','fce','fb'].forEach(id=>document.getElementById(id).value='');
+  ['fn','fd','fo','fb'].forEach(id=>document.getElementById(id).value='');
   document.getElementById('parties-new').innerHTML='';partiesNew=[];aflpNewSel=[];
   renderAll();
 }
@@ -1216,8 +1211,6 @@ function updSeance(){
   s.num=parseInt(document.getElementById('es-n').value)||s.num;
   s.date=document.getElementById('es-d').value;
   s.objectif=document.getElementById('es-o').value;
-  s.criteresReussite=document.getElementById('es-cr').value;
-  s.contenusEnseignement=document.getElementById('es-ce').value;
   s.bilan=document.getElementById('es-b').value;
   s.parties=readParties('parties-edit',partiesEdit);
   s.aflpTravailles=[...aflpEditSel];
@@ -1360,7 +1353,7 @@ function showAppel(sid){
       </div>
     </div>
     <div class="card"><div class="tw"><table>
-      <thead><tr><th>Élève</th><th>Statut</th><th>Obj. 1 atteint ?</th><th>Obj. 2 atteint ?</th><th>Quantité travail /20 (note prof)</th></tr></thead>
+      <thead><tr><th>Élève</th><th>Statut</th><th>Obj. 1 atteint ?</th><th>Obj. 2 atteint ?</th><th>Maîtrise (auto-éval.)</th><th>Qté travail /20 (note prof)</th></tr></thead>
       <tbody>${sorted.map(e=>{
         const pres=state.presences[sid][e.id]||'Présent';
         const ae=state.autoEval[sid][e.id]||{};
@@ -1373,6 +1366,7 @@ function showAppel(sid){
           <td><select class="ss" onchange="setPres('${sid}','${e.id}',this.value)">${STATUTS.map(st=>`<option${st===pres?' selected':''}>${st}</option>`).join('')}</select></td>
           <td><select class="ss" onchange="setAE('${sid}','${e.id}','obj1',this.value)"${dis?' disabled':''}><option value="">—</option><option${ae.obj1==='Oui'?' selected':''}>Oui</option><option${ae.obj1==='Partiel'?' selected':''}>Partiel</option><option${ae.obj1==='Non'?' selected':''}>Non</option></select></td>
           <td><select class="ss" onchange="setAE('${sid}','${e.id}','obj2',this.value)"${dis||!hasObj2?' disabled':''}><option value="">—</option><option${ae.obj2==='Oui'?' selected':''}>Oui</option><option${ae.obj2==='Partiel'?' selected':''}>Partiel</option><option${ae.obj2==='Non'?' selected':''}>Non</option></select></td>
+          <td><select class="ss" onchange="setAE('${sid}','${e.id}','maitrise',this.value)"${dis?' disabled':''}><option value="">— Maîtrise —</option><option${ae.maitrise==='Maîtrise insuffisante'?' selected':''}>Maîtrise insuffisante</option><option${ae.maitrise==='Maîtrise fragile'?' selected':''}>Maîtrise fragile</option><option${ae.maitrise==='Maîtrise satisfaisante'?' selected':''}>Maîtrise satisfaisante</option><option${ae.maitrise==='Très bonne maîtrise'?' selected':''}>Très bonne maîtrise</option></select></td>
           <td><input class="ni" type="number" min="0" max="20" step="1" value="${ae.qte!==undefined?ae.qte:''}" placeholder="—"${dis?' disabled':''} onchange="setAE('${sid}','${e.id}','qte',this.value)" style="width:65px;"></td>
         </tr>`;
       }).join('')}</tbody>
@@ -1507,25 +1501,25 @@ function renderNotes(){
     if(n)el.classList.toggle('worked',worked.has(n));
   });
   tb.innerHTML=[...state.eleves].sort((a,b)=>a.nom.localeCompare(b.nom)).map(e=>{
-    let pres=0,abs=0,disp=0,qtes=[],obj1s=[],obj2s=[];
-    const nm={'Oui':3,'Partiel':1.5,'Non':0};
+    let pres=0,abs=0,disp=0,qtes=[],mts=[];
+    const nm={'Maîtrise insuffisante':1,'Maîtrise fragile':2,'Maîtrise satisfaisante':3,'Très bonne maîtrise':4};
     state.seances.forEach(s=>{
       const st=(state.presences[s.id]||{})[e.id]||'Présent';
       if(st==='Présent')pres++;else if(st==='Absent')abs++;else if(st==='Dispensé')disp++;
       const ae=(state.autoEval[s.id]||{})[e.id]||{};
       if(ae.qte!==undefined&&ae.qte!=='')qtes.push(parseFloat(ae.qte));
-      if(ae.obj1)obj1s.push(nm[ae.obj1]||0);
-      if(ae.obj2)obj2s.push(nm[ae.obj2]||0);
+      if(ae.maitrise&&nm[ae.maitrise])mts.push(nm[ae.maitrise]);
     });
     const mQ=qtes.length>0?(qtes.reduce((a,b)=>a+b,0)/qtes.length).toFixed(1):'—';
-    const mO=obj1s.length>0?((obj1s.reduce((a,b)=>a+b,0)+obj2s.reduce((a,b)=>a+b,0))/(obj1s.length+(obj2s.length||obj1s.length))*10/3).toFixed(1):'—';
+    const mM=mts.length>0?(['','Maîtrise insuff.','Maîtrise fragile','Maîtrise satisf.','Très bonne maîtrise'][Math.round(mts.reduce((a,b)=>a+b,0)/mts.length)]):'—';
+    const mMColor=mts.length>0?(mts.reduce((a,b)=>a+b,0)/mts.length>=3?'nh':mts.reduce((a,b)=>a+b,0)/mts.length>=2?'nm':'nl'):'';
     return`<tr>
       <td style="font-weight:500;font-size:.85rem;">${e.nom}</td>
       <td><span class="chip c-gr">${pres}</span></td>
       <td><span class="chip c-rd">${abs}</span></td>
       <td><span class="chip c-yw">${disp}</span></td>
       <td>${mQ!=='—'?ndsp(parseFloat(mQ)):'<span style="color:#6b7280">—</span>'}</td>
-      <td>${mO!=='—'?`<span class="nd nm">${mO}/10</span>`:'<span style="color:#6b7280">—</span>'}</td>
+      <td>${mM!=='—'?`<span class="nd ${mMColor}" style="font-size:.72rem;">${mM}</span>`:'<span style="color:#6b7280">—</span>'}</td>
       <td><input class="ni" type="number" min="0" max="20" step="0.5" value="${e.noteFinale!=null?e.noteFinale:''}" placeholder="—" style="width:65px;" onchange="setNF('${e.id}',this.value)"></td>
     </tr>`;
   }).join('');
