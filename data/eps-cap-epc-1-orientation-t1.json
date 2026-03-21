@@ -145,9 +145,9 @@
     {
       "id": "s002",
       "num": 2,
-      "date": "",
+      "date": "2026-03-11",
       "objectif": "Construction d un itineraire - Anticipation",
-      "bilan": "",
+      "bilan": "Bilan positif - séance éval diagnostique ",
       "aflpTravailles": [
         "AFLP 1",
         "AFLP 3"
@@ -178,6 +178,37 @@
           "consignes": "Chaque binome presente son itineraire",
           "criteres": "Capacite a expliquer et argumenter.",
           "contenus": "Expression orale, argumentation",
+          "bilan": ""
+        }
+      ]
+    },
+    {
+      "id": "s1774087701884",
+      "num": 3,
+      "date": "2026-03-25",
+      "objectif": "Sélectionner et comprendre les informations qui sont utiles à la planification de son itinéraire",
+      "bilan": "",
+      "aflpTravailles": [
+        "AFLP 3",
+        "AFLP 6"
+      ],
+      "parties": [
+        {
+          "id": "p1774087483132mk1",
+          "titre": "Echauffement",
+          "objectif": "Échauffer son corps et monter progressive de sa température corporelle",
+          "consignes": "Donner des mentions de légendes en ajoutant une consignes (exemple : montée de genou, talon fesses, course…) et identifier autour de nous quelques chose se référant à la légende et exécuter la consignes",
+          "criteres": "- réussir à exécuter la consignes en respectant la consigne de légende",
+          "contenus": "- analyse de son paysage\n- connaissance de la légende\n- travail spécifiquement sa foulée",
+          "bilan": ""
+        },
+        {
+          "id": "p1774087648007vt4",
+          "titre": "Situation apprentissage 1",
+          "objectif": "",
+          "consignes": "",
+          "criteres": "",
+          "contenus": "",
           "bilan": ""
         }
       ]
