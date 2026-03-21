@@ -31,8 +31,15 @@
     {
       "id": "e005",
       "nom": "HADDOU Yassine",
-      "amenagement": "",
-      "fiche": null,
+      "amenagement": "PAP",
+      "fiche": {
+        "type": "PAP",
+        "desc": "Absence - problème médicale sans justificatif de ma part ",
+        "debut": "",
+        "fin": "",
+        "med": "",
+        "photo": null
+      },
       "noteFinale": null
     },
     {
