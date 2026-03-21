@@ -4,115 +4,6 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>EPS Debug</title>
-<style>
-body{font-family:Arial,sans-serif;padding:20px;background:#f0ece3;}
-.ok{color:green;font-weight:bold;}
-.err{color:red;font-weight:bold;}
-.box{background:#fff;border:1px solid #ccc;border-radius:8px;padding:15px;margin-bottom:10px;}
-h2{font-size:16px;margin-bottom:10px;}
-</style>
-</head>
-<body>
-<h1 style="margin-bottom:20px">EPS — Diagnostic</h1>
-
-<div class="box" id="b1"><h2>1. JavaScript de base</h2><div id="r1">...</div></div>
-<div class="box" id="b2"><h2>2. localStorage</h2><div id="r2">...</div></div>
-<div class="box" id="b3"><h2>3. Données CLASSES</h2><div id="r3">...</div></div>
-<div class="box" id="b4"><h2>4. Construction DOM</h2><div id="r4">...</div></div>
-<div class="box" id="b5"><h2>5. Erreur JS globale</h2><div id="r5">En attente...</div></div>
-<div class="box" id="b6"><h2>6. CSS variables (--c)</h2><div id="r6">...</div></div>
-
-<script>
-// Capturer toutes les erreurs
-var errors = [];
-window.onerror = function(msg, src, line, col, err) {
-  errors.push('Ligne ' + line + ': ' + msg);
-  document.getElementById('r5').innerHTML = '<span class="err">ERREUR: ' + msg + ' (ligne ' + line + ')</span>';
-  return false;
-};
-
-// Test 1 - JS de base
-try {
-  var now = new Date();
-  document.getElementById('r1').innerHTML = '<span class="ok">OK — ' + now.toLocaleTimeString() + '</span>';
-} catch(e) {
-  document.getElementById('r1').innerHTML = '<span class="err">ERREUR: ' + e.message + '</span>';
-}
-
-// Test 2 - localStorage
-try {
-  localStorage.setItem('eps-test', '1');
-  var v = localStorage.getItem('eps-test');
-  localStorage.removeItem('eps-test');
-  document.getElementById('r2').innerHTML = '<span class="ok">OK — localStorage fonctionne</span>';
-} catch(e) {
-  document.getElementById('r2').innerHTML = '<span class="err">ERREUR: ' + e.message + '</span>';
-}
-
-// Test 3 - Données
-try {
-  var CLASSES = [
-    {id:'2nde-ener-b',label:'2NDE ENER B',color:'#c8400a'},
-    {id:'cap-epc-1',label:'CAP EPC 1',color:'#1e4fa0'},
-  ];
-  document.getElementById('r3').innerHTML = '<span class="ok">OK — ' + CLASSES.length + ' classes chargées</span>';
-} catch(e) {
-  document.getElementById('r3').innerHTML = '<span class="err">ERREUR: ' + e.message + '</span>';
-}
-
-// Test 4 - Construction DOM
-try {
-  var container = document.createElement('div');
-  container.style.cssText = 'display:flex;gap:10px;flex-wrap:wrap;';
-  var CLASSES2 = [
-    {id:'cls1',label:'2NDE ENER B',color:'#c8400a'},
-    {id:'cls2',label:'CAP EPC 1',color:'#1e4fa0'},
-    {id:'cls3',label:'CAP ELEC 2',color:'#7c28b8'},
-  ];
-  CLASSES2.forEach(function(c) {
-    var d = document.createElement('div');
-    d.style.cssText = 'background:#faf7f0;border:2px solid ' + c.color + ';border-radius:8px;padding:15px;cursor:pointer;min-width:120px;text-align:center;';
-    d.textContent = c.label;
-    d.addEventListener('click', function() { alert('Cliqué: ' + c.label); });
-    container.appendChild(d);
-  });
-  document.getElementById('r4').appendChild(container);
-  document.getElementById('r4').innerHTML += '<br><span class="ok">OK — DOM construit, cliquez sur une carte pour tester</span>';
-} catch(e) {
-  document.getElementById('r4').innerHTML = '<span class="err">ERREUR: ' + e.message + '</span>';
-}
-
-// Test 6 - CSS variables
-try {
-  var el = document.createElement('div');
-  el.style.setProperty('--c', '#ff0000');
-  var val = el.style.getPropertyValue('--c');
-  if(val) {
-    document.getElementById('r6').innerHTML = '<span class="ok">OK — CSS custom properties supportées</span>';
-  } else {
-    document.getElementById('r6').innerHTML = '<span class="err">NON SUPPORTÉ — CSS variables ne fonctionnent pas sur ce navigateur!</span>';
-  }
-} catch(e) {
-  document.getElementById('r6').innerHTML = '<span class="err">ERREUR: ' + e.message + '</span>';
-}
-
-// Pas d'erreur globale
-setTimeout(function() {
-  if(errors.length === 0) {
-    document.getElementById('r5').innerHTML = '<span class="ok">Aucune erreur JavaScript détectée</span>';
-  }
-}, 500);
-</script>
-
-</body>
-</html>
-<!DOCTYPE html>
-
-<html lang="fr">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
@@ -455,6 +346,7 @@ textarea{resize:vertical;min-height:70px}
       <div id="gh-status" style="margin-top:.75rem;font-size:.74rem"></div>
     </div>
 
+```
 <div class="acc-steps" id="acc-steps">
   <div class="acc-step active" id="acc-s1"><div class="acc-step-num">1</div>Classe</div>
   <div class="acc-step-line"></div>
@@ -507,7 +399,8 @@ textarea{resize:vertical;min-height:70px}
 <div class="acc-recent" id="acc-recent" style="display:none">
   <div class="acc-recent-title">Sessions récentes</div>
   <div class="acc-chips" id="acc-chips"></div>
-</div
+</div>
+```
 
   </div>
 </div>
@@ -536,6 +429,7 @@ textarea{resize:vertical;min-height:70px}
   </div>
   <div class="s-main">
 
+```
 <!-- VUE ACCUEIL SÉQUENCE -->
 <div id="v-accueil" class="view active">
   <div class="ph">
@@ -680,7 +574,7 @@ textarea{resize:vertical;min-height:70px}
   <!-- Zone grille -->
   <div id="grille-zone"></div>
 </div>
-
+```
 
   </div>
 
@@ -886,8 +780,8 @@ textarea{resize:vertical;min-height:70px}
 // DONNÉES
 // ============================================================
 const CLASSES=[
-  {id:'2nde-ener-b',label:'2NDE ENER B',level:'2NDE',sub:'Énergie · Gr. B',color:'#c8400a',light:'#c8400a0d',filiere:'bacpro'},
-  {id:'2nde-mrc-b', label:'2NDE MRC B', level:'2NDE',sub:'MRC · Gr. B',   color:'#1a6b3a',light:'#1a6b3a0d',filiere:'bacpro'},
+  {id:'2nde-ener-b',label:'2NDE ENER B',level:'2NDE',sub:'Énergie . Gr. B',color:'#c8400a',light:'#c8400a0d',filiere:'bacpro'},
+  {id:'2nde-mrc-b', label:'2NDE MRC B', level:'2NDE',sub:'MRC . Gr. B',   color:'#1a6b3a',light:'#1a6b3a0d',filiere:'bacpro'},
   {id:'cap-epc-1',  label:'CAP EPC 1', level:'CAP', sub:'Électrotechnique',color:'#1e4fa0',light:'#1e4fa00d',filiere:'cap'},
   {id:'cap-elec-2', label:'CAP ELEC 2',level:'CAP', sub:'Électricité',    color:'#7c28b8',light:'#7c28b80d',filiere:'cap'},
   {id:'3e-pm',      label:'3e PM',     level:'3e',  sub:'Prépa Métiers',  color:'#a07800',light:'#a078000d',filiere:'3e'},
@@ -920,7 +814,7 @@ CA_GROUPS.forEach(function(g){
 });
 const AFLP={
   bacpro:{
-    CA1:{titre:'CA1 — Réaliser sa performance motrice maximale, mesurable à une échéance donnée',items:[
+    CA1:{titre:'CA1 -- Réaliser sa performance motrice maximale, mesurable à une échéance donnée',items:[
       {n:'AFLP 1',t:'Produire et répartir lucidement ses efforts en mobilisant de façon optimale ses ressources pour gagner ou pour battre un record.'},
       {n:'AFLP 2',t:'Connaître et mobiliser les techniques efficaces pour produire la meilleure performance possible.'},
       {n:'AFLP 3',t:"Analyser sa performance pour adapter son projet et progresser."},
@@ -928,7 +822,7 @@ const AFLP={
       {n:'AFLP 5',t:"Assurer la prise en charge de sa préparation et de celle d'un groupe, de façon autonome pour produire la meilleure performance possible."},
       {n:'AFLP 6',t:"Connaître son niveau pour établir un projet de performance située culturellement."},
     ]},
-    CA2:{titre:"CA2 — Adapter son déplacement à des environnements variés et/ou incertains",items:[
+    CA2:{titre:"CA2 -- Adapter son déplacement à des environnements variés et/ou incertains",items:[
       {n:'AFLP 1',t:"Anticiper et planifier son itinéraire pour concevoir et conduire dans sa totalité un projet de déplacement."},
       {n:'AFLP 2',t:"Mobiliser des techniques efficaces pour adapter et optimiser son déplacement aux caractéristiques du milieu."},
       {n:'AFLP 3',t:"Analyser sa prestation pour comprendre les alternatives possibles et ajuster son projet en fonction de ses ressources et de celles du milieu."},
@@ -936,7 +830,7 @@ const AFLP={
       {n:'AFLP 5',t:"Se préparer et maintenir un engagement optimal permettant de garder sa lucidité tout au long de son parcours pour pouvoir réévaluer son itinéraire ou renoncer le cas échéant."},
       {n:'AFLP 6',t:"Respecter et faire respecter la réglementation et les procédures d'urgence pour les mettre en oeuvre dans les différents environnements de pratique."},
     ]},
-    CA3:{titre:'CA3 — Réaliser une prestation corporelle destinée à être vue et appréciée par autrui',items:[
+    CA3:{titre:'CA3 -- Réaliser une prestation corporelle destinée à être vue et appréciée par autrui',items:[
       {n:'AFLP 1',t:"Accomplir une prestation animée d'une intention dans la perspective d'être jugé et/ou apprécié."},
       {n:'AFLP 2',t:"Mobiliser des techniques de plus en plus complexes pour rendre plus fluide la prestation et pour l'enrichir de formes corporelles variées et maîtrisées."},
       {n:'AFLP 3',t:"Composer et organiser dans le temps et l'espace le déroulement des moments forts et faibles de sa prestation pour se produire devant des spectateurs/juges."},
@@ -944,7 +838,7 @@ const AFLP={
       {n:'AFLP 5',t:"Se préparer et s'engager pour présenter une prestation optimale et sécurisée à une échéance donnée."},
       {n:'AFLP 6',t:"S'enrichir de la connaissance de productions de qualité issues du patrimoine culturel artistique et gymnique pour progresser dans sa propre pratique."},
     ]},
-    CA4:{titre:"CA4 — Conduire un affrontement interindividuel ou collectif pour gagner",items:[
+    CA4:{titre:"CA4 -- Conduire un affrontement interindividuel ou collectif pour gagner",items:[
       {n:'AFLP 1',t:"Réaliser des choix tactiques et stratégiques pour faire basculer le rapport de force en sa faveur et marquer le point."},
       {n:'AFLP 2',t:"Mobiliser des techniques d'attaque efficaces pour se créer et exploiter des occasions de marquer ; résister et neutraliser individuellement ou collectivement l'attaque adverse pour rééquilibrer le rapport de force."},
       {n:'AFLP 3',t:"Analyser les forces et les faiblesses en présence par l'exploitation de données objectives pour faire des choix tactiques et stratégiques adaptés à une prochaine confrontation."},
@@ -952,7 +846,7 @@ const AFLP={
       {n:'AFLP 5',t:"Savoir se préparer, s'entraîner et récupérer pour faire preuve d'autonomie."},
       {n:'AFLP 6',t:"Porter un regard critique sur les pratiques sportives pour comprendre le sens des pratiques scolaires."},
     ]},
-    CA5:{titre:"CA5 — Réaliser et orienter son activité physique pour développer ses ressources et s'entretenir",items:[
+    CA5:{titre:"CA5 -- Réaliser et orienter son activité physique pour développer ses ressources et s'entretenir",items:[
       {n:'AFLP 1',t:"Concevoir et mettre en oeuvre un projet d'entraînement pour répondre à un mobile personnel de développement."},
       {n:'AFLP 2',t:"Éprouver différentes méthodes d'entraînement et en identifier les principes pour les réutiliser dans sa séance."},
       {n:'AFLP 3',t:"Systématiser un retour réflexif sur sa pratique pour réguler sa charge de travail en fonction d'indicateurs de l'effort (fréquence cardiaque, ressenti musculaire et respiratoire, fatigue générale)."},
@@ -962,7 +856,7 @@ const AFLP={
     ]},
   },
   cap:{
-    CA1:{titre:'CA1 — Réaliser sa performance motrice maximale, mesurable à une échéance donnée (CAP)',items:[
+    CA1:{titre:'CA1 -- Réaliser sa performance motrice maximale, mesurable à une échéance donnée (CAP)',items:[
       {n:'AFLP 1',t:"Produire et répartir intentionnellement ses efforts en mobilisant ses ressources pour gagner ou pour battre un record."},
       {n:'AFLP 2',t:"Connaître et utiliser des techniques efficaces pour produire la meilleure performance possible."},
       {n:'AFLP 3',t:"S'engager et persévérer, seul ou à plusieurs, dans des efforts répétés pour progresser dans une activité de performance."},
@@ -970,7 +864,7 @@ const AFLP={
       {n:'AFLP 5',t:"Se préparer à un effort long ou intense pour être efficace dans la production d'une performance à une échéance donnée."},
       {n:'AFLP 6',t:"Identifier ses progrès et connaître sa meilleure performance réalisée pour la situer culturellement."},
     ]},
-    CA2:{titre:"CA2 — Adapter son déplacement à des environnements variés et/ou incertains (CAP)",items:[
+    CA2:{titre:"CA2 -- Adapter son déplacement à des environnements variés et/ou incertains (CAP)",items:[
       {n:'AFLP 1',t:"Planifier et conduire un déplacement adapté à ses ressources pour effectuer le trajet prévu dans sa totalité ; le cas échéant, savoir renoncer."},
       {n:'AFLP 2',t:"Utiliser des techniques efficaces pour adapter son déplacement aux caractéristiques du milieu."},
       {n:'AFLP 3',t:"Sélectionner des informations utiles pour planifier son itinéraire et l'adapter éventuellement en cours de déplacement."},
@@ -978,7 +872,7 @@ const AFLP={
       {n:'AFLP 5',t:"Contrôler ses émotions pour accepter de s'engager dans un environnement partiellement connu."},
       {n:'AFLP 6',t:"Se préparer, connaître les risques, respecter la réglementation et appliquer les procédures d'urgence pour s'engager en sécurité."},
     ]},
-    CA3:{titre:'CA3 — Réaliser une prestation corporelle destinée à être vue et appréciée par autrui (CAP)',items:[
+    CA3:{titre:'CA3 -- Réaliser une prestation corporelle destinée à être vue et appréciée par autrui (CAP)',items:[
       {n:'AFLP 1',t:"S'engager devant des spectateurs ou des juges pour produire ou reproduire des formes corporelles maîtrisées au service d'une intention."},
       {n:'AFLP 2',t:"Utiliser des techniques efficaces pour enrichir sa motricité, la rendre plus originale, plus efficace au service de la prestation prévue."},
       {n:'AFLP 3',t:"Prévoir et mémoriser le déroulement des temps forts et des temps faibles de sa prestation pour la réaliser dans son intégralité en restant concentré."},
@@ -986,7 +880,7 @@ const AFLP={
       {n:'AFLP 5',t:"Se préparer pour présenter une prestation complète, maîtrisée et sécurisée à une échéance donnée."},
       {n:'AFLP 6',t:"S'enrichir d'éléments de culture liés à la pratique abordée pour éveiller une curiosité culturelle."},
     ]},
-    CA4:{titre:"CA4 — Conduire un affrontement interindividuel ou collectif pour gagner (CAP)",items:[
+    CA4:{titre:"CA4 -- Conduire un affrontement interindividuel ou collectif pour gagner (CAP)",items:[
       {n:'AFLP 1',t:"Identifier le déséquilibre adverse et en profiter pour produire rapidement l'action décisive choisie et marquer le point."},
       {n:'AFLP 2',t:"Utiliser des techniques et des tactiques d'attaque adaptées pour favoriser des occasions de marquer et mobiliser des moyens de défense pour s'opposer."},
       {n:'AFLP 3',t:"Persévérer face à la difficulté et accepter la répétition pour améliorer son efficacité motrice."},
@@ -994,7 +888,7 @@ const AFLP={
       {n:'AFLP 5',t:"Se préparer et systématiser sa préparation générale et spécifique pour être en pleine possession de ses moyens lors de la confrontation."},
       {n:'AFLP 6',t:"Connaître les pratiques sportives dans la société contemporaine pour situer et comprendre le sens des pratiques scolaires."},
     ]},
-    CA5:{titre:"CA5 — Réaliser et orienter son activité physique pour développer ses ressources et s'entretenir (CAP)",items:[
+    CA5:{titre:"CA5 -- Réaliser et orienter son activité physique pour développer ses ressources et s'entretenir (CAP)",items:[
       {n:'AFLP 1',t:"Construire et stabiliser une motricité spécifique pour être efficace dans le suivi d'un thème d'entraînement en cohérence avec un mobile personnel de développement."},
       {n:'AFLP 2',t:"Mettre en lien des ressentis avec une charge de travail pour réguler cette charge de manière autonome."},
       {n:'AFLP 3',t:"Mobiliser différentes méthodes d'entraînement, analyser ses ressentis pour fonder ses choix."},
@@ -1004,31 +898,31 @@ const AFLP={
     ]},
   },
   '3e':{
-    CA1:{titre:'CA1 — Réaliser sa performance (3e Prépa Métiers)',items:[
+    CA1:{titre:'CA1 -- Réaliser sa performance (3e Prépa Métiers)',items:[
       {n:'Att. 1',t:"Produire une performance mesurable en utilisant les techniques adaptées."},
       {n:'Att. 2',t:"Gérer ses efforts pour optimiser sa performance sur la durée."},
       {n:'Att. 3',t:"Tenir des rôles d'organisation (chronométreur, juge, arbitre)."},
       {n:'Att. 4',t:"Identifier ses progrès et se fixer des objectifs réalistes."},
     ]},
-    CA2:{titre:"CA2 — Se déplacer dans l'environnement (3e Prépa Métiers)",items:[
+    CA2:{titre:"CA2 -- Se déplacer dans l'environnement (3e Prépa Métiers)",items:[
       {n:'Att. 1',t:"Lire et utiliser une carte pour se déplacer de façon autonome."},
       {n:'Att. 2',t:"Choisir et suivre un itinéraire en s'appuyant sur les éléments du terrain."},
       {n:'Att. 3',t:"Respecter les règles de sécurité et les consignes."},
       {n:'Att. 4',t:"Travailler en coopération avec un camarade."},
     ]},
-    CA3:{titre:'CA3 — Produire une prestation corporelle (3e Prépa Métiers)',items:[
+    CA3:{titre:'CA3 -- Produire une prestation corporelle (3e Prépa Métiers)',items:[
       {n:'Att. 1',t:"Réaliser une prestation maîtrisée qui respecte les règles et exprime une intention."},
       {n:'Att. 2',t:"Observer et évaluer la prestation d'un camarade."},
       {n:'Att. 3',t:"Travailler en groupe et accepter les retours."},
       {n:'Att. 4',t:"Verbaliser ses choix et ses réussites."},
     ]},
-    CA4:{titre:"CA4 — S'affronter collectivement ou individuellement (3e Prépa Métiers)",items:[
+    CA4:{titre:"CA4 -- S'affronter collectivement ou individuellement (3e Prépa Métiers)",items:[
       {n:'Att. 1',t:"Jouer collectivement ou individuellement en respectant les règles."},
       {n:'Att. 2',t:"Utiliser des stratégies simples pour gagner."},
       {n:'Att. 3',t:"Arbitrer un match et respecter les décisions arbitrales."},
       {n:'Att. 4',t:"Identifier et corriger ses erreurs tactiques."},
     ]},
-    CA5:{titre:"CA5 — Pratiquer pour sa santé (3e Prépa Métiers)",items:[
+    CA5:{titre:"CA5 -- Pratiquer pour sa santé (3e Prépa Métiers)",items:[
       {n:'Att. 1',t:"Réaliser un effort continu adapté à ses capacités."},
       {n:'Att. 2',t:"Comprendre les effets de l'entraînement sur son corps."},
       {n:'Att. 3',t:"Gérer ses allures et ses temps de récupération."},
@@ -1051,8 +945,8 @@ const PRELOADED={'eps-cap-epc-1-orientation-t1':{
     {id:'e007',nom:'KINDEL Zelya',amenagement:'',fiche:null,noteFinale:null},
     {id:'e008',nom:'NOBLE Lubin',amenagement:'',fiche:null,noteFinale:null},
     {id:'e009',nom:'RODULFO Flavio',amenagement:'',fiche:null,noteFinale:null},
-    {id:'e010',nom:'RULLIAT CRESPO Tymeo',amenagement:'Asthmatique',fiche:{type:'PAI',desc:'Asthme — inhalateur obligatoire',debut:'',fin:'',med:'',photo:null},noteFinale:null},
-    {id:'e011',nom:'SBARDELLA--CHEVALIER Andrea',amenagement:'Asthmatique',fiche:{type:'PAI',desc:'Asthme — surveillance effort',debut:'',fin:'',med:'',photo:null},noteFinale:null},
+    {id:'e010',nom:'RULLIAT CRESPO Tymeo',amenagement:'Asthmatique',fiche:{type:'PAI',desc:'Asthme -- inhalateur obligatoire',debut:'',fin:'',med:'',photo:null},noteFinale:null},
+    {id:'e011',nom:'SBARDELLA--CHEVALIER Andrea',amenagement:'Asthmatique',fiche:{type:'PAI',desc:'Asthme -- surveillance effort',debut:'',fin:'',med:'',photo:null},noteFinale:null},
     {id:'e012',nom:'SVONGCHAN Juan',amenagement:'',fiche:null,noteFinale:null},
   ],
   seances:[
@@ -1088,7 +982,7 @@ function ghLoadConfig(){
   if(GH.token)document.getElementById('gh-token').value=GH.token;
   if(GH.repo)document.getElementById('gh-repo').value=GH.repo;
   document.getElementById('gh-status').innerHTML=GH.token&&GH.repo
-    ?'<span style="color:#56cfb2">✓ Connecté — '+GH.repo+'</span>'
+    ?'<span style="color:#56cfb2">✓ Connecté -- '+GH.repo+'</span>'
     :'<span style="color:#ffd166">⚠ Configurez votre token et repo</span>';
 }
 function ghSaveConfig(){
@@ -1099,7 +993,7 @@ function ghSaveConfig(){
 }
 async function ghPush(){
   if(!GH.token||!GH.repo){toast('Configurez GitHub sur la page accueil','warn');return;}
-  toast('Sauvegarde en cours…','info');
+  toast('Sauvegarde en cours...','info');
   try{
     const fn='data/'+STORAGE_KEY+'.json';
     var exp=JSON.parse(JSON.stringify(state));
@@ -1107,7 +1001,7 @@ async function ghPush(){
     const content=btoa(unescape(encodeURIComponent(JSON.stringify(exp,null,2))));
     let sha=null;
     try{const r=await fetch('https://api.github.com/repos/'+GH.repo+'/contents/'+fn,{headers:{'Authorization':'token '+GH.token,'Accept':'application/vnd.github.v3+json'}});if(r.ok){const d=await r.json();sha=d.sha;}}catch(e){}
-    const body={message:'EPS — '+new Date().toLocaleDateString('fr-FR'),content};
+    const body={message:'EPS -- '+new Date().toLocaleDateString('fr-FR'),content};
     if(sha)body.sha=sha;
     const res=await fetch('https://api.github.com/repos/'+GH.repo+'/contents/'+fn,{method:'PUT',headers:{'Authorization':'token '+GH.token,'Accept':'application/vnd.github.v3+json','Content-Type':'application/json'},body:JSON.stringify(body)});
     if(res.ok)toast('✓ Sauvegardé sur GitHub !','ok');
@@ -1116,7 +1010,7 @@ async function ghPush(){
 }
 async function ghPull(){
   if(!GH.token||!GH.repo){toast('Configurez GitHub','warn');return;}
-  toast('Synchronisation…','info');
+  toast('Synchronisation...','info');
   try{
     const fn='data/'+STORAGE_KEY+'.json';
     const res=await fetch('https://api.github.com/repos/'+GH.repo+'/contents/'+fn,{headers:{'Authorization':'token '+GH.token,'Accept':'application/vnd.github.v3+json'}});
@@ -1143,7 +1037,7 @@ function toast(msg,type){
 }
 
 // ============================================================
-// PAGE ACCUEIL SUIVI — SÉQUENCE
+// PAGE ACCUEIL SUIVI -- SÉQUENCE
 // ============================================================
 function seqGet(){
   try{const s=localStorage.getItem(STORAGE_KEY+'-seq');if(s)return JSON.parse(s);}catch(e){}
@@ -1158,9 +1052,9 @@ function renderAccueilSuivi(){
   document.getElementById('acc-ss-e').textContent=state.eleves.length;
   let tot=0,pres=0;
   state.seances.forEach(function(s){state.eleves.forEach(function(e){tot++;if(((state.presences[s.id])||{})[e.id]==='Présent')pres++;});});
-  document.getElementById('acc-ss-p').textContent=tot>0?Math.round(pres/tot*100)+'%':'—';
+  document.getElementById('acc-ss-p').textContent=tot>0?Math.round(pres/tot*100)+'%':'--';
   const noted=state.eleves.filter(function(e){return e.noteFinale!=null;});
-  document.getElementById('acc-ss-n').textContent=noted.length>0?(noted.reduce(function(a,e){return a+parseFloat(e.noteFinale);},0)/noted.length).toFixed(1):'—';
+  document.getElementById('acc-ss-n').textContent=noted.length>0?(noted.reduce(function(a,e){return a+parseFloat(e.noteFinale);},0)/noted.length).toFixed(1):'--';
   document.getElementById('sc-sub-seances').textContent=state.seances.length+' séance'+(state.seances.length>1?'s':'');
   document.getElementById('sc-sub-eleves').textContent=state.eleves.length+' élève'+(state.eleves.length>1?'s':'');
 
@@ -1172,7 +1066,7 @@ function renderAccueilSuivi(){
       +(seq.objectifs?'<div style="font-size:.78rem;color:#9aa0b8;border-top:1px solid #252836;padding-top:.5rem;margin-top:.25rem">'+htmlE(seq.objectifs)+'</div>':'');
   } else {
     objetEl.style.fontStyle='italic';objetEl.style.color='#6b7280';
-    objetEl.textContent='Non défini — cliquez sur Modifier la séquence';
+    objetEl.textContent='Non défini -- cliquez sur Modifier la séquence';
   }
 
   // AFLP prioritaires
@@ -1189,7 +1083,7 @@ function renderAccueilSuivi(){
   // Fusionner avec les séances existantes
   const sorted=state.seances.slice().sort(function(a,b){return a.num-b.num;});
   if(!trame.length&&!sorted.length){
-    trameEl.innerHTML='<div style="color:#6b7280;font-size:.8rem;font-style:italic">Aucune séance planifiée — configurez votre trame dans Modifier la séquence</div>';
+    trameEl.innerHTML='<div style="color:#6b7280;font-size:.8rem;font-style:italic">Aucune séance planifiée -- configurez votre trame dans Modifier la séquence</div>';
   } else {
     // Afficher la trame planifiée + séances existantes fusionnées
     var allNums=new Set(trame.map(function(t){return t.num;}).concat(sorted.map(function(s){return s.num;})));
@@ -1243,7 +1137,7 @@ function renderTrameRow(t){
   const row=document.createElement('div');
   row.className='trame-row';row.id='tr-row-'+t.num;
   row.innerHTML='<div class="trame-num">S'+t.num+'</div>'
-    +'<input type="text" class="tr-obj" value="'+htmlE(t.objectif||'')+'" placeholder="Thème / objectif de la séance…">'
+    +'<input type="text" class="tr-obj" value="'+htmlE(t.objectif||'')+'" placeholder="Thème / objectif de la séance...">'
     +'<input type="date" class="tr-date" value="'+(t.date||'')+'">'
     +'<button class="partie-del tr-del">✕</button>';
   row.querySelector('.tr-del').addEventListener('click',function(){row.remove();renumTrameRows();});
@@ -1301,7 +1195,7 @@ function renderProfil(){
     if(d.eleves&&Object.keys(d.eleves).length){
       Object.entries(d.eleves).forEach(function(kv){
         const e=state.eleves.find(function(x){return x.id===kv[0];});
-        if(e&&kv[1])html+='<div style="font-size:.75rem;margin-top:3px"><span style="font-weight:600;color:#e4e6ef">'+htmlE(e.nom)+'</span> — '+htmlE(kv[1])+'</div>';
+        if(e&&kv[1])html+='<div style="font-size:.75rem;margin-top:3px"><span style="font-weight:600;color:#e4e6ef">'+htmlE(e.nom)+'</span> -- '+htmlE(kv[1])+'</div>';
       });
     }
     if(!html)html='<em>Non renseigné</em>';
@@ -1324,7 +1218,7 @@ function openProfilPlan(planKey){
   document.getElementById('profil-plan-key').value=planKey;
   document.getElementById('profil-plan-title').textContent=plan.label;
   document.getElementById('profil-plan-obs').value=d.obs||'';
-  document.getElementById('profil-plan-obs').placeholder=''+plan.desc+'…';
+  document.getElementById('profil-plan-obs').placeholder=''+plan.desc+'...';
   // Liste élèves avec note individuelle
   const el=document.getElementById('profil-plan-eleves');
   el.innerHTML='';
@@ -1333,10 +1227,11 @@ function openProfilPlan(planKey){
     const row=document.createElement('div');
     row.className='profil-eleve-row';
     row.innerHTML='<div class="profil-eleve-nom">'+htmlE(e.nom)+'</div>'
-      +'<textarea class="profil-eleve-note" data-eid="'+e.id+'" placeholder="Note sur cet élève…" rows="1">'+htmlE(val)+'</textarea>';
+      +'<textarea class="profil-eleve-note" data-eid="'+e.id+'" placeholder="Note sur cet élève..." rows="1">'+htmlE(val)+'</textarea>';
 
-
+```
 el.appendChild(row);
+```
 
 });
 openM(‘m-profil-plan’);
@@ -1356,7 +1251,7 @@ closeM(‘m-profil-plan’);renderProfil();toast(‘Profil enregistré ✓’);
 }
 
 // ============================================================
-// IMPRESSION PDF — propre, sans auto-print au chargement
+// IMPRESSION PDF – propre, sans auto-print au chargement
 // ============================================================
 function printViaBlob(html,filename){
 // On ajoute un bouton Imprimer en haut du document
@@ -1370,7 +1265,7 @@ const fixed=withBtn.replace(’</body>’,’</div></body>’);
 const blob=new Blob([fixed],{type:‘text/html;charset=utf-8’});
 const url=URL.createObjectURL(blob);
 const a=window.open(url,’_blank’);
-if(!a)toast(‘Popup bloquée — autorisez les popups pour ce site’,‘warn’);
+if(!a)toast(‘Popup bloquée – autorisez les popups pour ce site’,‘warn’);
 setTimeout(function(){URL.revokeObjectURL(url);},60000);
 }
 
@@ -1448,7 +1343,7 @@ const totalMax=g.criteres.reduce(function(a,c){return a+c.pts;},0);
 // En-tête tableau
 let html=’<div style="margin-bottom:1rem">’;
 html+=’<div style="font-family:DM Serif Display,serif;font-size:1.3rem;color:#e4e6ef">’+htmlE(g.titre)+’</div>’;
-html+=’<div style="font-size:.78rem;color:#6b7280;margin-top:3px">Total sur ‘+totalMax+’ points · ‘+g.criteres.length+’ critère’+(g.criteres.length>1?‘s’:’’)+’</div></div>’;
+html+=’<div style="font-size:.78rem;color:#6b7280;margin-top:3px">Total sur ‘+totalMax+’ points . ‘+g.criteres.length+’ critère’+(g.criteres.length>1?‘s’:’’)+’</div></div>’;
 
 // Tableau des critères (référentiel)
 html+=’<div style="overflow-x:auto;margin-bottom:1.5rem"><table class="grille-table">’;
@@ -1462,7 +1357,7 @@ g.criteres.forEach(function(c){
 html+=’<tr><td><div class="crit-name">’+htmlE(c.nom)+’</div><div class="crit-pts">/’+c.pts+’ pts</div></td>’;
 c.niveaux.forEach(function(n,i){
 const cls=[‘ins’,‘fra’,‘sat’,‘tres’][i];
-html+=’<td><div class="grille-lvl '+cls+'"><div class="grille-lvl-pts">’+n.pts+’ pts — ‘+htmlE(n.label)+’</div>’+htmlE(n.desc)+’</div></td>’;
+html+=’<td><div class="grille-lvl '+cls+'"><div class="grille-lvl-pts">’+n.pts+’ pts – ‘+htmlE(n.label)+’</div>’+htmlE(n.desc)+’</div></td>’;
 });
 html+=’</tr>’;
 });
@@ -1488,11 +1383,11 @@ g.criteres.forEach(function(c){
 const v=en[c.id];
 if(v!==undefined&&v!==’’)total+=parseFloat(v);
 else hasAll=false;
-html+=’<td><input class="grille-note-input" type="number" min="0" max="'+c.pts+'" step="0.5" value="'+(v!==undefined?v:'')+'" placeholder="—" data-eid="'+e.id+'" data-cid="'+c.id+'"></td>’;
+html+=’<td><input class="grille-note-input" type="number" min="0" max="'+c.pts+'" step="0.5" value="'+(v!==undefined?v:'')+'" placeholder="--" data-eid="'+e.id+'" data-cid="'+c.id+'"></td>’;
 });
-const note20=hasAll?(total/totalMax*20).toFixed(1):’—’;
+const note20=hasAll?(total/totalMax*20).toFixed(1):’–’;
 const noteColor=hasAll?(parseFloat(note20)>=12?’#56cfb2’:parseFloat(note20)>=10?’#ffd166’:’#ff6b6b’):’#6b7280’;
-html+=’<td style="font-family:DM Mono,monospace;font-weight:700;color:#e4e6ef">’+(hasAll?total:’—’)+’</td>’;
+html+=’<td style="font-family:DM Mono,monospace;font-weight:700;color:#e4e6ef">’+(hasAll?total:’–’)+’</td>’;
 html+=’<td><span style="font-family:DM Mono,monospace;font-weight:700;font-size:.9rem;color:'+noteColor+'">’+note20+(hasAll?’/20’:’’)+’</span></td>’;
 html+=’</tr>’;
 });
@@ -1530,7 +1425,7 @@ const noms=[‘Insuffisant’,‘Fragile’,‘Satisfaisant’,‘Très bien’]
 const cols=[’#ff6b6b’,’#ffd166’,’#56cfb2’,’#4f8aff’];
 div.innerHTML=’<div style="display:flex;align-items:center;gap:10px;margin-bottom:.75rem">’
 +’<span style="background:#4f8aff;color:#fff;font-family:DM Mono,monospace;font-size:.68rem;padding:3px 9px;border-radius:5px;flex-shrink:0">Critère ‘+(idx+1)+’</span>’
-+’<input type="text" class="crit-nom-inp" value="'+htmlE(c.nom)+'" placeholder="Nom du critère…" style="flex:1">’
++’<input type="text" class="crit-nom-inp" value="'+htmlE(c.nom)+'" placeholder="Nom du critère..." style="flex:1">’
 +’<label style="font-size:.72rem;color:#6b7280;white-space:nowrap">Max :</label>’
 +’<input type="number" class="crit-pts-inp ni" min="1" max="20" value="'+c.pts+'" style="width:55px">’
 +’<span style="font-size:.78rem;color:#6b7280">pts</span>’
@@ -1541,7 +1436,7 @@ div.innerHTML=’<div style="display:flex;align-items:center;gap:10px;margin-bot
 return’<div class="critere-lvl-inp" style="border-top:3px solid '+cols[i]+'">’
 +’<label style="color:'+cols[i]+'">’+noms[i]+’</label>’
 +’<input type="number" class="crit-lvl-pts" min="0" max="20" value="'+n.pts+'" placeholder="pts">’
-+’<textarea class="crit-lvl-desc" rows="2" placeholder="Description…">’+htmlE(n.desc)+’</textarea>’
++’<textarea class="crit-lvl-desc" rows="2" placeholder="Description...">’+htmlE(n.desc)+’</textarea>’
 +’</div>’;
 }).join(’’)
 +’</div>’;
@@ -1580,7 +1475,7 @@ let html=’<!DOCTYPE html><html><head><meta charset="UTF-8"><title>’+htmlE(g.
 html+=’<style>body{font-family:Arial,sans-serif;font-size:10px;margin:15px;line-height:1.35}h1{font-size:14px;margin-bottom:2px}h2{font-size:11px;margin:10px 0 4px;border-bottom:1px solid #ccc;padding-bottom:2px}table{width:100%;border-collapse:collapse;margin-bottom:10px}th,td{border:1px solid #ccc;padding:5px 7px;vertical-align:top;text-align:left}th{background:#f0f0f0;font-size:9px}td{font-size:10px}.ins{border-top:3px solid #ff6b6b}.fra{border-top:3px solid #ffd166}.sat{border-top:3px solid #56cfb2}.tres{border-top:3px solid #4f8aff}.lvl-title{font-weight:bold;font-size:9px}.note{font-weight:bold;text-align:center}@media print{body{margin:8px}}</style>’;
 html+=’</head><body>’;
 html+=’<div style="border-bottom:2px solid #333;padding-bottom:6px;margin-bottom:10px">’;
-html+=’<div style="font-size:9px;color:#666">’+htmlE(CTX.cls?CTX.cls.label:’’)+’ · ‘+(CTX.apsa?CTX.apsa.ca+’ — ‘+CTX.apsa.name:’’)+’ · T’+(CTX.trim||’’)+’</div>’;
+html+=’<div style="font-size:9px;color:#666">’+htmlE(CTX.cls?CTX.cls.label:’’)+’ . ‘+(CTX.apsa?CTX.apsa.ca+’ – ‘+CTX.apsa.name:’’)+’ . T’+(CTX.trim||’’)+’</div>’;
 html+=’<h1>’+htmlE(g.titre)+’</h1>’;
 html+=’<div style="font-size:9px;color:#666">Total sur ‘+totalMax+’ pts</div></div>’;
 
@@ -1591,7 +1486,7 @@ html+=’</tr></thead><tbody>’;
 g.criteres.forEach(function(c){
 html+=’<tr><td><strong>’+htmlE(c.nom)+’</strong><br><span style="color:#888">/’+c.pts+’ pts</span></td>’;
 c.niveaux.forEach(function(n,i){
-html+=’<td class="'+['ins','fra','sat','tres'][i]+'"><div class="lvl-title">’+n.pts+’ pts — ‘+htmlE(n.label)+’</div>’+htmlE(n.desc)+’</td>’;
+html+=’<td class="'+['ins','fra','sat','tres'][i]+'"><div class="lvl-title">’+n.pts+’ pts – ‘+htmlE(n.label)+’</div>’+htmlE(n.desc)+’</td>’;
 });
 html+=’</tr>’;
 });
@@ -1646,7 +1541,7 @@ function accInit(){
 const now=new Date();
 const J=[‘Dimanche’,‘Lundi’,‘Mardi’,‘Mercredi’,‘Jeudi’,‘Vendredi’,‘Samedi’];
 const M=[‘janv.’,‘fevr.’,‘mars’,‘avr.’,‘mai’,‘juin’,‘juil.’,‘aout’,‘sept.’,‘oct.’,‘nov.’,‘dec.’];
-document.getElementById(‘acc-date’).innerHTML=J[now.getDay()]+’ ‘+now.getDate()+’ ‘+M[now.getMonth()]+’ ‘+now.getFullYear()+’<br>Année scolaire 2025–2026’;
+document.getElementById(‘acc-date’).innerHTML=J[now.getDay()]+’ ‘+now.getDate()+’ ‘+M[now.getMonth()]+’ ‘+now.getFullYear()+’<br>Année scolaire 2025-2026’;
 
 // Classes
 const cgrid=document.getElementById(‘acc-cls-grid’);
@@ -1723,7 +1618,7 @@ const filiere=selCls?selCls.filiere:‘bacpro’;
 const d=(AFLP[filiere]||AFLP.bacpro)[apsa.caFull];
 if(!d){document.getElementById(‘aflp-acc-zone’).style.display=‘none’;return;}
 document.getElementById(‘aflp-acc-zone’).style.display=‘block’;
-document.getElementById(‘aflp-acc-sec-title’).textContent=apsa.ca+’ — ‘+apsa.name;
+document.getElementById(‘aflp-acc-sec-title’).textContent=apsa.ca+’ – ‘+apsa.name;
 document.getElementById(‘aflp-acc-ca-title’).textContent=d.titre;
 document.getElementById(‘aflp-acc-list’).innerHTML=d.items.map(function(i){
 return’<div class="aflp-acc-item"><span class="aflp-acc-num">’+i.n+’</span><span>’+i.t+’</span></div>’;
@@ -1738,12 +1633,12 @@ s4.className=‘acc-step’+(selApsa&&selTrim?’ active’:’’);
 const btn=document.getElementById(‘acc-btn’),sum=document.getElementById(‘acc-sum’);
 if(selCls&&selApsa&&selTrim){
 const fil=FILIERES[selCls.filiere];
-sum.innerHTML=’<em>’+selCls.label+’</em> · ‘+selApsa.emoji+’ ‘+selApsa.ca+’ — ‘+selApsa.name+’ · <strong>T’+selTrim+’</strong>’;
+sum.innerHTML=’<em>’+selCls.label+’</em> . ‘+selApsa.emoji+’ ‘+selApsa.ca+’ – ‘+selApsa.name+’ . <strong>T’+selTrim+’</strong>’;
 btn.disabled=false;
 } else if(selCls&&selApsa){
-sum.textContent=selCls.label+’ · ‘+selApsa.name+’ · Choisissez un trimestre’;btn.disabled=true;
+sum.textContent=selCls.label+’ . ‘+selApsa.name+’ . Choisissez un trimestre’;btn.disabled=true;
 } else if(selCls){
-sum.textContent=selCls.label+’ · Choisissez une APSA’;btn.disabled=true;
+sum.textContent=selCls.label+’ . Choisissez une APSA’;btn.disabled=true;
 } else {
 sum.textContent=‘Choisissez une classe, une APSA et un trimestre’;btn.disabled=true;
 }
@@ -1773,7 +1668,7 @@ const d=new Date(s.ts);
 const chip=document.createElement(‘div’);
 chip.className=‘acc-chip’;
 chip.innerHTML=’<div class="dot" style="background:'+(cls.color||'#888')+'"></div>’
-+’<span>’+s.cls.label+’</span><span style="color:#9a9080">·</span>’
++’<span>’+s.cls.label+’</span><span style="color:#9a9080">.</span>’
 +’<span>’+(s.apsa.emoji||‘🏅’)+’ ‘+s.apsa.ca+’ ‘+s.apsa.name+’</span>’
 +(s.trim?’<span style="font-weight:800;color:#4f8aff">T’+s.trim+’</span>’:’’)
 +’<span style="color:#9a9080;font-size:.68rem">’+d.getDate()+’/’+(d.getMonth()+1)+’</span>’
@@ -1797,11 +1692,11 @@ CTX={cls:cls,apsa:apsa,key:key,trim:trim};
 STORAGE_KEY=key;loadState();
 document.getElementById(‘s-logo’).innerHTML=(apsa.emoji||‘🏅’)+’ ‘+apsa.name+’ <span class="s-badge">’+apsa.ca+’</span>’;
 const ctx=document.getElementById(‘s-ctx’);
-ctx.textContent=cls.label+(trim?’ · T’+trim:’’);ctx.style.display=‘inline’;
-document.getElementById(‘s-pg-title’).textContent=apsa.ca+’ — ‘+apsa.name;
+ctx.textContent=cls.label+(trim?’ . T’+trim:’’);ctx.style.display=‘inline’;
+document.getElementById(‘s-pg-title’).textContent=apsa.ca+’ – ‘+apsa.name;
 const filiere=cls.filiere||‘bacpro’;
 const fil=FILIERES[filiere];
-document.getElementById(‘eval-filiere-sub’).textContent=‘Filière : ‘+fil.label+’ · T’+(trim||’’);
+document.getElementById(‘eval-filiere-sub’).textContent=‘Filière : ‘+fil.label+’ . T’+(trim||’’);
 const badge=document.getElementById(‘eval-filiere-badge’);
 badge.textContent=fil.label;badge.style.background=fil.color+‘22’;badge.style.color=fil.color;
 const aflpData=(AFLP[filiere]||AFLP.bacpro)[apsa.caFull];
@@ -1861,12 +1756,12 @@ if(n)el.classList.toggle(‘worked’,worked.has(n.textContent));
 function renderStats(){
 document.getElementById(‘ss-s’).textContent=state.seances.length;
 document.getElementById(‘ss-e’).textContent=state.eleves.length;
-document.getElementById(‘s-pg-sub’).textContent=state.eleves.length+’ élèves · ‘+state.seances.length+’ séances’;
+document.getElementById(‘s-pg-sub’).textContent=state.eleves.length+’ élèves . ‘+state.seances.length+’ séances’;
 let tot=0,pres=0;
 state.seances.forEach(function(s){state.eleves.forEach(function(e){tot++;if(((state.presences[s.id])||{})[e.id]===‘Présent’)pres++;});});
-document.getElementById(‘ss-p’).textContent=tot>0?Math.round(pres/tot*100)+’%’:’—’;
+document.getElementById(‘ss-p’).textContent=tot>0?Math.round(pres/tot*100)+’%’:’–’;
 const noted=state.eleves.filter(function(e){return e.noteFinale!=null;});
-document.getElementById(‘ss-n’).textContent=noted.length>0?(noted.reduce(function(a,e){return a+parseFloat(e.noteFinale);},0)/noted.length).toFixed(1):’—’;
+document.getElementById(‘ss-n’).textContent=noted.length>0?(noted.reduce(function(a,e){return a+parseFloat(e.noteFinale);},0)/noted.length).toFixed(1):’–’;
 }
 
 // ============================================================
@@ -1912,7 +1807,7 @@ if(sp.contenus)html+=’<div><div class="scard-sec-lbl">Contenus enseignement</d
 html+=’</div>’;
 }
 if(objData.obj1)html+=’<div class="scard-body" style="border-top:1px solid #1a1d2a"><div><div class="scard-sec-lbl">🎯 Objectif élèves</div><div class="scard-sec-val">’+htmlE(objData.obj1)+(objData.obj2?’ / ‘+htmlE(objData.obj2):’’)+’</div></div></div>’;
-if(np)html+=’<div class="scard-parts">’+s.parties.map(function(p,i){return’<span class="scard-part-pill">Partie ‘+(i+1)+(p.titre?’ — ‘+htmlE(p.titre):’’)+’</span>’;}).join(’’)+’</div>’;
+if(np)html+=’<div class="scard-parts">’+s.parties.map(function(p,i){return’<span class="scard-part-pill">Partie ‘+(i+1)+(p.titre?’ – ‘+htmlE(p.titre):’’)+’</span>’;}).join(’’)+’</div>’;
 if(aflpT.length&&aflpData)html+=’<div class="scard-aflp-row"><span class="scard-aflp-lbl">AFLP :</span>’+aflpT.map(function(n){return’<span class="scard-aflp-tag">’+n+’</span>’;}).join(’’)+’</div>’;
 html+=’</div>’;
 el.innerHTML+=html;
@@ -1939,15 +1834,15 @@ const div=document.createElement(‘div’);
 div.className=‘partie-block’;div.id=‘pb-’+p.id;
 div.innerHTML=’<div class="partie-header">’
 +’<span class="partie-num-badge">Partie ‘+(idx+1)+’</span>’
-+’<input class="partie-title-input" type="text" placeholder="Titre (Echauffement, Situation principale…)" value="'+htmlE(p.titre)+'">’
++’<input class="partie-title-input" type="text" placeholder="Titre (Echauffement, Situation principale...)" value="'+htmlE(p.titre)+'">’
 +’<button class="partie-del" data-pid="'+p.id+'" data-mode="'+mode+'">✕</button>’
 +’</div>’
 +’<div class="partie-grid">’
-+’<div class="pf"><label>Objectif</label><textarea rows="2" placeholder="Objectif de cette partie…">’+htmlE(p.objectif)+’</textarea></div>’
-+’<div class="pf"><label>Consignes</label><textarea rows="2" placeholder="Consignes détaillées…">’+htmlE(p.consignes)+’</textarea></div>’
-+’<div class="pf"><label>Critères de réussite</label><textarea rows="2" placeholder="Ce que l élève doit réussir…">’+htmlE(p.criteres)+’</textarea></div>’
-+’<div class="pf"><label>Contenus d enseignement</label><textarea rows="2" placeholder="Ce que j enseigne : techniques, notions…">’+htmlE(p.contenus||’’)+’</textarea></div>’
-+’<div class="pf"><label>Bilan de partie</label><textarea rows="2" placeholder="Observations…">’+htmlE(p.bilan)+’</textarea></div>’
++’<div class="pf"><label>Objectif</label><textarea rows="2" placeholder="Objectif de cette partie...">’+htmlE(p.objectif)+’</textarea></div>’
++’<div class="pf"><label>Consignes</label><textarea rows="2" placeholder="Consignes détaillées...">’+htmlE(p.consignes)+’</textarea></div>’
++’<div class="pf"><label>Critères de réussite</label><textarea rows="2" placeholder="Ce que l élève doit réussir...">’+htmlE(p.criteres)+’</textarea></div>’
++’<div class="pf"><label>Contenus d enseignement</label><textarea rows="2" placeholder="Ce que j enseigne : techniques, notions...">’+htmlE(p.contenus||’’)+’</textarea></div>’
++’<div class="pf"><label>Bilan de partie</label><textarea rows="2" placeholder="Observations...">’+htmlE(p.bilan)+’</textarea></div>’
 +’</div>’;
 div.querySelector(’.partie-del’).addEventListener(‘click’,function(){
 const pid=this.dataset.pid,m=this.dataset.mode;
@@ -2056,8 +1951,8 @@ let html=’<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Séance ‘+
 html+=’<style>body{font-family:Arial,sans-serif;font-size:11px;margin:20px;line-height:1.4}h1{font-size:16px}h2{font-size:13px;border-bottom:1px solid #ddd;padding-bottom:3px;margin:12px 0 5px}.box{background:#f8f8f8;border:1px solid #e0e0e0;border-radius:4px;padding:8px;margin-bottom:8px}.grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}.partie{border:1px solid #ddd;border-radius:4px;padding:8px;margin-bottom:6px}label{color:#666;font-size:10px;display:block;margin-bottom:2px}.tag{background:#4f8aff18;color:#4f8aff;border:1px solid #4f8aff44;font-size:9px;padding:1px 6px;border-radius:3px;display:inline-block;margin:1px}</style>’;
 html+=’</head><body>’;
 html+=’<div style="border-bottom:2px solid #333;padding-bottom:8px;margin-bottom:12px">’;
-html+=’<div style="font-size:10px;color:#666">’+htmlE(CTX.cls?CTX.cls.label:’’)+’ · ‘+(CTX.apsa?CTX.apsa.ca+’ — ‘+CTX.apsa.name:’’)+’ · T’+(CTX.trim||’’)+’ · ‘+fil.label+’</div>’;
-html+=’<h1>Séance ‘+s.num+’ — ‘+htmlE(s.objectif||’’)+’</h1>’;
+html+=’<div style="font-size:10px;color:#666">’+htmlE(CTX.cls?CTX.cls.label:’’)+’ . ‘+(CTX.apsa?CTX.apsa.ca+’ – ‘+CTX.apsa.name:’’)+’ . T’+(CTX.trim||’’)+’ . ‘+fil.label+’</div>’;
+html+=’<h1>Séance ‘+s.num+’ – ‘+htmlE(s.objectif||’’)+’</h1>’;
 html+=’<div style="font-size:10px;color:#666">’+(s.date?fmtDate(s.date):’’)+’</div></div>’;
 if(s.aflpTravailles&&s.aflpTravailles.length&&aflpData){
 html+=’<h2>AFLP travaillés</h2>’;
@@ -2068,7 +1963,7 @@ if(item)html+=’<span class="tag">’+n+’</span> ‘+htmlE(item.t)+’<br>’
 }
 html+=’<h2>Parties de la séance</h2>’;
 (s.parties||[]).forEach(function(p,i){
-html+=’<div class="partie"><strong>Partie ‘+(i+1)+’ — ‘+htmlE(p.titre||’’)+’</strong><div class="grid" style="margin-top:6px">’;
+html+=’<div class="partie"><strong>Partie ‘+(i+1)+’ – ‘+htmlE(p.titre||’’)+’</strong><div class="grid" style="margin-top:6px">’;
 if(p.objectif)html+=’<div><label>Objectif</label>’+htmlE(p.objectif)+’</div>’;
 if(p.consignes)html+=’<div><label>Consignes</label>’+htmlE(p.consignes)+’</div>’;
 if(p.criteres)html+=’<div><label>Critères de réussite</label>’+htmlE(p.criteres)+’</div>’;
@@ -2120,11 +2015,11 @@ let html=’<div class="obj-box">’
 +’<div><label class="obj-lbl">Objectif 2 (optionnel)</label><input class="obj-inp" type="text" id="obj2-inp" value="'+htmlE(objData.obj2||'')+'" placeholder="Ex: Utiliser un point d appui"></div>’
 +’</div></div>’;
 html+=’<div class="card" style="margin-bottom:.75rem;padding:.9rem 1.1rem">’
-+’<div style="font-family:DM Serif Display,serif;font-size:1.05rem">S’+s.num+’ — ‘+htmlE(s.objectif||’’)+’</div>’
++’<div style="font-family:DM Serif Display,serif;font-size:1.05rem">S’+s.num+’ – ‘+htmlE(s.objectif||’’)+’</div>’
 +’<div style="color:#6b7280;font-size:.75rem;margin-top:3px">’+(s.date?fmtDate(s.date):’’)+’</div>’
 +’<div style="margin-top:.5rem"><span class="chip c-gr">’+nbP+’/’+state.eleves.length+’ présents</span></div></div>’;
 html+=’<div class="card"><div class="tw"><table>’;
-html+=’<thead><tr><th>Élève</th><th>Statut</th><th>Obj. 1 — Maîtrise</th><th>Obj. 2 — Maîtrise</th><th>Qté travail /4</th></tr></thead><tbody>’;
+html+=’<thead><tr><th>Élève</th><th>Statut</th><th>Obj. 1 – Maîtrise</th><th>Obj. 2 – Maîtrise</th><th>Qté travail /4</th></tr></thead><tbody>’;
 sorted.forEach(function(e){
 const pres=state.presences[sid][e.id]||‘Présent’;
 const ae=state.autoEval[sid][e.id]||{};
@@ -2143,10 +2038,10 @@ html+=’<tr>’
 +STATUTS.map(function(st){return’<option’+(st===pres?’ selected’:’’)+’>’+st+’</option>’;}).join(’’)
 +’</select></td>’
 +’<td><select class=“ss” data-sid=”’+sid+’” data-eid=”’+e.id+’” data-f=“maitrise1”’+(dis?’ disabled’:’’)+’>’
-+’<option value="">— Maîtrise —</option>’+mOpts+’</select></td>’
++’<option value="">– Maîtrise –</option>’+mOpts+’</select></td>’
 +’<td><select class=“ss” data-sid=”’+sid+’” data-eid=”’+e.id+’” data-f=“maitrise2”’+(dis||!hasObj2?’ disabled’:’’)+’>’
-+’<option value="">— Maîtrise —</option>’+mOpts2+’</select></td>’
-+’<td><input class=“ni” type=“number” min=“0” max=“4” step=“1” value=”’+(ae.qte!==undefined?ae.qte:’’)+’” placeholder=”—”’+(dis?’ disabled’:’’)+’ data-sid=”’+sid+’” data-eid=”’+e.id+’” data-f=“qte” style=“width:55px”></td>’
++’<option value="">– Maîtrise –</option>’+mOpts2+’</select></td>’
++’<td><input class=“ni” type=“number” min=“0” max=“4” step=“1” value=”’+(ae.qte!==undefined?ae.qte:’’)+’” placeholder=”–”’+(dis?’ disabled’:’’)+’ data-sid=”’+sid+’” data-eid=”’+e.id+’” data-f=“qte” style=“width:55px”></td>’
 +’</tr>’;
 });
 html+=’</tbody></table></div></div>’;
@@ -2195,15 +2090,15 @@ const ae=(state.autoEval[s.id]||{})[e.id]||{};
 if(ae.maitrise1&&nmv[ae.maitrise1])mts.push(nmv[ae.maitrise1]);
 if(ae.maitrise2&&nmv[ae.maitrise2])mts.push(nmv[ae.maitrise2]);
 });
-const mM=mts.length>0?MAITRISE[Math.round(mts.reduce(function(a,b){return a+b;},0)/mts.length)-1]:’—’;
+const mM=mts.length>0?MAITRISE[Math.round(mts.reduce(function(a,b){return a+b;},0)/mts.length)-1]:’–’;
 const mMcl=mts.length>0?(mts.reduce(function(a,b){return a+b;},0)/mts.length>=3?‘nh’:mts.reduce(function(a,b){return a+b;},0)/mts.length>=2?‘nm’:‘nl’):’’;
 const hasFiche=e.fiche&&(e.fiche.type||e.fiche.desc);
 const tr=document.createElement(‘tr’);
 tr.innerHTML=’<td><div class="nb"><div class="avatar" style="background:'+COLORS[ci]+'22;color:'+COLORS[ci]+'">’+ini+’</div><span style="font-weight:500;font-size:.85rem">’+htmlE(e.nom)+’</span></div></td>’
 +’<td><span class="amen-tag '+(e.amenagement||hasFiche?'has':'none')+'" data-eid="'+e.id+'">’+
 (e.amenagement||hasFiche?‘⚠ ‘+(e.amenagement||(e.fiche?e.fiche.type:’’))||‘Voir fiche’:‘＋ Ajouter fiche’)+’</span></td>’
-+’<td>’+(mM!==’—’?’<span class="nd '+mMcl+'" style="font-size:.72rem">’+mM+’</span>’:’<span style="color:#6b7280">—</span>’)+’</td>’
-+’<td>’+(e.noteFinale!=null?ndsp(e.noteFinale):’<span style="color:#6b7280">—</span>’)+’</td>’
++’<td>’+(mM!==’–’?’<span class="nd '+mMcl+'" style="font-size:.72rem">’+mM+’</span>’:’<span style="color:#6b7280">–</span>’)+’</td>’
++’<td>’+(e.noteFinale!=null?ndsp(e.noteFinale):’<span style="color:#6b7280">–</span>’)+’</td>’
 +’<td><button class="btn btn-g btn-sm" data-eid="'+e.id+'">✏️</button></td>’;
 tr.querySelector(’.amen-tag’).addEventListener(‘click’,function(){openFicheAmen(this.dataset.eid);});
 tr.querySelector(’.btn’).addEventListener(‘click’,function(){openEditE(this.dataset.eid);});
@@ -2273,19 +2168,19 @@ if(ae.qte!==undefined&&ae.qte!==’’)qtes.push(parseFloat(ae.qte));
 if(ae.maitrise1&&nmv[ae.maitrise1])mts.push(nmv[ae.maitrise1]);
 if(ae.maitrise2&&nmv[ae.maitrise2])mts.push(nmv[ae.maitrise2]);
 });
-const mQ=qtes.length>0?(qtes.reduce(function(a,b){return a+b;},0)/qtes.length).toFixed(1):’—’;
-const mQdisp=mQ!==’—’?’<span class="nd '+(parseFloat(mQ)>=3?'nh':parseFloat(mQ)>=2?'nm':'nl')+'">’+mQ+’/4</span>’:’<span style="color:#6b7280">—</span>’;
+const mQ=qtes.length>0?(qtes.reduce(function(a,b){return a+b;},0)/qtes.length).toFixed(1):’–’;
+const mQdisp=mQ!==’–’?’<span class="nd '+(parseFloat(mQ)>=3?'nh':parseFloat(mQ)>=2?'nm':'nl')+'">’+mQ+’/4</span>’:’<span style="color:#6b7280">–</span>’;
 const mMavg=mts.length>0?mts.reduce(function(a,b){return a+b;},0)/mts.length:null;
-const mMlbl=mMavg?MAITRISE[Math.round(mMavg)-1]:’—’;
+const mMlbl=mMavg?MAITRISE[Math.round(mMavg)-1]:’–’;
 const mMcl=mMavg?(mMavg>=3?‘nh’:mMavg>=2?‘nm’:‘nl’):’’;
 const tr=document.createElement(‘tr’);
 tr.innerHTML=’<td style="font-weight:500;font-size:.85rem">’+htmlE(e.nom)+’</td>’
 +’<td><span class="chip c-gr">’+pres+’</span></td>’
 +’<td><span class="chip c-rd">’+abs+’</span></td>’
 +’<td><span class="chip c-yw">’+disp+’</span></td>’
-+’<td>’+(mQ!==’—’?’<span class="nd '+(parseFloat(mQ)>=3?'nh':parseFloat(mQ)>=2?'nm':'nl')+'">’+mQ+’/4</span>’:’<span style="color:#6b7280">—</span>’)+’</td>’
-+’<td>’+(mMlbl!==’—’?’<span class="nd '+mMcl+'" style="font-size:.72rem">’+mMlbl+’</span>’:’<span style="color:#6b7280">—</span>’)+’</td>’
-+’<td><input class="ni" type="number" min="0" max="20" step="0.5" value="'+(e.noteFinale!=null?e.noteFinale:'')+'" placeholder="—" data-eid="'+e.id+'" style="width:65px"></td>’;
++’<td>’+(mQ!==’–’?’<span class="nd '+(parseFloat(mQ)>=3?'nh':parseFloat(mQ)>=2?'nm':'nl')+'">’+mQ+’/4</span>’:’<span style="color:#6b7280">–</span>’)+’</td>’
++’<td>’+(mMlbl!==’–’?’<span class="nd '+mMcl+'" style="font-size:.72rem">’+mMlbl+’</span>’:’<span style="color:#6b7280">–</span>’)+’</td>’
++’<td><input class="ni" type="number" min="0" max="20" step="0.5" value="'+(e.noteFinale!=null?e.noteFinale:'')+'" placeholder="--" data-eid="'+e.id+'" style="width:65px"></td>’;
 tr.querySelector(‘input.ni’).addEventListener(‘change’,function(){
 const el=state.eleves.find(function(x){return x.id===this.dataset.eid;}.bind(this));
 if(el){el.noteFinale=this.value===’’?null:parseFloat(this.value);save();renderStats();}
@@ -2348,7 +2243,7 @@ const found=new Set();
 lines.forEach(function(line){
 const clean=line.replace(/[0-9.,;:!?@#$%^&*()[]{}/\]/g,’ ‘).trim();
 if(clean.length<4||clean.length>60)return;
-if(/^[A-ZÀÂÄÉÈÊËÎÏÔÙÛÜ\s-\–']{4,40}$/.test(clean)){found.add(clean.trim());return;}
+if(/^[A-ZÀÂÄÉÈÊËÎÏÔÙÛÜ\s--']{4,40}$/.test(clean)){found.add(clean.trim());return;}
 const m=clean.match(/([A-ZÀÂÄÉÈÊËÎÏÔÙÛÜ-]{2,}(?:[\s-]+[A-ZÀÂÄÉÈÊËÎÏÔÙÛÜ-]{2,})*)\s+([A-ZÀÂÄÉÈÊËÎÏÔÙÛÜ][a-zàâäéèêëîïôùûü][a-zàâäéèêëîïôùûü-\s']{1,})/);
 if(m&&m[0].length>4){found.add(m[0].trim());return;}
 const w=clean.split(/\s+/);
