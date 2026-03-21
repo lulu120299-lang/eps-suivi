@@ -340,7 +340,7 @@ textarea{resize:vertical;min-height:70px}
       <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:flex-end">
         <div style="flex:1;min-width:200px"><label style="font-size:.72rem;color:#9ab0a0;display:block;margin-bottom:4px">Token GitHub (ghp_…)</label><input class="gh-input" type="password" id="gh-token" placeholder="ghp_xxxxxxxxxxxx"></div>
         <div style="flex:1;min-width:160px"><label style="font-size:.72rem;color:#9ab0a0;display:block;margin-bottom:4px">Repo (ex: lulu120299-lang/eps-suivi)</label><input class="gh-input" type="text" id="gh-repo" placeholder="user/repo-name"></div>
-        <button class="gh-btn" onclick="ghSaveConfig()">Enregistrer</button>
+        <button class="gh-btn" id="btn-gh-save">Enregistrer</button>
       </div>
       <div id="gh-status" style="margin-top:.75rem;font-size:.74rem"></div>
     </div>
@@ -2311,122 +2311,115 @@ function closeM(id){document.getElementById(id).classList.remove(‘open’);}
 // ============================================================
 // INIT EVENTS
 // ============================================================
+function safe(id,ev,fn){var el=document.getElementById(id);if(el)el.addEventListener(ev,fn);}
+
 function initEvents(){
-// Modals close on backdrop
+// Fermeture modals sur backdrop
 document.querySelectorAll(’.mb’).forEach(function(bg){
 bg.addEventListener(‘click’,function(e){if(e.target===bg)bg.classList.remove(‘open’);});
 });
-// Modals close buttons
 document.querySelectorAll(’[data-close]’).forEach(function(btn){
 btn.addEventListener(‘click’,function(){closeM(this.dataset.close);});
 });
-// Suivi boutons
-document.getElementById(‘s-back-btn’).addEventListener(‘click’,goAcc);
-document.getElementById(‘btn-push’).addEventListener(‘click’,ghPush);
-document.getElementById(‘btn-pull’).addEventListener(‘click’,ghPull);
-// Tabs
+// GitHub
+safe(‘btn-gh-save’,‘click’,ghSaveConfig);
+// Suivi navigation
+safe(‘s-back-btn’,‘click’,goAcc);
+safe(‘btn-push’,‘click’,ghPush);
+safe(‘btn-pull’,‘click’,ghPull);
 document.querySelectorAll(’.s-tab’).forEach(function(tab){
 tab.addEventListener(‘click’,function(){showView(this.dataset.view);});
 });
-// Nouvelle séance
-document.getElementById(‘btn-new-seance’).addEventListener(‘click’,function(){openM(‘m-seance’);});
-document.getElementById(‘btn-save-seance’).addEventListener(‘click’,saveSeance);
-document.getElementById(‘btn-add-partie-new’).addEventListener(‘click’,function(){addPartie(‘new’);});
-// Edit séance
-document.getElementById(‘btn-upd-seance’).addEventListener(‘click’,updSeance);
-document.getElementById(‘btn-del-seance’).addEventListener(‘click’,delSeance);
-document.getElementById(‘btn-add-partie-edit’).addEventListener(‘click’,function(){addPartie(‘edit’);});
-document.getElementById(‘btn-pdf-seance’).addEventListener(‘click’,exportSeancePDF);
-// Recherche séance
-document.getElementById(‘srch’).addEventListener(‘input’,renderSeances);
-// Accueil suivi
-document.getElementById(‘btn-edit-seq’).addEventListener(‘click’,openSeqModal);
-document.getElementById(‘btn-save-seq’).addEventListener(‘click’,saveSeq);
-document.getElementById(‘btn-add-trame-seance’).addEventListener(‘click’,addTrameSeance);
-// Raccourcis accueil
 document.querySelectorAll(’.acc-shortcut’).forEach(function(el){
 el.addEventListener(‘click’,function(){showView(this.dataset.view);});
 });
-// Profil de classe
-document.getElementById(‘btn-profil-classe’).addEventListener(‘click’,toggleProfilZone);
+// Séquence accueil
+safe(‘btn-edit-seq’,‘click’,openSeqModal);
+safe(‘btn-save-seq’,‘click’,saveSeq);
+safe(‘btn-add-trame-seance’,‘click’,addTrameSeance);
+// Séances
+safe(‘btn-new-seance’,‘click’,function(){openM(‘m-seance’);});
+safe(‘btn-save-seance’,‘click’,saveSeance);
+safe(‘btn-add-partie-new’,‘click’,function(){addPartie(‘new’);});
+safe(‘btn-upd-seance’,‘click’,updSeance);
+safe(‘btn-del-seance’,‘click’,delSeance);
+safe(‘btn-add-partie-edit’,‘click’,function(){addPartie(‘edit’);});
+safe(‘btn-pdf-seance’,‘click’,exportSeancePDF);
+safe(‘srch’,‘input’,renderSeances);
+// Profil classe
+safe(‘btn-profil-classe’,‘click’,toggleProfilZone);
 document.querySelectorAll(’.profil-edit-btn’).forEach(function(btn){
 btn.addEventListener(‘click’,function(){openProfilPlan(this.dataset.plan);});
 });
-document.getElementById(‘btn-save-profil-plan’).addEventListener(‘click’,saveProfilPlan);
-// Élèves
-document.getElementById(‘btn-new-eleve’).addEventListener(‘click’,function(){openM(‘m-eleve’);});
-document.getElementById(‘btn-save-eleve’).addEventListener(‘click’,saveEleve);
-document.getElementById(‘btn-upd-eleve’).addEventListener(‘click’,updEleve);
-document.getElementById(‘btn-del-eleve’).addEventListener(‘click’,delEleve);
-document.getElementById(‘btn-import-pdf’).addEventListener(‘click’,function(){openM(‘m-pdf’);});
-// CSV
-document.getElementById(‘btn-csv’).addEventListener(‘click’,exportCSV);
-// Fiche
-document.getElementById(‘btn-save-fiche’).addEventListener(‘click’,saveFicheAmen);
+safe(‘btn-save-profil-plan’,‘click’,saveProfilPlan);
+// Eleves
+safe(‘btn-new-eleve’,‘click’,function(){openM(‘m-eleve’);});
+safe(‘btn-save-eleve’,‘click’,saveEleve);
+safe(‘btn-upd-eleve’,‘click’,updEleve);
+safe(‘btn-del-eleve’,‘click’,delEleve);
+safe(‘btn-import-pdf’,‘click’,function(){openM(‘m-pdf’);});
+// Eval
+safe(‘btn-csv’,‘click’,exportCSV);
+// Fiche amenagement
+safe(‘btn-save-fiche’,‘click’,saveFicheAmen);
 document.querySelectorAll(’.disp-type-btn’).forEach(function(btn){
 btn.addEventListener(‘click’,function(){
 document.querySelectorAll(’.disp-type-btn’).forEach(function(b){b.classList.remove(‘sel’);});
 this.classList.add(‘sel’);
 });
 });
-document.getElementById(‘photo-drop’).addEventListener(‘click’,function(){document.getElementById(‘photo-input’).click();});
-document.getElementById(‘photo-input’).addEventListener(‘change’,function(){handlePhoto(this);});
-document.getElementById(‘photo-del-btn’).addEventListener(‘click’,function(){
+safe(‘photo-drop’,‘click’,function(){var pi=document.getElementById(‘photo-input’);if(pi)pi.click();});
+safe(‘photo-input’,‘change’,function(){handlePhoto(this);});
+safe(‘photo-del-btn’,‘click’,function(){
 fichePhotoData=null;
-document.getElementById(‘photo-thumb’).style.display=‘none’;
+var t=document.getElementById(‘photo-thumb’);if(t)t.style.display=‘none’;
 this.style.display=‘none’;
-document.getElementById(‘photo-input’).value=’’;
+var pi=document.getElementById(‘photo-input’);if(pi)pi.value=’’;
 });
-document.getElementById(‘photo-thumb’).addEventListener(‘click’,function(){
-if(fichePhotoData){const w=window.open(’’,’_blank’);w.document.write(’<html><body style="margin:0;background:#000;display:flex;justify-content:center;align-items:center;min-height:100vh"><img src="'+fichePhotoData+'" style="max-width:100%;max-height:100vh;object-fit:contain"></body></html>’);w.document.close();}
+safe(‘photo-thumb’,‘click’,function(){
+if(fichePhotoData){
+var w=window.open(’’,’_blank’);
+if(w){w.document.write(’<html><body style="margin:0;background:#000;display:flex;justify-content:center;align-items:center;min-height:100vh"><img src="'+fichePhotoData+'" style="max-width:100%;max-height:100vh;object-fit:contain"></body></html>’);w.document.close();}
+}
 });
-// Photo drop zone drag
-const pd=document.getElementById(‘photo-drop’);
+var pd=document.getElementById(‘photo-drop’);
+if(pd){
 [‘dragenter’,‘dragover’].forEach(function(ev){pd.addEventListener(ev,function(e){e.preventDefault();pd.classList.add(‘drag’);});});
 [‘dragleave’,‘drop’].forEach(function(ev){pd.addEventListener(ev,function(e){e.preventDefault();pd.classList.remove(‘drag’);});});
 pd.addEventListener(‘drop’,function(e){
-const f=e.dataTransfer.files[0];
-if(f&&f.type.startsWith(‘image/’)){
-const dt=new DataTransfer();dt.items.add(f);
-document.getElementById(‘photo-input’).files=dt.files;
-handlePhoto(document.getElementById(‘photo-input’));
-}
+var f=e.dataTransfer.files[0];
+if(f&&f.type.startsWith(‘image/’)){var dt=new DataTransfer();dt.items.add(f);document.getElementById(‘photo-input’).files=dt.files;handlePhoto(document.getElementById(‘photo-input’));}
 });
+}
 // PDF import
-const dz=document.getElementById(‘pdf-drop’);
-dz.addEventListener(‘click’,function(){document.getElementById(‘pdf-input’).click();});
-document.getElementById(‘pdf-input’).addEventListener(‘change’,function(){handlePdf(this);});
+var dz=document.getElementById(‘pdf-drop’);
+if(dz){
+dz.addEventListener(‘click’,function(){var pi=document.getElementById(‘pdf-input’);if(pi)pi.click();});
+safe(‘pdf-input’,‘change’,function(){handlePdf(this);});
 [‘dragenter’,‘dragover’].forEach(function(ev){dz.addEventListener(ev,function(e){e.preventDefault();dz.classList.add(‘drag’);});});
 [‘dragleave’,‘drop’].forEach(function(ev){dz.addEventListener(ev,function(e){e.preventDefault();dz.classList.remove(‘drag’);});});
 dz.addEventListener(‘drop’,function(e){
-const f=e.dataTransfer.files[0];
-if(f&&f.type===‘application/pdf’){
-const dt=new DataTransfer();dt.items.add(f);
-document.getElementById(‘pdf-input’).files=dt.files;
-handlePdf(document.getElementById(‘pdf-input’));
-}
+var f=e.dataTransfer.files[0];
+if(f&&f.type===‘application/pdf’){var dt=new DataTransfer();dt.items.add(f);document.getElementById(‘pdf-input’).files=dt.files;handlePdf(document.getElementById(‘pdf-input’));}
 });
-document.getElementById(‘btn-pdf-all’).addEventListener(‘click’,function(){document.querySelectorAll(’#pdf-names input[type=checkbox]’).forEach(function(cb){cb.checked=true;});});
-document.getElementById(‘btn-pdf-none’).addEventListener(‘click’,function(){document.querySelectorAll(’#pdf-names input[type=checkbox]’).forEach(function(cb){cb.checked=false;});});
-document.getElementById(‘btn-pdf-import’).addEventListener(‘click’,pdfImport);
+}
+safe(‘btn-pdf-all’,‘click’,function(){document.querySelectorAll(’#pdf-names input[type=checkbox]’).forEach(function(cb){cb.checked=true;});});
+safe(‘btn-pdf-none’,‘click’,function(){document.querySelectorAll(’#pdf-names input[type=checkbox]’).forEach(function(cb){cb.checked=false;});});
+safe(‘btn-pdf-import’,‘click’,pdfImport);
 // Grille
-document.getElementById(‘btn-grille-cfg’).addEventListener(‘click’,openGrilleConfig);
-document.getElementById(‘btn-grille-pdf’).addEventListener(‘click’,exportGrillePDF);
-document.getElementById(‘btn-grille-csv’).addEventListener(‘click’,exportGrilleCSV);
-document.getElementById(‘btn-add-critere’).addEventListener(‘click’,function(){
-const g=grilleGetData();
-const idx=document.querySelectorAll(’.critere-block’).length;
-const newC={id:‘c’+Date.now(),nom:’’,pts:4,niveaux:[
-{label:‘Insuffisant’,desc:’’,pts:0},
-{label:‘Fragile’,desc:’’,pts:2},
-{label:‘Satisfaisant’,desc:’’,pts:3},
-{label:‘Très bien’,desc:’’,pts:4},
+safe(‘btn-grille-cfg’,‘click’,openGrilleConfig);
+safe(‘btn-grille-pdf’,‘click’,exportGrillePDF);
+safe(‘btn-grille-csv’,‘click’,exportGrilleCSV);
+safe(‘btn-add-critere’,‘click’,function(){
+var idx=document.querySelectorAll(’.critere-block’).length;
+var newC={id:‘c’+Date.now(),nom:’’,pts:4,niveaux:[
+{label:‘Insuffisant’,desc:’’,pts:0},{label:‘Fragile’,desc:’’,pts:2},
+{label:‘Satisfaisant’,desc:’’,pts:3},{label:‘Tres bien’,desc:’’,pts:4}
 ]};
 renderCritereBlock(newC,idx);
 });
-document.getElementById(‘btn-save-grille-cfg’).addEventListener(‘click’,saveGrilleConfig);
+safe(‘btn-save-grille-cfg’,‘click’,saveGrilleConfig);
 }
-
 // ============================================================
 // DÉMARRAGE
 // ============================================================
