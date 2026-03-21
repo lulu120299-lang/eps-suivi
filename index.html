@@ -4,6 +4,115 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
+<title>EPS Debug</title>
+<style>
+body{font-family:Arial,sans-serif;padding:20px;background:#f0ece3;}
+.ok{color:green;font-weight:bold;}
+.err{color:red;font-weight:bold;}
+.box{background:#fff;border:1px solid #ccc;border-radius:8px;padding:15px;margin-bottom:10px;}
+h2{font-size:16px;margin-bottom:10px;}
+</style>
+</head>
+<body>
+<h1 style="margin-bottom:20px">EPS — Diagnostic</h1>
+
+<div class="box" id="b1"><h2>1. JavaScript de base</h2><div id="r1">...</div></div>
+<div class="box" id="b2"><h2>2. localStorage</h2><div id="r2">...</div></div>
+<div class="box" id="b3"><h2>3. Données CLASSES</h2><div id="r3">...</div></div>
+<div class="box" id="b4"><h2>4. Construction DOM</h2><div id="r4">...</div></div>
+<div class="box" id="b5"><h2>5. Erreur JS globale</h2><div id="r5">En attente...</div></div>
+<div class="box" id="b6"><h2>6. CSS variables (--c)</h2><div id="r6">...</div></div>
+
+<script>
+// Capturer toutes les erreurs
+var errors = [];
+window.onerror = function(msg, src, line, col, err) {
+  errors.push('Ligne ' + line + ': ' + msg);
+  document.getElementById('r5').innerHTML = '<span class="err">ERREUR: ' + msg + ' (ligne ' + line + ')</span>';
+  return false;
+};
+
+// Test 1 - JS de base
+try {
+  var now = new Date();
+  document.getElementById('r1').innerHTML = '<span class="ok">OK — ' + now.toLocaleTimeString() + '</span>';
+} catch(e) {
+  document.getElementById('r1').innerHTML = '<span class="err">ERREUR: ' + e.message + '</span>';
+}
+
+// Test 2 - localStorage
+try {
+  localStorage.setItem('eps-test', '1');
+  var v = localStorage.getItem('eps-test');
+  localStorage.removeItem('eps-test');
+  document.getElementById('r2').innerHTML = '<span class="ok">OK — localStorage fonctionne</span>';
+} catch(e) {
+  document.getElementById('r2').innerHTML = '<span class="err">ERREUR: ' + e.message + '</span>';
+}
+
+// Test 3 - Données
+try {
+  var CLASSES = [
+    {id:'2nde-ener-b',label:'2NDE ENER B',color:'#c8400a'},
+    {id:'cap-epc-1',label:'CAP EPC 1',color:'#1e4fa0'},
+  ];
+  document.getElementById('r3').innerHTML = '<span class="ok">OK — ' + CLASSES.length + ' classes chargées</span>';
+} catch(e) {
+  document.getElementById('r3').innerHTML = '<span class="err">ERREUR: ' + e.message + '</span>';
+}
+
+// Test 4 - Construction DOM
+try {
+  var container = document.createElement('div');
+  container.style.cssText = 'display:flex;gap:10px;flex-wrap:wrap;';
+  var CLASSES2 = [
+    {id:'cls1',label:'2NDE ENER B',color:'#c8400a'},
+    {id:'cls2',label:'CAP EPC 1',color:'#1e4fa0'},
+    {id:'cls3',label:'CAP ELEC 2',color:'#7c28b8'},
+  ];
+  CLASSES2.forEach(function(c) {
+    var d = document.createElement('div');
+    d.style.cssText = 'background:#faf7f0;border:2px solid ' + c.color + ';border-radius:8px;padding:15px;cursor:pointer;min-width:120px;text-align:center;';
+    d.textContent = c.label;
+    d.addEventListener('click', function() { alert('Cliqué: ' + c.label); });
+    container.appendChild(d);
+  });
+  document.getElementById('r4').appendChild(container);
+  document.getElementById('r4').innerHTML += '<br><span class="ok">OK — DOM construit, cliquez sur une carte pour tester</span>';
+} catch(e) {
+  document.getElementById('r4').innerHTML = '<span class="err">ERREUR: ' + e.message + '</span>';
+}
+
+// Test 6 - CSS variables
+try {
+  var el = document.createElement('div');
+  el.style.setProperty('--c', '#ff0000');
+  var val = el.style.getPropertyValue('--c');
+  if(val) {
+    document.getElementById('r6').innerHTML = '<span class="ok">OK — CSS custom properties supportées</span>';
+  } else {
+    document.getElementById('r6').innerHTML = '<span class="err">NON SUPPORTÉ — CSS variables ne fonctionnent pas sur ce navigateur!</span>';
+  }
+} catch(e) {
+  document.getElementById('r6').innerHTML = '<span class="err">ERREUR: ' + e.message + '</span>';
+}
+
+// Pas d'erreur globale
+setTimeout(function() {
+  if(errors.length === 0) {
+    document.getElementById('r5').innerHTML = '<span class="ok">Aucune erreur JavaScript détectée</span>';
+  }
+}, 500);
+</script>
+
+</body>
+</html>
+<!DOCTYPE html>
+
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
