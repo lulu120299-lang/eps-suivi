@@ -805,7 +805,12 @@ const CA_GROUPS=[
     {id:'duree',name:'Course de durée',emoji:'🏃'},
   ]},
 ];
-const APSA_FLAT=CA_GROUPS.flatMap(g=>g.apsa.map(a=>({...a,ca:g.ca,caFull:g.caFull,caColor:g.color})));
+var APSA_FLAT=[];
+CA_GROUPS.forEach(function(g){
+  g.apsa.forEach(function(a){
+    APSA_FLAT.push({id:a.id,name:a.name,emoji:a.emoji,ca:g.ca,caFull:g.caFull,caColor:g.color});
+  });
+});
 const AFLP={
   bacpro:{
     CA1:{titre:'CA1 — Réaliser sa performance motrice maximale, mesurable à une échéance donnée',items:[
@@ -990,7 +995,8 @@ async function ghPush(){
   toast('Sauvegarde en cours…','info');
   try{
     const fn='data/'+STORAGE_KEY+'.json';
-    const exp={...state,eleves:state.eleves.map(e=>({...e,fiche:e.fiche?{...e.fiche,photo:null}:null}))};
+    var exp=JSON.parse(JSON.stringify(state));
+    exp.eleves=exp.eleves.map(function(e){if(e.fiche)e.fiche.photo=null;return e;});
     const content=btoa(unescape(encodeURIComponent(JSON.stringify(exp,null,2))));
     let sha=null;
     try{const r=await fetch('https://api.github.com/repos/'+GH.repo+'/contents/'+fn,{headers:{'Authorization':'token '+GH.token,'Accept':'application/vnd.github.v3+json'}});if(r.ok){const d=await r.json();sha=d.sha;}}catch(e){}
@@ -1079,7 +1085,7 @@ function renderAccueilSuivi(){
     trameEl.innerHTML='<div style="color:#6b7280;font-size:.8rem;font-style:italic">Aucune séance planifiée — configurez votre trame dans Modifier la séquence</div>';
   } else {
     // Afficher la trame planifiée + séances existantes fusionnées
-    const allNums=new Set([...trame.map(function(t){return t.num;}), ...sorted.map(function(s){return s.num;})]);
+    var allNums=new Set(trame.map(function(t){return t.num;}).concat(sorted.map(function(s){return s.num;})));
     const nums=Array.from(allNums).sort(function(a,b){return a-b;});
     trameEl.innerHTML=nums.map(function(n){
       const tr=trame.find(function(t){return t.num===n;});
@@ -1735,7 +1741,8 @@ if(id===‘v-eval’)highlightEvalAflp();
 }
 function renderAll(){renderAccueilSuivi();renderStats();renderSeances();renderApList();renderEleves();renderNotes();renderGrille();renderProfil();}
 function highlightEvalAflp(){
-const worked=new Set(state.seances.flatMap(function(s){return s.aflpTravailles||[];}));
+var workedArr=[];state.seances.forEach(function(s){(s.aflpTravailles||[]).forEach(function(x){workedArr.push(x);});});
+var worked=new Set(workedArr);
 document.querySelectorAll(’.eval-aflp-item’).forEach(function(el){
 const n=el.querySelector(’.eval-n’);
 if(n)el.classList.toggle(‘worked’,worked.has(n.textContent));
@@ -2142,7 +2149,8 @@ reader.readAsDataURL(file);
 // ============================================================
 function renderNotes(){
 const tb=document.getElementById(‘nt-tbody’);
-const worked=new Set(state.seances.flatMap(function(s){return s.aflpTravailles||[];}));
+var workedArr=[];state.seances.forEach(function(s){(s.aflpTravailles||[]).forEach(function(x){workedArr.push(x);});});
+var worked=new Set(workedArr);
 document.querySelectorAll(’.eval-aflp-item’).forEach(function(el){
 const n=el.querySelector(’.eval-n’);if(n)el.classList.toggle(‘worked’,worked.has(n.textContent));
 });
