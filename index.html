@@ -981,7 +981,7 @@ function ghLoadConfig(){
   if(GH.token)document.getElementById('gh-token').value=GH.token;
   if(GH.repo)document.getElementById('gh-repo').value=GH.repo;
   document.getElementById('gh-status').innerHTML=GH.token&&GH.repo
-    ?`<span style="color:#56cfb2">✓ Connecté — ${GH.repo}</span>`
+    ?'<span style="color:#56cfb2">✓ Connecté — '+GH.repo+'</span>'
     :'<span style="color:#ffd166">⚠ Configurez votre token et repo</span>';
 }
 function ghSaveConfig(){
