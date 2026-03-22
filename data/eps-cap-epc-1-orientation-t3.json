@@ -305,7 +305,12 @@
       "e008": "Absent",
       "e009": "Absent"
     },
-    "s1774087701884": {}
+    "s1774087701884": {},
+    "s1774206615314": {},
+    "s1774180113232": {},
+    "s1774206681702": {},
+    "s1774206754534": {},
+    "s1774206769844": {}
   },
   "autoEval": {
     "s001": {},
@@ -345,7 +350,12 @@
         "maitrise2": "Maîtrise insuffisante"
       }
     },
-    "s1774087701884": {}
+    "s1774087701884": {},
+    "s1774206615314": {},
+    "s1774180113232": {},
+    "s1774206681702": {},
+    "s1774206754534": {},
+    "s1774206769844": {}
   },
   "seanceObjectifs": {
     "s001": {},
@@ -353,11 +363,16 @@
       "obj1": "Se repérer dans l'espace",
       "obj2": "Créer un itinéraire simple"
     },
-    "s1774087701884": {}
+    "s1774087701884": {},
+    "s1774206615314": {},
+    "s1774180113232": {},
+    "s1774206681702": {},
+    "s1774206754534": {},
+    "s1774206769844": {}
   },
   "profil": {
     "moteur": {
-      "obs": "Niveau de classe assez érogène avec des élèves plus ou moins sportifs. Des élèves qui ont pratiqué une activité physique en dehors du cas scolaire d’autres non. Ceci se retrouve sur leurs habilités motrices et de coordination.",
+      "obs": "Niveau de classe assez hétérogène avec des élèves plus ou moins sportifs. Des élèves qui ont pratiqué une activité physique en dehors du cas scolaire d’autres non. Ceci se retrouve sur leurs habilités motrices et de coordination.",
       "eleves": {
         "e003": "SHN football au club de"
       }
