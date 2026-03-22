@@ -1,0 +1,560 @@
+{
+  "seances": [
+    {
+      "id": "s001",
+      "num": 1,
+      "date": "",
+      "objectif": "Test de VMA - Demi-Cooper - Decouverte course de duree",
+      "bilan": "Premiere seance de decouverte. Test demi-Cooper realise pour estimer la VMA de chaque eleve. Ecart important entre certains eleves. Prise de conscience des allures.",
+      "aflpTravailles": [
+        "AFLP 4",
+        "AFLP 6"
+      ],
+      "parties": [
+        {
+          "id": "p001",
+          "titre": "Echauffement",
+          "objectif": "Activer cardio, preparer muscles et articulations",
+          "consignes": "- Marche active avec mobilisations articulaires (chevilles, genoux, bassin, bras)\n- Trottiner en groupe a allure lente (parler sans gene)\n- Educatifs : montees de genoux, talons-fesses, pas chasses, foulees bondissantes\n- 3 accelerations progressives sur 50 m",
+          "criteres": "Posture droite, regard loin. Bras relaches mais actifs. Pas d arret pendant l echauffement. Duree reduite pour eleves fragiles.",
+          "contenus": "Activation cardiovasculaire progressive. Mobilite articulaire dynamique.",
+          "bilan": ""
+        },
+        {
+          "id": "p002",
+          "titre": "Test VMA - Demi-Cooper",
+          "objectif": "Courir la plus grande distance possible en 6 minutes (demi-Cooper)",
+          "consignes": "- Course en 2 parties de 3 min (en courant)\n- Calcul et prise de conscience des effets\n- En petits groupes : a quelle vitesse etais-tu a l aise ?\n- Tableau classe (3 colonnes : facile / moyen / difficile)",
+          "criteres": "Courir sans s arreter les 6 min. Allure reguliere. Savoir estimer son niveau d effort.",
+          "contenus": "9min42 : Calcul et repartition des allures. Prise de conscience des effets de l effort sur le corps. Expression du ressenti par pictogramme.",
+          "bilan": ""
+        },
+        {
+          "id": "p003",
+          "titre": "Retour au calme et bilan collectif",
+          "objectif": "Verbaliser le ressenti, identifier ses limites",
+          "consignes": "Ecoute et respect de la parole. Argumentation claire. Au moins un retour par eleve. Timides : exprimer par pictogramme.",
+          "criteres": "Participer au bilan. Identifier au moins une sensation cle.",
+          "contenus": "Verbalisation - expression corporelle - retour sur effort.",
+          "bilan": ""
+        }
+      ]
+    },
+    {
+      "id": "s002",
+      "num": 2,
+      "date": "",
+      "objectif": "Decouverte allures - Courir a allure moderee et reguliere",
+      "bilan": "Travail sur la notion d allure cible. Les eleves commencent a comprendre la difference entre courir vite et courir longtemps. Quelques eleves encore en difficulte pour maintenir le rythme.",
+      "aflpTravailles": [
+        "AFLP 1",
+        "AFLP 3",
+        "AFLP 6"
+      ],
+      "parties": [
+        {
+          "id": "p004",
+          "titre": "Echauffement",
+          "objectif": "Preparer le corps a l effort, activer progressivement le systeme cardio-respiratoire",
+          "consignes": "- 2 tours de terrain a allure lente\n- Mobilite articulaire\n- 3 lignes droites progressives sur 60 m",
+          "criteres": "Etre echauffe sans fatigue. Amplitude gestuelle controlee. Foulees fluides.",
+          "contenus": "Activation cardio-respiratoire progressive.",
+          "bilan": ""
+        },
+        {
+          "id": "p005",
+          "titre": "Situation 1 - 4 x 100 m reguliers",
+          "objectif": "Travailler la regularite sur courte distance avec 1 min de recuperation entre chaque",
+          "consignes": "- 4 x 100 m avec 1 min de recuperation entre chaque\n- Tenir une allure reguliere\n- Chronometrage possible pour suivi\n- Temps stable : homogene entre les courses",
+          "criteres": "Pas trop rapide sur 1er 100 m. Maintenir rythme sur les 4 repetitions. Savoir finir fort apres les derniers metres.",
+          "contenus": "Maîtrise du rythme. Gestion de l effort sur courte distance. Approfondissement de l allure personnelle.",
+          "bilan": ""
+        },
+        {
+          "id": "p006",
+          "titre": "Retour au calme",
+          "objectif": "Faire redescendre la FC, etirements actifs",
+          "consignes": "Marche active. Etirements jambes : mollets, quadriceps, ischios, dos. FC redevenue normale avant arret.",
+          "criteres": "FC redescendue. Muscles relaches.",
+          "contenus": "Recuperation active. Etirements specifiques course.",
+          "bilan": ""
+        }
+      ]
+    },
+    {
+      "id": "s003",
+      "num": 3,
+      "date": "",
+      "objectif": "Travail intermittent 4x1min a 80% VMA - Gerer l effort",
+      "bilan": "Bloc 1 intermittent introduit. Certains eleves partent trop vite et ne tiennent pas la duree. Insister sur la notion de pourcentage VMA et d allure cible.",
+      "aflpTravailles": [
+        "AFLP 1",
+        "AFLP 2",
+        "AFLP 3"
+      ],
+      "parties": [
+        {
+          "id": "p007",
+          "titre": "Echauffement",
+          "objectif": "Activer cardio, preparer muscles et articulations",
+          "consignes": "- Marche active avec mobilisations articulaires\n- Trottiner en groupe a allure lente\n- Educatifs : montees genoux, talons-fesses, pas chasses, foulees bondissantes\n- 3 accelerations progressives sur 50 m",
+          "criteres": "Posture droite, regard loin. Bras relaches mais actifs.",
+          "contenus": "Activation cardiovasculaire. Mobilite articulaire dynamique.",
+          "bilan": ""
+        },
+        {
+          "id": "p008",
+          "titre": "Bloc intermittent 4x1min a 80% VMA",
+          "objectif": "Apprendre a tenir une allure reguliere moderee sur des repetitions courtes",
+          "consignes": "- Bloc 1 : 4x1 min a 80% VMA avec repos 3 min apres la serie\n- Enchaîner 4 courses a pause en marchant\n- Courir en gardant une cadence reguliere\n- Gestion de l effort : ne pas partir trop vite",
+          "criteres": "Tenir l allure les 4 repetitions. Respecter les temps de repos. Ne pas s arreter en cours de course.",
+          "contenus": "Developpement de la puissance aerobie. Gerer son effort sur la duree. Relances au depart - cadence maintenue.",
+          "bilan": ""
+        },
+        {
+          "id": "p009",
+          "titre": "Bilan collectif",
+          "objectif": "Verbaliser les difficultes, s auto-evaluer",
+          "consignes": "Rassembler les eleves. Difficultes / reussites. Auto-evaluation. Participation individuelle discrète encouragee.",
+          "criteres": "De mieux en mieux. Certains eleves encore peu adaptes a leurs limites.",
+          "contenus": "Verbalisation - auto-evaluation - gestion de l effort.",
+          "bilan": ""
+        }
+      ]
+    },
+    {
+      "id": "s004",
+      "num": 4,
+      "date": "",
+      "objectif": "Pas cours - CROSS UGSEL",
+      "bilan": "Pas de cours - participation au cross UGSEL.",
+      "aflpTravailles": [],
+      "parties": [
+        {
+          "id": "p010",
+          "titre": "Cross UGSEL",
+          "objectif": "Participation au cross inter-etablissements",
+          "consignes": "Cross UGSEL - pas de seance EPS ordinaire",
+          "criteres": "",
+          "contenus": "",
+          "bilan": ""
+        }
+      ]
+    },
+    {
+      "id": "s005",
+      "num": 5,
+      "date": "",
+      "objectif": "Travail de l economie de course - Progressivite des allures",
+      "bilan": "Seance axee sur la technique de course et l economie de deplacement. Travail sur la posture, la foulée, la respiration. Bonne implication de la plupart des eleves.",
+      "aflpTravailles": [
+        "AFLP 1",
+        "AFLP 2",
+        "AFLP 5"
+      ],
+      "parties": [
+        {
+          "id": "p011",
+          "titre": "Echauffement 15 min",
+          "objectif": "Preparer le corps a soutenir des efforts longs et intenses",
+          "consignes": "- Cardio et mobilisation articulaire 15 min\n- Pas d essoufflement : allure lente, amplitude maîtrisee, gestes dynamiques\n- Travail de l economie et de la progressivite",
+          "criteres": "Pas d essoufflement. Trop rapide : reduire le temps de travail. Puissance aerobie 20 min.",
+          "contenus": "Economie de course. Progressivite de l effort. Respiration profonde.",
+          "bilan": ""
+        },
+        {
+          "id": "p012",
+          "titre": "Situation principale - Fractionne long",
+          "objectif": "Ameliorer la capacite a soutenir des efforts longs et intenses en respectant des allures specifiques",
+          "consignes": "- Courir a une allure specifique sans s imposer un chrono cible\n- Moyennes regulieres\n- Resister a l accumulation de fatigue\n- Si rupture : tenir a 250 m mais garder l allure",
+          "criteres": "Respecter le protocole specifique. Resister a la fatigue. Ne pas abandonner.",
+          "contenus": "Developpement musculaire en groupe. Etirements guides : quadriceps (vers fesses), ischios (pencher buste avant jambe tendue). Respiration profonde (inspirer par bouche). FC redevenue normale.",
+          "bilan": ""
+        },
+        {
+          "id": "p013",
+          "titre": "Retour au calme - Relais collectif",
+          "objectif": "Recuperation active et cohesion de groupe",
+          "consignes": "Relais / jeu collectif - transmissions fluides et regulieres. Developper l esprit d equipe musculaire en groupe.",
+          "criteres": "Transmissions fluides. Respect du role.",
+          "contenus": "Recuperation en jeu collectif. Etirements.",
+          "bilan": ""
+        }
+      ]
+    },
+    {
+      "id": "s006",
+      "num": 6,
+      "date": "",
+      "objectif": "6x200m - Regularite et 100% VMA",
+      "bilan": "Seance tres exigeante. Le 6x200 m a mis en difficulte plusieurs eleves. Objectif de regularite entre les 6 chronos partiellement atteint. Insister sur la strategie de course.",
+      "aflpTravailles": [
+        "AFLP 1",
+        "AFLP 2",
+        "AFLP 3",
+        "AFLP 4"
+      ],
+      "parties": [
+        {
+          "id": "p014",
+          "titre": "Echauffement",
+          "objectif": "Preparer les articulations et activer le cardio",
+          "consignes": "- Course legere avec articulations : 10 cercles chevilles, genoux, bassin\n- Educatifs 2 min : montees de genoux (amplitude + rythme), talons-fesses (contact rapide), bondissantes, pas chasses dynamiques\n- Grande foulée forte\n- 3 min actif + grands pas",
+          "criteres": "Etre pret a tout donner. Si ca brule dans les jambes - tenir jusqu au bout.",
+          "contenus": "Preparation specifique course intensive. Activation neuromusculaire.",
+          "bilan": ""
+        },
+        {
+          "id": "p015",
+          "titre": "6 x 200 m a 100% VMA",
+          "objectif": "Produire un effort maximal reparti sur 6 repetitions de 200 m",
+          "consignes": "- 6x200 m : chaque doit etre realise en gardant une allure reguliere et 100% VMA\n- Recuperation : 1min30 a 2 min (marche + trottiner lentement)\n- Objectif : les 6 chronos proches (+/- 2 sec)\n- Si tu pars trop vite : vise la regularite, pas le sprint\n- Par equipes de 3 ou 4 : l eleve court 2 fois\n- Se mettre par binome - le temoin peut maintenir aux deux passages",
+          "criteres": "Regularite des chronos. Respecter le temps de recuperation. Tenir le role de temoin.",
+          "contenus": "Developpement puissance aerobie maximale. Strategie de repartition d effort. Roles sociaux : coureur / temoin / chronometreur.",
+          "bilan": ""
+        },
+        {
+          "id": "p016",
+          "titre": "Retour au calme",
+          "objectif": "Recuperation active apres effort intense",
+          "consignes": "Course lente. Parler avec voisin sans trop essouffler. FC redevenue normale.",
+          "criteres": "FC redescendue. Muscles relaches.",
+          "contenus": "Recuperation cardio. Verbalisation effort.",
+          "bilan": ""
+        }
+      ]
+    },
+    {
+      "id": "s007",
+      "num": 7,
+      "date": "",
+      "objectif": "Seance prise en charge par M. BECQUET - Test 3x400m",
+      "bilan": "Seance assuree par M. BECQUET. Test 3x400m pour evaluer la capacite a maintenir le rythme sur 3 tours. Retour positif sur l engagement des eleves.",
+      "aflpTravailles": [
+        "AFLP 1",
+        "AFLP 3",
+        "AFLP 4"
+      ],
+      "parties": [
+        {
+          "id": "p017",
+          "titre": "Echauffement specifique",
+          "objectif": "Preparer le corps et activer les capacites cardio-respiratoires - eviter les blessures",
+          "consignes": "1. 5-8 min jogging leger\n2. Mobilite dynamique : chevilles, genoux, hanches\n3. Educatifs : montees genoux, talons-fesses, skipping\n4. 3 accelerations progressives sur 50 m pour reveiller le systeme",
+          "criteres": "Corps pret physiquement complet : articulations, rythme cardiaque. Eleves fatigues ou absents : reduire le nombre d exercices.",
+          "contenus": "Preparation specifique avant test. Activation progressive.",
+          "bilan": ""
+        },
+        {
+          "id": "p018",
+          "titre": "3 x 400 m",
+          "objectif": "Comprendre ses capacites, se fixer un objectif personnel de temps",
+          "consignes": "1. Expliquer le 3x400 m : trois tours de 400 m chacun, recuperation 2-3 min entre tours\n2. Objectif : finir chaque 400 m le plus vite possible en maintenant un rythme regulier\n3. Rappel posture : bras actifs, appuis dynamiques, respiration profonde\n4. Choisir un objectif temps realiste pour chaque tour",
+          "criteres": "Depart controle. Allure maintenue. Maintenir effort maximal en respectant au moins les 8 min. Buste droit, bras actifs, foulee rapide. Rappeler strategie.",
+          "contenus": "Connaissance de ses capacites. Strategie de repartition effort. Se fixer un objectif personnel.",
+          "bilan": ""
+        },
+        {
+          "id": "p019",
+          "titre": "Retour au calme et feedback",
+          "objectif": "Permettre la discussion et l analyse",
+          "consignes": "Retour calme / etirements. Mollets, quadriceps, ischio-jambiers, dos. Discussion a ameliorer.",
+          "criteres": "FC redevenue normale. Eleves capables d identifier points a ameliorer.",
+          "contenus": "Recuperation. Feedback individuel et collectif.",
+          "bilan": ""
+        }
+      ]
+    },
+    {
+      "id": "s008",
+      "num": 8,
+      "date": "",
+      "objectif": "Situation plots - Ameliorer la VMA et la gestion des allures par zones de vitesse",
+      "bilan": "Situation originale avec plots de couleur (vert = lent, jaune = moyen, rouge = rapide). Les eleves ont bien compris le principe. Bonne implication generale.",
+      "aflpTravailles": [
+        "AFLP 1",
+        "AFLP 2",
+        "AFLP 3",
+        "AFLP 5"
+      ],
+      "parties": [
+        {
+          "id": "p020",
+          "titre": "Echauffement",
+          "objectif": "Preparer le corps a l effort, activer progressivement le systeme cardio-respiratoire",
+          "consignes": "- 2 tours de terrain a allure lente\n- Mobilite articulaire : hanches, genoux, chevilles\n- 2x20 m : montees genoux, talons-fesses, bondissantes\n- Vert = lent, jaune = moyen, rouge = rapide",
+          "criteres": "Maintien de la posture. Identifier la sensation externe. Si essoufflé : reduire les plots visuels.",
+          "contenus": "Activation cardio. Prise de conscience des allures par couleur.",
+          "bilan": ""
+        },
+        {
+          "id": "p021",
+          "titre": "Situation principale - Plots allures",
+          "objectif": "Ameliorer la gestion des differentes allures par zones colorees",
+          "consignes": "- Depart = maison\n- Distance => Plots a 100/130 m\n- Bip toutes les 30-35 s (a ajuster selon le niveau)\n- A chaque bip : plot choisi, le contourner et revenir a la maison avant le bip suivant\n- 2 echecs consecutifs = marche active",
+          "criteres": "Respecter les zones de vitesse. Anticiper pour gagner la maison. Trop de pauses = prendre un plot plus eloigne. Abaisser progressivement les plots sollicites.",
+          "contenus": "Gestion des allures. Identification du signal sonore. Awareness de l effort. Strategie de course.",
+          "bilan": ""
+        },
+        {
+          "id": "p022",
+          "titre": "Retour au calme",
+          "objectif": "Recuperation progressive et etirements",
+          "consignes": "Marche calme 10 min. Etirements : mollets, quadriceps, ischios, dos. Verbaliser strategies.",
+          "criteres": "FC redevenue normale. Muscles relaches.",
+          "contenus": "Recuperation active. Analyse des strategies utilisees.",
+          "bilan": ""
+        }
+      ]
+    }
+  ],
+  "eleves": [
+    {
+      "id": "e001",
+      "nom": "BEN ALI Dhiaeddine",
+      "amenagement": "",
+      "fiche": null,
+      "noteFinale": null
+    },
+    {
+      "id": "e002",
+      "nom": "BOUTELOUP Nathan",
+      "amenagement": "",
+      "fiche": null,
+      "noteFinale": null
+    },
+    {
+      "id": "e003",
+      "nom": "CAMARA Mohamed",
+      "amenagement": "",
+      "fiche": null,
+      "noteFinale": null
+    },
+    {
+      "id": "e004",
+      "nom": "DAHEL Abdel",
+      "amenagement": "Marche 2e/3e tour",
+      "fiche": {
+        "type": "Autre",
+        "desc": "Tend a marcher en 2e et 3e tour - surveiller effort",
+        "debut": "",
+        "fin": "",
+        "med": "",
+        "photo": null
+      },
+      "noteFinale": null
+    },
+    {
+      "id": "e005",
+      "nom": "FONGILU Geremy-Pedro",
+      "amenagement": "",
+      "fiche": null,
+      "noteFinale": null
+    },
+    {
+      "id": "e006",
+      "nom": "HADDOU Yassine",
+      "amenagement": "",
+      "fiche": null,
+      "noteFinale": null
+    },
+    {
+      "id": "e007",
+      "nom": "HAMAIZI Youssef",
+      "amenagement": "",
+      "fiche": null,
+      "noteFinale": null
+    },
+    {
+      "id": "e008",
+      "nom": "KEDADRA Rihab",
+      "amenagement": "PAI",
+      "fiche": {
+        "type": "PAI",
+        "desc": "PAI asthme - protocole urgence",
+        "debut": "",
+        "fin": "",
+        "med": "",
+        "photo": null
+      },
+      "noteFinale": null
+    },
+    {
+      "id": "e009",
+      "nom": "KINDEL Zelya",
+      "amenagement": "",
+      "fiche": null,
+      "noteFinale": null
+    },
+    {
+      "id": "e010",
+      "nom": "NOBLE Lubin",
+      "amenagement": "",
+      "fiche": null,
+      "noteFinale": null
+    },
+    {
+      "id": "e011",
+      "nom": "RODULFO Flavio",
+      "amenagement": "",
+      "fiche": null,
+      "noteFinale": null
+    },
+    {
+      "id": "e012",
+      "nom": "RULLIAT CRESPO Tymeo",
+      "amenagement": "Asthmatique",
+      "fiche": {
+        "type": "PAI",
+        "desc": "Asthme - inhalateur obligatoire - surveillance effort intense",
+        "debut": "",
+        "fin": "",
+        "med": "",
+        "photo": null
+      },
+      "noteFinale": null
+    },
+    {
+      "id": "e013",
+      "nom": "SBARDELLA-CHEVALIER Andrea",
+      "amenagement": "Asthmatique",
+      "fiche": {
+        "type": "PAI",
+        "desc": "Asthme - surveillance effort - inhalateur",
+        "debut": "",
+        "fin": "",
+        "med": "",
+        "photo": null
+      },
+      "noteFinale": null
+    },
+    {
+      "id": "e014",
+      "nom": "SVONGCHAN Juan",
+      "amenagement": "",
+      "fiche": null,
+      "noteFinale": null
+    }
+  ],
+  "presences": {},
+  "autoEval": {},
+  "seanceObjectifs": {
+    "s001": {
+      "obj1": "Courir les 6 min sans s arreter",
+      "obj2": "Identifier son allure de confort"
+    },
+    "s002": {
+      "obj1": "Tenir 4x100 m a allure reguliere",
+      "obj2": ""
+    },
+    "s003": {
+      "obj1": "Tenir 4x1min a 80% VMA",
+      "obj2": "Respecter les temps de repos"
+    },
+    "s004": {
+      "obj1": "Cross UGSEL",
+      "obj2": ""
+    },
+    "s005": {
+      "obj1": "Courir a allure moderee en economisant",
+      "obj2": "Travailler la posture et la foulée"
+    },
+    "s006": {
+      "obj1": "Regularite des 6 chronos a 100% VMA",
+      "obj2": "Assumer le role de temoin"
+    },
+    "s007": {
+      "obj1": "Finir les 3 tours en maintenant le rythme",
+      "obj2": "Se fixer un objectif de temps"
+    },
+    "s008": {
+      "obj1": "Choisir la bonne zone de vitesse",
+      "obj2": "Anticiper pour revenir avant le bip"
+    }
+  },
+  "profil": {
+    "moteur": {
+      "obs": "Classe heterogene sur le plan moteur. Gros ecart entre les eleves sportifs et ceux peu actifs. DAHEL Abdel tend a marcher en 2e et 3e tour. Certains eleves ont du mal a maintenir une allure reguliere.",
+      "eleves": {
+        "e004": "Marche en 2e/3e tour - besoin d encouragement et de strategie",
+        "e012": "Asthmatique - surveiller pendant efforts intenses",
+        "e013": "Asthmatique - inhalateur obligatoire"
+      }
+    },
+    "medical": {
+      "obs": "3 eleves avec amenagements medicaux : KEDADRA Rihab (PAI asthme), RULLIAT CRESPO Tymeo (asthmatique), SBARDELLA-CHEVALIER Andrea (asthmatique).",
+      "eleves": {
+        "e008": "PAI asthme - protocole urgence connu",
+        "e012": "Asthmatique - inhalateur obligatoire avant effort",
+        "e013": "Asthmatique - surveillance pendant les courses intenses"
+      }
+    },
+    "scolaire": {
+      "obs": "Note : la sequence a commence comme CA5 course de duree mais avec le profil de la classe nous avons adapte et modifie la sequence vers CA1.",
+      "eleves": {}
+    },
+    "social": {
+      "obs": "",
+      "eleves": {}
+    },
+    "autre": {
+      "obs": "Sequence initialement CA5 course de duree - adaptee en cours de sequence. Seance 4 non realisee (cross UGSEL). Seance 7 prise en charge par M. BECQUET.",
+      "eleves": {}
+    }
+  },
+  "comp": {},
+  "seq": {
+    "objet": "Soutenir des efforts longs et intenses en gerant son allure et ses ressources dans une activite de course de duree (CA5).",
+    "objectifs": "Etre capable de courir a une allure reguliere choisie en fonction de ses ressources. Identifier ses progrès et connaitre sa meilleure performance pour la situer culturellement. Assumer des roles sociaux (chronometreur, observateur). Gerer effort et recuperation de maniere autonome.",
+    "aflpPrio": [
+      "AFLP 1",
+      "AFLP 3",
+      "AFLP 4",
+      "AFLP 6"
+    ],
+    "trame": [
+      {
+        "num": 1,
+        "objectif": "Test VMA - Demi-Cooper - Decouverte",
+        "date": ""
+      },
+      {
+        "num": 2,
+        "objectif": "Decouverte allures - Regularite 4x100 m",
+        "date": ""
+      },
+      {
+        "num": 3,
+        "objectif": "Intermittent 4x1min a 80% VMA",
+        "date": ""
+      },
+      {
+        "num": 4,
+        "objectif": "CROSS UGSEL - Pas de cours",
+        "date": ""
+      },
+      {
+        "num": 5,
+        "objectif": "Economie de course - Progressivite",
+        "date": ""
+      },
+      {
+        "num": 6,
+        "objectif": "6x200 m a 100% VMA",
+        "date": ""
+      },
+      {
+        "num": 7,
+        "objectif": "3x400 m - Seance M. BECQUET",
+        "date": ""
+      },
+      {
+        "num": 8,
+        "objectif": "Situation plots - Zones de vitesse",
+        "date": ""
+      }
+    ]
+  },
+  "grilleNotes": {},
+  "grille": null
+}
