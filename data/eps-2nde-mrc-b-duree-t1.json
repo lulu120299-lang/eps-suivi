@@ -1,0 +1,569 @@
+{
+  "seances": [
+    {
+      "id": "s001",
+      "num": 1,
+      "date": "",
+      "objectif": "Découverte CA5 — Courir la plus grande distance possible en 6 min (demi-Cooper) — Découverte des ≠ objectifs de la CA5 et amorce d'un carnet d'entraînement",
+      "bilan": "Très bien, les uns fondamentaux dans l'oral dans ensemble. Activité même avec une fluctuation de l'autonomie qui peuvent tirer.",
+      "aflpTravailles": [
+        "AFLP 4",
+        "AFLP 6"
+      ],
+      "parties": [
+        {
+          "id": "p101",
+          "titre": "Échauffement",
+          "objectif": "Activer cardio, préparer muscles et articulations",
+          "consignes": "- Marche active + mobilisations (chevilles, genoux, bassin, bras).\n- Trottiner en groupe à allure lente (parler sans gêne).\n- Éducatifs : montées genoux, talons-fesses, pas chassés, foulées bondissantes.\n- 3 accélérations progressives sur 50 m.\n- Posture droite, regard loin. Bras relâchés mais actifs.\n- Pas d'arrêt pendant l'échauffement.",
+          "criteres": "Chaque élève est correctement échauffé. Durée réduite pour fragiles / simplifiés.",
+          "contenus": "",
+          "bilan": ""
+        },
+        {
+          "id": "p102",
+          "titre": "Situation 1 : Test de VMA — Demi-Cooper",
+          "objectif": "Courir la plus grande distance possible — 2 parties (2×3 min en courant) sans jambes — Demi-Cooper",
+          "consignes": "9:42 : Calcul & prise de conscience des effets sur le corps.\n- En petits groupes → fiche élève : « À quelle allure étais-tu à l'aise ? »\n- Pas trop dans le confort.\n- Écoute et respect de la parole. Argumentation claire. Au moins un retour par élève.\n- Timides : exprimer par pictogramme 😌 😐",
+          "criteres": "Unique — chacun a son niveau de confort.",
+          "contenus": "Prendre conscience des effets sur le corps. Météo / report. Réinvestir → chercher « tenir » — continuer là où on choisit. Savoir courir longtemps. Tu essoufflé ? En combien de tours ça change. Rythme varie, brutalité si besoin.",
+          "bilan": "Très bien, les uns fondamentaux dans l'oral dans ensemble. Activité même avec une fluctuation de l'autonomie qui peuvent tirer."
+        }
+      ]
+    },
+    {
+      "id": "s002",
+      "num": 2,
+      "date": "",
+      "objectif": "Expérimenter différentes vitesses et comprendre l'impact — bien conserver cette lancée → aller vers autonomie",
+      "bilan": "Un ensemble relativement satisfaisant, quelques élèves ont accéléré de trop sur la vitesse jaune et orange ce qui a rendu plus difficile la rouge même en ajoutant plus de temps de repos. Il faudra donc travailler la gestion de son effort.",
+      "aflpTravailles": [
+        "AFLP 1",
+        "AFLP 2",
+        "AFLP 6"
+      ],
+      "parties": [
+        {
+          "id": "p201",
+          "titre": "Échauffement",
+          "objectif": "Activer cardio, préparer muscles et articulations",
+          "consignes": "- Marche active + mobilisations (chevilles, genoux, bassin, bras).\n- Trottiner en groupe à allure lente (parler sans gêne).\n- Éducatifs : montées genoux, talons-fesses, pas chassés, foulées bondissantes.\n- 3 accélérations progressives sur 50 m.\n- Posture droite, regard loin. Bras relâchés mais actifs.\n- Durée réduite pour fragiles / simplifiés.",
+          "criteres": "Chaque élève est correctement échauffé.",
+          "contenus": "",
+          "bilan": ""
+        },
+        {
+          "id": "p202",
+          "titre": "Situation 1 : Test — Expérimenter différentes vitesses",
+          "objectif": "Expérimenter différentes vitesses et comprendre l'impact — bien conserver cette lancée → aller vers autonomie",
+          "consignes": "- Réduction du nombre de blocs. Repères plus courts pour aider.\nSituation 2 : Comparaison & Apprentissage des effets.\n- Organisation en binômes/trinômes : 1 coureur, 1 observateur (chrono + repères).\n- Course répétée 4 fois sur 3 min.\n- Objectif : maintenir la distance à chaque course → correspond à garder l'allure.\n- Les repères sont matérialisés par des plots.\n- Récupération en marchant. Après → fiche élève : allure atteinte, ressenti (facile, moyen, dur), souffle, jambes.\n- « Aujourd'hui, vous avez vu qu'en augmentant progressivement la vitesse l'effort devient plus difficile. L'important est de trouver votre allure personnelle qui permet de durer. »\nPréparer séance 2 : Test VMA.",
+          "criteres": "Unique — chacun a son niveau de confort.",
+          "contenus": "En matière de dynamisme avec profil relatif. Quelques attrait et guidée. Réinvestir → chercher « tenir » — continuer là où on choisit.",
+          "bilan": "Un ensemble relativement satisfaisant, quelques élèves ont accéléré de trop sur la vitesse jaune et orange ce qui a rendu plus difficile la rouge même en ajoutant plus de temps de repos. Il faudra donc travailler la gestion de son effort."
+        }
+      ]
+    },
+    {
+      "id": "s003",
+      "num": 3,
+      "date": "",
+      "objectif": "Apprendre à tenir une allure régulière modérée — développer la puissance aérobie maximale — Bloc 1 : 4×1' à 80% VMA",
+      "bilan": "Une très bonne séance, ensemble, des attrait dans la situation, donc une puissance aérobie, en revanche endurance fondamentale risque conscience réalisé, verbalisation ensemble. Difficultés / réussites. Auto-évaluation.",
+      "aflpTravailles": [
+        "AFLP 1",
+        "AFLP 2",
+        "AFLP 3"
+      ],
+      "parties": [
+        {
+          "id": "p301",
+          "titre": "Échauffement",
+          "objectif": "Être prêt physiquement à l'effort",
+          "consignes": "Échauffement : activer cardio, préparer muscles et articulations.\n- Marche + mobilisations (chevilles, genoux, bassin, bras).\n- Trottiner en groupe à allure lente (parler sans gêne).\n- Éducatifs : montées genoux, talons-fesses, pas chassés, foulées bondissantes.\n- 3 accélérations progressives sur 50 m.\n- Pas pendant l'échauffement. Chaque élève est correctement échauffé.\n- Posture droite, regard loin. Bras relâchés mais actifs.\n- Durée réduite pour fragiles / simplifiés.",
+          "criteres": "Chaque élève est correctement échauffé.",
+          "contenus": "",
+          "bilan": ""
+        },
+        {
+          "id": "p302",
+          "titre": "Bloc 1 : 4×1' à 80% VMA → repos 3' après la série",
+          "objectif": "Apprendre à tenir une allure régulière modérée — développer la puissance aérobie maximale",
+          "consignes": "- Apprendre à tenir une allure régulière modérée.\n- Enchaîner 4 courses avec pause en marchant.\n- Courir stable. Gestion de l'effort. Respiration travaillée. Travail plus soutenu.\n- Relances dynamiques au départ. Cadence élevée. Baisser.\n- Développer VMA maximale jusqu'au bout.\n- Attitude. Engagement. Efficace. Bras actifs. Ajuster.",
+          "criteres": "Allure stable. Pas d'accélération intempestive. Gestion de l'intensité, tenue sur durée. Ajuster allure ou allonger récup si fatigue. Forte mais constante. Chrono respecté.",
+          "contenus": "S'approprier son… complet. Retour à l'endurance. Rassembler collectif. Difficultés/réussites. Auto-évaluation.",
+          "bilan": "Une très bonne séance, ensemble, des attrait dans la situation, donc une puissance aérobie, en revanche endurance fondamentale risque conscience réalisé, verbalisation ensemble."
+        }
+      ]
+    },
+    {
+      "id": "s004",
+      "num": 4,
+      "date": "",
+      "objectif": "Gérer son allure et adapter la distance sur de longues durées — Jeu du bip — Course au point (10 min sans pause)",
+      "bilan": "",
+      "aflpTravailles": [
+        "AFLP 1",
+        "AFLP 2",
+        "AFLP 3",
+        "AFLP 5"
+      ],
+      "parties": [
+        {
+          "id": "p401",
+          "titre": "Échauffement général",
+          "objectif": "Activer cardio et préparer les articulations — Gérer son allure et adapter la distance sur de longues durées",
+          "consignes": "- Trottiner en groupe à allure conversationnelle.\n- Mobilité : chevilles, genoux, hanches, épaules.\n- 2×20 m : montées genoux, talons-fesses, foulées bondissantes, pas chassés.\n- Jeu du bip — changer selon couleur et plot (vert = lent, jaune = moyen, rouge = rapide).",
+          "criteres": "Être mobile. Respiration contrôlée. Maintien continu.",
+          "contenus": "Identifier la vitesse. Respiration. Réagir à un signal externe.",
+          "bilan": ""
+        },
+        {
+          "id": "p402",
+          "titre": "Course au point (10 min sans pause) — Jeu du bip",
+          "objectif": "Gérer son effort en enchaînant des intensités variées — choisir un programme (progressif, constant ou dégressif) — Revenir à la maison avant chaque course",
+          "consignes": "- Départ = « maison ».\n- Distance = plots à 100/130 m (6 km/h sur 1 min).\n- 9 courses au total. Bip toutes les 60 s de marche entre chaque. Récupération passive.\n- Les élèves choisissent un programme :\n🔹 Progressif → augmenter d'un plot à chaque course.\n🔸 Constant → garder le même plot.\n🔻 Dégressif → diminuer le plot. Changer avant si la difficulté est trop simple ou élevée. 2 échecs consécutifs = 1 marche active.\n- Respect. Maintien continu. Identifier la vitesse et la respiration. Réagir au signal externe.\n- Si essoufflement : réduire les plots visuels. Choisir son programme (progressif, constant ou dégressif) → revenir à la maison avant chaque course à temps régulier. Ajuster.\n- Retour au calme. Trop de retard → augmenter. Se recentrer sur les sensations.\n- Situer l'apprentissage. Passage 1 — Récupération après. Abaisser les plots sollicités. Marche. Étirements : mollets, quadriceps, ischios, dos. Discussion. Correct. Écoute.",
+          "criteres": "Capacité à courir majoritairement. Respect du plot choisi. Retour à la maison avant chaque bip.",
+          "contenus": "Gestion de l'effort sur longue durée. Choix du programme. Conscience des allures. Stratégie de course.",
+          "bilan": ""
+        }
+      ]
+    },
+    {
+      "id": "s005",
+      "num": 5,
+      "date": "",
+      "objectif": "Courir le bloc suivant : 2' à 90% VMA → marche — Connaître l'énergie dépensée",
+      "bilan": "",
+      "aflpTravailles": [
+        "AFLP 1",
+        "AFLP 2",
+        "AFLP 3"
+      ],
+      "parties": [
+        {
+          "id": "p501",
+          "titre": "Échauffement général",
+          "objectif": "Activer cardio et préparer les articulations",
+          "consignes": "- Trottiner 10' en groupe à allure conversationnelle.\n- PPG : 2×20 m montées genoux, talons-fesses, foulées bondissantes, pas chassés.\n- Étirements activo-dynamiques (quadriceps, ischios, mollets, dos, bras).\n- Garder amplitude et rythme réguliers, ne pas précipiter.\n- Progressivité de l'effort. Mouvement complet et fluide. Économie gestuelle.\n- Réduire allure si essoufflement.",
+          "criteres": "Être mobile. Respiration contrôlée.",
+          "contenus": "",
+          "bilan": ""
+        },
+        {
+          "id": "p502",
+          "titre": "2' à 90% VMA → marche — Calcul énergie",
+          "objectif": "Courir le bloc suivant : 2' à 90% VMA → 1' marche — Connaître l'énergie dépensée",
+          "consignes": "- Courir le bloc suivant : 2' à 90% VMA. Marche 5 km/h total.\n- Consigne : noter les valeurs pour chaque effort, additionner → connaître l'énergie dépensée.",
+          "criteres": "Allure régulière et constante. Chrono respecté. Effort proche du max sur la durée.",
+          "contenus": "Connaître l'énergie dépensée. Formule : Énergie (kcal) = Poids × Vitesse × Facteur ÷ temps. Physiologie de l'effort.",
+          "bilan": ""
+        }
+      ]
+    },
+    {
+      "id": "s006",
+      "num": 6,
+      "date": "",
+      "objectif": "Adapter son effort à son projet personnel — Choix du type de travail : A. Puissance Aérobie (travail intensif) ou B. Endurance Fondamentale (continu modéré)",
+      "bilan": "",
+      "aflpTravailles": [
+        "AFLP 1",
+        "AFLP 2",
+        "AFLP 3",
+        "AFLP 5"
+      ],
+      "parties": [
+        {
+          "id": "p601",
+          "titre": "Échauffement (15 min)",
+          "objectif": "Préparer le corps à l'effort et activer le système cardio-respiratoire — entrer progressivement",
+          "consignes": "• 5' footing à 60% VMA.\n• 3 tours : montées genoux / talons-fesses / pas chassés / skipping / 20m accéléré / courses sur 40m.\n- Être échauffé sans gêne musculaire. Cadence augmentée et contrôlée.\n- Diminuer la vitesse si essoufflement.",
+          "criteres": "Être échauffé sans gêne musculaire. Cadence augmentée et contrôlée.",
+          "contenus": "",
+          "bilan": ""
+        },
+        {
+          "id": "p602",
+          "titre": "Partie principale – Choix du type de travail",
+          "objectif": "Adapter son effort à son projet personnel — gérer VMA selon allures choisies",
+          "consignes": "➤ Les élèves choisissent entre :\nA. Puissance Aérobie (travail intensif) : • 7' à 80% VMA. Faire 3 fois : effort + récupération active. Puis 2 min de marche.\nB. Endurance Fondamentale (continu modéré) : Faire 3 fois : effort + récupération active. Puis 2 min de marche active.\n\nA. Puissance Aérobie — Améliorer la capacité à soutenir une allure proche du max mais respecter les temps de repos. Alternance repos. Solliciter. Trop rapide → 110% max → allonger récupération.\nB. Endurance Fondamentale — Développer sans fatigue excessive. Allure constante et régulière, tenue continue. Réduire.",
+          "criteres": "Rupture du protocole → récupérer. Allure choisie maintenue. Retour au calme (5 min) et favoriser. Étirements légers (mollets, quadriceps, ischios, dos). Respiration profonde. Visible.",
+          "contenus": "Auto-évaluer. Identifier. Réfléchir. Quelle séance choisie ? Difficulté rencontrée ? Réponse honnête. Ne pas rejeter. Accompagner.",
+          "bilan": ""
+        }
+      ]
+    },
+    {
+      "id": "s007",
+      "num": 7,
+      "date": "",
+      "objectif": "Adapter son effort à son projet personnel — Choix du type de travail (séance 2) : A. Puissance Aérobie ou B. Endurance Fondamentale — Construction d'un projet adapté choisi par l'élève",
+      "bilan": "",
+      "aflpTravailles": [
+        "AFLP 1",
+        "AFLP 2",
+        "AFLP 3",
+        "AFLP 5"
+      ],
+      "parties": [
+        {
+          "id": "p701",
+          "titre": "Échauffement (15 min)",
+          "objectif": "Préparer le corps à l'effort et activer le système cardio-respiratoire",
+          "consignes": "• 5' footing à 60% VMA.\n• 3 tours : montées genoux / talons-fesses / pas chassés / skipping / 20m accéléré / courses sur 40m.\n- Être échauffé sans gêne musculaire. Cadence augmentée et contrôlée.\n- Diminuer la vitesse si essoufflement.",
+          "criteres": "Être échauffé sans gêne musculaire. Cadence augmentée et contrôlée.",
+          "contenus": "",
+          "bilan": ""
+        },
+        {
+          "id": "p702",
+          "titre": "Partie principale – Choix du type de travail (séance 2)",
+          "objectif": "Adapter son effort à son projet personnel — Construction d'un projet adapté choisi par l'élève — Enrichir l'expérience — Endurance fondamentale",
+          "consignes": "➤ Les élèves choisissent entre :\nA. Puissance Aérobie (travail intensif) : • 7' à 80% VMA. Faire 3 fois : effort + récupération active. Puis 2 min de marche.\nB. Endurance Fondamentale (continu modéré) : Faire 3 fois : effort + récupération active. Puis 2 min de marche active.\n\nA. Puissance Aérobie — Améliorer la capacité à soutenir une allure proche du max mais respecter les temps de repos. Alternance repos. Trop rapide → 110% max → allonger récupération.\nB. Endurance Fondamentale — Développer sans fatigue excessive. Allure constante et régulière, tenue continue. Réduire.",
+          "criteres": "Rupture du protocole → récupérer. Allure choisie maintenue. Retour au calme (5 min). Étirements légers. Respiration profonde. Visible.",
+          "contenus": "Auto-évaluer. Identifier. Réfléchir. Construction d'un projet adapté choisi par l'élève. Enrichissement via les vitesses enseignées.",
+          "bilan": ""
+        }
+      ]
+    },
+    {
+      "id": "s008",
+      "num": 8,
+      "date": "",
+      "objectif": "Évaluation — Quantité de travail /4 — Gérer son allure et adapter la distance — Course au point — Plot choisi / Projet de course / Respect du protocole",
+      "bilan": "",
+      "aflpTravailles": [
+        "AFLP 1",
+        "AFLP 2",
+        "AFLP 3",
+        "AFLP 4",
+        "AFLP 5",
+        "AFLP 6"
+      ],
+      "parties": [
+        {
+          "id": "p801",
+          "titre": "Échauffement général",
+          "objectif": "Activer cardio et préparer les articulations",
+          "consignes": "- Trottiner 10' en groupe à allure conversationnelle.\n- PPG : 2×20 m montées genoux, talons-fesses, foulées bondissantes, pas chassés.\n- Étirements activo-dynamiques (quadriceps, ischios, mollets, dos, bras).\n- Garder amplitude et rythme réguliers. Progressivité. Économie gestuelle.",
+          "criteres": "Être mobile. Respiration contrôlée.",
+          "contenus": "",
+          "bilan": ""
+        },
+        {
+          "id": "p802",
+          "titre": "ÉVALUATION — Course au point — Quantité de travail /4",
+          "objectif": "Évaluer la gestion de l'allure et l'adaptation de la distance — Plot choisi / Projet de course / Respect du protocole",
+          "consignes": "- Départ = « maison ».\n- Distance = plots à 100/130 m.\n- 9 courses au total. Bip toutes les 60 s. Récupération passive entre chaque.\n- Les élèves choisissent un programme : Progressif / Constant / Dégressif.\n- Plot choisi — Projet de course — Respect du protocole.\n- 2 échecs consécutifs = 1 marche active.\n- Quantité de travail /4 évaluée : insuffisant / fragile / satisfaisant / très satisfaisant.\n- Absent : Note 8.",
+          "criteres": "Maîtrise insuffisante → Distance sur 100% VMA : fragile / satisfaisante. Quantité de travail /4. Respect du programme choisi.",
+          "contenus": "Réaliser un projet d'entraînement simple en mobilisant des méthodes adaptées, en régulant son effort grâce à des indicateurs (fréquence cardiaque, ressenti, fatigue) et en assurant un rôle actif auprès de ses pairs pour favoriser la réussite collective.",
+          "bilan": ""
+        }
+      ]
+    }
+  ],
+  "eleves": [
+    {
+      "id": "e001",
+      "nom": "AZZOUG Yani Rami",
+      "amenagement": "TDAH - Gevasco - PAP",
+      "fiche": {
+        "type": "GEVASCO",
+        "desc": "TDAH - Gevasco - PAP. Aide humaine mutualisée - avait un ordinateur au collège pour sa dysgraphie. J'ai proposé qu'il le ramène.",
+        "debut": "",
+        "fin": "",
+        "med": "",
+        "photo": null
+      },
+      "noteFinale": null
+    },
+    {
+      "id": "e002",
+      "nom": "AZZOUZ Yacine",
+      "amenagement": "ULIS",
+      "fiche": {
+        "type": "Autre",
+        "desc": "ULIS - a un ordinateur adapté.",
+        "debut": "",
+        "fin": "",
+        "med": "",
+        "photo": null
+      },
+      "noteFinale": null
+    },
+    {
+      "id": "e003",
+      "nom": "BAISSE-DEPONTIEU Blanche",
+      "amenagement": "PAP",
+      "fiche": {
+        "type": "PAP",
+        "desc": "PAP - évaluations aménagées. Avait un 1/3 temps au collège.",
+        "debut": "",
+        "fin": "",
+        "med": "",
+        "photo": null
+      },
+      "noteFinale": null
+    },
+    {
+      "id": "e004",
+      "nom": "BARON Romain",
+      "amenagement": "PAP",
+      "fiche": {
+        "type": "PAP",
+        "desc": "PAP - difficulté à écrire, lenteur, 1/3 temps ou moins d'exos.",
+        "debut": "",
+        "fin": "",
+        "med": "",
+        "photo": null
+      },
+      "noteFinale": null
+    },
+    {
+      "id": "e005",
+      "nom": "CHAREF Séphora",
+      "amenagement": "PAP",
+      "fiche": {
+        "type": "PAP",
+        "desc": "PAP : évaluations aménagées, 1/3 temps.",
+        "debut": "",
+        "fin": "",
+        "med": "",
+        "photo": null
+      },
+      "noteFinale": null
+    },
+    {
+      "id": "e006",
+      "nom": "DIBRA Mateo",
+      "amenagement": "TDAH",
+      "fiche": {
+        "type": "Autre",
+        "desc": "TDAH - diagnostic autisme posé fin juin - les parents ont fait dossier MDPH et espèrent une Aide Humaine.",
+        "debut": "",
+        "fin": "",
+        "med": "",
+        "photo": null
+      },
+      "noteFinale": null
+    },
+    {
+      "id": "e007",
+      "nom": "DUARTE Mathis",
+      "amenagement": "",
+      "fiche": null,
+      "noteFinale": null
+    },
+    {
+      "id": "e008",
+      "nom": "DUPLANY Valentin",
+      "amenagement": "",
+      "fiche": null,
+      "noteFinale": null
+    },
+    {
+      "id": "e009",
+      "nom": "GALLAY Stan",
+      "amenagement": "",
+      "fiche": null,
+      "noteFinale": null
+    },
+    {
+      "id": "e010",
+      "nom": "JACQUES-MANROUFFOU Lukas",
+      "amenagement": "",
+      "fiche": null,
+      "noteFinale": null
+    },
+    {
+      "id": "e011",
+      "nom": "KEITA Amadou",
+      "amenagement": "",
+      "fiche": null,
+      "noteFinale": null
+    },
+    {
+      "id": "e012",
+      "nom": "LAPULY Mélissa",
+      "amenagement": "",
+      "fiche": null,
+      "noteFinale": null
+    },
+    {
+      "id": "e013",
+      "nom": "LOUYOT Constant",
+      "amenagement": "",
+      "fiche": null,
+      "noteFinale": null
+    },
+    {
+      "id": "e014",
+      "nom": "MASTRONARDI Alessandro",
+      "amenagement": "",
+      "fiche": null,
+      "noteFinale": null
+    },
+    {
+      "id": "e015",
+      "nom": "MOKNI Zeyneb",
+      "amenagement": "",
+      "fiche": null,
+      "noteFinale": null
+    },
+    {
+      "id": "e016",
+      "nom": "PASQUIER Paul",
+      "amenagement": "",
+      "fiche": null,
+      "noteFinale": null
+    },
+    {
+      "id": "e017",
+      "nom": "RIPPOLL Emma",
+      "amenagement": "",
+      "fiche": null,
+      "noteFinale": null
+    },
+    {
+      "id": "e018",
+      "nom": "ROBAGLIA Hugo",
+      "amenagement": "",
+      "fiche": null,
+      "noteFinale": null
+    },
+    {
+      "id": "e019",
+      "nom": "RONGER Yaniss",
+      "amenagement": "",
+      "fiche": null,
+      "noteFinale": null
+    },
+    {
+      "id": "e020",
+      "nom": "TRUONG Gia Bao",
+      "amenagement": "",
+      "fiche": null,
+      "noteFinale": null
+    }
+  ],
+  "presences": {},
+  "autoEval": {},
+  "seanceObjectifs": {
+    "s001": {
+      "obj1": "Courir les 6 min sans s'arrêter",
+      "obj2": "Identifier son allure de confort"
+    },
+    "s002": {
+      "obj1": "Expérimenter les allures jaune / orange / rouge",
+      "obj2": "Renseigner la fiche avec son ressenti"
+    },
+    "s003": {
+      "obj1": "Tenir 4×1' à 80% VMA",
+      "obj2": "Respecter les temps de repos"
+    },
+    "s004": {
+      "obj1": "Choisir et maintenir son programme (progressif/constant/dégressif)",
+      "obj2": "Revenir à la maison avant chaque bip"
+    },
+    "s005": {
+      "obj1": "Courir 2' à 90% VMA et calculer son énergie dépensée",
+      "obj2": "Respecter le protocole"
+    },
+    "s006": {
+      "obj1": "Choisir et respecter son type de travail",
+      "obj2": "S'auto-évaluer honnêtement"
+    },
+    "s007": {
+      "obj1": "Construire son projet personnel de course",
+      "obj2": "Progresser par rapport à la séance précédente"
+    },
+    "s008": {
+      "obj1": "Maintenir l'allure et respecter le programme en évaluation",
+      "obj2": "Obtenir la meilleure quantité de travail possible"
+    }
+  },
+  "profil": {
+    "moteur": {
+      "obs": "Une classe dynamique et relativement homogène vis-à-vis de l'activité. Effort accepté sur courtes périodes (goût ok). Cependant groupe peu uni. Certains élèves fuient les cours EPS (sèchent, dispenses intempestives).",
+      "eleves": {}
+    },
+    "social": {
+      "obs": "",
+      "eleves": {}
+    },
+    "medical": {
+      "obs": "Plusieurs élèves avec aménagements importants : AZZOUG (TDAH/Gevasco/PAP), AZZOUZ (ULIS), BAISSE-DEPONTIEU (PAP), BARON (PAP), CHAREF (PAP), DIBRA (TDAH/autisme/MDPH en cours).",
+      "eleves": {
+        "e001": "TDAH - Gevasco - PAP. Aide humaine mutualisée. Ordinateur pour dysgraphie.",
+        "e002": "ULIS - ordinateur adapté.",
+        "e003": "PAP - évaluations aménagées, 1/3 temps au collège.",
+        "e004": "PAP - difficulté à écrire, lenteur, 1/3 temps ou moins d'exos.",
+        "e005": "PAP : évaluations aménagées, 1/3 temps.",
+        "e006": "TDAH - diagnostic autisme posé fin juin - dossier MDPH en cours - aide humaine espérée."
+      }
+    },
+    "scolaire": {
+      "obs": "",
+      "eleves": {}
+    },
+    "autre": {
+      "obs": "2NDE MRC B — Course de Durée — T1. Approche CA5.",
+      "eleves": {}
+    }
+  },
+  "comp": {},
+  "seq": {
+    "objet": "Réaliser un projet d'entraînement simple en mobilisant des méthodes adaptées, en régulant son effort grâce à des indicateurs (fréquence cardiaque, ressenti, fatigue) et en assurant un rôle actif auprès de ses pairs pour favoriser la réussite collective.",
+    "objectifs": "Développer la puissance aérobie. Découverte des ≠ objectifs de la CA5 et amorce d'un carnet d'entraînement. Construction d'un projet personnel adapté, choisi par l'élève. Enrichissement via les vitesses enseignées. Endurance fondamentale. Éprouver différentes méthodes d'entraînement et en identifier les principes pour les réutiliser. Systématiser un retour réflexif sur sa pratique pour réguler sa charge de travail en fonction d'indicateurs de l'effort. Agir avec et pour les autres en assurant spontanément des rôles sociaux. Intégrer des conseils d'entraînement et diététiques. Construire un modèle sain.",
+    "aflpPrio": [
+      "AFLP 1",
+      "AFLP 2",
+      "AFLP 3",
+      "AFLP 5"
+    ],
+    "trame": [
+      {
+        "num": 1,
+        "objectif": "Test VMA Demi-Cooper — Découverte CA5",
+        "date": ""
+      },
+      {
+        "num": 2,
+        "objectif": "Expérimentation des allures — Binômes — Vitesses jaune/orange/rouge",
+        "date": ""
+      },
+      {
+        "num": 3,
+        "objectif": "Intermittent 4×1' 80% VMA",
+        "date": ""
+      },
+      {
+        "num": 4,
+        "objectif": "Jeu du bip — Course au point 10 min — Programme progressif/constant/dégressif",
+        "date": ""
+      },
+      {
+        "num": 5,
+        "objectif": "2' à 90% VMA → marche — Calcul énergie dépensée",
+        "date": ""
+      },
+      {
+        "num": 6,
+        "objectif": "Choix : Puissance aérobie ou Endurance fondamentale (séance 1)",
+        "date": ""
+      },
+      {
+        "num": 7,
+        "objectif": "Choix : Puissance aérobie ou Endurance fondamentale (séance 2) — Projet personnel",
+        "date": ""
+      },
+      {
+        "num": 8,
+        "objectif": "ÉVALUATION — Course au point — Quantité de travail /4",
+        "date": ""
+      }
+    ]
+  },
+  "grilleNotes": {},
+  "grille": null
+}
