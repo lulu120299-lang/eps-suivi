@@ -1,0 +1,439 @@
+{
+  "seances": [
+    {
+      "id": "s001",
+      "num": 1,
+      "date": "",
+      "objectif": "Découverte de l'APSA — Règles de sécurité — Retrouver 6 balises disposées autour du lycée (zone sécurisée)",
+      "bilan": "Ensemble et premiers. Avec courage. Évaluation diagnostique avec niveau. Distribution du dispositif.",
+      "aflpTravailles": [
+        "AFLP 1",
+        "AFLP 6"
+      ],
+      "parties": [
+        {
+          "id": "p101",
+          "titre": "Échauffement et présentation de l'activité",
+          "objectif": "Découvrir l'activité, comprendre les règles de sécurité, orienter la carte",
+          "consignes": "- Présentation de la carte du lycée et des environs.\n- Orienter la carte vers le nord.\n- Identifier les éléments majeurs : bâtiments, chemins, clôtures.\n- Utiliser une ligne directrice (mur, chemin…) pour se placer et rester maître.\n- Règles de sécurité : signal sonore = rassemblement. Aucun élève isolé. Zones interdites. Retour au calme. Protocole d'urgence. Rappel.",
+          "criteres": "Carte orientée vers le nord. Identifier 3 éléments visibles. Lire la légende. Anticiper le trajet.",
+          "contenus": "Orienter une carte. Lire la légende. Identifier les éléments majeurs. Règles de sécurité CO.",
+          "bilan": ""
+        },
+        {
+          "id": "p102",
+          "titre": "Parcours découverte — 6 balises autour du lycée",
+          "objectif": "Découvrir l'activité et comprendre le principe de la course d'orientation — Retrouver 6 balises disposées autour du lycée (zone sécurisée) et les pointer correctement",
+          "consignes": "- Travail par binôme imposé (mixité de profils).\n- Carte orientée avant le départ dans le bon sens.\n- Balises à prendre en ordre.\n- Temps maximum : 20 min. Retour obligatoire au point central. Valider au retour.\n- Respecter les zones interdites. Orienter vers le nord. Responsabilité / terrain.\n- Arrêt pédagogique possible : « Où es-tu ? », « Qu'est-ce que tu vois ? » et savoir rechercher.\n- Choisir le chemin le plus difficile ou le plus rapide possible grâce aux repères spatiaux.\n- Signal sonore = rassemblement.\n- Collecter si manquement. Redistribuer le dispositif.\nBINÔMES : Melissa-Blanche-Rami / Hugo-Romain / Emma-Lukas / Constant-Mathis-Valentin / Alessandro-Gia Bao-Stan.",
+          "criteres": "- Observer les éléments visibles. Être capable de nommer au moins 2 balises.\n- Lecture de la légende. Anticiper le trajet. Savoir rechercher.\n- Intégrer les fonctions. Évoluer dans le cadre fixé.",
+          "contenus": "Remédiation : réexpliquer. Proposer un parcours simplifié, réduire le nombre de balises. Accompagner verbalement. Repérer dans un espace connu. Relever la ressemblance cartographique.",
+          "bilan": "Ensemble et premiers. Avec courage. Évaluation diagnostique avec niveau. Distribution du dispositif."
+        }
+      ]
+    },
+    {
+      "id": "s002",
+      "num": 2,
+      "date": "",
+      "objectif": "Se repérer dans l'espace et identifier l'emplacement d'une balise — Comprendre la carte et savoir l'orienter pour rechercher",
+      "bilan": "Bilan mitigé. Grosso modo, une partie de la classe risque d'être concernée. Tableau de l'heure. On a fait.",
+      "aflpTravailles": [
+        "AFLP 1",
+        "AFLP 3",
+        "AFLP 6"
+      ],
+      "parties": [
+        {
+          "id": "p201",
+          "titre": "Échauffement orienté CO",
+          "objectif": "Réactiver les notions de carte et d'orientation",
+          "consignes": "- Relire la carte. Orienter vers le nord.\n- Revoir les éléments de la légende.\n- Rappel des règles de sécurité.",
+          "criteres": "Carte orientée. Éléments de légende identifiés.",
+          "contenus": "",
+          "bilan": ""
+        },
+        {
+          "id": "p202",
+          "titre": "Parcours 2 — Se repérer et identifier l'emplacement des balises",
+          "objectif": "Se repérer dans l'espace et identifier l'emplacement d'une balise — Comprendre la carte et savoir l'orienter pour rechercher",
+          "consignes": "- Travail par binôme imposé (mixité de profils).\n- Carte orientée avant départ. Balises à prendre en ordre.\n- Temps maximum : 20 min. Retour obligatoire au point central. Valider au retour.\n- Respecter les zones interdites. Orienter vers le nord.\n- Arrêt pédagogique : « Où es-tu ? », « Qu'est-ce que tu vois ? »\n- Choisir le chemin le plus rapide possible grâce aux repères spatiaux.\n- Signal sonore = rassemblement. Aucun élève isolé. Zones calmes.\nBINÔMES : Ibrahima-Mateo / Emma-Lukas / Hugo-Romain / Alessandro Mastronardi-Stan Gallay-Gia Bao Truong / Valentin-Constant / Zeyneb-Amadou.",
+          "criteres": "- Nommer 3 éléments visibles. Être capable de prendre au moins 2 balises.\n- Lecture de la légende. Anticiper le trajet. Signal sonore respecté.",
+          "contenus": "Remédiation : réexpliquer. Proposer parcours simplifié, réduire balises. Accompagner verbalement. Repérer dans espace connu. Choisir le chemin le plus rapide grâce aux repères spatiaux.",
+          "bilan": "Bilan mitigé. Grosso modo, une partie de la classe risque d'être concernée. Tableau de l'heure. On a fait."
+        }
+      ]
+    },
+    {
+      "id": "s003",
+      "num": 3,
+      "date": "",
+      "objectif": "S'engager dans la construction d'un itinéraire simple à travers des repères fiables — Se déplacer en milieu +/- connu",
+      "bilan": "",
+      "aflpTravailles": [
+        "AFLP 1",
+        "AFLP 3",
+        "AFLP 6"
+      ],
+      "parties": [
+        {
+          "id": "p301",
+          "titre": "Échauffement orienté CO",
+          "objectif": "Réactiver les notions et préparer le parcours",
+          "consignes": "- Relire la carte. Orienter vers le nord.\n- Identifier les balises du parcours prévu.",
+          "criteres": "Carte orientée. Itinéraire envisagé.",
+          "contenus": "",
+          "bilan": ""
+        },
+        {
+          "id": "p302",
+          "titre": "Parcours 3 — Itinéraire choisi — Balise N°1/2/3",
+          "objectif": "S'engager dans la construction d'un itinéraire simple — Choisir le chemin le plus efficient — Analyser prévu / réalisé",
+          "consignes": "- Binômes librement choisis ou imposés.\n- 3 balises avec ordre choisi par l'élève.\n- Temps : chronomètre. TOTAL JUSTE / JUSTE OU FAUX.\n- Analyser prévu / réalisé après le parcours.\n- Comparer itinéraire prévu et réalisé. Analyser les erreurs (mauvais repère, mauvais choix de poste d'attaque).\n- Signal sonore = rassemblement. Aucun élève isolé.\nBINÔMES : Alessandro-Stan-Gia Bao / Amadou-Yaniss-Mélissa / Blanche-(Rami) / Hugo-Romain-Mateo / Lukas-Emma / Valentin-Constant-Mathis.",
+          "criteres": "Balises trouvées (JUSTE). Temps chronomètre noté. Itinéraire argumenté. Analyser prévu / réalisé.",
+          "contenus": "AFLP 3 : Analyser sa prestation pour comprendre les alternatives possibles et ajuster son projet. Comparer prévu / réalisé. Analyser les repères, mauvais choix de poste d'attaque. Réguler le temps.",
+          "bilan": ""
+        }
+      ]
+    },
+    {
+      "id": "s004",
+      "num": 4,
+      "date": "",
+      "objectif": "Co-concevoir un projet — Adapter son allure et ses choix — Analyser sa pratique — Conduire en autonomie et optimiser",
+      "bilan": "",
+      "aflpTravailles": [
+        "AFLP 1",
+        "AFLP 3",
+        "AFLP 6"
+      ],
+      "parties": [
+        {
+          "id": "p401",
+          "titre": "Échauffement orienté CO",
+          "objectif": "Préparer le corps et relire la carte",
+          "consignes": "- Relire la carte. Orienter vers le nord.\n- Planifier l'itinéraire à l'avance.",
+          "criteres": "Carte orientée. Itinéraire planifié.",
+          "contenus": "",
+          "bilan": ""
+        },
+        {
+          "id": "p402",
+          "titre": "Parcours 4 — Co-conception — Autonomie — Optimisation",
+          "objectif": "Co-concevoir un projet — Adapter son allure et ses choix en fonction de ses ressources — Conduire en autonomie et optimiser",
+          "consignes": "- Binômes autonomes. Choisir l'ordre et l'itinéraire des balises.\n- Adapter son allure selon ses capacités.\n- Analyser sa pratique : identifier les points d'amélioration.\n- Lecture fine de la carte, les points d'appui, anticiper les obstacles.\n- Signal sonore = rassemblement. Aucun élève isolé.\n- Retard / commentaire noté.",
+          "criteres": "Lecture fine de la carte. Points d'appui anticipés. Obstacles anticipés. Analyser sa pratique. Adapter son allure.",
+          "contenus": "AFLP 1 : Anticiper et planifier l'itinéraire pour concevoir et conduire dans sa totalité un projet de déplacement.\nAFLP 3 : Analyser sa prestation pour comprendre les alternatives possibles et ajuster son projet.\nAFLP 6 : Respecter et faire respecter la réglementation et les procédures d'urgence.",
+          "bilan": ""
+        }
+      ]
+    },
+    {
+      "id": "s005",
+      "num": 5,
+      "date": "",
+      "objectif": "ÉVALUATION — Concevoir et réaliser un déplacement en CO — Identifier et enchaîner l'ensemble des balises — Choisir l'itinéraire le plus efficient",
+      "bilan": "",
+      "aflpTravailles": [
+        "AFLP 1",
+        "AFLP 3",
+        "AFLP 6"
+      ],
+      "parties": [
+        {
+          "id": "p501",
+          "titre": "Échauffement",
+          "objectif": "Préparer le corps et finaliser la lecture de la carte",
+          "consignes": "- Relire la carte. Orienter vers le nord. Planifier l'itinéraire.",
+          "criteres": "Carte orientée. Itinéraire planifié.",
+          "contenus": "",
+          "bilan": ""
+        },
+        {
+          "id": "p502",
+          "titre": "ÉVALUATION — Parcours complet",
+          "objectif": "Être capable de concevoir et réaliser un déplacement en CO en identifiant et enchaînant l'ensemble des balises d'un parcours, en choisissant l'itinéraire le plus efficient au regard de ses ressources et des contraintes du milieu, tout en respectant les règles de sécurité, et en analysant sa prestation afin de l'optimiser.",
+          "consignes": "- Parcours complet : toutes les balises dans l'ordre ou en choix libre selon le niveau.\n- Temps chronomètre noté. TOTAL JUSTE / JUSTE OU FAUX.\n- Respecter les zones interdites. Signal sonore = rassemblement.\n- Analyser prévu / réalisé après le parcours.\n- Binômes imposés selon le niveau évalué.\n- Retard / commentaire noté.",
+          "criteres": "Balises trouvées (JUSTE). Temps noté. Itinéraire efficient choisi. Règles de sécurité respectées. Analyse prévu/réalisé.",
+          "contenus": "Compétence attendue : Être capable de concevoir et réaliser un déplacement en CO en identifiant et enchaînant l'ensemble des balises d'un parcours, en choisissant l'itinéraire le plus efficient au regard de ses ressources et des contraintes du milieu, tout en respectant les règles de sécurité, et en analysant sa prestation afin de l'optimiser.\nAFLP 6 : Respect des zones interdites, entraide raisonnée, connaissance du point de rassemblement, gestion du sifflet d'alerte, responsabilité en milieu naturel.",
+          "bilan": ""
+        }
+      ]
+    }
+  ],
+  "eleves": [
+    {
+      "id": "e001",
+      "nom": "AZZOUG Yani Rami",
+      "amenagement": "TDAH - Gevasco - PAP",
+      "fiche": {
+        "type": "GEVASCO",
+        "desc": "TDAH - Gevasco - PAP. Aide humaine mutualisée. Ordinateur pour dysgraphie.",
+        "debut": "",
+        "fin": "",
+        "med": "",
+        "photo": null
+      },
+      "noteFinale": null
+    },
+    {
+      "id": "e002",
+      "nom": "AZZOUZ Yacine",
+      "amenagement": "ULIS",
+      "fiche": {
+        "type": "Autre",
+        "desc": "ULIS - ordinateur adapté.",
+        "debut": "",
+        "fin": "",
+        "med": "",
+        "photo": null
+      },
+      "noteFinale": null
+    },
+    {
+      "id": "e003",
+      "nom": "BAISSE-DEPONTIEU Blanche",
+      "amenagement": "PAP",
+      "fiche": {
+        "type": "PAP",
+        "desc": "PAP - évaluations aménagées, 1/3 temps au collège.",
+        "debut": "",
+        "fin": "",
+        "med": "",
+        "photo": null
+      },
+      "noteFinale": null
+    },
+    {
+      "id": "e004",
+      "nom": "BARON Romain",
+      "amenagement": "PAP",
+      "fiche": {
+        "type": "PAP",
+        "desc": "PAP - difficulté à écrire, lenteur, 1/3 temps ou moins d'exos.",
+        "debut": "",
+        "fin": "",
+        "med": "",
+        "photo": null
+      },
+      "noteFinale": null
+    },
+    {
+      "id": "e005",
+      "nom": "CHAREF Séphora",
+      "amenagement": "PAP",
+      "fiche": {
+        "type": "PAP",
+        "desc": "PAP : évaluations aménagées, 1/3 temps.",
+        "debut": "",
+        "fin": "",
+        "med": "",
+        "photo": null
+      },
+      "noteFinale": null
+    },
+    {
+      "id": "e006",
+      "nom": "DIBRA Mateo",
+      "amenagement": "TDAH",
+      "fiche": {
+        "type": "Autre",
+        "desc": "TDAH - diagnostic autisme posé fin juin - dossier MDPH en cours.",
+        "debut": "",
+        "fin": "",
+        "med": "",
+        "photo": null
+      },
+      "noteFinale": null
+    },
+    {
+      "id": "e007",
+      "nom": "DUARTE Mathis",
+      "amenagement": "",
+      "fiche": null,
+      "noteFinale": null
+    },
+    {
+      "id": "e008",
+      "nom": "DUPLANY Valentin",
+      "amenagement": "",
+      "fiche": null,
+      "noteFinale": null
+    },
+    {
+      "id": "e009",
+      "nom": "GALLAY Stan",
+      "amenagement": "",
+      "fiche": null,
+      "noteFinale": null
+    },
+    {
+      "id": "e010",
+      "nom": "JACQUES-MANROUFFOU Lukas",
+      "amenagement": "",
+      "fiche": null,
+      "noteFinale": null
+    },
+    {
+      "id": "e011",
+      "nom": "KEITA Amadou",
+      "amenagement": "",
+      "fiche": null,
+      "noteFinale": null
+    },
+    {
+      "id": "e012",
+      "nom": "LAPULY Mélissa",
+      "amenagement": "",
+      "fiche": null,
+      "noteFinale": null
+    },
+    {
+      "id": "e013",
+      "nom": "LOUYOT Constant",
+      "amenagement": "",
+      "fiche": null,
+      "noteFinale": null
+    },
+    {
+      "id": "e014",
+      "nom": "MASTRONARDI Alessandro",
+      "amenagement": "",
+      "fiche": null,
+      "noteFinale": null
+    },
+    {
+      "id": "e015",
+      "nom": "MOKNI Zeyneb",
+      "amenagement": "",
+      "fiche": null,
+      "noteFinale": null
+    },
+    {
+      "id": "e016",
+      "nom": "PASQUIER Paul",
+      "amenagement": "",
+      "fiche": null,
+      "noteFinale": null
+    },
+    {
+      "id": "e017",
+      "nom": "RIPPOLL Emma",
+      "amenagement": "",
+      "fiche": null,
+      "noteFinale": null
+    },
+    {
+      "id": "e018",
+      "nom": "ROBAGLIA Hugo",
+      "amenagement": "",
+      "fiche": null,
+      "noteFinale": null
+    },
+    {
+      "id": "e019",
+      "nom": "RONGER Yaniss",
+      "amenagement": "",
+      "fiche": null,
+      "noteFinale": null
+    },
+    {
+      "id": "e020",
+      "nom": "TRUONG Gia Bao",
+      "amenagement": "",
+      "fiche": null,
+      "noteFinale": null
+    }
+  ],
+  "presences": {},
+  "autoEval": {},
+  "seanceObjectifs": {
+    "s001": {
+      "obj1": "Orienter la carte et identifier 3 éléments visibles",
+      "obj2": "Retrouver au moins 4 balises sur 6"
+    },
+    "s002": {
+      "obj1": "Nommer 3 éléments visibles depuis sa position",
+      "obj2": "Prendre au moins 2 balises dans le temps imparti"
+    },
+    "s003": {
+      "obj1": "Choisir son itinéraire avant de partir",
+      "obj2": "Analyser prévu / réalisé après le parcours"
+    },
+    "s004": {
+      "obj1": "Adapter son allure selon ses ressources",
+      "obj2": "Lecture fine de la carte et anticipation des obstacles"
+    },
+    "s005": {
+      "obj1": "Concevoir l'itinéraire le plus efficient",
+      "obj2": "Retrouver toutes les balises et respecter les règles de sécurité"
+    }
+  },
+  "profil": {
+    "moteur": {
+      "obs": "Classe dynamique, relativement homogène vis-à-vis du sport. Effort accepté sur courtes périodes. Cependant peu unie. Certains élèves fuient les cours EPS.",
+      "eleves": {}
+    },
+    "social": {
+      "obs": "",
+      "eleves": {}
+    },
+    "medical": {
+      "obs": "AZZOUG (TDAH/Gevasco/PAP), AZZOUZ (ULIS), BAISSE-DEPONTIEU (PAP), BARON (PAP), CHAREF (PAP), DIBRA (TDAH/autisme/MDPH en cours).",
+      "eleves": {
+        "e001": "TDAH - Gevasco - PAP. Aide humaine mutualisée. Ordinateur pour dysgraphie.",
+        "e002": "ULIS - ordinateur adapté.",
+        "e003": "PAP - évaluations aménagées, 1/3 temps au collège.",
+        "e004": "PAP - difficulté à écrire, lenteur, 1/3 temps ou moins d'exos.",
+        "e005": "PAP : évaluations aménagées, 1/3 temps.",
+        "e006": "TDAH - diagnostic autisme posé fin juin - dossier MDPH en cours."
+      }
+    },
+    "scolaire": {
+      "obs": "",
+      "eleves": {}
+    },
+    "autre": {
+      "obs": "2NDE MRC B — Course d'orientation — T3. Parcours autour du lycée (zone sécurisée).",
+      "eleves": {}
+    }
+  },
+  "comp": {},
+  "seq": {
+    "objet": "Être capable de concevoir et réaliser un déplacement en course d'orientation en identifiant et en enchaînant l'ensemble des balises d'un parcours, en choisissant l'itinéraire le plus efficient au regard de ses ressources et des contraintes du milieu, tout en respectant les règles de sécurité, et en analysant sa prestation afin de l'optimiser.",
+    "objectifs": "Découverte de l'APSA — Règles de sécurité. S'engager dans la construction d'un itinéraire simple à travers des repères fiables et progressifs pour se déplacer en milieu +/- connu. Co-concevoir un projet — adapter son allure et ses choix — analyser sa pratique — identifier et améliorer. Conduire en autonomie et optimiser.",
+    "aflpPrio": [
+      "AFLP 1",
+      "AFLP 3",
+      "AFLP 6"
+    ],
+    "trame": [
+      {
+        "num": 1,
+        "objectif": "Découverte APSA — Règles sécurité — 6 balises lycée — Diagnostique",
+        "date": ""
+      },
+      {
+        "num": 2,
+        "objectif": "Se repérer — Identifier emplacement balises — Comprendre la carte",
+        "date": ""
+      },
+      {
+        "num": 3,
+        "objectif": "Itinéraire choisi — Balises N°1/2/3 — Analyser prévu/réalisé",
+        "date": ""
+      },
+      {
+        "num": 4,
+        "objectif": "Co-conception — Autonomie — Adapter allure — Optimiser",
+        "date": ""
+      },
+      {
+        "num": 5,
+        "objectif": "ÉVALUATION — Parcours complet — Itinéraire efficient",
+        "date": ""
+      }
+    ]
+  },
+  "grilleNotes": {},
+  "grille": null
+}
