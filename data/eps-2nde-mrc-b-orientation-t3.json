@@ -133,7 +133,10 @@
       "date": "2026-03-23",
       "objectif": "S'approprier les éléments de la carte et la légende — Lire, interpréter et placer des balises selon des consignes précises — Développer l'autonomie dans la lecture cartographique en vue d'analyser sa pratique",
       "bilan": "",
-      "aflpTravailles": [],
+      "aflpTravailles": [
+        "AFLP 6",
+        "AFLP 1"
+      ],
       "parties": [
         {
           "id": "p1774213008798rzf",
