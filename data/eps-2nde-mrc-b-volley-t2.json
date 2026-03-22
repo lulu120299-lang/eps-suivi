@@ -212,20 +212,6 @@
       "noteFinale": null
     },
     {
-      "id": "e002",
-      "nom": "AZZOUZ Yacine",
-      "amenagement": "ULIS",
-      "fiche": {
-        "type": "Autre",
-        "desc": "ULIS - a un ordinateur adapté.",
-        "debut": "",
-        "fin": "",
-        "med": "",
-        "photo": null
-      },
-      "noteFinale": null
-    },
-    {
       "id": "e003",
       "nom": "BAISSE-DEPONTIEU Blanche",
       "amenagement": "PAP",
@@ -378,10 +364,21 @@
       "amenagement": "",
       "fiche": null,
       "noteFinale": null
+    },
+    {
+      "id": "e1774211092745",
+      "nom": "AZZOUZ Yacine",
+      "amenagement": "",
+      "fiche": null,
+      "noteFinale": null
     }
   ],
-  "presences": {},
-  "autoEval": {},
+  "presences": {
+    "s001": {}
+  },
+  "autoEval": {
+    "s001": {}
+  },
   "seanceObjectifs": {
     "s001": {
       "obj1": "Découvrir les règles et la logique interne du VB",
