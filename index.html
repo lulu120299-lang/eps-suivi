@@ -25,7 +25,7 @@ body{font-family:"DM Sans",sans-serif}
 .acc-step-line{height:2px;width:28px;background:#d8d4cc;margin:0 4px}
 .acc-sec-tag{font-family:"JetBrains Mono",monospace;font-size:.65rem;text-transform:uppercase;letter-spacing:.15em;color:#7a7060;margin-bottom:5px}
 .acc-sec-title{font-family:"Instrument Serif",serif;font-size:1.6rem;margin-bottom:1.25rem}
-.acc-cls-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-bottom:2.5rem}
+.acc-cls-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:10px;margin-bottom:2.5rem}
 .acc-cls{background:#faf7f0;border:2px solid #ddd8ce;border-radius:8px;padding:1.1rem .9rem;cursor:pointer;transition:all .15s;box-shadow:0 2px 0 #bdb8ae;position:relative;overflow:hidden;text-align:center}
 .acc-cls::before{content:"";position:absolute;top:0;left:0;right:0;height:4px;background:var(--c);transform:scaleX(0);transition:transform .2s}
 .acc-cls:hover{border-color:var(--c);transform:translateY(-2px)}
@@ -263,18 +263,6 @@ textarea{resize:vertical;min-height:70px}
 .grille-note-input{background:#13161f;border:1px solid #252836;border-radius:5px;color:#e4e6ef;font-family:"DM Mono",monospace;font-size:.82rem;padding:3px 7px;text-align:center;outline:none;width:65px}
 .grille-note-input:focus{border-color:#4f8aff}
 .grille-empty{text-align:center;padding:3rem;color:#6b7280;background:#1c1f2c;border:1px solid #252836;border-radius:12px}
-
-.comp-btn-niv{display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:5px;border:1.5px solid #2a2f42;background:rgba(37,40,54,.4);color:#4a4f62;font-size:.65rem;font-weight:700;cursor:pointer;margin:1px;transition:all .15s}
-.comp-btn-niv:hover{transform:scale(1.1)}
-.comp-btn-niv.sel-1{border-color:#ff6b6b;background:rgba(255,107,107,.2);color:#ff6b6b}
-.comp-btn-niv.sel-2{border-color:#ffd166;background:rgba(255,209,102,.2);color:#ffd166}
-.comp-btn-niv.sel-3{border-color:#56cfb2;background:rgba(86,207,178,.2);color:#56cfb2}
-.comp-btn-niv.sel-4{border-color:#4f8aff;background:rgba(79,138,255,.2);color:#4f8aff}
-.comp-bilan{font-size:.72rem;padding:3px 10px;border-radius:20px;font-weight:600;white-space:nowrap}
-.comp-bilan.oui{background:rgba(86,207,178,.12);color:#56cfb2;border:1px solid rgba(86,207,178,.3)}
-.comp-bilan.cours{background:rgba(255,209,102,.12);color:#ffd166;border:1px solid rgba(255,209,102,.3)}
-.comp-bilan.non{background:rgba(107,114,128,.08);color:#6b7280;border:1px solid rgba(107,114,128,.2)}
-
 @media(max-width:960px){
   .acc-cls-grid{grid-template-columns:repeat(3,1fr)}
   .appel-lay{grid-template-columns:1fr}
@@ -294,6 +282,17 @@ textarea{resize:vertical;min-height:70px}
   .scard-body{grid-template-columns:1fr}
   .trim-grid{flex-wrap:wrap}
 }
+
+.comp-btn-niv{display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:5px;border:1.5px solid #2a2f42;background:rgba(37,40,54,.4);color:#4a4f62;font-size:.65rem;font-weight:700;cursor:pointer;margin:1px;transition:all .15s}
+.comp-btn-niv:hover{transform:scale(1.1)}
+.comp-btn-niv.sel-1{border-color:#ff6b6b;background:rgba(255,107,107,.2);color:#ff6b6b}
+.comp-btn-niv.sel-2{border-color:#ffd166;background:rgba(255,209,102,.2);color:#ffd166}
+.comp-btn-niv.sel-3{border-color:#56cfb2;background:rgba(86,207,178,.2);color:#56cfb2}
+.comp-btn-niv.sel-4{border-color:#4f8aff;background:rgba(79,138,255,.2);color:#4f8aff}
+.comp-bilan{font-size:.72rem;padding:3px 10px;border-radius:20px;font-weight:600;white-space:nowrap}
+.comp-bilan.oui{background:rgba(86,207,178,.12);color:#56cfb2;border:1px solid rgba(86,207,178,.3)}
+.comp-bilan.cours{background:rgba(255,209,102,.12);color:#ffd166;border:1px solid rgba(255,209,102,.3)}
+.comp-bilan.non{background:rgba(107,114,128,.08);color:#6b7280;border:1px solid rgba(107,114,128,.2)}
 </style>
 </head><body>
 <div id="pg-acc">
@@ -466,9 +465,9 @@ textarea{resize:vertical;min-height:70px}
     </div>
     <div id="v-comp" class="view">
       <div class="ph">
-        <div><div class="ph-title">Suivi de competences</div><div class="ph-sub">Par AFLP travaille - niveau par eleve par seance</div></div>
+        <div><div class="ph-title">Suivi de competences</div><div class="ph-sub">Par AFLP travaille - niveau par eleve et par seance</div></div>
         <div style="display:flex;gap:8px;align-items:center">
-          <span style="font-family:DM Mono,monospace;font-size:.65rem;color:#6b7280">Seuil atteinte :</span>
+          <span style="font-family:'DM Mono',monospace;font-size:.65rem;color:#6b7280">Seuil atteinte :</span>
           <select id="comp-seuil-sel" style="background:#1c1f2c;border:1px solid #252836;border-radius:7px;color:#e4e6ef;font-size:.82rem;padding:5px 10px;outline:none;cursor:pointer">
             <option value="3">Maitrise satisfaisante</option>
             <option value="4">Tres bonne maitrise</option>
@@ -668,7 +667,7 @@ textarea{resize:vertical;min-height:70px}
   </div></div>
 </div>
 <script>
-var CLASSES=[{id:'2nde-ener-b',label:'2NDE ENER B',level:'2NDE',sub:'Energie Gr. B',color:'#c8400a',light:'#c8400a0d',filiere:'bacpro'},{id:'2nde-mrc-b',label:'2NDE MRC B',level:'2NDE',sub:'MRC Gr. B',color:'#1a6b3a',light:'#1a6b3a0d',filiere:'bacpro'},{id:'cap-epc-1',label:'CAP EPC 1',level:'CAP',sub:'Electrotechnique',color:'#1e4fa0',light:'#1e4fa00d',filiere:'cap'},{id:'cap-elec-2',label:'CAP ELEC 2',level:'CAP',sub:'Electricite',color:'#7c28b8',light:'#7c28b80d',filiere:'cap'},{id:'3e-pm',label:'3e PM',level:'3e',sub:'Prepa Metiers',color:'#a07800',light:'#a078000d',filiere:'3e'}];
+var CLASSES=[{id:'2nde-ener-b',label:'2NDE ENER B',level:'2NDE',sub:'Energie Gr. B',color:'#c8400a',light:'#c8400a0d',filiere:'bacpro'},{id:'2nde-mrc-b',label:'2NDE MRC B',level:'2NDE',sub:'MRC Gr. B',color:'#1a6b3a',light:'#1a6b3a0d',filiere:'bacpro'},{id:'cap-epc-1',label:'CAP EPC 1',level:'CAP',sub:'Equipier polyvalent de commerce',color:'#1e4fa0',light:'#1e4fa00d',filiere:'cap'},{id:'cap-elec-2',label:'CAP ELEC 2',level:'CAP',sub:'Electricite',color:'#7c28b8',light:'#7c28b80d',filiere:'cap'},{id:'3e-pm',label:'3e PM',level:'3e',sub:'Prepa Metiers',color:'#a07800',light:'#a078000d',filiere:'3e'}];
 var CA_GROUPS=[{ca:'CA1',caFull:'CA1',color:'#ff6b6b',desc:'Realiser sa performance motrice maximale',apsa:[{id:'vitesse',name:'Course de vitesse',emoji:'&#9889;'},{id:'athle',name:'Athletisme multisport',emoji:'&#127947;'}]},{ca:'CA2',caFull:'CA2',color:'#a78bfa',desc:"Adapter son deplacement a des environnements varies",apsa:[{id:'orientation',name:"Course d'orientation",emoji:'&#129517;'}]},{ca:'CA3',caFull:'CA3',color:'#ffd166',desc:'Realiser une prestation corporelle appreciee',apsa:[{id:'acrosport',name:'Acrosport',emoji:'&#129338;'}]},{ca:'CA4',caFull:'CA4',color:'#4f8aff',desc:'Conduire un affrontement pour gagner',apsa:[{id:'volley',name:'Volley-Ball',emoji:'&#127952;'},{id:'tdt',name:'Tennis de Table',emoji:'&#127955;'},{id:'badminton',name:'Badminton',emoji:'&#127992;'}]},{ca:'CA5',caFull:'CA5',color:'#56cfb2',desc:"Orienter son activite pour s'entretenir",apsa:[{id:'duree',name:'Course de duree',emoji:'&#127939;'}]}];
 var APSA_FLAT=[];for(var _gi=0;_gi<CA_GROUPS.length;_gi++){var _g=CA_GROUPS[_gi];for(var _ai=0;_ai<_g.apsa.length;_ai++){var _a=_g.apsa[_ai];APSA_FLAT.push({id:_a.id,name:_a.name,emoji:_a.emoji,ca:_g.ca,caFull:_g.caFull,caColor:_g.color});}}
 var AFLP={bacpro:{CA1:{titre:'CA1 - Realiser sa performance motrice maximale',items:[{n:'AFLP 1',t:'Produire et repartir lucidement ses efforts en mobilisant de facon optimale ses ressources pour gagner ou pour battre un record.'},{n:'AFLP 2',t:'Connaitre et mobiliser les techniques efficaces pour produire la meilleure performance possible.'},{n:'AFLP 3',t:'Analyser sa performance pour adapter son projet et progresser.'},{n:'AFLP 4',t:"Assumer des roles sociaux pour organiser une epreuve de production de performance."},{n:'AFLP 5',t:"Assurer la prise en charge de sa preparation et de celle d'un groupe, de facon autonome."},{n:'AFLP 6',t:'Connaitre son niveau pour etablir un projet de performance situee culturellement.'}]},CA2:{titre:"CA2 - Adapter son deplacement a des environnements varies",items:[{n:'AFLP 1',t:"Anticiper et planifier son itineraire pour concevoir et conduire dans sa totalite un projet de deplacement."},{n:'AFLP 2',t:"Mobiliser des techniques efficaces pour adapter et optimiser son deplacement aux caracteristiques du milieu."},{n:'AFLP 3',t:"Analyser sa prestation pour comprendre les alternatives possibles et ajuster son projet."},{n:'AFLP 4',t:"Assumer les roles sociaux pour organiser la pratique des activites de pleine nature."},{n:'AFLP 5',t:"Se preparer et maintenir un engagement optimal permettant de garder sa lucidite tout au long de son parcours."},{n:'AFLP 6',t:"Respecter et faire respecter la reglementation et les procedures d'urgence."}]},CA3:{titre:'CA3 - Realiser une prestation corporelle destinee a etre vue et appreciee',items:[{n:'AFLP 1',t:"Accomplir une prestation animee d'une intention dans la perspective d'etre juge et/ou apprecie."},{n:'AFLP 2',t:"Mobiliser des techniques de plus en plus complexes pour rendre plus fluide la prestation."},{n:'AFLP 3',t:"Composer et organiser dans le temps et l'espace le deroulement des moments forts et faibles de sa prestation."},{n:'AFLP 4',t:"Assumer les roles inherents a la pratique artistique et acrobatique."},{n:'AFLP 5',t:"Se preparer et s'engager pour presenter une prestation optimale et securisee."},{n:'AFLP 6',t:"S'enrichir de la connaissance de productions de qualite issues du patrimoine culturel."}]},CA4:{titre:"CA4 - Conduire un affrontement interindividuel ou collectif pour gagner",items:[{n:'AFLP 1',t:"Realiser des choix tactiques et strategiques pour faire basculer le rapport de force en sa faveur."},{n:'AFLP 2',t:"Mobiliser des techniques d'attaque efficaces pour se creer et exploiter des occasions de marquer."},{n:'AFLP 3',t:"Analyser les forces et les faiblesses en presence pour faire des choix tactiques adaptes."},{n:'AFLP 4',t:"Respecter et faire respecter les regles partagees ; assumer plusieurs roles sociaux."},{n:'AFLP 5',t:"Savoir se preparer, s'entrainer et recuperer pour faire preuve d'autonomie."},{n:'AFLP 6',t:"Porter un regard critique sur les pratiques sportives."}]},CA5:{titre:"CA5 - Realiser et orienter son activite physique pour developper ses ressources",items:[{n:'AFLP 1',t:"Concevoir et mettre en oeuvre un projet d'entrainement."},{n:'AFLP 2',t:"Eprouver differentes methodes d'entrainement et en identifier les principes."},{n:'AFLP 3',t:"Systematiser un retour reflexif sur sa pratique pour reguler sa charge de travail."},{n:'AFLP 4',t:"Agir avec et pour les autres en vue de la realisation du projet d'entrainement."},{n:'AFLP 5',t:"Construire une motricite controlee pour evoluer dans des conditions de securite."},{n:'AFLP 6',t:"Integrer des conseils d'entrainement et d'hygiene de vie."}]}},cap:{CA1:{titre:'CA1 - Realiser sa performance motrice maximale (CAP)',items:[{n:'AFLP 1',t:"Produire et repartir intentionnellement ses efforts en mobilisant ses ressources pour gagner."},{n:'AFLP 2',t:"Connaitre et utiliser des techniques efficaces pour produire la meilleure performance possible."},{n:'AFLP 3',t:"S'engager et perseverer, seul ou a plusieurs, dans des efforts repetes pour progresser."},{n:'AFLP 4',t:"S'impliquer dans des roles sociaux pour assurer le bon deroulement d'une epreuve."},{n:'AFLP 5',t:"Se preparer a un effort long ou intense pour etre efficace dans la production d'une performance."},{n:'AFLP 6',t:"Identifier ses progres et connaitre sa meilleure performance realisee pour la situer culturellement."}]},CA2:{titre:"CA2 - Adapter son deplacement a des environnements varies (CAP)",items:[{n:'AFLP 1',t:"Planifier et conduire un deplacement adapte a ses ressources pour effectuer le trajet prevu."},{n:'AFLP 2',t:"Utiliser des techniques efficaces pour adapter son deplacement aux caracteristiques du milieu."},{n:'AFLP 3',t:"Selectionner des informations utiles pour planifier son itineraire."},{n:'AFLP 4',t:"S'impliquer dans des roles sociaux pour assurer le bon fonctionnement d'une activite de pleine nature."},{n:'AFLP 5',t:"Controler ses emotions pour accepter de s'engager dans un environnement partiellement connu."},{n:'AFLP 6',t:"Se preparer, connaitre les risques, respecter la reglementation et appliquer les procedures d'urgence."}]},CA3:{titre:'CA3 - Realiser une prestation corporelle (CAP)',items:[{n:'AFLP 1',t:"S'engager devant des spectateurs ou des juges pour produire des formes corporelles maitrisees."},{n:'AFLP 2',t:"Utiliser des techniques efficaces pour enrichir sa motricite."},{n:'AFLP 3',t:"Prevoir et memoriser le deroulement de sa prestation pour la realiser dans son integralite."},{n:'AFLP 4',t:"Utiliser des criteres explicites pour apprecier et/ou evaluer la prestation."},{n:'AFLP 5',t:"Se preparer pour presenter une prestation complete, maitrisee et securisee."},{n:'AFLP 6',t:"S'enrichir d'elements de culture lies a la pratique abordee."}]},CA4:{titre:"CA4 - Conduire un affrontement pour gagner (CAP)",items:[{n:'AFLP 1',t:"Identifier le desequilibre adverse et en profiter pour produire rapidement l'action decisive."},{n:'AFLP 2',t:"Utiliser des techniques et des tactiques d'attaque adaptees pour favoriser des occasions de marquer."},{n:'AFLP 3',t:"Perseverer face a la difficulte et accepter la repetition pour ameliorer son efficacite motrice."},{n:'AFLP 4',t:"Terminer la rencontre et accepter la defaite ou la victoire dans le respect de l'adversaire."},{n:'AFLP 5',t:"Se preparer et systematiser sa preparation generale et specifique."},{n:'AFLP 6',t:"Connaitre les pratiques sportives dans la societe contemporaine."}]},CA5:{titre:"CA5 - Realiser et orienter son activite physique (CAP)",items:[{n:'AFLP 1',t:"Construire et stabiliser une motricite specifique pour etre efficace dans le suivi d'un theme d'entrainement."},{n:'AFLP 2',t:"Mettre en lien des ressentis avec une charge de travail pour reguler cette charge de maniere autonome."},{n:'AFLP 3',t:"Mobiliser differentes methodes d'entrainement, analyser ses ressentis pour fonder ses choix."},{n:'AFLP 4',t:"Cooperer et assurer les roles sociaux pour aider au progres individuel."},{n:'AFLP 5',t:"S'engager avec une intensite ciblee et perseverer dans l'effort."},{n:'AFLP 6',t:"Integrer des conseils d'entrainement et d'hygiene de vie."}]},'3e':{CA1:{titre:'CA1 - Realiser sa performance (3e Prepa Metiers)',items:[{n:'Att. 1',t:"Produire une performance mesurable en utilisant les techniques adaptees."},{n:'Att. 2',t:"Gerer ses efforts pour optimiser sa performance sur la duree."},{n:'Att. 3',t:"Tenir des roles d'organisation."},{n:'Att. 4',t:"Identifier ses progres et se fixer des objectifs realistes."}]},CA2:{titre:"CA2 - Se deplacer dans l'environnement (3e)",items:[{n:'Att. 1',t:"Lire et utiliser une carte pour se deplacer de facon autonome."},{n:'Att. 2',t:"Choisir et suivre un itineraire en s'appuyant sur les elements du terrain."},{n:'Att. 3',t:"Respecter les regles de securite et les consignes."},{n:'Att. 4',t:"Travailler en cooperation avec un camarade."}]},CA3:{titre:'CA3 - Produire une prestation corporelle (3e)',items:[{n:'Att. 1',t:"Realiser une prestation maitrisee qui respecte les regles et exprime une intention."},{n:'Att. 2',t:"Observer et evaluer la prestation d'un camarade."},{n:'Att. 3',t:"Travailler en groupe et accepter les retours."},{n:'Att. 4',t:"Verbaliser ses choix et ses reussites."}]},CA4:{titre:"CA4 - S'affronter collectivement ou individuellement (3e)",items:[{n:'Att. 1',t:"Jouer collectivement ou individuellement en respectant les regles."},{n:'Att. 2',t:"Utiliser des strategies simples pour gagner."},{n:'Att. 3',t:"Arbitrer un match et respecter les decisions arbitrales."},{n:'Att. 4',t:"Identifier et corriger ses erreurs tactiques."}]},CA5:{titre:"CA5 - Pratiquer pour sa sante (3e)",items:[{n:'Att. 1',t:"Realiser un effort continu adapte a ses capacites."},{n:'Att. 2',t:"Comprendre les effets de l'entrainement sur son corps."},{n:'Att. 3',t:"Gerer ses allures et ses temps de recuperation."},{n:'Att. 4',t:"Verbaliser ses sensations et evaluer son niveau d'effort."}]}}}};
@@ -756,34 +755,34 @@ function extractNames(text){var lines=text.split(/[\n\r]+/).map(function(l){retu
 function pdfImport(){var cbs=document.querySelectorAll('#pdf-names input[type=checkbox]');var sel=[];for(var i=0;i<cbs.length;i++){if(cbs[i].checked)sel.push(pdfNames[i]);}if(!sel.length){toast('Aucun selectionne','warn');return;}var n=0;for(var i=0;i<sel.length;i++){var c=sel[i].trim();var found=false;for(var j=0;j<state.eleves.length;j++){if(state.eleves[j].nom.toLowerCase()===c.toLowerCase()){found=true;break;}}if(!found){state.eleves.push({id:'e'+Date.now()+Math.random().toString(36).slice(2,5),nom:c,amenagement:'',fiche:null,noteFinale:null});n++;}}save();closeM('m-pdf');renderAll();toast(n+' eleve(s) importe(s) !','ok');ge('pdf-preview').style.display='none';pdfNames=[];}
 function grilleGetData(){
   try{var s=localStorage.getItem(STORAGE_KEY+"-grille");if(s)return JSON.parse(s);}catch(e){}
-  var def={titre:"Grille evaluation CCF",criteres:[
+  return {titre:"Grille evaluation CCF",criteres:[
     {id:"c1",nom:"Efficacite motrice",pts:8,niveaux:[
-      {label:"Insuffisant",desc:"Ne realise pas ou tres peu les actions attendues.",pts:0},
-      {label:"Fragile",desc:"Realise partiellement les actions avec des erreurs frequentes.",pts:2},
-      {label:"Satisfaisant",desc:"Realise correctement les actions dans la plupart des situations.",pts:5},
-      {label:"Tres bien",desc:"Realise avec efficacite et regularite dans toutes les situations.",pts:8}
+      {label:"Insuffisant",desc:"Ne realise pas les actions attendues.",pts:0},
+      {label:"Fragile",desc:"Realise partiellement avec des erreurs.",pts:2},
+      {label:"Satisfaisant",desc:"Realise correctement dans la plupart des situations.",pts:5},
+      {label:"Tres bien",desc:"Realise avec efficacite et regularite.",pts:8}
     ]},
     {id:"c2",nom:"Connaissance de l activite",pts:4,niveaux:[
-      {label:"Insuffisant",desc:"Aucune connaissance des regles ou techniques.",pts:0},
-      {label:"Fragile",desc:"Connaissances partielles et peu mobilisees.",pts:1},
-      {label:"Satisfaisant",desc:"Connait les regles et sait les appliquer.",pts:3},
-      {label:"Tres bien",desc:"Maitrise les regles et les utilise a son avantage.",pts:4}
+      {label:"Insuffisant",desc:"Aucune connaissance des regles.",pts:0},
+      {label:"Fragile",desc:"Connaissances partielles.",pts:1},
+      {label:"Satisfaisant",desc:"Connait et applique les regles.",pts:3},
+      {label:"Tres bien",desc:"Maitrise et utilise les regles.",pts:4}
     ]},
     {id:"c3",nom:"Engagement et roles sociaux",pts:4,niveaux:[
-      {label:"Insuffisant",desc:"Refus ou absence d engagement. Ne tient pas les roles.",pts:0},
-      {label:"Fragile",desc:"Engagement irregulier. Roles tenus avec des erreurs.",pts:1},
-      {label:"Satisfaisant",desc:"S engage regulierement. Tient les roles demandes.",pts:3},
-      {label:"Tres bien",desc:"Engagement total. Assume spontanement plusieurs roles.",pts:4}
+      {label:"Insuffisant",desc:"Refus ou absence d engagement.",pts:0},
+      {label:"Fragile",desc:"Engagement irregulier.",pts:1},
+      {label:"Satisfaisant",desc:"S engage regulierement.",pts:3},
+      {label:"Tres bien",desc:"Engagement total et spontane.",pts:4}
     ]},
     {id:"c4",nom:"Verbalisation",pts:4,niveaux:[
-      {label:"Insuffisant",desc:"Incapable de verbaliser ses actions ou ses choix.",pts:0},
-      {label:"Fragile",desc:"Verbalisation limitee, imprecise.",pts:1},
-      {label:"Satisfaisant",desc:"Explique ses choix de maniere simple et correcte.",pts:3},
-      {label:"Tres bien",desc:"Argumente avec precision et vocabulaire adapte.",pts:4}
+      {label:"Insuffisant",desc:"Incapable de verbaliser.",pts:0},
+      {label:"Fragile",desc:"Verbalisation limitee.",pts:1},
+      {label:"Satisfaisant",desc:"Explique ses choix simplement.",pts:3},
+      {label:"Tres bien",desc:"Argumente avec precision.",pts:4}
     ]}
   ]};
-  return def;
 }
+
 function grilleSaveData(g){localStorage.setItem(STORAGE_KEY+'-grille',JSON.stringify(g));}
 function grilleGetNotes(){try{var s=localStorage.getItem(STORAGE_KEY+'-grille-notes');if(s)return JSON.parse(s);}catch(e){}return{};}
 function grilleSaveNotes(n){localStorage.setItem(STORAGE_KEY+'-grille-notes',JSON.stringify(n));}
@@ -797,7 +796,6 @@ function openM(id){if(id==='m-seance'){partiesNew=[];aflpNewSel=[];ge('parties-n
 function closeM(id){ge(id).classList.remove('open');}
 function compGetData(){try{var s=localStorage.getItem(STORAGE_KEY+"-comp");if(s)return JSON.parse(s);}catch(e){}return {};}
 function compSaveData(d){localStorage.setItem(STORAGE_KEY+"-comp",JSON.stringify(d));}
-
 function renderComp(){
   var zone=ge("comp-zone");
   var seuilEl=ge("comp-seuil-sel");
@@ -808,7 +806,7 @@ function renderComp(){
   var seances=state.seances.slice().sort(function(a,b){return a.num-b.num;});
   var seancesAvecAflp=seances.filter(function(s){return s.aflpTravailles&&s.aflpTravailles.length;});
   if(!seancesAvecAflp.length){
-    zone.innerHTML="<div style=\"text-align:center;padding:2.5rem;color:#6b7280\">Aucun AFLP coche dans vos seances.<br>Allez dans Seances, ouvrez une seance et cochez des AFLP.</div>";
+    zone.innerHTML='<div class="empty">Aucun AFLP coche. Allez dans Seances et cochez des AFLP.</div>';
     return;
   }
   var aflpMap={};
@@ -816,135 +814,89 @@ function renderComp(){
   var aflpList=Object.keys(aflpMap).sort();
   var eleves=state.eleves.slice().sort(function(a,b){return a.nom.localeCompare(b.nom);});
   var NOMS=["","Insuf.","Fragile","Satisf.","Tres bien"];
-  var COLS=["","#ff6b6b","#ffd166","#56cfb2","#4f8aff"];
-  var graphColors=["#4f8aff","#ff6b6b","#56cfb2","#ffd166","#a78bfa","#fb923c","#f472b6"];
+  var gC=["#4f8aff","#ff6b6b","#56cfb2","#ffd166","#a78bfa","#fb923c","#f472b6"];
   var html="";
-
   for(var ai=0;ai<aflpList.length;ai++){
     var aflpN=aflpList[ai];
     var aflpInfo=null;
     if(aflpData){for(var k=0;k<aflpData.items.length;k++){if(aflpData.items[k].n===aflpN){aflpInfo=aflpData.items[k];break;}}}
-    var seancesPourAflp=seancesAvecAflp.filter(function(s){return s.aflpTravailles.indexOf(aflpN)>=0;});
-
-    html+="<div style=\"margin-bottom:2.5rem\">";
-    html+="<div style=\"display:flex;align-items:center;gap:10px;margin-bottom:.75rem;flex-wrap:wrap\">";
-    html+="<span style=\"font-family:DM Mono,monospace;font-size:.75rem;background:rgba(79,138,255,.15);color:#4f8aff;padding:4px 12px;border-radius:5px;font-weight:700\">"+aflpN+"</span>";
-    if(aflpInfo)html+="<span style=\"font-size:.8rem;color:#9aa0b8\">"+esc(aflpInfo.t)+"</span>";
-    html+="</div>";
-
-    // Tableau
-    html+="<div style=\"overflow-x:auto\"><table style=\"width:100%;border-collapse:collapse;font-size:.82rem\">";
-    html+="<thead><tr style=\"background:#13161f\">";
-    html+="<th style=\"padding:9px 12px;text-align:left;font-weight:500;font-size:.72rem;color:#6b7280;text-transform:uppercase;border-bottom:1px solid #252836;border-right:1px solid #252836;min-width:150px\">Eleve</th>";
-    for(var si=0;si<seancesPourAflp.length;si++){
-      var s2=seancesPourAflp[si];
-      html+="<th style=\"padding:9px 8px;text-align:center;font-weight:500;font-size:.68rem;color:#6b7280;text-transform:uppercase;border-bottom:1px solid #252836;border-right:1px solid #252836;min-width:105px\">S"+s2.num+(s2.date?"<br><span style=\"font-weight:400;color:#3a4060\">"+fmtDate(s2.date)+"</span>":"")+"</th>";
+    var sPA=[];
+    for(var i=0;i<seancesAvecAflp.length;i++){if(seancesAvecAflp[i].aflpTravailles.indexOf(aflpN)>=0)sPA.push(seancesAvecAflp[i]);}
+    html+='<div style="margin-bottom:2.5rem">';
+    html+='<div style="display:flex;align-items:center;gap:10px;margin-bottom:.75rem;flex-wrap:wrap">';
+    html+='<span style="font-family:DM Mono,monospace;font-size:.75rem;background:rgba(79,138,255,.15);color:#4f8aff;padding:4px 12px;border-radius:5px;font-weight:700">'+aflpN+'</span>';
+    if(aflpInfo)html+='<span style="font-size:.8rem;color:#9aa0b8">'+esc(aflpInfo.t)+'</span>';
+    html+='</div>';
+    html+='<div style="overflow-x:auto"><table style="width:100%;border-collapse:collapse;font-size:.82rem">';
+    html+='<thead><tr style="background:#13161f">';
+    html+='<th style="padding:9px 12px;text-align:left;font-size:.72rem;color:#6b7280;text-transform:uppercase;border-bottom:1px solid #252836;border-right:1px solid #252836;min-width:150px">Eleve</th>';
+    for(var si=0;si<sPA.length;si++){
+      var s2=sPA[si];
+      html+='<th style="padding:9px 8px;text-align:center;font-size:.68rem;color:#6b7280;text-transform:uppercase;border-bottom:1px solid #252836;border-right:1px solid #252836;min-width:110px">S'+s2.num+(s2.date?'<br><span style="font-weight:400;color:#3a4060">'+fmtDate(s2.date)+'</span>':'')+'</th>';
     }
-    html+="<th style=\"padding:9px 8px;text-align:center;font-weight:500;font-size:.68rem;color:#6b7280;text-transform:uppercase;border-bottom:1px solid #252836;min-width:90px\">Bilan</th>";
-    html+="</tr></thead><tbody>";
-
+    html+='<th style="padding:9px 8px;text-align:center;font-size:.68rem;color:#6b7280;text-transform:uppercase;border-bottom:1px solid #252836;min-width:90px">Bilan</th>';
+    html+='</tr></thead><tbody>';
     for(var ei=0;ei<eleves.length;ei++){
       var e=eleves[ei];
-      var valsEleve=[];
-      html+="<tr>";
-      html+="<td style=\"padding:8px 12px;border-bottom:1px solid rgba(37,40,54,.5);border-right:1px solid #252836;font-size:.82rem;font-weight:500\">"+esc(e.nom)+(e.amenagement?"<br><span style=\"font-size:.7rem;color:#ffd166\">"+esc(e.amenagement)+"</span>":"")+"</td>";
-      for(var si=0;si<seancesPourAflp.length;si++){
-        var s2=seancesPourAflp[si];
-        var key=s2.id+"__"+aflpN+"__"+e.id;
-        var v=compData[key]||0;
-        if(v>0)valsEleve.push(v);
-        html+="<td style=\"padding:6px 4px;border-bottom:1px solid rgba(37,40,54,.5);border-right:1px solid #252836;text-align:center\">";
+      var vE=[];
+      html+='<tr>';
+      html+='<td style="padding:8px 12px;border-bottom:1px solid rgba(37,40,54,.5);border-right:1px solid #252836;font-size:.82rem;font-weight:500">'+esc(e.nom)+(e.amenagement?'<br><span style="font-size:.7rem;color:#ffd166">'+esc(e.amenagement)+'</span>':'')+'</td>';
+      for(var si=0;si<sPA.length;si++){
+        var s2=sPA[si];
+        var ck=s2.id+'__'+aflpN+'__'+e.id;
+        var v=compData[ck]||0;
+        if(v>0)vE.push(v);
+        html+='<td style="padding:6px 4px;border-bottom:1px solid rgba(37,40,54,.5);border-right:1px solid #252836;text-align:center">';
         for(var nv=1;nv<=4;nv++){
-          var selCls=v===nv?" sel-"+nv:"";
-          html+="<button class=\"comp-btn-niv"+selCls+"\" data-key=\""+key+"\" data-val=\""+nv+"\" title=\""+NOMS[nv]+"\">"+nv+"</button>";
+          var sc=v===nv?' sel-'+nv:'';
+          html+='<button class="comp-btn-niv'+sc+'" data-key="'+ck+'" data-val="'+nv+'" title="'+NOMS[nv]+'">'+nv+'</button>';
         }
-        html+="</td>";
+        html+='</td>';
       }
-      var dernierVal=valsEleve.length?valsEleve[valsEleve.length-1]:0;
-      var atteinte=dernierVal>=seuil;
-      var enCours=valsEleve.length>0&&!atteinte;
-      html+="<td style=\"padding:8px;border-bottom:1px solid rgba(37,40,54,.5);text-align:center\">";
-      if(atteinte)html+="<span class=\"comp-bilan oui\">Atteinte</span>";
-      else if(enCours)html+="<span class=\"comp-bilan cours\">En cours</span>";
-      else html+="<span class=\"comp-bilan non\">Non evalue</span>";
-      html+="</td></tr>";
+      var dv=vE.length?vE[vE.length-1]:0;
+      var att=dv>=seuil;
+      var enc=vE.length>0&&!att;
+      html+='<td style="padding:8px;border-bottom:1px solid rgba(37,40,54,.5);text-align:center">';
+      if(att)html+='<span class="comp-bilan oui">Atteinte</span>';
+      else if(enc)html+='<span class="comp-bilan cours">En cours</span>';
+      else html+='<span class="comp-bilan non">Non evalue</span>';
+      html+='</td></tr>';
     }
-    html+="</tbody></table></div>";
-
-    // Courbe SVG
-    if(seancesPourAflp.length>=1&&eleves.length>0){
-      var W2=Math.max(320,seancesPourAflp.length*80+90);
-      var H2=140;var pL=50,pR=20,pT=15,pB=30;
-      var gW2=W2-pL-pR,gH2=H2-pT-pB;
-      html+="<div style=\"background:#13161f;border:1px solid #252836;border-radius:10px;padding:1rem;margin-top:.75rem;overflow-x:auto\">";
-      html+="<div style=\"font-family:DM Mono,monospace;font-size:.62rem;text-transform:uppercase;letter-spacing:.1em;color:#6b7280;margin-bottom:.5rem\">Evolution "+aflpN+"</div>";
-      html+="<svg width=\""+W2+"\" height=\""+H2+"\" xmlns=\"http://www.w3.org/2000/svg\" style=\"display:block\">";
-      html+="<rect width=\""+W2+"\" height=\""+H2+"\" fill=\"#13161f\" rx=\"6\"/>";
-      var lvlL=["","Insuf","Fragile","Satisf","Tres B"];
-      for(var nv=1;nv<=4;nv++){
-        var yy2=pT+gH2-(nv-1)*gH2/3;
-        html+="<line x1=\""+pL+"\" y1=\""+yy2+"\" x2=\""+(pL+gW2)+"\" y2=\""+yy2+"\" stroke=\"#1e2130\" stroke-width=\"1\"/>";
-        html+="<text x=\""+(pL-5)+"\" y=\""+(yy2+4)+"\" fill=\"#3a4060\" font-size=\"8\" text-anchor=\"end\">"+lvlL[nv]+"</text>";
-      }
-      var yyS=pT+gH2-(seuil-1)*gH2/3;
-      html+="<line x1=\""+pL+"\" y1=\""+yyS+"\" x2=\""+(pL+gW2)+"\" y2=\""+yyS+"\" stroke=\"#56cfb2\" stroke-width=\"1.5\" stroke-dasharray=\"4,3\"/>";
-      html+="<text x=\""+(pL+gW2+3)+"\" y=\""+(yyS+4)+"\" fill=\"#56cfb2\" font-size=\"8\">seuil</text>";
-      for(var si=0;si<seancesPourAflp.length;si++){
-        var xx2=pL+(seancesPourAflp.length>1?si*(gW2/(seancesPourAflp.length-1)):gW2/2);
-        html+="<text x=\""+xx2+"\" y=\""+(H2-pB+12)+"\" fill=\"#3a4060\" font-size=\"9\" text-anchor=\"middle\">S"+seancesPourAflp[si].num+"</text>";
-      }
+    html+='</tbody></table></div>';
+    if(sPA.length>=1&&eleves.length>0){
+      var W2=Math.max(320,sPA.length*80+90);
+      var H2=140;var pL=50,pR=25,pT=15,pB=30;var gW=W2-pL-pR,gH=H2-pT-pB;
+      html+='<div style="background:#13161f;border:1px solid #252836;border-radius:10px;padding:1rem;margin-top:.75rem;overflow-x:auto">';
+      html+='<div style="font-family:DM Mono,monospace;font-size:.62rem;text-transform:uppercase;color:#6b7280;margin-bottom:.5rem">Evolution '+aflpN+'</div>';
+      html+='<svg width="'+W2+'" height="'+H2+'" xmlns="http://www.w3.org/2000/svg" style="display:block">';
+      html+='<rect width="'+W2+'" height="'+H2+'" fill="#13161f" rx="6"/>';
+      var lL=['','Insuf','Fragile','Satisf','Tres B'];
+      for(var nv=1;nv<=4;nv++){var yy=pT+gH-(nv-1)*gH/3;html+='<line x1="'+pL+'" y1="'+yy+'" x2="'+(pL+gW)+'" y2="'+yy+'" stroke="#1e2130" stroke-width="1"/><text x="'+(pL-5)+'" y="'+(yy+4)+'" fill="#3a4060" font-size="8" text-anchor="end">'+lL[nv]+'</text>';}
+      var yS=pT+gH-(seuil-1)*gH/3;
+      html+='<line x1="'+pL+'" y1="'+yS+'" x2="'+(pL+gW)+'" y2="'+yS+'" stroke="#56cfb2" stroke-width="1.5" stroke-dasharray="4,3"/>';
+      html+='<text x="'+(pL+gW+3)+'" y="'+(yS+4)+'" fill="#56cfb2" font-size="8">seuil</text>';
+      for(var si=0;si<sPA.length;si++){var xx=pL+(sPA.length>1?si*(gW/(sPA.length-1)):gW/2);html+='<text x="'+xx+'" y="'+(H2-pB+12)+'" fill="#3a4060" font-size="9" text-anchor="middle">S'+sPA[si].num+'</text>';}
       for(var ei=0;ei<eleves.length;ei++){
-        var e=eleves[ei];
-        var col=graphColors[ei%graphColors.length];
-        var pts=[];
-        for(var si=0;si<seancesPourAflp.length;si++){
-          var s2=seancesPourAflp[si];
-          var key2=s2.id+"__"+aflpN+"__"+e.id;
-          var v2=compData[key2]||0;
-          if(v2>0){
-            var xx3=pL+(seancesPourAflp.length>1?si*(gW2/(seancesPourAflp.length-1)):gW2/2);
-            var yy3=pT+gH2-(v2-1)*gH2/3;
-            pts.push({x:xx3,y:yy3});
-          }
-        }
-        if(pts.length>=2){
-          var d2="M "+pts[0].x+" "+pts[0].y;
-          for(var p=1;p<pts.length;p++){var mx=(pts[p-1].x+pts[p].x)/2;d2+=" C "+mx+" "+pts[p-1].y+" "+mx+" "+pts[p].y+" "+pts[p].x+" "+pts[p].y;}
-          html+="<path d=\""+d2+"\" fill=\"none\" stroke=\""+col+"\" stroke-width=\"2\" stroke-linecap=\"round\"/>";
-        }
-        for(var p=0;p<pts.length;p++){
-          html+="<circle cx=\""+pts[p].x+"\" cy=\""+pts[p].y+"\" r=\"4\" fill=\""+col+"\" stroke=\"#13161f\" stroke-width=\"1.5\"/>";
-        }
+        var e=eleves[ei];var col=gC[ei%gC.length];var pts=[];
+        for(var si=0;si<sPA.length;si++){var s2=sPA[si];var ck=s2.id+'__'+aflpN+'__'+e.id;var v2=compData[ck]||0;if(v2>0){var xx=pL+(sPA.length>1?si*(gW/(sPA.length-1)):gW/2);pts.push({x:xx,y:pT+gH-(v2-1)*gH/3});}}
+        if(pts.length>=2){var dp='M '+pts[0].x+' '+pts[0].y;for(var p=1;p<pts.length;p++){var mx=(pts[p-1].x+pts[p].x)/2;dp+=' C '+mx+' '+pts[p-1].y+' '+mx+' '+pts[p].y+' '+pts[p].x+' '+pts[p].y;}html+='<path d="'+dp+'" fill="none" stroke="'+col+'" stroke-width="2" stroke-linecap="round"/>';}
+        for(var p=0;p<pts.length;p++)html+='<circle cx="'+pts[p].x+'" cy="'+pts[p].y+'" r="4" fill="'+col+'" stroke="#13161f" stroke-width="1.5"/>';
       }
-      html+="</svg>";
-      html+="<div style=\"display:flex;gap:.75rem;flex-wrap:wrap;margin-top:.4rem\">";
-      for(var ei=0;ei<eleves.length;ei++){
-        var col=graphColors[ei%graphColors.length];
-        html+="<div style=\"display:flex;align-items:center;gap:5px;font-size:.7rem;color:#9aa0b8\"><div style=\"width:16px;height:3px;border-radius:2px;background:"+col+"\"></div>"+esc(eleves[ei].nom.split(" ")[0])+"</div>";
-      }
-      html+="</div></div>";
+      html+='</svg><div style="display:flex;gap:.75rem;flex-wrap:wrap;margin-top:.4rem">';
+      for(var ei=0;ei<eleves.length;ei++){var col=gC[ei%gC.length];html+='<div style="display:flex;align-items:center;gap:5px;font-size:.7rem;color:#9aa0b8"><div style="width:16px;height:3px;border-radius:2px;background:'+col+'"></div>'+esc(eleves[ei].nom.split(' ')[0])+'</div>';}
+      html+='</div></div>';
     }
-    html+="</div>";
+    html+='</div>';
   }
-
   zone.innerHTML=html;
-  var btns=zone.querySelectorAll(".comp-btn-niv");
+  var btns=zone.querySelectorAll('.comp-btn-niv');
   for(var i=0;i<btns.length;i++){
-    (function(btn){
-      btn.addEventListener("click",function(){
-        var key=this.dataset.key;
-        var val=parseInt(this.dataset.val);
-        var data=compGetData();
-        data[key]=(data[key]===val)?0:val;
-        compSaveData(data);
-        renderComp();
-      });
-    })(btns[i]);
+    (function(btn){btn.addEventListener('click',function(){var ck=this.dataset.key;var val=parseInt(this.dataset.val);var data=compGetData();data[ck]=(data[ck]===val)?0:val;compSaveData(data);renderComp();});})(btns[i]);
   }
 }
 
-
-function initEvents(){var mbs=document.querySelectorAll('.mb');for(var i=0;i<mbs.length;i++){(function(bg){bg.addEventListener('click',function(e){if(e.target===bg)bg.classList.remove('open');});})(mbs[i]);}var closes=document.querySelectorAll('[data-close]');for(var i=0;i<closes.length;i++){(function(btn){btn.addEventListener('click',function(){closeM(this.dataset.close);});})(closes[i]);}var tabs=document.querySelectorAll('.s-tab');for(var i=0;i<tabs.length;i++){(function(tab){tab.addEventListener('click',function(){showView(this.dataset.view);});})(tabs[i]);}var shortcuts=document.querySelectorAll('.acc-shortcut');for(var i=0;i<shortcuts.length;i++){(function(el){el.addEventListener('click',function(){showView(this.dataset.view);});})(shortcuts[i]);}var profilBtns=document.querySelectorAll('.profil-edit-btn');for(var i=0;i<profilBtns.length;i++){(function(btn){btn.addEventListener('click',function(){openProfilPlan(this.dataset.plan);});})(profilBtns[i]);}var dispBtns=document.querySelectorAll('.disp-type-btn');for(var i=0;i<dispBtns.length;i++){(function(btn){btn.addEventListener('click',function(){var all=document.querySelectorAll('.disp-type-btn');for(var i=0;i<all.length;i++)all[i].classList.remove('sel');this.classList.add('sel');});})(dispBtns[i]);}function s(id,ev,fn){var el=ge(id);if(el)el.addEventListener(ev,fn);}s('btn-gh-save','click',ghSaveConfig);s('s-back-btn','click',goAcc);s('btn-push','click',ghPush);s('btn-pull','click',ghPull);s('btn-edit-seq','click',openSeqModal);s('btn-save-seq','click',saveSeq);s('btn-add-trame-seance','click',addTrameSeance);s('btn-new-seance','click',function(){openM('m-seance');});s('btn-save-seance','click',saveSeance);s('btn-add-partie-new','click',function(){addPartie('new');});s('btn-upd-seance','click',updSeance);s('btn-del-seance','click',delSeance);s('btn-add-partie-edit','click',function(){addPartie('edit');});s('btn-pdf-seance','click',exportSeancePDF);s('srch','input',renderSeances);s('btn-profil-classe','click',toggleProfilZone);s('btn-save-profil-plan','click',saveProfilPlan);s('btn-new-eleve','click',function(){openM('m-eleve');});s('btn-save-eleve','click',saveEleve);s('btn-upd-eleve','click',updEleve);s('btn-del-eleve','click',delEleve);s('btn-import-pdf','click',function(){openM('m-pdf');});s('btn-csv','click',exportCSV);s('btn-save-fiche','click',saveFicheAmen);s('photo-drop','click',function(){var pi=ge('photo-input');if(pi)pi.click();});s('photo-input','change',function(){handlePhoto(this);});s('photo-del-btn','click',function(){fichePhotoData=null;var t=ge('photo-thumb');if(t)t.style.display='none';this.style.display='none';var pi=ge('photo-input');if(pi)pi.value='';});s('photo-thumb','click',function(){if(fichePhotoData){var w=window.open('','_blank');if(w){w.document.write('<html><body style="margin:0;background:#000;display:flex;justify-content:center;align-items:center;min-height:100vh"><img src="'+fichePhotoData+'" style="max-width:100%;max-height:100vh;object-fit:contain"><\/body><\/html>');w.document.close();}}});var pd=ge('photo-drop');if(pd){var drevts=['dragenter','dragover'];for(var i=0;i<drevts.length;i++)pd.addEventListener(drevts[i],function(e){e.preventDefault();pd.classList.add('drag');});var dlvts=['dragleave','drop'];for(var i=0;i<dlvts.length;i++)pd.addEventListener(dlvts[i],function(e){e.preventDefault();pd.classList.remove('drag');});pd.addEventListener('drop',function(e){var f=e.dataTransfer.files[0];if(f&&f.type.startsWith('image/')){var dt=new DataTransfer();dt.items.add(f);ge('photo-input').files=dt.files;handlePhoto(ge('photo-input'));}});}var dz=ge('pdf-drop');if(dz){dz.addEventListener('click',function(){var pi=ge('pdf-input');if(pi)pi.click();});s('pdf-input','change',function(){handlePdf(this);});var drevts2=['dragenter','dragover'];for(var i=0;i<drevts2.length;i++)dz.addEventListener(drevts2[i],function(e){e.preventDefault();dz.classList.add('drag');});var dlvts2=['dragleave','drop'];for(var i=0;i<dlvts2.length;i++)dz.addEventListener(dlvts2[i],function(e){e.preventDefault();dz.classList.remove('drag');});dz.addEventListener('drop',function(e){var f=e.dataTransfer.files[0];if(f&&f.type==='application/pdf'){var dt=new DataTransfer();dt.items.add(f);ge('pdf-input').files=dt.files;handlePdf(ge('pdf-input'));}});}s('btn-pdf-all','click',function(){var cbs=document.querySelectorAll('#pdf-names input[type=checkbox]');for(var i=0;i<cbs.length;i++)cbs[i].checked=true;});s('btn-pdf-none','click',function(){var cbs=document.querySelectorAll('#pdf-names input[type=checkbox]');for(var i=0;i<cbs.length;i++)cbs[i].checked=false;});s('btn-pdf-import','click',pdfImport);s('btn-grille-cfg','click',openGrilleConfig);s('btn-grille-pdf','click',exportGrillePDF);s('btn-grille-csv','click',exportGrilleCSV);s('btn-add-critere','click',function(){var idx=document.querySelectorAll('.critere-block').length;var newC={id:'c'+Date.now(),nom:'',pts:4,niveaux:[{label:'Insuffisant',desc:'',pts:0},{label:'Fragile',desc:'',pts:2},{label:'Satisfaisant',desc:'',pts:3},{label:'Tres bien',desc:'',pts:4}]};renderCritereBlock(newC,idx);});s('btn-save-grille-cfg','click',saveGrilleConfig);}
+function initEvents(){var mbs=document.querySelectorAll('.mb');for(var i=0;i<mbs.length;i++){(function(bg){bg.addEventListener('click',function(e){if(e.target===bg)bg.classList.remove('open');});})(mbs[i]);}var closes=document.querySelectorAll('[data-close]');for(var i=0;i<closes.length;i++){(function(btn){btn.addEventListener('click',function(){closeM(this.dataset.close);});})(closes[i]);}var tabs=document.querySelectorAll('.s-tab');for(var i=0;i<tabs.length;i++){(function(tab){tab.addEventListener('click',function(){showView(this.dataset.view);});})(tabs[i]);}var shortcuts=document.querySelectorAll('.acc-shortcut');for(var i=0;i<shortcuts.length;i++){(function(el){el.addEventListener('click',function(){showView(this.dataset.view);});})(shortcuts[i]);}var profilBtns=document.querySelectorAll('.profil-edit-btn');for(var i=0;i<profilBtns.length;i++){(function(btn){btn.addEventListener('click',function(){openProfilPlan(this.dataset.plan);});})(profilBtns[i]);}var dispBtns=document.querySelectorAll('.disp-type-btn');for(var i=0;i<dispBtns.length;i++){(function(btn){btn.addEventListener('click',function(){var all=document.querySelectorAll('.disp-type-btn');for(var i=0;i<all.length;i++)all[i].classList.remove('sel');this.classList.add('sel');});})(dispBtns[i]);}function s(id,ev,fn){var el=ge(id);if(el)el.addEventListener(ev,fn);}s('btn-gh-save','click',ghSaveConfig);s('s-back-btn','click',goAcc);s('btn-push','click',ghPush);s('btn-pull','click',ghPull);s('btn-edit-seq','click',openSeqModal);s('btn-save-seq','click',saveSeq);s('btn-add-trame-seance','click',addTrameSeance);s('btn-new-seance','click',function(){openM('m-seance');});s('btn-save-seance','click',saveSeance);s('btn-add-partie-new','click',function(){addPartie('new');});s('btn-upd-seance','click',updSeance);s('btn-del-seance','click',delSeance);s('btn-add-partie-edit','click',function(){addPartie('edit');});s('btn-pdf-seance','click',exportSeancePDF);s('srch','input',renderSeances);s('btn-profil-classe','click',toggleProfilZone);s('btn-save-profil-plan','click',saveProfilPlan);s('btn-new-eleve','click',function(){openM('m-eleve');});s('btn-save-eleve','click',saveEleve);s('btn-upd-eleve','click',updEleve);s('btn-del-eleve','click',delEleve);s('btn-import-pdf','click',function(){openM('m-pdf');});s('btn-csv','click',exportCSV);s('btn-save-fiche','click',saveFicheAmen);s('photo-drop','click',function(){var pi=ge('photo-input');if(pi)pi.click();});s('photo-input','change',function(){handlePhoto(this);});s('photo-del-btn','click',function(){fichePhotoData=null;var t=ge('photo-thumb');if(t)t.style.display='none';this.style.display='none';var pi=ge('photo-input');if(pi)pi.value='';});s('photo-thumb','click',function(){if(fichePhotoData){var w=window.open('','_blank');if(w){w.document.write('<html><body style="margin:0;background:#000;display:flex;justify-content:center;align-items:center;min-height:100vh"><img src="'+fichePhotoData+'" style="max-width:100%;max-height:100vh;object-fit:contain"><\/body><\/html>');w.document.close();}}});var pd=ge('photo-drop');if(pd){var drevts=['dragenter','dragover'];for(var i=0;i<drevts.length;i++)pd.addEventListener(drevts[i],function(e){e.preventDefault();pd.classList.add('drag');});var dlvts=['dragleave','drop'];for(var i=0;i<dlvts.length;i++)pd.addEventListener(dlvts[i],function(e){e.preventDefault();pd.classList.remove('drag');});pd.addEventListener('drop',function(e){var f=e.dataTransfer.files[0];if(f&&f.type.startsWith('image/')){var dt=new DataTransfer();dt.items.add(f);ge('photo-input').files=dt.files;handlePhoto(ge('photo-input'));}});}var dz=ge('pdf-drop');if(dz){dz.addEventListener('click',function(){var pi=ge('pdf-input');if(pi)pi.click();});s('pdf-input','change',function(){handlePdf(this);});var drevts2=['dragenter','dragover'];for(var i=0;i<drevts2.length;i++)dz.addEventListener(drevts2[i],function(e){e.preventDefault();dz.classList.add('drag');});var dlvts2=['dragleave','drop'];for(var i=0;i<dlvts2.length;i++)dz.addEventListener(dlvts2[i],function(e){e.preventDefault();dz.classList.remove('drag');});dz.addEventListener('drop',function(e){var f=e.dataTransfer.files[0];if(f&&f.type==='application/pdf'){var dt=new DataTransfer();dt.items.add(f);ge('pdf-input').files=dt.files;handlePdf(ge('pdf-input'));}});}s('btn-pdf-all','click',function(){var cbs=document.querySelectorAll('#pdf-names input[type=checkbox]');for(var i=0;i<cbs.length;i++)cbs[i].checked=true;});s('btn-pdf-none','click',function(){var cbs=document.querySelectorAll('#pdf-names input[type=checkbox]');for(var i=0;i<cbs.length;i++)cbs[i].checked=false;});s('btn-pdf-import','click',pdfImport);var _ss=ge('comp-seuil-sel');if(_ss)_ss.addEventListener('change',renderComp);
+s('btn-grille-cfg','click',openGrilleConfig);s('btn-grille-pdf','click',exportGrillePDF);s('btn-grille-csv','click',exportGrilleCSV);s('btn-add-critere','click',function(){var idx=document.querySelectorAll('.critere-block').length;var newC={id:'c'+Date.now(),nom:'',pts:4,niveaux:[{label:'Insuffisant',desc:'',pts:0},{label:'Fragile',desc:'',pts:2},{label:'Satisfaisant',desc:'',pts:3},{label:'Tres bien',desc:'',pts:4}]};renderCritereBlock(newC,idx);});s('btn-save-grille-cfg','click',saveGrilleConfig);}
 accInit();
 initEvents();
 </script>
