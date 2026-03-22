@@ -3,7 +3,7 @@
     {
       "id": "s001",
       "num": 1,
-      "date": "",
+      "date": "2026-02-23",
       "objectif": "Découverte de l'APSA — Règles de sécurité — Retrouver 6 balises autour du lycée (zone sécurisée) — Diagnostique",
       "bilan": "",
       "aflpTravailles": [
@@ -34,7 +34,7 @@
     {
       "id": "s002",
       "num": 2,
-      "date": "",
+      "date": "2026-03-02",
       "objectif": "Se repérer dans l'espace et identifier l'emplacement d'une balise — Comprendre la carte et savoir l'orienter pour rechercher",
       "bilan": "",
       "aflpTravailles": [
@@ -66,7 +66,7 @@
     {
       "id": "s003",
       "num": 3,
-      "date": "",
+      "date": "2026-03-09",
       "objectif": "Choisir un itinéraire adapté à son niveau — Enchaîner plusieurs postes sans aide extérieure — Analyser prévu / réalisé",
       "bilan": "Positif. Séries fonctionnent. But initial. Itinéraire. Final. Évaluation.",
       "aflpTravailles": [
@@ -98,7 +98,7 @@
     {
       "id": "s004",
       "num": 4,
-      "date": "",
+      "date": "2026-03-16",
       "objectif": "Co-concevoir un projet — Adapter son allure — Analyser sa pratique — Identifier les zones de difficultés — Conduire sa durée",
       "bilan": "",
       "aflpTravailles": [
@@ -128,33 +128,41 @@
       ]
     },
     {
-      "id": "s005",
+      "id": "s1774213526527",
       "num": 5,
-      "date": "",
-      "objectif": "ÉVALUATION — Réaliser en binôme un parcours en milieu naturel — Construire et adapter un itinéraire pertinent — Gérer son effort — Respecter les règles de sécurité",
+      "date": "2026-03-23",
+      "objectif": "Découvrir les éléments de la carte et la légende par le jeu — Lire une carte et placer des balises selon une consigne simple — Commencer à faire le lien entre le symbole et ce qu'on voit sur le terrain",
       "bilan": "",
       "aflpTravailles": [
         "AFLP 1",
-        "AFLP 3",
         "AFLP 6"
       ],
       "parties": [
         {
-          "id": "p501",
-          "titre": "Échauffement et lecture finale de la carte",
-          "objectif": "Préparer le corps — finaliser la lecture de la carte — planifier l'itinéraire",
-          "consignes": "- Relire la carte. Orienter vers le nord. Planifier l'itinéraire.",
-          "criteres": "Carte orientée. Itinéraire planifié.",
-          "contenus": "",
+          "id": "p1774213392913eyn",
+          "titre": "Échauffement : \"La chasse aux couleurs\"",
+          "objectif": "\nActiver le corps de façon ludique en découvrant les couleurs et symboles de la carte par l'action",
+          "consignes": "Temps 1 — La chasse aux couleurs (6 min)\nChaque élève reçoit sa carte. Le prof annonce une couleur : « trouvez quelque chose de noir sur votre carte ! » Les élèves courent jusqu'à un élément correspondant sur le terrain (ex : un bâtiment) et le touchent avant de revenir. Celui qui revient le dernier doit nommer un autre élément de cette couleur sur la carte. 4 à 5 couleurs enchaînées en accélérant progressivement le rythme.\nTemps 2 — Simon dit… sur la carte (4 min)\nLe prof joue au « Simon dit » version CO : « Simon dit : montrez un chemin sur votre carte », « Simon dit : montrez une zone où on ne peut pas passer ». Les élèves pointent sur leur carte. Si quelqu'un pointe sans que Simon l'ait dit, il fait 5 sauts. Rythme ludique et rapide.\nTemps 3 — Mobilité (3 min)\nCercles chevilles, genoux, hanches. Talons-fesses, montées de genoux sur 15 m. 1 accélération tranquille sur 30 m.",
+          "criteres": "Identifier la couleur sur la carte et courir jusqu'à l'élément correspondant sur le terrain. Engagement et participation de tous. Corps échauffé.",
+          "contenus": "Découverte des couleurs IOF par l'action : noir = bâtiments/rochers, marron = chemins/relief, vert = végétation, bleu = eau, jaune = terrain ouvert. Activation cardio-vasculaire. Atmosphère ludique et bienveillante.",
           "bilan": ""
         },
         {
-          "id": "p502",
-          "titre": "ÉVALUATION — Parcours complet",
-          "objectif": "Réaliser en binôme un parcours d'orientation en milieu naturel, en construisant et en adaptant un itinéraire pertinent, tout en gérant son effort et en respectant strictement les règles de sécurité et de l'environnement.",
-          "consignes": "- Parcours complet : toutes les balises dans l'ordre ou en choix libre selon le niveau.\n- Temps chronomètre noté. TOTAL JUSTE / JUSTE OU FAUX.\n- Respecter les zones interdites. Signal sonore = rassemblement.\n- Analyser prévu / réalisé après le parcours.\n- Ne jamais traverser les zones interdites ou dangereuses.\n- Avoir le matériel obligatoire. Signaler toute difficulté. Ne pas dégrader l'environnement.",
-          "criteres": "Balises trouvées (JUSTE). Temps noté. Itinéraire efficient choisi. Règles de sécurité respectées. Analyser prévu/réalisé.",
-          "contenus": "Compétence attendue : Réaliser en binôme un parcours d'orientation en milieu naturel, en construisant et en adaptant un itinéraire pertinent, tout en gérant son effort et en respectant strictement les règles de sécurité et de l'environnement.\nAFLC ciblées : AFLP 1 — AFLP 3 — AFLP 6.",
+          "id": "p1774213440495mho",
+          "titre": "Situation principale : 1 balise à chercher + 3 balises à placer selon consigne simple",
+          "objectif": "Lire une carte simple et placer des balises selon une consigne guidée — Faire le lien entre un symbole de la légende et un élément visible sur le terrain",
+          "consignes": "PHASE 1 — Chercher 1 balise (10 min)\nChaque binôme reçoit une carte avec 1 balise indiquée. Avant de partir le prof vérifie avec chaque binôme : « Tu vois la balise sur la carte ? C'est quoi comme symbole à côté ? » Orienter la carte. Aller trouver la balise et revenir au point central valider. Temps maxi : 10 min. Signal sonore = rassemblement. Aucun élève seul.\nPHASE 2 — Placer 3 balises selon une consigne (15 min)\nLa consigne est donnée oralement et visuellement (le prof montre un exemple sur la carte). Les consignes sont simples et concrètes, adaptées au niveau collège :\n\nBinôme A : « Placez 3 balises sur un chemin. »\nBinôme B : « Placez 3 balises près d'un bâtiment. »\nBinôme C : « Placez 3 balises à un endroit où deux chemins se croisent. »\nBinôme D : « Placez 3 balises près d'une table, d'un banc ou d'un poteau. »\nBinôme E : « Placez 3 balises au bord d'une zone boisée. »\nBinôme F : « Placez 3 balises à des endroits que vous arriveriez à retrouver facilement les yeux fermés sur la carte. »\n\nLes élèves placent leurs 3 balises au crayon sur la carte. Pour chaque balise ils répondent à une seule question : « Quel symbole ou quelle couleur t'a aidé à choisir cet endroit ? »\nAprès les placements le prof passe dans chaque binôme, pose des questions simples et bienveillantes : « Montre-moi. Qu'est-ce que tu vois sur le terrain à cet endroit ? C'est quoi sur la carte ? »\n\nPour les élèves en difficulté : le prof pointe un élément sur la carte et demande « Tu vois ça sur le terrain ? » avant de les laisser chercher seuls. Réduire à 2 balises si nécessaire. Autoriser un binôme plus fort à accompagner un binôme en difficulté.",
+          "criteres": "Phase 1 : balise trouvée, retour dans les temps. Phase 2 : 3 balises placées en lien avec la consigne, au moins 1 symbole nommé par placement.",
+          "contenus": "Lire une carte simple : identifier les chemins, bâtiments, zones vertes, mobilier. Faire le lien entre le dessin sur la carte et ce qu'on voit vraiment. Nommer le symbole utilisé pour choisir l'emplacement. Regarder la carte autrement : pas pour suivre un chemin, mais pour lire un espace.",
+          "bilan": ""
+        },
+        {
+          "id": "p1774213490273v7b",
+          "titre": "Bilan collectif + Retour au calme",
+          "objectif": "\nMettre des mots sur ce qu'on a appris — Identifier les symboles qu'on retient — Donner envie de revenir sur la carte à la prochaine séance",
+          "consignes": "Retour au calme (4 min)\nMarche tranquille en cercle. Étirements guidés par le prof : mollets (talon contre mur), jambes tendues (penchés en avant), bras croisés derrière le dos.\nBilan collectif (8 min)\nLe prof s'assoit avec les élèves en cercle. Questions simples et bienveillantes :\n\n« Qui peut me montrer un chemin sur sa carte ? Comment on le reconnaît ? »\n« Y a-t-il un symbole que vous avez vu sur la carte mais que vous n'avez pas réussi à retrouver sur le terrain ? Lequel ? »\n« Pour le binôme qui avait 'près d'un bâtiment' : c'est quelle couleur sur la carte un bâtiment ? Vous l'avez trouvé facilement sur le terrain ? »\n\nUn élève volontaire montre ses 3 balises placées sur la carte au reste de la classe. Le groupe dit si les placements sont cohérents avec la consigne. Ambiance bienveillante, pas de moquerie.\nSynthèse très simple du prof : 3 symboles à retenir — le chemin, le bâtiment, la lisière boisée. Le prof les dessine ou les montre sur la carte géante si disponible.\nAnnonce de la prochaine séance\n« La prochaine séance vous allez choisir vous-mêmes l'ordre de vos balises et votre chemin. Ce que vous avez appris aujourd'hui sur les symboles va vous aider à mieux vous repérer. On regardera ensemble après si ce que vous aviez prévu sur la carte correspond à ce que vous avez réellement fait. »",
+          "criteres": "Chaque élève capable de nommer au moins 1 symbole clé et de dire à quoi il correspond sur le terrain. Participation active même des élèves habituellement en retrait.",
+          "contenus": "Consolidation de la lecture cartographique simple. Verbalisation et mise en mots des apprentissages. Lien avec ce qui vient : choisir son itinéraire en s'appuyant sur des repères fiables. Introduction douce à l'idée d'analyser ce qu'on a fait par rapport à ce qu'on avait prévu.\n",
           "bilan": ""
         }
       ]
@@ -383,10 +391,6 @@
     "s004": {
       "obj1": "Adapter son allure selon ses ressources",
       "obj2": "Anticiper les zones complexes — terminer dans le temps"
-    },
-    "s005": {
-      "obj1": "Construire l'itinéraire le plus pertinent",
-      "obj2": "Retrouver toutes les balises et respecter les règles de sécurité"
     }
   },
   "profil": {
