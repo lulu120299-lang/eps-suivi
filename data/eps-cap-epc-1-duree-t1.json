@@ -436,8 +436,22 @@
       "noteFinale": null
     }
   ],
-  "presences": {},
-  "autoEval": {},
+  "presences": {
+    "s001": {},
+    "s002": {},
+    "s003": {},
+    "s005": {},
+    "s007": {},
+    "s008": {}
+  },
+  "autoEval": {
+    "s001": {},
+    "s002": {},
+    "s003": {},
+    "s005": {},
+    "s007": {},
+    "s008": {}
+  },
   "seanceObjectifs": {
     "s001": {
       "obj1": "Courir les 6 min sans s arreter",
@@ -504,7 +518,7 @@
   },
   "comp": {},
   "seq": {
-    "objet": "Soutenir des efforts longs et intenses en gerant son allure et ses ressources dans une activite de course de duree (CA5).",
+    "objet": "Produire la meilleure performance possible, seul ou à plusieurs, à une échéance donnée, en répartissant ses efforts, en mobilisant des techniques efficaces, en tenant des rôles sociaux pour le bon déroulement de l’épreuve, et en identifiant ses progrès pour situer sa performance dans une perspective culturelle.",
     "objectifs": "Etre capable de courir a une allure reguliere choisie en fonction de ses ressources. Identifier ses progrès et connaitre sa meilleure performance pour la situer culturellement. Assumer des roles sociaux (chronometreur, observateur). Gerer effort et recuperation de maniere autonome.",
     "aflpPrio": [
       "AFLP 1",
