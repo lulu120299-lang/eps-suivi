@@ -417,5 +417,120 @@
     ],
     "trame": []
   },
-  "grilleNotes": {}
+  "grilleNotes": {
+    "e001": {}
+  },
+  "grille": {
+    "titre": "Grille evaluation CCF",
+    "criteres": [
+      {
+        "id": "c1",
+        "nom": "AFL 1 - Efficacite motrice",
+        "pts": 8,
+        "niveaux": [
+          {
+            "label": "Insuffisant",
+            "desc": "Ne realise pas les actions attendues.",
+            "pts": 0
+          },
+          {
+            "label": "Fragile",
+            "desc": "Realise partiellement avec des erreurs.",
+            "pts": 2
+          },
+          {
+            "label": "Satisfaisant",
+            "desc": "Realise correctement dans la plupart des situations.",
+            "pts": 5
+          },
+          {
+            "label": "Tres bien",
+            "desc": "Realise avec efficacite et regularite.",
+            "pts": 8
+          }
+        ]
+      },
+      {
+        "id": "c2",
+        "nom": "AFL1 - p2",
+        "pts": 4,
+        "niveaux": [
+          {
+            "label": "Insuffisant",
+            "desc": "Aucune connaissance des regles.",
+            "pts": 0
+          },
+          {
+            "label": "Fragile",
+            "desc": "Connaissances partielles.",
+            "pts": 1
+          },
+          {
+            "label": "Satisfaisant",
+            "desc": "Connait et applique les regles.",
+            "pts": 3
+          },
+          {
+            "label": "Tres bien",
+            "desc": "Maitrise et utilise les regles.",
+            "pts": 4
+          }
+        ]
+      },
+      {
+        "id": "c3",
+        "nom": "AFL 2",
+        "pts": 4,
+        "niveaux": [
+          {
+            "label": "Insuffisant",
+            "desc": "Refus ou absence d engagement.",
+            "pts": 0
+          },
+          {
+            "label": "Fragile",
+            "desc": "Engagement irregulier.",
+            "pts": 1
+          },
+          {
+            "label": "Satisfaisant",
+            "desc": "S engage regulierement.",
+            "pts": 3
+          },
+          {
+            "label": "Tres bien",
+            "desc": "Engagement total et spontane.",
+            "pts": 4
+          }
+        ]
+      },
+      {
+        "id": "c4",
+        "nom": "AFL 3",
+        "pts": 4,
+        "niveaux": [
+          {
+            "label": "Insuffisant",
+            "desc": "Incapable de verbaliser.",
+            "pts": 0
+          },
+          {
+            "label": "Fragile",
+            "desc": "Verbalisation limitee.",
+            "pts": 1
+          },
+          {
+            "label": "Satisfaisant",
+            "desc": "Explique ses choix simplement.",
+            "pts": 3
+          },
+          {
+            "label": "Tres bien",
+            "desc": "Argumente avec precision.",
+            "pts": 4
+          }
+        ]
+      }
+    ]
+  }
 }
