@@ -1,0 +1,337 @@
+{
+  "seances": [
+    {
+      "id": "s001",
+      "num": 1,
+      "date": "Mer. 19 nov. 2025",
+      "objectif": "Découverte Badminton — SA : FPS — Service — Découverte logique interne APSA",
+      "bilan": "",
+      "aflpTravailles": [
+        "AFLP 1",
+        "AFLP 4"
+      ],
+      "parties": [
+        {
+          "id": "p101",
+          "titre": "Échauffement",
+          "objectif": "Préparer le corps et les articulations — activer les réflexes — mise en route cardio-vasculaire",
+          "consignes": "- 5 min course légère + déplacements latéraux, petits pas chassés.\n- Mobilité active, amplitude correcte.\n- Mouvements spécifiques bras/poignets.\n- Adapter la vitesse si fatigue, rappeler posture basse.",
+          "criteres": "Corps prêt à l'effort. Articulations préparées. Réflexes activés.",
+          "contenus": "",
+          "bilan": ""
+        },
+        {
+          "id": "p102",
+          "titre": "SA : FPS — Service",
+          "objectif": "Découverte de l'APSA — FPS — Service court / long",
+          "consignes": "- FPS : Fond / Placement / Service.\n- Service court et service long.\n- Viser les zones cibles (avant ou arrière).\n- Shuttle franchit le filet, tombe dans la cible.\n- Position : pieds écartés, raquette dessous, frappe souple, trajectoire précise.",
+          "criteres": "Shuttle franchit le filet. Tombe dans la cible. Trajectoire précise.",
+          "contenus": "FPS. Service court vs long. Placement des pieds. Frappe souple. Trajectoire contrôlée.",
+          "bilan": ""
+        }
+      ]
+    },
+    {
+      "id": "s002",
+      "num": 2,
+      "date": "",
+      "objectif": "SA : Match montée / Descente — Développer les échanges — Consolider le service",
+      "bilan": "",
+      "aflpTravailles": [
+        "AFLP 1",
+        "AFLP 2",
+        "AFLP 4"
+      ],
+      "parties": [
+        {
+          "id": "p201",
+          "titre": "Échauffement",
+          "objectif": "Préparer le corps et les articulations — activer les réflexes — mise en route cardio-vasculaire",
+          "consignes": "- 5 min course légère + déplacements latéraux, petits pas chassés.\n- Mobilité active, amplitude correcte.\n- Mouvements spécifiques bras/poignets.\n- Adapter la vitesse si fatigue, rappeler posture basse.",
+          "criteres": "Corps prêt à l'effort. Articulations préparées. Réflexes activés.",
+          "contenus": "",
+          "bilan": ""
+        },
+        {
+          "id": "p202",
+          "titre": "SA : Match montée / Descente",
+          "objectif": "Développer les échanges — Consolider le service — Condition compétitive",
+          "consignes": "- Matchs : gagnant monte / perdant descend. Rotation rapide.\n- Service obligatoire à chaque engagement.\n- Utiliser les techniques de service travaillées.\n- Placement : retour position centrale après chaque frappe.\n- Différenciation selon le niveau.",
+          "criteres": "Service maîtrisé. Retour position centrale. Échange régulier. Valide si…",
+          "contenus": "Match montée / descente. Rotation rapide. Réguler son niveau par la compétition.",
+          "bilan": ""
+        }
+      ]
+    },
+    {
+      "id": "s003",
+      "num": 3,
+      "date": "",
+      "objectif": "Dégagé fond de court — Créer des situations favorables — Placer l'adversaire",
+      "bilan": "",
+      "aflpTravailles": [
+        "AFLP 1",
+        "AFLP 2",
+        "AFLP 3"
+      ],
+      "parties": [
+        {
+          "id": "p301",
+          "titre": "Échauffement",
+          "objectif": "Préparer le corps et les articulations — activer les réflexes — mise en route cardio-vasculaire",
+          "consignes": "- 5 min course légère + déplacements latéraux, petits pas chassés.\n- Mobilité active, amplitude correcte.\n- Mouvements spécifiques bras/poignets.\n- Adapter la vitesse si fatigue, rappeler posture basse.",
+          "criteres": "Corps prêt à l'effort. Articulations préparées. Réflexes activés.",
+          "contenus": "",
+          "bilan": ""
+        },
+        {
+          "id": "p302",
+          "titre": "Dégagé fond de court — Placer l'adversaire",
+          "objectif": "Dégagé fond de court — Transférer le volant vers l'arrière — Créer des situations favorables",
+          "consignes": "- Dégagé fond de court : transférer le volant vers l'arrière.\n- En binôme, effectuer des dégagés consécutifs.\n- Frapper avec extension complète, appui, mouvement fluide.\n- Viser en profondeur et au-dessus du filet.\n- Matchs montée/descente : utiliser le dégagé pour placer l'adversaire.\n- Retour position centrale après chaque frappe.\n- Si difficultés : ralentir le jeu.",
+          "criteres": "Dégagé atteint le fond de court. Extension complète. Retour position centrale. Volant au-dessus du filet.",
+          "contenus": "Dégagé fond de court. Extension du bras. Transfert du poids. Placement. Position centrale.",
+          "bilan": ""
+        }
+      ]
+    },
+    {
+      "id": "s004",
+      "num": 4,
+      "date": "",
+      "objectif": "Réaliser des actions décisives — Tactique : viser les zones libres — Matchs compétitifs",
+      "bilan": "",
+      "aflpTravailles": [
+        "AFLP 1",
+        "AFLP 2",
+        "AFLP 3",
+        "AFLP 4"
+      ],
+      "parties": [
+        {
+          "id": "p401",
+          "titre": "Échauffement",
+          "objectif": "Préparer le corps et les articulations — activer les réflexes — mise en route cardio-vasculaire",
+          "consignes": "- 5 min course légère + déplacements latéraux, petits pas chassés.\n- Mobilité active, amplitude correcte.\n- Mouvements spécifiques bras/poignets.\n- Adapter la vitesse si fatigue, rappeler posture basse.",
+          "criteres": "Corps prêt à l'effort. Articulations préparées. Réflexes activés.",
+          "contenus": "",
+          "bilan": ""
+        },
+        {
+          "id": "p402",
+          "titre": "Actions décisives — Tactique — Zones libres",
+          "objectif": "Réaliser des actions décisives en situation favorable — Viser les zones libres pour faire basculer le rapport de force",
+          "consignes": "- Matchs 1v1 compétitifs. Rotation rapide.\n- Utiliser service + dégagé + placement pour créer une situation favorable.\n- Viser les zones libres, les coins du terrain.\n- Enchainement service → premier coup offensif.\n- Respecter les règles. Engagement moteur actif.",
+          "criteres": "Actions décisives en situation favorable. Placement correct. Retour position centrale. Respect des règles.",
+          "contenus": "Tactique : viser les zones libres. Enchaînement technique. Rapport de force.",
+          "bilan": ""
+        }
+      ]
+    },
+    {
+      "id": "s005",
+      "num": 5,
+      "date": "",
+      "objectif": "CCF — Évaluation + rattrapage — Note Évaluation + Quantité de travail",
+      "bilan": "",
+      "aflpTravailles": [
+        "AFLP 1",
+        "AFLP 2",
+        "AFLP 3",
+        "AFLP 4"
+      ],
+      "parties": [
+        {
+          "id": "p501",
+          "titre": "Échauffement",
+          "objectif": "Préparer le corps et les articulations — activer les réflexes — mise en route cardio-vasculaire",
+          "consignes": "- 5 min course légère + déplacements latéraux, petits pas chassés.\n- Mobilité active, amplitude correcte.\n- Mouvements spécifiques bras/poignets.\n- Adapter la vitesse si fatigue, rappeler posture basse.",
+          "criteres": "Corps prêt à l'effort. Articulations préparées. Réflexes activés.",
+          "contenus": "",
+          "bilan": ""
+        },
+        {
+          "id": "p502",
+          "titre": "CCF — Évaluation + rattrapage",
+          "objectif": "CCF — Évaluation finale + séance de rattrapage — Note Évaluation + Quantité de travail",
+          "consignes": "- CCF + séance de rattrapage.\n- Matchs officiels 1v1.\n- Évaluation : Note Évaluation + Quantité de travail.\n- Utiliser toutes les techniques travaillées : service court/long, dégagé fond de court, placement, actions décisives.\n- Respecter les règles. Engagement moteur actif.\n- Spectateurs : observer et analyser.",
+          "criteres": "Service maîtrisé. Dégagé fond de court. Actions décisives en situation favorable. Placement correct. Quantité de travail.",
+          "contenus": "CCF. Grille d'évaluation. Note Évaluation. Quantité de travail. Respecter les règles et les rôles sociaux.",
+          "bilan": ""
+        }
+      ]
+    }
+  ],
+  "eleves": [
+    {
+      "id": "e001",
+      "nom": "ASKRI Mohamed Khalil",
+      "amenagement": "",
+      "fiche": null,
+      "noteFinale": null
+    },
+    {
+      "id": "e002",
+      "nom": "AZZOUG Samir",
+      "amenagement": "",
+      "fiche": null,
+      "noteFinale": null
+    },
+    {
+      "id": "e003",
+      "nom": "BENAISSA Amir",
+      "amenagement": "",
+      "fiche": null,
+      "noteFinale": null
+    },
+    {
+      "id": "e004",
+      "nom": "D'ANGELA Lorenzo",
+      "amenagement": "",
+      "fiche": null,
+      "noteFinale": null
+    },
+    {
+      "id": "e005",
+      "nom": "DUSABE Yves",
+      "amenagement": "",
+      "fiche": null,
+      "noteFinale": null
+    },
+    {
+      "id": "e006",
+      "nom": "GHOLAM NEJAD Ariyan",
+      "amenagement": "",
+      "fiche": null,
+      "noteFinale": null
+    },
+    {
+      "id": "e007",
+      "nom": "HAMMEDI Mohamed Amine",
+      "amenagement": "",
+      "fiche": null,
+      "noteFinale": null
+    },
+    {
+      "id": "e008",
+      "nom": "HETTAL Zakaria",
+      "amenagement": "",
+      "fiche": null,
+      "noteFinale": null
+    },
+    {
+      "id": "e009",
+      "nom": "MAJRI Nail",
+      "amenagement": "",
+      "fiche": null,
+      "noteFinale": null
+    },
+    {
+      "id": "e010",
+      "nom": "MAZA Aaron",
+      "amenagement": "",
+      "fiche": null,
+      "noteFinale": null
+    },
+    {
+      "id": "e011",
+      "nom": "QADWIMI Wadoud",
+      "amenagement": "",
+      "fiche": null,
+      "noteFinale": null
+    },
+    {
+      "id": "e012",
+      "nom": "SLASSI Younes",
+      "amenagement": "",
+      "fiche": null,
+      "noteFinale": null
+    }
+  ],
+  "presences": {},
+  "autoEval": {},
+  "seanceObjectifs": {
+    "s001": {
+      "obj1": "Maîtriser le service — shuttle franchit le filet et touche la cible",
+      "obj2": "Différencier service court et service long"
+    },
+    "s002": {
+      "obj1": "Utiliser le service en match montée/descente",
+      "obj2": "Retour position centrale après chaque frappe"
+    },
+    "s003": {
+      "obj1": "Réaliser des dégagés fond de court",
+      "obj2": "Créer des situations favorables en plaçant l'adversaire"
+    },
+    "s004": {
+      "obj1": "Réaliser des actions décisives en situation favorable",
+      "obj2": "Viser les zones libres et les coins"
+    },
+    "s005": {
+      "obj1": "Montrer toutes les techniques en CCF",
+      "obj2": "Obtenir la meilleure note évaluation + quantité de travail"
+    }
+  },
+  "profil": {
+    "moteur": {
+      "obs": "CAP ELEC 2 — Badminton — T2.",
+      "eleves": {}
+    },
+    "social": {
+      "obs": "",
+      "eleves": {}
+    },
+    "medical": {
+      "obs": "",
+      "eleves": {}
+    },
+    "scolaire": {
+      "obs": "",
+      "eleves": {}
+    },
+    "autre": {
+      "obs": "CAP ELEC 2 — Badminton — T2. Séance 1 le mercredi 19 novembre 2025.",
+      "eleves": {}
+    }
+  },
+  "comp": {},
+  "seq": {
+    "objet": "Réaliser des actions décisives en situation favorable afin de faire basculer le rapport de force en sa faveur — service, dégagé fond de court, placement tactique.",
+    "objectifs": "SA : FPS — Service. Match montée / Descente. Dégagé fond de court. Réaliser des actions décisives. CCF + rattrapage. Note Évaluation + Quantité de travail.",
+    "aflpPrio": [
+      "AFLP 1",
+      "AFLP 2",
+      "AFLP 3",
+      "AFLP 4"
+    ],
+    "trame": [
+      {
+        "num": 1,
+        "objectif": "Découverte — SA : FPS — Service (19 nov. 2025)",
+        "date": ""
+      },
+      {
+        "num": 2,
+        "objectif": "SA : Match montée / Descente — Consolider le service",
+        "date": ""
+      },
+      {
+        "num": 3,
+        "objectif": "Dégagé fond de court — Placer l'adversaire",
+        "date": ""
+      },
+      {
+        "num": 4,
+        "objectif": "Actions décisives — Tactique — Zones libres",
+        "date": ""
+      },
+      {
+        "num": 5,
+        "objectif": "CCF — Évaluation + rattrapage",
+        "date": ""
+      }
+    ]
+  },
+  "grilleNotes": {},
+  "grille": null
+}
