@@ -1,0 +1,485 @@
+{
+  "seances": [
+    {
+      "id": "s001",
+      "num": 1,
+      "date": "",
+      "objectif": "ÉVAL DIAGNOSTIQUE — Règles / Logique interne APSA / Service & VAD (Volée À Doigts)",
+      "bilan": "",
+      "aflpTravailles": [
+        "AFLP 1",
+        "AFLP 4"
+      ],
+      "parties": [
+        {
+          "id": "p101",
+          "titre": "Échauffement",
+          "objectif": "Préparer le corps et les articulations — Mettre en route cardio-vasculaire et coordination volley",
+          "consignes": "- 5 min course légère.\n- Mobilité (bras, épaules, chevilles). Amplitude active et correcte.\n- Inclure passes à vide et petits déplacements latéraux.\n1. Running (3-4 élèves) → dernier accélère au sifflet.\n2. Mobilité genoux / doigts en équipe.\n- Adapter le temps si fatigue, insister sur la technique.",
+          "criteres": "Corps prêt à l'effort. Cardio activé. Articulations préparées au volley.",
+          "contenus": "Gammes. Simplifier. Enchaîner. Guidé. Mobilité douce.",
+          "bilan": ""
+        },
+        {
+          "id": "p102",
+          "titre": "Diagnostique — Règles et logique interne APSA",
+          "objectif": "Évaluer le niveau diagnostique — Découvrir les règles et la logique interne du Volley-Ball — Service & VAD",
+          "consignes": "- Matchs. Score parlant : 1 point / plot non touché ou faute filet sur l'adversaire.\n- Signal 1 : 0 blocage autorisé durant les matchs à la réception de la balle (mais autorisé sur renvoie).\n- Règle 2-touche minimum.\n- Verbaliser les règles. Communication claire.",
+          "criteres": "≥ 5 services réussis d'affilée. Réception stable et exploitable. Déplacement anticipé.",
+          "contenus": "Logique interne APSA. VAD. Service. Règles de base.",
+          "bilan": ""
+        }
+      ]
+    },
+    {
+      "id": "s002",
+      "num": 2,
+      "date": "",
+      "objectif": "Maîtriser le service flottant / smashé et sa précision depuis le fond — Viser zones terminales du terrain",
+      "bilan": "",
+      "aflpTravailles": [
+        "AFLP 1",
+        "AFLP 2",
+        "AFLP 4"
+      ],
+      "parties": [
+        {
+          "id": "p201",
+          "titre": "Échauffement",
+          "objectif": "Préparer le corps et les articulations — Mettre en route cardio-vasculaire et coordination volley",
+          "consignes": "- 5 min course légère.\n- Mobilité (bras, épaules, chevilles). Amplitude active et correcte.\n- Inclure passes à vide et petits déplacements latéraux.\n1. Running (3-4 élèves) → dernier accélère au sifflet.\n2. Mobilité genoux / doigts en équipe.\n- Adapter le temps si fatigue, insister sur la technique.",
+          "criteres": "Corps prêt à l'effort. Cardio activé. Articulations préparées au volley.",
+          "contenus": "Gammes. Simplifier. Enchaîner. Guidé. Mobilité douce.",
+          "bilan": ""
+        },
+        {
+          "id": "p202",
+          "titre": "Service flottant / smashé — Précision",
+          "objectif": "Maîtriser le service flottant / smashé et sa précision depuis le fond — Viser les zones terminales du terrain",
+          "consignes": "- Service cuillère : poussée jambes/bras, trajectoire tendue.\n- Service tennis : lancer vertical, transfert avant, frappe devant soi.\n- Position de base : pieds écartés, lancer contrôlé, avec paume.\n- Ballon franchit le filet, touche la cible.\n- Maîtriser le service et sa précision depuis le fond, viser zones terminales du terrain.\n- Travail sans filet d'abord.\n- Remédiation : si erreurs fréquentes → simplifier, encourager la communication, placement.",
+          "criteres": "Ballon franchit le filet. Touche la cible. ≥ 5 services réussis d'affilée.",
+          "contenus": "Service cuillère vs tennis. Transfert de poids. Placement du corps. Trajectoire contrôlée.",
+          "bilan": ""
+        }
+      ]
+    },
+    {
+      "id": "s003",
+      "num": 3,
+      "date": "",
+      "objectif": "Mise en place du dispositif défense pour construire en même temps — VAD haute en binôme et attaque — FPS",
+      "bilan": "",
+      "aflpTravailles": [
+        "AFLP 1",
+        "AFLP 2",
+        "AFLP 3",
+        "AFLP 4"
+      ],
+      "parties": [
+        {
+          "id": "p301",
+          "titre": "Échauffement",
+          "objectif": "Préparer le corps et les articulations — Mettre en route cardio-vasculaire et coordination volley",
+          "consignes": "- 5 min course légère.\n- Mobilité (bras, épaules, chevilles). Amplitude active et correcte.\n- Inclure passes à vide et petits déplacements latéraux.\n1. Running (3-4 élèves) → dernier accélère au sifflet.\n2. Mobilité genoux / doigts en équipe.\n- Adapter le temps si fatigue, insister sur la technique.",
+          "criteres": "Corps prêt à l'effort. Cardio activé. Articulations préparées au volley.",
+          "contenus": "Gammes. Simplifier. Enchaîner. Guidé. Mobilité douce.",
+          "bilan": ""
+        },
+        {
+          "id": "p302",
+          "titre": "Dispositif défense — VAD haute — Attaque — FPS",
+          "objectif": "Mettre en place le dispositif défense pour construire l'attaque en même temps — FPS",
+          "consignes": "- VAD haute en binôme et attaque consécutives.\n- Yeux ouverts, mains préparées. Coïncider. Trajectoire régulière.\n- Genoux fléchis, pouces et index en triangle. Ombe. Pliage.\n- Atelier : mettre en pratique deux touches. Un élève effectue un service vers un point. Alternance des rôles, vérification de la trajectoire. Donner avant.\n- Mini-match. Transition des apprentissages. Belles situations. 3 camarades. Demi-jeu. Rotation après chaque point. Respecter les règles.\n- Si erreurs fréquentes : encourager, communication, placement.",
+          "criteres": "2-3 touches régulières. Balle stabilisée. Communication claire. Score « constructif » (100 pts).",
+          "contenus": "Mise en place défensive. Construction de l'attaque. FPS. Rôle de setter.",
+          "bilan": ""
+        }
+      ]
+    },
+    {
+      "id": "s004",
+      "num": 4,
+      "date": "",
+      "objectif": "Construction d'une attaque collective — Rôle de coach / entraide / coopération — Passer d'une attitude individuelle à collective",
+      "bilan": "Groupe dispersé. Synchronisation. Respiration. Étirements maladroits + correction de manière calme et contrôlée.",
+      "aflpTravailles": [
+        "AFLP 1",
+        "AFLP 2",
+        "AFLP 3",
+        "AFLP 4"
+      ],
+      "parties": [
+        {
+          "id": "p401",
+          "titre": "Échauffement",
+          "objectif": "Préparer le corps et les articulations — Mettre en route cardio-vasculaire et coordination volley",
+          "consignes": "- 5 min course légère.\n- Mobilité (bras, épaules, chevilles). Amplitude active et correcte.\n- Inclure passes à vide et petits déplacements latéraux.\n1. Running (3-4 élèves) → dernier accélère au sifflet.\n2. Mobilité genoux / doigts en équipe.\n- Adapter le temps si fatigue, insister sur la technique.",
+          "criteres": "Corps prêt à l'effort. Cardio activé. Articulations préparées au volley.",
+          "contenus": "Gammes. Simplifier. Enchaîner. Guidé. Mobilité douce.",
+          "bilan": ""
+        },
+        {
+          "id": "p402",
+          "titre": "Construction attaque collective — Entraide — Coopération",
+          "objectif": "Construire une attaque collective — Passer d'une attitude individuelle à une attitude collective pour se faire être — Rôle de coach / entraide / coopération",
+          "consignes": "- Se placer face à la balle. Venir. Bras autorisés. Accumuler sur milieu. Gestes courts.\n- Redescendre le rythme + intégrer les 2 en jeu et utiliser comme premier. Parme.\n- Format : X min — gagnant content. Barème : 1 pt. Faute filet adverse : 1 info + point (sauf obligations). Match.\n- Règle 2-touche minimum. Peu d'objectifs uniques. Manque d'annonces.\n- Mini-débrief : « Qu'est-ce qui t'a aidé à mieux recevoir ? » Retrouver. Améliorer le focus.\n- Subir puis anticiper. Organisation active. Attaque. Cure. Choix tactique (court/long/tendu).",
+          "criteres": "2-3 touches régulières. Balle stabilisée. Communication claire. Score constructif. Déplacement anticipé.",
+          "contenus": "Construction défense + attaque en même temps. Maîtriser VAD haute et manchette. Choix tactique. Retour au calme selon niveau.",
+          "bilan": "Groupe dispersé. Synchronisation. Respiration. Étirements maladroits + correction de manière calme et contrôlée."
+        }
+      ]
+    },
+    {
+      "id": "s005",
+      "num": 5,
+      "date": "",
+      "objectif": "Savoir arbitrer un match — VAC : Vigilance / Anticipation / Contrôle — Approfondissement tactique",
+      "bilan": "",
+      "aflpTravailles": [
+        "AFLP 1",
+        "AFLP 2",
+        "AFLP 3",
+        "AFLP 4"
+      ],
+      "parties": [
+        {
+          "id": "p501",
+          "titre": "Échauffement",
+          "objectif": "Préparer le corps et les articulations — Mettre en route cardio-vasculaire et coordination volley",
+          "consignes": "- 5 min course légère.\n- Mobilité (bras, épaules, chevilles). Amplitude active et correcte.\n- Inclure passes à vide et petits déplacements latéraux.\n1. Running (3-4 élèves) → dernier accélère au sifflet.\n2. Mobilité genoux / doigts en équipe.\n- Adapter le temps si fatigue, insister sur la technique.",
+          "criteres": "Corps prêt à l'effort. Cardio activé. Articulations préparées au volley.",
+          "contenus": "Gammes. Simplifier. Enchaîner. Guidé. Mobilité douce.",
+          "bilan": ""
+        },
+        {
+          "id": "p502",
+          "titre": "Arbitrage — VAC — Tactique",
+          "objectif": "Savoir arbitrer un match et coacher ses partenaires — VAC : Vigilance / Anticipation / Contrôle — Approfondissement tactique",
+          "consignes": "- VAC : V = Vigilance / A = Anticipation / C = Contrôle.\n- Matchs avec rotation rapide. Arbitrage obligatoire.\n- Choix tactiques : court/long/tendu. Retour de service.\n- Régularité pour enclencher un échange. Marche. Bras/épaules/doigts.\n- Mini-débrief : « Qu'est-ce qui t'a aidé à mieux recevoir ? » Amélioration du focus. Organisation active.",
+          "criteres": "VAC opérationnel. Arbitrage correct. Annonces. Choix tactiques réalisés.",
+          "contenus": "VAC : V = Vigilance, A = Anticipation, C = Contrôle. Savoir arbitrer. Coacher ses partenaires.",
+          "bilan": ""
+        }
+      ]
+    },
+    {
+      "id": "s006",
+      "num": 6,
+      "date": "",
+      "objectif": "FPS — Évaluation — Varier les attaques — Réaliser des choix tactiques et stratégiques pour faire basculer le rapport de force",
+      "bilan": "",
+      "aflpTravailles": [
+        "AFLP 1",
+        "AFLP 2",
+        "AFLP 3",
+        "AFLP 4"
+      ],
+      "parties": [
+        {
+          "id": "p601",
+          "titre": "Échauffement",
+          "objectif": "Préparer le corps et les articulations — Mettre en route cardio-vasculaire et coordination volley",
+          "consignes": "- 5 min course légère.\n- Mobilité (bras, épaules, chevilles). Amplitude active et correcte.\n- Inclure passes à vide et petits déplacements latéraux.\n1. Running (3-4 élèves) → dernier accélère au sifflet.\n2. Mobilité genoux / doigts en équipe.\n- Adapter le temps si fatigue, insister sur la technique.",
+          "criteres": "Corps prêt à l'effort. Cardio activé. Articulations préparées au volley.",
+          "contenus": "Gammes. Simplifier. Enchaîner. Guidé. Mobilité douce.",
+          "bilan": ""
+        },
+        {
+          "id": "p602",
+          "titre": "FPS — ÉVALUATION",
+          "objectif": "FPS — Évaluation finale — Réaliser des choix tactiques et stratégiques pour faire basculer le rapport de force en sa faveur et marquer le point",
+          "consignes": "- FPS — Évaluation.\n- Réaliser des choix tactiques et stratégiques pour faire basculer le rapport de force et marquer le point.\n- Mobiliser des techniques d'attaque efficaces pour se créer et exploiter des occasions de marquer et neutraliser l'adversaire (individuellement ou collectivement).\n- Respecter les règles partagées et assumer plusieurs rôles sociaux pour permettre le bon déroulement.\n- Savoir se préparer, s'entraîner et récupérer pour faire preuve d'autonomie.\n- Matchs officiels. Quantité de travail /4 évaluée.",
+          "criteres": "Réaliser des choix tactiques. Service maîtrisé. VAD haute + manchette maîtrisées. VAC opérationnel. Arbitrage. Communication. Déplacement anticipé.",
+          "contenus": "AFLP 1 : Réaliser des choix tactiques et stratégiques pour faire basculer le rapport de force en sa faveur et marquer le point.\nAFLP 2 : Mobiliser des techniques d'attaque efficaces pour se créer et exploiter des occasions de marquer et neutraliser l'adversaire.\nAFLP 3 : Savoir se préparer, s'entraîner et récupérer pour faire preuve d'autonomie.\nAFLP 4 : Respecter les règles partagées et assumer plusieurs rôles sociaux.",
+          "bilan": ""
+        }
+      ]
+    }
+  ],
+  "eleves": [
+    {
+      "id": "e001",
+      "nom": "AZZOUG Yani Rami",
+      "amenagement": "TDAH - Gevasco - PAP",
+      "fiche": {
+        "type": "GEVASCO",
+        "desc": "TDAH - Gevasco - PAP. Aide humaine mutualisée. Avait un ordinateur au collège pour sa dysgraphie.",
+        "debut": "",
+        "fin": "",
+        "med": "",
+        "photo": null
+      },
+      "noteFinale": null
+    },
+    {
+      "id": "e002",
+      "nom": "AZZOUZ Yacine",
+      "amenagement": "ULIS",
+      "fiche": {
+        "type": "Autre",
+        "desc": "ULIS - a un ordinateur adapté.",
+        "debut": "",
+        "fin": "",
+        "med": "",
+        "photo": null
+      },
+      "noteFinale": null
+    },
+    {
+      "id": "e003",
+      "nom": "BAISSE-DEPONTIEU Blanche",
+      "amenagement": "PAP",
+      "fiche": {
+        "type": "PAP",
+        "desc": "PAP - évaluations aménagées. Avait un 1/3 temps au collège.",
+        "debut": "",
+        "fin": "",
+        "med": "",
+        "photo": null
+      },
+      "noteFinale": null
+    },
+    {
+      "id": "e004",
+      "nom": "BARON Romain",
+      "amenagement": "PAP",
+      "fiche": {
+        "type": "PAP",
+        "desc": "PAP - difficulté à écrire, lenteur, 1/3 temps ou moins d'exos.",
+        "debut": "",
+        "fin": "",
+        "med": "",
+        "photo": null
+      },
+      "noteFinale": null
+    },
+    {
+      "id": "e005",
+      "nom": "CHAREF Séphora",
+      "amenagement": "PAP",
+      "fiche": {
+        "type": "PAP",
+        "desc": "PAP : évaluations aménagées, 1/3 temps.",
+        "debut": "",
+        "fin": "",
+        "med": "",
+        "photo": null
+      },
+      "noteFinale": null
+    },
+    {
+      "id": "e006",
+      "nom": "DIBRA Mateo",
+      "amenagement": "TDAH",
+      "fiche": {
+        "type": "Autre",
+        "desc": "TDAH - diagnostic autisme posé fin juin - dossier MDPH en cours - aide humaine espérée.",
+        "debut": "",
+        "fin": "",
+        "med": "",
+        "photo": null
+      },
+      "noteFinale": null
+    },
+    {
+      "id": "e007",
+      "nom": "DUARTE Mathis",
+      "amenagement": "",
+      "fiche": null,
+      "noteFinale": null
+    },
+    {
+      "id": "e008",
+      "nom": "DUPLANY Valentin",
+      "amenagement": "",
+      "fiche": null,
+      "noteFinale": null
+    },
+    {
+      "id": "e009",
+      "nom": "GALLAY Stan",
+      "amenagement": "",
+      "fiche": null,
+      "noteFinale": null
+    },
+    {
+      "id": "e010",
+      "nom": "JACQUES-MANROUFFOU Lukas",
+      "amenagement": "",
+      "fiche": null,
+      "noteFinale": null
+    },
+    {
+      "id": "e011",
+      "nom": "KEITA Amadou",
+      "amenagement": "",
+      "fiche": null,
+      "noteFinale": null
+    },
+    {
+      "id": "e012",
+      "nom": "LAPULY Mélissa",
+      "amenagement": "",
+      "fiche": null,
+      "noteFinale": null
+    },
+    {
+      "id": "e013",
+      "nom": "LOUYOT Constant",
+      "amenagement": "",
+      "fiche": null,
+      "noteFinale": null
+    },
+    {
+      "id": "e014",
+      "nom": "MASTRONARDI Alessandro",
+      "amenagement": "",
+      "fiche": null,
+      "noteFinale": null
+    },
+    {
+      "id": "e015",
+      "nom": "MOKNI Zeyneb",
+      "amenagement": "",
+      "fiche": null,
+      "noteFinale": null
+    },
+    {
+      "id": "e016",
+      "nom": "PASQUIER Paul",
+      "amenagement": "",
+      "fiche": null,
+      "noteFinale": null
+    },
+    {
+      "id": "e017",
+      "nom": "RIPPOLL Emma",
+      "amenagement": "",
+      "fiche": null,
+      "noteFinale": null
+    },
+    {
+      "id": "e018",
+      "nom": "ROBAGLIA Hugo",
+      "amenagement": "",
+      "fiche": null,
+      "noteFinale": null
+    },
+    {
+      "id": "e019",
+      "nom": "RONGER Yaniss",
+      "amenagement": "",
+      "fiche": null,
+      "noteFinale": null
+    },
+    {
+      "id": "e020",
+      "nom": "TRUONG Gia Bao",
+      "amenagement": "",
+      "fiche": null,
+      "noteFinale": null
+    }
+  ],
+  "presences": {},
+  "autoEval": {},
+  "seanceObjectifs": {
+    "s001": {
+      "obj1": "Découvrir les règles et la logique interne du VB",
+      "obj2": "Réaliser ≥ 5 services réussis d'affilée"
+    },
+    "s002": {
+      "obj1": "Maîtriser le service flottant depuis le fond",
+      "obj2": "Viser les zones terminales du terrain"
+    },
+    "s003": {
+      "obj1": "Réaliser 2-3 touches consécutives régulières",
+      "obj2": "Construire une attaque après réception"
+    },
+    "s004": {
+      "obj1": "Construire une attaque collective",
+      "obj2": "Communiquer et anticiper les déplacements"
+    },
+    "s005": {
+      "obj1": "Appliquer VAC en match",
+      "obj2": "Arbitrer correctement et coacher ses partenaires"
+    },
+    "s006": {
+      "obj1": "Réaliser des choix tactiques en évaluation",
+      "obj2": "FPS — Maintenir la construction collective"
+    }
+  },
+  "profil": {
+    "moteur": {
+      "obs": "Classe dynamique, relativement homogène vis-à-vis du sport. Effort accepté sur courtes périodes (goût ok). Cependant peu unie. Attention à certains élèves qui fuient les cours EPS (sèchent, dispenses intempestives).",
+      "eleves": {}
+    },
+    "social": {
+      "obs": "",
+      "eleves": {}
+    },
+    "medical": {
+      "obs": "Plusieurs élèves avec aménagements importants : AZZOUG (TDAH/Gevasco/PAP), AZZOUZ (ULIS), BAISSE-DEPONTIEU (PAP), BARON (PAP), CHAREF (PAP), DIBRA (TDAH/autisme/MDPH en cours).",
+      "eleves": {
+        "e001": "TDAH - Gevasco - PAP. Aide humaine mutualisée. Ordinateur pour dysgraphie.",
+        "e002": "ULIS - ordinateur adapté.",
+        "e003": "PAP - évaluations aménagées, 1/3 temps au collège.",
+        "e004": "PAP - difficulté à écrire, lenteur, 1/3 temps ou moins d'exos.",
+        "e005": "PAP : évaluations aménagées, 1/3 temps.",
+        "e006": "TDAH - diagnostic autisme posé fin juin - dossier MDPH en cours."
+      }
+    },
+    "scolaire": {
+      "obs": "",
+      "eleves": {}
+    },
+    "autre": {
+      "obs": "2NDE MRC B — Volley-Ball — T2. Note : certains élèves sans tee-shirt Saint Jo ou chaussures pas adaptées en séance 1.",
+      "eleves": {}
+    }
+  },
+  "comp": {},
+  "seq": {
+    "objet": "Être capable de passer d'une attitude individuelle à une attitude collective pour se faire être — construction défensive et attaque en même temps. Maîtriser VAD haute & manchette. Savoir arbitrer un match et coacher ses partenaires.",
+    "objectifs": "Construction d'une attaque collective. Rôle de coach / entraide / coopération. ÉVAL DIAGNOSTIQUE — Règles / Logique interne APSA / Service & VAD. Mise en place du dispositif défense pour construire en même temps. Arbitrage. FPS. VAC : Vigilance / Anticipation / Contrôle.",
+    "aflpPrio": [
+      "AFLP 1",
+      "AFLP 2",
+      "AFLP 3",
+      "AFLP 4"
+    ],
+    "trame": [
+      {
+        "num": 1,
+        "objectif": "Diagnostique — Règles APSA — Service & VAD",
+        "date": ""
+      },
+      {
+        "num": 2,
+        "objectif": "Service flottant / smashé — Précision — Zones terminales",
+        "date": ""
+      },
+      {
+        "num": 3,
+        "objectif": "Dispositif défense — VAD haute — Attaque — FPS",
+        "date": ""
+      },
+      {
+        "num": 4,
+        "objectif": "Construction attaque collective — Entraide — Coopération",
+        "date": ""
+      },
+      {
+        "num": 5,
+        "objectif": "Arbitrage — VAC — Choix tactiques",
+        "date": ""
+      },
+      {
+        "num": 6,
+        "objectif": "FPS — ÉVALUATION",
+        "date": ""
+      }
+    ]
+  },
+  "grilleNotes": {},
+  "grille": null
+}
