@@ -217,9 +217,75 @@
       "id": "s1774180113232",
       "num": 4,
       "date": "2026-03-22",
-      "objectif": "Test",
+      "objectif": "Réaliser le parcours le plus court et rapide - Eval mi trimestre",
       "bilan": "",
-      "aflpTravailles": [],
+      "aflpTravailles": [
+        "AFLP 3",
+        "AFLP 6"
+      ],
+      "parties": []
+    },
+    {
+      "id": "s1774206615314",
+      "num": 5,
+      "date": "2026-04-22",
+      "objectif": "Gestion de son allure",
+      "bilan": "",
+      "aflpTravailles": [
+        "AFLP 6",
+        "AFLP 1"
+      ],
+      "parties": []
+    },
+    {
+      "id": "s1774206681702",
+      "num": 6,
+      "date": "2026-04-29",
+      "objectif": "Gestion de son allure pour parvenir à bout de son parcours",
+      "bilan": "",
+      "aflpTravailles": [
+        "AFLP 1",
+        "AFLP 6"
+      ],
+      "parties": []
+    },
+    {
+      "id": "s1774206740142",
+      "num": 7,
+      "date": "2026-05-06",
+      "objectif": "Conduire en autonomie et adapter son projet",
+      "bilan": "",
+      "aflpTravailles": [
+        "AFLP 1",
+        "AFLP 3",
+        "AFLP 6"
+      ],
+      "parties": []
+    },
+    {
+      "id": "s1774206754534",
+      "num": 8,
+      "date": "2026-05-13",
+      "objectif": "Eval trimestre - P1",
+      "bilan": "",
+      "aflpTravailles": [
+        "AFLP 1",
+        "AFLP 3",
+        "AFLP 6"
+      ],
+      "parties": []
+    },
+    {
+      "id": "s1774206769844",
+      "num": 9,
+      "date": "2026-05-20",
+      "objectif": "Eval trimestre - P2",
+      "bilan": "",
+      "aflpTravailles": [
+        "AFLP 6",
+        "AFLP 3",
+        "AFLP 1"
+      ],
       "parties": []
     }
   ],
