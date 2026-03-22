@@ -3,7 +3,7 @@
     {
       "id": "s001",
       "num": 1,
-      "date": "",
+      "date": "2026-02-23",
       "objectif": "Découverte de l'APSA — Règles de sécurité — Retrouver 6 balises disposées autour du lycée (zone sécurisée)",
       "bilan": "Ensemble et premiers. Avec courage. Évaluation diagnostique avec niveau. Distribution du dispositif.",
       "aflpTravailles": [
@@ -34,7 +34,7 @@
     {
       "id": "s002",
       "num": 2,
-      "date": "",
+      "date": "2026-03-02",
       "objectif": "Se repérer dans l'espace et identifier l'emplacement d'une balise — Comprendre la carte et savoir l'orienter pour rechercher",
       "bilan": "Bilan mitigé. Grosso modo, une partie de la classe risque d'être concernée. Tableau de l'heure. On a fait.",
       "aflpTravailles": [
@@ -66,7 +66,7 @@
     {
       "id": "s003",
       "num": 3,
-      "date": "",
+      "date": "2026-03-09",
       "objectif": "S'engager dans la construction d'un itinéraire simple à travers des repères fiables — Se déplacer en milieu +/- connu",
       "bilan": "",
       "aflpTravailles": [
@@ -98,7 +98,7 @@
     {
       "id": "s004",
       "num": 4,
-      "date": "",
+      "date": "2026-03-16",
       "objectif": "Co-concevoir un projet — Adapter son allure et ses choix — Analyser sa pratique — Conduire en autonomie et optimiser",
       "bilan": "",
       "aflpTravailles": [
@@ -123,6 +123,43 @@
           "consignes": "- Binômes autonomes. Choisir l'ordre et l'itinéraire des balises.\n- Adapter son allure selon ses capacités.\n- Analyser sa pratique : identifier les points d'amélioration.\n- Lecture fine de la carte, les points d'appui, anticiper les obstacles.\n- Signal sonore = rassemblement. Aucun élève isolé.\n- Retard / commentaire noté.",
           "criteres": "Lecture fine de la carte. Points d'appui anticipés. Obstacles anticipés. Analyser sa pratique. Adapter son allure.",
           "contenus": "AFLP 1 : Anticiper et planifier l'itinéraire pour concevoir et conduire dans sa totalité un projet de déplacement.\nAFLP 3 : Analyser sa prestation pour comprendre les alternatives possibles et ajuster son projet.\nAFLP 6 : Respecter et faire respecter la réglementation et les procédures d'urgence.",
+          "bilan": ""
+        }
+      ]
+    },
+    {
+      "id": "s1774213148461",
+      "num": 5,
+      "date": "2026-03-23",
+      "objectif": "S'approprier les éléments de la carte et la légende — Lire, interpréter et placer des balises selon des consignes précises — Développer l'autonomie dans la lecture cartographique en vue d'analyser sa pratique",
+      "bilan": "",
+      "aflpTravailles": [],
+      "parties": [
+        {
+          "id": "p1774213008798rzf",
+          "titre": "Échauffement : \"Légende en mouvement\"",
+          "objectif": "Activer le corps tout en mobilisant les connaissances cartographiques acquises — Rendre la révision de la légende active et engageante",
+          "consignes": "Temps 1 — Footing avec arrêts cartographiques (5 min)\nLes élèves trottinent librement dans la zone sécurisée, carte en main. Le prof siffle et annonce un élément : « trouvez le symbole d'un chemin », « montrez la zone boisée la plus proche ». Chaque élève pointe sur sa carte et lève la main. Le prof valide rapidement et la course reprend. Cadence progressive : 5 arrêts en 5 min.Temps 2 — Défi par équipe (5 min)\nÉquipes de 3. Le prof annonce une couleur IOF ou une catégorie. L'équipe a 45 secondes pour noter sur une feuille le maximum d'éléments correspondants visibles sur leur carte (ex : couleur noire → bâtiment, rocher, clôture, poteau). L'équipe avec le plus d'éléments corrects gagne le round. 3 rounds enchaînés.Temps 3 — Gammes (3 min)\nTalons-fesses, montées de genoux, foulées bondissantes, 2 accélérations sur 30 m. Mobilité : chevilles, hanches, épaules.",
+          "criteres": "Identifier correctement le symbole ou la catégorie en moins de 45 secondes. Corps échauffé, engagement collectif.",
+          "contenus": "Légende IOF : lien couleur / catégorie / élément terrain. Activation cardio-vasculaire progressive. Esprit d'équipe et engagement.",
+          "bilan": ""
+        },
+        {
+          "id": "p1774213051088pi2",
+          "titre": "Situation principale : 1 balise à chercher + 3 balises à placer selon consigne",
+          "objectif": "Lire et interpréter la carte de manière autonome — Justifier des choix de placement par la légende — Développer un regard critique sur sa propre lecture cartographique",
+          "consignes": "PHASE 1 — Recherche d'une balise (10 min)\nChaque binôme reçoit une carte avec 1 balise indiquée. Avant de partir : orienter la carte au nord, identifier le symbole sur lequel se trouve la balise, anticiper le chemin. Retrouver la balise et revenir valider. Temps maxi : 10 min. Les binômes qui reviennent tôt notent le nom du symbole sur lequel était placée la balise et décrivent ce qu'ils ont vu sur le terrain.PHASE 2 — Placer 3 balises selon une consigne (15 min)\nChaque binôme reçoit une consigne différente et plus exigeante qu'en 3e :\n\nBinôme A : « Placez 3 balises sur des éléments linéaires de nature différente (ex : 1 sur un chemin, 1 sur un mur, 1 sur une clôture). »\nBinôme B : « Placez 3 balises à des points de jonction (intersection de chemin, angle de bâtiment, jonction chemin/lisière). »\nBinôme C : « Placez 3 balises sur des éléments qui serviraient de points d'attaque efficaces en CO (éléments nets, visibles, non ambigus). »\nBinôme D : « Placez 3 balises à des endroits où le terrain et la carte correspondent exactement — pas d'approximation possible. »\nBinôme E : « Placez 3 balises en variant les niveaux de difficulté : 1 facile à trouver, 1 moyen, 1 difficile. Justifiez pourquoi. »\nBinôme F : « Placez 3 balises sur des éléments de relief différents en vous aidant des courbes de niveau. »\nBinôme G : « Placez 3 balises à des endroits stratégiques pour construire un itinéraire logique et efficace. »\nAprès avoir placé leurs 3 balises sur la carte, les binômes échangent leurs cartes avec un autre binôme. Chaque binôme doit deviner la consigne de l'autre en regardant les placements et justifier : « On pense que votre consigne était… parce que… »\n\nRemédiation\nPour les élèves encore en difficulté sur la lecture : travailler d'abord à l'oral en décrivant ce qu'ils voient sur la carte avant de placer. Le prof accompagne verbalement : « Qu'est-ce que tu vois ici ? Quelle couleur ? À quoi ça correspond sur le terrain ? »",
+          "criteres": "Phase 1 : balise trouvée, carte orientée, symbole identifié et décrit. Phase 2 : 3 balises cohérentes avec la consigne, justification argumentée avec la légende, capable de formuler le raisonnement à l'oral.",
+          "contenus": "Lire et exploiter une carte avec précision (symboles IOF, lignes directrices, points d'attaque, courbes de niveau). Distinguer un élément net d'un élément ambigu sur la carte. Construire un raisonnement cartographique : « je place ici parce que ce symbole correspond exactement à ce que je vois et que c'est un repère fiable ». Préparer le regard analytique pour la séance d'évaluation.\n\n",
+          "bilan": ""
+        },
+        {
+          "id": "p1774213110857vic",
+          "titre": "Bilan collectif + Retour au calme",
+          "objectif": "Verbaliser le raisonnement cartographique — Identifier ce qui aide à lire la carte avec précision — Faire le lien avec l'analyse prévu/réalisé de la séance suivante",
+          "consignes": "Retour au calme (4 min)\nMarche active. Étirements doux : mollets, quadriceps, ischios, dos, épaules.\nBilan collectif (10 min)\nLe prof pose les questions suivantes en ciblant le niveau lycée pro :\n\n« Qu'est-ce qu'un bon point d'attaque en course d'orientation ? Citez un exemple de votre carte. »\n« Quelle est la différence entre un élément que vous placeriez facilement sur la carte et un que vous hésiteriez à placer ? »\n« Lors du deuxième exercice, avez-vous réussi à deviner la consigne de l'autre binôme ? Qu'est-ce qui vous a mis sur la piste ? »\n\nSynthèse du prof : rappel des 4 ou 5 symboles/concepts clés à maîtriser avant l'évaluation — points d'attaque, lignes directrices, courbes de niveau, éléments nets vs ambigus.\nAnnonce de la prochaine séance\n« La prochaine séance est l'évaluation. Vous ferez un parcours complet en choisissant votre itinéraire de manière autonome. Ce que vous avez travaillé aujourd'hui — identifier les bons repères, choisir des points d'attaque fiables — sera directement utile pour construire un parcours efficace et l'analyser ensuite. »",
+          "criteres": "Chaque élève capable de nommer 3 symboles clés, d'expliquer leur usage en CO et de formuler ce qu'il fera différemment la prochaine fois.",
+          "contenus": "Consolidation légende et lecture cartographique. Lien explicite avec AFLP 3 : analyser sa prestation, comprendre les alternatives, ajuster son projet. Préparation directe à l'évaluation séance 5.",
           "bilan": ""
         }
       ]
