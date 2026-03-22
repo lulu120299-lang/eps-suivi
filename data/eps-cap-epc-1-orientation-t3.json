@@ -300,6 +300,15 @@
   "comp": {
     "s002__AFLP 1__e001": 1
   },
-  "seq": {},
+  "seq": {
+    "objet": "",
+    "objectifs": "",
+    "aflpPrio": [
+      "AFLP 1",
+      "AFLP 3",
+      "AFLP 6"
+    ],
+    "trame": []
+  },
   "grilleNotes": {}
 }
