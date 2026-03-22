@@ -331,20 +331,6 @@
       "noteFinale": null
     },
     {
-      "id": "e004",
-      "nom": "DAHEL Abdel",
-      "amenagement": "Marche 2e/3e tour",
-      "fiche": {
-        "type": "PAI",
-        "desc": "Tend a marcher en 2e et 3e tour - surveiller effort",
-        "debut": "",
-        "fin": "",
-        "med": "",
-        "photo": null
-      },
-      "noteFinale": null
-    },
-    {
       "id": "e005",
       "nom": "FONGILU Geremy-Pedro",
       "amenagement": "",
@@ -431,6 +417,13 @@
     {
       "id": "e014",
       "nom": "SVONGCHAN Juan",
+      "amenagement": "",
+      "fiche": null,
+      "noteFinale": null
+    },
+    {
+      "id": "e1774210328025",
+      "nom": "DAHEL Abdel",
       "amenagement": "",
       "fiche": null,
       "noteFinale": null
