@@ -294,7 +294,7 @@
       "e005": "Absent",
       "e008": "Absent",
       "e001": "Absent",
-      "e002": "Présent",
+      "e002": "Present",
       "e003": "Présent",
       "e004": "Présent"
     },
@@ -313,7 +313,11 @@
     "s1774206769844": {}
   },
   "autoEval": {
-    "s001": {},
+    "s001": {
+      "e002": {
+        "maitrise1": "Maitrise fragile"
+      }
+    },
     "s002": {
       "e001": {
         "maitrise1": "Maîtrise fragile",
