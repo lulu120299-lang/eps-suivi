@@ -10,8 +10,15 @@
     {
       "id": "e002",
       "nom": "BOUTELOUP Nathan",
-      "amenagement": "",
-      "fiche": null,
+      "amenagement": "GEVASCO",
+      "fiche": {
+        "type": "GEVASCO",
+        "desc": "",
+        "debut": "",
+        "fin": "",
+        "med": "",
+        "photo": null
+      },
       "noteFinale": null
     },
     {
