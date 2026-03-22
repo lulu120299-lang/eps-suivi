@@ -1,0 +1,338 @@
+{
+  "seances": [
+    {
+      "id": "s001",
+      "num": 1,
+      "date": "Mer. 19 nov. 2025",
+      "objectif": "Découverte — 200 m chronométré individuel — Relais 400 m par 2 (200 m chacun) — Comprendre l'importance de l'allure et de la gestion de l'effort",
+      "bilan": "",
+      "aflpTravailles": [
+        "Att. 1",
+        "Att. 2",
+        "Att. 3"
+      ],
+      "parties": [
+        {
+          "id": "p101",
+          "titre": "Échauffement spécifique demi-fond",
+          "objectif": "Préparer le corps — mobiliser progressivement — éviter les blessures",
+          "consignes": "- Footing très léger au lieu terrain.\n- Mobilité articulaire : chevilles, genoux, hanches, bras.\n- Gammes : talons-fesses, pas chassés.\n- Accélérations progressives sur 80 m (lent → moyen).\n- Raccourcir la foulée. Accélérer. Engager.",
+          "criteres": "Corps prêt, articulations mobilisées. Rythme cardiaque élevé. Foulées dynamiques.",
+          "contenus": "",
+          "bilan": ""
+        },
+        {
+          "id": "p102",
+          "titre": "200 m individuel + Relais 400 m par 2",
+          "objectif": "Chaque élève fait un 200 m chronométré — Par 2 : relais sur 400 m (200 m chacun) — Objectif : faire mieux que la somme des 2 temps individuels",
+          "consignes": "1️⃣ Chaque élève fait un 200 m chronométré.\n2️⃣ Par 2 : relais sur 400 m (200 m chacun).\n- Objectif : faire mieux que la somme des 2 temps individuels.\n- Le binôme réalise 3 tentatives.\n- Amener les élèves à comprendre l'importance de l'allure et de la gestion de l'effort pour tenir dans la durée.",
+          "criteres": "Temps individuel sur 200 m noté. Temps cumulé relais noté. Binôme améliore son temps ou se rapproche de la cible.",
+          "contenus": "Temps cumulé sur 400 m. Relais 1. Course intermittente 1. Temps : 1min20.",
+          "bilan": ""
+        }
+      ]
+    },
+    {
+      "id": "s002",
+      "num": 2,
+      "date": "",
+      "objectif": "Course intermittente 36''/36'' — Courir le plus rapidement possible en limitant les phases de marche — Gestion effort / récupération",
+      "bilan": "Bilan. Objectif. Ensemble, motivé. Travail hors. Qui ont maîtrisé comme. Récupération.",
+      "aflpTravailles": [
+        "Att. 1",
+        "Att. 2",
+        "Att. 3"
+      ],
+      "parties": [
+        {
+          "id": "p201",
+          "titre": "Échauffement spécifique demi-fond",
+          "objectif": "Préparer le corps — mobiliser progressivement — éviter les blessures",
+          "consignes": "- Footing très léger au lieu terrain.\n- Mobilité articulaire : chevilles, genoux, hanches, bras.\n- Gammes : talons-fesses, pas chassés.\n- Accélérations progressives sur 80 m (lent → moyen).\n- Raccourcir la foulée. Accélérer. Engager.",
+          "criteres": "Corps prêt, articulations mobilisées. Rythme cardiaque élevé. Foulées dynamiques.",
+          "contenus": "",
+          "bilan": ""
+        },
+        {
+          "id": "p202",
+          "titre": "Situation 3 : Course intermittente 36''/36''",
+          "objectif": "Courir le plus rapidement possible en limitant les phases de marche — Même principe : 36'' course / 36'' marche (trottiner tranquillement la piste)",
+          "consignes": "- 18 secondes course / marche (ou 36''/36'' selon le niveau).\n- Courir le plus rapidement possible en limitant les phases de marche.\n- Même principe : 36'' = Courir, puis trottiner tranquillement la piste.\n- Le binôme améliore son temps ou se rapproche de la cible.\n- Encouragement entre partenaires pour maintenir l'effort.\n- Réduire la vitesse ou marcher un peu plus longtemps si nécessaire.\n\nDiscussion rapide après :\n- Quelles sensations pendant les différentes courses ?\n- Quelle allure était la plus facile à tenir ?\n- Pourquoi la gestion de l'effort est importante ?",
+          "criteres": "Continu tout en gérant la récupération. Réduire vitesse ou marcher si nécessaire. Le binôme améliore son temps ou se rapproche du cible.",
+          "contenus": "Partir vite mais gérer son allure. Passage de relais rapide. Encouragement entre partenaires pour maintenir l'effort. Trouver l'allure permettant de tenir la durée. Reformuler, verbaliser. Geste malgré la fatigue.",
+          "bilan": "Bilan. Ensemble, motivé. Travail hors séance. Maîtrisé comme récupération."
+        }
+      ]
+    },
+    {
+      "id": "s003",
+      "num": 3,
+      "date": "",
+      "objectif": "Relais vitesse — Défi chrono ludique — Situation 1 : Re-défi chrono — Consolider gestion effort / allure",
+      "bilan": "",
+      "aflpTravailles": [
+        "Att. 1",
+        "Att. 2",
+        "Att. 3",
+        "Att. 4"
+      ],
+      "parties": [
+        {
+          "id": "p301",
+          "titre": "Échauffement spécifique demi-fond",
+          "objectif": "Préparer le corps — mobiliser progressivement — éviter les blessures",
+          "consignes": "- Footing très léger au lieu terrain.\n- Mobilité articulaire : chevilles, genoux, hanches, bras.\n- Gammes : talons-fesses, pas chassés.\n- Accélérations progressives sur 80 m (lent → moyen).\n- Raccourcir la foulée. Accélérer. Engager.",
+          "criteres": "Corps prêt, articulations mobilisées. Rythme cardiaque élevé. Foulées dynamiques.",
+          "contenus": "",
+          "bilan": ""
+        },
+        {
+          "id": "p302",
+          "titre": "Situation 1 : Re-défi chrono (ludique)",
+          "objectif": "Re-défi chrono — Consolider la gestion de l'effort et de l'allure — Situation ludique compétitive",
+          "consignes": "- Situation 1 : Re-défi chrono (ludique).\n- Reprendre le principe du relais 400 m.\n- Objectif : améliorer le temps du binôme par rapport à la séance précédente.\n- 3 tentatives par binôme.\n- Passage de relais rapide. Encouragement entre partenaires.\n- Adapter la distance pour certains élèves.",
+          "criteres": "Temps amélioré par rapport à S1. Passage de relais efficace. Engagement actif.",
+          "contenus": "Augmenter l'intensité. Tenir le rythme dynamiquement. Réagir et rebondir. Préparer le corps progressivement. S'engager. Chaque départ calculé.",
+          "bilan": ""
+        }
+      ]
+    },
+    {
+      "id": "s004",
+      "num": 4,
+      "date": "",
+      "objectif": "Course intermittente + Retour au calme — Redescendre le rythme cardiaque — Analyser les sensations",
+      "bilan": "",
+      "aflpTravailles": [
+        "Att. 1",
+        "Att. 2",
+        "Att. 3"
+      ],
+      "parties": [
+        {
+          "id": "p401",
+          "titre": "Échauffement spécifique demi-fond",
+          "objectif": "Préparer le corps — mobiliser progressivement — éviter les blessures",
+          "consignes": "- Footing très léger au lieu terrain.\n- Mobilité articulaire : chevilles, genoux, hanches, bras.\n- Gammes : talons-fesses, pas chassés.\n- Accélérations progressives sur 80 m (lent → moyen).\n- Raccourcir la foulée. Accélérer. Engager.",
+          "criteres": "Corps prêt, articulations mobilisées. Rythme cardiaque élevé. Foulées dynamiques.",
+          "contenus": "",
+          "bilan": ""
+        },
+        {
+          "id": "p402",
+          "titre": "Course intermittente — Retour au calme — Analyse",
+          "objectif": "Course intermittente — Retour au calme — Redescendre le rythme cardiaque — Analyser et exprimer ses sensations",
+          "consignes": "- Course intermittente selon protocole choisi (36''/36'' ou adapté).\n- Continuer en gérant la récupération.\n- Retour au calme : redescendre le rythme cardiaque. 2 à 3 minutes de trot puis marche.\n- Autoriser alternance course/marche pour les élèves en difficulté.\n- Étirements légers : mollets, quadriceps, ischios.\n- Les élèves sont capables de parler. Exprimer leurs sentis.\n- L'équipe bat son record cumulé sur 400 m.\n- Identifier les sensations. Exprimer leurs ressentis.",
+          "criteres": "FC redescendue. Muscles relâchés. Capable de parler. Exprimer les sentis à la suite.",
+          "contenus": "Retour au calme : cours puis trottiner. Raccourcir. Accélérations. Engagement. Chaque départ calculé pédagogiquement. FC redevenue calme. Assis si fatigués.",
+          "bilan": ""
+        }
+      ]
+    },
+    {
+      "id": "s005",
+      "num": 5,
+      "date": "",
+      "objectif": "CCF — Évaluation + rattrapage — Note Évaluation + Quantité de travail — Temps sur 200 m et relais",
+      "bilan": "",
+      "aflpTravailles": [
+        "Att. 1",
+        "Att. 2",
+        "Att. 3",
+        "Att. 4"
+      ],
+      "parties": [
+        {
+          "id": "p501",
+          "titre": "Échauffement spécifique demi-fond",
+          "objectif": "Préparer le corps — mobiliser progressivement — éviter les blessures",
+          "consignes": "- Footing très léger au lieu terrain.\n- Mobilité articulaire : chevilles, genoux, hanches, bras.\n- Gammes : talons-fesses, pas chassés.\n- Accélérations progressives sur 80 m (lent → moyen).\n- Raccourcir la foulée. Accélérer. Engager.",
+          "criteres": "Corps prêt, articulations mobilisées. Rythme cardiaque élevé. Foulées dynamiques.",
+          "contenus": "",
+          "bilan": ""
+        },
+        {
+          "id": "p502",
+          "titre": "CCF — Évaluation + rattrapage",
+          "objectif": "CCF — Évaluation finale + rattrapage — Note Évaluation + Quantité de travail — Temps sur 200 m et relais 400 m",
+          "consignes": "- CCF + séance de rattrapage.\n- 200 m individuel chronométré.\n- Relais 400 m par binôme (200 m chacun). 3 tentatives.\n- Objectif : faire mieux que la somme des temps individuels.\n- Évaluation : Note Évaluation + Quantité de travail.\n- Encouragement entre partenaires. Passage de relais rapide.\n- Spectateurs : observer et analyser.\nNote : Arrêt mal au mollet signalé séance précédente pour certains élèves.",
+          "criteres": "200 m chronométré. Temps relais noté. Quantité de travail. Passage de relais efficace.",
+          "contenus": "CCF. Grille d'évaluation. Note Évaluation. Quantité de travail. Temps cumulé sur 400 m.",
+          "bilan": ""
+        }
+      ]
+    }
+  ],
+  "eleves": [
+    {
+      "id": "e001",
+      "nom": "ASKRI Mohamed Khalil",
+      "amenagement": "",
+      "fiche": null,
+      "noteFinale": null
+    },
+    {
+      "id": "e002",
+      "nom": "AZZOUG Samir",
+      "amenagement": "",
+      "fiche": null,
+      "noteFinale": null
+    },
+    {
+      "id": "e003",
+      "nom": "BENAISSA Amir",
+      "amenagement": "",
+      "fiche": null,
+      "noteFinale": null
+    },
+    {
+      "id": "e004",
+      "nom": "D'ANGELA Lorenzo",
+      "amenagement": "",
+      "fiche": null,
+      "noteFinale": null
+    },
+    {
+      "id": "e005",
+      "nom": "DUSABE Yves",
+      "amenagement": "",
+      "fiche": null,
+      "noteFinale": null
+    },
+    {
+      "id": "e006",
+      "nom": "GHOLAM NEJAD Ariyan",
+      "amenagement": "",
+      "fiche": null,
+      "noteFinale": null
+    },
+    {
+      "id": "e007",
+      "nom": "HAMMEDI Mohamed Amine",
+      "amenagement": "",
+      "fiche": null,
+      "noteFinale": null
+    },
+    {
+      "id": "e008",
+      "nom": "HETTAL Zakaria",
+      "amenagement": "",
+      "fiche": null,
+      "noteFinale": null
+    },
+    {
+      "id": "e009",
+      "nom": "MAJRI Nail",
+      "amenagement": "",
+      "fiche": null,
+      "noteFinale": null
+    },
+    {
+      "id": "e010",
+      "nom": "MAZA Aaron",
+      "amenagement": "",
+      "fiche": null,
+      "noteFinale": null
+    },
+    {
+      "id": "e011",
+      "nom": "QADWIMI Wadoud",
+      "amenagement": "",
+      "fiche": null,
+      "noteFinale": null
+    },
+    {
+      "id": "e012",
+      "nom": "SLASSI Younes",
+      "amenagement": "",
+      "fiche": null,
+      "noteFinale": null
+    }
+  ],
+  "presences": {},
+  "autoEval": {},
+  "seanceObjectifs": {
+    "s001": {
+      "obj1": "Réaliser son 200 m chronométré",
+      "obj2": "Faire mieux que la somme des 2 temps individuels en relais"
+    },
+    "s002": {
+      "obj1": "Courir 36'' en limitant les phases de marche",
+      "obj2": "Exprimer ses sensations après les courses"
+    },
+    "s003": {
+      "obj1": "Améliorer le temps du binôme par rapport à S1",
+      "obj2": "Passage de relais rapide et efficace"
+    },
+    "s004": {
+      "obj1": "Maintenir la course intermittente",
+      "obj2": "FC redescendue — capable de parler après l'effort"
+    },
+    "s005": {
+      "obj1": "Réaliser le meilleur 200 m en CCF",
+      "obj2": "Quantité de travail maximale — Note évaluation"
+    }
+  },
+  "profil": {
+    "moteur": {
+      "obs": "CAP ELEC 2 — Course vitesse — T3. Séance 1 le mercredi 19 novembre 2025. Note : Arrêt mal au mollet signalé pour certains élèves (Dusabe — séance chrono).",
+      "eleves": {}
+    },
+    "social": {
+      "obs": "",
+      "eleves": {}
+    },
+    "medical": {
+      "obs": "",
+      "eleves": {}
+    },
+    "scolaire": {
+      "obs": "",
+      "eleves": {}
+    },
+    "autre": {
+      "obs": "CAP ELEC 2 — Course vitesse — T3.",
+      "eleves": {}
+    }
+  },
+  "comp": {},
+  "seq": {
+    "objet": "Produire la meilleure performance possible en course de vitesse — gérer son allure et son effort — réaliser une transmission de témoin à pleine vitesse en binôme.",
+    "objectifs": "200 m chronométré. Relais 400 m par 2. Course intermittente 36''/36''. Défi chrono ludique. CCF + rattrapage. Gestion de l'effort et de l'allure. Transmission de relais efficace.",
+    "aflpPrio": [
+      "Att. 1",
+      "Att. 2",
+      "Att. 3",
+      "Att. 4"
+    ],
+    "trame": [
+      {
+        "num": 1,
+        "objectif": "200 m chrono individuel + Relais 400 m (19 nov. 2025)",
+        "date": ""
+      },
+      {
+        "num": 2,
+        "objectif": "Course intermittente 36''/36'' — Gestion effort",
+        "date": ""
+      },
+      {
+        "num": 3,
+        "objectif": "Re-défi chrono ludique — Consolider allure",
+        "date": ""
+      },
+      {
+        "num": 4,
+        "objectif": "Course intermittente + Retour au calme — Sentis",
+        "date": ""
+      },
+      {
+        "num": 5,
+        "objectif": "CCF — Évaluation + rattrapage",
+        "date": ""
+      }
+    ]
+  },
+  "grilleNotes": {},
+  "grille": null
+}
