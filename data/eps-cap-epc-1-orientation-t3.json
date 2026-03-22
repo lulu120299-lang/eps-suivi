@@ -229,7 +229,8 @@
       "e005": "Absent",
       "e008": "Absent",
       "e009": "Absent"
-    }
+    },
+    "s1774087701884": {}
   },
   "autoEval": {
     "s001": {},
@@ -268,13 +269,15 @@
         "maitrise1": "Maîtrise insuffisante",
         "maitrise2": "Maîtrise insuffisante"
       }
-    }
+    },
+    "s1774087701884": {}
   },
   "seanceObjectifs": {
     "s001": {},
     "s002": {
       "obj1": "Se repérer dans l'espace",
       "obj2": "Créer un itinéraire simple"
-    }
+    },
+    "s1774087701884": {}
   }
 }
