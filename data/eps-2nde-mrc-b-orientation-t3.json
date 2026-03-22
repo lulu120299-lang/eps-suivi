@@ -126,38 +126,6 @@
           "bilan": ""
         }
       ]
-    },
-    {
-      "id": "s005",
-      "num": 5,
-      "date": "",
-      "objectif": "ÉVALUATION — Concevoir et réaliser un déplacement en CO — Identifier et enchaîner l'ensemble des balises — Choisir l'itinéraire le plus efficient",
-      "bilan": "",
-      "aflpTravailles": [
-        "AFLP 1",
-        "AFLP 3",
-        "AFLP 6"
-      ],
-      "parties": [
-        {
-          "id": "p501",
-          "titre": "Échauffement",
-          "objectif": "Préparer le corps et finaliser la lecture de la carte",
-          "consignes": "- Relire la carte. Orienter vers le nord. Planifier l'itinéraire.",
-          "criteres": "Carte orientée. Itinéraire planifié.",
-          "contenus": "",
-          "bilan": ""
-        },
-        {
-          "id": "p502",
-          "titre": "ÉVALUATION — Parcours complet",
-          "objectif": "Être capable de concevoir et réaliser un déplacement en CO en identifiant et enchaînant l'ensemble des balises d'un parcours, en choisissant l'itinéraire le plus efficient au regard de ses ressources et des contraintes du milieu, tout en respectant les règles de sécurité, et en analysant sa prestation afin de l'optimiser.",
-          "consignes": "- Parcours complet : toutes les balises dans l'ordre ou en choix libre selon le niveau.\n- Temps chronomètre noté. TOTAL JUSTE / JUSTE OU FAUX.\n- Respecter les zones interdites. Signal sonore = rassemblement.\n- Analyser prévu / réalisé après le parcours.\n- Binômes imposés selon le niveau évalué.\n- Retard / commentaire noté.",
-          "criteres": "Balises trouvées (JUSTE). Temps noté. Itinéraire efficient choisi. Règles de sécurité respectées. Analyse prévu/réalisé.",
-          "contenus": "Compétence attendue : Être capable de concevoir et réaliser un déplacement en CO en identifiant et enchaînant l'ensemble des balises d'un parcours, en choisissant l'itinéraire le plus efficient au regard de ses ressources et des contraintes du milieu, tout en respectant les règles de sécurité, et en analysant sa prestation afin de l'optimiser.\nAFLP 6 : Respect des zones interdites, entraide raisonnée, connaissance du point de rassemblement, gestion du sifflet d'alerte, responsabilité en milieu naturel.",
-          "bilan": ""
-        }
-      ]
     }
   ],
   "eleves": [
@@ -362,10 +330,6 @@
     "s004": {
       "obj1": "Adapter son allure selon ses ressources",
       "obj2": "Lecture fine de la carte et anticipation des obstacles"
-    },
-    "s005": {
-      "obj1": "Concevoir l'itinéraire le plus efficient",
-      "obj2": "Retrouver toutes les balises et respecter les règles de sécurité"
     }
   },
   "profil": {
