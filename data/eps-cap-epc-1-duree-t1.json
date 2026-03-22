@@ -335,7 +335,7 @@
       "nom": "DAHEL Abdel",
       "amenagement": "Marche 2e/3e tour",
       "fiche": {
-        "type": "Autre",
+        "type": "PAI",
         "desc": "Tend a marcher en 2e et 3e tour - surveiller effort",
         "debut": "",
         "fin": "",
