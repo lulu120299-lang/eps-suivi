@@ -1,0 +1,461 @@
+{
+  "seances": [
+    {
+      "id": "s001",
+      "num": 1,
+      "date": "",
+      "objectif": "Découverte Badminton — Service court / long — Maîtriser la hauteur du service",
+      "bilan": "",
+      "aflpTravailles": [
+        "Att. 1",
+        "Att. 3"
+      ],
+      "parties": [
+        {
+          "id": "p101",
+          "titre": "Échauffement",
+          "objectif": "Préparer le corps et les articulations — activer les réflexes — mise en route cardio-vasculaire",
+          "consignes": "- 5 min course légère + 5 min déplacements latéraux, petits pas chassés.\n- Mobilité active, amplitude correcte.\n- Inclure mouvements spécifiques bras/poignets sur demi-terrain.\n- Adapter la vitesse si fatigue, rappeler posture basse.",
+          "criteres": "Corps prêt à l'effort. Articulations préparées. Réflexes activés.",
+          "contenus": "",
+          "bilan": ""
+        },
+        {
+          "id": "p102",
+          "titre": "Service court / long — Maîtriser la hauteur",
+          "objectif": "Maîtriser la hauteur du service court / long — Depuis le fond, viser la zone avant ou arrière",
+          "consignes": "- Service court / long.\n- Maîtriser la hauteur du service.\n- Depuis le fond. La zone avant ou arrière.\n- Shuttle franchit le filet, tombe dans la cible.\n- Position : pieds écartés, raquette dessoous, frappe souple, trajectoire précise.\n- Si shuttle trop dehors : faire le geste lentement, sans contrainte.",
+          "criteres": "Shuttle franchit le filet. Tombe dans la cible. Trajectoire précise.",
+          "contenus": "Service court vs long. Placement des pieds. Frappe souple. Trajectoire contrôlée.",
+          "bilan": ""
+        }
+      ]
+    },
+    {
+      "id": "s002",
+      "num": 2,
+      "date": "",
+      "objectif": "Dégagé fond de court — Transférer le volant vers l'arrière — En binôme, 10 consécutifs",
+      "bilan": "",
+      "aflpTravailles": [
+        "Att. 1",
+        "Att. 2"
+      ],
+      "parties": [
+        {
+          "id": "p201",
+          "titre": "Échauffement",
+          "objectif": "Préparer le corps et les articulations — activer les réflexes — mise en route cardio-vasculaire",
+          "consignes": "- 5 min course légère + 5 min déplacements latéraux, petits pas chassés.\n- Mobilité active, amplitude correcte.\n- Inclure mouvements spécifiques bras/poignets sur demi-terrain.\n- Adapter la vitesse si fatigue, rappeler posture basse.",
+          "criteres": "Corps prêt à l'effort. Articulations préparées. Réflexes activés.",
+          "contenus": "",
+          "bilan": ""
+        },
+        {
+          "id": "p202",
+          "titre": "Dégagé fond de court",
+          "objectif": "Dégagé fond de court — Transférer le volant vers l'arrière — 10 consécutifs en binôme",
+          "consignes": "- Dégagé fond de court.\n- Transférer le volant vers l'arrière.\n- En binôme, effectuer 10 dégagés consécutifs. Viser en profondeur et au-dessus.\n- Frapper avec extension complète, appui, mouvement fluide.\n- Fractionner : d'abord seul sur l'aire, puis en alternance. Mini-jeu.\n- Atelier : enchaîner l'autre. Rythme. But, accentuer.\n- Revenir en position seule. Erreurs répétées → mini-match.\n- Mettre en pratique en situation réelle. Matchs simples 1v1.\n- Respect des règles. Utiliser la technique travaillée.\n- Si difficultés : ralentir le jeu.",
+          "criteres": "10 dégagés consécutifs en binôme. Frappe avec extension complète. Volant vers le fond. Fluide.",
+          "contenus": "Dégagé fond de court. Extension du bras. Transfert du poids. Placement. Retour position centrale.",
+          "bilan": ""
+        }
+      ]
+    },
+    {
+      "id": "s003",
+      "num": 3,
+      "date": "",
+      "objectif": "Réaliser des actions décisives en situation favorable — Faire basculer le rapport de force — Placement tactique",
+      "bilan": "",
+      "aflpTravailles": [
+        "Att. 1",
+        "Att. 2",
+        "Att. 3"
+      ],
+      "parties": [
+        {
+          "id": "p301",
+          "titre": "Échauffement",
+          "objectif": "Préparer le corps et les articulations — activer les réflexes — mise en route cardio-vasculaire",
+          "consignes": "- 5 min course légère + 5 min déplacements latéraux, petits pas chassés.\n- Mobilité active, amplitude correcte.\n- Inclure mouvements spécifiques bras/poignets sur demi-terrain.\n- Adapter la vitesse si fatigue, rappeler posture basse.",
+          "criteres": "Corps prêt à l'effort. Articulations préparées. Réflexes activés.",
+          "contenus": "",
+          "bilan": ""
+        },
+        {
+          "id": "p302",
+          "titre": "Actions décisives — Placement tactique",
+          "objectif": "Réaliser des actions décisives en situation favorable afin de faire basculer le rapport de force en sa faveur",
+          "consignes": "- Matchs 1v1. Rotation rapide.\n- Chercher à créer une situation favorable avant de frapper décisivement.\n- Placement tactique : viser les zones libres, les coins.\n- Enchaîner service + premier coup offensif.\n- Respecter les règles, utiliser les techniques travaillées.",
+          "criteres": "Shuttle franchit le filet. Frappe décisive en situation favorable. Placement correct. Retour position centrale.",
+          "contenus": "Attendus de fin de cycle. Compétences travaillées : Réaliser des actions décisives. Être solidaire. S'échauffer avant un effort.",
+          "bilan": ""
+        }
+      ]
+    },
+    {
+      "id": "s004",
+      "num": 4,
+      "date": "",
+      "objectif": "Consolidation — Service + Dégagé + Placement — Matchs et engagement moteur en fonction de son état physique",
+      "bilan": "",
+      "aflpTravailles": [
+        "Att. 1",
+        "Att. 2",
+        "Att. 3",
+        "Att. 4"
+      ],
+      "parties": [
+        {
+          "id": "p401",
+          "titre": "Échauffement",
+          "objectif": "Préparer le corps et les articulations — activer les réflexes — mise en route cardio-vasculaire",
+          "consignes": "- 5 min course légère + 5 min déplacements latéraux, petits pas chassés.\n- Mobilité active, amplitude correcte.\n- Inclure mouvements spécifiques bras/poignets sur demi-terrain.\n- Adapter la vitesse si fatigue, rappeler posture basse.",
+          "criteres": "Corps prêt à l'effort. Articulations préparées. Réflexes activés.",
+          "contenus": "",
+          "bilan": ""
+        },
+        {
+          "id": "p402",
+          "titre": "Consolidation — Matchs — Engagement moteur",
+          "objectif": "Consolider service + dégagé + placement — Matchs avec engagement moteur adapté à son état physique",
+          "consignes": "- Matchs 1v1. Rotation rapide.\n- Utiliser les techniques travaillées : service court/long, dégagé fond de court, placement.\n- Encourager communication et placement.\n- Engagement moteur en fonction de son état physique.\n- Être solidaire de ses partenaires et respectueux de son/ses adversaire(s) et de l'arbitre.\n- 1ère note travail coefficient 0,5.",
+          "criteres": "Service maîtrisé. Dégagé fond de court. Placement correct. Engagement actif.",
+          "contenus": "Être solidaire. Respectueux de l'adversaire et de l'arbitre. S'échauffer avant un effort. Engagement moteur en fonction de son état physique.",
+          "bilan": ""
+        }
+      ]
+    },
+    {
+      "id": "s005",
+      "num": 5,
+      "date": "",
+      "objectif": "Évaluation — 2ème note de travail /20 — MOYENNE BAD — Réaliser des actions décisives et faire basculer le rapport de force",
+      "bilan": "",
+      "aflpTravailles": [
+        "Att. 1",
+        "Att. 2",
+        "Att. 3",
+        "Att. 4"
+      ],
+      "parties": [
+        {
+          "id": "p501",
+          "titre": "Échauffement",
+          "objectif": "Préparer le corps et les articulations — activer les réflexes — mise en route cardio-vasculaire",
+          "consignes": "- 5 min course légère + 5 min déplacements latéraux, petits pas chassés.\n- Mobilité active, amplitude correcte.\n- Inclure mouvements spécifiques bras/poignets sur demi-terrain.\n- Adapter la vitesse si fatigue, rappeler posture basse.",
+          "criteres": "Corps prêt à l'effort. Articulations préparées. Réflexes activés.",
+          "contenus": "",
+          "bilan": ""
+        },
+        {
+          "id": "p502",
+          "titre": "ÉVALUATION — 2ème note de travail /20",
+          "objectif": "Évaluation finale — 2ème note de travail /20 — MOYENNE BAD — Réaliser des actions décisives et faire basculer le rapport de force",
+          "consignes": "- Matchs officiels 1v1.\n- Évaluation : 2ème note travail /20. Coefficient 1. MOYENNE BAD = Note Trimestrielle.\n- Évaluer : Réaliser des actions décisives en situation favorable afin de faire basculer le rapport de force en sa faveur.\n- Être solidaire de ses partenaires et respectueux de son/ses adversaire(s) et de l'arbitre.\n- S'échauffer avant un effort.\n- Engagement moteur en fonction de son état physique.",
+          "criteres": "Actions décisives en situation favorable. Rapport de force basculé. Engagement actif. Respect des règles et de l'adversaire.",
+          "contenus": "Attendus de fin de cycle :\n- Réaliser des actions décisives en situation favorable afin de faire basculer le rapport de force en sa faveur ou en faveur de son équipe.\n- Être solidaire de ses partenaires et respectueux de son/ses adversaire(s) et l'arbitre.\n- S'échauffer avant un effort.\n- Engagement moteur en fonction de son état physique.",
+          "bilan": ""
+        }
+      ]
+    }
+  ],
+  "eleves": [
+    {
+      "id": "e001",
+      "nom": "ACHAINTRE Léa",
+      "amenagement": "",
+      "fiche": null,
+      "noteFinale": null
+    },
+    {
+      "id": "e002",
+      "nom": "AISSAOUI Adan",
+      "amenagement": "Asthmatique",
+      "fiche": {
+        "type": "PAI",
+        "desc": "Asthmatique — inhalateur obligatoire.",
+        "debut": "",
+        "fin": "",
+        "med": "",
+        "photo": null
+      },
+      "noteFinale": null
+    },
+    {
+      "id": "e003",
+      "nom": "BERKANE Médine",
+      "amenagement": "",
+      "fiche": null,
+      "noteFinale": null
+    },
+    {
+      "id": "e004",
+      "nom": "BICHET Lilou",
+      "amenagement": "",
+      "fiche": null,
+      "noteFinale": null
+    },
+    {
+      "id": "e005",
+      "nom": "BOTTICELLI Fabio",
+      "amenagement": "",
+      "fiche": null,
+      "noteFinale": null
+    },
+    {
+      "id": "e006",
+      "nom": "BOURGEON Maxime",
+      "amenagement": "Souffle au cœur",
+      "fiche": {
+        "type": "PAI",
+        "desc": "Souffle au cœur — surveiller intensité des efforts.",
+        "debut": "",
+        "fin": "",
+        "med": "",
+        "photo": null
+      },
+      "noteFinale": null
+    },
+    {
+      "id": "e007",
+      "nom": "BOUSSEFSAF Lina",
+      "amenagement": "",
+      "fiche": null,
+      "noteFinale": null
+    },
+    {
+      "id": "e008",
+      "nom": "CASAROTTO Jean",
+      "amenagement": "",
+      "fiche": null,
+      "noteFinale": null
+    },
+    {
+      "id": "e009",
+      "nom": "CAZEAUX Noelie",
+      "amenagement": "Diabétique",
+      "fiche": {
+        "type": "PAI",
+        "desc": "Diabétique — surveiller glycémie avant et après effort.",
+        "debut": "",
+        "fin": "",
+        "med": "",
+        "photo": null
+      },
+      "noteFinale": null
+    },
+    {
+      "id": "e010",
+      "nom": "CHAPUIS Elouan",
+      "amenagement": "",
+      "fiche": null,
+      "noteFinale": null
+    },
+    {
+      "id": "e011",
+      "nom": "CHORFA Zohra",
+      "amenagement": "Asthmatique / pb genou",
+      "fiche": {
+        "type": "PAI",
+        "desc": "Asthmatique / problème genou — adapter les exercices à impact.",
+        "debut": "",
+        "fin": "",
+        "med": "",
+        "photo": null
+      },
+      "noteFinale": null
+    },
+    {
+      "id": "e012",
+      "nom": "CLAISSE Ophelie",
+      "amenagement": "",
+      "fiche": null,
+      "noteFinale": null
+    },
+    {
+      "id": "e013",
+      "nom": "CROUZET Hugo",
+      "amenagement": "",
+      "fiche": null,
+      "noteFinale": null
+    },
+    {
+      "id": "e014",
+      "nom": "DOMINGUEZ Rafael",
+      "amenagement": "",
+      "fiche": null,
+      "noteFinale": null
+    },
+    {
+      "id": "e015",
+      "nom": "DURANDEU Ambre",
+      "amenagement": "",
+      "fiche": null,
+      "noteFinale": null
+    },
+    {
+      "id": "e016",
+      "nom": "GOMBAULD ROSIQUE Maëlysse",
+      "amenagement": "Sujette à malaises",
+      "fiche": {
+        "type": "PAI",
+        "desc": "Sujette à malaises — surveiller pendant efforts intenses.",
+        "debut": "",
+        "fin": "",
+        "med": "",
+        "photo": null
+      },
+      "noteFinale": null
+    },
+    {
+      "id": "e017",
+      "nom": "GONCALVES VILELA Lara",
+      "amenagement": "",
+      "fiche": null,
+      "noteFinale": null
+    },
+    {
+      "id": "e018",
+      "nom": "JUILLOT Constance",
+      "amenagement": "",
+      "fiche": null,
+      "noteFinale": null
+    },
+    {
+      "id": "e019",
+      "nom": "LUMBI Lévi",
+      "amenagement": "",
+      "fiche": null,
+      "noteFinale": null
+    },
+    {
+      "id": "e020",
+      "nom": "MANOHA-ROCHE Tom",
+      "amenagement": "",
+      "fiche": null,
+      "noteFinale": null
+    },
+    {
+      "id": "e021",
+      "nom": "MARTINEZ Lyza",
+      "amenagement": "",
+      "fiche": null,
+      "noteFinale": null
+    },
+    {
+      "id": "e022",
+      "nom": "SALMON-MAIRE Come",
+      "amenagement": "",
+      "fiche": null,
+      "noteFinale": null
+    },
+    {
+      "id": "e023",
+      "nom": "TOULBI Jasmine",
+      "amenagement": "",
+      "fiche": null,
+      "noteFinale": null
+    },
+    {
+      "id": "e024",
+      "nom": "ZAAFRANE Iyed",
+      "amenagement": "",
+      "fiche": null,
+      "noteFinale": null
+    }
+  ],
+  "presences": {},
+  "autoEval": {},
+  "seanceObjectifs": {
+    "s001": {
+      "obj1": "Maîtriser le service — shuttle franchit le filet et touche la cible",
+      "obj2": "Différencier service court et service long"
+    },
+    "s002": {
+      "obj1": "Réaliser 10 dégagés consécutifs en binôme",
+      "obj2": "Frapper avec extension complète vers le fond"
+    },
+    "s003": {
+      "obj1": "Créer une situation favorable avant de frapper décisivement",
+      "obj2": "Viser les zones libres et les coins"
+    },
+    "s004": {
+      "obj1": "Utiliser toutes les techniques travaillées en match",
+      "obj2": "S'engager activement selon son état physique"
+    },
+    "s005": {
+      "obj1": "Réaliser des actions décisives en match d'évaluation",
+      "obj2": "Faire basculer le rapport de force en sa faveur"
+    }
+  },
+  "profil": {
+    "moteur": {
+      "obs": "3e PM — Badminton — T2.",
+      "eleves": {}
+    },
+    "medical": {
+      "obs": "Plusieurs élèves avec aménagements : AISSAOUI (asthmatique), BOURGEON (souffle au cœur), CAZEAUX (diabétique), CHORFA (asthmatique/pb genou), GOMBAULD ROSIQUE (sujette à malaises).",
+      "eleves": {
+        "e002": "Asthmatique — inhalateur obligatoire.",
+        "e006": "Souffle au cœur — surveiller intensité.",
+        "e009": "Diabétique — surveiller glycémie avant/après effort.",
+        "e011": "Asthmatique + problème genou — adapter les impacts.",
+        "e016": "Sujette à malaises — surveiller pendant efforts intenses."
+      }
+    },
+    "social": {
+      "obs": "",
+      "eleves": {}
+    },
+    "scolaire": {
+      "obs": "",
+      "eleves": {}
+    },
+    "autre": {
+      "obs": "Note : certains élèves sans tee-shirt Saint Jo ou chaussures non adaptées en S1. Martinez Lyza dispensée.",
+      "eleves": {}
+    }
+  },
+  "comp": {},
+  "seq": {
+    "objet": "Alternance fond/sprint/saut => CA1 — Réaliser des actions décisives en situation favorable afin de faire basculer le rapport de force en sa faveur ou en faveur de son équipe.",
+    "objectifs": "Maîtriser le service court / long. Dégagé fond de court. Placement tactique. Actions décisives. Être solidaire et respectueux de l'adversaire et de l'arbitre. S'échauffer avant un effort. Engagement moteur en fonction de son état physique.",
+    "aflpPrio": [
+      "Att. 1",
+      "Att. 2",
+      "Att. 3",
+      "Att. 4"
+    ],
+    "trame": [
+      {
+        "num": 1,
+        "objectif": "Découverte — Service court / long — Maîtriser la hauteur",
+        "date": ""
+      },
+      {
+        "num": 2,
+        "objectif": "Dégagé fond de court — 10 consécutifs en binôme",
+        "date": ""
+      },
+      {
+        "num": 3,
+        "objectif": "Actions décisives — Rapport de force — Placement tactique",
+        "date": ""
+      },
+      {
+        "num": 4,
+        "objectif": "Consolidation — Matchs — 1ère note travail coeff. 0,5",
+        "date": ""
+      },
+      {
+        "num": 5,
+        "objectif": "ÉVALUATION — 2ème note /20 — MOYENNE BAD",
+        "date": ""
+      }
+    ]
+  },
+  "grilleNotes": {},
+  "grille": null
+}
