@@ -1,0 +1,368 @@
+{
+  "seances": [
+    {
+      "id": "s001",
+      "num": 1,
+      "date": "",
+      "objectif": "Découverte Badminton — Service — Situation 1 : Test d'allures progressives — Règles et logique interne APSA",
+      "bilan": "",
+      "aflpTravailles": [
+        "AFLP 1",
+        "AFLP 4"
+      ],
+      "parties": [
+        {
+          "id": "p101",
+          "titre": "Échauffement spécifique",
+          "objectif": "Préparer le corps à l'effort — activer les réflexes bras/poignets — mise en route cardio-vasculaire",
+          "consignes": "- 5 min course légère + déplacements latéraux, petits pas chassés.\n- Mobilité active, amplitude correcte.\n- Mouvements spécifiques bras/poignets.\n- Adapter la vitesse si fatigue, rappeler posture basse.",
+          "criteres": "Corps prêt à l'effort. Articulations préparées. Réflexes activés.",
+          "contenus": "",
+          "bilan": ""
+        },
+        {
+          "id": "p102",
+          "titre": "Situation 1 : Test d'allures progressives — Service",
+          "objectif": "Découvrir l'APSA — Tester les allures — Maîtriser le service",
+          "consignes": "- Situation 1 : Test d'allures progressives.\n- Situation 2 : Course de durée sur comparaison & échanges.\n- Situation 3 : Mise en pratique guidée.\n- Retour réflexif collectif. Retour au calme.\n- 4 fois 1 min / 30 sec. La et Rihab en marche.",
+          "criteres": "Shuttle franchit le filet. Service maîtrisé. Allures progressives testées.",
+          "contenus": "Découverte logique interne APSA. Service court/long. Allures progressives.",
+          "bilan": ""
+        }
+      ]
+    },
+    {
+      "id": "s002",
+      "num": 2,
+      "date": "",
+      "objectif": "Travail du dégagé fond de court et de l'amorti — Développer les coups directionnels",
+      "bilan": "",
+      "aflpTravailles": [
+        "AFLP 1",
+        "AFLP 2",
+        "AFLP 3"
+      ],
+      "parties": [
+        {
+          "id": "p201",
+          "titre": "Échauffement spécifique",
+          "objectif": "Préparer le corps à l'effort — activer les réflexes bras/poignets — mise en route cardio-vasculaire",
+          "consignes": "- 5 min course légère + déplacements latéraux, petits pas chassés.\n- Mobilité active, amplitude correcte.\n- Mouvements spécifiques bras/poignets.\n- Adapter la vitesse si fatigue, rappeler posture basse.",
+          "criteres": "Corps prêt à l'effort. Articulations préparées. Réflexes activés.",
+          "contenus": "",
+          "bilan": ""
+        },
+        {
+          "id": "p202",
+          "titre": "Travail amorti / Dégagé fond de court",
+          "objectif": "Maîtriser le dégagé fond de court et l'amorti — Développer des coups directionnels",
+          "consignes": "- Travail amorti : frappe courte, volant qui tombe juste derrière le filet.\n- Dégagé fond de court : transférer le volant vers l'arrière. Extension complète, appui, mouvement fluide.\n- Échauffement spécifique avant le travail technique.\n- Retour au calme / étirements.\n- Matchs de mise en application.",
+          "criteres": "Dégagé atteint le fond de court. Amorti tombe juste derrière le filet. Retour position centrale.",
+          "contenus": "Dégagé fond de court. Amorti. Extension du bras. Placement. Position centrale.",
+          "bilan": ""
+        }
+      ]
+    },
+    {
+      "id": "s003",
+      "num": 3,
+      "date": "",
+      "objectif": "Course au point — Jeu du bip — Gestion allures par couleur — Lien condition physique / badminton",
+      "bilan": "",
+      "aflpTravailles": [
+        "AFLP 1",
+        "AFLP 2",
+        "AFLP 3"
+      ],
+      "parties": [
+        {
+          "id": "p301",
+          "titre": "Échauffement (15 min)",
+          "objectif": "Préparer le corps et activer la conscience des différentes allures",
+          "consignes": "- 2 tours de terrain à allure lente. Mobilité articulaire. 3 lignes droites progressives sur 60 m.\n- Trottiner. Collectif.\n- Mobilité : chevilles, genoux, hanches, épaules.\n- 2×20 m : montées genoux, talons-fesses, foulées bondissantes, pas chassés.\n- Jeu du bip selon couleur (vert = lent, jaune = moyen, rouge = rapide).",
+          "criteres": "Corps prêt. Conscience des différentes allures. Réactivité au signal externe.",
+          "contenus": "",
+          "bilan": ""
+        },
+        {
+          "id": "p302",
+          "titre": "Course au point — Situation principale",
+          "objectif": "Gérer son effort en enchaînant des intensités variées — Lien condition physique / déplacements badminton",
+          "consignes": "- Départ = « maison ».\n- Distance => Plots. Arrivée : à 100/130 m.\n- Bip toutes les 30-35 s (à ajuster selon le niveau).\n- À chaque bip : aller vers le plot choisi, le contourner et revenir à la maison avant le bip.\n- Changer de plot si possible. 2 échecs consécutifs = 1 marche active.\n- Vert = lent / jaune = moyen / rouge = rapide.\n- Respecter l'allure. Maintien continu. Identifier la vitesse et la respiration. Réagir au signal externe.\n- Si essoufflement : réduire les plots visuels.\n- Trop de retard : prendre un plot plus éloigné. Anticiper pour gagner la maison.\n- Retour au calme 10-15 min. Abaisser progressivement la fréquence cardio.\n- Étirements : mollets, quadriceps, ischios, dos. Discussion stratégies.",
+          "criteres": "Capacité à courir majoritairement. Respect du bip. Retour à la maison avant le bip. Allure régulière.",
+          "contenus": "Gestion effort continu. Intensités variées. Conscience des allures par couleur. Stratégie. Correct. Persévérance.",
+          "bilan": ""
+        }
+      ]
+    },
+    {
+      "id": "s004",
+      "num": 4,
+      "date": "",
+      "objectif": "Séance prise en charge par M. BECQUET — 3×400 m — Évaluer l'endurance aérobie — Choisir un objectif personnel",
+      "bilan": "",
+      "aflpTravailles": [
+        "AFLP 1",
+        "AFLP 2",
+        "AFLP 3"
+      ],
+      "parties": [
+        {
+          "id": "p401",
+          "titre": "Échauffement spécifique — M. BECQUET",
+          "objectif": "Préparer le corps et activer les capacités cardio-respiratoires — Éviter les blessures",
+          "consignes": "1. 5-8 min jogging léger.\n2. Mobilité dynamique : chevilles, genoux, hanches, épaules.\n3. Exercice renforcement : montées genoux, talons-fesses, skipping.\n4. 3 accélérations progressives sur 50 m pour réveiller la vitesse.\n- Tous prêts physiquement, complet : articulations mobilisées, muscles échauffés, rythme cardiaque élevé.\n- Élèves fatigués ou absents : réduire le nombre d'exercices. Proposer un parcours court.",
+          "criteres": "Corps prêt physiquement complet. Articulations mobilisées. Rythme cardiaque élevé.",
+          "contenus": "",
+          "bilan": ""
+        },
+        {
+          "id": "p402",
+          "titre": "3×400 m — Évaluation endurance aérobie",
+          "objectif": "Comprendre ses capacités, se fixer un objectif personnel de temps — Évaluer l'endurance aérobie",
+          "consignes": "1. Expliquer le 3×400 m : trois tours de 400 m chacun, récupération 2-3 min entre tours.\n2. Objectif : finir chaque 400 m le plus vite possible en maintenant un rythme régulier.\n3. Rappel posture : bras actifs, appuis dynamiques, respiration profonde.\n4. Choisir un objectif temps réaliste pour chaque élève.\n- Départ chronométré seul ou en groupe selon espace. Courir.\n- Contrôlé, viabilité maintenir au moins 8 tours. Respectant. Posture : buste droit, bras actifs. Foulée rapide.\n- Rappeler stratégie. Allure. Retour au calme / étirements.\n- Mollets, quadriceps, ischio-jambiers, dos, épaules. Respiration profonde. Relâchement articulaire.\n- Analyse du travail. Permettre. Comparer avec : sensations, points à améliorer. Enchaîner. Capable de verbaliser. Souffler. Graphe.",
+          "criteres": "Maintenir effort maximal en respectant au moins 8 min. Posture : buste droit, bras actifs, foulée rapide. Allure régulière. Temps noté.",
+          "contenus": "Évaluation endurance aérobie. Echauffement : Récupération / Insuffisant / Fragile / Satisfaisant / Très satisfaisant / Passive / Active / Activ-dynamique. Temps course 1 400m. Identifier sa capacité. Se fixer un objectif personnel.",
+          "bilan": ""
+        }
+      ]
+    },
+    {
+      "id": "s005",
+      "num": 5,
+      "date": "",
+      "objectif": "Évaluation Badminton — Quantité de travail — Réaliser des actions décisives — Faire basculer le rapport de force",
+      "bilan": "",
+      "aflpTravailles": [
+        "AFLP 1",
+        "AFLP 2",
+        "AFLP 3",
+        "AFLP 4"
+      ],
+      "parties": [
+        {
+          "id": "p501",
+          "titre": "Échauffement spécifique",
+          "objectif": "Préparer le corps à l'effort — activer les réflexes bras/poignets — mise en route cardio-vasculaire",
+          "consignes": "- 5 min course légère + déplacements latéraux, petits pas chassés.\n- Mobilité active, amplitude correcte.\n- Mouvements spécifiques bras/poignets.\n- Adapter la vitesse si fatigue, rappeler posture basse.",
+          "criteres": "Corps prêt à l'effort. Articulations préparées. Réflexes activés.",
+          "contenus": "",
+          "bilan": ""
+        },
+        {
+          "id": "p502",
+          "titre": "Évaluation Badminton — Quantité de travail",
+          "objectif": "Évaluation finale — Quantité de travail — Réaliser des actions décisives en situation favorable",
+          "consignes": "- Matchs officiels 1v1. Rotation rapide.\n- Évaluation quantité de travail.\n- Utiliser toutes les techniques travaillées : service, dégagé fond de court, amorti, placement.\n- Respecter les règles. Engagement moteur actif.\n- Éval quantité travail.",
+          "criteres": "Service maîtrisé. Dégagé fond de court. Amorti. Placement correct. Engagement actif. Quantité de travail évaluée.",
+          "contenus": "Évaluation. Quantité de travail. Respecter les règles et les rôles sociaux.",
+          "bilan": ""
+        }
+      ]
+    }
+  ],
+  "eleves": [
+    {
+      "id": "e001",
+      "nom": "BEN ALI Dhiaeddine",
+      "amenagement": "",
+      "fiche": null,
+      "noteFinale": null
+    },
+    {
+      "id": "e002",
+      "nom": "BOUTELOUP Nathan",
+      "amenagement": "",
+      "fiche": null,
+      "noteFinale": null
+    },
+    {
+      "id": "e003",
+      "nom": "CAMARA Mohamed",
+      "amenagement": "",
+      "fiche": null,
+      "noteFinale": null
+    },
+    {
+      "id": "e004",
+      "nom": "DAHEL Abdel",
+      "amenagement": "",
+      "fiche": null,
+      "noteFinale": null
+    },
+    {
+      "id": "e005",
+      "nom": "FONGILU Geremy-Pedro",
+      "amenagement": "",
+      "fiche": null,
+      "noteFinale": null
+    },
+    {
+      "id": "e006",
+      "nom": "HADDOU Yassine",
+      "amenagement": "",
+      "fiche": null,
+      "noteFinale": null
+    },
+    {
+      "id": "e007",
+      "nom": "KEDADRA Rihab",
+      "amenagement": "PAI",
+      "fiche": {
+        "type": "PAI",
+        "desc": "PAI asthme — protocole urgence connu.",
+        "debut": "",
+        "fin": "",
+        "med": "",
+        "photo": null
+      },
+      "noteFinale": null
+    },
+    {
+      "id": "e008",
+      "nom": "KINDEL Zelya",
+      "amenagement": "",
+      "fiche": null,
+      "noteFinale": null
+    },
+    {
+      "id": "e009",
+      "nom": "NOBLE Lubin",
+      "amenagement": "",
+      "fiche": null,
+      "noteFinale": null
+    },
+    {
+      "id": "e010",
+      "nom": "RODULFO Flavio",
+      "amenagement": "",
+      "fiche": null,
+      "noteFinale": null
+    },
+    {
+      "id": "e011",
+      "nom": "RULLIAT CRESPO Tymeo",
+      "amenagement": "Asthmatique",
+      "fiche": {
+        "type": "PAI",
+        "desc": "Asthmatique — inhalateur obligatoire avant effort intense.",
+        "debut": "",
+        "fin": "",
+        "med": "",
+        "photo": null
+      },
+      "noteFinale": null
+    },
+    {
+      "id": "e012",
+      "nom": "SBARDELLA-CHEVALIER Andrea",
+      "amenagement": "Asthmatique",
+      "fiche": {
+        "type": "PAI",
+        "desc": "Asthmatique — inhalateur obligatoire.",
+        "debut": "",
+        "fin": "",
+        "med": "",
+        "photo": null
+      },
+      "noteFinale": null
+    },
+    {
+      "id": "e013",
+      "nom": "SVONGCHAN Juan",
+      "amenagement": "",
+      "fiche": null,
+      "noteFinale": null
+    }
+  ],
+  "presences": {},
+  "autoEval": {},
+  "seanceObjectifs": {
+    "s001": {
+      "obj1": "Maîtriser le service — shuttle franchit le filet",
+      "obj2": "Tester ses allures progressives"
+    },
+    "s002": {
+      "obj1": "Réaliser 10 dégagés consécutifs vers le fond",
+      "obj2": "Placer l'amorti juste derrière le filet"
+    },
+    "s003": {
+      "obj1": "Courir majoritairement les plots de couleur",
+      "obj2": "Lier déplacements rapides et badminton"
+    },
+    "s004": {
+      "obj1": "Terminer les 3 tours de 400 m",
+      "obj2": "Maintenir un rythme régulier et se fixer un objectif"
+    },
+    "s005": {
+      "obj1": "Réaliser des actions décisives en match",
+      "obj2": "Quantité de travail maximale"
+    }
+  },
+  "profil": {
+    "moteur": {
+      "obs": "CAP EPC 1 — Badminton — T2.",
+      "eleves": {}
+    },
+    "social": {
+      "obs": "",
+      "eleves": {}
+    },
+    "medical": {
+      "obs": "KEDADRA Rihab (PAI asthme), RULLIAT CRESPO Tymeo (asthmatique), SBARDELLA-CHEVALIER Andrea (asthmatique). Note : La et Rihab en marche lors de certaines séances.",
+      "eleves": {
+        "e007": "PAI asthme — protocole urgence connu.",
+        "e011": "Asthmatique — inhalateur obligatoire avant effort intense.",
+        "e012": "Asthmatique — inhalateur obligatoire."
+      }
+    },
+    "scolaire": {
+      "obs": "",
+      "eleves": {}
+    },
+    "autre": {
+      "obs": "CAP EPC 1 — Badminton — T2. Pas de cours séance 1 : formation CEPEC. Note : 4 fois 1 min / 30 sec. La et Rihab en marche.",
+      "eleves": {}
+    }
+  },
+  "comp": {},
+  "seq": {
+    "objet": "Réaliser des actions décisives en situation favorable afin de faire basculer le rapport de force en sa faveur — service, dégagé fond de court, amorti, placement tactique.",
+    "objectifs": "Découverte Badminton. Travail amorti / dégagé. Course au point — lien condition physique / déplacements. Séance M. BECQUET — 3×400 m. Évaluation quantité de travail.",
+    "aflpPrio": [
+      "AFLP 1",
+      "AFLP 2",
+      "AFLP 3",
+      "AFLP 4"
+    ],
+    "trame": [
+      {
+        "num": 1,
+        "objectif": "Découverte — Service — Test d'allures progressives",
+        "date": ""
+      },
+      {
+        "num": 2,
+        "objectif": "Travail amorti / Dégagé fond de court",
+        "date": ""
+      },
+      {
+        "num": 3,
+        "objectif": "Course au point — Jeu du bip — Condition physique",
+        "date": ""
+      },
+      {
+        "num": 4,
+        "objectif": "M. BECQUET — 3×400 m — Endurance aérobie",
+        "date": ""
+      },
+      {
+        "num": 5,
+        "objectif": "ÉVALUATION — Quantité de travail",
+        "date": ""
+      }
+    ]
+  },
+  "grilleNotes": {},
+  "grille": null
+}
