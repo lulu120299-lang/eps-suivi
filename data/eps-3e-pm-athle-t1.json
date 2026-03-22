@@ -1,0 +1,546 @@
+{
+  "seances": [
+    {
+      "id": "s001",
+      "num": 1,
+      "date": "",
+      "objectif": "Découverte des ≠ vitesses — Expérimentation — Prise de performance sur course sprint",
+      "bilan": "Une séance dans l'ensemble. /!\\ tout de même certains ternissent. Droit ou ses capacités. Timides → pictogramme.",
+      "aflpTravailles": [
+        "Att. 1",
+        "Att. 2"
+      ],
+      "parties": [
+        {
+          "id": "p101",
+          "titre": "Échauffement",
+          "objectif": "Activer cardio, préparer muscles et articulations",
+          "consignes": "Faire un échauffement guidé.\n- Marche active + mobilisation (chevilles, genoux, bassin, bras).\n- Trottiner en groupe à allure lente (parler sans gêne).\n- Éducatifs / Gammes : montées de genoux, talons-fesses, pas chassés, foulées bondissantes, 3 accélérations progressives sur 50 m.",
+          "criteres": "Chaque éducatif est correctement exécuté. Durée réduite pour élèves fragiles. Éducatifs simplifiés.",
+          "contenus": "",
+          "bilan": ""
+        },
+        {
+          "id": "p102",
+          "titre": "Situation 1 : Test — Découverte des ≠ vitesses",
+          "objectif": "Découvrir ses capacités de vitesse sur départ arrêté — Expérimenter différentes vitesses",
+          "consignes": "- Se placer derrière la ligne. Attendre le signal du professeur.\n- Sprinter à 100%.\n- Recommencer au moins 2 fois.\n- Effort maximal sans ralentir avant la fin.\n- Pied, tronc légèrement penché. Poussée explosive dès le départ.\n- Foulées amples et rapides.\n4 mou : travail jeu de réflexe → pas trop courtes. Longueur lancée avec souplesse à pleine vitesse au passage.\nSituation 2 : Comparaison & échanges — prise de conscience des effets.\n- En petits groupes → fiches : « À quelle allure étais-tu à l'aise ? »\n- Pas trop dans le confort.\n- Écoute et respect de la parole. Argumentation claire. Au moins un retour.\nSituation 3 : Développer la puissance anaérobie.",
+          "criteres": "Effort maximal sans ralentir. Unique — chacun a son niveau.",
+          "contenus": "Transfert vers. Gagner les limites. Oscillations, progressivité, perte d'énergie. Analyser la performance. Former des binômes équilibrés → optimiser. 2 situations → mettre le groupe (fort + selon objectif). Discussion points / axes de progrès. Constituer de manière réfléchie → justifier les chronos. Choisir arguer le choix du partenaire → coopérer.",
+          "bilan": "Une séance dans l'ensemble. /!\\ tout de même certains ternissent. Droit ou ses capacités. Timides → pictogramme."
+        }
+      ]
+    },
+    {
+      "id": "s002",
+      "num": 2,
+      "date": "",
+      "objectif": "Apprendre à recevoir et à se retourner — Relais vitesse — Binômes donneur/receveur sur 12''",
+      "bilan": "Être capable de venu — 2 min alterné. Réussir les ≠ phases bien, mis sans rouspeter. Une bonne formation à suivre et accélérer. Ils sont partis tous les premiers… Manque de connaissances individuelles. Okay certains. On verra cela la prochaine séance. Retour au calme.",
+      "aflpTravailles": [
+        "Att. 1",
+        "Att. 3",
+        "Att. 4"
+      ],
+      "parties": [
+        {
+          "id": "p201",
+          "titre": "Échauffement du général au spécifique",
+          "objectif": "Activer le système cardio-vasculaire — préparer le corps à l'exercice — mise en route",
+          "consignes": "- 2 tours de terrain en trottinant.\n- PPG déplacements et gammes : montées de genoux, talons-fesses, foulées bondissantes, pas chassés.\n- 2×20 m départs rapides (sans témoin). Travail sur le fait de savoir donner un départ.\n- Progressivité de fin d'échauffement.\n- Posture tonique, amplitude, relâché des épaules.",
+          "criteres": "Corps à l'exercice. Système cardio-vasculaire activé. Articulations prêtes.",
+          "contenus": "",
+          "bilan": ""
+        },
+        {
+          "id": "p202",
+          "titre": "Situation Relais — Apprendre à recevoir et à se retourner",
+          "objectif": "Apprendre à recevoir, se retourner — coordonner donneur/receveur sans ralentir",
+          "consignes": "- Sprinter sur 10 secondes. Rechercher le moyen. Récupération.\n- Binômes : 1 le chat (donneur), 2 la souris (receveur). Déclencher au signal, main tendue. Ajuste son plot pour la zone de transmission moment. Regard vers l'avant. Pas d'arrêt ni ralentissement.\n- Passe placée (pouce vers le bas, paume ouverte). Jamais regarder en arrière.\n- Si sortie de couloir : moins de points.\n- Améliorer la vitesse et l'efficacité collective.\n- Groupes aux couloirs parallèles. Distance possible. 12 sec obligatoire. Zones matérialisées (10 mètres). 3 essais → meilleur résultat. Grande distance → anticiper l'appel du receveur. Pas trop à pleine vitesse au départ → stable. Comprendre. Améliorer → perdre moins de vitesse : « Pourquoi bonne passe ? » Marques/repères.",
+          "criteres": "Coordonner 2 coureurs (donneur/receveur) sans ralentir. Distance entre les 2. Gestion des déséquilibres. Savoir s'orienter. EFFICACE. Savoir juger. Départ. Chronomètre. Transmission. Observer — repérer le lieu, la main qui reçoit. Le placement du témoin dans la zone. Fiables. Gestes entre signal et tour vers le starter. Attitude. Beaucoup de fragilités. Après quelques essais → raisonnable.",
+          "contenus": "",
+          "bilan": "Être capable de venu — 2 min alterné. Réussir les ≠ phases bien, mis sans rouspeter. Une bonne formation à suivre et accélérer."
+        }
+      ]
+    },
+    {
+      "id": "s003",
+      "num": 3,
+      "date": "",
+      "objectif": "Découverte technique du lancer de disque — Situation type biathlon : relais + lancer — Liaison entre performance et endurance/travail social",
+      "bilan": "Retour au calme. Discussion. Solidifier l'apprentissage. Sécurité. Quels éléments ont aidé ? Qu'est-ce qui peut s'améliorer ? Intégrer feedback. Partie active, compréhension des situations proposées, consciences possibles.",
+      "aflpTravailles": [
+        "Att. 1",
+        "Att. 2",
+        "Att. 3"
+      ],
+      "parties": [
+        {
+          "id": "p301",
+          "titre": "Échauffement du général au spécifique",
+          "objectif": "Activer le système cardio-vasculaire — préparer le corps à l'exercice — mise en route",
+          "consignes": "- 2 tours de terrain en trottinant.\n- PPG déplacements et gammes : montées de genoux, talons-fesses, foulées bondissantes, pas chassés.\n- 2×20 m départs rapides (sans témoin). Travail sur le fait de savoir donner un départ.\n- Progressivité de fin d'échauffement.\n- Posture tonique, amplitude, relâché des épaules.",
+          "criteres": "Corps à l'exercice. Système cardio-vasculaire activé. Articulations prêtes.",
+          "contenus": "",
+          "bilan": ""
+        },
+        {
+          "id": "p302",
+          "titre": "Découverte technique du lancer de disque",
+          "objectif": "Comprendre et expérimenter le geste de lancer — Prendre le disque correctement",
+          "consignes": "- Prendre le disque correctement : 3 doigts dessous, pouce dessus pour tenir.\n- Départ position : appui sur jambe arrière, rotation du buste, transfert du poids vers l'avant.\n- Bras qui accompagne en relâchant de manière fluide.\n- Consigne clé : « Ne cherche pas la force brute — droit, stable, coordonné. »\n- Bases : latéral → diriger. Prise de position des pieds.",
+          "criteres": "Posture droite. Stable. Coordonné.",
+          "contenus": "",
+          "bilan": ""
+        },
+        {
+          "id": "p303",
+          "titre": "Situation type biathlon — Relais + lancer",
+          "objectif": "Appliquer dans un contexte compétitif et motivant — liaison entre performance et endurance/travail social",
+          "consignes": "- Former des équipes de 3-4 élèves. Chaque lancer mesuré, détermine la course à effectuer après : plus loin = moins de course à parcourir.\n- Si manque d'intensité : passer au duel chronomètre court (qui arrive premier).\n- Application dans un contexte compétitif et motivant.\n- Liaison entre performance et endurance et travail social et stratégie.\n- Incomplet → refaire en exigeant la technique. Appeler. Améliorer la vitesse et la transmission. Collective.\n- Groupes aux couloirs parallèles. 12 sec obligatoire. Zones matérialisées. 3 essais → garder le meilleur résultat. Couvrir une grande distance → anticiper.\n- Courir à pleine vitesse → stable. Comprendre « je viens ».",
+          "criteres": "Liaison entre performance/endurance/social/stratégie. Respect des rôles.",
+          "contenus": "Retour au calme. Discussion. Solidifier l'apprentissage. Sécurité. Étirements doux (épaules, dos). Quels éléments ont aidé ? Qu'est-ce qui peut s'améliorer ? Intégrer feedback.",
+          "bilan": "Retour au calme. Discussion. Solidifier l'apprentissage. Sécurité. Quels éléments ont aidé ? Qu'est-ce qui peut s'améliorer ?"
+        }
+      ]
+    },
+    {
+      "id": "s004",
+      "num": 4,
+      "date": "",
+      "objectif": "Relais vitesse — Perfectionner la transmission du témoin — Binômes donneur/receveur sur 12'' — Prochaine séance : travail alterné fond/relais/saut",
+      "bilan": "",
+      "aflpTravailles": [
+        "Att. 1",
+        "Att. 3",
+        "Att. 4"
+      ],
+      "parties": [
+        {
+          "id": "p401",
+          "titre": "Échauffement du général au spécifique",
+          "objectif": "Activer le système cardio-vasculaire — préparer le corps à l'exercice — mise en route",
+          "consignes": "- 2 tours de terrain en trottinant.\n- PPG déplacements et gammes : montées de genoux, talons-fesses, foulées bondissantes, pas chassés.\n- 2×20 m départs rapides (sans témoin). Travail sur le fait de savoir donner un départ.\n- Progressivité de fin d'échauffement.\n- Posture tonique, amplitude, relâché des épaules.",
+          "criteres": "Corps à l'exercice. Système cardio-vasculaire activé. Articulations prêtes.",
+          "contenus": "",
+          "bilan": ""
+        },
+        {
+          "id": "p402",
+          "titre": "Relais vitesse — Perfectionner la transmission",
+          "objectif": "Perfectionner la transmission du témoin — Coordonner donneur/receveur sur 12'' — Optimiser la zone de passage",
+          "consignes": "- Binômes donneur/receveur. Vitesse moyenne du donneur. Cible. Binôme sur 12''.\n- Mètres à parcourir selon la vitesse. 3 essais → meilleur résultat.\n- Anticiper le placement. Zones matérialisées (10 mètres). Regard vers l'avant. Passe placée (pouce vers le bas, paume ouverte).\n- Améliorer la vitesse, l'efficacité collective. Groupes aux couloirs parallèles.\n- Transmission : observer le lieu, la main qui reçoit, le placement du témoin dans la zone.",
+          "criteres": "Transmission sans ralentissement. Zone de passage respectée. Regard vers l'avant. Passe placée correctement.",
+          "contenus": "Compétences travaillées : acquérir des techniques spécifiques pour améliorer le geste sportif → le stabiliser → le rendre plus efficace. Préparer et présenter une action. Construire et mettre en œuvre des projets d'apprentissage individuels et collectifs. Responsabilités au sein du groupe. Remplir le contrat. Utiliser des outils numériques pour analyser et évaluer. Exceller avec les autres.",
+          "bilan": ""
+        }
+      ]
+    },
+    {
+      "id": "s005",
+      "num": 5,
+      "date": "",
+      "objectif": "Relais vitesse — Perfectionnement — Évaluation relais vitesse — Grille d'évaluation RELAIS-VITESSE COMPÉTITION",
+      "bilan": "",
+      "aflpTravailles": [
+        "Att. 1",
+        "Att. 3",
+        "Att. 4"
+      ],
+      "parties": [
+        {
+          "id": "p501",
+          "titre": "Échauffement du général au spécifique",
+          "objectif": "Activer le système cardio-vasculaire — préparer le corps à l'exercice — mise en route",
+          "consignes": "- 2 tours de terrain en trottinant.\n- PPG déplacements et gammes : montées de genoux, talons-fesses, foulées bondissantes, pas chassés.\n- 2×20 m départs rapides (sans témoin). Travail sur le fait de savoir donner un départ.\n- Progressivité de fin d'échauffement.\n- Posture tonique, amplitude, relâché des épaules.",
+          "criteres": "Corps à l'exercice. Système cardio-vasculaire activé. Articulations prêtes.",
+          "contenus": "",
+          "bilan": ""
+        },
+        {
+          "id": "p502",
+          "titre": "Relais vitesse — Perfectionnement et évaluation",
+          "objectif": "Permettre aux élèves de développer les ressources nécessaires en vue d'une transmission du témoin à pleine vitesse, en auto-organisation et analyse",
+          "consignes": "- Binômes donneur/receveur. Vitesse moyenne du donneur. Cible. Binôme sur 12''.\n- Mètres à parcourir selon la vitesse.\n- Zones matérialisées. 3 essais → meilleur résultat.\n- Anticiper le placement. Regard vers l'avant. Passe placée (pouce vers le bas, paume ouverte).\n- Évaluation : grille RELAIS-VITESSE COMPÉTITION.\n- Attendus : Permettre aux élèves de développer les ressources nécessaires en vue d'une transmission du témoin à pleine vitesse, en auto-organisation et analyse.",
+          "criteres": "Transmission à pleine vitesse. Zone respectée. Auto-organisation et analyse.",
+          "contenus": "Attendus de fin de cycle :\n- Gérer son effort, faire des choix pour réaliser la meilleure performance.\n- S'engager dans un programme de préparation individuel ou collectif.\n- Planifier et réaliser une épreuve combinée.\n- S'échauffer avant une épreuve.\n- Aider ses camarades et assumer les rôles sociaux.\nCompétences travaillées : agir vite = temps de mouvement. Mise en synchronisation bras/jambes. Conserver l'équilibre avec alignement « pied, bassin, épaule » (appui optimal). Foulée = course. Transfert rapide. Coordonner 2 coureurs (donneur/receveur) sans ralentir. Gestion des déséquilibres. Savoir s'orienter. EFFICACE. Savoir juger.",
+          "bilan": ""
+        }
+      ]
+    },
+    {
+      "id": "s006",
+      "num": 6,
+      "date": "",
+      "objectif": "Découverte du lancer de disque — Situation type biathlon : relais + lancer — Perfectionner les acquis de relais",
+      "bilan": "",
+      "aflpTravailles": [
+        "Att. 1",
+        "Att. 2",
+        "Att. 3"
+      ],
+      "parties": [
+        {
+          "id": "p601",
+          "titre": "Échauffement du général au spécifique",
+          "objectif": "Activer le système cardio-vasculaire — préparer le corps à l'exercice — mise en route",
+          "consignes": "- 2 tours de terrain en trottinant.\n- PPG déplacements et gammes : montées de genoux, talons-fesses, foulées bondissantes, pas chassés.\n- 2×20 m départs rapides (sans témoin). Travail sur le fait de savoir donner un départ.\n- Progressivité de fin d'échauffement.\n- Posture tonique, amplitude, relâché des épaules.",
+          "criteres": "Corps à l'exercice. Système cardio-vasculaire activé. Articulations prêtes.",
+          "contenus": "",
+          "bilan": ""
+        },
+        {
+          "id": "p602",
+          "titre": "Situation type biathlon — Relais + lancer (version 2)",
+          "objectif": "Appliquer dans un contexte compétitif et motivant — lancer de disque + course — Perfectionner les acquis",
+          "consignes": "- Former des équipes de 3-4 élèves. Chaque disque mesuré, détermine la course à effectuer après : plus loin = moins de course.\n- Si manque d'intensité : duel chronomètre court (qui arrive premier).\n- Appliquer dans un contexte compétitif et motivant.\n- Liaison entre performance et endurance et travail social et stratégie.\n- 12 sec obligatoire. Zones matérialisées. 3 essais → garder meilleur résultat.\n- Courir à pleine vitesse → stable. Comprendre « je viens ».",
+          "criteres": "Liaison performance/endurance/social/stratégie. Respect des rôles.",
+          "contenus": "Incomplet → refaire en exigeant la technique. Améliorer la vitesse et transmission. Collective. Groupes aux couloirs parallèles. Anticiper le placement. Grande distance → anticiper.",
+          "bilan": ""
+        }
+      ]
+    },
+    {
+      "id": "s007",
+      "num": 7,
+      "date": "",
+      "objectif": "Évaluation — Relais vitesse — Transmission du témoin à pleine vitesse — Grille d'évaluation COMPÉTITION ATTENDUE",
+      "bilan": "",
+      "aflpTravailles": [
+        "Att. 1",
+        "Att. 2",
+        "Att. 3",
+        "Att. 4"
+      ],
+      "parties": [
+        {
+          "id": "p701",
+          "titre": "Échauffement du général au spécifique",
+          "objectif": "Activer le système cardio-vasculaire — préparer le corps à l'exercice — mise en route",
+          "consignes": "- 2 tours de terrain en trottinant.\n- PPG déplacements et gammes : montées de genoux, talons-fesses, foulées bondissantes, pas chassés.\n- 2×20 m départs rapides (sans témoin). Travail sur le fait de savoir donner un départ.\n- Progressivité de fin d'échauffement.\n- Posture tonique, amplitude, relâché des épaules.",
+          "criteres": "Corps à l'exercice. Système cardio-vasculaire activé. Articulations prêtes.",
+          "contenus": "",
+          "bilan": ""
+        },
+        {
+          "id": "p702",
+          "titre": "ÉVALUATION — Relais vitesse COMPÉTITION",
+          "objectif": "Réaliser la meilleure transmission possible du témoin à pleine vitesse — Évaluation finale",
+          "consignes": "Grille évaluation RELAIS-VITESSE COMPÉTITION.\nATTENDUS : Permettre aux élèves de développer les ressources nécessaires en vue d'une transmission du témoin à pleine vitesse, en auto-organisation et analyse.\n\n6'' Départ Arrêté (Le donneur). Lancer/Receveur. Mètres parcourus. Vitesse moyenne.\nBinôme sur 12''. Mètres à parcourir. 3 essais → meilleur résultat.\n\nAttendus de fin de cycle :\n- Gérer son effort, faire des choix pour réaliser la meilleure performance.\n- S'engager dans un programme de préparation individuel ou collectif.\n- Planifier et réaliser une épreuve combinée.\n- S'échauffer avant une épreuve. Valider.\n- Aider ses camarades et assumer les rôles sociaux. NON ÉVALUÉ.",
+          "criteres": "Transmission à pleine vitesse. Zone de passage respectée. Auto-organisation. Analyse de la performance. Compétition.",
+          "contenus": "Aider ses camarades et assumer les rôles sociaux. Gérer son effort, faire des choix pour réaliser la meilleure performance. S'engager dans un programme de préparation individuel ou collectif. Planifier et réaliser une épreuve combinée. S'échauffer avant une épreuve.",
+          "bilan": ""
+        }
+      ]
+    }
+  ],
+  "eleves": [
+    {
+      "id": "e001",
+      "nom": "ACHAINTRE Léa",
+      "amenagement": "",
+      "fiche": null,
+      "noteFinale": null
+    },
+    {
+      "id": "e002",
+      "nom": "AISSAOUI Adan",
+      "amenagement": "Asthmatique",
+      "fiche": {
+        "type": "PAI",
+        "desc": "Asthmatique",
+        "debut": "",
+        "fin": "",
+        "med": "",
+        "photo": null
+      },
+      "noteFinale": null
+    },
+    {
+      "id": "e003",
+      "nom": "BERKANE Médine",
+      "amenagement": "",
+      "fiche": null,
+      "noteFinale": null
+    },
+    {
+      "id": "e004",
+      "nom": "BICHET Lilou",
+      "amenagement": "",
+      "fiche": null,
+      "noteFinale": null
+    },
+    {
+      "id": "e005",
+      "nom": "BOTTICELLI Fabio",
+      "amenagement": "",
+      "fiche": null,
+      "noteFinale": null
+    },
+    {
+      "id": "e006",
+      "nom": "BOURGEON Maxime",
+      "amenagement": "Souffle au cœur",
+      "fiche": {
+        "type": "PAI",
+        "desc": "Souffle au cœur — surveiller intensité des efforts",
+        "debut": "",
+        "fin": "",
+        "med": "",
+        "photo": null
+      },
+      "noteFinale": null
+    },
+    {
+      "id": "e007",
+      "nom": "BOUSSEFSAF Lina",
+      "amenagement": "",
+      "fiche": null,
+      "noteFinale": null
+    },
+    {
+      "id": "e008",
+      "nom": "CAZEAUX Noelie",
+      "amenagement": "Diabétique",
+      "fiche": {
+        "type": "PAI",
+        "desc": "Diabétique — surveiller glycémie avant et après effort",
+        "debut": "",
+        "fin": "",
+        "med": "",
+        "photo": null
+      },
+      "noteFinale": null
+    },
+    {
+      "id": "e009",
+      "nom": "CHAPUIS Elouan",
+      "amenagement": "",
+      "fiche": null,
+      "noteFinale": null
+    },
+    {
+      "id": "e010",
+      "nom": "CHORFA Zohra",
+      "amenagement": "Asthmatique / pb genou",
+      "fiche": {
+        "type": "PAI",
+        "desc": "Asthmatique / problème genou — adapter les exercices à impact",
+        "debut": "",
+        "fin": "",
+        "med": "",
+        "photo": null
+      },
+      "noteFinale": null
+    },
+    {
+      "id": "e011",
+      "nom": "CLAISSE Ophelie",
+      "amenagement": "",
+      "fiche": null,
+      "noteFinale": null
+    },
+    {
+      "id": "e012",
+      "nom": "CROUZET Hugo",
+      "amenagement": "",
+      "fiche": null,
+      "noteFinale": null
+    },
+    {
+      "id": "e013",
+      "nom": "DOMINGUEZ Rafael",
+      "amenagement": "",
+      "fiche": null,
+      "noteFinale": null
+    },
+    {
+      "id": "e014",
+      "nom": "DURANDEU Ambre",
+      "amenagement": "",
+      "fiche": null,
+      "noteFinale": null
+    },
+    {
+      "id": "e015",
+      "nom": "GOMBAULD ROSIQUE Maëlysse",
+      "amenagement": "Sujette à malaises",
+      "fiche": {
+        "type": "PAI",
+        "desc": "Sujette à malaises — surveiller pendant efforts intenses",
+        "debut": "",
+        "fin": "",
+        "med": "",
+        "photo": null
+      },
+      "noteFinale": null
+    },
+    {
+      "id": "e016",
+      "nom": "GONCALVES VILELA Lara",
+      "amenagement": "",
+      "fiche": null,
+      "noteFinale": null
+    },
+    {
+      "id": "e017",
+      "nom": "JUILLOT Constance",
+      "amenagement": "",
+      "fiche": null,
+      "noteFinale": null
+    },
+    {
+      "id": "e018",
+      "nom": "LUMBI Lévi",
+      "amenagement": "",
+      "fiche": null,
+      "noteFinale": null
+    },
+    {
+      "id": "e019",
+      "nom": "MANOHA-ROCHE Tom",
+      "amenagement": "",
+      "fiche": null,
+      "noteFinale": null
+    },
+    {
+      "id": "e020",
+      "nom": "MARTINEZ Lyza",
+      "amenagement": "",
+      "fiche": null,
+      "noteFinale": null
+    },
+    {
+      "id": "e021",
+      "nom": "SALMON-MAIRE Come",
+      "amenagement": "",
+      "fiche": null,
+      "noteFinale": null
+    },
+    {
+      "id": "e022",
+      "nom": "TOULBI Jasmine",
+      "amenagement": "",
+      "fiche": null,
+      "noteFinale": null
+    },
+    {
+      "id": "e023",
+      "nom": "ZAAFRANE Iyed",
+      "amenagement": "",
+      "fiche": null,
+      "noteFinale": null
+    }
+  ],
+  "presences": {},
+  "autoEval": {},
+  "seanceObjectifs": {
+    "s001": {
+      "obj1": "Sprinter à 100% sur départ arrêté",
+      "obj2": "Identifier son allure de confort"
+    },
+    "s002": {
+      "obj1": "Transmettre le témoin sans ralentir",
+      "obj2": "Rester dans la zone de transmission"
+    },
+    "s003": {
+      "obj1": "Lancer le disque avec la bonne technique",
+      "obj2": "Liaison lancer + course dans le biathlon"
+    },
+    "s004": {
+      "obj1": "Améliorer la transmission sur 12''",
+      "obj2": "Anticiper le placement dans la zone"
+    },
+    "s005": {
+      "obj1": "Transmission à pleine vitesse",
+      "obj2": "Auto-organiser le binôme pour la compétition"
+    },
+    "s006": {
+      "obj1": "Améliorer le lancer de disque",
+      "obj2": "Appliquer dans le biathlon compétitif"
+    },
+    "s007": {
+      "obj1": "Réaliser la meilleure transmission en évaluation",
+      "obj2": "Respecter tous les critères du relais vitesse"
+    }
+  },
+  "profil": {
+    "moteur": {
+      "obs": "Classe 3e PM. Athlétisme multisport CA1. Alternance fond/sprint/saut.",
+      "eleves": {
+        "e010": "Asthmatique + problème genou — adapter les exercices à impact fort."
+      }
+    },
+    "medical": {
+      "obs": "Plusieurs élèves avec aménagements : AISSAOUI (asthmatique), BOURGEON (souffle au cœur), CAZEAUX (diabétique), CHORFA (asthmatique/pb genou), GOMBAULD ROSIQUE (sujette à malaises).",
+      "eleves": {
+        "e002": "Asthmatique — inhalateur obligatoire.",
+        "e006": "Souffle au cœur — surveiller intensité.",
+        "e008": "Diabétique — surveiller glycémie avant/après effort.",
+        "e010": "Asthmatique + problème genou — adapter impacts.",
+        "e015": "Sujette à malaises — surveiller pendant efforts intenses."
+      }
+    },
+    "social": {
+      "obs": "",
+      "eleves": {}
+    },
+    "scolaire": {
+      "obs": "",
+      "eleves": {}
+    },
+    "autre": {
+      "obs": "3e PM — Athlétisme multisport — T1. Séquence axée sur le relais vitesse avec découverte du lancer de disque.",
+      "eleves": {}
+    }
+  },
+  "comp": {},
+  "seq": {
+    "objet": "Alternance fond/sprint/saut => CA1 — Permettre aux élèves de développer les ressources nécessaires en vue d'une transmission du témoin à pleine vitesse, en auto-organisation et analyse.",
+    "objectifs": "Expérimentation des ≠ vitesses. Prise de performance sur course sprint. Découverte du lancer de disque. Évaluation relais vitesse. Prochaine séance : travail alterné fond/relais/saut. Gérer son effort, faire des choix pour réaliser la meilleure performance. S'engager dans un programme de préparation individuel ou collectif. Planifier et réaliser une épreuve combinée. S'échauffer avant une épreuve. Aider ses camarades et assumer les rôles sociaux.",
+    "aflpPrio": [
+      "Att. 1",
+      "Att. 3",
+      "Att. 4"
+    ],
+    "trame": [
+      {
+        "num": 1,
+        "objectif": "Découverte ≠ vitesses — Sprint — Test performance",
+        "date": ""
+      },
+      {
+        "num": 2,
+        "objectif": "Relais vitesse — Donneur/Receveur — Transmission sur 12''",
+        "date": ""
+      },
+      {
+        "num": 3,
+        "objectif": "Lancer de disque — Biathlon relais + lancer",
+        "date": ""
+      },
+      {
+        "num": 4,
+        "objectif": "Relais vitesse — Perfectionnement transmission",
+        "date": ""
+      },
+      {
+        "num": 5,
+        "objectif": "Relais vitesse — Perfectionnement + Évaluation grille",
+        "date": ""
+      },
+      {
+        "num": 6,
+        "objectif": "Biathlon relais + lancer (version 2)",
+        "date": ""
+      },
+      {
+        "num": 7,
+        "objectif": "ÉVALUATION — Relais vitesse COMPÉTITION",
+        "date": ""
+      }
+    ]
+  },
+  "grilleNotes": {},
+  "grille": null
+}
