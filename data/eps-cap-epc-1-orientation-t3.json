@@ -289,7 +289,14 @@
     },
     "s1774087701884": {}
   },
-  "profil": {},
+  "profil": {
+    "moteur": {
+      "obs": "Niveau de classe assez érogène avec des élèves plus ou moins sportifs. Des élèves qui ont pratiqué une activité physique en dehors du cas scolaire d’autres non. Ceci se retrouve sur leurs habilités motrices et de coordination.",
+      "eleves": {
+        "e003": "SHN football au club de"
+      }
+    }
+  },
   "comp": {
     "s002__AFLP 1__e001": 1
   },
