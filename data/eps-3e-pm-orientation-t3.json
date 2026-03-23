@@ -358,8 +358,17 @@
       "noteFinale": null
     }
   ],
-  "presences": {},
-  "autoEval": {},
+  "presences": {
+    "s1774213526527": {
+      "e001": "Present",
+      "e017": "Absent",
+      "e012": "Dispense",
+      "e002": "Dispense"
+    }
+  },
+  "autoEval": {
+    "s1774213526527": {}
+  },
   "seanceObjectifs": {
     "s001": {
       "obj1": "Orienter la carte et identifier 3 éléments visibles",
@@ -376,7 +385,8 @@
     "s004": {
       "obj1": "Adapter son allure selon ses ressources",
       "obj2": "Anticiper les zones complexes — terminer dans le temps"
-    }
+    },
+    "s1774213526527": {}
   },
   "profil": {
     "moteur": {
