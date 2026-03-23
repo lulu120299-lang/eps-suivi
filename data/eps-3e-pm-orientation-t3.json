@@ -386,7 +386,10 @@
       "obj1": "Adapter son allure selon ses ressources",
       "obj2": "Anticiper les zones complexes — terminer dans le temps"
     },
-    "s1774213526527": {}
+    "s1774213526527": {
+      "obj1": "Se placer sur une carte",
+      "obj2": "Lire et comprendre une légende"
+    }
   },
   "profil": {
     "moteur": {
