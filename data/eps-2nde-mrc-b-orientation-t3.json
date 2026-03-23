@@ -432,6 +432,10 @@
         "maitrise1": "Maitrise satisfaisante",
         "qte": "3",
         "maitrise2": "Maitrise satisfaisante"
+      },
+      "e1774255696336": {
+        "maitrise1": "Maitrise fragile",
+        "maitrise2": "Maitrise fragile"
       }
     },
     "s001": {}
