@@ -226,20 +226,6 @@
       "noteFinale": null
     },
     {
-      "id": "e005",
-      "nom": "CHAREF Séphora",
-      "amenagement": "PAP",
-      "fiche": {
-        "type": "PAP",
-        "desc": "PAP : évaluations aménagées, 1/3 temps.",
-        "debut": "",
-        "fin": "",
-        "med": "",
-        "photo": null
-      },
-      "noteFinale": null
-    },
-    {
       "id": "e006",
       "nom": "DIBRA Mateo",
       "amenagement": "TDAH",
