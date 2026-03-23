@@ -375,17 +375,20 @@
   "autoEval": {
     "s1774213526527": {
       "e007": {
-        "maitrise1": ""
+        "maitrise1": "Maitrise insuffisante",
+        "maitrise2": "Maitrise insuffisante"
       },
       "e001": {
-        "maitrise2": "Maitrise fragile"
+        "maitrise2": "Maitrise insuffisante",
+        "maitrise1": "Maitrise fragile"
       },
       "e006": {
         "maitrise2": "Maitrise fragile",
         "maitrise1": "Maitrise satisfaisante"
       },
       "e005": {
-        "maitrise1": "Maitrise satisfaisante"
+        "maitrise1": "Maitrise satisfaisante",
+        "maitrise2": "Maitrise fragile"
       },
       "e023": {
         "maitrise1": "Maitrise fragile",
@@ -416,6 +419,42 @@
         "maitrise2": "Maitrise fragile"
       },
       "e016": {
+        "maitrise1": "Maitrise insuffisante",
+        "maitrise2": "Maitrise fragile"
+      },
+      "e003": {
+        "maitrise1": "Maitrise fragile",
+        "maitrise2": "Maitrise insuffisante"
+      },
+      "e004": {
+        "maitrise1": "Maitrise fragile",
+        "maitrise2": "Maitrise insuffisante"
+      },
+      "e008": {
+        "maitrise1": "Maitrise fragile",
+        "maitrise2": "Maitrise fragile"
+      },
+      "e009": {
+        "maitrise1": "Maitrise fragile",
+        "maitrise2": "Maitrise insuffisante"
+      },
+      "e010": {
+        "maitrise1": "Maitrise fragile",
+        "maitrise2": "Maitrise fragile"
+      },
+      "e011": {
+        "maitrise1": "Maitrise fragile",
+        "maitrise2": "Maitrise fragile"
+      },
+      "e013": {
+        "maitrise1": "Maitrise satisfaisante",
+        "maitrise2": "Maitrise fragile"
+      },
+      "e014": {
+        "maitrise1": "Maitrise fragile",
+        "maitrise2": "Maitrise fragile"
+      },
+      "e015": {
         "maitrise1": "Maitrise fragile",
         "maitrise2": "Maitrise fragile"
       }
