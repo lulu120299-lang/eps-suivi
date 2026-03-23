@@ -353,33 +353,98 @@
     }
   ],
   "presences": {
-    "s1774213148461": {}
+    "s1774213148461": {
+      "e005": "Absent",
+      "e006": "Absent",
+      "e019": "Absent"
+    }
   },
   "autoEval": {
     "s1774213148461": {
       "e018": {
         "maitrise1": "Maitrise satisfaisante",
-        "qte": "3"
+        "qte": "3",
+        "maitrise2": "Maitrise satisfaisante"
       },
       "e010": {
         "maitrise1": "Maitrise fragile",
-        "qte": "2"
+        "qte": "2",
+        "maitrise2": "Maitrise fragile"
       },
       "e004": {
         "maitrise1": "Maitrise fragile",
-        "qte": "2"
+        "qte": "2",
+        "maitrise2": "Maitrise fragile"
       },
       "e013": {
         "maitrise1": "Maitrise satisfaisante",
-        "qte": "4"
+        "qte": "4",
+        "maitrise2": "Maitrise satisfaisante"
       },
       "e008": {
         "maitrise1": "Maitrise satisfaisante",
-        "qte": "4"
+        "qte": "2",
+        "maitrise2": "Maitrise satisfaisante"
       },
       "e007": {
         "maitrise1": "Maitrise satisfaisante",
-        "qte": "4"
+        "qte": "4",
+        "maitrise2": "Maitrise satisfaisante"
+      },
+      "e001": {
+        "maitrise1": "Maitrise satisfaisante",
+        "qte": "2.5",
+        "maitrise2": "Maitrise satisfaisante"
+      },
+      "e002": {
+        "maitrise1": "Maitrise fragile",
+        "qte": "3",
+        "maitrise2": "Maitrise fragile"
+      },
+      "e003": {
+        "maitrise1": "Maitrise satisfaisante",
+        "qte": "2.5",
+        "maitrise2": "Maitrise satisfaisante"
+      },
+      "e009": {
+        "maitrise1": "Tres bonne maitrise",
+        "qte": "4",
+        "maitrise2": "Tres bonne maitrise"
+      },
+      "e011": {
+        "maitrise1": "Maitrise fragile",
+        "qte": "3",
+        "maitrise2": "Maitrise fragile"
+      },
+      "e012": {
+        "maitrise1": "Maitrise fragile",
+        "qte": "2",
+        "maitrise2": "Maitrise fragile"
+      },
+      "e014": {
+        "maitrise1": "Tres bonne maitrise",
+        "qte": "3",
+        "maitrise2": "Tres bonne maitrise"
+      },
+      "e015": {
+        "maitrise1": "Maitrise fragile",
+        "qte": "2",
+        "maitrise2": "Maitrise fragile"
+      },
+      "e016": {
+        "maitrise1": "Maitrise fragile",
+        "qte": "3",
+        "maitrise2": "Maitrise fragile"
+      },
+      "e017": {
+        "maitrise1": "Maitrise fragile",
+        "qte": "2",
+        "maitrise2": "Maitrise fragile"
+      },
+      "e020": {
+        "maitrise1": "Maitrise satisfaisante",
+        "qte": "3",
+        "maitrise2": "Maitrise satisfaisante"
       }
     }
   },
