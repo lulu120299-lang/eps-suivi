@@ -344,7 +344,8 @@
       "e006": "Absent",
       "e019": "Absent"
     },
-    "s001": {}
+    "s001": {},
+    "s003": {}
   },
   "autoEval": {
     "s1774213148461": {
@@ -438,7 +439,8 @@
         "maitrise2": "Maitrise fragile"
       }
     },
-    "s001": {}
+    "s001": {},
+    "s003": {}
   },
   "seanceObjectifs": {
     "s001": {
