@@ -632,7 +632,7 @@
     "s1774213526527__AFLP 6__e018": 3,
     "s1774213526527__AFLP 6__e015": 3,
     "s1774213526527__AFLP 1__e023": 2,
-    "s1774213526527__AFLP 1__e020": 0,
+    "s1774213526527__AFLP 1__e020": 2,
     "s1774213526527__AFLP 1__e001": 1,
     "s1774213526527__AFLP 1__e002": 2,
     "s1774213526527__AFLP 1__e003": 2,
@@ -644,7 +644,17 @@
     "s1774213526527__AFLP 1__e009": 1,
     "s1774213526527__AFLP 1__e010": 2,
     "s1774213526527__AFLP 1__e011": 1,
-    "s1774213526527__AFLP 1__e012": 0
+    "s1774213526527__AFLP 1__e012": 2,
+    "s1774213526527__AFLP 1__e013": 2,
+    "s1774213526527__AFLP 1__e014": 2,
+    "s1774213526527__AFLP 1__e015": 2,
+    "s1774213526527__AFLP 1__e016": 2,
+    "s1774213526527__AFLP 1__e017": 2,
+    "s1774213526527__AFLP 1__e018": 2,
+    "s1774213526527__AFLP 1__e019": 2,
+    "s1774213526527__AFLP 1__e021": 2,
+    "s1774213526527__AFLP 1__e022": 2,
+    "s1774213526527__AFLP 1__e024": 2
   },
   "seq": {
     "objet": "Réaliser en binôme un parcours d'orientation en milieu naturel, en construisant et en adaptant un itinéraire pertinent, tout en gérant son effort et en respectant strictement les règles de sécurité et de l'environnement.",
