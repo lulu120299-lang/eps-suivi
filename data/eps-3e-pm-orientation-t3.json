@@ -376,6 +376,48 @@
     "s1774213526527": {
       "e007": {
         "maitrise1": ""
+      },
+      "e001": {
+        "maitrise2": "Maitrise fragile"
+      },
+      "e006": {
+        "maitrise2": "Maitrise fragile",
+        "maitrise1": "Maitrise satisfaisante"
+      },
+      "e005": {
+        "maitrise1": "Maitrise satisfaisante"
+      },
+      "e023": {
+        "maitrise1": "Maitrise fragile",
+        "maitrise2": "Maitrise fragile"
+      },
+      "e024": {
+        "maitrise1": "Maitrise satisfaisante",
+        "maitrise2": "Maitrise fragile"
+      },
+      "e022": {
+        "maitrise1": "Maitrise satisfaisante",
+        "maitrise2": "Maitrise satisfaisante"
+      },
+      "e021": {
+        "maitrise1": "Maitrise insuffisante",
+        "maitrise2": "Maitrise insuffisante"
+      },
+      "e020": {
+        "maitrise1": "Maitrise satisfaisante",
+        "maitrise2": "Maitrise satisfaisante"
+      },
+      "e019": {
+        "maitrise1": "Maitrise satisfaisante",
+        "maitrise2": "Maitrise fragile"
+      },
+      "e018": {
+        "maitrise1": "Maitrise satisfaisante",
+        "maitrise2": "Maitrise fragile"
+      },
+      "e016": {
+        "maitrise1": "Maitrise fragile",
+        "maitrise2": "Maitrise fragile"
       }
     }
   },
@@ -452,7 +494,7 @@
     "s002__AFLP 1__e020": 2,
     "s002__AFLP 1__e021": 2,
     "s002__AFLP 1__e022": 2,
-    "s002__AFLP 1__e023": 2,
+    "s002__AFLP 1__e023": 1,
     "s002__AFLP 1__e024": 2,
     "s003__AFLP 3__e001": 1,
     "s003__AFLP 3__e002": 1,
@@ -549,7 +591,16 @@
     "s1774213526527__AFLP 6__e021": 3,
     "s1774213526527__AFLP 6__e019": 3,
     "s1774213526527__AFLP 6__e018": 3,
-    "s1774213526527__AFLP 6__e015": 3
+    "s1774213526527__AFLP 6__e015": 3,
+    "s1774213526527__AFLP 1__e023": 2,
+    "s1774213526527__AFLP 1__e020": 0,
+    "s1774213526527__AFLP 1__e001": 1,
+    "s1774213526527__AFLP 1__e002": 2,
+    "s1774213526527__AFLP 1__e003": 2,
+    "s1774213526527__AFLP 1__e004": 1,
+    "s1774213526527__AFLP 1__e005": 2,
+    "s1774213526527__AFLP 1__e006": 2,
+    "s1774213526527__AFLP 1__e007": 1
   },
   "seq": {
     "objet": "Réaliser en binôme un parcours d'orientation en milieu naturel, en construisant et en adaptant un itinéraire pertinent, tout en gérant son effort et en respectant strictement les règles de sécurité et de l'environnement.",
