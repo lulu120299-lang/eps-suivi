@@ -6,10 +6,7 @@
       "date": "2026-02-23",
       "objectif": "Découverte de l'APSA — Règles de sécurité — Retrouver 6 balises disposées autour du lycée (zone sécurisée)",
       "bilan": "Ensemble et premiers. Avec courage. Évaluation diagnostique avec niveau. Distribution du dispositif.",
-      "aflpTravailles": [
-        "AFLP 1",
-        "AFLP 6"
-      ],
+      "aflpTravailles": [],
       "parties": [
         {
           "id": "p101",
@@ -39,7 +36,6 @@
       "bilan": "Bilan mitigé. Grosso modo, une partie de la classe risque d'être concernée. Tableau de l'heure. On a fait.",
       "aflpTravailles": [
         "AFLP 1",
-        "AFLP 3",
         "AFLP 6"
       ],
       "parties": [
@@ -70,9 +66,8 @@
       "objectif": "S'engager dans la construction d'un itinéraire simple à travers des repères fiables — Se déplacer en milieu +/- connu",
       "bilan": "",
       "aflpTravailles": [
-        "AFLP 1",
-        "AFLP 3",
-        "AFLP 6"
+        "AFLP 6",
+        "AFLP 3"
       ],
       "parties": [
         {
@@ -102,9 +97,7 @@
       "objectif": "Co-concevoir un projet — Adapter son allure et ses choix — Analyser sa pratique — Conduire en autonomie et optimiser",
       "bilan": "",
       "aflpTravailles": [
-        "AFLP 1",
-        "AFLP 3",
-        "AFLP 6"
+        "AFLP 3"
       ],
       "parties": [
         {
@@ -343,7 +336,8 @@
       "e005": "Absent",
       "e006": "Absent",
       "e019": "Absent"
-    }
+    },
+    "s001": {}
   },
   "autoEval": {
     "s1774213148461": {
@@ -432,7 +426,8 @@
         "qte": "3",
         "maitrise2": "Maitrise satisfaisante"
       }
-    }
+    },
+    "s001": {}
   },
   "seanceObjectifs": {
     "s001": {
@@ -486,7 +481,7 @@
     }
   },
   "comp": {
-    "s1774213148461__AFLP 6__e001": 2,
+    "s1774213148461__AFLP 6__e001": 3,
     "s1774213148461__AFLP 6__e002": 3,
     "s1774213148461__AFLP 6__e003": 3,
     "s1774213148461__AFLP 6__e004": 3,
@@ -522,7 +517,102 @@
     "s1774213148461__AFLP 1__e016": 2,
     "s1774213148461__AFLP 1__e017": 2,
     "s1774213148461__AFLP 1__e018": 3,
-    "s1774213148461__AFLP 1__e020": 3
+    "s1774213148461__AFLP 1__e020": 3,
+    "s002__AFLP 6__e001": 2,
+    "s002__AFLP 6__e002": 2,
+    "s002__AFLP 6__e003": 2,
+    "s002__AFLP 6__e007": 2,
+    "s002__AFLP 6__e006": 2,
+    "s002__AFLP 6__e004": 2,
+    "s002__AFLP 6__e008": 2,
+    "s002__AFLP 6__e010": 2,
+    "s002__AFLP 6__e009": 2,
+    "s002__AFLP 6__e020": 2,
+    "s002__AFLP 6__e019": 2,
+    "s002__AFLP 6__e018": 2,
+    "s002__AFLP 6__e017": 2,
+    "s002__AFLP 6__e016": 2,
+    "s002__AFLP 6__e015": 2,
+    "s002__AFLP 6__e014": 2,
+    "s002__AFLP 6__e013": 2,
+    "s002__AFLP 6__e011": 2,
+    "s002__AFLP 6__e012": 2,
+    "s003__AFLP 6__e001": 3,
+    "s003__AFLP 6__e002": 3,
+    "s003__AFLP 6__e003": 3,
+    "s003__AFLP 6__e004": 3,
+    "s003__AFLP 6__e007": 3,
+    "s003__AFLP 6__e006": 3,
+    "s003__AFLP 6__e020": 3,
+    "s003__AFLP 6__e019": 3,
+    "s003__AFLP 6__e018": 3,
+    "s003__AFLP 6__e017": 3,
+    "s003__AFLP 6__e015": 3,
+    "s003__AFLP 6__e014": 3,
+    "s003__AFLP 6__e016": 3,
+    "s003__AFLP 6__e013": 3,
+    "s003__AFLP 6__e011": 3,
+    "s003__AFLP 6__e012": 3,
+    "s003__AFLP 6__e010": 3,
+    "s003__AFLP 6__e008": 3,
+    "s003__AFLP 6__e009": 3,
+    "s002__AFLP 1__e001": 2,
+    "s002__AFLP 1__e002": 1,
+    "s002__AFLP 1__e003": 2,
+    "s002__AFLP 1__e004": 1,
+    "s002__AFLP 1__e006": 1,
+    "s002__AFLP 1__e007": 2,
+    "s002__AFLP 1__e008": 2,
+    "s002__AFLP 1__e009": 1,
+    "s002__AFLP 1__e010": 1,
+    "s002__AFLP 1__e011": 1,
+    "s002__AFLP 1__e012": 1,
+    "s002__AFLP 1__e013": 2,
+    "s002__AFLP 1__e014": 2,
+    "s002__AFLP 1__e015": 1,
+    "s002__AFLP 1__e016": 0,
+    "s002__AFLP 1__e017": 1,
+    "s002__AFLP 1__e018": 2,
+    "s002__AFLP 1__e019": 1,
+    "s002__AFLP 1__e020": 2,
+    "s003__AFLP 3__e001": 2,
+    "s003__AFLP 3__e002": 1,
+    "s003__AFLP 3__e003": 2,
+    "s003__AFLP 3__e004": 1,
+    "s003__AFLP 3__e006": 1,
+    "s003__AFLP 3__e007": 2,
+    "s003__AFLP 3__e008": 2,
+    "s003__AFLP 3__e009": 2,
+    "s003__AFLP 3__e010": 1,
+    "s003__AFLP 3__e011": 1,
+    "s003__AFLP 3__e012": 1,
+    "s003__AFLP 3__e013": 2,
+    "s003__AFLP 3__e014": 2,
+    "s003__AFLP 3__e015": 1,
+    "s003__AFLP 3__e016": 0,
+    "s003__AFLP 3__e017": 1,
+    "s003__AFLP 3__e018": 2,
+    "s003__AFLP 3__e019": 2,
+    "s003__AFLP 3__e020": 2,
+    "s004__AFLP 3__e020": 2,
+    "s004__AFLP 3__e019": 2,
+    "s004__AFLP 3__e018": 2,
+    "s004__AFLP 3__e017": 2,
+    "s004__AFLP 3__e016": 1,
+    "s004__AFLP 3__e015": 1,
+    "s004__AFLP 3__e014": 2,
+    "s004__AFLP 3__e013": 2,
+    "s004__AFLP 3__e012": 1,
+    "s004__AFLP 3__e011": 2,
+    "s004__AFLP 3__e010": 1,
+    "s004__AFLP 3__e009": 2,
+    "s004__AFLP 3__e008": 2,
+    "s004__AFLP 3__e007": 2,
+    "s004__AFLP 3__e006": 2,
+    "s004__AFLP 3__e004": 1,
+    "s004__AFLP 3__e003": 2,
+    "s004__AFLP 3__e002": 2,
+    "s004__AFLP 3__e001": 2
   },
   "seq": {
     "objet": "Être capable de concevoir et réaliser un déplacement en course d'orientation en identifiant et en enchaînant l'ensemble des balises d'un parcours, en choisissant l'itinéraire le plus efficient au regard de ses ressources et des contraintes du milieu, tout en respectant les règles de sécurité, et en analysant sa prestation afin de l'optimiser.",
