@@ -329,6 +329,13 @@
       "amenagement": "",
       "fiche": null,
       "noteFinale": null
+    },
+    {
+      "id": "e1774255696336",
+      "nom": "DIALLO Ibrahima",
+      "amenagement": "",
+      "fiche": null,
+      "noteFinale": null
     }
   ],
   "presences": {
@@ -612,7 +619,10 @@
     "s004__AFLP 3__e004": 1,
     "s004__AFLP 3__e003": 2,
     "s004__AFLP 3__e002": 2,
-    "s004__AFLP 3__e001": 2
+    "s004__AFLP 3__e001": 2,
+    "s1774213148461__AFLP 1__e1774255696336": 1,
+    "s004__AFLP 3__e1774255696336": 2,
+    "s1774213148461__AFLP 6__e1774255696336": 3
   },
   "seq": {
     "objet": "Être capable de concevoir et réaliser un déplacement en course d'orientation en identifiant et en enchaînant l'ensemble des balises d'un parcours, en choisissant l'itinéraire le plus efficient au regard de ses ressources et des contraintes du milieu, tout en respectant les règles de sécurité, et en analysant sa prestation afin de l'optimiser.",
