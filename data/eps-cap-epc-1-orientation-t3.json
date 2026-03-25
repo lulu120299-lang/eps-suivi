@@ -365,7 +365,53 @@
         "maitrise2": "Maîtrise insuffisante"
       }
     },
-    "s1774087701884": {},
+    "s1774087701884": {
+      "e002": {
+        "maitrise1": "Maitrise fragile",
+        "maitrise2": "Maitrise insuffisante",
+        "qte": "3"
+      },
+      "e003": {
+        "maitrise1": "Maitrise fragile",
+        "maitrise2": "Maitrise insuffisante",
+        "qte": "1.5"
+      },
+      "e004": {
+        "maitrise1": "Maitrise satisfaisante",
+        "maitrise2": "Maitrise satisfaisante",
+        "qte": "1.5"
+      },
+      "e006": {
+        "maitrise1": "Maitrise fragile",
+        "maitrise2": "Maitrise fragile",
+        "qte": "3"
+      },
+      "e007": {
+        "maitrise1": "Maitrise fragile",
+        "maitrise2": "Maitrise fragile",
+        "qte": "3"
+      },
+      "e009": {
+        "maitrise1": "Maitrise fragile",
+        "maitrise2": "Maitrise fragile",
+        "qte": "1.5"
+      },
+      "e010": {
+        "maitrise2": "Maitrise satisfaisante",
+        "maitrise1": "Maitrise satisfaisante",
+        "qte": "3.5"
+      },
+      "e011": {
+        "maitrise1": "Maitrise satisfaisante",
+        "maitrise2": "Maitrise satisfaisante",
+        "qte": "3.5"
+      },
+      "e012": {
+        "maitrise1": "Maitrise satisfaisante",
+        "maitrise2": "Maitrise satisfaisante",
+        "qte": "3.5"
+      }
+    },
     "s1774206615314": {},
     "s1774180113232": {},
     "s1774206681702": {},
