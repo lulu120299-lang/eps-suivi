@@ -312,7 +312,11 @@
       "e008": "Absent",
       "e009": "Absent"
     },
-    "s1774087701884": {},
+    "s1774087701884": {
+      "e001": "Absent",
+      "e005": "Absent",
+      "e008": "Absent"
+    },
     "s1774206615314": {},
     "s1774180113232": {},
     "s1774206681702": {},
@@ -374,7 +378,10 @@
       "obj1": "Se repérer dans l'espace",
       "obj2": "Créer un itinéraire simple"
     },
-    "s1774087701884": {},
+    "s1774087701884": {
+      "obj1": "Se placer et repérer sur la carte",
+      "obj2": "lire et comprendre les légendes"
+    },
     "s1774206615314": {},
     "s1774180113232": {},
     "s1774206681702": {},
