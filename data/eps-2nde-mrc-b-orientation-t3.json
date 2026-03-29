@@ -159,6 +159,46 @@
           "bilan": ""
         }
       ]
+    },
+    {
+      "id": "s1774792660459",
+      "num": 6,
+      "date": "2026-03-30",
+      "objectif": "Gérer son allure et maintenant un engament continu",
+      "bilan": "",
+      "aflpTravailles": [
+        "AFLP 5",
+        "AFLP 6"
+      ],
+      "parties": [
+        {
+          "id": "p1774792437718287",
+          "titre": "Échauffement routinier et progressif ",
+          "objectif": "Même rituel à chaque séance pour installer les automatismes. Progression du général vers le spécifique CO.\n",
+          "consignes": "Phase 1 — Activation générale (5 min)\nFooting libre autour du terrain, allure très tranquille. Consigne : \"tu dois pouvoir parler sans être essoufflé\". Après 2 min, intégrer des changements de direction sur signal du prof.\nPhase 2 — Mobilisation articulaire et musculaire (5 min)\nEn déplacement sur 20m aller-retour :\n\nMontées de genoux → talons-fesses → foulées bondissantes\nPas chassés latéraux → croisés devant/derrière\nAccélérations progressives sur 20m (50% → 70% → 85%)\n\nPhase 3 — Spécifique orientation (10 min)\nJeu de balises courtes : 6 balises placées autour du terrain sur une mini-carte simplifiée. Les élèves doivent trouver les 3 balises de leur couleur dans un temps donné (3 min). Objectif : se repérer rapidement, ne pas sprinter inutilement, garder une allure de course soutenue mais contrôlée. Debriefing rapide : \"combien ont sprinté ? combien ont marché ? qui a fini dans le temps ?\"",
+          "criteres": "Echauffement progressif et adapté",
+          "contenus": "contenus moteur",
+          "bilan": ""
+        },
+        {
+          "id": "p1774792530670m71",
+          "titre": "FutOrientation",
+          "objectif": "Gérer son allure en course d'orientation pour optimiser son score FIFA : choisir le bon niveau de parcours selon ses capacités et réaliser la distance dans la fenêtre de temps imposée par sa carte.",
+          "consignes": "Mise en place (5 min)\nRegroupement. Le prof explique le focus de la séance :\n\n\"Aujourd'hui on ne vous évalue pas sur le niveau de parcours choisi. On vous évalue sur votre capacité à gérer votre effort. Un élève qui fait le parcours 1 dans sa fenêtre de temps marque plus de points qu'un élève qui fait le parcours 3 hors temps.\"\n\nRappel du fonctionnement de l'app : chrono qui tourne dès le départ, temps min et temps max visibles sur la carte, bonus défensif si sous le temps min avec les 3 balises trouvées.\nConsigne principale\nChaque élève ou binôme :\n\nOuvre l'app → Mode Élève → choisit son équipe\nChoisit son niveau de parcours en fonction de ce qu'il a ressenti lors des séances précédentes\nTire une carte dans la plage correspondante\nPart en autonomie — le chrono tourne\nTrouve ses 3 balises et revient au QG avant le temps max\n\nCritères de choix de carte — guidage du prof\nAvant le départ, le prof pose 3 questions à chaque élève/binôme :\n\n\"Tu as fait combien de minutes la dernière fois ?\"\n\"Tu étais à l'aise ou tu avais du mal ?\"\n\"Qu'est-ce que tu choisis aujourd'hui et pourquoi ?\"\n\nRemédiation / différenciation\nProfil élèveRemédiationA du mal à s'orienterLui conseiller le parcours 1 ou 2, lui rappeler d'utiliser l'indice scout disponible dans l'appPart trop vite, revient épuisé hors tempsLui faire calculer son allure avant le départ : distance ÷ temps min = vitesse cibleTrouve les balises mais pas dans le tempsTravailler la lecture de carte en amont, réduire le niveau de parcoursTrop à l'aise, finit trop tôtL'orienter vers le niveau supérieur ou lui proposer de faire 2 parcoursRefuse de courir / démotivéValoriser l'aspect collectif (points pour son équipe), lui rappeler l'enjeu du match final",
+          "criteres": "L'élève choisit un parcours adapté à son niveau\nIl réalise le parcours dans la fenêtre temps min/max de sa carte\nIl parcourt au moins 90% de la distance objectif\nIl trouve les 3 balises de sa carte\nIl est capable d'expliquer son choix de parcours et de carte après la séance",
+          "contenus": "Notion d'allure de course et de régulation de l'effort\nLecture et interprétation d'une carte d'orientation\nPrise de décision : choisir un parcours en fonction de ses ressources et compétences\nLien effort / résultat : partir vite ne garantit pas un meilleur score (hors fenêtre = pas de bonus défensif)\nUtilisation de l'app FutOrientation comme outil de régulation (chrono, GPS, balises)",
+          "bilan": ""
+        },
+        {
+          "id": "p1774792629422707",
+          "titre": " Récupération et bilan collectif",
+          "objectif": "écupérer physiologiquement après l'effort et analyser collectivement les choix réalisés pour construire les régulations individuelles en vue de la séance 5.",
+          "consignes": "Récupération active (5 min)\nMarche lente 2 min puis étirements guidés : quadriceps, ischio-jambiers, mollets, épaules.\nBilan collectif (10 min)\nRésultats équipes affichés via Mode Professeur sur l'app.\nQuestions posées :\n\n\"Qui a réussi à rester dans sa fenêtre de temps ?\"\n\"Qui a choisi un niveau différent d'avant ? Pourquoi ?\"\n\"Qu'est-ce qui vous a aidé à gérer votre allure ?\"",
+          "criteres": "",
+          "contenus": "",
+          "bilan": ""
+        }
+      ]
     }
   ],
   "eleves": [
