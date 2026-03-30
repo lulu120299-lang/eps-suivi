@@ -167,8 +167,8 @@
       "objectif": "Gérer son allure et maintenant un engament continu",
       "bilan": "",
       "aflpTravailles": [
-        "AFLP 5",
-        "AFLP 6"
+        "AFLP 6",
+        "AFLP 1"
       ],
       "parties": [
         {
@@ -385,7 +385,14 @@
       "e019": "Absent"
     },
     "s001": {},
-    "s003": {}
+    "s003": {},
+    "s1774792660459": {
+      "e002": "Absent",
+      "e003": "Pas affaire",
+      "e014": "Absent",
+      "e016": "Absent",
+      "e019": "Absent"
+    }
   },
   "autoEval": {
     "s1774213148461": {
@@ -480,7 +487,8 @@
       }
     },
     "s001": {},
-    "s003": {}
+    "s003": {},
+    "s1774792660459": {}
   },
   "seanceObjectifs": {
     "s001": {
@@ -502,6 +510,9 @@
     "s1774213148461": {
       "obj1": "Se repérer sur la carte",
       "obj2": "Lire les légendes"
+    },
+    "s1774792660459": {
+      "obj1": "S’orienter dans l’espace"
     }
   },
   "profil": {
@@ -555,7 +566,7 @@
     "s1774213148461__AFLP 6__e015": 3,
     "s1774213148461__AFLP 1__e001": 3,
     "s1774213148461__AFLP 1__e002": 1,
-    "s1774213148461__AFLP 1__e003": 3,
+    "s1774213148461__AFLP 1__e003": 2,
     "s1774213148461__AFLP 1__e004": 2,
     "s1774213148461__AFLP 1__e006": 0,
     "s1774213148461__AFLP 1__e007": 3,
@@ -668,7 +679,25 @@
     "s004__AFLP 3__e001": 2,
     "s1774213148461__AFLP 1__e1774255696336": 1,
     "s004__AFLP 3__e1774255696336": 2,
-    "s1774213148461__AFLP 6__e1774255696336": 2
+    "s1774213148461__AFLP 6__e1774255696336": 2,
+    "s1774792660459__AFLP 1__e001": 3,
+    "s1774792660459__AFLP 1__e003": 2,
+    "s1774792660459__AFLP 1__e004": 2,
+    "s1774792660459__AFLP 1__e1774255696336": 2,
+    "s1774792660459__AFLP 1__e006": 2,
+    "s1774792660459__AFLP 1__e007": 3,
+    "s1774792660459__AFLP 1__e008": 3,
+    "s1774792660459__AFLP 1__e009": 2,
+    "s1774792660459__AFLP 1__e010": 2,
+    "s1774792660459__AFLP 1__e011": 2,
+    "s1774792660459__AFLP 1__e012": 1,
+    "s1774792660459__AFLP 1__e013": 3,
+    "s1774792660459__AFLP 1__e014": 0,
+    "s1774792660459__AFLP 1__e015": 1,
+    "s1774792660459__AFLP 1__e016": 0,
+    "s1774792660459__AFLP 1__e017": 2,
+    "s1774792660459__AFLP 1__e018": 2,
+    "s1774792660459__AFLP 1__e020": 3
   },
   "seq": {
     "objet": "Être capable de concevoir et réaliser un déplacement en course d'orientation en identifiant et en enchaînant l'ensemble des balises d'un parcours, en choisissant l'itinéraire le plus efficient au regard de ses ressources et des contraintes du milieu, tout en respectant les règles de sécurité, et en analysant sa prestation afin de l'optimiser.",
