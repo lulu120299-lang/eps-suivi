@@ -157,7 +157,7 @@
       "bilan": "Bilan positif - séance éval diagnostique ",
       "aflpTravailles": [
         "AFLP 6",
-        "AFLP 3"
+        "AFLP 1"
       ],
       "parties": [
         {
@@ -196,8 +196,9 @@
       "objectif": "Se repérer dans l’espace - lire et comprendre la légende ",
       "bilan": "De progrès réalisé - Echauffement encore peu développé et peu implication de la part de certains élèves. Je m'aperçois qu'il y a des élèves qui ont encore des difficultés à s'orienter et se placer sur la carte.",
       "aflpTravailles": [
-        "AFLP 3",
-        "AFLP 6"
+        "AFLP 6",
+        "AFLP 1",
+        "AFLP 4"
       ],
       "parties": [
         {
@@ -565,7 +566,7 @@
     "s1774180113232__AFLP 4__e004": 3,
     "s1774180113232__AFLP 4__e006": 3,
     "s1774180113232__AFLP 4__e007": 3,
-    "s1774180113232__AFLP 4__e008": 3,
+    "s1774180113232__AFLP 4__e008": 0,
     "s1774180113232__AFLP 4__e009": 3,
     "s1774180113232__AFLP 4__e010": 3,
     "s1774180113232__AFLP 4__e011": 3,
@@ -578,7 +579,31 @@
     "s1774180113232__AFLP 6__e009": 3,
     "s1774180113232__AFLP 6__e010": 3,
     "s1774180113232__AFLP 6__e011": 3,
-    "s1774180113232__AFLP 6__e012": 3
+    "s1774180113232__AFLP 6__e012": 3,
+    "s1774087701884__AFLP 1__e001": 2,
+    "s1774087701884__AFLP 1__e002": 2,
+    "s1774087701884__AFLP 1__e003": 2,
+    "s1774087701884__AFLP 1__e004": 2,
+    "s1774087701884__AFLP 1__e005": 0,
+    "s1774087701884__AFLP 1__e006": 1,
+    "s1774087701884__AFLP 1__e007": 1,
+    "s1774087701884__AFLP 1__e008": 0,
+    "s1774087701884__AFLP 1__e009": 2,
+    "s1774087701884__AFLP 1__e010": 2,
+    "s1774087701884__AFLP 1__e011": 2,
+    "s1774087701884__AFLP 1__e012": 3,
+    "s1774087701884__AFLP 4__e001": 2,
+    "s1774087701884__AFLP 4__e002": 2,
+    "s1774087701884__AFLP 4__e003": 2,
+    "s1774087701884__AFLP 4__e004": 2,
+    "s1774087701884__AFLP 4__e005": 0,
+    "s1774087701884__AFLP 4__e006": 2,
+    "s1774087701884__AFLP 4__e007": 2,
+    "s1774087701884__AFLP 4__e008": 0,
+    "s1774087701884__AFLP 4__e009": 2,
+    "s1774087701884__AFLP 4__e010": 2,
+    "s1774087701884__AFLP 4__e011": 2,
+    "s1774087701884__AFLP 4__e012": 2
   },
   "seq": {
     "objet": "Essai",
