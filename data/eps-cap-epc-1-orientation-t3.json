@@ -266,8 +266,8 @@
       "bilan": "",
       "aflpTravailles": [
         "AFLP 1",
-        "AFLP 3",
-        "AFLP 6"
+        "AFLP 6",
+        "AFLP 2"
       ],
       "parties": []
     },
@@ -279,8 +279,9 @@
       "bilan": "",
       "aflpTravailles": [
         "AFLP 1",
-        "AFLP 3",
-        "AFLP 6"
+        "AFLP 6",
+        "AFLP 2",
+        "AFLP 4"
       ],
       "parties": []
     },
@@ -292,8 +293,9 @@
       "bilan": "",
       "aflpTravailles": [
         "AFLP 6",
-        "AFLP 3",
-        "AFLP 1"
+        "AFLP 1",
+        "AFLP 2",
+        "AFLP 4"
       ],
       "parties": []
     }
@@ -610,7 +612,8 @@
     "objectifs": "Es",
     "aflpPrio": [
       "AFLP 1",
-      "AFLP 3",
+      "AFLP 2",
+      "AFLP 4",
       "AFLP 6"
     ],
     "trame": []
