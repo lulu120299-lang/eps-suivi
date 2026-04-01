@@ -318,7 +318,12 @@
       "e008": "Absent"
     },
     "s1774206615314": {},
-    "s1774180113232": {},
+    "s1774180113232": {
+      "e003": "Absent",
+      "e005": "Absent",
+      "e008": "Absent",
+      "e001": "Present"
+    },
     "s1774206681702": {},
     "s1774206754534": {},
     "s1774206769844": {}
@@ -413,7 +418,53 @@
       }
     },
     "s1774206615314": {},
-    "s1774180113232": {},
+    "s1774180113232": {
+      "e001": {
+        "maitrise1": "Maitrise satisfaisante",
+        "maitrise2": "Maitrise satisfaisante",
+        "qte": "3"
+      },
+      "e002": {
+        "maitrise1": "Maitrise fragile",
+        "maitrise2": "Maitrise satisfaisante",
+        "qte": "3"
+      },
+      "e004": {
+        "maitrise1": "Maitrise satisfaisante",
+        "maitrise2": "Maitrise satisfaisante",
+        "qte": "3"
+      },
+      "e006": {
+        "maitrise1": "Maitrise fragile",
+        "maitrise2": "Maitrise satisfaisante",
+        "qte": "3"
+      },
+      "e007": {
+        "maitrise1": "Maitrise fragile",
+        "maitrise2": "Maitrise satisfaisante",
+        "qte": "3"
+      },
+      "e009": {
+        "maitrise1": "Tres bonne maitrise",
+        "maitrise2": "Tres bonne maitrise",
+        "qte": "3"
+      },
+      "e010": {
+        "maitrise1": "Tres bonne maitrise",
+        "maitrise2": "Tres bonne maitrise",
+        "qte": "3.5"
+      },
+      "e011": {
+        "maitrise1": "Maitrise satisfaisante",
+        "maitrise2": "Tres bonne maitrise",
+        "qte": "3.5"
+      },
+      "e012": {
+        "maitrise1": "Tres bonne maitrise",
+        "maitrise2": "Tres bonne maitrise",
+        "qte": "3"
+      }
+    },
     "s1774206681702": {},
     "s1774206754534": {},
     "s1774206769844": {}
@@ -429,7 +480,10 @@
       "obj2": "lire et comprendre les légendes"
     },
     "s1774206615314": {},
-    "s1774180113232": {},
+    "s1774180113232": {
+      "obj1": "Se repérer dans l’espace ",
+      "obj2": "Sécurité "
+    },
     "s1774206681702": {},
     "s1774206754534": {},
     "s1774206769844": {}
