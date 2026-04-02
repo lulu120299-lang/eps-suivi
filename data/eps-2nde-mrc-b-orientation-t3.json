@@ -392,7 +392,9 @@
       "e014": "Absent",
       "e016": "Absent",
       "e019": "Absent"
-    }
+    },
+    "s002": {},
+    "s004": {}
   },
   "autoEval": {
     "s1774213148461": {
@@ -428,7 +430,7 @@
       },
       "e001": {
         "maitrise1": "Maitrise satisfaisante",
-        "qte": "2.5",
+        "qte": "3",
         "maitrise2": "Maitrise satisfaisante"
       },
       "e002": {
@@ -488,7 +490,9 @@
     },
     "s001": {},
     "s003": {},
-    "s1774792660459": {}
+    "s1774792660459": {},
+    "s002": {},
+    "s004": {}
   },
   "seanceObjectifs": {
     "s001": {
