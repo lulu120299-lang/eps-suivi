@@ -187,17 +187,17 @@
         {
           "id": "p04",
           "titre": "Situation d'apprentissage",
-          "objectif": "Identifier et creer un itineraire le plus rapide",
-          "consignes": "Analyser la carte avant le depart. Identifier plusieurs choix et selectionner le plus pertinent. Utiliser des points appui pour progresser.",
-          "criteres": "Strategie globale construite. Parcours conduit en autonomie.",
-          "contenus": "Strategie globale, points appui, choix itineraires",
-          "bilan": ""
+          "objectif": "Identifier et créer un itinéraire le plus rapide possible tout en sachant se repérer sur la carte",
+          "consignes": "Analyser la carte avant le départ pour se repérer et se positionner sur la carte pour identifier un point attaque. Les élèves ont le choix de plusieurs cartes (1 à 10) qui sont de plus en plus difficile (balises éloignés et proche d'autre balises) pour ce faire les élèves doivent choisir et trouver les 3 balises. S'ils ne trouvent pas les balises ils doivent renoncer aux parcours pour faire je leur donne un temps maximum sur un parcours pour qu'ils apprennent aussi à gérer leur temps et savoir renoncer à une balise tout en revenant à temps au points départ.",
+          "criteres": "Se repérer sur une carte, se placer sur une carte. Identifier grâce aux éléments extérieurs des repères pour se positionner",
+          "contenus": "Méthodologique et moteur",
+          "bilan": "Bonne séance évaluation diagnostique dans l'ensemble."
         },
         {
           "id": "p05",
           "titre": "Bilan collectif",
-          "objectif": "Verbaliser et argumenter ses choix",
-          "consignes": "Chaque binome presente son itineraire",
+          "objectif": "Verbaliser et argumenter ses choix et savoir s'auto-évaluer",
+          "consignes": "Récupération active (5 min)\nMarche lente 2 min puis étirements guidés : quadriceps, ischio-jambiers, mollets, épaules.\nBilan collectif (10 min)\nRésultats équipes affichés via Mode Professeur sur l'app.\nQuestions posées :\n\n\"Qui a réussi à rester dans sa fenêtre de temps ?\"\n\"Qui a choisi un niveau différent d'avant ? Pourquoi ?\"\n\"Qu'est-ce qui vous a aidé à gérer votre allure ?\"",
           "criteres": "Capacite a expliquer et argumenter.",
           "contenus": "Expression orale, argumentation",
           "bilan": ""
@@ -220,7 +220,7 @@
           "id": "p1774087483132mk1",
           "titre": "Echauffement",
           "objectif": "Échauffer son corps et monter progressive de sa température corporelle",
-          "consignes": "Donner des mentions de légendes en ajoutant une consignes (exemple : montée de genou, talon fesses, course…) et identifier autour de nous quelques chose se référant à la légende et exécuter la consignes",
+          "consignes": "Phase 1 — Activation générale (5 min)\nFooting libre autour du terrain, allure très tranquille. Consigne : \"tu dois pouvoir parler sans être essoufflé\". Après 2 min, intégrer des changements de direction sur signal du prof.\nPhase 2 — Mobilisation articulaire et musculaire (5 min)\nEn déplacement sur 20m aller-retour :\n\nMontées de genoux → talons-fesses → foulées bondissantes\nPas chassés latéraux → croisés devant/derrière\nAccélérations progressives sur 20m (50% → 70% → 85%)\n\nPhase 3 — Spécifique orientation (10 min)\nJeu de balises courtes : 6 balises placées autour du terrain sur une mini-carte simplifiée. Les élèves doivent trouver les 3 balises de leur couleur dans un temps donné (3 min). Objectif : se repérer rapidement, ne pas sprinter inutilement, garder une allure de course soutenue mais contrôlée. Debriefing rapide : \"combien ont sprinté ? combien ont marché ? qui a fini dans le temps ?\"",
           "criteres": "- réussir à exécuter la consignes en respectant la consigne de légende",
           "contenus": "- analyse de son paysage\n- connaissance de la légende\n- travail spécifiquement sa foulée",
           "bilan": ""
