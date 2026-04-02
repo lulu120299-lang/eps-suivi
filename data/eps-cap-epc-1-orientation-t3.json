@@ -654,7 +654,7 @@
     "criteres": [
       {
         "id": "c1",
-        "nom": "AFLP CAP 1 __P1 : Planifier et conduire un déplacement adapté à ses ressources pour effectuer le trajet prévu dans sa totalité ; le cas échéant, savoir renoncer",
+        "nom": "AFLP CAP 1 __P1",
         "pts": 4,
         "niveaux": [
           {
@@ -681,7 +681,7 @@
       },
       {
         "id": "c2",
-        "nom": "AFLP CAP 1 __P2 : Planifier et conduire un déplacement adapté à ses ressources pour effectuer le trajet prévu dans sa totalité ; le cas échéant, savoir renoncer",
+        "nom": "AFLP CAP 1 __P2",
         "pts": 4,
         "niveaux": [
           {
@@ -708,7 +708,7 @@
       },
       {
         "id": "c3",
-        "nom": "AFLP CAP 2 __ Utiliser des techniques efficaces pour adapter son déplacement aux caractéristiques du milieu",
+        "nom": "AFLP CAP 2",
         "pts": 4,
         "niveaux": [
           {
@@ -735,7 +735,7 @@
       },
       {
         "id": "c4",
-        "nom": "AFLP CAP 4 __ S’impliquer dans des rôles sociaux pour assurer le bon fonctionnement d'une activité de pleine nature",
+        "nom": "AFLP CAP 4",
         "pts": 6,
         "niveaux": [
           {
@@ -762,7 +762,7 @@
       },
       {
         "id": "c5",
-        "nom": "AFLP CAP 6 __ Se préparer, connaître les risques, respecter la réglementation et appliquer les procédures d'urgence à mettre en œuvre dans les différents environnements de pratique pour s'y engager en sécurité",
+        "nom": "AFLP CAP 6",
         "pts": 2,
         "niveaux": [
           {
