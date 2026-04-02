@@ -165,8 +165,9 @@
       "objectif": "Gérer son allure et maintenir un engagement constant",
       "bilan": "",
       "aflpTravailles": [
-        "AFLP 5",
-        "AFLP 6"
+        "AFLP 6",
+        "AFLP 1",
+        "AFLP 4"
       ],
       "parties": [
         {
@@ -727,7 +728,8 @@
     "s1774213526527__AFLP 1__e019": 3,
     "s1774213526527__AFLP 1__e021": 2,
     "s1774213526527__AFLP 1__e022": 2,
-    "s1774213526527__AFLP 1__e024": 3
+    "s1774213526527__AFLP 1__e024": 3,
+    "s1774792873581__AFLP 5__e001": 0
   },
   "seq": {
     "objet": "Réaliser en binôme un parcours d'orientation en milieu naturel, en construisant et en adaptant un itinéraire pertinent, tout en gérant son effort et en respectant strictement les règles de sécurité et de l'environnement.",
