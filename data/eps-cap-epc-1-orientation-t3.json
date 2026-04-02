@@ -14,8 +14,8 @@
       "fiche": {
         "type": "GEVASCO",
         "desc": "",
-        "debut": "",
-        "fin": "",
+        "debut": "2025-09-01",
+        "fin": "2026-07-01",
         "med": "",
         "photo": null
       },
@@ -42,8 +42,8 @@
       "fiche": {
         "type": "PAP",
         "desc": "Absence - problème médicale sans justificatif de ma part ",
-        "debut": "",
-        "fin": "",
+        "debut": "2025-09-01",
+        "fin": "2026-07-01",
         "med": "",
         "photo": null
       },
@@ -56,8 +56,8 @@
       "fiche": {
         "type": "PAI",
         "desc": "Protocole urgence asthme",
-        "debut": "",
-        "fin": "",
+        "debut": "2025-10-10",
+        "fin": "2026-07-01",
         "med": "",
         "photo": null
       },
@@ -73,8 +73,15 @@
     {
       "id": "e008",
       "nom": "NOBLE Lubin",
-      "amenagement": "",
-      "fiche": null,
+      "amenagement": "Autre",
+      "fiche": {
+        "type": "Autre",
+        "desc": "Absence justifiée - élève en stage car ré-orientation l'an prochain",
+        "debut": "2026-02-23",
+        "fin": "2026-07-01",
+        "med": "",
+        "photo": null
+      },
       "noteFinale": null
     },
     {
@@ -90,9 +97,9 @@
       "amenagement": "Asthmatique",
       "fiche": {
         "type": "PAI",
-        "desc": "Asthme — inhalateur obligatoire",
-        "debut": "",
-        "fin": "",
+        "desc": "Asthme — inhalateur obligatoire (/!\\ il ne le prend pas à chaque fois => il n'y pense pas)",
+        "debut": "2025-09-01",
+        "fin": "2026-07-01",
         "med": "",
         "photo": null
       },
@@ -105,8 +112,8 @@
       "fiche": {
         "type": "PAI",
         "desc": "Asthme — surveillance effort",
-        "debut": "",
-        "fin": "",
+        "debut": "2025-09-01",
+        "fin": "2026-07-01",
         "med": "",
         "photo": null
       },
