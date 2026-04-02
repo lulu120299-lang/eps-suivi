@@ -537,6 +537,17 @@
     "social": {
       "obs": "Un début année compliqué avec des élèves qui s'apprécient peu; des tensions qui se sont calmé et ont gagné en maturité. Ils cherchent à s'entraider de plus en plus, ils dialoguent et acceptent de travailler avec les autres",
       "eleves": {}
+    },
+    "medical": {
+      "obs": "Une classe avec des élèves ULIS, à difficulté motrice et méthodologique. Re expliquer les consignes et adapté en fonction de certains",
+      "eleves": {
+        "e002": "Difficulté motrice et méthodologique",
+        "e010": "Difficulté méthodologique"
+      }
+    },
+    "scolaire": {
+      "obs": "Des élèves peu scolaire dans l'ensemble, recherche de l'action immédiat, des situations ludique qui camoufle le travail. Eviter la répétition d'une tache qui pourrait être peu ludique et amusante pour eux.",
+      "eleves": {}
     }
   },
   "comp": {
