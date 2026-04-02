@@ -672,7 +672,7 @@
     "e001": {}
   },
   "grille": {
-    "titre": "Grille evaluation CCF",
+    "titre": "Grille evaluation FPS",
     "criteres": [
       {
         "id": "c1",
