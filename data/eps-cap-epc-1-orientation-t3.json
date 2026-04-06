@@ -223,7 +223,10 @@
           "consignes": "Phase 1 — Activation générale (5 min)\nFooting libre autour du terrain, allure très tranquille. Consigne : \"tu dois pouvoir parler sans être essoufflé\". Après 2 min, intégrer des changements de direction sur signal du prof.\nPhase 2 — Mobilisation articulaire et musculaire (5 min)\nEn déplacement sur 20m aller-retour :\n\nMontées de genoux → talons-fesses → foulées bondissantes\nPas chassés latéraux → croisés devant/derrière\nAccélérations progressives sur 20m (50% → 70% → 85%)\n\nPhase 3 — Spécifique orientation (10 min)\nJeu de balises courtes : 6 balises placées autour du terrain sur une mini-carte simplifiée. Les élèves doivent trouver les 3 balises de leur couleur dans un temps donné (3 min). Objectif : se repérer rapidement, ne pas sprinter inutilement, garder une allure de course soutenue mais contrôlée. Debriefing rapide : \"combien ont sprinté ? combien ont marché ? qui a fini dans le temps ?\"",
           "criteres": "- réussir à exécuter la consignes en respectant la consigne de légende",
           "contenus": "- analyse de son paysage\n- connaissance de la légende\n- travail spécifiquement sa foulée",
-          "bilan": ""
+          "bilan": "",
+          "photos": [],
+          "tableaux": [],
+          "fichiers": []
         },
         {
           "id": "p1774087648007vt4",
@@ -232,7 +235,15 @@
           "consignes": "L'objectif de la situation consiste à partir placer des balises sur une carte dans une zone délimité par le prof en respectant la consigne lié à la légende.",
           "criteres": "Réussir à placer des balises de niveau 2/3 sur une carte",
           "contenus": "Utilisation de la légende, des éléments extérieurs pour s'orienter",
-          "bilan": "Des difficultés au début de la SA mais une amélioration au fur et à mesure de la séance, avec des élèves qui s'investissent et s'entraident"
+          "bilan": "Des difficultés au début de la SA mais une amélioration au fur et à mesure de la séance, avec des élèves qui s'investissent et s'entraident",
+          "photos": [],
+          "tableaux": [],
+          "fichiers": [
+            {
+              "nom": "carte CO ULIS.pdf",
+              "type": "application/pdf"
+            }
+          ]
         }
       ]
     },
