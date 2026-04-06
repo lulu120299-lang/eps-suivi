@@ -371,12 +371,22 @@
       "e004": "Absent",
       "e005": "Absent",
       "e008": "Absent",
-      "e009": "Absent"
+      "e009": "Absent",
+      "e012": "Present"
     },
     "s1774087701884": {
       "e001": "Absent",
       "e005": "Absent",
-      "e008": "Absent"
+      "e008": "Absent",
+      "e002": "Present",
+      "e003": "Present",
+      "e004": "Present",
+      "e006": "Present",
+      "e007": "Present",
+      "e009": "Present",
+      "e010": "Present",
+      "e011": "Present",
+      "e012": "Present"
     },
     "s1774206615314": {
       "e001": "",
@@ -392,7 +402,9 @@
       "e006": "Present",
       "e007": "Present",
       "e009": "Present",
-      "e010": "Absent"
+      "e010": "Present",
+      "e011": "Present",
+      "e012": "Present"
     },
     "s1774206681702": {},
     "s1774206754534": {},
