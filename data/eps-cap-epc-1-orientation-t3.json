@@ -372,7 +372,12 @@
       "e005": "Absent",
       "e008": "Absent",
       "e009": "Absent",
-      "e012": "Present"
+      "e012": "Present",
+      "e001": "Present",
+      "e002": "Present",
+      "e006": "Present",
+      "e010": "Present",
+      "e011": "Present"
     },
     "s1774087701884": {
       "e001": "Absent",
