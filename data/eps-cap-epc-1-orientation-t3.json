@@ -363,8 +363,14 @@
       "e008": "Absent",
       "e001": "Absent",
       "e002": "Present",
-      "e003": "Présent",
-      "e004": "Présent"
+      "e003": "Present",
+      "e004": "Present",
+      "e012": "Present",
+      "e011": "Present",
+      "e010": "Present",
+      "e009": "Present",
+      "e007": "Present",
+      "e006": "Present"
     },
     "s002": {
       "e003": "Absent",
