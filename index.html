@@ -277,9 +277,10 @@ textarea{resize:vertical;min-height:70px}
 .pdf-preview-box{background:#13161f;border:1px solid #252836;border-radius:8px;padding:1rem;max-height:230px;overflow-y:auto;margin-top:1rem}
 .pdf-name-item{display:flex;align-items:center;gap:8px;padding:5px 8px;border-radius:5px;font-size:.83rem}
 .pdf-name-item input[type=checkbox]{accent-color:#4f8aff;width:14px;height:14px}
-.mb{position:fixed;inset:0;background:rgba(0,0,0,.78);z-index:200;opacity:0;pointer-events:none;transition:opacity .2s;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:1.5rem 1rem}
+.mb{position:fixed;inset:0;background:rgba(0,0,0,.78);z-index:200;opacity:0;pointer-events:none;transition:opacity .2s}
 .mb.open{opacity:1;pointer-events:all}
-.modal{background:#1c1f2c;border:1px solid #252836;border-radius:16px;padding:1.75rem;width:100%;max-width:700px;margin:0 auto;transform:translateY(12px);transition:transform .2s;position:relative}
+.mb-inner{position:absolute;inset:0;overflow-y:scroll;-webkit-overflow-scrolling:touch;padding:1.5rem 1rem 5rem;display:flex;justify-content:center;align-items:flex-start}
+.modal{background:#1c1f2c;border:1px solid #252836;border-radius:16px;padding:1.75rem;width:100%;max-width:700px;flex-shrink:0;transform:translateY(12px);transition:transform .2s}
 .mb.open .modal{transform:translateY(0)}
 .modal-wide{max-width:820px}
 .modal-xl{max-width:960px}
@@ -694,7 +695,7 @@ textarea{resize:vertical;min-height:70px}
       <div id="grille-zone"></div>
     </div>
   </div>
-  <div class="mb" id="m-seq"><div class="modal modal-xl">
+  <div class="mb" id="m-seq"><div class="mb-inner"><div class="modal modal-xl">
     <div class="modal-title">Ma sequence</div>
     <div class="fg" style="margin-bottom:1rem">
       <div class="fgrp full"><label>Comp&#233;tence attendue</label><textarea id="seq-objet" style="min-height:80px" placeholder="Ex: Etre capable de concevoir et realiser un deplacement..."></textarea></div>
@@ -710,7 +711,7 @@ textarea{resize:vertical;min-height:70px}
       <button class="btn btn-p" id="btn-save-seq">Enregistrer</button>
     </div>
   </div></div>
-  <div class="mb" id="m-profil-plan"><div class="modal">
+  <div class="mb" id="m-profil-plan"><div class="mb-inner"><div class="modal">
     <div class="modal-title" id="profil-plan-title">Profil de classe</div>
     <input type="hidden" id="profil-plan-key">
     <div class="fgrp" style="margin-bottom:.75rem">
@@ -724,7 +725,7 @@ textarea{resize:vertical;min-height:70px}
       <button class="btn btn-p" id="btn-save-profil-plan">Enregistrer</button>
     </div>
   </div></div>
-  <div class="mb" id="m-seance"><div class="modal modal-xl">
+  <div class="mb" id="m-seance"><div class="mb-inner"><div class="modal modal-xl">
     <div class="modal-title">Nouvelle seance</div>
     <div class="fg" style="margin-bottom:1rem">
       <div class="fgrp"><label>Numero</label><input type="number" id="fn" min="1" max="30"></div>
@@ -742,7 +743,7 @@ textarea{resize:vertical;min-height:70px}
       <button class="btn btn-p" id="btn-save-seance">Creer la seance</button>
     </div>
   </div></div>
-  <div class="mb" id="m-edit-s"><div class="modal modal-xl">
+  <div class="mb" id="m-edit-s"><div class="mb-inner"><div class="modal modal-xl">
     <div class="modal-title">Modifier la seance <span id="es-badge" style="font-family:'DM Mono',monospace;font-size:.9rem;background:#4f8aff;color:#fff;padding:2px 9px;border-radius:5px"></span></div>
     <input type="hidden" id="es-id">
     <div class="fg" style="margin-bottom:1rem">
@@ -764,7 +765,7 @@ textarea{resize:vertical;min-height:70px}
       <button class="btn btn-p" id="btn-upd-seance">Enregistrer</button>
     </div>
   </div></div>
-  <div class="mb" id="m-eleve"><div class="modal">
+  <div class="mb" id="m-eleve"><div class="mb-inner"><div class="modal">
     <div class="modal-title">Ajouter un eleve</div>
     <div class="fg">
       <div class="fgrp full"><label>Nom Prenom</label><input type="text" id="en" placeholder="Ex: DUPONT Jean"></div>
@@ -775,7 +776,7 @@ textarea{resize:vertical;min-height:70px}
       <button class="btn btn-p" id="btn-save-eleve">Ajouter</button>
     </div>
   </div></div>
-  <div class="mb" id="m-edit-e"><div class="modal">
+  <div class="mb" id="m-edit-e"><div class="mb-inner"><div class="modal">
     <div class="modal-title">Modifier l'eleve</div>
     <input type="hidden" id="ee-id">
     <div class="fg">
@@ -790,7 +791,7 @@ textarea{resize:vertical;min-height:70px}
       <button class="btn btn-p" id="btn-upd-eleve">Enregistrer</button>
     </div>
   </div></div>
-  <div class="mb" id="m-fiche"><div class="modal modal-wide">
+  <div class="mb" id="m-fiche"><div class="mb-inner"><div class="modal modal-wide">
     <div class="modal-title">Fiche amenagement - <span id="fiche-nom" style="color:#ffd166"></span></div>
     <input type="hidden" id="fiche-id">
     <div class="fiche-section">
@@ -825,7 +826,7 @@ textarea{resize:vertical;min-height:70px}
       <button class="btn btn-p" id="btn-save-fiche">Enregistrer la fiche</button>
     </div>
   </div></div>
-  <div class="mb" id="m-pdf"><div class="modal">
+  <div class="mb" id="m-pdf"><div class="mb-inner"><div class="modal">
     <div class="modal-title">Importer une liste d'eleves</div>
     <div class="pdf-drop" id="pdf-drop"><div style="font-size:2rem">&#128194;</div><div style="font-weight:600">Cliquez ou deposez un PDF ici</div></div>
     <input type="file" id="pdf-input" accept=".pdf" style="display:none">
@@ -841,7 +842,7 @@ textarea{resize:vertical;min-height:70px}
     </div>
     <div class="modal-acts"><button class="btn btn-g" data-close="m-pdf">Fermer</button></div>
   </div></div>
-  <div class="mb" id="m-grille-cfg"><div class="modal modal-xl">
+  <div class="mb" id="m-grille-cfg"><div class="mb-inner"><div class="modal modal-xl">
     <div class="modal-title">Configurer ma grille d'evaluation</div>
     <div style="margin-bottom:1rem">
       <div class="sec-title">Titre de la grille</div>
@@ -1850,7 +1851,7 @@ function renderComp(){
   }
 }
 
-function initEvents(){var mbs=document.querySelectorAll('.mb');for(var i=0;i<mbs.length;i++){(function(bg){bg.addEventListener('click',function(e){if(e.target===bg)bg.classList.remove('open');});})(mbs[i]);}var closes=document.querySelectorAll('[data-close]');for(var i=0;i<closes.length;i++){(function(btn){btn.addEventListener('click',function(){closeM(this.dataset.close);});})(closes[i]);}var tabs=document.querySelectorAll('.s-tab');for(var i=0;i<tabs.length;i++){(function(tab){tab.addEventListener('click',function(){showView(this.dataset.view);});})(tabs[i]);}var shortcuts=document.querySelectorAll('.acc-shortcut');for(var i=0;i<shortcuts.length;i++){(function(el){el.addEventListener('click',function(){showView(this.dataset.view);});})(shortcuts[i]);}var profilBtns=document.querySelectorAll('.profil-edit-btn');for(var i=0;i<profilBtns.length;i++){(function(btn){btn.addEventListener('click',function(){openProfilPlan(this.dataset.plan);});})(profilBtns[i]);}var dispBtns=document.querySelectorAll('.disp-type-btn');for(var i=0;i<dispBtns.length;i++){(function(btn){btn.addEventListener('click',function(){var all=document.querySelectorAll('.disp-type-btn');for(var i=0;i<all.length;i++)all[i].classList.remove('sel');this.classList.add('sel');});})(dispBtns[i]);}function s(id,ev,fn){var el=ge(id);if(el)el.addEventListener(ev,fn);}s('btn-gh-save','click',ghSaveConfig);s('s-back-btn','click',goAcc);s('btn-push','click',ghPush);s('btn-pull','click',ghPull);s('btn-edit-seq','click',openSeqModal);s('btn-save-seq','click',saveSeq);s('btn-add-trame-seance','click',addTrameSeance);s('btn-new-seance','click',function(){openM('m-seance');});s('btn-save-seance','click',saveSeance);s('btn-add-partie-new','click',function(){addPartie('new');});s('btn-upd-seance','click',updSeance);s('btn-del-seance','click',delSeance);s('btn-add-partie-edit','click',function(){addPartie('edit');});s('btn-pdf-seance','click',exportSeancePDF);s('srch','input',renderSeances);s('btn-pdf-eleves','click',exportElevesPDF);s('btn-pdf-bilan','click',exportBilanPDF);s('btn-profil-classe','click',toggleProfilZone);s('btn-save-profil-plan','click',saveProfilPlan);s('btn-new-eleve','click',function(){openM('m-eleve');});s('btn-save-eleve','click',saveEleve);s('btn-upd-eleve','click',updEleve);s('btn-del-eleve','click',delEleve);s('btn-import-pdf','click',function(){openM('m-pdf');});s('btn-csv','click',exportCSV);s('btn-save-fiche','click',saveFicheAmen);s('photo-drop','click',function(){var pi=ge('photo-input');if(pi)pi.click();});s('photo-input','change',function(){handlePhoto(this);});s('photo-del-btn','click',function(){fichePhotoData=null;var t=ge('photo-thumb');if(t)t.style.display='none';this.style.display='none';var pi=ge('photo-input');if(pi)pi.value='';});s('photo-thumb','click',function(){if(fichePhotoData){var w=window.open('','_blank');if(w){w.document.write('<html><body style="margin:0;background:#000;display:flex;justify-content:center;align-items:center;min-height:100vh"><img src="'+fichePhotoData+'" style="max-width:100%;max-height:100vh;object-fit:contain"><\/body><\/html>');w.document.close();}}});var pd=ge('photo-drop');if(pd){var drevts=['dragenter','dragover'];for(var i=0;i<drevts.length;i++)pd.addEventListener(drevts[i],function(e){e.preventDefault();pd.classList.add('drag');});var dlvts=['dragleave','drop'];for(var i=0;i<dlvts.length;i++)pd.addEventListener(dlvts[i],function(e){e.preventDefault();pd.classList.remove('drag');});pd.addEventListener('drop',function(e){var f=e.dataTransfer.files[0];if(f&&f.type.startsWith('image/')){var dt=new DataTransfer();dt.items.add(f);ge('photo-input').files=dt.files;handlePhoto(ge('photo-input'));}});}var dz=ge('pdf-drop');if(dz){dz.addEventListener('click',function(){var pi=ge('pdf-input');if(pi)pi.click();});s('pdf-input','change',function(){handlePdf(this);});var drevts2=['dragenter','dragover'];for(var i=0;i<drevts2.length;i++)dz.addEventListener(drevts2[i],function(e){e.preventDefault();dz.classList.add('drag');});var dlvts2=['dragleave','drop'];for(var i=0;i<dlvts2.length;i++)dz.addEventListener(dlvts2[i],function(e){e.preventDefault();dz.classList.remove('drag');});dz.addEventListener('drop',function(e){var f=e.dataTransfer.files[0];if(f&&f.type==='application/pdf'){var dt=new DataTransfer();dt.items.add(f);ge('pdf-input').files=dt.files;handlePdf(ge('pdf-input'));}});}s('btn-pdf-all','click',function(){var cbs=document.querySelectorAll('#pdf-names input[type=checkbox]');for(var i=0;i<cbs.length;i++)cbs[i].checked=true;});s('btn-pdf-none','click',function(){var cbs=document.querySelectorAll('#pdf-names input[type=checkbox]');for(var i=0;i<cbs.length;i++)cbs[i].checked=false;});s('btn-pdf-import','click',pdfImport);var _ss=ge('comp-seuil-sel');if(_ss)_ss.addEventListener('change',renderComp);
+function initEvents(){var mbs=document.querySelectorAll('.mb');for(var i=0;i<mbs.length;i++){(function(bg){bg.addEventListener('click',function(e){var inner=bg.querySelector('.mb-inner');if(e.target===bg||e.target===inner)bg.classList.remove('open');});})(mbs[i]);}var closes=document.querySelectorAll('[data-close]');for(var i=0;i<closes.length;i++){(function(btn){btn.addEventListener('click',function(){closeM(this.dataset.close);});})(closes[i]);}var tabs=document.querySelectorAll('.s-tab');for(var i=0;i<tabs.length;i++){(function(tab){tab.addEventListener('click',function(){showView(this.dataset.view);});})(tabs[i]);}var shortcuts=document.querySelectorAll('.acc-shortcut');for(var i=0;i<shortcuts.length;i++){(function(el){el.addEventListener('click',function(){showView(this.dataset.view);});})(shortcuts[i]);}var profilBtns=document.querySelectorAll('.profil-edit-btn');for(var i=0;i<profilBtns.length;i++){(function(btn){btn.addEventListener('click',function(){openProfilPlan(this.dataset.plan);});})(profilBtns[i]);}var dispBtns=document.querySelectorAll('.disp-type-btn');for(var i=0;i<dispBtns.length;i++){(function(btn){btn.addEventListener('click',function(){var all=document.querySelectorAll('.disp-type-btn');for(var i=0;i<all.length;i++)all[i].classList.remove('sel');this.classList.add('sel');});})(dispBtns[i]);}function s(id,ev,fn){var el=ge(id);if(el)el.addEventListener(ev,fn);}s('btn-gh-save','click',ghSaveConfig);s('s-back-btn','click',goAcc);s('btn-push','click',ghPush);s('btn-pull','click',ghPull);s('btn-edit-seq','click',openSeqModal);s('btn-save-seq','click',saveSeq);s('btn-add-trame-seance','click',addTrameSeance);s('btn-new-seance','click',function(){openM('m-seance');});s('btn-save-seance','click',saveSeance);s('btn-add-partie-new','click',function(){addPartie('new');});s('btn-upd-seance','click',updSeance);s('btn-del-seance','click',delSeance);s('btn-add-partie-edit','click',function(){addPartie('edit');});s('btn-pdf-seance','click',exportSeancePDF);s('srch','input',renderSeances);s('btn-pdf-eleves','click',exportElevesPDF);s('btn-pdf-bilan','click',exportBilanPDF);s('btn-profil-classe','click',toggleProfilZone);s('btn-save-profil-plan','click',saveProfilPlan);s('btn-new-eleve','click',function(){openM('m-eleve');});s('btn-save-eleve','click',saveEleve);s('btn-upd-eleve','click',updEleve);s('btn-del-eleve','click',delEleve);s('btn-import-pdf','click',function(){openM('m-pdf');});s('btn-csv','click',exportCSV);s('btn-save-fiche','click',saveFicheAmen);s('photo-drop','click',function(){var pi=ge('photo-input');if(pi)pi.click();});s('photo-input','change',function(){handlePhoto(this);});s('photo-del-btn','click',function(){fichePhotoData=null;var t=ge('photo-thumb');if(t)t.style.display='none';this.style.display='none';var pi=ge('photo-input');if(pi)pi.value='';});s('photo-thumb','click',function(){if(fichePhotoData){var w=window.open('','_blank');if(w){w.document.write('<html><body style="margin:0;background:#000;display:flex;justify-content:center;align-items:center;min-height:100vh"><img src="'+fichePhotoData+'" style="max-width:100%;max-height:100vh;object-fit:contain"><\/body><\/html>');w.document.close();}}});var pd=ge('photo-drop');if(pd){var drevts=['dragenter','dragover'];for(var i=0;i<drevts.length;i++)pd.addEventListener(drevts[i],function(e){e.preventDefault();pd.classList.add('drag');});var dlvts=['dragleave','drop'];for(var i=0;i<dlvts.length;i++)pd.addEventListener(dlvts[i],function(e){e.preventDefault();pd.classList.remove('drag');});pd.addEventListener('drop',function(e){var f=e.dataTransfer.files[0];if(f&&f.type.startsWith('image/')){var dt=new DataTransfer();dt.items.add(f);ge('photo-input').files=dt.files;handlePhoto(ge('photo-input'));}});}var dz=ge('pdf-drop');if(dz){dz.addEventListener('click',function(){var pi=ge('pdf-input');if(pi)pi.click();});s('pdf-input','change',function(){handlePdf(this);});var drevts2=['dragenter','dragover'];for(var i=0;i<drevts2.length;i++)dz.addEventListener(drevts2[i],function(e){e.preventDefault();dz.classList.add('drag');});var dlvts2=['dragleave','drop'];for(var i=0;i<dlvts2.length;i++)dz.addEventListener(dlvts2[i],function(e){e.preventDefault();dz.classList.remove('drag');});dz.addEventListener('drop',function(e){var f=e.dataTransfer.files[0];if(f&&f.type==='application/pdf'){var dt=new DataTransfer();dt.items.add(f);ge('pdf-input').files=dt.files;handlePdf(ge('pdf-input'));}});}s('btn-pdf-all','click',function(){var cbs=document.querySelectorAll('#pdf-names input[type=checkbox]');for(var i=0;i<cbs.length;i++)cbs[i].checked=true;});s('btn-pdf-none','click',function(){var cbs=document.querySelectorAll('#pdf-names input[type=checkbox]');for(var i=0;i<cbs.length;i++)cbs[i].checked=false;});s('btn-pdf-import','click',pdfImport);var _ss=ge('comp-seuil-sel');if(_ss)_ss.addEventListener('change',renderComp);
   // Barre nav bas
   var bnavBtns2=document.querySelectorAll('.s-bnav-btn[data-view]');
   for(var i=0;i<bnavBtns2.length;i++){
