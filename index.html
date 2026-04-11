@@ -298,12 +298,27 @@ textarea{resize:vertical;min-height:70px}
 .profil-eleve-nom{font-size:.8rem;font-weight:600;color:#e4e6ef;min-width:140px;flex-shrink:0;padding-top:6px}
 .profil-eleve-note{flex:1;background:#13161f;border:1px solid #252836;border-radius:6px;color:#e4e6ef;font-size:.8rem;padding:5px 8px;outline:none;resize:none;min-height:34px}
 .profil-eleve-note:focus{border-color:#4f8aff}
-.trame-row{display:grid;grid-template-columns:50px 1fr 1fr 30px;gap:.5rem;align-items:center;margin-bottom:.5rem}
+.trame-row{background:#13161f;border:1px solid #252836;border-radius:10px;padding:.9rem 1rem;margin-bottom:.75rem}
+.trame-row-head{display:grid;grid-template-columns:44px 1fr 1fr 28px;gap:.5rem;align-items:center;margin-bottom:.6rem}
+.trame-row-fields{display:flex;flex-direction:column;gap:.4rem;margin-top:.5rem;padding-top:.5rem;border-top:1px solid #1e2235}
+.trame-row-field-label{font-family:"DM Mono",monospace;font-size:.6rem;text-transform:uppercase;letter-spacing:.08em;color:#4a5070;margin-bottom:2px}
 .trame-num-badge{font-family:"DM Mono",monospace;font-size:.75rem;background:#4f8aff;color:#fff;padding:4px 8px;border-radius:5px;text-align:center;font-weight:700}
-.trame-display-row{display:flex;align-items:flex-start;gap:10px;padding:7px 10px;border-radius:7px;margin-bottom:4px;background:#13161f;border:1px solid #252836}
-.trame-display-num{font-family:"DM Mono",monospace;font-size:.7rem;background:#4f8aff;color:#fff;padding:2px 8px;border-radius:4px;flex-shrink:0;margin-top:1px;font-weight:700}
-.trame-display-obj{font-size:.8rem;color:#e4e6ef;flex:1;line-height:1.4}
-.trame-display-date{font-family:"DM Mono",monospace;font-size:.68rem;color:#6b7280;white-space:nowrap}
+.trame-display-row{background:#13161f;border:1px solid #252836;border-radius:10px;padding:.75rem 1rem;margin-bottom:.6rem;cursor:pointer;transition:border-color .15s}
+.trame-display-row:hover{border-color:#4f8aff}
+.trame-display-row.done{border-color:#1a6b3a40;background:#13161f}
+.trame-display-head{display:flex;align-items:center;gap:8px;margin-bottom:0}
+.trame-display-head.has-details{margin-bottom:.5rem}
+.trame-display-num{font-family:"DM Mono",monospace;font-size:.7rem;background:#4f8aff;color:#fff;padding:2px 8px;border-radius:4px;flex-shrink:0;font-weight:700}
+.trame-display-num.done{background:#1a6b3a}
+.trame-display-obj{font-size:.82rem;color:#e4e6ef;flex:1;line-height:1.3;font-weight:500}
+.trame-display-date{font-family:"DM Mono",monospace;font-size:.65rem;color:#6b7280;white-space:nowrap;flex-shrink:0}
+.trame-display-status{font-size:.65rem;color:#56cfb2;flex-shrink:0;font-family:"DM Mono",monospace}
+.trame-display-details{display:grid;grid-template-columns:1fr 1fr;gap:.4rem .75rem;padding-top:.5rem;border-top:1px solid #1e2235}
+.trame-detail-item{font-size:.72rem;line-height:1.45}
+.trame-detail-lbl{font-family:"DM Mono",monospace;font-size:.6rem;color:#4a5070;text-transform:uppercase;letter-spacing:.07em;margin-bottom:1px}
+.trame-detail-val{color:#9aa0b8}
+.trame-aflp-tags{display:flex;gap:4px;flex-wrap:wrap;margin-top:.4rem}
+.trame-aflp-tag{font-family:"DM Mono",monospace;font-size:.58rem;background:rgba(79,138,255,.15);color:#4f8aff;border:1px solid rgba(79,138,255,.2);padding:1px 6px;border-radius:3px;font-weight:700}
 .aflp-prio-tag{display:inline-flex;align-items:center;gap:5px;font-size:.72rem;padding:3px 9px;border-radius:16px;background:rgba(79,138,255,.12);color:#4f8aff;border:1px solid rgba(79,138,255,.2);margin:2px;font-family:"DM Mono",monospace}
 .grille-table{width:100%;border-collapse:collapse;font-size:.8rem;border:1px solid #252836}
 .grille-table th{background:#13161f;padding:9px 10px;text-align:left;font-weight:600;font-size:.72rem;color:#6b7280;text-transform:uppercase;border-bottom:1px solid #252836;border-right:1px solid #252836}
@@ -1069,12 +1084,68 @@ function highlightEvalAflp(){var worked={};for(var i=0;i<state.seances.length;i+
 function renderStats(){ge('ss-s').textContent=state.seances.length;ge('ss-e').textContent=state.eleves.length;ge('s-pg-sub').textContent=state.eleves.length+' eleves - '+state.seances.length+' seances';var tot=0,pres=0;for(var i=0;i<state.seances.length;i++){for(var j=0;j<state.eleves.length;j++){tot++;var p=state.presences[state.seances[i].id]||{};if((p[state.eleves[j].id]||'')==='Present')pres++;}}ge('ss-p').textContent=tot>0?Math.round(pres/tot*100)+'%':'-';var noted=[];for(var i=0;i<state.eleves.length;i++){if(state.eleves[i].noteFinale!=null)noted.push(parseFloat(state.eleves[i].noteFinale));}ge('ss-n').textContent=noted.length>0?(noted.reduce(function(a,b){return a+b;},0)/noted.length).toFixed(1):'-';}
 function seqGet(){return state.seq||{objet:'',objectifs:'',aflpPrio:[],trame:[]};}
 function seqSave(d){state.seq=d;save();}
-function renderAccueilSuivi(){ge('acc-ss-s').textContent=state.seances.length;ge('acc-ss-e').textContent=state.eleves.length;ge('sc-sub-seances').textContent=state.seances.length+' seance'+(state.seances.length>1?'s':'');ge('sc-sub-eleves').textContent=state.eleves.length+' eleve'+(state.eleves.length>1?'s':'');var tot=0,pres=0;for(var i=0;i<state.seances.length;i++){for(var j=0;j<state.eleves.length;j++){tot++;var p=state.presences[state.seances[i].id]||{};if((p[state.eleves[j].id]||'Present')==='Present')pres++;}}ge('acc-ss-p').textContent=tot>0?Math.round(pres/tot*100)+'%':'-';var noted=[];for(var i=0;i<state.eleves.length;i++){if(state.eleves[i].noteFinale!=null)noted.push(parseFloat(state.eleves[i].noteFinale));}ge('acc-ss-n').textContent=noted.length>0?(noted.reduce(function(a,b){return a+b;},0)/noted.length).toFixed(1):'-';var seq=seqGet();var objetEl=ge('acc-objet-display');if(seq.objet||seq.objectifs){objetEl.style.fontStyle='normal';objetEl.style.color='#e4e6ef';objetEl.innerHTML=(seq.objet?'<div style="margin-bottom:.5rem">'+esc(seq.objet)+'</div>':'')+(seq.objectifs?'<div style="font-size:.78rem;color:#9aa0b8;border-top:1px solid #252836;padding-top:.5rem">'+esc(seq.objectifs)+'</div>':'');}else{objetEl.style.fontStyle='italic';objetEl.style.color='#6b7280';objetEl.textContent='Non defini - cliquez sur Modifier la sequence';}var aflpEl=ge('acc-aflp-display');if(seq.aflpPrio&&seq.aflpPrio.length){var h='';for(var i=0;i<seq.aflpPrio.length;i++)h+='<span class="aflp-prio-tag">'+seq.aflpPrio[i]+'</span>';aflpEl.innerHTML=h;}else{aflpEl.innerHTML='<span style="color:#6b7280;font-size:.78rem;font-style:italic">Aucun AFLP selectionne</span>';}var trameEl=ge('acc-trame-display');var trame=seq.trame||[];var sorted=state.seances.slice().sort(function(a,b){return a.num-b.num;});var allNums={};for(var i=0;i<trame.length;i++)allNums[trame[i].num]=true;for(var i=0;i<sorted.length;i++)allNums[sorted[i].num]=true;var nums=Object.keys(allNums).map(Number).sort(function(a,b){return a-b;});if(!nums.length){trameEl.innerHTML='<div style="color:#6b7280;font-size:.8rem;font-style:italic">Aucune seance planifiee</div>';}else{var h='';for(var i=0;i<nums.length;i++){var nn=nums[i];var tr=null,ss=null;for(var j=0;j<trame.length;j++){if(trame[j].num===nn){tr=trame[j];break;}}for(var j=0;j<sorted.length;j++){if(sorted[j].num===nn){ss=sorted[j];break;}}var obj=ss?ss.objectif:(tr?tr.objectif:'');var date=ss?ss.date:(tr?tr.date:'');var done=!!ss;h+='<div class="trame-display-row" style="'+(done?'border-color:#1a6b3a30':'')+'"><span class="trame-display-num" style="'+(done?'background:#1a6b3a':'')+'">S'+nn+'</span><span class="trame-display-obj">'+(obj?esc(obj):'<span style="color:#6b7280;font-style:italic">A definir</span>')+'</span>'+(date?'<span class="trame-display-date">'+fmtDate(date)+'</span>':'')+(done?'<span style="color:#56cfb2;font-size:.7rem;flex-shrink:0">OK</span>':'')+'</div>';}trameEl.innerHTML=h;}}
+function renderAccueilSuivi(){ge('acc-ss-s').textContent=state.seances.length;ge('acc-ss-e').textContent=state.eleves.length;ge('sc-sub-seances').textContent=state.seances.length+' seance'+(state.seances.length>1?'s':'');ge('sc-sub-eleves').textContent=state.eleves.length+' eleve'+(state.eleves.length>1?'s':'');var tot=0,pres=0;for(var i=0;i<state.seances.length;i++){for(var j=0;j<state.eleves.length;j++){tot++;var p=state.presences[state.seances[i].id]||{};if((p[state.eleves[j].id]||'Present')==='Present')pres++;}}ge('acc-ss-p').textContent=tot>0?Math.round(pres/tot*100)+'%':'-';var noted=[];for(var i=0;i<state.eleves.length;i++){if(state.eleves[i].noteFinale!=null)noted.push(parseFloat(state.eleves[i].noteFinale));}ge('acc-ss-n').textContent=noted.length>0?(noted.reduce(function(a,b){return a+b;},0)/noted.length).toFixed(1):'-';var seq=seqGet();var objetEl=ge('acc-objet-display');if(seq.objet||seq.objectifs){objetEl.style.fontStyle='normal';objetEl.style.color='#e4e6ef';objetEl.innerHTML=(seq.objet?'<div style="margin-bottom:.5rem">'+esc(seq.objet)+'</div>':'')+(seq.objectifs?'<div style="font-size:.78rem;color:#9aa0b8;border-top:1px solid #252836;padding-top:.5rem">'+esc(seq.objectifs)+'</div>':'');}else{objetEl.style.fontStyle='italic';objetEl.style.color='#6b7280';objetEl.textContent='Non defini - cliquez sur Modifier la sequence';}var aflpEl=ge('acc-aflp-display');if(seq.aflpPrio&&seq.aflpPrio.length){var h='';for(var i=0;i<seq.aflpPrio.length;i++)h+='<span class="aflp-prio-tag">'+seq.aflpPrio[i]+'</span>';aflpEl.innerHTML=h;}else{aflpEl.innerHTML='<span style="color:#6b7280;font-size:.78rem;font-style:italic">Aucun AFLP selectionne</span>';}var trameEl=ge('acc-trame-display');var trame=seq.trame||[];var sorted=state.seances.slice().sort(function(a,b){return a.num-b.num;});var allNums={};for(var i=0;i<trame.length;i++)allNums[trame[i].num]=true;for(var i=0;i<sorted.length;i++)allNums[sorted[i].num]=true;var nums=Object.keys(allNums).map(Number).sort(function(a,b){return a-b;});if(!nums.length){trameEl.innerHTML='<div style="color:#6b7280;font-size:.8rem;font-style:italic">Aucune seance planifiee</div>';}else{var h='';for(var i=0;i<nums.length;i++){var nn=nums[i];var tr=null,ss=null;for(var j=0;j<trame.length;j++){if(trame[j].num===nn){tr=trame[j];break;}}for(var j=0;j<sorted.length;j++){if(sorted[j].num===nn){ss=sorted[j];break;}}var obj=ss?ss.objectif:(tr?tr.objectif:'');var date=ss?ss.date:(tr?tr.date:'');var done=!!ss;var aflpList=tr?tr.aflp||[]:[];
+var autreobj=tr?tr.autreobj||'':'';
+var contenus=tr?tr.contenus||'':'';
+var fps=tr?tr.fps||'':'';
+if(ss){aflpList=ss.aflpTravailles||aflpList;autreobj=autreobj;contenus=contenus;fps=fps;}
+var hasDetails=aflpList.length||autreobj||contenus||fps;
+h+='<div class="trame-display-row'+(done?' done':'')+'">';
+h+='<div class="trame-display-head'+(hasDetails?' has-details':'')+'">';
+h+='<span class="trame-display-num'+(done?' done':'')+'">S'+nn+'</span>';
+h+='<span class="trame-display-obj">'+(obj?esc(obj):'<span style="color:#6b7280;font-style:italic">A définir</span>')+'</span>';
+if(date)h+='<span class="trame-display-date">'+fmtDate(date)+'</span>';
+if(done)h+='<span class="trame-display-status">✓ OK</span>';
+h+='</div>';
+if(hasDetails){
+  h+='<div class="trame-display-details">';
+  if(aflpList.length){
+    h+='<div style="grid-column:1/-1"><div class="trame-detail-lbl">AFLP travaillés</div><div class="trame-aflp-tags">';
+    for(var ai=0;ai<aflpList.length;ai++)h+='<span class="trame-aflp-tag">'+esc(aflpList[ai])+'</span>';
+    h+='</div></div>';
+  }
+  if(autreobj)h+='<div><div class="trame-detail-lbl">Autres objectifs</div><div class="trame-detail-val">'+esc(autreobj)+'</div></div>';
+  if(contenus)h+='<div><div class="trame-detail-lbl">Contenus d enseignement</div><div class="trame-detail-val">'+esc(contenus)+'</div></div>';
+  if(fps)h+='<div style="grid-column:1/-1"><div class="trame-detail-lbl">Partie FPS</div><div class="trame-detail-val">'+esc(fps)+'</div></div>';
+  h+='</div>';
+}
+h+='</div>';}trameEl.innerHTML=h;}}
 function openSeqModal(){var seq=seqGet();ge('seq-objet').value=seq.objet||'';ge('seq-objectifs').value=seq.objectifs||'';var f=CTX.cls?CTX.cls.filiere:'bacpro';var aflpData=CTX.apsa?(AFLP[f]||AFLP.bacpro)[CTX.apsa.caFull]:null;var c=ge('seq-aflp-checks');c.innerHTML='';if(aflpData){for(var i=0;i<aflpData.items.length;i++){(function(item){var prio=seq.aflpPrio||[];var checked=prio.indexOf(item.n)>=0;var lbl=document.createElement('label');lbl.className='aflp-check-item'+(checked?' checked-item':'');lbl.innerHTML='<input type="checkbox" '+(checked?'checked':'')+'><span class="aflp-check-num">'+item.n+'</span><span class="aflp-check-text">'+item.t+'</span>';lbl.querySelector('input').addEventListener('change',function(){lbl.className='aflp-check-item'+(this.checked?' checked-item':'');});c.appendChild(lbl);})(aflpData.items[i]);}}var tc=ge('seq-trame-container');tc.innerHTML='';var trame=seq.trame||[];for(var i=0;i<trame.length;i++)renderTrameRow(trame[i]);openM('m-seq');}
-function renderTrameRow(t){var c=ge('seq-trame-container');var row=document.createElement('div');row.className='trame-row';row.innerHTML='<div class="trame-num-badge">S'+t.num+'</div><input type="text" class="tr-obj" value="'+esc(t.objectif||'')+'" placeholder="Theme de la seance..."><input type="date" class="tr-date" value="'+(t.date||'')+'"><button class="partie-del tr-del">x</button>';row.querySelector('.tr-del').addEventListener('click',function(){row.remove();renumTrameRows();});c.appendChild(row);}
+function renderTrameRow(t){
+  var c=ge('seq-trame-container');
+  var row=document.createElement('div');
+  row.className='trame-row';
+  row.innerHTML=
+    '<div class="trame-row-head">'+
+      '<div class="trame-num-badge">S'+t.num+'</div>'+
+      '<input type="text" class="tr-obj" value="'+esc(t.objectif||'')+'" placeholder="Titre de la seance...">'+
+      '<input type="date" class="tr-date" value="'+(t.date||'')+'">'+
+      '<button class="partie-del tr-del" style="margin:0">x</button>'+
+    '</div>'+
+    '<div class="trame-row-fields">'+
+      '<div>'+
+        '<div class="trame-row-field-label">AFLP travailles (separés par virgule)</div>'+
+        '<input type="text" class="tr-aflp" value="'+esc((t.aflp||[]).join(', '))+'" placeholder="Ex: AFLP 1, AFLP 2" style="font-size:.78rem">'+
+      '</div>'+
+      '<div>'+
+        '<div class="trame-row-field-label">Autres objectifs</div>'+
+        '<input type="text" class="tr-autreobj" value="'+esc(t.autreobj||'')+'" placeholder="Ex: Gestion effort, cooperation..." style="font-size:.78rem">'+
+      '</div>'+
+      '<div>'+
+        '<div class="trame-row-field-label">Contenus d enseignement</div>'+
+        '<input type="text" class="tr-contenus" value="'+esc(t.contenus||'')+'" placeholder="Ex: lecture de carte, orientation..." style="font-size:.78rem">'+
+      '</div>'+
+      '<div>'+
+        '<div class="trame-row-field-label">Partie de la FPS travaillee</div>'+
+        '<input type="text" class="tr-fps" value="'+esc(t.fps||'')+'" placeholder="Ex: Situation de reference, echauffement..." style="font-size:.78rem">'+
+      '</div>'+
+    '</div>';
+  row.querySelector('.tr-del').addEventListener('click',function(){row.remove();renumTrameRows();});
+  c.appendChild(row);
+}
 function renumTrameRows(){var rows=document.querySelectorAll('.trame-row');for(var i=0;i<rows.length;i++)rows[i].querySelector('.trame-num-badge').textContent='S'+(i+1);}
 function addTrameSeance(){var rows=document.querySelectorAll('.trame-row');renderTrameRow({num:rows.length+1,objectif:'',date:''});}
-function saveSeq(){var objet=ge('seq-objet').value.trim();var objectifs=ge('seq-objectifs').value.trim();var cbs=document.querySelectorAll('#seq-aflp-checks input[type=checkbox]:checked');var aflpPrio=[];for(var i=0;i<cbs.length;i++){var num=cbs[i].parentElement.querySelector('.aflp-check-num');if(num)aflpPrio.push(num.textContent);}var rows=document.querySelectorAll('.trame-row');var trame=[];for(var i=0;i<rows.length;i++)trame.push({num:i+1,objectif:rows[i].querySelector('.tr-obj').value,date:rows[i].querySelector('.tr-date').value});seqSave({objet:objet,objectifs:objectifs,aflpPrio:aflpPrio,trame:trame});closeM('m-seq');renderAccueilSuivi();toast('Sequence enregistree');}
+function saveSeq(){var objet=ge('seq-objet').value.trim();var objectifs=ge('seq-objectifs').value.trim();var cbs=document.querySelectorAll('#seq-aflp-checks input[type=checkbox]:checked');var aflpPrio=[];for(var i=0;i<cbs.length;i++){var num=cbs[i].parentElement.querySelector('.aflp-check-num');if(num)aflpPrio.push(num.textContent);}var rows=document.querySelectorAll('.trame-row');var trame=[];for(var i=0;i<rows.length;i++){var r=rows[i];var aflpRaw=r.querySelector('.tr-aflp')?r.querySelector('.tr-aflp').value:'';var aflpArr=aflpRaw.split(',').map(function(s){return s.trim();}).filter(function(s){return s.length>0;});trame.push({num:i+1,objectif:r.querySelector('.tr-obj').value,date:r.querySelector('.tr-date').value,aflp:aflpArr,autreobj:r.querySelector('.tr-autreobj')?r.querySelector('.tr-autreobj').value:'',contenus:r.querySelector('.tr-contenus')?r.querySelector('.tr-contenus').value:'',fps:r.querySelector('.tr-fps')?r.querySelector('.tr-fps').value:''});}seqSave({objet:objet,objectifs:objectifs,aflpPrio:aflpPrio,trame:trame});closeM('m-seq');renderAccueilSuivi();toast('Sequence enregistree');}
 function profilGet(){return state.profil||{};}
 function profilSave(d){state.profil=d;save();}
 function renderProfil(){var data=profilGet();for(var i=0;i<PLANS.length;i++){var p=PLANS[i];var el=ge('profil-'+p.key+'-display');if(!el)continue;var d=data[p.key]||{};var h='';if(d.obs)h+='<div style="margin-bottom:.5rem">'+esc(d.obs).replace(/\n/g,'<br>')+'</div>';if(d.eleves){var keys=Object.keys(d.eleves);for(var k=0;k<keys.length;k++){var eid=keys[k];if(!d.eleves[eid])continue;var eleve=null;for(var j=0;j<state.eleves.length;j++){if(state.eleves[j].id===eid){eleve=state.eleves[j];break;}}if(eleve)h+='<div style="font-size:.75rem;margin-top:3px"><span style="font-weight:600;color:#e4e6ef">'+esc(eleve.nom)+'</span> - '+esc(d.eleves[eid])+'</div>';}}if(!h)h='<em>Non renseigne</em>';el.innerHTML=h;}}
