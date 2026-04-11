@@ -2,8 +2,29 @@
   "seances": [],
   "eleves": [
     {
-      "id": "e1775946018904",
-      "nom": "AIT-AI Hichem",
+      "id": "e1775946911765",
+      "nom": "AIT-ALI   Hichem",
+      "amenagement": "",
+      "fiche": null,
+      "noteFinale": null
+    },
+    {
+      "id": "e1775946923052",
+      "nom": "AKAKZIA   Wissem",
+      "amenagement": "",
+      "fiche": null,
+      "noteFinale": null
+    },
+    {
+      "id": "e1775946939522",
+      "nom": "AZZOUG   Mohamed",
+      "amenagement": "",
+      "fiche": null,
+      "noteFinale": null
+    },
+    {
+      "id": "e1775946953931",
+      "nom": "CHAABNA   Ayoub",
       "amenagement": "",
       "fiche": null,
       "noteFinale": null
