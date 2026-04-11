@@ -277,9 +277,9 @@ textarea{resize:vertical;min-height:70px}
 .pdf-preview-box{background:#13161f;border:1px solid #252836;border-radius:8px;padding:1rem;max-height:230px;overflow-y:auto;margin-top:1rem}
 .pdf-name-item{display:flex;align-items:center;gap:8px;padding:5px 8px;border-radius:5px;font-size:.83rem}
 .pdf-name-item input[type=checkbox]{accent-color:#4f8aff;width:14px;height:14px}
-.mb{position:fixed;inset:0;background:rgba(0,0,0,.78);z-index:200;display:flex;align-items:flex-start;justify-content:center;padding:1.5rem 1rem;opacity:0;pointer-events:none;transition:opacity .2s;overflow-y:scroll;-webkit-overflow-scrolling:touch}
+.mb{position:fixed;inset:0;background:rgba(0,0,0,.78);z-index:200;opacity:0;pointer-events:none;transition:opacity .2s;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:1.5rem 1rem}
 .mb.open{opacity:1;pointer-events:all}
-.modal{background:#1c1f2c;border:1px solid #252836;border-radius:16px;padding:1.75rem;width:100%;max-width:700px;flex-shrink:0;transform:translateY(12px);transition:transform .2s;margin:auto}
+.modal{background:#1c1f2c;border:1px solid #252836;border-radius:16px;padding:1.75rem;width:100%;max-width:700px;margin:0 auto;transform:translateY(12px);transition:transform .2s;position:relative}
 .mb.open .modal{transform:translateY(0)}
 .modal-wide{max-width:820px}
 .modal-xl{max-width:960px}
@@ -555,7 +555,7 @@ textarea{resize:vertical;min-height:70px}
       <button class="s-tab active" data-view="v-accueil">Accueil</button>
       <button class="s-tab" data-view="v-seances">Seances</button>
       <button class="s-tab" data-view="v-appel">Appel</button>
-      <button class="s-tab" data-view="v-eleves">Eleves</button>
+      <button class="s-tab" data-view="v-eleves">Classe</button>
       <button class="s-tab" data-view="v-comp">Competences</button>
       <button class="s-tab" data-view="v-eval">Bilan</button>
       <button class="s-tab" data-view="v-grille">Grille &#233;val</button>
@@ -588,7 +588,7 @@ textarea{resize:vertical;min-height:70px}
       <div style="display:grid;grid-template-columns:repeat(6,1fr);gap:.75rem">
         <div class="acc-shortcut" data-view="v-seances" style="--sc:#4f8aff"><div class="acc-sc-icon">&#128203;</div><div class="acc-sc-label">Seances</div><div class="acc-sc-sub" id="sc-sub-seances">0 seance</div></div>
         <div class="acc-shortcut" data-view="v-appel" style="--sc:#56cfb2"><div class="acc-sc-icon">&#9995;</div><div class="acc-sc-label">Appel</div><div class="acc-sc-sub">Presences</div></div>
-        <div class="acc-shortcut" data-view="v-eleves" style="--sc:#ffd166"><div class="acc-sc-icon">&#128101;</div><div class="acc-sc-label">Eleves</div><div class="acc-sc-sub" id="sc-sub-eleves">0 eleve</div></div>
+        <div class="acc-shortcut" data-view="v-eleves" style="--sc:#ffd166"><div class="acc-sc-icon">&#128101;</div><div class="acc-sc-label">Classe</div><div class="acc-sc-sub" id="sc-sub-eleves">0 eleve</div></div>
         <div class="acc-shortcut" data-view="v-comp" style="--sc:#56cfb2"><div class="acc-sc-icon">&#128200;</div><div class="acc-sc-label">Competences</div><div class="acc-sc-sub">Evolution AFLP</div></div>
         <div class="acc-shortcut" data-view="v-eval" style="--sc:#ff6b6b"><div class="acc-sc-icon">&#128202;</div><div class="acc-sc-label">Bilan</div><div class="acc-sc-sub">Notes &amp; comp.</div></div>
         <div class="acc-shortcut" data-view="v-grille" style="--sc:#a78bfa"><div class="acc-sc-icon">&#128221;</div><div class="acc-sc-label">Grille &#233;val</div><div class="acc-sc-sub">Personnalis&#233;e</div></div>
@@ -620,7 +620,7 @@ textarea{resize:vertical;min-height:70px}
     </div>
     <div id="v-eleves" class="view">
       <div class="ph">
-        <div><div class="ph-title">Eleves</div><div class="ph-sub">Gestion, amenagements, PAP, dispenses</div></div>
+        <div><div class="ph-title">Classe</div><div class="ph-sub">Profil, am&#233;nagements, PAP, dispenses</div></div>
         <div style="display:flex;gap:8px;flex-wrap:wrap">
           <button class="btn btn-g" id="btn-profil-classe">Profil de classe</button>
           <button class="btn btn-g" id="btn-pdf-eleves">&#128196; Export PDF</button>
