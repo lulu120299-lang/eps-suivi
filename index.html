@@ -385,7 +385,7 @@ textarea{resize:vertical;min-height:70px}
 .notes-rapides-lbl{font-family:"DM Mono",monospace;font-size:.6rem;text-transform:uppercase;letter-spacing:.15em;color:#ffd166;margin-bottom:.6rem;display:flex;align-items:center;justify-content:space-between}
 .notes-rapides-lbl button{background:none;border:none;color:#4a5070;font-size:.68rem;cursor:pointer;padding:0;font-family:"DM Mono",monospace;transition:color .15s}
 .notes-rapides-lbl button:hover{color:#ffd166}
-#notes-rapides-textarea{width:100%;background:#0d1018;border:1px solid #1e2438;border-radius:8px;color:#d4d8eb;font-size:.82rem;padding:.7rem .85rem;resize:none;outline:none;min-height:90px;line-height:1.65;font-family:"DM Sans",sans-serif;transition:border-color .15s}
+#notes-rapides-textarea{width:100%;background:#0d1018;border:1px solid #1e2438;border-radius:8px;color:#d4d8eb;font-size:.82rem;padding:.7rem .85rem;resize:vertical;outline:none;min-height:160px;line-height:1.65;font-family:"DM Sans",sans-serif;transition:border-color .15s}
 #notes-rapides-textarea:focus{border-color:#ffd166}
 #notes-rapides-textarea::placeholder{color:#2a3050;font-style:italic}
 
@@ -658,14 +658,20 @@ textarea{resize:vertical;min-height:70px}
           <div id="acc-progress-zone" style="margin-top:1rem"></div>
           <div style="margin-top:1rem">
             <div class="meteo-card">
-              <div class="meteo-lbl">&#127781; M&#233;t&#233;o de s&#233;ance <span id="meteo-seance-lbl">derni&#232;re s&#233;ance</span></div>
+              <div class="meteo-lbl">&#127781; M&#233;t&#233;o de s&#233;ance</div>
+              <select id="meteo-seance-sel" style="width:100%;background:#0d1018;border:1px solid #1e2438;border-radius:7px;color:#e4e6ef;font-family:'DM Mono',monospace;font-size:.72rem;padding:5px 8px;outline:none;margin-bottom:.75rem;cursor:pointer">
+                <option value="">-- Choisir une seance --</option>
+              </select>
               <div class="meteo-rows" id="meteo-rows">
                 <div class="meteo-row"><div class="meteo-row-lbl">Engagement</div><div class="meteo-dots" data-key="engagement"></div></div>
                 <div class="meteo-row"><div class="meteo-row-lbl">Ambiance</div><div class="meteo-dots" data-key="ambiance"></div></div>
                 <div class="meteo-row"><div class="meteo-row-lbl">Progression</div><div class="meteo-dots" data-key="progression"></div></div>
                 <div class="meteo-row"><div class="meteo-row-lbl">Comportement</div><div class="meteo-dots" data-key="comportement"></div></div>
               </div>
-              <button class="meteo-save-btn" id="btn-meteo-save">Enregistrer la m&#233;t&#233;o</button>
+              <div style="display:flex;gap:6px;margin-top:.75rem">
+                <button class="meteo-save-btn" id="btn-meteo-save" style="flex:1">Enregistrer</button>
+                <button class="meteo-save-btn" id="btn-meteo-bilan" style="flex:1;background:rgba(79,138,255,.12);border-color:rgba(79,138,255,.25);color:#4f8aff" title="Copier la meteo dans le bilan de la seance">&#8594; Bilan</button>
+              </div>
             </div>
           </div>
         </div>
@@ -1982,13 +1988,8 @@ function meteoKey(){return 'eps-meteo-'+(CTX.key||'dflt');}
 function meteoGet(){try{return JSON.parse(localStorage.getItem(meteoKey())||'{}');}catch(e){return{};}}
 function meteoSave(d){localStorage.setItem(meteoKey(),JSON.stringify(d));}
 var meteoState={engagement:0,ambiance:0,progression:0,comportement:0};
-function initMeteo(){
+function meteoRenderDots(sid){
   var data=meteoGet();
-  var sorted=state.seances.slice().sort(function(a,b){return a.num-b.num;});
-  var lastS=sorted.length?sorted[sorted.length-1]:null;
-  var sid=lastS?lastS.id:'';
-  var meteoLbl=ge('meteo-seance-lbl');
-  if(meteoLbl)meteoLbl.textContent=lastS?'S'+lastS.num+(lastS.objectif?' - '+esc(lastS.objectif).substring(0,20):''):'';
   var saved=sid&&data[sid]?data[sid]:{};
   meteoState.engagement=saved.engagement||0;
   meteoState.ambiance=saved.ambiance||0;
@@ -2016,13 +2017,63 @@ function initMeteo(){
       rows[i].appendChild(dot);
     }
   }
+}
+function meteoGetSelectedSid(){
+  var sel=ge('meteo-seance-sel');
+  return sel?sel.value:'';
+}
+function initMeteo(){
+  var sorted=state.seances.slice().sort(function(a,b){return a.num-b.num;});
+  var sel=ge('meteo-seance-sel');
+  if(sel){
+    var prevVal=sel.value;
+    sel.innerHTML='<option value="">-- Choisir une seance --</option>';
+    for(var i=0;i<sorted.length;i++){
+      var s=sorted[i];
+      var opt=document.createElement('option');
+      opt.value=s.id;
+      opt.textContent='S'+s.num+' - '+(s.objectif||'Sans titre').substring(0,30)+(s.date?' ('+fmtDate(s.date)+')':'');
+      sel.appendChild(opt);
+    }
+    // Preselectionner la derniere seance
+    if(!prevVal&&sorted.length)sel.value=sorted[sorted.length-1].id;
+    else if(prevVal)sel.value=prevVal;
+    meteoRenderDots(sel.value);
+    sel.onchange=function(){meteoRenderDots(this.value);};
+  }
   var saveBtn=ge('btn-meteo-save');
   if(saveBtn){
     saveBtn.onclick=function(){
+      var sid=meteoGetSelectedSid();
+      if(!sid){toast('Choisir une seance','warn');return;}
       var d2=meteoGet();
-      if(sid){d2[sid]={engagement:meteoState.engagement,ambiance:meteoState.ambiance,progression:meteoState.progression,comportement:meteoState.comportement,ts:Date.now()};}
+      d2[sid]={engagement:meteoState.engagement,ambiance:meteoState.ambiance,progression:meteoState.progression,comportement:meteoState.comportement,ts:Date.now()};
       meteoSave(d2);
       toast('Meteo enregistree !');
+    };
+  }
+  var bilanBtn=ge('btn-meteo-bilan');
+  if(bilanBtn){
+    bilanBtn.onclick=function(){
+      var sid=meteoGetSelectedSid();
+      if(!sid){toast('Choisir une seance','warn');return;}
+      var s=null;
+      for(var i=0;i<state.seances.length;i++){if(state.seances[i].id===sid){s=state.seances[i];break;}}
+      if(!s){toast('Seance introuvable','warn');return;}
+      var noms=['Engagement','Ambiance','Progression','Comportement'];
+      var keys=['engagement','ambiance','progression','comportement'];
+      var stars=['','*','**','***','****','*****'];
+      var lines=[];
+      for(var i=0;i<keys.length;i++){
+        var v=meteoState[keys[i]];
+        if(v>0)lines.push(noms[i]+' : '+stars[v]+' ('+v+'/5)');
+      }
+      if(!lines.length){toast('Aucune meteo renseignee','warn');return;}
+      var bilanTxt='[Meteo S'+s.num+']\n'+lines.join('\n');
+      s.bilan=(s.bilan?s.bilan+'\n\n':'')+bilanTxt;
+      save();
+      renderAll();
+      toast('Meteo copiee dans le bilan S'+s.num+' !');
     };
   }
 }
