@@ -534,7 +534,7 @@ textarea{resize:vertical;min-height:70px}
       </div>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.25rem;margin-bottom:1.25rem">
         <div class="card" style="margin-bottom:0">
-          <div style="font-family:'DM Mono',monospace;font-size:.63rem;text-transform:uppercase;letter-spacing:.1em;color:#4f8aff;margin-bottom:.75rem">Objet d'enseignement</div>
+          <div style="font-family:'DM Mono',monospace;font-size:.63rem;text-transform:uppercase;letter-spacing:.1em;color:#4f8aff;margin-bottom:.75rem">Comp&#233;tence attendue</div>
           <div id="acc-objet-display" style="color:#9aa0b8;font-size:.88rem;line-height:1.6;font-style:italic">Non defini - cliquez sur Modifier la sequence</div>
           <div style="font-family:'DM Mono',monospace;font-size:.63rem;text-transform:uppercase;letter-spacing:.1em;color:#4f8aff;margin-top:1.1rem;margin-bottom:.6rem">AFLP prioritaires</div>
           <div id="acc-aflp-display"></div>
@@ -590,10 +590,16 @@ textarea{resize:vertical;min-height:70px}
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1rem">
           <div class="card" style="margin-bottom:0"><div class="profil-card-title" style="color:#4f8aff">Plan moteur</div><div id="profil-moteur-display" class="profil-display"></div><button class="btn btn-g btn-sm profil-edit-btn" data-plan="moteur" style="margin-top:.6rem">Modifier</button></div>
           <div class="card" style="margin-bottom:0"><div class="profil-card-title" style="color:#56cfb2">Plan social</div><div id="profil-social-display" class="profil-display"></div><button class="btn btn-g btn-sm profil-edit-btn" data-plan="social" style="margin-top:.6rem">Modifier</button></div>
-          <div class="card" style="margin-bottom:0"><div class="profil-card-title" style="color:#ffd166">Plan medical</div><div id="profil-medical-display" class="profil-display"></div><button class="btn btn-g btn-sm profil-edit-btn" data-plan="medical" style="margin-top:.6rem">Modifier</button></div>
+          <div class="card" style="margin-bottom:0"><div class="profil-card-title" style="color:#ffd166">Plan m&#233;dical</div><div id="profil-medical-display" class="profil-display"></div><button class="btn btn-g btn-sm profil-edit-btn" data-plan="medical" style="margin-top:.6rem">Modifier</button></div>
           <div class="card" style="margin-bottom:0"><div class="profil-card-title" style="color:#ff6b6b">Plan scolaire</div><div id="profil-scolaire-display" class="profil-display"></div><button class="btn btn-g btn-sm profil-edit-btn" data-plan="scolaire" style="margin-top:.6rem">Modifier</button></div>
+          <div class="card" style="margin-bottom:0"><div class="profil-card-title" style="color:#34d399">Engagement</div><div id="profil-engagement-display" class="profil-display"></div><button class="btn btn-g btn-sm profil-edit-btn" data-plan="engagement" style="margin-top:.6rem">Modifier</button></div>
+          <div class="card" style="margin-bottom:0"><div class="profil-card-title" style="color:#60a5fa">Profil &#233;l&#232;ves sur l'APSA</div><div id="profil-profilapsa-display" class="profil-display"></div><button class="btn btn-g btn-sm profil-edit-btn" data-plan="profilapsa" style="margin-top:.6rem">Modifier</button></div>
         </div>
-        <div class="card"><div class="profil-card-title" style="color:#a78bfa">Autre</div><div id="profil-autre-display" class="profil-display"></div><button class="btn btn-g btn-sm profil-edit-btn" data-plan="autre" style="margin-top:.6rem">Modifier</button></div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1rem">
+          <div class="card" style="margin-bottom:0"><div class="profil-card-title" style="color:#f472b6">Axes prioritaires — Niveau 1</div><div id="profil-axes1-display" class="profil-display"></div><button class="btn btn-g btn-sm profil-edit-btn" data-plan="axes1" style="margin-top:.6rem">Modifier</button></div>
+          <div class="card" style="margin-bottom:0"><div class="profil-card-title" style="color:#fb923c">Axes prioritaires — Niveau 2</div><div id="profil-axes2-display" class="profil-display"></div><button class="btn btn-g btn-sm profil-edit-btn" data-plan="axes2" style="margin-top:.6rem">Modifier</button></div>
+        </div>
+        <div class="card"><div class="profil-card-title" style="color:#a78bfa">Autres (lien projet &#233;tablissement, EPS, AS...)</div><div id="profil-autre-display" class="profil-display"></div><button class="btn btn-g btn-sm profil-edit-btn" data-plan="autre" style="margin-top:.6rem">Modifier</button></div>
       </div>
       <div class="card"><div class="tw"><table>
         <thead><tr><th>Eleve</th><th>Amenagement</th><th>Maitrise moy.</th><th>Note /20</th><th></th></tr></thead>
@@ -643,8 +649,8 @@ textarea{resize:vertical;min-height:70px}
   <div class="mb" id="m-seq"><div class="modal modal-xl">
     <div class="modal-title">Ma sequence</div>
     <div class="fg" style="margin-bottom:1rem">
-      <div class="fgrp full"><label>Objet d'enseignement principal</label><textarea id="seq-objet" style="min-height:80px" placeholder="Ex: Construire un itineraire..."></textarea></div>
-      <div class="fgrp full"><label>Objectifs generaux</label><textarea id="seq-objectifs" style="min-height:70px" placeholder="Ex: Etre capable de conduire un parcours..."></textarea></div>
+      <div class="fgrp full"><label>Comp&#233;tence attendue</label><textarea id="seq-objet" style="min-height:80px" placeholder="Ex: Etre capable de concevoir et realiser un deplacement..."></textarea></div>
+      <div class="fgrp full"><label>Autres objectifs</label><textarea id="seq-objectifs" style="min-height:70px" placeholder="Ex: Objectifs complementaires de la sequence..."></textarea></div>
     </div>
     <div class="sec-title">AFLP prioritaires</div>
     <div id="seq-aflp-checks" class="aflp-check-grid"></div>
@@ -821,7 +827,7 @@ var partiesNew=[],partiesEdit=[],aflpNewSel=[],aflpEditSel=[];
 var GH={token:'',repo:''};
 var pdfNames=[],fichePhotoData=null;
 var profilVisible=false;
-var PLANS=[{key:'moteur',label:'Plan moteur',color:'#4f8aff'},{key:'social',label:'Plan social',color:'#56cfb2'},{key:'medical',label:'Plan medical / amenagements',color:'#ffd166'},{key:'scolaire',label:'Plan scolaire',color:'#ff6b6b'},{key:'autre',label:'Autre',color:'#a78bfa'}];
+var PLANS=[{key:'moteur',label:'Plan moteur',color:'#4f8aff'},{key:'social',label:'Plan social',color:'#56cfb2'},{key:'medical',label:'Plan m\u00e9dical / am\u00e9nagements',color:'#ffd166'},{key:'scolaire',label:'Plan scolaire',color:'#ff6b6b'},{key:'engagement',label:'Engagement',color:'#34d399'},{key:'profilapsa',label:"Profil \u00e9l\u00e8ves sur l'APSA",color:'#60a5fa'},{key:'axes1',label:'Axes prioritaires \u2014 Niveau 1',color:'#f472b6'},{key:'axes2',label:'Axes prioritaires \u2014 Niveau 2',color:'#fb923c'},{key:'autre',label:'Autres (lien projet \u00e9tablissement, EPS, AS...)',color:'#a78bfa'}];
 function ge(id){return document.getElementById(id);}
 function esc(s){return(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
 function fmtDate(d){if(!d)return'';var p=d.split('-');var M=['jan.','fev.','mars','avr.','mai','juin','juil.','aout','sept.','oct.','nov.','dec.'];return parseInt(p[2])+' '+M[parseInt(p[1])-1]+' '+p[0];}
@@ -887,12 +893,27 @@ function buildTableEditor(data,pid,mode){
   return container;
 }
 
-function addAttachItem(list,nom,pid,mode){
+function addAttachItem(list,nom,type,dataUrl,pid,mode){
   if(!list)return;
   var row=document.createElement('div');row.className='extra-attach-item';
   var ext=(nom.split('.').pop()||'').toLowerCase();
-  var ico=ext==='pdf'?'&#128196;':ext.match(/^(xls|xlsx)$/)?'&#128202;':ext.match(/^(doc|docx)$/)?'&#128196;':'&#128206;';
-  row.innerHTML=ico+' <span class="extra-attach-name">'+esc(nom)+'</span>';
+  var ico=ext==='pdf'?'&#128196;':ext.match(/^(xls|xlsx)$/)?'&#128202;':ext.match(/^(doc|docx)$/)?'&#128196;':type&&type.startsWith('image/')?'&#128247;':'&#128206;';
+  var nameSpan=document.createElement('span');nameSpan.className='extra-attach-name';nameSpan.textContent=nom;
+  row.innerHTML=ico+' ';
+  row.appendChild(nameSpan);
+  // Bouton ouvrir si on a les données
+  if(dataUrl){
+    var openBtn=document.createElement('button');openBtn.className='extra-attach-del';openBtn.innerHTML='&#128065;';openBtn.title='Visualiser';openBtn.style.color='#4f8aff';openBtn.style.opacity='1';
+    openBtn.addEventListener('click',function(){
+      if(type&&type.startsWith('image/')){
+        var w=window.open('','_blank');
+        if(w){w.document.write('<html><body style="margin:0;background:#000;display:flex;align-items:center;justify-content:center;min-height:100vh"><img src="'+dataUrl+'" style="max-width:100%;max-height:100vh;object-fit:contain"></body></html>');w.document.close();}
+      } else {
+        var a=document.createElement('a');a.href=dataUrl;a.download=nom;a.click();
+      }
+    });
+    row.appendChild(openBtn);
+  }
   var del=document.createElement('button');del.className='extra-attach-del';del.innerHTML='&#10005;';
   del.addEventListener('click',function(){
     var parr=mode==='new'?partiesNew:partiesEdit;
@@ -1055,14 +1076,18 @@ addFileBtn.addEventListener('click',function(){fileInp.click();});
 fileInp.addEventListener('change',function(){
   for(var f=0;f<this.files.length;f++){
     (function(file,pid){
-      var parr=mode==='new'?partiesNew:partiesEdit;
-      for(var k=0;k<parr.length;k++){if(parr[k].id===pid){if(!parr[k].fichiers)parr[k].fichiers=[];parr[k].fichiers.push({nom:file.name,type:file.type});break;}}
-      addAttachItem(ge('al-'+pid),file.name,pid,mode);
+      var reader=new FileReader();
+      reader.onload=function(ev){
+        var dataUrl=ev.target.result;
+        var parr=mode==='new'?partiesNew:partiesEdit;
+        for(var k=0;k<parr.length;k++){if(parr[k].id===pid){if(!parr[k].fichiers)parr[k].fichiers=[];parr[k].fichiers.push({nom:file.name,type:file.type,data:dataUrl});break;}}
+        addAttachItem(ge('al-'+pid),file.name,file.type,dataUrl,pid,mode);
+      };reader.readAsDataURL(file);
     })(this.files[f],p.id);
   }
   this.value='';
 });
-if(p.fichiers&&p.fichiers.length){setTimeout(function(){var al=ge('al-'+p.id);if(al){for(var k=0;k<p.fichiers.length;k++)addAttachItem(al,p.fichiers[k].nom,p.id,mode);}},0);}
+if(p.fichiers&&p.fichiers.length){setTimeout(function(){var al=ge('al-'+p.id);if(al){for(var k=0;k<p.fichiers.length;k++)addAttachItem(al,p.fichiers[k].nom,p.fichiers[k].type||'',p.fichiers[k].data||'',p.id,mode);}},0);}
 fileWrap.appendChild(addFileBtn);fileWrap.appendChild(fileInp);
 extras.appendChild(fileWrap);
 div.appendChild(extras);
@@ -1192,12 +1217,25 @@ for(var pi=0;pi<(s.parties||[]).length;pi++){
     }
     // Fichiers
     if(p.fichiers&&p.fichiers.length){
-      h+='<div style="font-family:Courier,monospace;font-size:7.5px;text-transform:uppercase;letter-spacing:.1em;font-weight:bold;color:#ca6f1e;margin-bottom:5px">Pieces jointes</div>';
-      h+='<div style="display:flex;flex-wrap:wrap;gap:5px">';
+      h+='<div style="font-family:Courier,monospace;font-size:7.5px;text-transform:uppercase;letter-spacing:.1em;font-weight:bold;color:#ca6f1e;margin-bottom:8px;margin-top:6px">Pieces jointes</div>';
       for(var fii=0;fii<p.fichiers.length;fii++){
-        h+='<span style="background:#fff3e0;border:1px solid #f0d0a0;border-radius:4px;font-size:9px;padding:3px 8px;color:#8a4500">&#128206; '+esc(p.fichiers[fii].nom||'')+'</span>';
+        var fi2=p.fichiers[fii];
+        var fext2=(fi2.nom||'').split('.').pop().toLowerCase();
+        if(fi2.data&&fi2.type&&fi2.type.startsWith('image/')){
+          // Image inline
+          h+='<div style="margin-bottom:8px"><div style="font-size:8px;color:#888;margin-bottom:4px">'+esc(fi2.nom||'')+'</div>';
+          h+='<img src="'+fi2.data+'" style="max-width:100%;max-height:200px;object-fit:contain;border-radius:5px;border:1px solid #e0e4f0"></div>';
+        } else if(fi2.data&&fext2==='pdf'){
+          // PDF iframe
+          h+='<div style="margin-bottom:10px"><div style="font-size:8px;color:#888;margin-bottom:4px">&#128196; '+esc(fi2.nom||'')+'</div>';
+          h+='<iframe src="'+fi2.data+'" style="width:100%;height:300px;border:1px solid #e0e4f0;border-radius:5px"></iframe></div>';
+        } else if(fi2.data){
+          // Lien téléchargeable
+          h+='<div style="margin-bottom:5px"><a href="'+fi2.data+'" download="'+esc(fi2.nom||'')+'" style="display:inline-flex;align-items:center;gap:5px;background:#fff3e0;border:1px solid #f0d0a0;border-radius:4px;font-size:9px;padding:4px 10px;color:#8a4500;text-decoration:none">&#128206; '+esc(fi2.nom||'')+'</a></div>';
+        } else {
+          h+='<span style="background:#f5f5f5;border:1px solid #ddd;border-radius:4px;font-size:9px;padding:3px 8px;color:#888">&#128206; '+esc(fi2.nom||'')+' (non disponible)</span>';
+        }
       }
-      h+='</div>';
     }
     h+='</div>';
   }
@@ -1211,11 +1249,11 @@ if(s.bilan)h+='<div class="bilan-box"><div class="bilan-box-title">Bilan general
 h+='<div class="footer"><span>'+esc(CTX.cls?CTX.cls.label:'')+(CTX.apsa?' &bull; '+esc(CTX.apsa.name):'')+'</span><span>EPS &bull; '+new Date().toLocaleDateString('fr-FR')+'</span></div>';
 h+='</body></html>';
 
-var blob=new Blob([h],{type:'text/html;charset=utf-8'});
-var url=URL.createObjectURL(blob);
-var w=window.open(url,'_blank');
-if(!w)toast('Popup bloquee - autorisez les popups','warn');
-setTimeout(function(){URL.revokeObjectURL(url);},60000);
+var w=window.open('','_blank');
+if(!w){toast('Popup bloquee - autorisez les popups','warn');return;}
+w.document.open();
+w.document.write(h);
+w.document.close();
 }
 function renderApList(){var el=ge('ap-slist');var sorted=state.seances.slice().sort(function(a,b){return a.num-b.num;});if(!sorted.length){el.innerHTML='<div style="color:#6b7280;font-size:.82rem">Aucune seance.</div>';return;}el.innerHTML='';for(var i=0;i<sorted.length;i++){(function(s){var d=document.createElement('div');d.className='ap-scard';d.id='ab-'+s.id;d.dataset.sid=s.id;d.innerHTML='<div class="ap-snum">S'+s.num+'</div><div><div style="font-size:.83rem;font-weight:500">'+esc(s.objectif||'Sans titre')+'</div><div style="font-size:.72rem;color:#6b7280">'+(s.date?fmtDate(s.date):'')+'</div></div>';el.appendChild(d);})(sorted[i]);}el.onclick=function(e){var card=e.target.closest('.ap-scard');if(!card)return;var cards=document.querySelectorAll('.ap-scard');for(var i=0;i<cards.length;i++)cards[i].classList.remove('act');card.classList.add('act');showAppel(card.dataset.sid);};}
 function showAppel(sid){var s=null;for(var i=0;i<state.seances.length;i++){if(state.seances[i].id===sid){s=state.seances[i];break;}}if(!s)return;if(!state.presences[sid])state.presences[sid]={};if(!state.autoEval[sid])state.autoEval[sid]={};if(!state.seanceObjectifs[sid])state.seanceObjectifs[sid]={};var sorted=state.eleves.slice().sort(function(a,b){return a.nom.localeCompare(b.nom);});var nbP=0;for(var i=0;i<sorted.length;i++){if((state.presences[sid][sorted[i].id]||'')==='Present')nbP++;}var objData=state.seanceObjectifs[sid];var h='<div class="obj-box"><div class="obj-box-title">Objectifs de la seance</div><div class="obj-inputs"><div><label class="obj-lbl">Objectif 1 (pour tous)</label><input class="obj-inp" type="text" id="obj1-inp" value="'+esc(objData.obj1||'')+'" placeholder="Ex: Orienter la carte au nord"></div><div><label class="obj-lbl">Objectif 2 (optionnel)</label><input class="obj-inp" type="text" id="obj2-inp" value="'+esc(objData.obj2||'')+'" placeholder="Ex: Utiliser un point d appui"></div></div></div>';h+='<div class="card" style="margin-bottom:.75rem;padding:.9rem 1.1rem"><div style="font-family:DM Serif Display,serif;font-size:1.05rem">S'+s.num+' - '+esc(s.objectif||'')+'</div><div style="color:#6b7280;font-size:.75rem;margin-top:3px">'+(s.date?fmtDate(s.date):'')+'</div><div style="margin-top:.5rem"><span class="chip c-gr">'+nbP+'/'+state.eleves.length+' presents</span></div></div>';h+='<div class="card"><div class="tw"><table><thead><tr><th>Eleve</th><th>Statut</th><th>Obj. 1 - Maitrise</th><th>Obj. 2 - Maitrise</th><th>Qte travail /4</th></tr></thead><tbody>';for(var i=0;i<sorted.length;i++){var e=sorted[i];var pres=state.presences[sid][e.id]||'';var ae=state.autoEval[sid][e.id]||{};var dis=!pres||pres!=='Present';var hasObj2=objData.obj2&&objData.obj2.trim();var mOpts='<option value="">- Maitrise -</option>';for(var k=0;k<MAITRISE.length;k++)mOpts+='<option'+(ae.maitrise1===MAITRISE[k]?' selected':'')+'>'+MAITRISE[k]+'</option>';var mOpts2='<option value="">- Maitrise -</option>';for(var k=0;k<MAITRISE.length;k++)mOpts2+='<option'+(ae.maitrise2===MAITRISE[k]?' selected':'')+'>'+MAITRISE[k]+'</option>';h+='<tr><td><span style="font-size:.82rem;font-weight:500">'+esc(e.nom)+'</span>'+(e.amenagement?'<br><span style="font-size:.7rem;color:#ffd166">'+esc(e.amenagement)+'</span>':'')+'</td><td><select class="ss" data-sid="'+sid+'" data-eid="'+e.id+'" data-f="pres">'+(function(){
