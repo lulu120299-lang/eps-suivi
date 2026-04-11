@@ -1094,7 +1094,7 @@ function renderAccueilSuivi(){ge('acc-ss-s').textContent=state.seances.length;ge
 var autreobj=tr?tr.autreobj||'':'';
 var contenus=tr?tr.contenus||'':'';
 var fps=tr?tr.fps||'':'';
-if(ss){aflpList=ss.aflpTravailles||aflpList;autreobj=autreobj;contenus=contenus;fps=fps;}
+if(ss){aflpList=ss.aflpTravailles||aflpList;if(ss.autreobj)autreobj=ss.autreobj;if(ss.contenus)contenus=ss.contenus;if(ss.fps)fps=ss.fps;}
 var hasDetails=aflpList.length||autreobj||contenus||fps;
 h+='<div class="trame-display-row'+(done?' done':'')+'">';
 h+='<div class="trame-display-head'+(hasDetails?' has-details':'')+'">';
