@@ -851,6 +851,20 @@ textarea{resize:vertical;min-height:70px}
     </div>
   </div></div>
 </div>
+<!-- Modale PDF Viewer -->
+<div class="mb" id="m-pdf-viewer" style="z-index:1000;padding:0">
+  <div style="background:#1a1c2e;width:100%;height:100%;display:flex;flex-direction:column;position:relative;max-width:100%;max-height:100%;border-radius:0">
+    <div id="_pdf_toolbar_modal" style="background:#12141e;border-bottom:1px solid #252836;display:flex;align-items:center;justify-content:space-between;padding:10px 16px;flex-shrink:0;gap:10px;flex-wrap:wrap">
+      <span id="_pdf_filename" style="font-family:system-ui,sans-serif;font-size:13px;font-weight:600;color:#9aa0b8;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap"></span>
+      <div style="display:flex;gap:8px;flex-shrink:0">
+        <button onclick="ge('m-pdf-viewer-frame').contentWindow.print()" style="background:#4f8aff;color:#fff;border:none;border-radius:6px;padding:7px 14px;font-size:12px;font-weight:700;cursor:pointer;font-family:system-ui,sans-serif">&#128196; Imprimer</button>
+        <button onclick="ge('m-pdf-viewer-frame').contentWindow.print()" id="_pdf_print_clean" style="background:#56cfb2;color:#1a1c2e;border:none;border-radius:6px;padding:7px 14px;font-size:12px;font-weight:700;cursor:pointer;font-family:system-ui,sans-serif">PDF propre</button>
+        <button onclick="closePdfViewer()" style="background:#ff6b6b;color:#fff;border:none;border-radius:8px;padding:7px 14px;font-size:13px;font-weight:800;cursor:pointer;font-family:system-ui,sans-serif;line-height:1">&#10005; Fermer</button>
+      </div>
+    </div>
+    <iframe id="m-pdf-viewer-frame" style="flex:1;border:none;width:100%;background:#fff" src="about:blank"></iframe>
+  </div>
+</div>
 <script>
 var CLASSES=[{id:'2nde-ener-b',label:'2NDE ENER B',level:'2NDE',sub:'Energie Gr. B',color:'#c8400a',light:'#c8400a0d',filiere:'bacpro'},{id:'2nde-mrc-b',label:'2NDE MRC B',level:'2NDE',sub:'MRC Gr. B',color:'#1a6b3a',light:'#1a6b3a0d',filiere:'bacpro'},{id:'cap-epc-1',label:'CAP EPC 1',level:'CAP',sub:'Equipier polyvalent de commerce',color:'#1e4fa0',light:'#1e4fa00d',filiere:'cap'},{id:'cap-elec-2',label:'CAP ELEC 2',level:'CAP',sub:'Electricite',color:'#7c28b8',light:'#7c28b80d',filiere:'cap'},{id:'3e-pm',label:'3e PM',level:'3e',sub:'Prepa Metiers',color:'#a07800',light:'#a078000d',filiere:'3e'}];
 var CA_GROUPS=[{ca:'CA1',caFull:'CA1',color:'#ff6b6b',desc:'Realiser sa performance motrice maximale',apsa:[{id:'vitesse',name:'Course de vitesse',emoji:'&#9889;'},{id:'athle',name:'Athletisme multisport',emoji:'&#127947;'}]},{ca:'CA2',caFull:'CA2',color:'#a78bfa',desc:"Adapter son deplacement a des environnements varies",apsa:[{id:'orientation',name:"Course d'orientation",emoji:'&#129517;'}]},{ca:'CA3',caFull:'CA3',color:'#ffd166',desc:'Realiser une prestation corporelle appreciee',apsa:[{id:'acrosport',name:'Acrosport',emoji:'&#129338;'}]},{ca:'CA4',caFull:'CA4',color:'#4f8aff',desc:'Conduire un affrontement pour gagner',apsa:[{id:'volley',name:'Volley-Ball',emoji:'&#127952;'},{id:'tdt',name:'Tennis de Table',emoji:'&#127955;'},{id:'badminton',name:'Badminton',emoji:'&#127992;'}]},{ca:'CA5',caFull:'CA5',color:'#56cfb2',desc:"Orienter son activite pour s'entretenir",apsa:[{id:'duree',name:'Course de duree',emoji:'&#127939;'}]}];
@@ -1272,22 +1286,34 @@ function updSeance(){var id=ge('es-id').value;var s=null;for(var i=0;i<state.sea
 function delSeance(){var id=ge('es-id').value;if(!confirm('Supprimer cette seance ?'))return;for(var i=state.seances.length-1;i>=0;i--){if(state.seances[i].id===id){state.seances.splice(i,1);break;}}delete state.presences[id];delete state.autoEval[id];delete state.seanceObjectifs[id];save();closeM('m-edit-s');renderAll();}
 
 function openPdfWindow(html,filename){
-  var w=window.open('','_blank');
-  if(!w){toast('Popup bloquee - autorisez les popups','warn');return;}
-  // Injecter la barre d'outils de téléchargement dans le HTML
-  var toolbar='<div id="_pdf_toolbar" style="position:fixed;top:0;left:0;right:0;z-index:9999;background:#1a1c2e;color:#fff;display:flex;align-items:center;justify-content:space-between;padding:8px 16px;font-family:system-ui,sans-serif;font-size:13px;box-shadow:0 2px 8px rgba(0,0,0,.4);print:none">'
-    +'<span style="font-weight:600;opacity:.8">'+filename+'</span>'
-    +'<div style="display:flex;gap:8px">'
-    +'<button onclick="window.print()" style="background:#4f8aff;color:#fff;border:none;border-radius:6px;padding:7px 16px;font-size:12px;font-weight:700;cursor:pointer">&#128196; Imprimer / Enregistrer PDF</button>'
-    +'<button onclick="document.getElementById(\'_pdf_toolbar\').style.display=\'none\';window.print();document.getElementById(\'_pdf_toolbar\').style.display=\'flex\';" style="background:#56cfb2;color:#1a1c2e;border:none;border-radius:6px;padding:7px 16px;font-size:12px;font-weight:700;cursor:pointer">&#9660; PDF propre (sans barre)</button>'
-    +'</div></div>';
-  // Ajouter @media print pour masquer la barre et ajuster le padding
-  var printCss='<style>@media print{#_pdf_toolbar{display:none!important}body{padding-top:0!important}}</style>';
-  // Injecter toolbar + printCss juste après <body>
-  var finalHtml=html.replace('<body>','<body>'+printCss+toolbar+'<div style="padding-top:52px">').replace('</body>','</div></body>');
-  w.document.open();
-  w.document.write(finalHtml);
-  w.document.close();
+  // Injecter le CSS d'impression (masquer éléments non imprimables)
+  var printCss='<style>@media print{#_pdf_no_print{display:none!important}body{padding:0!important;margin:0!important}}</style>';
+  var finalHtml=html.replace('<body>','<body>'+printCss+'<div id="_pdf_no_print" style="height:0"></div>');
+  // Utiliser la modale intégrée (meilleur support iPad/Safari)
+  var frame=ge('m-pdf-viewer-frame');
+  var fnEl=ge('_pdf_filename');
+  if(fnEl)fnEl.textContent=filename;
+  // Bouton PDF propre : cache les éléments non-print avant d'imprimer
+  var cleanBtn=ge('_pdf_print_clean');
+  if(cleanBtn){
+    cleanBtn.onclick=function(){
+      var fw=frame.contentWindow;
+      fw.print();
+    };
+  }
+  // Écrire le HTML dans l'iframe
+  frame.src='about:blank';
+  setTimeout(function(){
+    frame.contentWindow.document.open();
+    frame.contentWindow.document.write(finalHtml);
+    frame.contentWindow.document.close();
+  },50);
+  openM('m-pdf-viewer');
+}
+function closePdfViewer(){
+  var frame=ge('m-pdf-viewer-frame');
+  if(frame){frame.src='about:blank';}
+  closeM('m-pdf-viewer');
 }
 function exportSeancePDF(){
 var id=ge('es-id').value;
