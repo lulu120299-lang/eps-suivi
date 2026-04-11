@@ -150,7 +150,10 @@
           "consignes": "Mobilisation articulation, footing 5 min et suivi de quelques gammes (Elève de plus en plus autonome avec des automatisme)",
           "criteres": "Engagement actif, amplitude correcte",
           "contenus": "Activation cardiovasculaire",
-          "bilan": "Difficulté à s'engager"
+          "bilan": "Difficulté à s'engager",
+          "photos": [],
+          "tableaux": [],
+          "fichiers": []
         },
         {
           "id": "p02",
@@ -159,9 +162,15 @@
           "consignes": "Marche rapide, engageante avec eu pour leur présenter l'activité, les balises. Les élèves doivent tracer sur la carte le parcours que l'on réalise et savoir identifier ou l'on se trouve grâce à des repères extérieurs. Séance d'accompagnement pour rassurer les élèves et leurs présenter les consignes de sécurité; que faire en cas de telle ou telle situation",
           "criteres": "Points trouves, carte orienteé, dessins",
           "contenus": "Lecture de carte, orientation correct de la carte, règle de sécurité (prévenir le prof, rester en binome, ne pas dépasser les lignes)",
-          "bilan": "Bonne situation - constat difficulté à se repérer et lire la carte CO originale"
+          "bilan": "Bonne situation - constat difficulté à se repérer et lire la carte CO originale",
+          "photos": [],
+          "tableaux": [],
+          "fichiers": []
         }
-      ]
+      ],
+      "autreobj": "Coopération / Sécurité",
+      "contenus": "Lecture d'une carte / légende / orienter correctement sa carte à des repères extérieurs ",
+      "fps": ""
     },
     {
       "id": "s002",
