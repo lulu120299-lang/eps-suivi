@@ -1,5 +1,59 @@
 {
-  "seances": [],
+  "seances": [
+    {
+      "id": "s1775948808254",
+      "num": 1,
+      "objectif": "Eval Diagnostique _Construction d un itinéraire - Anticipation",
+      "autreobj": "",
+      "contenus": "",
+      "fps": "",
+      "date": "",
+      "bilan": "",
+      "aflpTravailles": [
+        "AFLP 6",
+        "AFLP 1",
+        "AFLP 4"
+      ],
+      "parties": [
+        {
+          "id": "p17759488082542tg",
+          "titre": "Echauffement",
+          "objectif": "Préparation physique et mentale",
+          "consignes": "Mobilisation articulation, footing 5 min et suivi de quelques gammes (Elève de plus en plus autonome avec des automatisme)",
+          "criteres": "Engagement moteur",
+          "contenus": "Activation du système cardio-vasculaire",
+          "bilan": "",
+          "photos": [],
+          "tableaux": [],
+          "fichiers": []
+        },
+        {
+          "id": "p1775948808254nyp",
+          "titre": "Situation d'apprentissage",
+          "objectif": "Identifier et créer un itinéraire le plus rapide possible tout en sachant se repérer sur la carte",
+          "consignes": "Analyser la carte avant le départ pour se repérer et se positionner sur la carte pour identifier un point attaque. Les élèves ont le choix de plusieurs cartes (1 à 10) qui sont de plus en plus difficile (balises éloignés et proche d'autre balises) pour ce faire les élèves doivent choisir et trouver les 3 balises. S'ils ne trouvent pas les balises ils doivent renoncer aux parcours pour faire je leur donne un temps maximum sur un parcours pour qu'ils apprennent aussi à gérer leur temps et savoir renoncer à une balise tout en revenant à temps au points départ.",
+          "criteres": "Se repérer sur une carte, se placer sur une carte. Identifier grâce aux éléments extérieurs des repères pour se positionner",
+          "contenus": "Méthodologique et moteur",
+          "bilan": "",
+          "photos": [],
+          "tableaux": [],
+          "fichiers": []
+        },
+        {
+          "id": "p1775948808254j0x",
+          "titre": "Bilan collectif",
+          "objectif": "Verbaliser et argumenter ses choix et savoir s'auto-évaluer",
+          "consignes": "Récupération active (5 min)\nMarche lente 2 min puis étirements guidés : quadriceps, ischio-jambiers, mollets, épaules.\nBilan collectif (10 min)\nRésultats équipes affichés via Mode Professeur sur l'app.\nQuestions posées :\n\n\"Qui a réussi à rester dans sa fenêtre de temps ?\"\n\"Qui a choisi un niveau différent d'avant ? Pourquoi ?\"\n\"Qu'est-ce qui vous a aidé à gérer votre allure ?\"",
+          "criteres": "Capacite a expliquer et argumenter.",
+          "contenus": "Expression orale, argumentation",
+          "bilan": "",
+          "photos": [],
+          "tableaux": [],
+          "fichiers": []
+        }
+      ]
+    }
+  ],
   "eleves": [
     {
       "id": "e1775946911765",
