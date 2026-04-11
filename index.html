@@ -692,7 +692,10 @@ textarea{resize:vertical;min-height:70px}
     <div id="v-seances" class="view">
       <div class="ph">
         <div><div class="ph-title" id="s-pg-title">Sequence</div><div class="ph-sub" id="s-pg-sub"></div></div>
-        <button class="btn btn-p" id="btn-new-seance">+ Nouvelle seance</button>
+        <div style="display:flex;gap:.5rem">
+          <label class="btn btn-g" style="cursor:pointer;margin:0" title="Importer une seance depuis une autre classe">&#8593; Importer seance<input type="file" id="btn-import-seance-json" accept=".json" style="display:none"></label>
+          <button class="btn btn-p" id="btn-new-seance">+ Nouvelle seance</button>
+        </div>
       </div>
       <div class="g4" style="margin-bottom:1.25rem">
         <div class="stat bl"><div class="stat-lbl">Seances</div><div class="stat-val" id="ss-s">0</div><div class="stat-sub">programmees</div></div>
@@ -863,6 +866,7 @@ textarea{resize:vertical;min-height:70px}
     <div class="modal-acts">
       <button class="btn btn-d btn-sm" id="btn-del-seance">Supprimer</button>
       <button class="btn btn-g btn-sm" id="btn-pdf-seance">Export PDF</button>
+      <button class="btn btn-g btn-sm" id="btn-export-seance-json" title="Exporter cette seance pour la reutiliser dans une autre classe">&#8595; Copier seance</button>
       <div style="flex:1"></div>
       <button class="btn btn-g" data-close="m-edit-s">Annuler</button>
       <button class="btn btn-p" id="btn-upd-seance">Enregistrer</button>
@@ -2128,6 +2132,77 @@ function importElevesJSON(file){
   reader.readAsText(file);
 }
 
+function exportSeanceJSON(){
+  var id=ge('es-id').value;
+  var s=null;
+  for(var i=0;i<state.seances.length;i++){if(state.seances[i].id===id){s=state.seances[i];break;}}
+  if(!s){toast('Seance introuvable','warn');return;}
+  var data={seance:{
+    num:s.num,
+    objectif:s.objectif||'',
+    autreobj:s.autreobj||'',
+    contenus:s.contenus||'',
+    fps:s.fps||'',
+    date:s.date||'',
+    bilan:s.bilan||'',
+    aflpTravailles:s.aflpTravailles||[],
+    parties:(s.parties||[]).map(function(p){return{
+      titre:p.titre||'',
+      objectif:p.objectif||'',
+      consignes:p.consignes||'',
+      criteres:p.criteres||'',
+      contenus:p.contenus||'',
+      bilan:p.bilan||''
+    };})
+  }};
+  var titre=(s.objectif||'seance').substring(0,30).replace(/[^a-z0-9]/gi,'_');
+  var a=document.createElement('a');
+  a.href='data:application/json;charset=utf-8,'+encodeURIComponent(JSON.stringify(data,null,2));
+  a.download='seance_S'+s.num+'_'+titre+'.json';
+  a.click();
+  toast('Seance exportee : S'+s.num);
+}
+function importSeanceJSON(file){
+  if(!file)return;
+  var reader=new FileReader();
+  reader.onload=function(e){
+    try{
+      var data=JSON.parse(e.target.result);
+      if(!data.seance){toast('Fichier invalide','warn');return;}
+      var sv=data.seance;
+      var newNum=state.seances.length+1;
+      var msg='Importer "'+sv.objectif+'" comme S'+newNum+' dans cette sequence ?';
+      if(confirm(msg)){
+        var newS={
+          id:'s'+Date.now(),
+          num:newNum,
+          objectif:sv.objectif||'',
+          autreobj:sv.autreobj||'',
+          contenus:sv.contenus||'',
+          fps:sv.fps||'',
+          date:'',
+          bilan:'',
+          aflpTravailles:sv.aflpTravailles||[],
+          parties:(sv.parties||[]).map(function(p){return{
+            id:'p'+Date.now()+Math.random().toString(36).slice(2,5),
+            titre:p.titre||'',
+            objectif:p.objectif||'',
+            consignes:p.consignes||'',
+            criteres:p.criteres||'',
+            contenus:p.contenus||'',
+            bilan:''
+          };})
+        };
+        state.seances.push(newS);
+        save();
+        renderAll();
+        toast('Seance importee comme S'+newNum+' !');
+      }
+    }catch(err){toast('Erreur lecture fichier','warn');}
+  };
+  reader.readAsText(file);
+}
+
 function exportGrilleJSON(){
   var g=grilleGetData();
   if(!g.criteres||!g.criteres.length){toast('Aucune grille a exporter','warn');return;}
@@ -2259,7 +2334,7 @@ function renderComp(){
   }
 }
 
-function initEvents(){var closes=document.querySelectorAll('[data-close]');for(var i=0;i<closes.length;i++){(function(btn){btn.addEventListener('click',function(){closeM(this.dataset.close);});})(closes[i]);}var tabs=document.querySelectorAll('.s-tab');for(var i=0;i<tabs.length;i++){(function(tab){tab.addEventListener('click',function(){showView(this.dataset.view);});})(tabs[i]);}var shortcuts=document.querySelectorAll('.acc-shortcut');for(var i=0;i<shortcuts.length;i++){(function(el){el.addEventListener('click',function(){showView(this.dataset.view);});})(shortcuts[i]);}var profilBtns=document.querySelectorAll('.profil-edit-btn');for(var i=0;i<profilBtns.length;i++){(function(btn){btn.addEventListener('click',function(){openProfilPlan(this.dataset.plan);});})(profilBtns[i]);}var dispBtns=document.querySelectorAll('.disp-type-btn');for(var i=0;i<dispBtns.length;i++){(function(btn){btn.addEventListener('click',function(){var all=document.querySelectorAll('.disp-type-btn');for(var i=0;i<all.length;i++)all[i].classList.remove('sel');this.classList.add('sel');});})(dispBtns[i]);}function s(id,ev,fn){var el=ge(id);if(el)el.addEventListener(ev,fn);}s('btn-gh-save','click',ghSaveConfig);s('s-back-btn','click',goAcc);s('btn-push','click',ghPush);s('btn-pull','click',ghPull);s('btn-edit-seq','click',openSeqModal);s('btn-save-seq','click',saveSeq);s('btn-add-trame-seance','click',addTrameSeance);s('btn-new-seance','click',function(){openM('m-seance');});s('btn-save-seance','click',saveSeance);s('btn-add-partie-new','click',function(){addPartie('new');});s('btn-upd-seance','click',updSeance);s('btn-del-seance','click',delSeance);s('btn-add-partie-edit','click',function(){addPartie('edit');});s('btn-pdf-seance','click',exportSeancePDF);s('srch','input',renderSeances);s('btn-pdf-eleves','click',exportElevesPDF);s('btn-pdf-bilan','click',exportBilanPDF);s('btn-profil-classe','click',toggleProfilZone);s('btn-save-profil-plan','click',saveProfilPlan);s('btn-new-eleve','click',function(){openM('m-eleve');});s('btn-save-eleve','click',saveEleve);s('btn-upd-eleve','click',updEleve);s('btn-del-eleve','click',delEleve);s('btn-import-pdf','click',function(){openM('m-pdf');});s('btn-export-eleves-json','click',exportElevesJSON);s('btn-import-eleves-json','change',function(){importElevesJSON(this.files[0]);this.value='';});s('btn-csv','click',exportCSV);s('btn-save-fiche','click',saveFicheAmen);s('photo-drop','click',function(){var pi=ge('photo-input');if(pi)pi.click();});s('photo-input','change',function(){handlePhoto(this);});s('photo-del-btn','click',function(){fichePhotoData=null;var t=ge('photo-thumb');if(t)t.style.display='none';this.style.display='none';var pi=ge('photo-input');if(pi)pi.value='';});s('photo-thumb','click',function(){if(fichePhotoData){var w=window.open('','_blank');if(w){w.document.write('<html><body style="margin:0;background:#000;display:flex;justify-content:center;align-items:center;min-height:100vh"><img src="'+fichePhotoData+'" style="max-width:100%;max-height:100vh;object-fit:contain"><\/body><\/html>');w.document.close();}}});var pd=ge('photo-drop');if(pd){var drevts=['dragenter','dragover'];for(var i=0;i<drevts.length;i++)pd.addEventListener(drevts[i],function(e){e.preventDefault();pd.classList.add('drag');});var dlvts=['dragleave','drop'];for(var i=0;i<dlvts.length;i++)pd.addEventListener(dlvts[i],function(e){e.preventDefault();pd.classList.remove('drag');});pd.addEventListener('drop',function(e){var f=e.dataTransfer.files[0];if(f&&f.type.startsWith('image/')){var dt=new DataTransfer();dt.items.add(f);ge('photo-input').files=dt.files;handlePhoto(ge('photo-input'));}});}var dz=ge('pdf-drop');if(dz){dz.addEventListener('click',function(){var pi=ge('pdf-input');if(pi)pi.click();});s('pdf-input','change',function(){handlePdf(this);});var drevts2=['dragenter','dragover'];for(var i=0;i<drevts2.length;i++)dz.addEventListener(drevts2[i],function(e){e.preventDefault();dz.classList.add('drag');});var dlvts2=['dragleave','drop'];for(var i=0;i<dlvts2.length;i++)dz.addEventListener(dlvts2[i],function(e){e.preventDefault();dz.classList.remove('drag');});dz.addEventListener('drop',function(e){var f=e.dataTransfer.files[0];if(f&&f.type==='application/pdf'){var dt=new DataTransfer();dt.items.add(f);ge('pdf-input').files=dt.files;handlePdf(ge('pdf-input'));}});}s('btn-pdf-all','click',function(){var cbs=document.querySelectorAll('#pdf-names input[type=checkbox]');for(var i=0;i<cbs.length;i++)cbs[i].checked=true;});s('btn-pdf-none','click',function(){var cbs=document.querySelectorAll('#pdf-names input[type=checkbox]');for(var i=0;i<cbs.length;i++)cbs[i].checked=false;});s('btn-pdf-import','click',pdfImport);var _ss=ge('comp-seuil-sel');if(_ss)_ss.addEventListener('change',renderComp);
+function initEvents(){var closes=document.querySelectorAll('[data-close]');for(var i=0;i<closes.length;i++){(function(btn){btn.addEventListener('click',function(){closeM(this.dataset.close);});})(closes[i]);}var tabs=document.querySelectorAll('.s-tab');for(var i=0;i<tabs.length;i++){(function(tab){tab.addEventListener('click',function(){showView(this.dataset.view);});})(tabs[i]);}var shortcuts=document.querySelectorAll('.acc-shortcut');for(var i=0;i<shortcuts.length;i++){(function(el){el.addEventListener('click',function(){showView(this.dataset.view);});})(shortcuts[i]);}var profilBtns=document.querySelectorAll('.profil-edit-btn');for(var i=0;i<profilBtns.length;i++){(function(btn){btn.addEventListener('click',function(){openProfilPlan(this.dataset.plan);});})(profilBtns[i]);}var dispBtns=document.querySelectorAll('.disp-type-btn');for(var i=0;i<dispBtns.length;i++){(function(btn){btn.addEventListener('click',function(){var all=document.querySelectorAll('.disp-type-btn');for(var i=0;i<all.length;i++)all[i].classList.remove('sel');this.classList.add('sel');});})(dispBtns[i]);}function s(id,ev,fn){var el=ge(id);if(el)el.addEventListener(ev,fn);}s('btn-gh-save','click',ghSaveConfig);s('s-back-btn','click',goAcc);s('btn-push','click',ghPush);s('btn-pull','click',ghPull);s('btn-edit-seq','click',openSeqModal);s('btn-save-seq','click',saveSeq);s('btn-add-trame-seance','click',addTrameSeance);s('btn-new-seance','click',function(){openM('m-seance');});s('btn-save-seance','click',saveSeance);s('btn-add-partie-new','click',function(){addPartie('new');});s('btn-upd-seance','click',updSeance);s('btn-del-seance','click',delSeance);s('btn-add-partie-edit','click',function(){addPartie('edit');});s('btn-pdf-seance','click',exportSeancePDF);s('btn-export-seance-json','click',exportSeanceJSON);s('btn-import-seance-json','change',function(){importSeanceJSON(this.files[0]);this.value='';}); s('srch','input',renderSeances);s('btn-pdf-eleves','click',exportElevesPDF);s('btn-pdf-bilan','click',exportBilanPDF);s('btn-profil-classe','click',toggleProfilZone);s('btn-save-profil-plan','click',saveProfilPlan);s('btn-new-eleve','click',function(){openM('m-eleve');});s('btn-save-eleve','click',saveEleve);s('btn-upd-eleve','click',updEleve);s('btn-del-eleve','click',delEleve);s('btn-import-pdf','click',function(){openM('m-pdf');});s('btn-export-eleves-json','click',exportElevesJSON);s('btn-import-eleves-json','change',function(){importElevesJSON(this.files[0]);this.value='';});s('btn-csv','click',exportCSV);s('btn-save-fiche','click',saveFicheAmen);s('photo-drop','click',function(){var pi=ge('photo-input');if(pi)pi.click();});s('photo-input','change',function(){handlePhoto(this);});s('photo-del-btn','click',function(){fichePhotoData=null;var t=ge('photo-thumb');if(t)t.style.display='none';this.style.display='none';var pi=ge('photo-input');if(pi)pi.value='';});s('photo-thumb','click',function(){if(fichePhotoData){var w=window.open('','_blank');if(w){w.document.write('<html><body style="margin:0;background:#000;display:flex;justify-content:center;align-items:center;min-height:100vh"><img src="'+fichePhotoData+'" style="max-width:100%;max-height:100vh;object-fit:contain"><\/body><\/html>');w.document.close();}}});var pd=ge('photo-drop');if(pd){var drevts=['dragenter','dragover'];for(var i=0;i<drevts.length;i++)pd.addEventListener(drevts[i],function(e){e.preventDefault();pd.classList.add('drag');});var dlvts=['dragleave','drop'];for(var i=0;i<dlvts.length;i++)pd.addEventListener(dlvts[i],function(e){e.preventDefault();pd.classList.remove('drag');});pd.addEventListener('drop',function(e){var f=e.dataTransfer.files[0];if(f&&f.type.startsWith('image/')){var dt=new DataTransfer();dt.items.add(f);ge('photo-input').files=dt.files;handlePhoto(ge('photo-input'));}});}var dz=ge('pdf-drop');if(dz){dz.addEventListener('click',function(){var pi=ge('pdf-input');if(pi)pi.click();});s('pdf-input','change',function(){handlePdf(this);});var drevts2=['dragenter','dragover'];for(var i=0;i<drevts2.length;i++)dz.addEventListener(drevts2[i],function(e){e.preventDefault();dz.classList.add('drag');});var dlvts2=['dragleave','drop'];for(var i=0;i<dlvts2.length;i++)dz.addEventListener(dlvts2[i],function(e){e.preventDefault();dz.classList.remove('drag');});dz.addEventListener('drop',function(e){var f=e.dataTransfer.files[0];if(f&&f.type==='application/pdf'){var dt=new DataTransfer();dt.items.add(f);ge('pdf-input').files=dt.files;handlePdf(ge('pdf-input'));}});}s('btn-pdf-all','click',function(){var cbs=document.querySelectorAll('#pdf-names input[type=checkbox]');for(var i=0;i<cbs.length;i++)cbs[i].checked=true;});s('btn-pdf-none','click',function(){var cbs=document.querySelectorAll('#pdf-names input[type=checkbox]');for(var i=0;i<cbs.length;i++)cbs[i].checked=false;});s('btn-pdf-import','click',pdfImport);var _ss=ge('comp-seuil-sel');if(_ss)_ss.addEventListener('change',renderComp);
   // Barre nav bas
   var bnavBtns2=document.querySelectorAll('.s-bnav-btn[data-view]');
   for(var i=0;i<bnavBtns2.length;i++){
