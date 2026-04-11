@@ -703,6 +703,8 @@ textarea{resize:vertical;min-height:70px}
           <button class="btn btn-g" id="btn-grille-cfg">Configurer</button>
           <button class="btn btn-g" id="btn-grille-pdf">Export PDF</button>
           <button class="btn btn-g" id="btn-grille-csv">CSV</button>
+          <button class="btn btn-g" id="btn-grille-export-json" title="Exporter la grille pour la réutiliser dans une autre classe">&#8595; Export grille</button>
+          <label class="btn btn-g" id="btn-grille-import-label" title="Importer une grille depuis une autre classe" style="cursor:pointer;margin:0">&#8593; Import grille<input type="file" id="btn-grille-import-json" accept=".json" style="display:none"></label>
         </div>
       </div>
       <div id="grille-zone"></div>
@@ -1821,6 +1823,33 @@ function renderGrille(){var zone=ge('grille-zone');var g=grilleGetData();var not
 function openGrilleConfig(){var g=grilleGetData();ge('grille-titre-inp').value=g.titre||'';var container=ge('criteres-container');container.innerHTML='';for(var i=0;i<g.criteres.length;i++)renderCritereBlock(g.criteres[i],i);openM('m-grille-cfg');}
 function renderCritereBlock(c,idx){var container=ge('criteres-container');var div=document.createElement('div');div.className='critere-block';div.id='critere-'+c.id;var noms=['Insuffisant','Fragile','Satisfaisant','Tres bien'];var cols=['#ff6b6b','#ffd166','#56cfb2','#4f8aff'];var h='<div style="display:flex;align-items:center;gap:10px;margin-bottom:.75rem"><span style="background:#4f8aff;color:#fff;font-family:DM Mono,monospace;font-size:.68rem;padding:3px 9px;border-radius:5px;flex-shrink:0">Critere '+(idx+1)+'</span><input type="text" class="crit-nom-inp" value="'+esc(c.nom)+'" placeholder="Nom du critere..." style="flex:1"><label style="font-size:.72rem;color:#6b7280;white-space:nowrap">Max :</label><input type="number" class="crit-pts-inp ni" min="1" max="20" value="'+c.pts+'" style="width:55px"><span style="font-size:.78rem;color:#6b7280">pts</span><button class="partie-del crit-del-btn">x</button></div><div class="critere-row">';for(var i=0;i<c.niveaux.length;i++){var nv=c.niveaux[i];h+='<div class="critere-lvl-inp" style="border-top:3px solid '+cols[i]+'"><label style="color:'+cols[i]+'">'+noms[i]+'</label><input type="number" class="crit-lvl-pts" min="0" max="20" value="'+nv.pts+'" placeholder="pts"><textarea class="crit-lvl-desc" rows="2" placeholder="Description...">'+esc(nv.desc)+'</textarea></div>';}h+='</div>';div.innerHTML=h;div.querySelector('.crit-del-btn').addEventListener('click',function(){div.remove();});container.appendChild(div);}
 function saveGrilleConfig(){var titre=ge('grille-titre-inp').value.trim();var criteres=[];var blocks=document.querySelectorAll('.critere-block');for(var i=0;i<blocks.length;i++){var div=blocks[i];var nom=div.querySelector('.crit-nom-inp').value.trim();var pts=parseFloat(div.querySelector('.crit-pts-inp').value)||10;var descs=div.querySelectorAll('.crit-lvl-desc');var ptsArr=div.querySelectorAll('.crit-lvl-pts');var noms2=['Insuffisant','Fragile','Satisfaisant','Tres bien'];var niveaux=[];for(var j=0;j<4;j++)niveaux.push({label:noms2[j],desc:descs[j]?descs[j].value:'',pts:ptsArr[j]?parseFloat(ptsArr[j].value)||0:0});if(nom)criteres.push({id:'c'+(i+1),nom:nom,pts:pts,niveaux:niveaux});}if(!criteres.length){alert('Ajoutez au moins un critere');return;}grilleSaveData({titre:titre||'Ma grille',criteres:criteres});closeM('m-grille-cfg');renderGrille();toast('Grille enregistree');}
+
+function exportGrilleJSON(){
+  var g=grilleGetData();
+  if(!g.criteres||!g.criteres.length){toast('Aucune grille a exporter','warn');return;}
+  var data=JSON.stringify({titre:g.titre,criteres:g.criteres},null,2);
+  var a=document.createElement('a');
+  a.href='data:application/json;charset=utf-8,'+encodeURIComponent(data);
+  a.download='grille_'+esc(g.titre||'eval').replace(/[^a-z0-9]/gi,'_')+'.json';
+  a.click();
+  toast('Grille exportee : '+g.titre);
+}
+function importGrilleJSON(file){
+  if(!file)return;
+  var reader=new FileReader();
+  reader.onload=function(e){
+    try{
+      var data=JSON.parse(e.target.result);
+      if(!data.criteres||!data.criteres.length){toast('Fichier invalide','warn');return;}
+      if(confirm('Importer la grille "'+data.titre+'" ? La grille actuelle sera remplacee.')){
+        grilleSaveData({titre:data.titre||'Grille importee',criteres:data.criteres});
+        renderGrille();
+        toast('Grille importee : '+data.titre);
+      }
+    }catch(err){toast('Erreur lecture JSON','warn');}
+  };
+  reader.readAsText(file);
+}
 function exportGrillePDF(){var g=grilleGetData();var notes=grilleGetNotes();var eleves=state.eleves.slice().sort(function(a,b){return a.nom.localeCompare(b.nom);});var totalMax=g.criteres.reduce(function(a,c){return a+c.pts;},0);var nomsCols=['Maitrise insuffisante','Maitrise fragile','Maitrise satisfaisante','Tres bonne maitrise'];var h='<!DOCTYPE html><html><head><meta charset="UTF-8"><title>'+esc(g.titre)+'<\/title><style>body{font-family:Arial,sans-serif;font-size:10px;margin:15px;line-height:1.35}h1{font-size:14px;margin-bottom:2px}h2{font-size:11px;margin:10px 0 4px;border-bottom:1px solid #ccc;padding-bottom:2px}table{width:100%;border-collapse:collapse;margin-bottom:10px}th,td{border:1px solid #ccc;padding:5px 7px;vertical-align:top;text-align:left}th{background:#f0f0f0;font-size:9px}td{font-size:10px}.ins{border-top:3px solid #ff6b6b}.fra{border-top:3px solid #ffd166}.sat{border-top:3px solid #56cfb2}.tres{border-top:3px solid #4f8aff}.note{font-weight:bold;text-align:center}<\/style><\/head><body>';h+='<div style="border-bottom:2px solid #333;padding-bottom:6px;margin-bottom:10px"><div style="font-size:9px;color:#666">'+esc(CTX.cls?CTX.cls.label:'')+(CTX.apsa?' - '+CTX.apsa.ca+' - '+CTX.apsa.name:'')+' - T'+(CTX.trim||'')+'</div><h1>'+esc(g.titre)+'</h1><div style="font-size:9px;color:#666">Total sur '+totalMax+' pts</div></div>';h+='<h2>Referentiel de competences</h2><table><thead><tr><th>Critere</th>';for(var i=0;i<4;i++)h+='<th class="'+['ins','fra','sat','tres'][i]+'">'+nomsCols[i]+'</th>';h+='</tr></thead><tbody>';for(var i=0;i<g.criteres.length;i++){var c=g.criteres[i];h+='<tr><td><strong>'+esc(c.nom)+'</strong><br><span style="color:#888">/'+c.pts+' pts</span></td>';for(var j=0;j<c.niveaux.length;j++){var nv=c.niveaux[j];h+='<td class="'+['ins','fra','sat','tres'][j]+'"><strong>'+nv.pts+' pts - '+esc(nv.label)+'</strong><br>'+esc(nv.desc)+'</td>';}h+='</tr>';}h+='</tbody></table>';h+='<h2>Resultats des eleves</h2><table><thead><tr><th>Eleve</th>';for(var i=0;i<g.criteres.length;i++)h+='<th>'+esc(g.criteres[i].nom)+'<br>/'+g.criteres[i].pts+'</th>';h+='<th>Total /'+totalMax+'</th><th>Note /20</th></tr></thead><tbody>';for(var i=0;i<eleves.length;i++){var e=eleves[i];var en=notes[e.id]||{};var total=0,hasAll=true;h+='<tr><td>'+esc(e.nom)+(e.amenagement?'<br><small>'+esc(e.amenagement)+'</small>':'')+'</td>';for(var j=0;j<g.criteres.length;j++){var c=g.criteres[j];var v=en[c.id];if(v!==undefined&&v!=='')total+=parseFloat(v);else hasAll=false;h+='<td class="note">'+(v!==undefined?v:'')+'</td>';}var note20=hasAll?(total/totalMax*20).toFixed(1):'';h+='<td class="note"><strong>'+(hasAll?total:'')+'</strong></td><td class="note"><strong>'+note20+'</strong></td></tr>';}h+='</tbody></table><\/body><\/html>';var blob=new Blob([h],{type:'text/html;charset=utf-8'});var url=URL.createObjectURL(blob);var w=window.open(url,'_blank');if(!w)toast('Popup bloquee','warn');setTimeout(function(){URL.revokeObjectURL(url);},60000);}
 function exportGrilleCSV(){var g=grilleGetData();var notes=grilleGetNotes();var eleves=state.eleves.slice().sort(function(a,b){return a.nom.localeCompare(b.nom);});var totalMax=g.criteres.reduce(function(a,c){return a+c.pts;},0);var h=['Eleve'].concat(g.criteres.map(function(c){return c.nom+' /'+c.pts;})).concat(['Total /'+totalMax,'Note /20']).join(';');var rows=eleves.map(function(e){var en=notes[e.id]||{};var total=0,hasAll=true;var vals=g.criteres.map(function(c){var v=en[c.id];if(v!==undefined&&v!=='')total+=parseFloat(v);else hasAll=false;return v!==undefined?v:'';});return[e.nom].concat(vals).concat([hasAll?total:'',hasAll?(total/totalMax*20).toFixed(1):'']).join(';');});var a=document.createElement('a');a.href='data:text/csv;charset=utf-8,\uFEFF'+encodeURIComponent([h].concat(rows).join('\n'));a.download='grille_'+(CTX.cls?CTX.cls.id:'eps')+'.csv';a.click();}
 function openM(id){if(id==='m-seance'){partiesNew=[];aflpNewSel=[];ge('parties-new').innerHTML='';renderAflpChecks('aflp-check-new',aflpNewSel);ge('fd').value=new Date().toISOString().split('T')[0];ge('fn').value=state.seances.length+1;}var el=ge(id);if(!el)return;el.classList.add('open');el.scrollTop=0;}
@@ -1952,7 +1981,7 @@ function initEvents(){var closes=document.querySelectorAll('[data-close]');for(v
       panel.classList.remove('open');
     }
   });
-s('btn-grille-cfg','click',openGrilleConfig);s('btn-grille-pdf','click',exportGrillePDF);s('btn-grille-csv','click',exportGrilleCSV);s('btn-add-critere','click',function(){var idx=document.querySelectorAll('.critere-block').length;var newC={id:'c'+Date.now(),nom:'',pts:4,niveaux:[{label:'Insuffisant',desc:'',pts:0},{label:'Fragile',desc:'',pts:2},{label:'Satisfaisant',desc:'',pts:3},{label:'Tres bien',desc:'',pts:4}]};renderCritereBlock(newC,idx);});s('btn-save-grille-cfg','click',saveGrilleConfig);}
+s('btn-grille-cfg','click',openGrilleConfig);s('btn-grille-pdf','click',exportGrillePDF);s('btn-grille-csv','click',exportGrilleCSV);s('btn-grille-export-json','click',exportGrilleJSON);s('btn-grille-import-json','change',function(){importGrilleJSON(this.files[0]);this.value='';});s('btn-add-critere','click',function(){var idx=document.querySelectorAll('.critere-block').length;var newC={id:'c'+Date.now(),nom:'',pts:4,niveaux:[{label:'Insuffisant',desc:'',pts:0},{label:'Fragile',desc:'',pts:2},{label:'Satisfaisant',desc:'',pts:3},{label:'Tres bien',desc:'',pts:4}]};renderCritereBlock(newC,idx);});s('btn-save-grille-cfg','click',saveGrilleConfig);}
 accInit();
 initEvents();
 </script>
