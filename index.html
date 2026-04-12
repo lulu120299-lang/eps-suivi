@@ -981,11 +981,183 @@ textarea{resize:vertical;min-height:70px}
   </div>
 </div>
 <script>
-var CLASSES=[{id:'2nde-ener-b',label:'2NDE ENER B',level:'2NDE',sub:'Energie Gr. B',color:'#c8400a',light:'#c8400a0d',filiere:'bacpro'},{id:'2nde-mrc-b',label:'2NDE MRC B',level:'2NDE',sub:'MRC Gr. B',color:'#1a6b3a',light:'#1a6b3a0d',filiere:'bacpro'},{id:'cap-epc-1',label:'CAP EPC 1',level:'CAP',sub:'Equipier polyvalent de commerce',color:'#1e4fa0',light:'#1e4fa00d',filiere:'cap'},{id:'cap-elec-2',label:'CAP ELEC 2',level:'CAP',sub:'Electricite',color:'#7c28b8',light:'#7c28b80d',filiere:'cap'},{id:'3e-pm',label:'3e PM',level:'3e',sub:'Prepa Metiers',color:'#a07800',light:'#a078000d',filiere:'3e'}];
+var CLASSES=[{id:'2nde-ener-b',label:'2NDE ENER B',level:'2NDE',sub:'Energie Gr. B',color:'#c8400a',light:'#c8400a0d',filiere:'bacpro'},{id:'2nde-mrc-b',label:'2NDE MRC B',level:'2NDE',sub:'MRC Gr. B',color:'#1a6b3a',light:'#1a6b3a0d',filiere:'bacpro'},{id:'cap-epc-1',label:'CAP EPC 1',level:'CAP',sub:'Equipier polyvalent de commerce',color:'#1e4fa0',light:'#1e4fa00d',filiere:'cap'},{id:'cap-elec-2',label:'CAP ELEC 2',level:'CAP',sub:'Electricite',color:'#7c28b8',light:'#7c28b80d',filiere:'cap'},{id:'3e-pm',label:'3e PM',level:'3e',sub:'Prepa Metiers',color:'#a07800',light:'#a078000d',filiere:'col4'}];
 var CA_GROUPS=[{ca:'CA1',caFull:'CA1',color:'#ff6b6b',desc:'Realiser sa performance motrice maximale',apsa:[{id:'vitesse',name:'Course de vitesse',emoji:'&#9889;'},{id:'athle',name:'Athletisme multisport',emoji:'&#127947;'}]},{ca:'CA2',caFull:'CA2',color:'#a78bfa',desc:"Adapter son deplacement a des environnements varies",apsa:[{id:'orientation',name:"Course d'orientation",emoji:'&#129517;'}]},{ca:'CA3',caFull:'CA3',color:'#ffd166',desc:'Realiser une prestation corporelle appreciee',apsa:[{id:'acrosport',name:'Acrosport',emoji:'&#129338;'}]},{ca:'CA4',caFull:'CA4',color:'#4f8aff',desc:'Conduire un affrontement pour gagner',apsa:[{id:'volley',name:'Volley-Ball',emoji:'&#127952;'},{id:'tdt',name:'Tennis de Table',emoji:'&#127955;'},{id:'badminton',name:'Badminton',emoji:'&#127992;'}]},{ca:'CA5',caFull:'CA5',color:'#56cfb2',desc:"Orienter son activite pour s'entretenir",apsa:[{id:'duree',name:'Course de duree',emoji:'&#127939;'}]}];
 var APSA_FLAT=[];for(var _gi=0;_gi<CA_GROUPS.length;_gi++){var _g=CA_GROUPS[_gi];for(var _ai=0;_ai<_g.apsa.length;_ai++){var _a=_g.apsa[_ai];APSA_FLAT.push({id:_a.id,name:_a.name,emoji:_a.emoji,ca:_g.ca,caFull:_g.caFull,caColor:_g.color});}}
-var AFLP={bacpro:{CA1:{titre:'CA1 - Realiser sa performance motrice maximale',items:[{n:'AFLP 1',t:'Produire et repartir lucidement ses efforts en mobilisant de facon optimale ses ressources pour gagner ou pour battre un record.'},{n:'AFLP 2',t:'Connaitre et mobiliser les techniques efficaces pour produire la meilleure performance possible.'},{n:'AFLP 3',t:'Analyser sa performance pour adapter son projet et progresser.'},{n:'AFLP 4',t:"Assumer des roles sociaux pour organiser une epreuve de production de performance."},{n:'AFLP 5',t:"Assurer la prise en charge de sa preparation et de celle d'un groupe, de facon autonome."},{n:'AFLP 6',t:'Connaitre son niveau pour etablir un projet de performance situee culturellement.'}]},CA2:{titre:"CA2 - Adapter son deplacement a des environnements varies",items:[{n:'AFLP 1',t:"Anticiper et planifier son itineraire pour concevoir et conduire dans sa totalite un projet de deplacement."},{n:'AFLP 2',t:"Mobiliser des techniques efficaces pour adapter et optimiser son deplacement aux caracteristiques du milieu."},{n:'AFLP 3',t:"Analyser sa prestation pour comprendre les alternatives possibles et ajuster son projet."},{n:'AFLP 4',t:"Assumer les roles sociaux pour organiser la pratique des activites de pleine nature."},{n:'AFLP 5',t:"Se preparer et maintenir un engagement optimal permettant de garder sa lucidite tout au long de son parcours."},{n:'AFLP 6',t:"Respecter et faire respecter la reglementation et les procedures d'urgence."}]},CA3:{titre:'CA3 - Realiser une prestation corporelle destinee a etre vue et appreciee',items:[{n:'AFLP 1',t:"Accomplir une prestation animee d'une intention dans la perspective d'etre juge et/ou apprecie."},{n:'AFLP 2',t:"Mobiliser des techniques de plus en plus complexes pour rendre plus fluide la prestation."},{n:'AFLP 3',t:"Composer et organiser dans le temps et l'espace le deroulement des moments forts et faibles de sa prestation."},{n:'AFLP 4',t:"Assumer les roles inherents a la pratique artistique et acrobatique."},{n:'AFLP 5',t:"Se preparer et s'engager pour presenter une prestation optimale et securisee."},{n:'AFLP 6',t:"S'enrichir de la connaissance de productions de qualite issues du patrimoine culturel."}]},CA4:{titre:"CA4 - Conduire un affrontement interindividuel ou collectif pour gagner",items:[{n:'AFLP 1',t:"Realiser des choix tactiques et strategiques pour faire basculer le rapport de force en sa faveur."},{n:'AFLP 2',t:"Mobiliser des techniques d'attaque efficaces pour se creer et exploiter des occasions de marquer."},{n:'AFLP 3',t:"Analyser les forces et les faiblesses en presence pour faire des choix tactiques adaptes."},{n:'AFLP 4',t:"Respecter et faire respecter les regles partagees ; assumer plusieurs roles sociaux."},{n:'AFLP 5',t:"Savoir se preparer, s'entrainer et recuperer pour faire preuve d'autonomie."},{n:'AFLP 6',t:"Porter un regard critique sur les pratiques sportives."}]},CA5:{titre:"CA5 - Realiser et orienter son activite physique pour developper ses ressources",items:[{n:'AFLP 1',t:"Concevoir et mettre en oeuvre un projet d'entrainement."},{n:'AFLP 2',t:"Eprouver differentes methodes d'entrainement et en identifier les principes."},{n:'AFLP 3',t:"Systematiser un retour reflexif sur sa pratique pour reguler sa charge de travail."},{n:'AFLP 4',t:"Agir avec et pour les autres en vue de la realisation du projet d'entrainement."},{n:'AFLP 5',t:"Construire une motricite controlee pour evoluer dans des conditions de securite."},{n:'AFLP 6',t:"Integrer des conseils d'entrainement et d'hygiene de vie."}]}},cap:{CA1:{titre:'CA1 - Realiser sa performance motrice maximale (CAP)',items:[{n:'AFLP 1',t:"Produire et repartir intentionnellement ses efforts en mobilisant ses ressources pour gagner."},{n:'AFLP 2',t:"Connaitre et utiliser des techniques efficaces pour produire la meilleure performance possible."},{n:'AFLP 3',t:"S'engager et perseverer, seul ou a plusieurs, dans des efforts repetes pour progresser."},{n:'AFLP 4',t:"S'impliquer dans des roles sociaux pour assurer le bon deroulement d'une epreuve."},{n:'AFLP 5',t:"Se preparer a un effort long ou intense pour etre efficace dans la production d'une performance."},{n:'AFLP 6',t:"Identifier ses progres et connaitre sa meilleure performance realisee pour la situer culturellement."}]},CA2:{titre:"CA2 - Adapter son deplacement a des environnements varies (CAP)",items:[{n:'AFLP 1',t:"Planifier et conduire un deplacement adapte a ses ressources pour effectuer le trajet prevu."},{n:'AFLP 2',t:"Utiliser des techniques efficaces pour adapter son deplacement aux caracteristiques du milieu."},{n:'AFLP 3',t:"Selectionner des informations utiles pour planifier son itineraire."},{n:'AFLP 4',t:"S'impliquer dans des roles sociaux pour assurer le bon fonctionnement d'une activite de pleine nature."},{n:'AFLP 5',t:"Controler ses emotions pour accepter de s'engager dans un environnement partiellement connu."},{n:'AFLP 6',t:"Se preparer, connaitre les risques, respecter la reglementation et appliquer les procedures d'urgence."}]},CA3:{titre:'CA3 - Realiser une prestation corporelle (CAP)',items:[{n:'AFLP 1',t:"S'engager devant des spectateurs ou des juges pour produire des formes corporelles maitrisees."},{n:'AFLP 2',t:"Utiliser des techniques efficaces pour enrichir sa motricite."},{n:'AFLP 3',t:"Prevoir et memoriser le deroulement de sa prestation pour la realiser dans son integralite."},{n:'AFLP 4',t:"Utiliser des criteres explicites pour apprecier et/ou evaluer la prestation."},{n:'AFLP 5',t:"Se preparer pour presenter une prestation complete, maitrisee et securisee."},{n:'AFLP 6',t:"S'enrichir d'elements de culture lies a la pratique abordee."}]},CA4:{titre:"CA4 - Conduire un affrontement pour gagner (CAP)",items:[{n:'AFLP 1',t:"Identifier le desequilibre adverse et en profiter pour produire rapidement l'action decisive."},{n:'AFLP 2',t:"Utiliser des techniques et des tactiques d'attaque adaptees pour favoriser des occasions de marquer."},{n:'AFLP 3',t:"Perseverer face a la difficulte et accepter la repetition pour ameliorer son efficacite motrice."},{n:'AFLP 4',t:"Terminer la rencontre et accepter la defaite ou la victoire dans le respect de l'adversaire."},{n:'AFLP 5',t:"Se preparer et systematiser sa preparation generale et specifique."},{n:'AFLP 6',t:"Connaitre les pratiques sportives dans la societe contemporaine."}]},CA5:{titre:"CA5 - Realiser et orienter son activite physique (CAP)",items:[{n:'AFLP 1',t:"Construire et stabiliser une motricite specifique pour etre efficace dans le suivi d'un theme d'entrainement."},{n:'AFLP 2',t:"Mettre en lien des ressentis avec une charge de travail pour reguler cette charge de maniere autonome."},{n:'AFLP 3',t:"Mobiliser differentes methodes d'entrainement, analyser ses ressentis pour fonder ses choix."},{n:'AFLP 4',t:"Cooperer et assurer les roles sociaux pour aider au progres individuel."},{n:'AFLP 5',t:"S'engager avec une intensite ciblee et perseverer dans l'effort."},{n:'AFLP 6',t:"Integrer des conseils d'entrainement et d'hygiene de vie."}]},'3e':{CA1:{titre:'CA1 - Realiser sa performance (3e Prepa Metiers)',items:[{n:'Att. 1',t:"Produire une performance mesurable en utilisant les techniques adaptees."},{n:'Att. 2',t:"Gerer ses efforts pour optimiser sa performance sur la duree."},{n:'Att. 3',t:"Tenir des roles d'organisation."},{n:'Att. 4',t:"Identifier ses progres et se fixer des objectifs realistes."}]},CA2:{titre:"CA2 - Se deplacer dans l'environnement (3e)",items:[{n:'Att. 1',t:"Lire et utiliser une carte pour se deplacer de facon autonome."},{n:'Att. 2',t:"Choisir et suivre un itineraire en s'appuyant sur les elements du terrain."},{n:'Att. 3',t:"Respecter les regles de securite et les consignes."},{n:'Att. 4',t:"Travailler en cooperation avec un camarade."}]},CA3:{titre:'CA3 - Produire une prestation corporelle (3e)',items:[{n:'Att. 1',t:"Realiser une prestation maitrisee qui respecte les regles et exprime une intention."},{n:'Att. 2',t:"Observer et evaluer la prestation d'un camarade."},{n:'Att. 3',t:"Travailler en groupe et accepter les retours."},{n:'Att. 4',t:"Verbaliser ses choix et ses reussites."}]},CA4:{titre:"CA4 - S'affronter collectivement ou individuellement (3e)",items:[{n:'Att. 1',t:"Jouer collectivement ou individuellement en respectant les regles."},{n:'Att. 2',t:"Utiliser des strategies simples pour gagner."},{n:'Att. 3',t:"Arbitrer un match et respecter les decisions arbitrales."},{n:'Att. 4',t:"Identifier et corriger ses erreurs tactiques."}]},CA5:{titre:"CA5 - Pratiquer pour sa sante (3e)",items:[{n:'Att. 1',t:"Realiser un effort continu adapte a ses capacites."},{n:'Att. 2',t:"Comprendre les effets de l'entrainement sur son corps."},{n:'Att. 3',t:"Gerer ses allures et ses temps de recuperation."},{n:'Att. 4',t:"Verbaliser ses sensations et evaluer son niveau d'effort."}]}}}};
-var FILIERES={bacpro:{label:'Bac Pro',color:'#4f8aff'},cap:{label:'CAP',color:'#56cfb2'},'3e':{label:'3e PM',color:'#ffd166'}};
+var AFLP={
+  bacpro:{
+    CA1:{titre:'CA1 - Realiser sa performance motrice maximale',items:[
+      {n:'AFLP 1',t:'Produire et repartir lucidement ses efforts en mobilisant de facon optimale ses ressources pour gagner ou pour battre un record.'},
+      {n:'AFLP 2',t:'Connaitre et mobiliser les techniques efficaces pour produire la meilleure performance possible.'},
+      {n:'AFLP 3',t:'Analyser sa performance pour adapter son projet et progresser.'},
+      {n:'AFLP 4',t:'Assumer des roles sociaux pour organiser une epreuve de production de performance, un concours.'},
+      {n:'AFLP 5',t:'Assurer la prise en charge de sa preparation et de celle d un groupe, de facon autonome pour produire la meilleure performance possible.'},
+      {n:'AFLP 6',t:'Connaitre son niveau pour etablir un projet de performance situee culturellement.'}
+    ]},
+    CA2:{titre:'CA2 - Adapter son deplacement a des environnements varies',items:[
+      {n:'AFLP 1',t:'Anticiper et planifier son itineraire pour concevoir et conduire dans sa totalite un projet de deplacement.'},
+      {n:'AFLP 2',t:'Mobiliser des techniques efficaces pour adapter et optimiser son deplacement aux caracteristiques du milieu.'},
+      {n:'AFLP 3',t:'Analyser sa prestation pour comprendre les alternatives possibles et ajuster son projet.'},
+      {n:'AFLP 4',t:'Assumer les roles sociaux pour organiser la pratique des activites de pleine nature.'},
+      {n:'AFLP 5',t:'Se preparer et maintenir un engagement optimal permettant de garder sa lucidite tout au long de son parcours.'},
+      {n:'AFLP 6',t:'Respecter et faire respecter la reglementation et les procedures d urgence.'}
+    ]},
+    CA3:{titre:'CA3 - Realiser une prestation corporelle destinee a etre vue et appreciee',items:[
+      {n:'AFLP 1',t:'Accomplir une prestation animee d une intention dans la perspective d etre juge et/ou apprecie.'},
+      {n:'AFLP 2',t:'Mobiliser des techniques de plus en plus complexes pour rendre plus fluide la prestation.'},
+      {n:'AFLP 3',t:'Composer et organiser dans le temps et l espace le deroulement des moments forts et faibles.'},
+      {n:'AFLP 4',t:'Assumer les roles inherents a la pratique artistique et acrobatique.'},
+      {n:'AFLP 5',t:'Se preparer et s engager pour presenter une prestation optimale et securisee.'},
+      {n:'AFLP 6',t:'S enrichir de la connaissance de productions de qualite issues du patrimoine culturel.'}
+    ]},
+    CA4:{titre:'CA4 - Conduire un affrontement pour gagner',items:[
+      {n:'AFLP 1',t:'Realiser des choix tactiques et strategiques pour faire basculer le rapport de force en sa faveur.'},
+      {n:'AFLP 2',t:'Mobiliser des techniques d attaque efficaces.'},
+      {n:'AFLP 3',t:'Analyser les forces et les faiblesses en presence.'},
+      {n:'AFLP 4',t:'Respecter et faire respecter les regles partagees.'},
+      {n:'AFLP 5',t:'Savoir se preparer, s entrainer et recuperer pour faire preuve d autonomie.'},
+      {n:'AFLP 6',t:'Porter un regard critique sur les pratiques sportives.'}
+    ]},
+    CA5:{titre:'CA5 - Realiser et orienter son activite physique pour developper ses ressources',items:[
+      {n:'AFLP 1',t:'Concevoir et mettre en oeuvre un projet d entrainement pour repondre a un mobile personnel de developpement.'},
+      {n:'AFLP 2',t:'Eprouver differentes methodes d entrainement et en identifier les principes.'},
+      {n:'AFLP 3',t:'Systematiser un retour reflexif sur sa pratique.'},
+      {n:'AFLP 4',t:'Agir avec et pour les autres en vue de la realisation du projet d entrainement.'},
+      {n:'AFLP 5',t:'Construire une motricite controlee pour evoluer dans des conditions de securite.'},
+      {n:'AFLP 6',t:'Integrer des conseils d entrainement, de dietetique, d hygiene de vie.'}
+    ]}
+  },
+  cap:{
+    CA1:{titre:'CA1 - Realiser sa performance motrice maximale (CAP)',items:[
+      {n:'AFLP 1',t:'Produire et repartir intentionnellement ses efforts en mobilisant ses ressources pour gagner ou pour battre un record.'},
+      {n:'AFLP 2',t:'Connaitre et utiliser des techniques efficaces pour produire la meilleure performance possible.'},
+      {n:'AFLP 3',t:'S engager et perseverer, seul ou a plusieurs, dans des efforts repetes pour progresser dans une activite de performance.'},
+      {n:'AFLP 4',t:'S impliquer dans des roles sociaux pour assurer le bon deroulement d une epreuve de production de performance.'},
+      {n:'AFLP 5',t:'Se preparer a un effort long ou intense pour etre efficace dans la production d une performance a une echeance donnee.'},
+      {n:'AFLP 6',t:'Identifier ses progres et connaitre sa meilleure performance realisee pour la situer culturellement.'}
+    ]},
+    CA2:{titre:'CA2 - Adapter son deplacement a des environnements varies (CAP)',items:[
+      {n:'AFLP 1',t:'Planifier et conduire un deplacement adapte a ses ressources pour effectuer le trajet prevu dans sa totalite ; le cas echeant, savoir renoncer.'},
+      {n:'AFLP 2',t:'Utiliser des techniques efficaces pour adapter son deplacement aux caracteristiques du milieu.'},
+      {n:'AFLP 3',t:'Selectionner des informations utiles pour planifier son itineraire.'},
+      {n:'AFLP 4',t:'S impliquer dans des roles sociaux pour assurer le bon fonctionnement d une activite de pleine nature.'},
+      {n:'AFLP 5',t:'Controler ses emotions pour accepter de s engager dans un environnement partiellement connu.'},
+      {n:'AFLP 6',t:'Se preparer, connaitre les risques, respecter la reglementation et appliquer les procedures d urgence.'}
+    ]},
+    CA3:{titre:'CA3 - Realiser une prestation corporelle (CAP)',items:[
+      {n:'AFLP 1',t:'S engager devant des spectateurs ou des juges pour produire ou reproduire des formes corporelles maitrisees au service d une intention.'},
+      {n:'AFLP 2',t:'Utiliser des techniques efficaces pour enrichir sa motricite.'},
+      {n:'AFLP 3',t:'Prevoir et memoriser le deroulement des temps forts et des temps faibles.'},
+      {n:'AFLP 4',t:'Utiliser des criteres explicites pour apprecier et/ou evaluer la prestation.'},
+      {n:'AFLP 5',t:'Se preparer pour presenter une prestation complete, maitrisee et securisee.'},
+      {n:'AFLP 6',t:'S enrichir d elements de culture lies a la pratique abordee.'}
+    ]},
+    CA4:{titre:'CA4 - Conduire un affrontement pour gagner (CAP)',items:[
+      {n:'AFLP 1',t:'Identifier le desequilibre adverse et en profiter pour produire rapidement l action decisive choisie.'},
+      {n:'AFLP 2',t:'Utiliser des techniques et des tactiques d attaque adaptees.'},
+      {n:'AFLP 3',t:'Perseverer face a la difficulte.'},
+      {n:'AFLP 4',t:'Terminer la rencontre et accepter la defaite ou la victoire.'},
+      {n:'AFLP 5',t:'Se preparer et systematiser sa preparation generale et specifique.'},
+      {n:'AFLP 6',t:'Connaitre les pratiques sportives dans la societe contemporaine.'}
+    ]},
+    CA5:{titre:'CA5 - Realiser et orienter son activite physique (CAP)',items:[
+      {n:'AFLP 1',t:'Construire et stabiliser une motricite specifique.'},
+      {n:'AFLP 2',t:'Mettre en lien des ressentis avec une charge de travail.'},
+      {n:'AFLP 3',t:'Mobiliser differentes methodes d entrainement.'},
+      {n:'AFLP 4',t:'Cooperer et assurer les roles sociaux.'},
+      {n:'AFLP 5',t:'S engager avec une intensite ciblee et perseverer dans l effort.'},
+      {n:'AFLP 6',t:'Integrer des conseils d entrainement, de dietetique, d hygiene de vie.'}
+    ]}
+  },
+  col3:{
+    CA1:{titre:'CA1 - Realiser sa performance motrice (College Cycle 3)',items:[
+      {n:'Att. 1',t:'Realiser des efforts et enchainer plusieurs actions motrices dans differentes familles pour aller plus vite, plus longtemps, plus haut, plus loin.'},
+      {n:'Att. 2',t:'Combiner une course, un saut, un lancer pour faire la meilleure performance cumulee.'},
+      {n:'Att. 3',t:'Mesurer et quantifier les performances, les enregistrer, les comparer, les classer, les traduire en representations graphiques.'},
+      {n:'Att. 4',t:'Assumer les roles de chronometreur et d observateur.'}
+    ]},
+    CA2:{titre:'CA2 - Se deplacer dans des environnements varies (College Cycle 3)',items:[
+      {n:'Att. 1',t:'Realiser, seul ou a plusieurs, un parcours dans plusieurs environnements inhabituels, en milieu naturel amenage ou artificiel.'},
+      {n:'Att. 2',t:'Connaitre et respecter les regles de securite qui s appliquent a chaque environnement.'},
+      {n:'Att. 3',t:'Identifier la personne responsable a alerter ou la procedure en cas de probleme.'},
+      {n:'Att. 4',t:'Valider l attestation scolaire du savoir nager (ASSN).'}
+    ]},
+    CA3:{titre:'CA3 - Realiser une prestation corporelle (College Cycle 3)',items:[
+      {n:'Att. 1',t:'Realiser en petits groupes 2 sequences : une a visee acrobatique destinee a etre jugee, une autre a visee artistique destinee a etre appreciee et a emouvoir.'},
+      {n:'Att. 2',t:'Savoir filmer une prestation pour la revoir et la faire evoluer.'},
+      {n:'Att. 3',t:'Respecter les prestations des autres et accepter de se produire devant les autres.'}
+    ]},
+    CA4:{titre:'CA4 - S affronter collectivement ou individuellement (College Cycle 3)',items:[
+      {n:'Att. 1',t:'S organiser tactiquement pour gagner le duel ou le match en identifiant les situations favorables de marque.'},
+      {n:'Att. 2',t:'Maintenir un engagement moteur efficace sur tout le temps de jeu prevu.'},
+      {n:'Att. 3',t:'Respecter les partenaires, les adversaires et l arbitre.'},
+      {n:'Att. 4',t:'Assurer differents roles sociaux.'},
+      {n:'Att. 5',t:'Accepter le resultat de la rencontre et etre capable de le commenter.'}
+    ]},
+    CA5:{titre:'CA5 - Non defini pour le Cycle 3',items:[
+      {n:'Att. 1',t:'Non defini pour le cycle 3.'}
+    ]}
+  },
+  col4:{
+    CA1:{titre:'CA1 - Realiser sa performance motrice (College Cycle 4)',items:[
+      {n:'Att. 1',t:'Gerer son effort, faire des choix pour realiser la meilleure performance dans au moins deux familles athletiques et/ou au moins deux styles de nages.'},
+      {n:'Att. 2',t:'S engager dans un programme de preparation individuel ou collectif.'},
+      {n:'Att. 3',t:'Planifier et realiser une epreuve combinee.'},
+      {n:'Att. 4',t:'S echauffer avant un effort.'},
+      {n:'Att. 5',t:'Aider ses camarades et assumer differents roles sociaux.'}
+    ]},
+    CA2:{titre:'CA2 - Se deplacer dans des environnements varies (College Cycle 4)',items:[
+      {n:'Att. 1',t:'Reussir un deplacement planifie dans un milieu naturel amenage ou artificiellement recree plus ou moins connu.'},
+      {n:'Att. 2',t:'Gerer ses ressources pour realiser en totalite un parcours securise.'},
+      {n:'Att. 3',t:'Assurer la securite de son camarade.'},
+      {n:'Att. 4',t:'Respecter et faire respecter les regles de securite.'}
+    ]},
+    CA3:{titre:'CA3 - Realiser une prestation corporelle (College Cycle 4)',items:[
+      {n:'Att. 1',t:'Mobiliser les capacites expressives du corps pour imaginer, composer et interpreter une sequence artistique ou acrobatique.'},
+      {n:'Att. 2',t:'Participer activement au sein d un groupe a l elaboration d un projet artistique.'},
+      {n:'Att. 3',t:'Apprecier des prestations en utilisant differents supports d observation et d analyse.'}
+    ]},
+    CA4:{titre:'CA4 - S affronter collectivement ou individuellement (College Cycle 4)',items:[
+      {n:'Att. 1',t:'Realiser des actions decisives en situation favorable afin de faire basculer le rapport de force.'},
+      {n:'Att. 2',t:'Adapter son engagement moteur.'},
+      {n:'Att. 3',t:'Etre solidaire de ses partenaires et respectueux des adversaires.'},
+      {n:'Att. 4',t:'Observer et co-arbitrer.'},
+      {n:'Att. 5',t:'Accepter le resultat de la rencontre et savoir l analyser avec objectivite.'}
+    ]},
+    CA5:{titre:'CA5 - Non defini pour le Cycle 4',items:[
+      {n:'Att. 1',t:'Non defini pour le cycle 4.'}
+    ]}
+  },
+  lgt:{
+    CA1:{titre:'CA1 - Realiser sa performance motrice (Bac LGT)',items:[
+      {n:'AFL 1',t:'S engager pour produire une performance maximale a l aide de techniques efficaces, en gerant les efforts musculaires et respiratoires necessaires et en faisant le meilleur compromis entre l accroissement de vitesse d execution et de precision.'},
+      {n:'AFL 2',t:'S entrainer, individuellement et collectivement, pour realiser une performance.'},
+      {n:'AFL 3',t:'Choisir et assumer les roles qui permettent un fonctionnement collectif solidaire.'}
+    ]},
+    CA2:{titre:'CA2 - Adapter son deplacement a des environnements varies (Bac LGT)',items:[
+      {n:'AFL 1',t:'S engager a l aide d une motricite specifique pour realiser en securite et a son meilleur niveau, un itineraire dans un contexte incertain.'},
+      {n:'AFL 2',t:'S entrainer individuellement et collectivement, pour se deplacer de maniere efficiente et en toute securite.'},
+      {n:'AFL 3',t:'Cooperer pour realiser un projet de deplacement, en toute securite.'}
+    ]},
+    CA3:{titre:'CA3 - Realiser une prestation corporelle (Bac LGT)',items:[
+      {n:'AFL 1',t:'S engager pour composer et realiser un enchainement a visee esthetique ou acrobatique destine a etre juge, en combinant des formes corporelles codifiees.'},
+      {n:'AFL 2',t:'S engager pour composer et interpreter une choregraphie collective selon un projet artistique en mobilisant une motricite expressive et des procedes de composition.'},
+      {n:'AFL 3',t:'Se preparer et s engager, individuellement et collectivement, pour s exprimer devant un public et susciter des emotions.'},
+      {n:'AFL 4',t:'Choisir et assumer des roles au service de la prestation collective.'}
+    ]},
+    CA4:{titre:'CA4 - Conduire un affrontement pour gagner (Bac LGT)',items:[
+      {n:'AFL 1',t:'S engager pour gagner une rencontre en faisant des choix techniques et tactiques pertinents au regard de l analyse du rapport de force.'},
+      {n:'AFL 2',t:'Se preparer et s entrainer, individuellement ou collectivement, pour conduire et maitriser un affrontement collectif ou interindividuel.'},
+      {n:'AFL 3',t:'Choisir et assumer les roles qui permettent un fonctionnement collectif solidaire.'}
+    ]},
+    CA5:{titre:'CA5 - Realiser et orienter son activite physique (Bac LGT)',items:[
+      {n:'AFL 1',t:'S engager pour obtenir les effets recherches selon son projet personnel, en faisant des choix de parametres d entrainement coherents avec le theme retenu.'},
+      {n:'AFL 2',t:'S entrainer, individuellement ou collectivement, pour developper ses ressources et s entretenir en fonction des effets recherches.'},
+      {n:'AFL 3',t:'Cooperer pour faire progresser.'}
+    ]}
+  }
+};
+var FILIERES={bacpro:{label:'Bac Pro',color:'#4f8aff'},cap:{label:'CAP',color:'#56cfb2'},col3:{label:'College Cycle 3',color:'#fb923c'},col4:{label:'College Cycle 4',color:'#f472b6'},lgt:{label:'Bac LGT',color:'#a78bfa'}};
 var STATUTS=['Present','Absent','Dispense','Pas affaire','Pas tenue'];
 var COLORS=['#4f8aff','#ff6b6b','#56cfb2','#ffd166','#a78bfa','#fb923c','#34d399','#f472b6','#60a5fa','#facc15'];
 var MAITRISE=['Maitrise insuffisante','Maitrise fragile','Maitrise satisfaisante','Tres bonne maitrise'];
