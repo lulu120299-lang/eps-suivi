@@ -637,9 +637,9 @@ textarea{resize:vertical;min-height:70px}
       </div>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.25rem;margin-bottom:1.25rem">
         <div class="card" style="margin-bottom:0">
-          <div style="font-family:'DM Mono',monospace;font-size:.63rem;text-transform:uppercase;letter-spacing:.1em;color:#4f8aff;margin-bottom:.75rem">Comp&#233;tence attendue</div>
+          <div style="font-family:'DM Mono',monospace;font-size:.78rem;text-transform:uppercase;letter-spacing:.1em;color:#4f8aff;margin-bottom:.75rem;font-weight:700">&#127919; Comp&#233;tence attendue</div>
           <div id="acc-objet-display" style="color:#9aa0b8;font-size:.88rem;line-height:1.6;font-style:italic">Non defini - cliquez sur Modifier la sequence</div>
-          <div style="font-family:'DM Mono',monospace;font-size:.63rem;text-transform:uppercase;letter-spacing:.1em;color:#4f8aff;margin-top:1.1rem;margin-bottom:.6rem">AFLP prioritaires</div>
+          <div style="font-family:'DM Mono',monospace;font-size:.78rem;text-transform:uppercase;letter-spacing:.1em;color:#4f8aff;margin-top:1.1rem;margin-bottom:.6rem;font-weight:700">&#9733; AFLP prioritaires</div>
           <div id="acc-aflp-display"></div>
           <div style="margin-top:1.25rem">
             <div class="next-seance-card" id="acc-next-seance">
@@ -655,25 +655,7 @@ textarea{resize:vertical;min-height:70px}
               <textarea id="notes-rapides-textarea" placeholder="Penser a... / Preparer... / Voir avec..."></textarea>
             </div>
           </div>
-          <div id="acc-progress-zone" style="margin-top:1rem"></div>
-          <div style="margin-top:1rem">
-            <div class="meteo-card">
-              <div class="meteo-lbl">&#127781; M&#233;t&#233;o de s&#233;ance</div>
-              <select id="meteo-seance-sel" style="width:100%;background:#0d1018;border:1px solid #1e2438;border-radius:7px;color:#e4e6ef;font-family:'DM Mono',monospace;font-size:.72rem;padding:5px 8px;outline:none;margin-bottom:.75rem;cursor:pointer">
-                <option value="">-- Choisir une seance --</option>
-              </select>
-              <div class="meteo-rows" id="meteo-rows">
-                <div class="meteo-row"><div class="meteo-row-lbl">Engagement</div><div class="meteo-dots" data-key="engagement"></div></div>
-                <div class="meteo-row"><div class="meteo-row-lbl">Ambiance</div><div class="meteo-dots" data-key="ambiance"></div></div>
-                <div class="meteo-row"><div class="meteo-row-lbl">Progression</div><div class="meteo-dots" data-key="progression"></div></div>
-                <div class="meteo-row"><div class="meteo-row-lbl">Comportement</div><div class="meteo-dots" data-key="comportement"></div></div>
-              </div>
-              <div style="display:flex;gap:6px;margin-top:.75rem">
-                <button class="meteo-save-btn" id="btn-meteo-save" style="flex:1">Enregistrer</button>
-                <button class="meteo-save-btn" id="btn-meteo-bilan" style="flex:1;background:rgba(79,138,255,.12);border-color:rgba(79,138,255,.25);color:#4f8aff" title="Copier la meteo dans le bilan de la seance">&#8594; Bilan</button>
-              </div>
-            </div>
-          </div>
+
         </div>
         <div class="card" style="margin-bottom:0">
           <div style="font-family:'DM Mono',monospace;font-size:.63rem;text-transform:uppercase;letter-spacing:.1em;color:#a78bfa;margin-bottom:.75rem">Trame de sequence</div>
@@ -714,6 +696,25 @@ textarea{resize:vertical;min-height:70px}
       <div class="appel-lay">
         <div><div class="slbl">Seance</div><div id="ap-slist"></div></div>
         <div id="ap-content"><div class="empty">Selectionnez une seance</div></div>
+      </div>
+      <div id="appel-meteo-zone" style="margin-top:1.5rem;display:none">
+        <div class="meteo-card">
+          <div class="meteo-lbl">&#127781; M&#233;t&#233;o de la s&#233;ance <span id="appel-meteo-seance-lbl" style="color:#56cfb2;font-weight:700"></span></div>
+          <div class="meteo-rows" id="appel-meteo-rows">
+            <div class="meteo-row"><div class="meteo-row-lbl">Engagement</div><div class="meteo-dots" data-key="engagement"></div></div>
+            <div class="meteo-row"><div class="meteo-row-lbl">Ambiance</div><div class="meteo-dots" data-key="ambiance"></div></div>
+            <div class="meteo-row"><div class="meteo-row-lbl">Progression</div><div class="meteo-dots" data-key="progression"></div></div>
+            <div class="meteo-row"><div class="meteo-row-lbl">Comportement</div><div class="meteo-dots" data-key="comportement"></div></div>
+          </div>
+          <div style="margin-top:1rem">
+            <div style="font-family:'DM Mono',monospace;font-size:.6rem;text-transform:uppercase;letter-spacing:.1em;color:#ffd166;margin-bottom:.4rem">Bilan global de la s&#233;ance</div>
+            <textarea id="appel-bilan-textarea" style="width:100%;background:#0d1018;border:1px solid #1e2438;border-radius:8px;color:#d4d8eb;font-size:.82rem;padding:.7rem .85rem;resize:vertical;outline:none;min-height:80px;line-height:1.65;font-family:'DM Sans',sans-serif;transition:border-color .15s" placeholder="Observations globales sur la seance..."></textarea>
+          </div>
+          <div style="display:flex;gap:6px;margin-top:.75rem">
+            <button class="meteo-save-btn" id="btn-appel-meteo-save" style="flex:1">Enregistrer</button>
+            <button class="meteo-save-btn" id="btn-appel-meteo-bilan" style="flex:1;background:rgba(79,138,255,.12);border-color:rgba(79,138,255,.25);color:#4f8aff">&#8594; Copier dans bilan</button>
+          </div>
+        </div>
       </div>
     </div>
     <div id="v-eleves" class="view">
@@ -1232,7 +1233,7 @@ if(nta&&!nta.dataset.loaded){
   nta.addEventListener('input',function(){localStorage.setItem('eps-notes-rapides-'+(CTX.key||'default'),this.value);});
 }
 
-renderProgress();initMeteo();var trameEl=ge('acc-trame-display');var trame=seq.trame||[];var sorted=state.seances.slice().sort(function(a,b){return a.num-b.num;});var allNums={};for(var i=0;i<trame.length;i++)allNums[trame[i].num]=true;for(var i=0;i<sorted.length;i++)allNums[sorted[i].num]=true;var nums=Object.keys(allNums).map(Number).sort(function(a,b){return a-b;});if(!nums.length){trameEl.innerHTML='<div style="color:#6b7280;font-size:.8rem;font-style:italic">Aucune seance planifiee</div>';}else{var h='';for(var i=0;i<nums.length;i++){var nn=nums[i];var tr=null,ss=null;for(var j=0;j<trame.length;j++){if(trame[j].num===nn){tr=trame[j];break;}}for(var j=0;j<sorted.length;j++){if(sorted[j].num===nn){ss=sorted[j];break;}}var obj=ss?ss.objectif:(tr?tr.objectif:'');var date=ss?ss.date:(tr?tr.date:'');var done=!!ss;var aflpList=tr?tr.aflp||[]:[];
+var trameEl=ge('acc-trame-display');var trame=seq.trame||[];var sorted=state.seances.slice().sort(function(a,b){return a.num-b.num;});var allNums={};for(var i=0;i<trame.length;i++)allNums[trame[i].num]=true;for(var i=0;i<sorted.length;i++)allNums[sorted[i].num]=true;var nums=Object.keys(allNums).map(Number).sort(function(a,b){return a-b;});if(!nums.length){trameEl.innerHTML='<div style="color:#6b7280;font-size:.8rem;font-style:italic">Aucune seance planifiee</div>';}else{var h='';for(var i=0;i<nums.length;i++){var nn=nums[i];var tr=null,ss=null;for(var j=0;j<trame.length;j++){if(trame[j].num===nn){tr=trame[j];break;}}for(var j=0;j<sorted.length;j++){if(sorted[j].num===nn){ss=sorted[j];break;}}var obj=ss?ss.objectif:(tr?tr.objectif:'');var date=ss?ss.date:(tr?tr.date:'');var done=!!ss;var aflpList=tr?tr.aflp||[]:[];
 var autreobj=tr?tr.autreobj||'':'';
 var contenus=tr?tr.contenus||'':'';
 var fps=tr?tr.fps||'':'';
@@ -1692,7 +1693,7 @@ h+='</body></html>';
 openPdfWindow(h,'S'+s.num+' - '+(s.objectif||'Seance').substring(0,40)+'.pdf');
 }
 function renderApList(){var el=ge('ap-slist');var sorted=state.seances.slice().sort(function(a,b){return a.num-b.num;});if(!sorted.length){el.innerHTML='<div style="color:#6b7280;font-size:.82rem">Aucune seance.</div>';return;}el.innerHTML='';for(var i=0;i<sorted.length;i++){(function(s){var d=document.createElement('div');d.className='ap-scard';d.id='ab-'+s.id;d.dataset.sid=s.id;d.innerHTML='<div class="ap-snum">S'+s.num+'</div><div><div style="font-size:.83rem;font-weight:500">'+esc(s.objectif||'Sans titre')+'</div><div style="font-size:.72rem;color:#6b7280">'+(s.date?fmtDate(s.date):'')+'</div></div>';el.appendChild(d);})(sorted[i]);}el.onclick=function(e){var card=e.target.closest('.ap-scard');if(!card)return;var cards=document.querySelectorAll('.ap-scard');for(var i=0;i<cards.length;i++)cards[i].classList.remove('act');card.classList.add('act');showAppel(card.dataset.sid);};}
-function showAppel(sid){var s=null;for(var i=0;i<state.seances.length;i++){if(state.seances[i].id===sid){s=state.seances[i];break;}}if(!s)return;if(!state.presences[sid])state.presences[sid]={};if(!state.autoEval[sid])state.autoEval[sid]={};if(!state.seanceObjectifs[sid])state.seanceObjectifs[sid]={};var sorted=state.eleves.slice().sort(function(a,b){return a.nom.localeCompare(b.nom);});var nbP=0;for(var i=0;i<sorted.length;i++){if((state.presences[sid][sorted[i].id]||'')==='Present')nbP++;}var objData=state.seanceObjectifs[sid];var h='<div class="obj-box"><div class="obj-box-title">Objectifs de la seance</div><div class="obj-inputs"><div><label class="obj-lbl">Objectif 1 (pour tous)</label><input class="obj-inp" type="text" id="obj1-inp" value="'+esc(objData.obj1||'')+'" placeholder="Ex: Orienter la carte au nord"></div><div><label class="obj-lbl">Objectif 2 (optionnel)</label><input class="obj-inp" type="text" id="obj2-inp" value="'+esc(objData.obj2||'')+'" placeholder="Ex: Utiliser un point d appui"></div></div></div>';h+='<div class="card" style="margin-bottom:.75rem;padding:.9rem 1.1rem"><div style="font-family:DM Serif Display,serif;font-size:1.05rem">S'+s.num+' - '+esc(s.objectif||'')+'</div><div style="color:#6b7280;font-size:.75rem;margin-top:3px">'+(s.date?fmtDate(s.date):'')+'</div><div style="margin-top:.5rem"><span class="chip c-gr">'+nbP+'/'+state.eleves.length+' presents</span></div></div>';h+='<div class="card"><div class="tw"><table><thead><tr><th>Eleve</th><th>Statut</th><th>Obj. 1 - Maitrise</th><th>Obj. 2 - Maitrise</th><th>Qte travail /4</th></tr></thead><tbody>';for(var i=0;i<sorted.length;i++){var e=sorted[i];var pres=state.presences[sid][e.id]||'';var ae=state.autoEval[sid][e.id]||{};var dis=!pres||pres!=='Present';var hasObj2=objData.obj2&&objData.obj2.trim();var mOpts='<option value="">- Maitrise -</option>';for(var k=0;k<MAITRISE.length;k++)mOpts+='<option'+(ae.maitrise1===MAITRISE[k]?' selected':'')+'>'+MAITRISE[k]+'</option>';var mOpts2='<option value="">- Maitrise -</option>';for(var k=0;k<MAITRISE.length;k++)mOpts2+='<option'+(ae.maitrise2===MAITRISE[k]?' selected':'')+'>'+MAITRISE[k]+'</option>';h+='<tr><td><span style="font-size:.82rem;font-weight:500">'+esc(e.nom)+'</span>'+(e.amenagement?'<br><span style="font-size:.7rem;color:#ffd166">'+esc(e.amenagement)+'</span>':'')+'</td><td><select class="ss" data-sid="'+sid+'" data-eid="'+e.id+'" data-f="pres">'+(function(){
+function showAppel(sid){initAppelMeteo(sid);var s=null;for(var i=0;i<state.seances.length;i++){if(state.seances[i].id===sid){s=state.seances[i];break;}}if(!s)return;if(!state.presences[sid])state.presences[sid]={};if(!state.autoEval[sid])state.autoEval[sid]={};if(!state.seanceObjectifs[sid])state.seanceObjectifs[sid]={};var sorted=state.eleves.slice().sort(function(a,b){return a.nom.localeCompare(b.nom);});var nbP=0;for(var i=0;i<sorted.length;i++){if((state.presences[sid][sorted[i].id]||'')==='Present')nbP++;}var objData=state.seanceObjectifs[sid];var h='<div class="obj-box"><div class="obj-box-title">Objectifs de la seance</div><div class="obj-inputs"><div><label class="obj-lbl">Objectif 1 (pour tous)</label><input class="obj-inp" type="text" id="obj1-inp" value="'+esc(objData.obj1||'')+'" placeholder="Ex: Orienter la carte au nord"></div><div><label class="obj-lbl">Objectif 2 (optionnel)</label><input class="obj-inp" type="text" id="obj2-inp" value="'+esc(objData.obj2||'')+'" placeholder="Ex: Utiliser un point d appui"></div></div></div>';h+='<div class="card" style="margin-bottom:.75rem;padding:.9rem 1.1rem"><div style="font-family:DM Serif Display,serif;font-size:1.05rem">S'+s.num+' - '+esc(s.objectif||'')+'</div><div style="color:#6b7280;font-size:.75rem;margin-top:3px">'+(s.date?fmtDate(s.date):'')+'</div><div style="margin-top:.5rem"><span class="chip c-gr">'+nbP+'/'+state.eleves.length+' presents</span></div></div>';h+='<div class="card"><div class="tw"><table><thead><tr><th>Eleve</th><th>Statut</th><th>Obj. 1 - Maitrise</th><th>Obj. 2 - Maitrise</th><th>Qte travail /4</th></tr></thead><tbody>';for(var i=0;i<sorted.length;i++){var e=sorted[i];var pres=state.presences[sid][e.id]||'';var ae=state.autoEval[sid][e.id]||{};var dis=!pres||pres!=='Present';var hasObj2=objData.obj2&&objData.obj2.trim();var mOpts='<option value="">- Maitrise -</option>';for(var k=0;k<MAITRISE.length;k++)mOpts+='<option'+(ae.maitrise1===MAITRISE[k]?' selected':'')+'>'+MAITRISE[k]+'</option>';var mOpts2='<option value="">- Maitrise -</option>';for(var k=0;k<MAITRISE.length;k++)mOpts2+='<option'+(ae.maitrise2===MAITRISE[k]?' selected':'')+'>'+MAITRISE[k]+'</option>';h+='<tr><td><span style="font-size:.82rem;font-weight:500">'+esc(e.nom)+'</span>'+(e.amenagement?'<br><span style="font-size:.7rem;color:#ffd166">'+esc(e.amenagement)+'</span>':'')+'</td><td><select class="ss" data-sid="'+sid+'" data-eid="'+e.id+'" data-f="pres">'+(function(){
   var opts='';
   var allOpts=[''].concat(STATUTS);
   for(var _si=0;_si<allOpts.length;_si++){
@@ -1992,14 +1993,16 @@ function meteoKey(){return 'eps-meteo-'+(CTX.key||'dflt');}
 function meteoGet(){try{return JSON.parse(localStorage.getItem(meteoKey())||'{}');}catch(e){return{};}}
 function meteoSave(d){localStorage.setItem(meteoKey(),JSON.stringify(d));}
 var meteoState={engagement:0,ambiance:0,progression:0,comportement:0};
-function meteoRenderDots(sid){
+function meteoRenderDots(sid, prefix){
+  prefix=prefix||'';
   var data=meteoGet();
   var saved=sid&&data[sid]?data[sid]:{};
   meteoState.engagement=saved.engagement||0;
   meteoState.ambiance=saved.ambiance||0;
   meteoState.progression=saved.progression||0;
   meteoState.comportement=saved.comportement||0;
-  var rows=document.querySelectorAll('.meteo-dots');
+  var rowsSel=(prefix?'#'+prefix+' ':'')+'.meteo-dots';
+  var rows=document.querySelectorAll(rowsSel);
   for(var i=0;i<rows.length;i++){
     var key=rows[i].dataset.key;
     rows[i].innerHTML='';
@@ -2008,16 +2011,16 @@ function meteoRenderDots(sid){
       dot.className='meteo-dot'+(meteoState[key]>=v?' active-'+v:'');
       dot.dataset.key=key;
       dot.dataset.val=v;
-      (function(k,vv){
+      (function(k,vv,rowsSelector){
         dot.addEventListener('click',function(){
           meteoState[k]=meteoState[k]===vv?0:vv;
-          var all=document.querySelectorAll('.meteo-dots[data-key='+JSON.stringify(k)+'] .meteo-dot');
+          var all=document.querySelectorAll(rowsSelector+' .meteo-dots[data-key='+JSON.stringify(k)+'] .meteo-dot');
           for(var j=0;j<all.length;j++){
             var jv=parseInt(all[j].dataset.val);
             all[j].className='meteo-dot'+(meteoState[k]>=jv?' active-'+jv:'');
           }
         });
-      })(key,v);
+      })(key,v,(prefix?'#'+prefix:''));
       rows[i].appendChild(dot);
     }
   }
@@ -2027,42 +2030,35 @@ function meteoGetSelectedSid(){
   return sel?sel.value:'';
 }
 function initMeteo(){
-  var sorted=state.seances.slice().sort(function(a,b){return a.num-b.num;});
-  var sel=ge('meteo-seance-sel');
-  if(sel){
-    var prevVal=sel.value;
-    sel.innerHTML='<option value="">-- Choisir une seance --</option>';
-    for(var i=0;i<sorted.length;i++){
-      var s=sorted[i];
-      var opt=document.createElement('option');
-      opt.value=s.id;
-      opt.textContent='S'+s.num+' - '+(s.objectif||'Sans titre').substring(0,30)+(s.date?' ('+fmtDate(s.date)+')':'');
-      sel.appendChild(opt);
-    }
-    // Preselectionner la derniere seance
-    if(!prevVal&&sorted.length)sel.value=sorted[sorted.length-1].id;
-    else if(prevVal)sel.value=prevVal;
-    meteoRenderDots(sel.value);
-    sel.onchange=function(){meteoRenderDots(this.value);};
-  }
-  var saveBtn=ge('btn-meteo-save');
+  // initMeteo vide - la météo est maintenant dans l'onglet Appel (initAppelMeteo)
+}
+function initAppelMeteo(sid){
+  var zone=ge('appel-meteo-zone');
+  if(!zone)return;
+  zone.style.display='block';
+  var lbl=ge('appel-meteo-seance-lbl');
+  var s=null;
+  for(var i=0;i<state.seances.length;i++){if(state.seances[i].id===sid){s=state.seances[i];break;}}
+  if(lbl)lbl.textContent=s?'S'+s.num+(s.objectif?' - '+s.objectif.substring(0,25):''):'';
+  // Charger météo existante
+  meteoRenderDots(sid,'appel-meteo-zone');
+  // Charger bilan existant
+  var bta=ge('appel-bilan-textarea');
+  if(bta)bta.value=s&&s.bilan?s.bilan:'';
+  // Bouton enregistrer
+  var saveBtn=ge('btn-appel-meteo-save');
   if(saveBtn){
     saveBtn.onclick=function(){
-      var sid=meteoGetSelectedSid();
-      if(!sid){toast('Choisir une seance','warn');return;}
       var d2=meteoGet();
       d2[sid]={engagement:meteoState.engagement,ambiance:meteoState.ambiance,progression:meteoState.progression,comportement:meteoState.comportement,ts:Date.now()};
       meteoSave(d2);
       toast('Meteo enregistree !');
     };
   }
-  var bilanBtn=ge('btn-meteo-bilan');
+  // Bouton copier dans bilan
+  var bilanBtn=ge('btn-appel-meteo-bilan');
   if(bilanBtn){
     bilanBtn.onclick=function(){
-      var sid=meteoGetSelectedSid();
-      if(!sid){toast('Choisir une seance','warn');return;}
-      var s=null;
-      for(var i=0;i<state.seances.length;i++){if(state.seances[i].id===sid){s=state.seances[i];break;}}
       if(!s){toast('Seance introuvable','warn');return;}
       var noms=['Engagement','Ambiance','Progression','Comportement'];
       var keys=['engagement','ambiance','progression','comportement'];
@@ -2072,15 +2068,21 @@ function initMeteo(){
         var v=meteoState[keys[i]];
         if(v>0)lines.push(noms[i]+' : '+stars[v]+' ('+v+'/5)');
       }
-      if(!lines.length){toast('Aucune meteo renseignee','warn');return;}
-      var bilanTxt='[Meteo S'+s.num+']\n'+lines.join('\n');
+      var bilanTxt='';
+      if(lines.length)bilanTxt+='[Meteo S'+s.num+']\n'+lines.join('\n');
+      var bta=ge('appel-bilan-textarea');
+      var bilanLibre=bta?bta.value.trim():'';
+      if(bilanLibre)bilanTxt+=(bilanTxt?'\n\n':'')+bilanLibre;
+      if(!bilanTxt){toast('Rien a copier','warn');return;}
       s.bilan=(s.bilan?s.bilan+'\n\n':'')+bilanTxt;
+      if(bta)bta.value=s.bilan;
       save();
       renderAll();
-      toast('Meteo copiee dans le bilan S'+s.num+' !');
+      toast('Copie dans le bilan S'+s.num+' !');
     };
   }
 }
+
 function renderProgress(){
   var zone=ge('acc-progress-zone');
   if(!zone)return;
