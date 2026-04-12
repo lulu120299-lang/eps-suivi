@@ -550,23 +550,16 @@ textarea{resize:vertical;min-height:70px}
     <div style="text-align:right">
       <div class="acc-author">MALLET Lucas</div>
       <div class="acc-meta" id="acc-date"></div>
-      <div style="margin-top:8px;display:flex;gap:6px;justify-content:flex-end;flex-wrap:wrap">
-        <span style="font-family:'JetBrains Mono',monospace;font-size:.58rem;background:rgba(79,138,255,.12);color:#4f8aff;border:1px solid rgba(79,138,255,.2);padding:3px 9px;border-radius:4px;letter-spacing:.06em">EPS</span>
-        <span style="font-family:'JetBrains Mono',monospace;font-size:.58rem;background:rgba(86,207,178,.12);color:#56cfb2;border:1px solid rgba(86,207,178,.2);padding:3px 9px;border-radius:4px;letter-spacing:.06em">Lyc&#233;e Pro</span>
-        <span style="font-family:'JetBrains Mono',monospace;font-size:.58rem;background:rgba(255,209,102,.12);color:#ffd166;border:1px solid rgba(255,209,102,.2);padding:3px 9px;border-radius:4px;letter-spacing:.06em">2025-2026</span>
+      <div style="margin-top:10px;display:flex;gap:6px;align-items:center;justify-content:flex-end;flex-wrap:wrap">
+        <input class="gh-input" type="password" id="gh-token" placeholder="Token GitHub (ghp_...)" style="width:160px;font-size:.65rem;padding:5px 8px">
+        <input class="gh-input" type="text" id="gh-repo" placeholder="user/repo" style="width:110px;font-size:.65rem;padding:5px 8px">
+        <button class="gh-btn" id="btn-gh-save" style="padding:5px 10px;font-size:.7rem">OK</button>
+        <div id="gh-status" style="font-size:.65rem;color:#56cfb2"></div>
       </div>
     </div>
   </div>
   <div class="acc-main">
-    <div class="gh-config">
-      <div class="gh-config-title">Synchronisation GitHub</div>
-      <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:flex-end">
-        <div style="flex:1;min-width:200px"><label style="font-size:.72rem;color:#9ab0a0;display:block;margin-bottom:4px">Token GitHub (ghp_...)</label><input class="gh-input" type="password" id="gh-token" placeholder="ghp_xxxxxxxxxxxx"></div>
-        <div style="flex:1;min-width:160px"><label style="font-size:.72rem;color:#9ab0a0;display:block;margin-bottom:4px">Repo</label><input class="gh-input" type="text" id="gh-repo" placeholder="user/repo-name"></div>
-        <button class="gh-btn" id="btn-gh-save">Enregistrer</button>
-      </div>
-      <div id="gh-status" style="margin-top:.75rem;font-size:.74rem"></div>
-    </div>
+
     <div class="acc-steps">
       <div class="acc-step active" id="acc-s1"><div class="acc-step-num">1</div>Classe</div>
       <div class="acc-step-line"></div>
@@ -1247,8 +1240,53 @@ function fmtDate(d){if(!d)return'';var p=d.split('-');var M=['jan.','fev.','mars
 function toast(msg,type){type=type||'ok';var t=ge('_toast');if(!t){t=document.createElement('div');t.id='_toast';t.style.cssText='position:fixed;bottom:24px;right:24px;z-index:9999;padding:10px 18px;border-radius:9px;font-size:.85rem;font-weight:500;pointer-events:none;transition:opacity .3s;opacity:0';document.body.appendChild(t);}var c={ok:'#56cfb2',err:'#ff6b6b',warn:'#ffd166',info:'#4f8aff'};var col=c[type]||c.ok;t.style.background=col+'20';t.style.border='1px solid '+col;t.style.color=col;t.textContent=msg;t.style.opacity='1';clearTimeout(t._t);t._t=setTimeout(function(){t.style.opacity='0';},3400);}
 function ghLoadConfig(){try{var s=localStorage.getItem('eps-gh');if(s)GH=JSON.parse(s);}catch(e){}if(GH.token)ge('gh-token').value=GH.token;if(GH.repo)ge('gh-repo').value=GH.repo;ge('gh-status').innerHTML=GH.token&&GH.repo?'<span style="color:#56cfb2">Connecte : '+GH.repo+'</span>':'<span style="color:#ffd166">Configurez votre token et repo</span>';}
 function ghSaveConfig(){GH.token=ge('gh-token').value.trim();GH.repo=ge('gh-repo').value.trim();localStorage.setItem('eps-gh',JSON.stringify(GH));ghLoadConfig();toast('GitHub enregistre');}
-function ghPush(){if(!GH.token||!GH.repo){toast('Configurez GitHub','warn');return;}toast('Sauvegarde...','info');var fn='data/'+STORAGE_KEY+'.json';var exp=JSON.parse(JSON.stringify(state));for(var i=0;i<exp.eleves.length;i++){if(exp.eleves[i].fiche)exp.eleves[i].fiche.photo=null;}var content=btoa(unescape(encodeURIComponent(JSON.stringify(exp,null,2))));var sha=null;fetch('https://api.github.com/repos/'+GH.repo+'/contents/'+fn,{headers:{'Authorization':'token '+GH.token,'Accept':'application/vnd.github.v3+json'}}).then(function(r){if(r.ok)return r.json();return null;}).then(function(d){if(d&&d.sha)sha=d.sha;var body={message:'EPS save',content:content};if(sha)body.sha=sha;return fetch('https://api.github.com/repos/'+GH.repo+'/contents/'+fn,{method:'PUT',headers:{'Authorization':'token '+GH.token,'Accept':'application/vnd.github.v3+json','Content-Type':'application/json'},body:JSON.stringify(body)});}).then(function(r){if(r&&r.ok)toast('Sauvegarde OK !','ok');else toast('Erreur GitHub','err');}).catch(function(e){toast('Erreur: '+e.message,'err');});}
-function ghPull(){if(!GH.token||!GH.repo){toast('Configurez GitHub','warn');return;}toast('Synchronisation...','info');var fn='data/'+STORAGE_KEY+'.json';fetch('https://api.github.com/repos/'+GH.repo+'/contents/'+fn,{headers:{'Authorization':'token '+GH.token,'Accept':'application/vnd.github.v3+json'}}).then(function(r){if(!r.ok){toast('Aucune donnee GitHub','warn');return null;}return r.json();}).then(function(d){if(!d)return;state=JSON.parse(decodeURIComponent(escape(atob(d.content))));if(!state.seanceObjectifs)state.seanceObjectifs={};if(!state.profil)state.profil={};if(!state.comp)state.comp={};if(!state.seq)state.seq={};if(!state.grilleNotes)state.grilleNotes={};save();renderAll();toast('Synchronise !','ok');}).catch(function(e){toast('Erreur: '+e.message,'err');});}
+function ghPushFile(fn,data,msg,onOk){
+  var encoded=btoa(unescape(encodeURIComponent(JSON.stringify(data,null,2))));
+  fetch('https://api.github.com/repos/'+GH.repo+'/contents/'+fn,{headers:{'Authorization':'token '+GH.token,'Accept':'application/vnd.github.v3+json'}})
+  .then(function(r){return r.ok?r.json():null;})
+  .then(function(d){
+    var body={message:msg,content:encoded};
+    if(d&&d.sha)body.sha=d.sha;
+    return fetch('https://api.github.com/repos/'+GH.repo+'/contents/'+fn,{method:'PUT',headers:{'Authorization':'token '+GH.token,'Accept':'application/vnd.github.v3+json','Content-Type':'application/json'},body:JSON.stringify(body)});
+  }).then(function(r){if(r&&r.ok&&onOk)onOk();}).catch(function(e){toast('Erreur: '+e.message,'err');});
+}
+function ghPush(){
+  if(!GH.token||!GH.repo){toast('Configurez GitHub','warn');return;}
+  toast('Sauvegarde...','info');
+  var exp=JSON.parse(JSON.stringify(state));
+  for(var i=0;i<exp.eleves.length;i++){if(exp.eleves[i].fiche)exp.eleves[i].fiche.photo=null;}
+  ghPushFile('data/'+STORAGE_KEY+'.json',exp,'EPS save state',null);
+  ghPushFile('data/classes.json',CLASSES,'EPS save classes',function(){toast('Sauvegarde OK !','ok');});
+}
+function ghPull(){
+  if(!GH.token||!GH.repo){toast('Configurez GitHub','warn');return;}
+  toast('Synchronisation...','info');
+  // Tirer les classes d'abord
+  fetch('https://api.github.com/repos/'+GH.repo+'/contents/data/classes.json',{headers:{'Authorization':'token '+GH.token,'Accept':'application/vnd.github.v3+json'}})
+  .then(function(r){return r.ok?r.json():null;})
+  .then(function(d){
+    if(d&&d.content){
+      try{
+        var cls=JSON.parse(decodeURIComponent(escape(atob(d.content))));
+        if(cls&&cls.length){CLASSES=cls;classesSave();accRenderClsGrid();}
+      }catch(e){}
+    }
+    // Tirer le state
+    var fn='data/'+STORAGE_KEY+'.json';
+    return fetch('https://api.github.com/repos/'+GH.repo+'/contents/'+fn,{headers:{'Authorization':'token '+GH.token,'Accept':'application/vnd.github.v3+json'}});
+  })
+  .then(function(r){if(!r||!r.ok){toast('Aucune donnee GitHub','warn');return null;}return r.json();})
+  .then(function(d){
+    if(!d)return;
+    state=JSON.parse(decodeURIComponent(escape(atob(d.content))));
+    if(!state.seanceObjectifs)state.seanceObjectifs={};
+    if(!state.profil)state.profil={};
+    if(!state.comp)state.comp={};
+    if(!state.seq)state.seq={};
+    if(!state.grilleNotes)state.grilleNotes={};
+    save();renderAll();toast('Synchronise !','ok');
+  }).catch(function(e){toast('Erreur: '+e.message,'err');});
+}
 
 function addPhotoThumb(grid,dataUrl,pid,mode){
   if(!grid)return;
