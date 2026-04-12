@@ -2259,7 +2259,7 @@ h+='</body></html>';
 openPdfWindow(h,'S'+s.num+' - '+(s.objectif||'Seance').substring(0,40)+'.pdf');
 }
 function renderApList(){var el=ge('ap-slist');var sorted=state.seances.slice().sort(function(a,b){return a.num-b.num;});if(!sorted.length){el.innerHTML='<div style="color:#6b7280;font-size:.82rem">Aucune seance.</div>';return;}el.innerHTML='';for(var i=0;i<sorted.length;i++){(function(s){var d=document.createElement('div');d.className='ap-scard';d.id='ab-'+s.id;d.dataset.sid=s.id;d.innerHTML='<div class="ap-snum">S'+s.num+'</div><div><div style="font-size:.83rem;font-weight:500">'+esc(s.objectif||'Sans titre')+'</div><div style="font-size:.72rem;color:#6b7280">'+(s.date?fmtDate(s.date):'')+'</div></div>';el.appendChild(d);})(sorted[i]);}el.onclick=function(e){var card=e.target.closest('.ap-scard');if(!card)return;var cards=document.querySelectorAll('.ap-scard');for(var i=0;i<cards.length;i++)cards[i].classList.remove('act');card.classList.add('act');showAppel(card.dataset.sid);};}
-function showAppel(sid){initAppelMeteo(sid);var s=null;for(var i=0;i<state.seances.length;i++){if(state.seances[i].id===sid){s=state.seances[i];break;}}if(!s)return;if(!state.presences[sid])state.presences[sid]={};if(!state.autoEval[sid])state.autoEval[sid]={};if(!state.seanceObjectifs[sid])state.seanceObjectifs[sid]={};var sorted=state.eleves.slice().sort(function(a,b){return a.nom.localeCompare(b.nom);});var nbP=0;for(var i=0;i<sorted.length;i++){if((state.presences[sid][sorted[i].id]||'')==='Present')nbP++;}var objData=state.seanceObjectifs[sid];var h='<div class="obj-box"><div class="obj-box-title">Auto-evaluation - Objectifs de la seance</div><div class="obj-inputs"><div><label class="obj-lbl">Objectif 1 (pour tous)</label><input class="obj-inp" type="text" id="obj1-inp" value="'+esc(objData.obj1||'')+'" placeholder="Ex: Orienter la carte au nord"></div><div><label class="obj-lbl">Objectif 2 (optionnel)</label><input class="obj-inp" type="text" id="obj2-inp" value="'+esc(objData.obj2||'')+'" placeholder="Ex: Utiliser un point d appui"></div></div></div>';h+='<div class="card" style="margin-bottom:.75rem;padding:.9rem 1.1rem"><div style="font-family:DM Serif Display,serif;font-size:1.05rem">S'+s.num+' - '+esc(s.objectif||'')+'</div><div style="color:#6b7280;font-size:.75rem;margin-top:3px">'+(s.date?fmtDate(s.date):'')+'</div><div style="margin-top:.5rem"><span class="chip c-gr">'+nbP+'/'+state.eleves.length+' presents</span></div></div>';h+='<div class="card"><div class="tw"><table><thead><tr><th>Eleve</th><th>Statut</th><th>Obj. 1 - Maitrise</th><th>Obj. 2 - Maitrise</th><th>Qte travail /4</th></tr></thead><tbody>';for(var i=0;i<sorted.length;i++){var e=sorted[i];var pres=state.presences[sid][e.id]||'';var ae=state.autoEval[sid][e.id]||{};var dis=!pres||pres!=='Present';var hasObj2=objData.obj2&&objData.obj2.trim();var mOpts='<option value="">- Maitrise -</option>';for(var k=0;k<MAITRISE.length;k++)mOpts+='<option'+(ae.maitrise1===MAITRISE[k]?' selected':'')+'>'+MAITRISE[k]+'</option>';var mOpts2='<option value="">- Maitrise -</option>';for(var k=0;k<MAITRISE.length;k++)mOpts2+='<option'+(ae.maitrise2===MAITRISE[k]?' selected':'')+'>'+MAITRISE[k]+'</option>';h+='<tr><td><span style="font-size:.82rem;font-weight:500">'+esc(e.nom)+'</span>'+(e.amenagement?'<br><span style="font-size:.7rem;color:#ffd166">'+esc(e.amenagement)+'</span>':'')+'</td><td><select class="ss" data-sid="'+sid+'" data-eid="'+e.id+'" data-f="pres">'+(function(){
+function showAppel(sid){initAppelMeteo(sid);var s=null;for(var i=0;i<state.seances.length;i++){if(state.seances[i].id===sid){s=state.seances[i];break;}}if(!s)return;if(!state.presences[sid])state.presences[sid]={};if(!state.autoEval[sid])state.autoEval[sid]={};if(!state.seanceObjectifs[sid])state.seanceObjectifs[sid]={};var sorted=state.eleves.slice().sort(function(a,b){return a.nom.localeCompare(b.nom);});var nbP=0;for(var i=0;i<sorted.length;i++){if((state.presences[sid][sorted[i].id]||'')==='Present')nbP++;}var objData=state.seanceObjectifs[sid];var h='<div class="obj-box"><div class="obj-box-title">Auto-evaluation - Objectifs de la seance</div><div class="obj-inputs"><div><label class="obj-lbl">Objectif 1 (pour tous)</label><input class="obj-inp" type="text" id="obj1-inp" value="'+esc(objData.obj1||'')+'" placeholder="Ex: Orienter la carte au nord"></div><div><label class="obj-lbl">Objectif 2 (optionnel)</label><input class="obj-inp" type="text" id="obj2-inp" value="'+esc(objData.obj2||'')+'" placeholder="Ex: Utiliser un point d appui"></div></div></div>';h+='<div class="card" style="margin-bottom:.75rem;padding:.9rem 1.1rem"><div style="font-family:DM Serif Display,serif;font-size:1.05rem">S'+s.num+' - '+esc(s.objectif||'')+'</div><div style="color:#6b7280;font-size:.75rem;margin-top:3px">'+(s.date?fmtDate(s.date):'')+'</div><div style="margin-top:.5rem"><span class="chip c-gr">'+nbP+'/'+state.eleves.length+' presents</span></div></div>';h+='<div class="card"><div class="tw"><table><thead><tr><th>Eleve</th><th>Statut</th><th>Obj. 1 - Maitrise</th><th>Obj. 2 - Maitrise</th><th>Qte travail /4</th></tr></thead><tbody>';for(var i=0;i<sorted.length;i++){var e=sorted[i];var pres=state.presences[sid][e.id]||'';var ae=state.autoEval[sid][e.id]||{};var dis=pres==='Absent'||pres==='Dispense';var hasObj2=objData.obj2&&objData.obj2.trim();var mOpts='<option value="">- Maitrise -</option>';for(var k=0;k<MAITRISE.length;k++)mOpts+='<option'+(ae.maitrise1===MAITRISE[k]?' selected':'')+'>'+MAITRISE[k]+'</option>';var mOpts2='<option value="">- Maitrise -</option>';for(var k=0;k<MAITRISE.length;k++)mOpts2+='<option'+(ae.maitrise2===MAITRISE[k]?' selected':'')+'>'+MAITRISE[k]+'</option>';h+='<tr><td><span style="font-size:.82rem;font-weight:500">'+esc(e.nom)+'</span>'+(e.amenagement?'<br><span style="font-size:.7rem;color:#ffd166">'+esc(e.amenagement)+'</span>':'')+'</td><td><select class="ss" data-sid="'+sid+'" data-eid="'+e.id+'" data-f="pres">'+(function(){
   var opts='';
   var allOpts=[''].concat(STATUTS);
   for(var _si=0;_si<allOpts.length;_si++){
@@ -2665,6 +2665,164 @@ function iaInsererPartieNew(idx){
   var zone2=ge('parties-new');
   if(zone2)zone2.lastElementChild&&zone2.lastElementChild.scrollIntoView({behavior:'smooth',block:'center'});
   toast('Situation ajoutee comme partie !');
+}
+
+function iaToggle(){
+  var p=ge('ia-panel');
+  if(p)p.classList.toggle('open');
+}
+async function iaGenerer(){
+  var zone=ge('ia-result-zone');
+  if(!zone)return;
+  var apsa=CTX.apsa?CTX.apsa.name:'';
+  var filiere=CTX.cls?(FILIERES[CTX.cls.filiere]||{label:'EPS'}).label:'EPS';
+  var sid=ge('es-id')?ge('es-id').value:'';
+  var s=null;
+  for(var i=0;i<state.seances.length;i++){if(state.seances[i].id===sid){s=state.seances[i];break;}}
+  var titre=ge('es-o')?ge('es-o').value:'';
+  var contexte=ge('ia-contexte')?ge('ia-contexte').value:'';
+  var seq=seqGet();
+  var numSeance=s?s.num:1;
+  var totalSeances=(seq.trame||[]).length||state.seances.length;
+  var aflpSel=aflpEditSel||[];
+
+  var prompt='Tu es un expert EPS enseignant en '+filiere+'.\n'+
+    'APSA : '+apsa+'\n'+
+    'Seance S'+numSeance+' sur '+totalSeances+'\n'+
+    'Objectif : '+(titre||'non precise')+'\n'+
+    (aflpSel.length?'AFLP travailles : '+aflpSel.join(', ')+'\n':'')+
+    (contexte?'Contexte : '+contexte+'\n':'')+
+    '\nPropose 3 situations d\'apprentissage. Pour chacune donne :\n'+
+    '- Titre (court)\n- Objectif\n- Dispositif\n- Consignes\n- Criteres de reussite\n- Contenus d\'enseignement\n- Partie FPS (echauffement, situation principale...)\n- Variante / differenciation\n- Niveau (debutant / intermediaire / avance)';
+
+  zone.innerHTML='<div style="background:#13161f;border:1px solid #1e2438;border-radius:8px;padding:.9rem 1rem">'+
+    '<div style="font-family:DM Mono,monospace;font-size:.62rem;text-transform:uppercase;letter-spacing:.1em;color:#a78bfa;margin-bottom:.6rem">Prompt pret a copier</div>'+
+    '<div style="font-size:.75rem;color:#9aa0b8;line-height:1.6;white-space:pre-wrap;margin-bottom:.75rem">'+esc(prompt)+'</div>'+
+    '<div style="display:flex;gap:6px">'+
+    '<button class="ia-sit-btn" style="background:rgba(167,139,250,.15);border-color:rgba(167,139,250,.3);color:#a78bfa" onclick="iaCopierPrompt(this,\''+encodeURIComponent(prompt)+'\')">Copier le prompt</button>'+
+    '</div>'+
+    '<div style="margin-top:.75rem;font-size:.72rem;color:#4a5070;line-height:1.5">Colle ce prompt dans Claude.ai pour obtenir les 3 situations, puis utilise le bouton "+ Coller les situations" ci-dessous.</div>'+
+    '<div style="margin-top:.6rem">'+
+    '<div style="font-family:DM Mono,monospace;font-size:.62rem;text-transform:uppercase;letter-spacing:.1em;color:#ffd166;margin-bottom:.4rem">Coller la reponse de Claude</div>'+
+    '<textarea id="ia-paste-zone" placeholder="Colle ici la reponse de Claude..." style="width:100%;background:#0d1018;border:1px solid #1e2438;border-radius:6px;color:#d4d8eb;font-size:.75rem;padding:.6rem .75rem;resize:vertical;outline:none;min-height:80px;line-height:1.5"></textarea>'+
+    '<button class="ia-sit-btn" style="margin-top:.4rem;width:100%" onclick="iaParserReponse(\'edit\')">+ Ajouter les situations comme parties</button>'+
+    '</div>'+
+    '</div>';
+}
+
+async function iaGenererNew(){
+  var zone=ge('ia-result-zone-new');
+  if(!zone)return;
+  var apsa=CTX.apsa?CTX.apsa.name:'';
+  var filiere=CTX.cls?(FILIERES[CTX.cls.filiere]||{label:'EPS'}).label:'EPS';
+  var titre=ge('fo')?ge('fo').value:'';
+  var numSeance=ge('fn')?ge('fn').value:'';
+  var contexte=ge('ia-contexte-new')?ge('ia-contexte-new').value:'';
+  var seq=seqGet();
+  var totalSeances=(seq.trame||[]).length||state.seances.length;
+
+  var prompt='Tu es un expert EPS enseignant en '+filiere+'.\n'+
+    'APSA : '+apsa+'\n'+
+    'Seance S'+numSeance+' sur '+totalSeances+'\n'+
+    'Objectif : '+(titre||'non precise')+'\n'+
+    (aflpNewSel&&aflpNewSel.length?'AFLP travailles : '+aflpNewSel.join(', ')+'\n':'')+
+    (contexte?'Contexte : '+contexte+'\n':'')+
+    '\nPropose 3 situations d\'apprentissage. Pour chacune donne :\n'+
+    '- Titre (court)\n- Objectif\n- Dispositif\n- Consignes\n- Criteres de reussite\n- Contenus d\'enseignement\n- Partie FPS (echauffement, situation principale...)\n- Variante / differenciation\n- Niveau (debutant / intermediaire / avance)';
+
+  zone.innerHTML='<div style="background:#13161f;border:1px solid #1e2438;border-radius:8px;padding:.9rem 1rem">'+
+    '<div style="font-family:DM Mono,monospace;font-size:.62rem;text-transform:uppercase;letter-spacing:.1em;color:#a78bfa;margin-bottom:.6rem">Prompt pret a copier</div>'+
+    '<div style="font-size:.75rem;color:#9aa0b8;line-height:1.6;white-space:pre-wrap;margin-bottom:.75rem">'+esc(prompt)+'</div>'+
+    '<div style="display:flex;gap:6px">'+
+    '<button class="ia-sit-btn" style="background:rgba(167,139,250,.15);border-color:rgba(167,139,250,.3);color:#a78bfa" onclick="iaCopierPrompt(this,\''+encodeURIComponent(prompt)+'\')">Copier le prompt</button>'+
+    '</div>'+
+    '<div style="margin-top:.75rem;font-size:.72rem;color:#4a5070;line-height:1.5">Colle ce prompt dans Claude.ai pour obtenir les 3 situations, puis utilise le bouton "+ Coller les situations" ci-dessous.</div>'+
+    '<div style="margin-top:.6rem">'+
+    '<div style="font-family:DM Mono,monospace;font-size:.62rem;text-transform:uppercase;letter-spacing:.1em;color:#ffd166;margin-bottom:.4rem">Coller la reponse de Claude</div>'+
+    '<textarea id="ia-paste-zone-new" placeholder="Colle ici la reponse de Claude..." style="width:100%;background:#0d1018;border:1px solid #1e2438;border-radius:6px;color:#d4d8eb;font-size:.75rem;padding:.6rem .75rem;resize:vertical;outline:none;min-height:80px;line-height:1.5"></textarea>'+
+    '<button class="ia-sit-btn" style="margin-top:.4rem;width:100%" onclick="iaParserReponse(\'new\')">+ Ajouter les situations comme parties</button>'+
+    '</div>'+
+    '</div>';
+}
+
+function iaCopierPrompt(btn, encoded){
+  var txt=decodeURIComponent(encoded);
+  navigator.clipboard.writeText(txt).then(function(){
+    btn.textContent='Copie !';
+    setTimeout(function(){btn.textContent='Copier le prompt';},2000);
+  }).catch(function(){
+    toast('Copie manuelle : selectionnez le texte ci-dessus','warn');
+  });
+}
+
+function iaParserReponse(mode){
+  var zoneId=mode==='new'?'ia-paste-zone-new':'ia-paste-zone';
+  var ta=ge(zoneId);
+  if(!ta||!ta.value.trim()){toast('Colle la reponse de Claude d\'abord','warn');return;}
+  var txt=ta.value.trim();
+
+  // Parser le texte libre : détecter les blocs de situations
+  // On cherche les champs par mots-clés
+  var sits=[];
+  // Séparer par des marqueurs de numérotation (1., Situation 1, ##, etc.)
+  var blocks=txt.split(/(?=(?:^|\n)(?:#{1,3}\s*)?(?:situation\s*)?[123][\.\):])/i).filter(function(b){return b.trim().length>20;});
+  if(blocks.length<1)blocks=[txt];
+
+  for(var bi=0;bi<Math.min(blocks.length,3);bi++){
+    var b=blocks[bi];
+    var sv={titre:'',objectif:'',dispositif:'',consignes:'',criteres:'',contenus:'',fps:'',variante:''};
+
+    function extract(keys){
+      for(var ki=0;ki<keys.length;ki++){
+        var re=new RegExp('(?:'+keys[ki]+')\\s*[:\\-]\\s*([^\\n]+(?:\\n(?![A-Za-z].{0,30}:)[^\\n]+)*)', 'i');
+        var m=b.match(re);
+        if(m)return m[1].trim();
+      }
+      return '';
+    }
+
+    sv.titre=extract(['titre','nom','situation']);
+    if(!sv.titre){var firstLine=b.trim().split('\n')[0];sv.titre=firstLine.replace(/^[#\-\*\d\.\)]+\s*/,'').substring(0,60);}
+    sv.objectif=extract(['objectif']);
+    sv.dispositif=extract(['dispositif','organisation','mise en place']);
+    sv.consignes=extract(['consignes?','consigne']);
+    sv.criteres=extract(['crit.res?','crit.re de r.ussite','r.ussite']);
+    sv.contenus=extract(['contenus?','savoir','enseignement']);
+    sv.fps=extract(['fps','partie','phase']);
+    sv.variante=extract(['variante','diff.renciation','adaptation']);
+
+    if(sv.titre||sv.objectif||sv.consignes)sits.push(sv);
+  }
+
+  if(!sits.length){toast('Impossible de parser la reponse - verifie le format','warn');return;}
+
+  var added=0;
+  for(var i=0;i<sits.length;i++){
+    var sv=sits[i];
+    var consignesComplet=(sv.dispositif?'Dispositif : '+sv.dispositif+'\n':'')+(sv.consignes||'');
+    var p={
+      id:'p'+Date.now()+Math.random().toString(36).slice(2,5),
+      titre:sv.titre||'Situation '+(i+1),
+      objectif:sv.objectif||'',
+      consignes:consignesComplet,
+      criteres:sv.criteres||'',
+      contenus:sv.contenus||'',
+      bilan:''
+    };
+    if(mode==='new'){
+      partiesNew.push(p);
+      renderPartieBlock('parties-new',p,partiesNew.length-1,'new');
+    }else{
+      partiesEdit.push(p);
+      renderPartieBlock('parties-edit',p,partiesEdit.length-1,'edit');
+    }
+    added++;
+  }
+
+  var zone2=ge(mode==='new'?'parties-new':'parties-edit');
+  if(zone2&&zone2.lastElementChild)zone2.lastElementChild.scrollIntoView({behavior:'smooth',block:'center'});
+  toast(added+' situation(s) ajoutee(s) comme parties !');
+  ta.value='';
 }
 
 function iaToggle(){
