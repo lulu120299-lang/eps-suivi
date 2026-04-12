@@ -927,6 +927,49 @@
       }
     ]
   },
-  "_meteo": {},
-  "_notes": ""
+  "_meteo": {
+    "s1774206769844": {
+      "engagement": 0,
+      "ambiance": 0,
+      "progression": 0,
+      "comportement": 0,
+      "ts": 1775948500028
+    },
+    "s001": {
+      "engagement": 2,
+      "ambiance": 3,
+      "progression": 0,
+      "comportement": 2,
+      "ts": 1775948453867
+    },
+    "s1774180113232": {
+      "engagement": 5,
+      "ambiance": 4,
+      "progression": 4,
+      "comportement": 4,
+      "ts": 1775985799336
+    },
+    "s002": {
+      "engagement": 3,
+      "ambiance": 2,
+      "progression": 0,
+      "comportement": 3,
+      "ts": 1775985875482
+    },
+    "s1774087701884": {
+      "engagement": 3,
+      "ambiance": 2,
+      "progression": 2,
+      "comportement": 2,
+      "ts": 1775985903772
+    },
+    "s1774206615314": {
+      "engagement": 0,
+      "ambiance": 0,
+      "progression": 0,
+      "comportement": 0,
+      "ts": 1775985947486
+    }
+  },
+  "_notes": "essai !! encule fjâlfvkhsezvakgezf daudflei zqsdfiodmzu feuzkqhsfkieziu e izfudo ufhgqkuu fezqse ifzeuru feiuzygfue "
 }
