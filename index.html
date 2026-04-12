@@ -798,7 +798,10 @@ textarea{resize:vertical;min-height:70px}
       <div id="slist"></div>
     </div>
     <div id="v-appel" class="view">
-      <div class="ph"><div><div class="ph-title">Appel</div><div class="ph-sub">Presences, objectifs, maitrise par eleve</div></div></div>
+      <div class="ph">
+        <div><div class="ph-title">Appel</div><div class="ph-sub">Presences, objectifs, maitrise par eleve</div></div>
+        <button class="btn btn-g" id="btn-recap-presences" style="font-family:'DM Mono',monospace;font-size:.68rem">&#128202; Recap presences</button>
+      </div>
       <div class="appel-lay">
         <div><div class="slbl">Seance</div><div id="ap-slist"></div></div>
         <div id="ap-content"><div class="empty">Selectionnez une seance</div></div>
@@ -2764,6 +2767,85 @@ var GP_COLS=['#4f8aff','#56cfb2','#ffd166','#a78bfa','#fb923c','#f472b6','#ff6b6
 var GP_GROUPES=[];
 var GP_NON_ASSIGNES=[];
 
+function openRecapPresences(){
+  var sorted=state.seances.slice().sort(function(a,b){return a.num-b.num;});
+  var eleves=state.eleves.slice().sort(function(a,b){return a.nom.localeCompare(b.nom);});
+  if(!sorted.length||!eleves.length){toast('Aucune donnee de presence','warn');return;}
+
+  var COLS_STATUT={
+    'Present':   {bg:'#1a6b3a',color:'#4ade80',lbl:'✓'},
+    'Absent':    {bg:'#7f1d1d',color:'#f87171',lbl:'✗'},
+    'Dispense':  {bg:'#1e3a5f',color:'#60a5fa',lbl:'D'},
+    'Pas tenue': {bg:'#44300a',color:'#fbbf24',lbl:'T'},
+    'Pas affaire':{bg:'#3d1a5c',color:'#c084fc',lbl:'A'},
+    '':          {bg:'#1a1d2a',color:'#3a4060',lbl:'·'}
+  };
+
+  var css='*{box-sizing:border-box;margin:0;padding:0;font-family:-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif}';
+  css+='@page{margin:10mm 12mm;size:A4}';
+  css+='*{-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important}';
+  css+='body{background:#0a0c10;color:#e4e6ef;padding:20px;font-size:11px}';
+  css+='.header{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;padding-bottom:12px;border-bottom:1px solid #1e2438}';
+  css+='.header-title{font-size:16px;font-weight:700;color:#fff}';
+  css+='.header-sub{font-size:9px;color:#6b7280;margin-top:3px;font-family:monospace;text-transform:uppercase;letter-spacing:.1em}';
+  css+='.header-meta{text-align:right;font-family:monospace;font-size:8px;color:#4a5070}';
+  css+='.legend{display:flex;gap:12px;margin-bottom:14px;flex-wrap:wrap}';
+  css+='.leg{display:flex;align-items:center;gap:5px;font-size:8px;color:#6b7280}';
+  css+='.leg-dot{width:14px;height:14px;border-radius:3px;display:flex;align-items:center;justify-content:center;font-size:7px;font-weight:700}';
+  css+='table{width:100%;border-collapse:separate;border-spacing:3px}';
+  css+='th{font-size:8px;font-family:monospace;color:#4a5070;padding:4px 6px;text-align:center;font-weight:600;text-transform:uppercase;letter-spacing:.06em}';
+  css+='th.ecol{text-align:left;min-width:120px}';
+  css+='.ename{font-size:10px;font-weight:500;color:#c8d0f0;padding:4px 8px;background:#0d1018;border-radius:6px;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:130px}';
+  css+='.cell{width:28px;height:24px;border-radius:4px;text-align:center;vertical-align:middle;font-size:9px;font-family:monospace;font-weight:700}';
+  css+='.pct{font-size:9px;font-family:monospace;font-weight:700;padding:3px 7px;border-radius:4px;white-space:nowrap}';
+  css+='.pct.hi{background:#1a6b3a22;color:#4ade80}';
+  css+='.pct.mi{background:#fbbf2422;color:#fbbf24}';
+  css+='.pct.lo{background:#f8717122;color:#f87171}';
+  css+='.footer{margin-top:14px;padding-top:10px;border-top:1px solid #1e2438;display:flex;justify-content:space-between;font-family:monospace;font-size:8px;color:#3a4060}';
+
+  var h='<!DOCTYPE html><html><head><meta charset="UTF-8"><style>'+css+'</style></head><body>';
+  h+='<div class="header">';
+  h+='<div><div class="header-title">Récap présences</div>';
+  h+='<div class="header-sub">'+(CTX.cls?esc(CTX.cls.label):'')+(CTX.apsa?' &bull; '+esc(CTX.apsa.name):'')+(CTX.trim?' &bull; T'+CTX.trim:'')+'</div></div>';
+  h+='<div class="header-meta">'+eleves.length+' élèves &bull; '+sorted.length+' séances<br>'+new Date().toLocaleDateString('fr-FR')+'</div>';
+  h+='</div>';
+
+  // Légende
+  h+='<div class="legend">';
+  var legItems=[['Present','✓','#1a6b3a','#4ade80'],['Absent','✗','#7f1d1d','#f87171'],['Dispense','D','#1e3a5f','#60a5fa'],['Pas tenue','T','#44300a','#fbbf24'],['Pas affaire','A','#3d1a5c','#c084fc']];
+  for(var li=0;li<legItems.length;li++){
+    h+='<div class="leg"><div class="leg-dot" style="background:'+legItems[li][2]+';color:'+legItems[li][3]+'">'+legItems[li][1]+'</div>'+legItems[li][0]+'</div>';
+  }
+  h+='</div>';
+
+  // Tableau
+  h+='<table><thead><tr><th class="ecol">Élève</th>';
+  for(var si=0;si<sorted.length;si++)h+='<th>S'+sorted[si].num+'</th>';
+  h+='<th>Taux</th></tr></thead><tbody>';
+
+  for(var ei=0;ei<eleves.length;ei++){
+    var e=eleves[ei];
+    var presCount=0;
+    h+='<tr><td><span class="ename">'+esc(e.nom)+'</span></td>';
+    for(var si=0;si<sorted.length;si++){
+      var pmap=state.presences[sorted[si].id]||{};
+      var st=pmap[e.id]||'';
+      var info=COLS_STATUT[st]||COLS_STATUT[''];
+      if(st==='Present')presCount++;
+      h+='<td><div class="cell" style="background:'+info.bg+';color:'+info.color+'">'+info.lbl+'</div></td>';
+    }
+    var pct=sorted.length?Math.round(presCount/sorted.length*100):0;
+    var pctCls=pct>=80?'hi':pct>=60?'mi':'lo';
+    h+='<td><span class="pct '+pctCls+'">'+pct+'%</span></td>';
+    h+='</tr>';
+  }
+  h+='</tbody></table>';
+  h+='<div class="footer"><span>EPS &bull; MALLET Lucas</span><span>'+new Date().toLocaleDateString('fr-FR')+'</span></div>';
+  h+='</body></html>';
+
+  openPdfWindow(h,'Recap-presences-'+(CTX.cls?CTX.cls.id:'eps')+'.pdf');
+}
+
 function openGroupes(sid){
   GP_SID=sid;
   // Récupérer les présents (Présent, Pas tenue, Pas affaire)
@@ -3618,7 +3700,7 @@ for(var _fi=0;_fi<fbtns.length;_fi++){(function(btn){btn.addEventListener('click
   var all=document.querySelectorAll('.filiere-btn');
   for(var i=0;i<all.length;i++)all[i].classList.remove('sel');
   this.classList.add('sel');
-});})(fbtns[_fi]);}s('s-back-btn','click',goAcc);s('btn-push','click',ghPush);s('btn-pull','click',ghPull);s('btn-edit-seq','click',openSeqModal);s('btn-pdf-sequence','click',exportSequencePDF);s('btn-save-seq','click',saveSeq);s('btn-add-trame-seance','click',addTrameSeance);s('btn-new-seance','click',function(){iaReset();openM('m-seance');});s('btn-save-seance','click',saveSeance);s('btn-add-partie-new','click',function(){addPartie('new');});s('btn-upd-seance','click',updSeance);s('btn-del-seance','click',delSeance);s('btn-add-partie-edit','click',function(){addPartie('edit');});s('btn-pdf-seance','click',exportSeancePDF);s('btn-export-seance-json','click',exportSeanceJSON);s('btn-ia-toggle','click',iaToggle);s('btn-ia-gen','click',iaGenerer);s('btn-ia-toggle-new','click',iaToggleNew);s('btn-ia-gen-new','click',iaGenererNew);s('btn-ia-copy-edit','click',function(){iaCopierPrompt2('edit');});s('btn-ia-copy-new','click',function(){iaCopierPrompt2('new');});s('btn-import-seance-json','change',function(){importSeanceJSON(this.files[0]);this.value='';}); s('srch','input',renderSeances);s('btn-pdf-eleves','click',exportElevesPDF);s('btn-pdf-bilan','click',exportBilanPDF);s('btn-profil-classe','click',toggleProfilZone);s('btn-save-profil-plan','click',saveProfilPlan);s('btn-new-eleve','click',function(){openM('m-eleve');});s('btn-save-eleve','click',saveEleve);s('btn-upd-eleve','click',updEleve);s('btn-del-eleve','click',delEleve);s('btn-import-pdf','click',function(){openM('m-pdf');});s('btn-export-eleves-json','click',exportElevesJSON);s('btn-import-eleves-json','change',function(){importElevesJSON(this.files[0]);this.value='';});s('btn-csv','click',exportCSV);s('btn-save-fiche','click',saveFicheAmen);s('photo-drop','click',function(){var pi=ge('photo-input');if(pi)pi.click();});s('photo-input','change',function(){handlePhoto(this);});s('photo-del-btn','click',function(){fichePhotoData=null;var t=ge('photo-thumb');if(t)t.style.display='none';this.style.display='none';var pi=ge('photo-input');if(pi)pi.value='';});s('photo-thumb','click',function(){if(fichePhotoData){var w=window.open('','_blank');if(w){w.document.write('<html><body style="margin:0;background:#000;display:flex;justify-content:center;align-items:center;min-height:100vh"><img src="'+fichePhotoData+'" style="max-width:100%;max-height:100vh;object-fit:contain"><\/body><\/html>');w.document.close();}}});var pd=ge('photo-drop');if(pd){var drevts=['dragenter','dragover'];for(var i=0;i<drevts.length;i++)pd.addEventListener(drevts[i],function(e){e.preventDefault();pd.classList.add('drag');});var dlvts=['dragleave','drop'];for(var i=0;i<dlvts.length;i++)pd.addEventListener(dlvts[i],function(e){e.preventDefault();pd.classList.remove('drag');});pd.addEventListener('drop',function(e){var f=e.dataTransfer.files[0];if(f&&f.type.startsWith('image/')){var dt=new DataTransfer();dt.items.add(f);ge('photo-input').files=dt.files;handlePhoto(ge('photo-input'));}});}var dz=ge('pdf-drop');if(dz){dz.addEventListener('click',function(){var pi=ge('pdf-input');if(pi)pi.click();});s('pdf-input','change',function(){handlePdf(this);});var drevts2=['dragenter','dragover'];for(var i=0;i<drevts2.length;i++)dz.addEventListener(drevts2[i],function(e){e.preventDefault();dz.classList.add('drag');});var dlvts2=['dragleave','drop'];for(var i=0;i<dlvts2.length;i++)dz.addEventListener(dlvts2[i],function(e){e.preventDefault();dz.classList.remove('drag');});dz.addEventListener('drop',function(e){var f=e.dataTransfer.files[0];if(f&&f.type==='application/pdf'){var dt=new DataTransfer();dt.items.add(f);ge('pdf-input').files=dt.files;handlePdf(ge('pdf-input'));}});}s('btn-pdf-all','click',function(){var cbs=document.querySelectorAll('#pdf-names input[type=checkbox]');for(var i=0;i<cbs.length;i++)cbs[i].checked=true;});s('btn-pdf-none','click',function(){var cbs=document.querySelectorAll('#pdf-names input[type=checkbox]');for(var i=0;i<cbs.length;i++)cbs[i].checked=false;});s('btn-pdf-import','click',pdfImport);var _ss=ge('comp-seuil-sel');if(_ss)_ss.addEventListener('change',renderComp);
+});})(fbtns[_fi]);}s('s-back-btn','click',goAcc);s('btn-push','click',ghPush);s('btn-pull','click',ghPull);s('btn-edit-seq','click',openSeqModal);s('btn-pdf-sequence','click',exportSequencePDF);s('btn-recap-presences','click',openRecapPresences);s('btn-save-seq','click',saveSeq);s('btn-add-trame-seance','click',addTrameSeance);s('btn-new-seance','click',function(){iaReset();openM('m-seance');});s('btn-save-seance','click',saveSeance);s('btn-add-partie-new','click',function(){addPartie('new');});s('btn-upd-seance','click',updSeance);s('btn-del-seance','click',delSeance);s('btn-add-partie-edit','click',function(){addPartie('edit');});s('btn-pdf-seance','click',exportSeancePDF);s('btn-export-seance-json','click',exportSeanceJSON);s('btn-ia-toggle','click',iaToggle);s('btn-ia-gen','click',iaGenerer);s('btn-ia-toggle-new','click',iaToggleNew);s('btn-ia-gen-new','click',iaGenererNew);s('btn-ia-copy-edit','click',function(){iaCopierPrompt2('edit');});s('btn-ia-copy-new','click',function(){iaCopierPrompt2('new');});s('btn-import-seance-json','change',function(){importSeanceJSON(this.files[0]);this.value='';}); s('srch','input',renderSeances);s('btn-pdf-eleves','click',exportElevesPDF);s('btn-pdf-bilan','click',exportBilanPDF);s('btn-profil-classe','click',toggleProfilZone);s('btn-save-profil-plan','click',saveProfilPlan);s('btn-new-eleve','click',function(){openM('m-eleve');});s('btn-save-eleve','click',saveEleve);s('btn-upd-eleve','click',updEleve);s('btn-del-eleve','click',delEleve);s('btn-import-pdf','click',function(){openM('m-pdf');});s('btn-export-eleves-json','click',exportElevesJSON);s('btn-import-eleves-json','change',function(){importElevesJSON(this.files[0]);this.value='';});s('btn-csv','click',exportCSV);s('btn-save-fiche','click',saveFicheAmen);s('photo-drop','click',function(){var pi=ge('photo-input');if(pi)pi.click();});s('photo-input','change',function(){handlePhoto(this);});s('photo-del-btn','click',function(){fichePhotoData=null;var t=ge('photo-thumb');if(t)t.style.display='none';this.style.display='none';var pi=ge('photo-input');if(pi)pi.value='';});s('photo-thumb','click',function(){if(fichePhotoData){var w=window.open('','_blank');if(w){w.document.write('<html><body style="margin:0;background:#000;display:flex;justify-content:center;align-items:center;min-height:100vh"><img src="'+fichePhotoData+'" style="max-width:100%;max-height:100vh;object-fit:contain"><\/body><\/html>');w.document.close();}}});var pd=ge('photo-drop');if(pd){var drevts=['dragenter','dragover'];for(var i=0;i<drevts.length;i++)pd.addEventListener(drevts[i],function(e){e.preventDefault();pd.classList.add('drag');});var dlvts=['dragleave','drop'];for(var i=0;i<dlvts.length;i++)pd.addEventListener(dlvts[i],function(e){e.preventDefault();pd.classList.remove('drag');});pd.addEventListener('drop',function(e){var f=e.dataTransfer.files[0];if(f&&f.type.startsWith('image/')){var dt=new DataTransfer();dt.items.add(f);ge('photo-input').files=dt.files;handlePhoto(ge('photo-input'));}});}var dz=ge('pdf-drop');if(dz){dz.addEventListener('click',function(){var pi=ge('pdf-input');if(pi)pi.click();});s('pdf-input','change',function(){handlePdf(this);});var drevts2=['dragenter','dragover'];for(var i=0;i<drevts2.length;i++)dz.addEventListener(drevts2[i],function(e){e.preventDefault();dz.classList.add('drag');});var dlvts2=['dragleave','drop'];for(var i=0;i<dlvts2.length;i++)dz.addEventListener(dlvts2[i],function(e){e.preventDefault();dz.classList.remove('drag');});dz.addEventListener('drop',function(e){var f=e.dataTransfer.files[0];if(f&&f.type==='application/pdf'){var dt=new DataTransfer();dt.items.add(f);ge('pdf-input').files=dt.files;handlePdf(ge('pdf-input'));}});}s('btn-pdf-all','click',function(){var cbs=document.querySelectorAll('#pdf-names input[type=checkbox]');for(var i=0;i<cbs.length;i++)cbs[i].checked=true;});s('btn-pdf-none','click',function(){var cbs=document.querySelectorAll('#pdf-names input[type=checkbox]');for(var i=0;i<cbs.length;i++)cbs[i].checked=false;});s('btn-pdf-import','click',pdfImport);var _ss=ge('comp-seuil-sel');if(_ss)_ss.addEventListener('change',renderComp);
 // Bottom nav mobile
 var bnavMoreBtn=ge('bnav-more-btn');
 var bnavMorePanel=ge('bnav-more-panel');
