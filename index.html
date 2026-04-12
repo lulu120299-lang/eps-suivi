@@ -13,7 +13,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Syne:wght@400;600;700;800&family=JetBrains+Mono:wght@400;500&family=DM+Serif+Display&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:"DM Sans",sans-serif}
+html,body{overflow-x:hidden;max-width:100vw}body{font-family:"DM Sans",sans-serif}
 /* ═══ ACCUEIL SPORT DARK ═══ */
 #pg-acc{font-family:"Syne",sans-serif;background:#0a0c10;color:#f0f2ff;min-height:100vh;overflow-x:hidden}
 /* Hero header */
@@ -117,7 +117,7 @@ body{font-family:"DM Sans",sans-serif}
 .gh-input{background:#2a2820;border:1px solid #3a3830;border-radius:6px;color:#f0ece3;font-family:"JetBrains Mono",monospace;font-size:.8rem;padding:7px 10px;width:100%;outline:none}
 .gh-input:focus{border-color:#56cfb2}
 .gh-btn{background:#1a6b3a;color:#fff;border:none;border-radius:5px;padding:8px 16px;font-family:"Syne",sans-serif;font-size:.82rem;font-weight:700;cursor:pointer;white-space:nowrap}
-#pg-suivi{background:#0d1018;color:#e4e6ef;min-height:100vh;display:none}
+#pg-suivi{background:#0d1018;color:#e4e6ef;min-height:100vh;display:none;overflow-x:hidden;max-width:100vw}
 .s-header{background:#13161f;border-bottom:1px solid #252836;padding:.5rem 1.5rem;display:flex;align-items:center;justify-content:space-between;min-height:60px;position:sticky;top:0;z-index:100;gap:1rem;flex-wrap:wrap}
 .s-logo{font-family:"DM Serif Display",serif;font-size:1.1rem;display:flex;align-items:center;gap:9px}
 .s-badge{background:#4f8aff;color:#fff;font-family:"DM Mono",monospace;font-size:.6rem;padding:2px 7px;border-radius:4px}
@@ -126,6 +126,12 @@ body{font-family:"DM Sans",sans-serif}
 .s-back:hover{border-color:#e4e6ef;color:#e4e6ef}
 .s-sync-btn{border-radius:7px;font-family:"DM Mono",monospace;font-size:.68rem;padding:6px 14px;cursor:pointer;white-space:nowrap;font-weight:700;transition:all .15s}
 .s-sync-btn:hover{transform:translateY(-1px)}
+@media(max-width:600px){
+  #btn-push{font-size:.62rem;padding:5px 9px}
+  #btn-pull{font-size:.62rem;padding:5px 9px}
+  /* Raccourcir le texte des boutons sur mobile */
+  #btn-push span, #btn-pull span{display:none}
+}
 .s-nav{display:flex;gap:3px;flex-wrap:wrap}
 .s-tab{background:none;border:none;color:#6b7280;font-size:.82rem;font-weight:500;padding:7px 12px;border-radius:7px;cursor:pointer;white-space:nowrap}
 .s-tab:hover{background:#1c1f2c;color:#e4e6ef}.s-tab.active{background:#4f8aff;color:#fff}
@@ -516,11 +522,12 @@ textarea{resize:vertical;min-height:70px}
   /* Padding bas pour ne pas cacher le contenu */
   .s-main{padding:.75rem .75rem calc(56px + env(safe-area-inset-bottom) + .75rem);}
   /* Header compact */
-  .s-header{padding:.4rem .6rem;min-height:46px;flex-wrap:nowrap;gap:.4rem;}
+  .s-header{padding:.35rem .6rem;min-height:46px;flex-wrap:nowrap;gap:.4rem;overflow:hidden;}
   .s-logo{font-size:.82rem;}
-  #btn-push{font-size:.58rem;padding:4px 8px;}
-  #btn-pull{font-size:.58rem;padding:4px 8px;}
-  .s-ctx{font-size:.65rem;max-width:80px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+  .s-ctx{font-size:.65rem;max-width:70px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+  #btn-push{font-size:.6rem;padding:5px 8px;}
+  #btn-push::after{content:none;}
+  #btn-pull{font-size:.6rem;padding:5px 8px;}
   .s-ctx{font-size:.6rem;padding:3px 7px;max-width:120px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
   .s-sync-btn{font-size:.6rem;padding:4px 7px;}
   /* Stats 2x2 sur iPhone */
@@ -673,8 +680,8 @@ textarea{resize:vertical;min-height:70px}
     </div>
     <div style="display:flex;align-items:center;gap:8px">
       <span class="s-ctx" id="s-ctx" style="display:none"></span>
-      <button class="s-sync-btn" id="btn-push" style="background:#56cfb2;border:none;color:#0a1810">&#8593; Sauvegarder</button>
-      <button class="s-sync-btn" id="btn-pull" style="background:transparent;border:1px solid #3a4060;color:#9aa0b8">&#8595; Synchroniser</button>
+      <button class="s-sync-btn" id="btn-push" style="background:#56cfb2;border:none;color:#0a1810">&#8593;<span> Sauvegarder</span></button>
+      <button class="s-sync-btn" id="btn-pull" style="background:transparent;border:1px solid #3a4060;color:#9aa0b8">&#8595;<span> Synchroniser</span></button>
     </div>
     <div class="s-nav">
       <button class="s-tab active" data-view="v-accueil">Accueil</button>
