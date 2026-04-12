@@ -2122,149 +2122,144 @@ var f=CTX.cls?CTX.cls.filiere:'bacpro';
 var aflpData=CTX.apsa?(AFLP[f]||AFLP.bacpro)[CTX.apsa.caFull]:null;
 var fil=FILIERES[f];
 var clsColor=CTX.cls?CTX.cls.color:'#4f8aff';
-var PCOLS=['#4f8aff','#56cfb2','#ffd166','#a78bfa','#fb923c','#f472b6'];
+var PCOLS=['#4361ee','#06d6a0','#ffd166','#8338ec','#fb923c','#ef476f'];
+
 var css='';
 css+='*{box-sizing:border-box;margin:0;padding:0}';
-css+='body{font-family:Georgia,serif;font-size:11px;line-height:1.55;color:#1a1c2e;background:#fff;padding:24px 28px}';
-css+='@page{margin:12mm 14mm;size:A4}';
-css+='.doc-header{background:'+clsColor+';color:#fff;padding:14px 20px 12px;border-radius:8px;margin-bottom:14px;position:relative;overflow:hidden}';
-css+='.doc-header::after{content:"S'+s.num+'";position:absolute;right:16px;top:50%;transform:translateY(-50%);font-family:Georgia,serif;font-size:60px;opacity:.12;line-height:1;font-style:italic}';
-css+='.doc-eyebrow{font-family:Courier,monospace;font-size:8.5px;letter-spacing:.15em;text-transform:uppercase;opacity:.75;margin-bottom:5px}';
-css+='.doc-title{font-family:Georgia,serif;font-size:19px;font-style:italic;line-height:1.15;margin-bottom:5px}';
-css+='.doc-meta{font-family:Courier,monospace;font-size:8px;opacity:.65;display:flex;gap:14px;flex-wrap:wrap}';
-css+='.aflp-band{background:#f5f7fb;border-left:3px solid '+clsColor+';border-radius:4px;padding:8px 12px;margin-bottom:12px}';
-css+='.aflp-band-title{font-family:Courier,monospace;font-size:8px;text-transform:uppercase;letter-spacing:.12em;color:#7a80a0;font-weight:bold;margin-bottom:5px}';
-css+='.aflp-item{display:flex;align-items:flex-start;gap:7px;margin-bottom:3px;font-size:9.5px;line-height:1.4}';
-css+='.aflp-tag{background:'+clsColor+';color:#fff;font-family:Courier,monospace;font-size:7.5px;padding:2px 7px;border-radius:3px;white-space:nowrap;font-weight:bold;flex-shrink:0;margin-top:1px}';
-css+='.section-title{font-family:Courier,monospace;font-size:8px;text-transform:uppercase;letter-spacing:.15em;color:#9098b0;font-weight:bold;margin-bottom:8px;display:flex;align-items:center;gap:8px}';
-css+='.section-title::after{content:"";flex:1;height:1px;background:#e4e8f0}';
-css+='.partie-card{border:1px solid #e4e8f0;border-radius:8px;margin-bottom:10px;overflow:hidden;break-inside:avoid;page-break-inside:avoid}';
-css+='.partie-head{display:flex;align-items:center;gap:10px;padding:9px 14px;border-bottom:2px solid #e4e8f0}';
-css+='.partie-badge{font-family:Courier,monospace;font-size:8px;font-weight:bold;padding:3px 10px;border-radius:20px;color:#fff;letter-spacing:.04em;white-space:nowrap}';
-css+='.partie-name{font-family:Georgia,serif;font-size:13.5px;font-style:italic;color:#1a1c2e;line-height:1.2}';
-css+='.partie-body{display:grid;grid-template-columns:1fr 1fr}';
-css+='.pfield{padding:9px 13px;border-bottom:1px solid #f0f3f8;font-size:10px;line-height:1.65}';
-css+='.pfield:nth-child(odd){border-right:1px solid #f0f3f8}';
-css+='.pfield.full{grid-column:1/-1}';
-css+='.pfield.cons{grid-column:1/-1;background:#fafbff;border-left:3px solid #4f8aff}';
-css+='.pfield.obj{border-left:3px solid #56cfb2}';
-css+='.pfield.crit{border-left:3px solid #e6b800}';
-css+='.pfield.cont{border-left:3px solid #9b59b6}';
-css+='.pfield.bil{grid-column:1/-1;background:#fffcf0;border-left:3px solid #fb923c}';
-css+='.flabel{font-family:Courier,monospace;font-size:7.5px;text-transform:uppercase;letter-spacing:.1em;font-weight:bold;margin-bottom:4px}';
-css+='.obj .flabel{color:#16a085}';
-css+='.cons .flabel{color:#2471a3}';
-css+='.crit .flabel{color:#b7950b}';
-css+='.cont .flabel{color:#7d3c98}';
-css+='.bil .flabel{color:#ca6f1e}';
-css+='.fval{color:#2c3050;white-space:pre-wrap;line-height:1.7}';
-css+='.cons .fval{font-size:10.5px;color:#1a1c2e;line-height:1.8}';
-css+='.bilan-box{background:#fffdf4;border:1px solid #f0e8c0;border-left:3px solid #f0c040;border-radius:6px;padding:10px 14px;margin-top:10px;break-inside:avoid}';
-css+='.bilan-box-title{font-family:Courier,monospace;font-size:8px;text-transform:uppercase;letter-spacing:.12em;color:#9a7500;font-weight:bold;margin-bottom:5px}';
-css+='.bilan-box-val{font-size:10px;line-height:1.65;color:#4a3800;white-space:pre-wrap}';
-css+='.footer{margin-top:16px;padding-top:8px;border-top:1px solid #e4e8f0;display:flex;justify-content:space-between;font-family:Courier,monospace;font-size:7.5px;color:#b0b5c8}';
+css+='@page{margin:0;size:A4}';
+css+='body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;font-size:10px;color:#1e1e2e;background:#fff;width:210mm;min-height:297mm}';
+css+='.page{padding:0}';
+// HEADER HERO
+css+='.hero{background:'+clsColor+';padding:22px 28px 18px;position:relative;overflow:hidden}';
+css+='.hero::before{content:"";position:absolute;top:-40px;right:-40px;width:180px;height:180px;border-radius:50%;background:rgba(255,255,255,.06)}';
+css+='.hero::after{content:"S'+s.num+'";position:absolute;right:24px;bottom:-10px;font-size:90px;font-weight:900;color:rgba(255,255,255,.08);line-height:1;letter-spacing:-4px}';
+css+='.hero-eyebrow{font-size:8px;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.65);margin-bottom:8px;font-weight:600}';
+css+='.hero-title{font-size:22px;font-weight:700;color:#fff;line-height:1.2;margin-bottom:8px;max-width:80%}';
+css+='.hero-chips{display:flex;gap:8px;flex-wrap:wrap}';
+css+='.hero-chip{background:rgba(255,255,255,.18);color:#fff;font-size:8px;font-weight:600;padding:3px 10px;border-radius:20px;letter-spacing:.04em}';
+// MAIN CONTENT
+css+='.content{padding:18px 28px 0}';
+css+='.section-header{display:flex;align-items:center;gap:8px;margin-bottom:10px;margin-top:14px}';
+css+='.section-dot{width:8px;height:8px;border-radius:50%;background:'+clsColor+';flex-shrink:0}';
+css+='.section-label{font-size:8.5px;font-weight:700;text-transform:uppercase;letter-spacing:.15em;color:#6b7280}';
+css+='.section-line{flex:1;height:1px;background:#f0f0f0}';
+// AFLP STRIP
+css+='.aflp-strip{background:#f8f9ff;border-radius:8px;padding:10px 14px;border:1px solid #e8ecff;margin-bottom:4px}';
+css+='.aflp-row{display:flex;align-items:flex-start;gap:8px;margin-bottom:4px;font-size:9.5px;line-height:1.5}';
+css+='.aflp-row:last-child{margin-bottom:0}';
+css+='.aflp-pill{background:'+clsColor+';color:#fff;font-size:7.5px;font-weight:700;padding:2px 8px;border-radius:10px;white-space:nowrap;flex-shrink:0;margin-top:2px}';
+// PARTIE CARDS
+css+='.partie{border-radius:10px;margin-bottom:12px;overflow:hidden;break-inside:avoid;page-break-inside:avoid;border:1px solid #ebebf5;box-shadow:0 1px 4px rgba(0,0,0,.04)}';
+css+='.partie-top{padding:11px 16px;display:flex;align-items:center;gap:10px}';
+css+='.partie-num{font-size:8px;font-weight:800;padding:3px 12px;border-radius:20px;color:#fff;letter-spacing:.06em;text-transform:uppercase}';
+css+='.partie-titre{font-size:14px;font-weight:700;color:#1e1e2e;flex:1}';
+css+='.partie-fields{display:grid;grid-template-columns:1fr 1fr;border-top:1px solid #ebebf5}';
+css+='.field{padding:10px 14px;border-bottom:1px solid #f4f4f8;font-size:9.5px;line-height:1.65;position:relative}';
+css+='.field:nth-child(odd){border-right:1px solid #f4f4f8}';
+css+='.field.span2{grid-column:1/-1}';
+css+='.field-label{font-size:7.5px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;margin-bottom:4px;display:flex;align-items:center;gap:5px}';
+css+='.field-label::before{content:"";width:3px;height:3px;border-radius:50%;display:inline-block;flex-shrink:0}';
+css+='.field-val{color:#2c2c3e;white-space:pre-wrap;line-height:1.7}';
+// Couleurs champs
+css+='.f-obj .field-label{color:#0284c7}.f-obj .field-label::before{background:#0284c7}.f-obj{background:#f0f9ff}';
+css+='.f-cons .field-label{color:#0369a1}.f-cons .field-label::before{background:#0369a1}.f-cons{background:#f0f9ff;border-left:3px solid #0284c7}';
+css+='.f-crit .field-label{color:#b45309}.f-crit .field-label::before{background:#b45309}.f-crit{background:#fffbeb}';
+css+='.f-cont .field-label{color:#7c3aed}.f-cont .field-label::before{background:#7c3aed}.f-cont{background:#faf5ff}';
+css+='.f-real .field-label{color:#047857}.f-real .field-label::before{background:#047857}.f-real{background:#f0fdf4}';
+css+='.f-rem .field-label{color:#7c3aed}.f-rem .field-label::before{background:#a855f7}.f-rem{background:#faf5ff;border-left:3px solid #a855f7}';
+css+='.f-bil .field-label{color:#c2410c}.f-bil .field-label::before{background:#c2410c}.f-bil{background:#fff7ed;border-left:3px solid #fb923c}';
+// BILAN GENERAL
+css+='.bilan-gen{background:linear-gradient(135deg,#fffbeb,#fff7ed);border:1px solid #fde68a;border-radius:10px;padding:14px 16px;margin-top:14px;break-inside:avoid}';
+css+='.bilan-gen-label{font-size:8px;font-weight:800;text-transform:uppercase;letter-spacing:.15em;color:#b45309;margin-bottom:6px;display:flex;align-items:center;gap:6px}';
+css+='.bilan-gen-label::before{content:"";width:16px;height:3px;background:#f59e0b;border-radius:2px;display:inline-block}';
+css+='.bilan-gen-val{font-size:10px;line-height:1.75;color:#78350f;white-space:pre-wrap}';
+// FOOTER
+css+='.footer{margin-top:16px;padding:10px 28px;border-top:2px solid #f0f0f0;display:flex;justify-content:space-between;align-items:center}';
+css+='.footer-left{font-size:8px;color:#9ca3af;font-weight:600;letter-spacing:.05em}';
+css+='.footer-right{font-size:8px;color:#d1d5db;letter-spacing:.05em}';
 
-var h='<!DOCTYPE html><html><head><meta charset="UTF-8"><title>S'+s.num+' - '+esc(s.objectif||'')+'</title><style>'+css+'</style></head><body>';
+var h='<!DOCTYPE html><html><head><meta charset="UTF-8"><title>S'+s.num+' - '+esc(s.objectif||'')+'</title><style>'+css+'</style></head><body><div class="page">';
 
-// HEADER
-h+='<div class="doc-header">';
-h+='<div class="doc-eyebrow">'+(CTX.cls?esc(CTX.cls.label):'')+(CTX.apsa?' &bull; '+esc(CTX.apsa.ca)+' &bull; '+esc(CTX.apsa.name):'')+(CTX.trim?' &bull; Trimestre '+CTX.trim:'')+'</div>';
-h+='<div class="doc-title">'+esc(s.objectif||'Seance '+s.num)+'</div>';
-h+='<div class="doc-meta"><span>Seance '+s.num+'</span>'+(s.date?'<span>'+fmtDate(s.date)+'</span>':'')+'<span>'+fil.label+'</span><span style="margin-left:auto;font-weight:700">MALLET Lucas</span></div>';
-h+='</div>';
+// HERO HEADER
+h+='<div class="hero">';
+h+='<div class="hero-eyebrow">'+(CTX.cls?esc(CTX.cls.label):'')+(CTX.apsa?' &bull; '+esc(CTX.apsa.ca)+' &bull; '+esc(CTX.apsa.name):'')+(CTX.trim?' &bull; T'+CTX.trim:'')+'</div>';
+h+='<div class="hero-title">'+esc(s.objectif||'Seance '+s.num)+'</div>';
+h+='<div class="hero-chips">';
+h+='<span class="hero-chip">Seance '+s.num+'</span>';
+if(s.date)h+='<span class="hero-chip">'+fmtDate(s.date)+'</span>';
+h+='<span class="hero-chip">'+fil.label+'</span>';
+if(s.aflpTravailles&&s.aflpTravailles.length)h+='<span class="hero-chip">'+s.aflpTravailles.join(' &middot; ')+'</span>';
+h+='</div></div>';
 
-// AFLP
+h+='<div class="content">';
+
+// AFLP TRAVAILLES
 if(s.aflpTravailles&&s.aflpTravailles.length&&aflpData){
-  h+='<div class="aflp-band"><div class="aflp-band-title">AFLP travailles cette seance</div>';
+  h+='<div class="section-header"><div class="section-dot"></div><div class="section-label">AFLP travailles</div><div class="section-line"></div></div>';
+  h+='<div class="aflp-strip">';
   for(var i=0;i<s.aflpTravailles.length;i++){
-    var n=s.aflpTravailles[i];
-    for(var j=0;j<aflpData.items.length;j++){
-      if(aflpData.items[j].n===n){h+='<div class="aflp-item"><span class="aflp-tag">'+esc(n)+'</span><span>'+esc(aflpData.items[j].t)+'</span></div>';break;}
-    }
+    var an=s.aflpTravailles[i];var at='';
+    for(var j=0;j<aflpData.items.length;j++){if(aflpData.items[j].n===an){at=aflpData.items[j].t;break;}}
+    h+='<div class="aflp-row"><span class="aflp-pill">'+esc(an)+'</span><span>'+esc(at)+'</span></div>';
   }
   h+='</div>';
 }
 
+// AUTRES OBJECTIFS / CONTENUS SEANCE
+if(s.autreobj||s.contenus||s.fps){
+  h+='<div class="section-header"><div class="section-dot"></div><div class="section-label">Informations seance</div><div class="section-line"></div></div>';
+  h+='<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:4px">';
+  if(s.autreobj)h+='<div style="background:#f8f9ff;border-radius:8px;padding:9px 12px;border:1px solid #e8ecff"><div style="font-size:7.5px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:#4361ee;margin-bottom:4px">Autres objectifs</div><div style="font-size:9.5px;color:#2c2c3e;line-height:1.6">'+esc(s.autreobj)+'</div></div>';
+  if(s.contenus)h+='<div style="background:#faf5ff;border-radius:8px;padding:9px 12px;border:1px solid #ede9fe"><div style="font-size:7.5px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:#7c3aed;margin-bottom:4px">Contenus</div><div style="font-size:9.5px;color:#2c2c3e;line-height:1.6">'+esc(s.contenus)+'</div></div>';
+  if(s.fps)h+='<div style="background:#f0fdf4;border-radius:8px;padding:9px 12px;border:1px solid #dcfce7"><div style="font-size:7.5px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:#047857;margin-bottom:4px">FPS</div><div style="font-size:9.5px;color:#2c2c3e;line-height:1.6">'+esc(s.fps)+'</div></div>';
+  h+='</div>';
+}
+
 // PARTIES
-h+='<div class="section-title">Parties de la seance</div>';
+h+='<div class="section-header"><div class="section-dot"></div><div class="section-label">Deroulement de la seance</div><div class="section-line"></div></div>';
 for(var pi=0;pi<(s.parties||[]).length;pi++){
   var p=s.parties[pi];
   var pcol=PCOLS[pi%PCOLS.length];
-  h+='<div class="partie-card">';
-  h+='<div class="partie-head"><span class="partie-badge" style="background:'+pcol+'">Partie '+(pi+1)+'</span><span class="partie-name">'+esc(p.titre||'')+'</span></div>';
-  h+='<div class="partie-body">';
-  if(p.objectif)h+='<div class="pfield obj full"><div class="flabel">Objectif</div><div class="fval">'+esc(p.objectif)+'</div></div>';
-  if(p.consignes)h+='<div class="pfield cons"><div class="flabel">Consignes</div><div class="fval">'+esc(p.consignes)+'</div></div>';
-  if(p.criteres||p.contenus){
-    if(p.criteres)h+='<div class="pfield crit"><div class="flabel">Criteres de reussite</div><div class="fval">'+esc(p.criteres)+'</div></div>';
-    if(p.contenus)h+='<div class="pfield cont"><div class="flabel">Contenus d enseignement</div><div class="fval">'+esc(p.contenus)+'</div></div>';
-  }
-  if(p.bilan)h+='<div class="pfield bil"><div class="flabel">Bilan</div><div class="fval">'+esc(p.bilan)+'</div></div>';
+  h+='<div class="partie">';
+  h+='<div class="partie-top" style="background:'+pcol+'10;border-bottom:2px solid '+pcol+'30">';
+  h+='<span class="partie-num" style="background:'+pcol+'">P'+(pi+1)+'</span>';
+  h+='<span class="partie-titre">'+esc(p.titre||'Partie '+(pi+1))+'</span>';
   h+='</div>';
-  // EXTRAS : photos, tableau, fichiers
-  var hasExtras=(p.photos&&p.photos.length)||(p.tableaux&&p.tableaux.length&&p.tableaux[0])||(p.fichiers&&p.fichiers.length);
-  if(hasExtras){
-    h+='<div style="padding:10px 14px;border-top:1px solid #f0f3f8;background:#fafbff">';
-    // Photos
-    if(p.photos&&p.photos.length){
-      h+='<div style="font-family:Courier,monospace;font-size:7.5px;text-transform:uppercase;letter-spacing:.1em;font-weight:bold;color:#2471a3;margin-bottom:7px">Photos</div>';
-      h+='<div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px">';
-      for(var phi=0;phi<p.photos.length;phi++){
-        h+='<img src="'+p.photos[phi]+'" style="width:100px;height:100px;object-fit:cover;border-radius:5px;border:1px solid #e0e4f0">';
-      }
-      h+='</div>';
-    }
-    // Tableau
-    if(p.tableaux&&p.tableaux.length&&p.tableaux[0]&&p.tableaux[0].length){
-      var tblData=p.tableaux[0];
-      h+='<div style="font-family:Courier,monospace;font-size:7.5px;text-transform:uppercase;letter-spacing:.1em;font-weight:bold;color:#7d3c98;margin-bottom:7px">Tableau</div>';
-      h+='<table style="width:100%;border-collapse:collapse;font-size:9.5px;margin-bottom:10px">';
-      for(var tri=0;tri<tblData.length;tri++){
-        h+='<tr>';
-        for(var tci=0;tci<tblData[tri].length;tci++){
-          var isHead=tri===0;
-          h+='<'+(isHead?'th':'td')+' style="border:1px solid #e0e4f0;padding:5px 8px;'+(isHead?'background:#f5f7fb;font-weight:bold;color:#555;':'')+'">'+esc(tblData[tri][tci]||'')+'</'+(isHead?'th':'td')+'>';
-        }
-        h+='</tr>';
-      }
-      h+='</table>';
-    }
-    // Fichiers
-    if(p.fichiers&&p.fichiers.length){
-      h+='<div style="font-family:Courier,monospace;font-size:7.5px;text-transform:uppercase;letter-spacing:.1em;font-weight:bold;color:#ca6f1e;margin-bottom:8px;margin-top:6px">Pieces jointes</div>';
-      for(var fii=0;fii<p.fichiers.length;fii++){
-        var fi2=p.fichiers[fii];
-        var fext2=(fi2.nom||'').split('.').pop().toLowerCase();
-        if(fi2.data&&fi2.type&&fi2.type.startsWith('image/')){
-          // Image inline
-          h+='<div style="margin-bottom:8px"><div style="font-size:8px;color:#888;margin-bottom:4px">'+esc(fi2.nom||'')+'</div>';
-          h+='<img src="'+fi2.data+'" style="max-width:100%;max-height:200px;object-fit:contain;border-radius:5px;border:1px solid #e0e4f0"></div>';
-        } else if(fi2.data&&fext2==='pdf'){
-          // PDF iframe
-          h+='<div style="margin-bottom:10px"><div style="font-size:8px;color:#888;margin-bottom:4px">&#128196; '+esc(fi2.nom||'')+'</div>';
-          h+='<iframe src="'+fi2.data+'" style="width:100%;height:300px;border:1px solid #e0e4f0;border-radius:5px"></iframe></div>';
-        } else if(fi2.data){
-          // Lien telechargeable
-          h+='<div style="margin-bottom:5px"><a href="'+fi2.data+'" download="'+esc(fi2.nom||'')+'" style="display:inline-flex;align-items:center;gap:5px;background:#fff3e0;border:1px solid #f0d0a0;border-radius:4px;font-size:9px;padding:4px 10px;color:#8a4500;text-decoration:none">&#128206; '+esc(fi2.nom||'')+'</a></div>';
-        } else {
-          h+='<span style="background:#f5f5f5;border:1px solid #ddd;border-radius:4px;font-size:9px;padding:3px 8px;color:#888">&#128206; '+esc(fi2.nom||'')+' (non disponible)</span>';
-        }
-      }
-    }
+  h+='<div class="partie-fields">';
+  if(p.objectif)h+='<div class="field f-obj span2"><div class="field-label">Objectif</div><div class="field-val">'+esc(p.objectif)+'</div></div>';
+  if(p.consignes)h+='<div class="field f-cons span2"><div class="field-label">Consignes</div><div class="field-val">'+esc(p.consignes)+'</div></div>';
+  if(p.criteres)h+='<div class="field f-crit"><div class="field-label">Criteres de reussite</div><div class="field-val">'+esc(p.criteres)+'</div></div>';
+  if(p.contenus)h+='<div class="field f-cont"><div class="field-label">Contenus d enseignement</div><div class="field-val">'+esc(p.contenus)+'</div></div>';
+  if(p.realisation)h+='<div class="field f-real"><div class="field-label">Criteres de realisation</div><div class="field-val">'+esc(p.realisation)+'</div></div>';
+  if(p.remediation)h+='<div class="field f-rem"><div class="field-label">Remediations</div><div class="field-val">'+esc(p.remediation)+'</div></div>';
+  if(p.bilan)h+='<div class="field f-bil span2"><div class="field-label">Bilan de partie</div><div class="field-val">'+esc(p.bilan)+'</div></div>';
+  h+='</div>';
+  // Photos
+  if(p.photos&&p.photos.length){
+    h+='<div style="padding:10px 14px;border-top:1px solid #f4f4f8;display:flex;gap:8px;flex-wrap:wrap">';
+    for(var phi=0;phi<p.photos.length;phi++)h+='<img src="'+p.photos[phi]+'" style="width:90px;height:90px;object-fit:cover;border-radius:6px;border:1px solid #e0e0f0">';
     h+='</div>';
   }
   h+='</div>';
 }
 
 // BILAN GENERAL
-if(s.bilan)h+='<div class="bilan-box"><div class="bilan-box-title">Bilan general de la seance</div><div class="bilan-box-val">'+esc(s.bilan)+'</div></div>';
+if(s.bilan){
+  h+='<div class="bilan-gen"><div class="bilan-gen-label">Bilan general de la seance</div><div class="bilan-gen-val">'+esc(s.bilan)+'</div></div>';
+}
+
+h+='</div>'; // /content
 
 // FOOTER
-h+='<div class="footer"><span>'+esc(CTX.cls?CTX.cls.label:'')+(CTX.apsa?' &bull; '+esc(CTX.apsa.name):'')+'</span><span>EPS &bull; MALLET Lucas &bull; '+new Date().toLocaleDateString('fr-FR')+'</span></div>';
-h+='</body></html>';
+h+='<div class="footer">';
+h+='<div class="footer-left">'+esc(CTX.cls?CTX.cls.label:'')+(CTX.apsa?' &bull; '+esc(CTX.apsa.name):'')+'</div>';
+h+='<div class="footer-right">EPS &bull; MALLET Lucas &bull; '+new Date().toLocaleDateString('fr-FR')+'</div>';
+h+='</div>';
 
+h+='</div></body></html>';
 openPdfWindow(h,'S'+s.num+' - '+(s.objectif||'Seance').substring(0,40)+'.pdf');
 }
+
 function renderApList(){var el=ge('ap-slist');var sorted=state.seances.slice().sort(function(a,b){return a.num-b.num;});if(!sorted.length){el.innerHTML='<div style="color:#6b7280;font-size:.82rem">Aucune seance.</div>';return;}el.innerHTML='';for(var i=0;i<sorted.length;i++){(function(s){var d=document.createElement('div');d.className='ap-scard';d.id='ab-'+s.id;d.dataset.sid=s.id;d.innerHTML='<div class="ap-snum">S'+s.num+'</div><div><div style="font-size:.83rem;font-weight:500">'+esc(s.objectif||'Sans titre')+'</div><div style="font-size:.72rem;color:#6b7280">'+(s.date?fmtDate(s.date):'')+'</div></div>';el.appendChild(d);})(sorted[i]);}el.onclick=function(e){var card=e.target.closest('.ap-scard');if(!card)return;var cards=document.querySelectorAll('.ap-scard');for(var i=0;i<cards.length;i++)cards[i].classList.remove('act');card.classList.add('act');showAppel(card.dataset.sid);};}
 function showAppel(sid){initAppelMeteo(sid);var s=null;for(var i=0;i<state.seances.length;i++){if(state.seances[i].id===sid){s=state.seances[i];break;}}if(!s)return;if(!state.presences[sid])state.presences[sid]={};if(!state.autoEval[sid])state.autoEval[sid]={};if(!state.seanceObjectifs[sid])state.seanceObjectifs[sid]={};var sorted=state.eleves.slice().sort(function(a,b){return a.nom.localeCompare(b.nom);});var nbP=0;for(var i=0;i<sorted.length;i++){if((state.presences[sid][sorted[i].id]||'')==='Present')nbP++;}var objData=state.seanceObjectifs[sid];var h='<div class="obj-box"><div class="obj-box-title">Auto-evaluation - Objectifs de la seance</div><div class="obj-inputs"><div><label class="obj-lbl">Objectif 1 (pour tous)</label><input class="obj-inp" type="text" id="obj1-inp" value="'+esc(objData.obj1||'')+'" placeholder="Ex: Orienter la carte au nord"></div><div><label class="obj-lbl">Objectif 2 (optionnel)</label><input class="obj-inp" type="text" id="obj2-inp" value="'+esc(objData.obj2||'')+'" placeholder="Ex: Utiliser un point d appui"></div></div></div>';h+='<div class="card" style="margin-bottom:.75rem;padding:.9rem 1.1rem"><div style="font-family:DM Serif Display,serif;font-size:1.05rem">S'+s.num+' - '+esc(s.objectif||'')+'</div><div style="color:#6b7280;font-size:.75rem;margin-top:3px">'+(s.date?fmtDate(s.date):'')+'</div><div style="margin-top:.5rem"><span class="chip c-gr">'+nbP+'/'+state.eleves.length+' presents</span></div></div>';h+='<div class="card"><div class="tw"><table><thead><tr><th>Eleve</th><th>Statut</th><th>Obj. 1 - Maitrise</th><th>Obj. 2 - Maitrise</th><th>Qte travail /4</th></tr></thead><tbody>';for(var i=0;i<sorted.length;i++){var e=sorted[i];var pres=state.presences[sid][e.id]||'';var ae=state.autoEval[sid][e.id]||{};var dis=pres==='Absent'||pres==='Dispense';var hasObj2=objData.obj2&&objData.obj2.trim();var mOpts='<option value="">- Maitrise -</option>';for(var k=0;k<MAITRISE.length;k++)mOpts+='<option'+(ae.maitrise1===MAITRISE[k]?' selected':'')+'>'+MAITRISE[k]+'</option>';var mOpts2='<option value="">- Maitrise -</option>';for(var k=0;k<MAITRISE.length;k++)mOpts2+='<option'+(ae.maitrise2===MAITRISE[k]?' selected':'')+'>'+MAITRISE[k]+'</option>';h+='<tr><td><span style="font-size:.82rem;font-weight:500">'+esc(e.nom)+'</span>'+(e.amenagement?'<br><span style="font-size:.7rem;color:#ffd166">'+esc(e.amenagement)+'</span>':'')+'</td><td><select class="ss" data-sid="'+sid+'" data-eid="'+e.id+'" data-f="pres">'+(function(){
   var opts='';
