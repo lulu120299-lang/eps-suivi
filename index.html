@@ -1024,7 +1024,35 @@ classesLoad();
 var CLS_COLORS=['#c8400a','#1a6b3a','#1e4fa0','#7c28b8','#a07800','#0e7490','#be185d','#065f46','#92400e','#1d4ed8','#7e22ce','#b45309'];
 var CLS_SEL_COLOR=CLS_COLORS[0];
 var CLS_SEL_FILIERE='bacpro';
-var CA_GROUPS=[{ca:'CA1',caFull:'CA1',color:'#ff6b6b',desc:'Realiser sa performance motrice maximale',apsa:[{id:'vitesse',name:'Course de vitesse',emoji:'&#9889;'},{id:'athle',name:'Athletisme multisport',emoji:'&#127947;'}]},{ca:'CA2',caFull:'CA2',color:'#a78bfa',desc:"Adapter son deplacement a des environnements varies",apsa:[{id:'orientation',name:"Course d'orientation",emoji:'&#129517;'}]},{ca:'CA3',caFull:'CA3',color:'#ffd166',desc:'Realiser une prestation corporelle appreciee',apsa:[{id:'acrosport',name:'Acrosport',emoji:'&#129338;'}]},{ca:'CA4',caFull:'CA4',color:'#4f8aff',desc:'Conduire un affrontement pour gagner',apsa:[{id:'volley',name:'Volley-Ball',emoji:'&#127952;'},{id:'tdt',name:'Tennis de Table',emoji:'&#127955;'},{id:'badminton',name:'Badminton',emoji:'&#127992;'}]},{ca:'CA5',caFull:'CA5',color:'#56cfb2',desc:"Orienter son activite pour s'entretenir",apsa:[{id:'duree',name:'Course de duree',emoji:'&#127939;'}]}];
+var CA_GROUPS=[
+  {ca:'CA1',caFull:'CA1',color:'#ff6b6b',desc:'Realiser sa performance motrice maximale',apsa:[
+    {id:'vitesse',name:'Course de vitesse',emoji:'&#9889;'},
+    {id:'natation',name:'Natation vitesse',emoji:'&#127946;'},
+    {id:'athle',name:'Athletisme multisport',emoji:'&#127947;'}
+  ]},
+  {ca:'CA2',caFull:'CA2',color:'#a78bfa',desc:'Adapter son deplacement a des environnements varies',apsa:[
+    {id:'orientation',name:"Course d'orientation",emoji:'&#129517;'},
+    {id:'cross',name:'Cross',emoji:'&#127807;'}
+  ]},
+  {ca:'CA3',caFull:'CA3',color:'#ffd166',desc:'Realiser une prestation corporelle appreciee',apsa:[
+    {id:'acrosport',name:'Acrosport',emoji:'&#129338;'},
+    {id:'gymnsol',name:'Gymnastique',emoji:'&#129337;'},
+    {id:'danse',name:'Danse',emoji:'&#128131;'}
+  ]},
+  {ca:'CA4',caFull:'CA4',color:'#4f8aff',desc:'Conduire un affrontement pour gagner',apsa:[
+    {id:'volley',name:'Volley-Ball',emoji:'&#127952;'},
+    {id:'tdt',name:'Tennis de Table',emoji:'&#127955;'},
+    {id:'badminton',name:'Badminton',emoji:'&#127992;'},
+    {id:'lutte',name:'Lutte',emoji:'&#129354;'},
+    {id:'basket',name:'Basket-ball',emoji:'&#127936;'},
+    {id:'handball',name:'Handball',emoji:'&#9917;'}
+  ]},
+  {ca:'CA5',caFull:'CA5',color:'#56cfb2',desc:"Orienter son activite pour s'entretenir",apsa:[
+    {id:'duree',name:'Course de duree',emoji:'&#127939;'},
+    {id:'musculation',name:'Musculation',emoji:'&#127947;&#65039;'},
+    {id:'step',name:'Step',emoji:'&#129406;'}
+  ]}
+];
 var APSA_FLAT=[];for(var _gi=0;_gi<CA_GROUPS.length;_gi++){var _g=CA_GROUPS[_gi];for(var _ai=0;_ai<_g.apsa.length;_ai++){var _a=_g.apsa[_ai];APSA_FLAT.push({id:_a.id,name:_a.name,emoji:_a.emoji,ca:_g.ca,caFull:_g.caFull,caColor:_g.color});}}
 var AFLP={
   bacpro:{
