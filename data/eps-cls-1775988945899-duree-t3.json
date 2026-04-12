@@ -1,0 +1,17 @@
+{
+  "seances": [],
+  "eleves": [],
+  "presences": {},
+  "autoEval": {},
+  "seanceObjectifs": {},
+  "profil": {},
+  "comp": {},
+  "seq": {
+    "objet": "ess",
+    "objectifs": "",
+    "aflpPrio": [],
+    "trame": []
+  },
+  "grilleNotes": {},
+  "grille": null
+}
