@@ -516,8 +516,11 @@ textarea{resize:vertical;min-height:70px}
   /* Padding bas pour ne pas cacher le contenu */
   .s-main{padding:.75rem .75rem calc(56px + env(safe-area-inset-bottom) + .75rem);}
   /* Header compact */
-  .s-header{padding:.4rem .75rem;min-height:50px;flex-wrap:nowrap;gap:.5rem;}
-  .s-logo{font-size:.9rem;}
+  .s-header{padding:.4rem .6rem;min-height:46px;flex-wrap:nowrap;gap:.4rem;}
+  .s-logo{font-size:.82rem;}
+  #btn-push{font-size:.58rem;padding:4px 8px;}
+  #btn-pull{font-size:.58rem;padding:4px 8px;}
+  .s-ctx{font-size:.65rem;max-width:80px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
   .s-ctx{font-size:.6rem;padding:3px 7px;max-width:120px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
   .s-sync-btn{font-size:.6rem;padding:4px 7px;}
   /* Stats 2x2 sur iPhone */
@@ -1082,6 +1085,49 @@ textarea{resize:vertical;min-height:70px}
       </div>
     </div>
     <iframe id="m-pdf-viewer-frame" style="flex:1;border:none;width:100%;background:#fff" src="about:blank"></iframe>
+  </div>
+
+  <!-- BOTTOM NAV MOBILE -->
+  <div class="s-bottom-nav" id="s-bottom-nav">
+    <div class="s-bottom-nav-inner">
+      <button class="s-bnav-btn active" data-view="v-accueil">
+        <span class="bnav-icon">&#127968;</span>
+        <span class="bnav-label">Accueil</span>
+      </button>
+      <button class="s-bnav-btn" data-view="v-seances">
+        <span class="bnav-icon">&#128203;</span>
+        <span class="bnav-label">Seances</span>
+      </button>
+      <button class="s-bnav-btn" data-view="v-appel">
+        <span class="bnav-icon">&#9995;</span>
+        <span class="bnav-label">Appel</span>
+      </button>
+      <button class="s-bnav-btn" data-view="v-eleves">
+        <span class="bnav-icon">&#128101;</span>
+        <span class="bnav-label">Classe</span>
+      </button>
+      <button class="s-bnav-btn" id="bnav-more-btn">
+        <span class="bnav-icon">&#8943;</span>
+        <span class="bnav-label">Plus</span>
+      </button>
+    </div>
+  </div>
+  <!-- PANEL PLUS -->
+  <div class="s-bnav-more-panel" id="bnav-more-panel">
+    <div class="s-bnav-more-grid">
+      <div class="s-bnav-more-item" data-view="v-comp">
+        <span class="mi-icon">&#128200;</span>
+        <span class="mi-label">Comp&eacute;tences</span>
+      </div>
+      <div class="s-bnav-more-item" data-view="v-eval">
+        <span class="mi-icon">&#128202;</span>
+        <span class="mi-label">Bilan</span>
+      </div>
+      <div class="s-bnav-more-item" data-view="v-grille">
+        <span class="mi-icon">&#128221;</span>
+        <span class="mi-label">Grille</span>
+      </div>
+    </div>
   </div>
 </div>
 <script>
@@ -3364,6 +3410,27 @@ for(var _fi=0;_fi<fbtns.length;_fi++){(function(btn){btn.addEventListener('click
   for(var i=0;i<all.length;i++)all[i].classList.remove('sel');
   this.classList.add('sel');
 });})(fbtns[_fi]);}s('s-back-btn','click',goAcc);s('btn-push','click',ghPush);s('btn-pull','click',ghPull);s('btn-edit-seq','click',openSeqModal);s('btn-pdf-sequence','click',exportSequencePDF);s('btn-save-seq','click',saveSeq);s('btn-add-trame-seance','click',addTrameSeance);s('btn-new-seance','click',function(){iaReset();openM('m-seance');});s('btn-save-seance','click',saveSeance);s('btn-add-partie-new','click',function(){addPartie('new');});s('btn-upd-seance','click',updSeance);s('btn-del-seance','click',delSeance);s('btn-add-partie-edit','click',function(){addPartie('edit');});s('btn-pdf-seance','click',exportSeancePDF);s('btn-export-seance-json','click',exportSeanceJSON);s('btn-ia-toggle','click',iaToggle);s('btn-ia-gen','click',iaGenerer);s('btn-ia-toggle-new','click',iaToggleNew);s('btn-ia-gen-new','click',iaGenererNew);s('btn-ia-copy-edit','click',function(){iaCopierPrompt2('edit');});s('btn-ia-copy-new','click',function(){iaCopierPrompt2('new');});s('btn-import-seance-json','change',function(){importSeanceJSON(this.files[0]);this.value='';}); s('srch','input',renderSeances);s('btn-pdf-eleves','click',exportElevesPDF);s('btn-pdf-bilan','click',exportBilanPDF);s('btn-profil-classe','click',toggleProfilZone);s('btn-save-profil-plan','click',saveProfilPlan);s('btn-new-eleve','click',function(){openM('m-eleve');});s('btn-save-eleve','click',saveEleve);s('btn-upd-eleve','click',updEleve);s('btn-del-eleve','click',delEleve);s('btn-import-pdf','click',function(){openM('m-pdf');});s('btn-export-eleves-json','click',exportElevesJSON);s('btn-import-eleves-json','change',function(){importElevesJSON(this.files[0]);this.value='';});s('btn-csv','click',exportCSV);s('btn-save-fiche','click',saveFicheAmen);s('photo-drop','click',function(){var pi=ge('photo-input');if(pi)pi.click();});s('photo-input','change',function(){handlePhoto(this);});s('photo-del-btn','click',function(){fichePhotoData=null;var t=ge('photo-thumb');if(t)t.style.display='none';this.style.display='none';var pi=ge('photo-input');if(pi)pi.value='';});s('photo-thumb','click',function(){if(fichePhotoData){var w=window.open('','_blank');if(w){w.document.write('<html><body style="margin:0;background:#000;display:flex;justify-content:center;align-items:center;min-height:100vh"><img src="'+fichePhotoData+'" style="max-width:100%;max-height:100vh;object-fit:contain"><\/body><\/html>');w.document.close();}}});var pd=ge('photo-drop');if(pd){var drevts=['dragenter','dragover'];for(var i=0;i<drevts.length;i++)pd.addEventListener(drevts[i],function(e){e.preventDefault();pd.classList.add('drag');});var dlvts=['dragleave','drop'];for(var i=0;i<dlvts.length;i++)pd.addEventListener(dlvts[i],function(e){e.preventDefault();pd.classList.remove('drag');});pd.addEventListener('drop',function(e){var f=e.dataTransfer.files[0];if(f&&f.type.startsWith('image/')){var dt=new DataTransfer();dt.items.add(f);ge('photo-input').files=dt.files;handlePhoto(ge('photo-input'));}});}var dz=ge('pdf-drop');if(dz){dz.addEventListener('click',function(){var pi=ge('pdf-input');if(pi)pi.click();});s('pdf-input','change',function(){handlePdf(this);});var drevts2=['dragenter','dragover'];for(var i=0;i<drevts2.length;i++)dz.addEventListener(drevts2[i],function(e){e.preventDefault();dz.classList.add('drag');});var dlvts2=['dragleave','drop'];for(var i=0;i<dlvts2.length;i++)dz.addEventListener(dlvts2[i],function(e){e.preventDefault();dz.classList.remove('drag');});dz.addEventListener('drop',function(e){var f=e.dataTransfer.files[0];if(f&&f.type==='application/pdf'){var dt=new DataTransfer();dt.items.add(f);ge('pdf-input').files=dt.files;handlePdf(ge('pdf-input'));}});}s('btn-pdf-all','click',function(){var cbs=document.querySelectorAll('#pdf-names input[type=checkbox]');for(var i=0;i<cbs.length;i++)cbs[i].checked=true;});s('btn-pdf-none','click',function(){var cbs=document.querySelectorAll('#pdf-names input[type=checkbox]');for(var i=0;i<cbs.length;i++)cbs[i].checked=false;});s('btn-pdf-import','click',pdfImport);var _ss=ge('comp-seuil-sel');if(_ss)_ss.addEventListener('change',renderComp);
+// Bottom nav mobile
+var bnavMoreBtn=ge('bnav-more-btn');
+var bnavMorePanel=ge('bnav-more-panel');
+if(bnavMoreBtn&&bnavMorePanel){
+  bnavMoreBtn.addEventListener('click',function(e){
+    e.stopPropagation();
+    bnavMorePanel.classList.toggle('open');
+  });
+  document.addEventListener('click',function(){bnavMorePanel.classList.remove('open');});
+  var moreItems=bnavMorePanel.querySelectorAll('[data-view]');
+  for(var _mi=0;_mi<moreItems.length;_mi++){(function(item){
+    item.addEventListener('click',function(){
+      showView(item.dataset.view);
+      bnavMorePanel.classList.remove('open');
+      // Activer "Plus" visuellement
+      var allBnav=document.querySelectorAll('.s-bnav-btn');
+      for(var k=0;k<allBnav.length;k++)allBnav[k].classList.remove('active');
+      if(bnavMoreBtn)bnavMoreBtn.classList.add('active');
+    });
+  })(moreItems[_mi]);}
+}
   // Barre nav bas
   var bnavBtns2=document.querySelectorAll('.s-bnav-btn[data-view]');
   for(var i=0;i<bnavBtns2.length;i++){
