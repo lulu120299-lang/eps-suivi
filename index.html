@@ -2607,9 +2607,9 @@ function iaGenPrompt(mode){
     (aflp.length?'AFLP travailles : '+aflp.join(', ')+'\n':'')+
     (contexte?'Contraintes : '+contexte+'\n':'')+
     'Genere 3 parties : 1. Echauffement specifique (8-10min) 2. Situation d apprentissage principale (20-25min) 3. Bilan collectif et retour au calme (5-8min).\n'+
-    'Pour chaque partie remplis ces champs avec du detail : titre, objectif (verbe d action), dispositif (organisation spatiale, groupes, materiel), consignes (formulation directe aux eleves), criteres (mesurables avec chiffres), contenus (savoirs transmis), fps (Echauffement / Situation d apprentissage / Bilan et retour au calme), variante (Facilite: ... | Avance: ...), niveau (debutant/intermediaire/avance).\n'+
+    'Pour chaque partie remplis ces champs avec du detail : titre, objectif (verbe d action), dispositif (organisation spatiale, groupes, materiel), consignes (formulation directe aux eleves), criteres (criteres de reussite mesurables avec chiffres), contenus (savoirs techniques tactiques transmis), realisation (criteres de realisation = indicateurs observables par l enseignant, ce que l on voit chez un eleve qui fait bien), remediation (adaptations et simplifications pour les eleves en difficulte), fps (Echauffement / Situation d apprentissage / Bilan et retour au calme), variante (Facilite: ... | Avance: ...), niveau (debutant/intermediaire/avance).\n'+
     'Reponds UNIQUEMENT en JSON valide sans backticks :\n'+
-    '{"situations":[{"titre":"...","objectif":"...","dispositif":"...","consignes":"...","criteres":"...","contenus":"...","fps":"...","variante":"...","niveau":"..."},{"titre":"...","objectif":"...","dispositif":"...","consignes":"...","criteres":"...","contenus":"...","fps":"...","variante":"...","niveau":"..."},{"titre":"...","objectif":"...","dispositif":"...","consignes":"...","criteres":"...","contenus":"...","fps":"...","variante":"...","niveau":"..."}]}';
+    '{"situations":[{"titre":"...","objectif":"...","dispositif":"...","consignes":"...","criteres":"...","contenus":"...","realisation":"...","remediation":"...","fps":"...","variante":"...","niveau":"..."},{"titre":"...","objectif":"...","dispositif":"...","consignes":"...","criteres":"...","contenus":"...","realisation":"...","remediation":"...","fps":"...","variante":"...","niveau":"..."},{"titre":"...","objectif":"...","dispositif":"...","consignes":"...","criteres":"...","contenus":"...","realisation":"...","remediation":"...","fps":"...","variante":"...","niveau":"..."}]}';
 }
 
 function iaCopierPrompt2(mode){
@@ -2704,7 +2704,7 @@ async function iaGenerer(){
     'EXIGENCES pour chaque champ :\\n'+
     'titre : nom court evocateur | objectif : verbe d action mesurable | dispositif : organisation spatiale precise groupes materiel terrain minimum 3 phrases | consignes : formulation exacte comme dit aux eleves commencer par Vous devez | criteres : mesurables avec chiffres pourcentages repetitions | contenus : savoirs techniques tactiques transmis minimum 2 points | fps : exactement Echauffement OU Situation d apprentissage OU Bilan et retour au calme | variante : Facilite:[adaptation] Avance:[complexification] | niveau : debutant OU intermediaire OU avance\\n'+
     'REPONDS UNIQUEMENT avec du JSON valide sans texte avant ou apres sans backtick :\\n'+
-    '{"situations":[{"titre":"...","objectif":"...","dispositif":"...","consignes":"...","criteres":"...","contenus":"...","fps":"...","variante":"...","niveau":"..."},{"titre":"...","objectif":"...","dispositif":"...","consignes":"...","criteres":"...","contenus":"...","fps":"...","variante":"...","niveau":"..."},{"titre":"...","objectif":"...","dispositif":"...","consignes":"...","criteres":"...","contenus":"...","fps":"...","variante":"...","niveau":"..."}]}';
+    '{"situations":[{"titre":"...","objectif":"...","dispositif":"...","consignes":"...","criteres":"...","contenus":"...","realisation":"...","remediation":"...","fps":"...","variante":"...","niveau":"..."},{"titre":"...","objectif":"...","dispositif":"...","consignes":"...","criteres":"...","contenus":"...","realisation":"...","remediation":"...","fps":"...","variante":"...","niveau":"..."},{"titre":"...","objectif":"...","dispositif":"...","consignes":"...","criteres":"...","contenus":"...","realisation":"...","remediation":"...","fps":"...","variante":"...","niveau":"..."}]}';
 
 
   try{
@@ -2772,7 +2772,7 @@ async function iaGenererNew(){
     'EXIGENCES pour chaque champ :\\n'+
     'titre : nom court evocateur | objectif : verbe d action mesurable | dispositif : organisation spatiale precise groupes materiel terrain minimum 3 phrases | consignes : formulation exacte comme dit aux eleves commencer par Vous devez | criteres : mesurables avec chiffres pourcentages repetitions | contenus : savoirs techniques tactiques transmis minimum 2 points | fps : exactement Echauffement OU Situation d apprentissage OU Bilan et retour au calme | variante : Facilite:[adaptation] Avance:[complexification] | niveau : debutant OU intermediaire OU avance\\n'+
     'REPONDS UNIQUEMENT avec du JSON valide sans texte avant ou apres sans backtick :\\n'+
-    '{"situations":[{"titre":"...","objectif":"...","dispositif":"...","consignes":"...","criteres":"...","contenus":"...","fps":"...","variante":"...","niveau":"..."},{"titre":"...","objectif":"...","dispositif":"...","consignes":"...","criteres":"...","contenus":"...","fps":"...","variante":"...","niveau":"..."},{"titre":"...","objectif":"...","dispositif":"...","consignes":"...","criteres":"...","contenus":"...","fps":"...","variante":"...","niveau":"..."}]}';
+    '{"situations":[{"titre":"...","objectif":"...","dispositif":"...","consignes":"...","criteres":"...","contenus":"...","realisation":"...","remediation":"...","fps":"...","variante":"...","niveau":"..."},{"titre":"...","objectif":"...","dispositif":"...","consignes":"...","criteres":"...","contenus":"...","realisation":"...","remediation":"...","fps":"...","variante":"...","niveau":"..."},{"titre":"...","objectif":"...","dispositif":"...","consignes":"...","criteres":"...","contenus":"...","realisation":"...","remediation":"...","fps":"...","variante":"...","niveau":"..."}]}';
 
 
   try{
@@ -2847,6 +2847,8 @@ function iaCopierPartie(idx,zoneId,mode){
     consignes:consignesComplet,
     criteres:sv.criteres||'',
     contenus:sv.contenus||'',
+    realisation:sv.realisation||'',
+    remediation:sv.remediation||'',
     bilan:''
   };
   if(mode==='new'){partiesNew.push(p);renderPartieBlock('parties-new',p,partiesNew.length-1,'new');}
