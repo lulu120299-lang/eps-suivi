@@ -177,7 +177,7 @@
       "num": 2,
       "date": "2026-03-11",
       "objectif": "Eval Diagnostique _Construction d un itinéraire - Anticipation",
-      "bilan": "Bilan positif - séance éval diagnostique \n\n[Meteo S2]\nEngagement : *** (3/5)\nAmbiance : ** (2/5)\nComportement : *** (3/5)\n\nBilan positif - séance éval diagnostique",
+      "bilan": "Bilan positif - séance éval diagnostique \n\n[Meteo S2]\nEngagement : *** (3/5)\nAmbiance : ** (2/5)\nComportement : *** (3/5)",
       "aflpTravailles": [
         "AFLP 6",
         "AFLP 1",
@@ -191,7 +191,10 @@
           "consignes": "Mobilisation articulation, footing 5 min et suivi de quelques gammes (Elève de plus en plus autonome avec des automatisme)",
           "criteres": "Engagement moteur",
           "contenus": "Activation du système cardio-vasculaire",
-          "bilan": "Un début compliqué avec des élèves qui ont du mal à comprendre pourquoi ils doivent courir pour se préparer à la CO"
+          "bilan": "Un début compliqué avec des élèves qui ont du mal à comprendre pourquoi ils doivent courir pour se préparer à la CO",
+          "photos": [],
+          "tableaux": [],
+          "fichiers": []
         },
         {
           "id": "p04",
@@ -200,7 +203,10 @@
           "consignes": "Analyser la carte avant le départ pour se repérer et se positionner sur la carte pour identifier un point attaque. Les élèves ont le choix de plusieurs cartes (1 à 10) qui sont de plus en plus difficile (balises éloignés et proche d'autre balises) pour ce faire les élèves doivent choisir et trouver les 3 balises. S'ils ne trouvent pas les balises ils doivent renoncer aux parcours pour faire je leur donne un temps maximum sur un parcours pour qu'ils apprennent aussi à gérer leur temps et savoir renoncer à une balise tout en revenant à temps au points départ.",
           "criteres": "Se repérer sur une carte, se placer sur une carte. Identifier grâce aux éléments extérieurs des repères pour se positionner",
           "contenus": "Méthodologique et moteur",
-          "bilan": "Bonne séance évaluation diagnostique dans l'ensemble."
+          "bilan": "Bonne séance évaluation diagnostique dans l'ensemble.",
+          "photos": [],
+          "tableaux": [],
+          "fichiers": []
         },
         {
           "id": "p05",
@@ -209,9 +215,15 @@
           "consignes": "Récupération active (5 min)\nMarche lente 2 min puis étirements guidés : quadriceps, ischio-jambiers, mollets, épaules.\nBilan collectif (10 min)\nRésultats équipes affichés via Mode Professeur sur l'app.\nQuestions posées :\n\n\"Qui a réussi à rester dans sa fenêtre de temps ?\"\n\"Qui a choisi un niveau différent d'avant ? Pourquoi ?\"\n\"Qu'est-ce qui vous a aidé à gérer votre allure ?\"",
           "criteres": "Capacite a expliquer et argumenter.",
           "contenus": "Expression orale, argumentation",
-          "bilan": ""
+          "bilan": "",
+          "photos": [],
+          "tableaux": [],
+          "fichiers": []
         }
-      ]
+      ],
+      "autreobj": "",
+      "contenus": "",
+      "fps": ""
     },
     {
       "id": "s1774087701884",
@@ -303,7 +315,10 @@
         "AFLP 1",
         "AFLP 2"
       ],
-      "parties": []
+      "parties": [],
+      "autreobj": "",
+      "contenus": "",
+      "fps": ""
     },
     {
       "id": "s1774206681702",
