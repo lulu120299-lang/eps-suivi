@@ -2623,14 +2623,11 @@ async function iaGenerer(){
     iaAfficherResultats(parsed.situations||[],'ia-result-zone','edit');
   }catch(e){
     zone.innerHTML='<div style="background:#1a0f0f;border:1px solid #ff6b6b40;border-radius:8px;padding:.9rem 1rem;font-size:.78rem;color:#ff6b6b;line-height:1.6">'+
-      'Impossible de contacter l\'IA directement depuis le navigateur (restriction CORS).<br>'+
-      '<br><span style="color:#9aa0b8">Pour utiliser cette fonctionnalite, tu peux :</span><br>'+
-      '1. Ouvrir Claude.ai<br>'+
-      '2. Coller ce prompt :<br>'+
-      '<textarea onclick="this.select()" style="width:100%;margin-top:.5rem;background:#0d1018;border:1px solid #252836;border-radius:5px;color:#d4d8eb;font-size:.7rem;padding:.5rem;min-height:60px;resize:none">'+esc(prompt.replace(/\n/g,'\\n'))+'</textarea>'+
-      '<br>3. Coller la reponse JSON ici :<br>'+
-      '<textarea id="ia-paste-json" placeholder=\'{"situations":[...]}\' style="width:100%;margin-top:.4rem;background:#0d1018;border:1px solid #252836;border-radius:5px;color:#d4d8eb;font-size:.7rem;padding:.5rem;min-height:50px;resize:vertical"></textarea>'+
-      '<button class="ia-sit-btn" style="margin-top:.4rem;width:100%;background:rgba(167,139,250,.15);border-color:rgba(167,139,250,.3);color:#a78bfa" onclick="iaChargerJSON(\'edit\')">Charger les situations</button>'+
+      'Erreur : '+esc(e.message)+'<br><br>'+
+      '<span style="color:#9aa0b8;font-size:.72rem">Verifie dans Cloudflare :<br>'+
+      '1. Worker deploye sur eps-ia-proxy.lulu120299.workers.dev<br>'+
+      '2. Variable GROQ_KEY definie dans Settings > Variables and Secrets<br>'+
+      '3. Cle Groq commence par gsk_...</span>'+
       '</div>';
   }
   btn.disabled=false;
@@ -2661,33 +2658,25 @@ async function iaGenererNew(){
     '{"situations":[{"titre":"...","objectif":"...","dispositif":"...","consignes":"...","criteres":"...","contenus":"...","fps":"...","variante":"...","niveau":"debutant|intermediaire|avance"}]}';
 
   try{
-    var resp=await fetch('https://api.anthropic.com/v1/messages',{
+    var resp=await fetch('https://eps-ia-proxy.lulu120299.workers.dev',{
       method:'POST',
-      headers:{
-        'Content-Type':'application/json',
-        'x-api-key':'',
-        'anthropic-version':'2023-06-01',
-        'anthropic-dangerous-direct-browser-ipc':'true'
-      },
-      body:JSON.stringify({
-        model:'claude-haiku-4-5-20251001',
-        max_tokens:1200,
-        messages:[{role:'user',content:prompt}]
-      })
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({max_tokens:1200,messages:[{role:'user',content:prompt}]})
     });
-    if(!resp.ok){throw new Error('Erreur '+resp.status);}
+    if(!resp.ok){throw new Error('Erreur HTTP '+resp.status);}
     var data=await resp.json();
+    if(data.error){throw new Error(data.error);}
     var text=data.content[0].text;
     var clean=text.replace(/```json|```/g,'').trim();
     var parsed=JSON.parse(clean);
     iaAfficherResultats(parsed.situations||[],'ia-result-zone-new','new');
   }catch(e){
     zone.innerHTML='<div style="background:#1a0f0f;border:1px solid #ff6b6b40;border-radius:8px;padding:.9rem 1rem;font-size:.78rem;color:#ff6b6b;line-height:1.6">'+
-      'Impossible de contacter l\'IA directement.<br>'+
-      '<span style="color:#9aa0b8">Colle le prompt dans Claude.ai puis le JSON ici :</span><br>'+
-      '<textarea onclick="this.select()" style="width:100%;margin-top:.5rem;background:#0d1018;border:1px solid #252836;border-radius:5px;color:#d4d8eb;font-size:.7rem;padding:.5rem;min-height:60px;resize:none">'+esc(prompt.replace(/\n/g,'\\n'))+'</textarea>'+
-      '<textarea id="ia-paste-json-new" placeholder=\'{"situations":[...]}\' style="width:100%;margin-top:.4rem;background:#0d1018;border:1px solid #252836;border-radius:5px;color:#d4d8eb;font-size:.7rem;padding:.5rem;min-height:50px;resize:vertical"></textarea>'+
-      '<button class="ia-sit-btn" style="margin-top:.4rem;width:100%;background:rgba(167,139,250,.15);border-color:rgba(167,139,250,.3);color:#a78bfa" onclick="iaChargerJSON(\'new\')">Charger les situations</button>'+
+      'Erreur : '+esc(e.message)+'<br><br>'+
+      '<span style="color:#9aa0b8;font-size:.72rem">Verifie dans Cloudflare :<br>'+
+      '1. Worker deploye sur eps-ia-proxy.lulu120299.workers.dev<br>'+
+      '2. Variable GROQ_KEY definie dans Settings > Variables and Secrets<br>'+
+      '3. Cle Groq commence par gsk_...</span>'+
       '</div>';
   }
   btn.disabled=false;
