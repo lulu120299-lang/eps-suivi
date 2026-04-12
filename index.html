@@ -1072,21 +1072,6 @@ textarea{resize:vertical;min-height:70px}
       <button class="btn btn-p" id="btn-save-grille-cfg">Enregistrer la grille</button>
     </div>
   </div></div>
-</div>
-<!-- Modale PDF Viewer -->
-<div class="mb" id="m-pdf-viewer" style="z-index:1000;padding:0">
-  <div style="background:#1a1c2e;width:100%;height:100%;display:flex;flex-direction:column;position:relative;max-width:100%;max-height:100%;border-radius:0">
-    <div id="_pdf_toolbar_modal" style="background:#12141e;border-bottom:1px solid #252836;display:flex;align-items:center;justify-content:space-between;padding:10px 16px;flex-shrink:0;gap:10px;flex-wrap:wrap">
-      <span id="_pdf_filename" style="font-family:system-ui,sans-serif;font-size:13px;font-weight:600;color:#9aa0b8;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap"></span>
-      <div style="display:flex;gap:8px;flex-shrink:0">
-        <button onclick="ge('m-pdf-viewer-frame').contentWindow.print()" style="background:#4f8aff;color:#fff;border:none;border-radius:6px;padding:7px 14px;font-size:12px;font-weight:700;cursor:pointer;font-family:system-ui,sans-serif">&#128196; Imprimer</button>
-        <button onclick="ge('m-pdf-viewer-frame').contentWindow.print()" id="_pdf_print_clean" style="background:#56cfb2;color:#1a1c2e;border:none;border-radius:6px;padding:7px 14px;font-size:12px;font-weight:700;cursor:pointer;font-family:system-ui,sans-serif">PDF propre</button>
-        <button onclick="closePdfViewer()" style="background:#ff6b6b;color:#fff;border:none;border-radius:8px;padding:7px 14px;font-size:13px;font-weight:800;cursor:pointer;font-family:system-ui,sans-serif;line-height:1">&#10005; Fermer</button>
-      </div>
-    </div>
-    <iframe id="m-pdf-viewer-frame" style="flex:1;border:none;width:100%;background:#fff" src="about:blank"></iframe>
-  </div>
-
   <!-- BOTTOM NAV MOBILE -->
   <div class="s-bottom-nav" id="s-bottom-nav">
     <div class="s-bottom-nav-inner">
@@ -1112,7 +1097,6 @@ textarea{resize:vertical;min-height:70px}
       </button>
     </div>
   </div>
-  <!-- PANEL PLUS -->
   <div class="s-bnav-more-panel" id="bnav-more-panel">
     <div class="s-bnav-more-grid">
       <div class="s-bnav-more-item" data-view="v-comp">
@@ -1128,6 +1112,20 @@ textarea{resize:vertical;min-height:70px}
         <span class="mi-label">Grille</span>
       </div>
     </div>
+  </div>
+</div>
+<!-- Modale PDF Viewer -->
+<div class="mb" id="m-pdf-viewer" style="z-index:1000;padding:0">
+  <div style="background:#1a1c2e;width:100%;height:100%;display:flex;flex-direction:column;position:relative;max-width:100%;max-height:100%;border-radius:0">
+    <div id="_pdf_toolbar_modal" style="background:#12141e;border-bottom:1px solid #252836;display:flex;align-items:center;justify-content:space-between;padding:10px 16px;flex-shrink:0;gap:10px;flex-wrap:wrap">
+      <span id="_pdf_filename" style="font-family:system-ui,sans-serif;font-size:13px;font-weight:600;color:#9aa0b8;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap"></span>
+      <div style="display:flex;gap:8px;flex-shrink:0">
+        <button onclick="ge('m-pdf-viewer-frame').contentWindow.print()" style="background:#4f8aff;color:#fff;border:none;border-radius:6px;padding:7px 14px;font-size:12px;font-weight:700;cursor:pointer;font-family:system-ui,sans-serif">&#128196; Imprimer</button>
+        <button onclick="ge('m-pdf-viewer-frame').contentWindow.print()" id="_pdf_print_clean" style="background:#56cfb2;color:#1a1c2e;border:none;border-radius:6px;padding:7px 14px;font-size:12px;font-weight:700;cursor:pointer;font-family:system-ui,sans-serif">PDF propre</button>
+        <button onclick="closePdfViewer()" style="background:#ff6b6b;color:#fff;border:none;border-radius:8px;padding:7px 14px;font-size:13px;font-weight:800;cursor:pointer;font-family:system-ui,sans-serif;line-height:1">&#10005; Fermer</button>
+      </div>
+    </div>
+    <iframe id="m-pdf-viewer-frame" style="flex:1;border:none;width:100%;background:#fff" src="about:blank"></iframe>
   </div>
 </div>
 <script>
