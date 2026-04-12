@@ -2742,76 +2742,48 @@ function exportSequencePDF(){
   var aflpData=CTX.apsa?(AFLP[f]||AFLP.bacpro)[CTX.apsa.caFull]:null;
   var clsColor=CTX.cls?CTX.cls.color:'#4f8aff';
   var sorted=state.seances.slice().sort(function(a,b){return a.num-b.num;});
-  var PCOLS=['#4f8aff','#56cfb2','#ffd166','#a78bfa','#fb923c','#f472b6'];
 
   var css='';
   css+='*{box-sizing:border-box;margin:0;padding:0}';
-  css+='body{font-family:Georgia,serif;font-size:11px;line-height:1.5;color:#1a1c2e;background:#fff;padding:0}';
+  css+='body{font-family:Georgia,serif;font-size:11px;line-height:1.5;color:#1a1c2e;background:#fff}';
   css+='@page{margin:14mm 16mm;size:A4}';
-  css+='.page-break{page-break-before:always}';
-  // Header
-  css+='.doc-header{background:'+clsColor+';color:#fff;padding:16px 22px 14px;margin-bottom:16px}';
+  css+='.doc-header{background:'+clsColor+';color:#fff;padding:16px 22px 14px;margin-bottom:18px}';
   css+='.doc-eyebrow{font-family:Courier,monospace;font-size:8px;letter-spacing:.15em;text-transform:uppercase;opacity:.7;margin-bottom:5px}';
-  css+='.doc-title{font-family:Georgia,serif;font-size:22px;font-style:italic;margin-bottom:4px}';
+  css+='.doc-title{font-family:Georgia,serif;font-size:24px;font-style:italic;margin-bottom:4px}';
   css+='.doc-meta{font-family:Courier,monospace;font-size:8px;opacity:.6;display:flex;gap:16px}';
-  // Section
-  css+='.section{margin-bottom:16px}';
+  css+='.section{margin-bottom:18px}';
   css+='.section-title{font-family:Courier,monospace;font-size:8px;text-transform:uppercase;letter-spacing:.15em;color:#7a80a0;font-weight:bold;margin-bottom:8px;display:flex;align-items:center;gap:8px}';
   css+='.section-title::after{content:"";flex:1;height:1px;background:#e0e4f0}';
-  // Compétence
-  css+='.comp-box{background:#f5f7fb;border-left:3px solid '+clsColor+';padding:10px 14px;margin-bottom:10px;border-radius:0 6px 6px 0}';
+  css+='.comp-box{background:#f5f7fb;border-left:3px solid '+clsColor+';padding:10px 14px;margin-bottom:10px}';
   css+='.comp-title{font-family:Courier,monospace;font-size:8px;text-transform:uppercase;color:'+clsColor+';font-weight:bold;margin-bottom:6px}';
-  css+='.comp-text{font-size:11px;line-height:1.6;color:#2a2e42}';
-  // AFLP
+  css+='.comp-text{font-size:11px;line-height:1.65;color:#2a2e42}';
   css+='.aflp-item{display:flex;align-items:flex-start;gap:8px;margin-bottom:5px;font-size:10px;line-height:1.5}';
   css+='.aflp-tag{background:'+clsColor+';color:#fff;font-family:Courier,monospace;font-size:7.5px;padding:2px 8px;border-radius:3px;font-weight:bold;flex-shrink:0;margin-top:1px}';
-  // Trame
-  css+='.trame-table{width:100%;border-collapse:collapse;margin-bottom:12px}';
-  css+='.trame-table th{background:#f0f2f8;padding:7px 10px;text-align:left;font-size:8px;font-family:Courier,monospace;text-transform:uppercase;letter-spacing:.05em;border-bottom:2px solid #e0e4f0}';
-  css+='.trame-table td{padding:7px 10px;border-bottom:1px solid #f0f2f8;font-size:9.5px;vertical-align:top}';
-  css+='.trame-table tr:last-child td{border-bottom:none}';
-  css+='.trame-num{background:'+clsColor+';color:#fff;font-family:Courier,monospace;font-size:8px;padding:2px 8px;border-radius:4px;font-weight:bold;white-space:nowrap}';
-  css+='.trame-num.done{background:#1a6b3a}';
-  css+='.done-row td{background:#f0fdf4}';
   css+='.aflp-mini{display:inline-block;background:'+clsColor+'22;color:'+clsColor+';font-family:Courier,monospace;font-size:7px;padding:1px 5px;border-radius:2px;margin:1px;font-weight:bold}';
-  // Séances
-  css+='.seance-card{border:1px solid #e0e4f0;border-radius:8px;margin-bottom:14px;overflow:hidden;break-inside:avoid;page-break-inside:avoid}';
-  css+='.seance-head{display:flex;align-items:center;gap:10px;padding:10px 14px;border-bottom:1px solid #e0e4f0}';
-  css+='.seance-num{font-family:Courier,monospace;font-size:8px;font-weight:bold;padding:3px 10px;border-radius:20px;color:#fff;white-space:nowrap}';
-  css+='.seance-title{font-family:Georgia,serif;font-size:14px;font-style:italic}';
-  css+='.seance-date{font-family:Courier,monospace;font-size:8px;color:#7a80a0;margin-left:auto;white-space:nowrap}';
-  css+='.seance-meta{padding:6px 14px;background:#fafbff;border-bottom:1px solid #f0f2f8;display:flex;gap:16px}';
-  css+='.seance-meta-item{font-size:9px;line-height:1.5}';
-  css+='.seance-meta-lbl{font-family:Courier,monospace;font-size:7.5px;text-transform:uppercase;color:#7a80a0;font-weight:bold;margin-bottom:2px}';
-  css+='.partie-card{border-top:1px solid #f0f2f8}';
-  css+='.partie-head{display:flex;align-items:center;gap:8px;padding:7px 14px;background:#f8f9fc}';
-  css+='.partie-badge{font-family:Courier,monospace;font-size:7.5px;font-weight:bold;padding:2px 8px;border-radius:20px;color:#fff}';
-  css+='.partie-name{font-size:12px;font-style:italic;font-family:Georgia,serif}';
-  css+='.partie-body{display:grid;grid-template-columns:1fr 1fr;padding:0}';
-  css+='.pf{padding:8px 14px;border-bottom:1px solid #f5f6fb;font-size:9.5px;line-height:1.6}';
-  css+='.pf:nth-child(odd){border-right:1px solid #f5f6fb}';
-  css+='.pf.full{grid-column:1/-1}';
-  css+='.pf.cons{grid-column:1/-1;background:#fafbff;border-left:3px solid #4f8aff}';
-  css+='.pf.bil{grid-column:1/-1;background:#fffcf0;border-left:3px solid #fb923c}';
-  css+='.fl{font-family:Courier,monospace;font-size:7.5px;text-transform:uppercase;letter-spacing:.08em;font-weight:bold;color:#7a80a0;margin-bottom:3px}';
-  css+='.fl.obj{color:#16a085}.fl.cons{color:#2471a3}.fl.crit{color:#b7950b}.fl.cont{color:#7d3c98}.fl.bil{color:#ca6f1e}';
-  // Bilan
-  css+='.bilan-box{background:#fffdf4;border:1px solid #f0e8c0;border-left:3px solid #f0c040;border-radius:6px;padding:9px 14px;margin-top:4px}';
-  css+='.bilan-lbl{font-family:Courier,monospace;font-size:7.5px;text-transform:uppercase;color:#9a7500;font-weight:bold;margin-bottom:4px}';
-  css+='.bilan-val{font-size:10px;line-height:1.6;color:#4a3800;white-space:pre-wrap}';
-  // Footer
+  // Tableau trame enrichi
+  css+='.trame-table{width:100%;border-collapse:collapse;font-size:9px}';
+  css+='.trame-table th{background:#f0f2f8;padding:6px 8px;text-align:left;font-family:Courier,monospace;font-size:7.5px;text-transform:uppercase;letter-spacing:.05em;border-bottom:2px solid #e0e4f0;border-right:1px solid #e0e4f0}';
+  css+='.trame-table th:last-child{border-right:none}';
+  css+='.trame-table td{padding:7px 8px;border-bottom:1px solid #edf0f8;border-right:1px solid #edf0f8;vertical-align:top;line-height:1.5}';
+  css+='.trame-table td:last-child{border-right:none}';
+  css+='.trame-table tr:last-child td{border-bottom:none}';
+  css+='.trame-num{background:'+clsColor+';color:#fff;font-family:Courier,monospace;font-size:8px;padding:2px 7px;border-radius:4px;font-weight:bold;white-space:nowrap;display:inline-block}';
+  css+='.trame-num.done{background:#1a6b3a}';
+  css+='.done-row td{background:#f6fdf8}';
+  css+='.cell-lbl{font-family:Courier,monospace;font-size:7px;text-transform:uppercase;letter-spacing:.07em;color:#9aa0c0;display:block;margin-bottom:2px;font-weight:bold}';
+  css+='.bilan-cell{background:#fffdf4;border-left:2px solid #f0c040;padding:4px 7px;font-size:9px;line-height:1.5;color:#4a3800}';
   css+='.doc-footer{margin-top:16px;padding-top:8px;border-top:1px solid #e0e4f0;display:flex;justify-content:space-between;font-family:Courier,monospace;font-size:7.5px;color:#b0b5c8}';
 
   var h='<!DOCTYPE html><html><head><meta charset="UTF-8"><style>'+css+'</style></head><body>';
 
-  // ── PAGE 1 : HEADER + COMPÉTENCE + TRAME ──
+  // HEADER
   h+='<div class="doc-header">';
   h+='<div class="doc-eyebrow">'+(CTX.cls?esc(CTX.cls.label):'')+(CTX.apsa?' &bull; '+CTX.apsa.ca+' - '+esc(CTX.apsa.name):'')+(CTX.trim?' &bull; Trimestre '+CTX.trim:'')+'</div>';
-  h+='<div class="doc-title">Bilan de sequence</div>';
+  h+='<div class="doc-title">Trame de sequence</div>';
   h+='<div class="doc-meta"><span>'+fil.label+'</span><span>'+sorted.length+' seance'+(sorted.length>1?'s':'')+'</span><span>'+new Date().toLocaleDateString('fr-FR')+'</span></div>';
   h+='</div>';
 
-  // Compétence attendue
+  // COMPETENCE ATTENDUE
   if(seq.objet||seq.objectifs){
     h+='<div class="section"><div class="section-title">Competence attendue</div>';
     h+='<div class="comp-box"><div class="comp-title">Competence attendue de fin de lycee</div>';
@@ -2820,7 +2792,7 @@ function exportSequencePDF(){
     h+='</div></div>';
   }
 
-  // AFLP choisis
+  // AFLP CHOISIS
   if(seq.aflpPrio&&seq.aflpPrio.length&&aflpData){
     h+='<div class="section"><div class="section-title">AFLP choisis</div>';
     for(var i=0;i<seq.aflpPrio.length;i++){
@@ -2831,78 +2803,52 @@ function exportSequencePDF(){
     h+='</div>';
   }
 
-  // Trame de séquence
+  // TRAME DE SEQUENCE - tableau enrichi
   h+='<div class="section"><div class="section-title">Trame de sequence</div>';
-  h+='<table class="trame-table"><thead><tr><th>S.</th><th>Titre / Objectif</th><th>AFLP</th><th>Contenus</th><th>Date</th><th>Statut</th></tr></thead><tbody>';
+  h+='<table class="trame-table"><thead><tr>';
+  h+='<th style="width:32px">S.</th>';
+  h+='<th style="width:18%">Objectif de la seance</th>';
+  h+='<th style="width:16%">Autres objectifs</th>';
+  h+='<th style="width:18%">Contenus d enseignement</th>';
+  h+='<th style="width:13%">Partie FPS</th>';
+  h+='<th style="width:10%">AFLP</th>';
+  h+='<th style="width:8%">Date</th>';
+  h+='<th style="width:12%">Bilan</th>';
+  h+='</tr></thead><tbody>';
+
   var trame=seq.trame||[];
   var allNums2={};
   for(var i=0;i<trame.length;i++)allNums2[trame[i].num]=true;
   for(var i=0;i<sorted.length;i++)allNums2[sorted[i].num]=true;
   var nums=Object.keys(allNums2).map(Number).sort(function(a,b){return a-b;});
+
   for(var i=0;i<nums.length;i++){
     var nn=nums[i];var tr=null,ss=null;
     for(var j=0;j<trame.length;j++){if(trame[j].num===nn){tr=trame[j];break;}}
     for(var j=0;j<sorted.length;j++){if(sorted[j].num===nn){ss=sorted[j];break;}}
-    var done=!!(ss&&ss.bilan);
+    var done=!!(ss&&ss.bilan&&ss.bilan.trim());
     var obj=ss?ss.objectif:(tr?tr.objectif:'');
+    var autreobj=ss&&ss.autreobj?ss.autreobj:(tr&&tr.autreobj?tr.autreobj:'');
+    var contenus=ss&&ss.contenus?ss.contenus:(tr&&tr.contenus?tr.contenus:'');
+    var fps=ss&&ss.fps?ss.fps:(tr&&tr.fps?tr.fps:'');
     var date=ss?ss.date:(tr?tr.date:'');
     var aflpL=(ss&&ss.aflpTravailles&&ss.aflpTravailles.length)?ss.aflpTravailles:(tr&&tr.aflp?tr.aflp:[]);
-    var contenus=ss?ss.contenus||'':(tr?tr.contenus||'':'');
+    var bilan=ss&&ss.bilan?ss.bilan:'';
+
     h+='<tr class="'+(done?'done-row':'')+'">';
-    h+='<td><span class="trame-num'+(done?' done':'')+'">S'+nn+'</span></td>';
-    h+='<td>'+esc(obj||'A definir')+'</td>';
-    h+='<td>'+aflpL.map(function(a){return '<span class="aflp-mini">'+esc(a)+'</span>';}).join('')+'</td>';
-    h+='<td style="color:#5a6080">'+esc(contenus)+'</td>';
-    h+='<td style="white-space:nowrap;color:#7a80a0">'+esc(date?fmtDate(date):'')+'</td>';
-    h+='<td style="text-align:center">'+(done?'<span style="color:#1a6b3a;font-weight:bold">OK</span>':'<span style="color:#aaa">-</span>')+'</td>';
+    h+='<td style="text-align:center"><span class="trame-num'+(done?' done':'')+'">S'+nn+'</span></td>';
+    h+='<td style="font-weight:'+(obj?'500':'400')+';color:'+(obj?'#1a1c2e':'#aaa')+'">'+esc(obj||'A definir')+'</td>';
+    h+='<td style="color:#4a5080">'+esc(autreobj)+'</td>';
+    h+='<td style="color:#4a5080">'+esc(contenus)+'</td>';
+    h+='<td style="color:#4a5080">'+esc(fps)+'</td>';
+    h+='<td>'+aflpL.map(function(a){return '<span class="aflp-mini">'+esc(a)+'</span>';}).join(' ')+'</td>';
+    h+='<td style="white-space:nowrap;color:#7a80a0;font-family:Courier,monospace;font-size:8px">'+esc(date?fmtDate(date):'')+'</td>';
+    h+='<td>'+(bilan?'<div class="bilan-cell">'+esc(bilan.substring(0,120))+(bilan.length>120?'...':'')+'</div>':'<span style="color:#ccc">—</span>')+'</td>';
     h+='</tr>';
   }
   h+='</tbody></table></div>';
 
-  // ── PAGES SUIVANTES : SÉANCES ──
-  for(var si=0;si<sorted.length;si++){
-    var s=sorted[si];
-    var pcol=PCOLS[si%PCOLS.length];
-    var aflpS=s.aflpTravailles||[];
-
-    h+='<div class="seance-card'+(si===0?' page-break':'')+'">';
-    h+='<div class="seance-head">';
-    h+='<span class="seance-num" style="background:'+pcol+'">Seance '+s.num+'</span>';
-    h+='<span class="seance-title">'+esc(s.objectif||'Sans titre')+'</span>';
-    if(s.date)h+='<span class="seance-date">'+fmtDate(s.date)+'</span>';
-    h+='</div>';
-
-    // Meta (autres objectifs, contenus, FPS, AFLP)
-    var hasMeta=s.autreobj||s.contenus||s.fps||aflpS.length;
-    if(hasMeta){
-      h+='<div class="seance-meta">';
-      if(aflpS.length)h+='<div class="seance-meta-item"><div class="seance-meta-lbl">AFLP</div>'+aflpS.map(function(a){return '<span class="aflp-mini">'+esc(a)+'</span>';}).join('')+'</div>';
-      if(s.autreobj)h+='<div class="seance-meta-item"><div class="seance-meta-lbl">Autres objectifs</div>'+esc(s.autreobj)+'</div>';
-      if(s.contenus)h+='<div class="seance-meta-item"><div class="seance-meta-lbl">Contenus</div>'+esc(s.contenus)+'</div>';
-      if(s.fps)h+='<div class="seance-meta-item"><div class="seance-meta-lbl">FPS</div>'+esc(s.fps)+'</div>';
-      h+='</div>';
-    }
-
-    // Parties
-    for(var pi=0;pi<(s.parties||[]).length;pi++){
-      var p=s.parties[pi];
-      h+='<div class="partie-card">';
-      h+='<div class="partie-head"><span class="partie-badge" style="background:'+PCOLS[pi%PCOLS.length]+'">Partie '+(pi+1)+'</span><span class="partie-name">'+esc(p.titre||'')+'</span></div>';
-      h+='<div class="partie-body">';
-      if(p.objectif)h+='<div class="pf full obj"><div class="fl obj">Objectif</div>'+esc(p.objectif)+'</div>';
-      if(p.consignes)h+='<div class="pf cons"><div class="fl cons">Consignes</div>'+esc(p.consignes)+'</div>';
-      if(p.criteres)h+='<div class="pf crit"><div class="fl crit">Criteres</div>'+esc(p.criteres)+'</div>';
-      if(p.contenus)h+='<div class="pf cont"><div class="fl cont">Contenus</div>'+esc(p.contenus)+'</div>';
-      if(p.bilan)h+='<div class="pf bil"><div class="fl bil">Bilan partie</div>'+esc(p.bilan)+'</div>';
-      h+='</div></div>';
-    }
-
-    // Bilan général
-    if(s.bilan)h+='<div style="padding:8px 14px 10px"><div class="bilan-box"><div class="bilan-lbl">Bilan general de la seance</div><div class="bilan-val">'+esc(s.bilan)+'</div></div></div>';
-    h+='</div>';
-  }
-
-  // Footer dernière page
+  // FOOTER
   h+='<div class="doc-footer"><span>'+(CTX.cls?esc(CTX.cls.label):'')+(CTX.apsa?' - '+esc(CTX.apsa.name):'')+'</span><span>EPS &bull; '+new Date().toLocaleDateString('fr-FR')+'</span></div>';
   h+='</body></html>';
 
