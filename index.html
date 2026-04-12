@@ -1279,7 +1279,7 @@ function ghPush(){
   for(var i=0;i<exp.eleves.length;i++){if(exp.eleves[i].fiche)exp.eleves[i].fiche.photo=null;}
   // Inclure météo et notes rapides dans le state
   exp._meteo=meteoGet();
-  exp._notes=localStorage.getItem('eps-notes-rapides-'+(CTX.key||'default'))||'';
+  exp._notes=localStorage.getItem('eps-notes-rapides-'+STORAGE_KEY)||'';
   ghPushFile('data/'+STORAGE_KEY+'.json',exp,'EPS save state',null);
   ghPushFile('data/classes.json',CLASSES,'EPS save classes',function(){toast('Sauvegarde OK !','ok');});
 }
@@ -1313,9 +1313,9 @@ function ghPull(){
     if(state._meteo){meteoSave(state._meteo);delete state._meteo;}
     // Restaurer notes rapides
     if(state._notes!==undefined){
-      localStorage.setItem('eps-notes-rapides-'+(CTX.key||'default'),state._notes);
+      localStorage.setItem('eps-notes-rapides-'+STORAGE_KEY,state._notes);
       var nta=ge('notes-rapides-textarea');
-      if(nta)nta.value=state._notes;
+      if(nta){nta.value=state._notes;nta.dataset.loaded='1';}
       delete state._notes;
     }
     save();renderAll();toast('Synchronise !','ok');
@@ -1689,10 +1689,14 @@ if(nextEl){
 
 // NOTES RAPIDES (restaurer)
 var nta=ge('notes-rapides-textarea');
-if(nta&&!nta.dataset.loaded){
-  nta.value=localStorage.getItem('eps-notes-rapides-'+(CTX.key||'default'))||'';
-  nta.dataset.loaded='1';
-  nta.addEventListener('input',function(){localStorage.setItem('eps-notes-rapides-'+(CTX.key||'default'),this.value);});
+if(nta){
+  nta.value=localStorage.getItem('eps-notes-rapides-'+STORAGE_KEY)||'';
+  if(!nta.dataset.loaded){
+    nta.dataset.loaded='1';
+    nta.addEventListener('input',function(){
+      localStorage.setItem('eps-notes-rapides-'+STORAGE_KEY,this.value);
+    });
+  }
 }
 
 var trameEl=ge('acc-trame-display');var trame=seq.trame||[];var sorted=state.seances.slice().sort(function(a,b){return a.num-b.num;});var allNums={};for(var i=0;i<trame.length;i++)allNums[trame[i].num]=true;for(var i=0;i<sorted.length;i++)allNums[sorted[i].num]=true;var nums=Object.keys(allNums).map(Number).sort(function(a,b){return a-b;});if(!nums.length){trameEl.innerHTML='<div style="color:#6b7280;font-size:.8rem;font-style:italic">Aucune seance planifiee</div>';}else{var h='';for(var i=0;i<nums.length;i++){var nn=nums[i];var tr=null,ss=null;for(var j=0;j<trame.length;j++){if(trame[j].num===nn){tr=trame[j];break;}}for(var j=0;j<sorted.length;j++){if(sorted[j].num===nn){ss=sorted[j];break;}}var obj=ss?ss.objectif:(tr?tr.objectif:'');var date=ss?ss.date:(tr?tr.date:'');var done=!!ss;var aflpList=tr?tr.aflp||[]:[];
@@ -2451,7 +2455,7 @@ function renderCritereBlock(c,idx){var container=ge('criteres-container');var di
 function saveGrilleConfig(){var titre=ge('grille-titre-inp').value.trim();var criteres=[];var blocks=document.querySelectorAll('.critere-block');for(var i=0;i<blocks.length;i++){var div=blocks[i];var nom=div.querySelector('.crit-nom-inp').value.trim();var pts=parseFloat(div.querySelector('.crit-pts-inp').value)||10;var descs=div.querySelectorAll('.crit-lvl-desc');var ptsArr=div.querySelectorAll('.crit-lvl-pts');var noms2=['Insuffisant','Fragile','Satisfaisant','Tres bien'];var niveaux=[];for(var j=0;j<4;j++)niveaux.push({label:noms2[j],desc:descs[j]?descs[j].value:'',pts:ptsArr[j]?parseFloat(ptsArr[j].value)||0:0});if(nom)criteres.push({id:'c'+(i+1),nom:nom,pts:pts,niveaux:niveaux});}if(!criteres.length){alert('Ajoutez au moins un critere');return;}grilleSaveData({titre:titre||'Ma grille',criteres:criteres});closeM('m-grille-cfg');renderGrille();toast('Grille enregistree');}
 
 
-function meteoKey(){return 'eps-meteo-'+(CTX.key||'dflt');}
+function meteoKey(){return 'eps-meteo-'+STORAGE_KEY;}
 function meteoGet(){try{return JSON.parse(localStorage.getItem(meteoKey())||'{}');}catch(e){return{};}}
 function meteoSave(d){localStorage.setItem(meteoKey(),JSON.stringify(d));}
 var meteoState={engagement:0,ambiance:0,progression:0,comportement:0};
@@ -2843,7 +2847,7 @@ if(nextCard){
 // Effacer notes rapides
 s('btn-notes-clear','click',function(){
   var nta=ge('notes-rapides-textarea');
-  if(nta&&confirm('Effacer toutes les notes ?')){nta.value='';localStorage.removeItem('eps-notes-rapides-'+(CTX.key||'default'));}
+  if(nta&&confirm('Effacer toutes les notes ?')){nta.value='';localStorage.removeItem('eps-notes-rapides-'+STORAGE_KEY);}
 });
 s('btn-grille-cfg','click',openGrilleConfig);s('btn-grille-pdf','click',exportGrillePDF);s('btn-grille-csv','click',exportGrilleCSV);s('btn-grille-export-json','click',exportGrilleJSON);s('btn-grille-import-json','change',function(){importGrilleJSON(this.files[0]);this.value='';});s('btn-add-critere','click',function(){var idx=document.querySelectorAll('.critere-block').length;var newC={id:'c'+Date.now(),nom:'',pts:4,niveaux:[{label:'Insuffisant',desc:'',pts:0},{label:'Fragile',desc:'',pts:2},{label:'Satisfaisant',desc:'',pts:3},{label:'Tres bien',desc:'',pts:4}]};renderCritereBlock(newC,idx);});s('btn-save-grille-cfg','click',saveGrilleConfig);}
 accInit();
