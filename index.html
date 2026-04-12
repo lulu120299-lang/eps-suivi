@@ -2574,6 +2574,68 @@ function iaToggleNew(){
   var p=ge('ia-panel-new');
   if(p)p.classList.toggle('open');
 }
+function iaToggle(){
+  var p=ge('ia-panel');
+  if(p)p.classList.toggle('open');
+}
+async function iaGenerer(){
+  var btn=ge('btn-ia-gen');
+  var zone=ge('ia-result-zone');
+  if(!btn||!zone)return;
+  var apsa=CTX.apsa?CTX.apsa.name:'';
+  var filiere=CTX.cls?(FILIERES[CTX.cls.filiere]||{label:'EPS'}).label:'EPS';
+  var sid=ge('es-id')?ge('es-id').value:'';
+  var s=null;
+  for(var i=0;i<state.seances.length;i++){if(state.seances[i].id===sid){s=state.seances[i];break;}}
+  var titre=ge('es-o')?ge('es-o').value:'';
+  var contexte=ge('ia-contexte')?ge('ia-contexte').value:'';
+  var seq=seqGet();
+  var numSeance=s?s.num:1;
+  var totalSeances=(seq.trame||[]).length||state.seances.length;
+  var aflpSel=aflpEditSel||[];
+
+  zone.innerHTML='<div class="ia-loading">Generation en cours...</div>';
+  btn.disabled=true;
+
+  var prompt='Tu es un expert EPS enseignant en '+filiere+'.\n'+
+    'APSA : '+apsa+'\n'+
+    'Seance S'+numSeance+' sur '+totalSeances+'\n'+
+    'Objectif : '+(titre||'non precise')+'\n'+
+    (aflpSel.length?'AFLP travailles : '+aflpSel.join(', ')+'\n':'')+
+    (contexte?'Contexte : '+contexte+'\n':'')+
+    'Reponds UNIQUEMENT en JSON sans markdown ni backticks:\n'+
+    '{"situations":[{"titre":"...","objectif":"...","dispositif":"...","consignes":"...","criteres":"...","contenus":"...","fps":"...","variante":"...","niveau":"debutant|intermediaire|avance"}]}';
+
+  try{
+    var resp=await fetch('https://eps-ia-proxy.lulu120299.workers.dev',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({
+        max_tokens:1200,
+        messages:[{role:'user',content:prompt}]
+      })
+    });
+    if(!resp.ok){throw new Error('Erreur '+resp.status);}
+    var data=await resp.json();
+    var text=data.content[0].text;
+    var clean=text.replace(/```json|```/g,'').trim();
+    var parsed=JSON.parse(clean);
+    iaAfficherResultats(parsed.situations||[],'ia-result-zone','edit');
+  }catch(e){
+    zone.innerHTML='<div style="background:#1a0f0f;border:1px solid #ff6b6b40;border-radius:8px;padding:.9rem 1rem;font-size:.78rem;color:#ff6b6b;line-height:1.6">'+
+      'Impossible de contacter l\'IA directement depuis le navigateur (restriction CORS).<br>'+
+      '<br><span style="color:#9aa0b8">Pour utiliser cette fonctionnalite, tu peux :</span><br>'+
+      '1. Ouvrir Claude.ai<br>'+
+      '2. Coller ce prompt :<br>'+
+      '<textarea onclick="this.select()" style="width:100%;margin-top:.5rem;background:#0d1018;border:1px solid #252836;border-radius:5px;color:#d4d8eb;font-size:.7rem;padding:.5rem;min-height:60px;resize:none">'+esc(prompt.replace(/\n/g,'\\n'))+'</textarea>'+
+      '<br>3. Coller la reponse JSON ici :<br>'+
+      '<textarea id="ia-paste-json" placeholder=\'{"situations":[...]}\' style="width:100%;margin-top:.4rem;background:#0d1018;border:1px solid #252836;border-radius:5px;color:#d4d8eb;font-size:.7rem;padding:.5rem;min-height:50px;resize:vertical"></textarea>'+
+      '<button class="ia-sit-btn" style="margin-top:.4rem;width:100%;background:rgba(167,139,250,.15);border-color:rgba(167,139,250,.3);color:#a78bfa" onclick="iaChargerJSON(\'edit\')">Charger les situations</button>'+
+      '</div>';
+  }
+  btn.disabled=false;
+}
+
 async function iaGenererNew(){
   var btn=ge('btn-ia-gen-new');
   var zone=ge('ia-result-zone-new');
@@ -2592,61 +2654,76 @@ async function iaGenererNew(){
   var prompt='Tu es un expert EPS enseignant en '+filiere+'.\n'+
     'APSA : '+apsa+'\n'+
     'Seance S'+numSeance+' sur '+totalSeances+'\n'+
-    'Objectif de la seance : '+(titre||'non precise')+'\n'+
+    'Objectif : '+(titre||'non precise')+'\n'+
     (aflpNewSel&&aflpNewSel.length?'AFLP travailles : '+aflpNewSel.join(', ')+'\n':'')+
     (contexte?'Contexte : '+contexte+'\n':'')+
-    'Propose exactement 3 situations d apprentissage. Reponds UNIQUEMENT en JSON sans markdown :\n'+
-    '{"situations":[{"titre":"...","objectif":"...","dispositif":"...","consignes":"...","criteres":"...","contenus":"...","fps":"...","variante":"...","niveau":"debutant|intermediaire|avance"}]}\nContenus = savoirs enseignes, FPS = partie de la FPS (echauffement, situation principale, retour au calme...).';
+    'Reponds UNIQUEMENT en JSON sans markdown ni backticks:\n'+
+    '{"situations":[{"titre":"...","objectif":"...","dispositif":"...","consignes":"...","criteres":"...","contenus":"...","fps":"...","variante":"...","niveau":"debutant|intermediaire|avance"}]}';
 
   try{
     var resp=await fetch('https://api.anthropic.com/v1/messages',{
       method:'POST',
-      headers:{'Content-Type':'application/json'},
+      headers:{
+        'Content-Type':'application/json',
+        'x-api-key':'',
+        'anthropic-version':'2023-06-01',
+        'anthropic-dangerous-direct-browser-ipc':'true'
+      },
       body:JSON.stringify({
-        model:'claude-sonnet-4-20250514',
+        model:'claude-haiku-4-5-20251001',
         max_tokens:1200,
         messages:[{role:'user',content:prompt}]
       })
     });
+    if(!resp.ok){throw new Error('Erreur '+resp.status);}
     var data=await resp.json();
     var text=data.content[0].text;
     var clean=text.replace(/```json|```/g,'').trim();
     var parsed=JSON.parse(clean);
-    var sits=parsed.situations||[];
-    var nivBg={debutant:'rgba(86,207,178,.12)',intermediaire:'rgba(255,209,102,.12)',avance:'rgba(255,107,107,.12)'};
-    var nivCol={debutant:'#56cfb2',intermediaire:'#ffd166',avance:'#ff6b6b'};
-    var nivLbl={debutant:'Debutant',intermediaire:'Intermediaire',avance:'Avance'};
-    var h='<div class="ia-result">';
-    for(var i=0;i<sits.length;i++){
-      var sv=sits[i];
-      var niv=sv.niveau||'debutant';
-      h+='<div class="ia-sit">';
-      h+='<div style="display:flex;align-items:center;gap:7px;margin-bottom:.4rem">';
-      h+='<span class="ia-sit-title">'+esc(sv.titre)+'</span>';
-      h+='<span style="font-size:.62rem;padding:2px 7px;border-radius:10px;background:'+nivBg[niv]+';color:'+nivCol[niv]+';font-family:DM Mono,monospace;flex-shrink:0">'+nivLbl[niv]+'</span>';
-      h+='</div>';
-      h+='<div class="ia-sit-body">';
-      h+='<b>Objectif</b> '+esc(sv.objectif)+'<br>';
-      h+='<b>Dispositif</b> '+esc(sv.dispositif)+'<br>';
-      h+='<b>Consignes</b> '+esc(sv.consignes)+'<br>';
-      h+='<b>Criteres</b> '+esc(sv.criteres);
-      if(sv.variante)h+='<br><b>Variante</b> '+esc(sv.variante);
-      h+='</div>';
-      h+='<div class="ia-sit-actions">';
-      h+='<button class="ia-sit-btn" onclick="iaInsererPartieNew('+i+')">+ Copier en partie (toutes les cases)</button>';
-      h+='</div>';
-      h+='</div>';
-    }
-    h+='</div>';
-    zone.innerHTML=h;
-    zone._sits=sits;
+    iaAfficherResultats(parsed.situations||[],'ia-result-zone-new','new');
   }catch(e){
-    zone.innerHTML='<div style="color:#ff6b6b;font-size:.78rem;padding:.5rem">Erreur : '+e.message+'</div>';
+    zone.innerHTML='<div style="background:#1a0f0f;border:1px solid #ff6b6b40;border-radius:8px;padding:.9rem 1rem;font-size:.78rem;color:#ff6b6b;line-height:1.6">'+
+      'Impossible de contacter l\'IA directement.<br>'+
+      '<span style="color:#9aa0b8">Colle le prompt dans Claude.ai puis le JSON ici :</span><br>'+
+      '<textarea onclick="this.select()" style="width:100%;margin-top:.5rem;background:#0d1018;border:1px solid #252836;border-radius:5px;color:#d4d8eb;font-size:.7rem;padding:.5rem;min-height:60px;resize:none">'+esc(prompt.replace(/\n/g,'\\n'))+'</textarea>'+
+      '<textarea id="ia-paste-json-new" placeholder=\'{"situations":[...]}\' style="width:100%;margin-top:.4rem;background:#0d1018;border:1px solid #252836;border-radius:5px;color:#d4d8eb;font-size:.7rem;padding:.5rem;min-height:50px;resize:vertical"></textarea>'+
+      '<button class="ia-sit-btn" style="margin-top:.4rem;width:100%;background:rgba(167,139,250,.15);border-color:rgba(167,139,250,.3);color:#a78bfa" onclick="iaChargerJSON(\'new\')">Charger les situations</button>'+
+      '</div>';
   }
   btn.disabled=false;
 }
-function iaInsererPartieNew(idx){
-  var zone=ge('ia-result-zone-new');
+
+function iaAfficherResultats(sits,zoneId,mode){
+  var zone=ge(zoneId);
+  if(!zone)return;
+  var nivBg={debutant:'rgba(86,207,178,.12)',intermediaire:'rgba(255,209,102,.12)',avance:'rgba(255,107,107,.12)'};
+  var nivCol={debutant:'#56cfb2',intermediaire:'#ffd166',avance:'#ff6b6b'};
+  var nivLbl={debutant:'Debutant',intermediaire:'Intermediaire',avance:'Avance'};
+  var h='<div class="ia-result">';
+  for(var i=0;i<sits.length;i++){
+    var sv=sits[i];
+    var niv=sv.niveau||'debutant';
+    h+='<div class="ia-sit">';
+    h+='<div style="display:flex;align-items:center;gap:7px;margin-bottom:.4rem">';
+    h+='<span class="ia-sit-title">'+esc(sv.titre)+'</span>';
+    h+='<span style="font-size:.62rem;padding:2px 7px;border-radius:10px;background:'+nivBg[niv]+';color:'+nivCol[niv]+';font-family:DM Mono,monospace;flex-shrink:0">'+nivLbl[niv]+'</span>';
+    h+='</div><div class="ia-sit-body">';
+    h+='<b>Objectif</b> '+esc(sv.objectif)+'<br>';
+    h+='<b>Dispositif</b> '+esc(sv.dispositif)+'<br>';
+    h+='<b>Consignes</b> '+esc(sv.consignes)+'<br>';
+    h+='<b>Criteres</b> '+esc(sv.criteres);
+    if(sv.variante)h+='<br><b>Variante</b> '+esc(sv.variante);
+    h+='</div><div class="ia-sit-actions">';
+    h+='<button class="ia-sit-btn" onclick="iaCopierPartie('+i+',\''+zoneId+'\',\''+mode+'\')">+ Copier en partie (toutes les cases)</button>';
+    h+='</div></div>';
+  }
+  h+='</div>';
+  zone.innerHTML=h;
+  zone._sits=sits;
+}
+
+function iaCopierPartie(idx,zoneId,mode){
+  var zone=ge(zoneId);
   if(!zone||!zone._sits)return;
   var sv=zone._sits[idx];
   var consignesComplet=(sv.dispositif?'Dispositif : '+sv.dispositif+'\n':'')+(sv.consignes||'');
@@ -2659,18 +2736,25 @@ function iaInsererPartieNew(idx){
     contenus:sv.contenus||'',
     bilan:''
   };
-  partiesNew.push(p);
-  renderPartieBlock('parties-new',p,partiesNew.length-1,'new');
-  // Faire defiler vers la partie ajoutee
-  var zone2=ge('parties-new');
-  if(zone2)zone2.lastElementChild&&zone2.lastElementChild.scrollIntoView({behavior:'smooth',block:'center'});
+  if(mode==='new'){partiesNew.push(p);renderPartieBlock('parties-new',p,partiesNew.length-1,'new');}
+  else{partiesEdit.push(p);renderPartieBlock('parties-edit',p,partiesEdit.length-1,'edit');}
+  var z=ge(mode==='new'?'parties-new':'parties-edit');
+  if(z&&z.lastElementChild)z.lastElementChild.scrollIntoView({behavior:'smooth',block:'center'});
   toast('Situation ajoutee comme partie !');
 }
 
-function iaToggle(){
-  var p=ge('ia-panel');
-  if(p)p.classList.toggle('open');
+function iaChargerJSON(mode){
+  var taId=mode==='new'?'ia-paste-json-new':'ia-paste-json';
+  var ta=ge(taId);
+  if(!ta||!ta.value.trim()){toast('Colle le JSON d\'abord','warn');return;}
+  try{
+    var parsed=JSON.parse(ta.value.trim());
+    var sits=parsed.situations||[];
+    var zoneId=mode==='new'?'ia-result-zone-new':'ia-result-zone';
+    iaAfficherResultats(sits,zoneId,mode);
+  }catch(e){toast('JSON invalide','warn');}
 }
+
 async function iaGenerer(){
   var zone=ge('ia-result-zone');
   if(!zone)return;
@@ -2710,125 +2794,6 @@ async function iaGenerer(){
     '</div>';
 }
 
-async function iaGenererNew(){
-  var zone=ge('ia-result-zone-new');
-  if(!zone)return;
-  var apsa=CTX.apsa?CTX.apsa.name:'';
-  var filiere=CTX.cls?(FILIERES[CTX.cls.filiere]||{label:'EPS'}).label:'EPS';
-  var titre=ge('fo')?ge('fo').value:'';
-  var numSeance=ge('fn')?ge('fn').value:'';
-  var contexte=ge('ia-contexte-new')?ge('ia-contexte-new').value:'';
-  var seq=seqGet();
-  var totalSeances=(seq.trame||[]).length||state.seances.length;
-
-  var prompt='Tu es un expert EPS enseignant en '+filiere+'.\n'+
-    'APSA : '+apsa+'\n'+
-    'Seance S'+numSeance+' sur '+totalSeances+'\n'+
-    'Objectif : '+(titre||'non precise')+'\n'+
-    (aflpNewSel&&aflpNewSel.length?'AFLP travailles : '+aflpNewSel.join(', ')+'\n':'')+
-    (contexte?'Contexte : '+contexte+'\n':'')+
-    '\nPropose 3 situations d\'apprentissage. Pour chacune donne :\n'+
-    '- Titre (court)\n- Objectif\n- Dispositif\n- Consignes\n- Criteres de reussite\n- Contenus d\'enseignement\n- Partie FPS (echauffement, situation principale...)\n- Variante / differenciation\n- Niveau (debutant / intermediaire / avance)';
-
-  zone.innerHTML='<div style="background:#13161f;border:1px solid #1e2438;border-radius:8px;padding:.9rem 1rem">'+
-    '<div style="font-family:DM Mono,monospace;font-size:.62rem;text-transform:uppercase;letter-spacing:.1em;color:#a78bfa;margin-bottom:.6rem">Prompt pret a copier</div>'+
-    '<div style="font-size:.75rem;color:#9aa0b8;line-height:1.6;white-space:pre-wrap;margin-bottom:.75rem">'+esc(prompt)+'</div>'+
-    '<div style="display:flex;gap:6px">'+
-    '<button class="ia-sit-btn" style="background:rgba(167,139,250,.15);border-color:rgba(167,139,250,.3);color:#a78bfa" onclick="iaCopierPrompt(this,\''+encodeURIComponent(prompt)+'\')">Copier le prompt</button>'+
-    '</div>'+
-    '<div style="margin-top:.75rem;font-size:.72rem;color:#4a5070;line-height:1.5">Colle ce prompt dans Claude.ai pour obtenir les 3 situations, puis utilise le bouton "+ Coller les situations" ci-dessous.</div>'+
-    '<div style="margin-top:.6rem">'+
-    '<div style="font-family:DM Mono,monospace;font-size:.62rem;text-transform:uppercase;letter-spacing:.1em;color:#ffd166;margin-bottom:.4rem">Coller la reponse de Claude</div>'+
-    '<textarea id="ia-paste-zone-new" placeholder="Colle ici la reponse de Claude..." style="width:100%;background:#0d1018;border:1px solid #1e2438;border-radius:6px;color:#d4d8eb;font-size:.75rem;padding:.6rem .75rem;resize:vertical;outline:none;min-height:80px;line-height:1.5"></textarea>'+
-    '<button class="ia-sit-btn" style="margin-top:.4rem;width:100%" onclick="iaParserReponse(\'new\')">+ Ajouter les situations comme parties</button>'+
-    '</div>'+
-    '</div>';
-}
-
-function iaCopierPrompt(btn, encoded){
-  var txt=decodeURIComponent(encoded);
-  navigator.clipboard.writeText(txt).then(function(){
-    btn.textContent='Copie !';
-    setTimeout(function(){btn.textContent='Copier le prompt';},2000);
-  }).catch(function(){
-    toast('Copie manuelle : selectionnez le texte ci-dessus','warn');
-  });
-}
-
-function iaParserReponse(mode){
-  var zoneId=mode==='new'?'ia-paste-zone-new':'ia-paste-zone';
-  var ta=ge(zoneId);
-  if(!ta||!ta.value.trim()){toast('Colle la reponse de Claude d\'abord','warn');return;}
-  var txt=ta.value.trim();
-
-  // Parser le texte libre : détecter les blocs de situations
-  // On cherche les champs par mots-clés
-  var sits=[];
-  // Séparer par des marqueurs de numérotation (1., Situation 1, ##, etc.)
-  var blocks=txt.split(/(?=(?:^|\n)(?:#{1,3}\s*)?(?:situation\s*)?[123][\.\):])/i).filter(function(b){return b.trim().length>20;});
-  if(blocks.length<1)blocks=[txt];
-
-  for(var bi=0;bi<Math.min(blocks.length,3);bi++){
-    var b=blocks[bi];
-    var sv={titre:'',objectif:'',dispositif:'',consignes:'',criteres:'',contenus:'',fps:'',variante:''};
-
-    function extract(keys){
-      for(var ki=0;ki<keys.length;ki++){
-        var re=new RegExp('(?:'+keys[ki]+')\\s*[:\\-]\\s*([^\\n]+(?:\\n(?![A-Za-z].{0,30}:)[^\\n]+)*)', 'i');
-        var m=b.match(re);
-        if(m)return m[1].trim();
-      }
-      return '';
-    }
-
-    sv.titre=extract(['titre','nom','situation']);
-    if(!sv.titre){var firstLine=b.trim().split('\n')[0];sv.titre=firstLine.replace(/^[#\-\*\d\.\)]+\s*/,'').substring(0,60);}
-    sv.objectif=extract(['objectif']);
-    sv.dispositif=extract(['dispositif','organisation','mise en place']);
-    sv.consignes=extract(['consignes?','consigne']);
-    sv.criteres=extract(['crit.res?','crit.re de r.ussite','r.ussite']);
-    sv.contenus=extract(['contenus?','savoir','enseignement']);
-    sv.fps=extract(['fps','partie','phase']);
-    sv.variante=extract(['variante','diff.renciation','adaptation']);
-
-    if(sv.titre||sv.objectif||sv.consignes)sits.push(sv);
-  }
-
-  if(!sits.length){toast('Impossible de parser la reponse - verifie le format','warn');return;}
-
-  var added=0;
-  for(var i=0;i<sits.length;i++){
-    var sv=sits[i];
-    var consignesComplet=(sv.dispositif?'Dispositif : '+sv.dispositif+'\n':'')+(sv.consignes||'');
-    var p={
-      id:'p'+Date.now()+Math.random().toString(36).slice(2,5),
-      titre:sv.titre||'Situation '+(i+1),
-      objectif:sv.objectif||'',
-      consignes:consignesComplet,
-      criteres:sv.criteres||'',
-      contenus:sv.contenus||'',
-      bilan:''
-    };
-    if(mode==='new'){
-      partiesNew.push(p);
-      renderPartieBlock('parties-new',p,partiesNew.length-1,'new');
-    }else{
-      partiesEdit.push(p);
-      renderPartieBlock('parties-edit',p,partiesEdit.length-1,'edit');
-    }
-    added++;
-  }
-
-  var zone2=ge(mode==='new'?'parties-new':'parties-edit');
-  if(zone2&&zone2.lastElementChild)zone2.lastElementChild.scrollIntoView({behavior:'smooth',block:'center'});
-  toast(added+' situation(s) ajoutee(s) comme parties !');
-  ta.value='';
-}
-
-function iaToggle(){
-  var p=ge('ia-panel');
-  if(p)p.classList.toggle('open');
-}
 async function iaGenerer(){
   var btn=ge('btn-ia-gen');
   var zone=ge('ia-result-zone');
