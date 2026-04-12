@@ -616,6 +616,27 @@ textarea{resize:vertical;min-height:70px}
     </div>
   </div>
 </div>
+  <div class="mb" id="m-add-cls"><div class="modal">
+    <div class="modal-title">Ajouter une classe</div>
+    <div class="fg">
+      <div class="fgrp full"><label>Nom de la classe</label><input type="text" id="cls-nom" placeholder="Ex: 2NDE ENER B, 3eme A, Terminale Pro..."></div>
+      <div class="fgrp full"><label>Description courte (optionnel)</label><input type="text" id="cls-sub" placeholder="Ex: Energie Gr. B, Section sport..."></div>
+    </div>
+    <div class="sec-title" style="margin-top:1rem">Filiere</div>
+    <div class="filiere-grid" id="cls-filiere-grid">
+      <div class="filiere-btn" data-f="bacpro" style="--fc:#4f8aff">Lycee Pro<br><span style="font-size:.65rem;opacity:.7">Bac Pro</span></div>
+      <div class="filiere-btn" data-f="cap" style="--fc:#56cfb2">Lycee Pro<br><span style="font-size:.65rem;opacity:.7">CAP</span></div>
+      <div class="filiere-btn" data-f="col3" style="--fc:#fb923c">College<br><span style="font-size:.65rem;opacity:.7">Cycle 3 (6eme)</span></div>
+      <div class="filiere-btn" data-f="col4" style="--fc:#f472b6">College<br><span style="font-size:.65rem;opacity:.7">Cycle 4 (5e-4e-3e)</span></div>
+      <div class="filiere-btn" data-f="lgt" style="--fc:#a78bfa" style="grid-column:1/-1">Lycee General<br><span style="font-size:.65rem;opacity:.7">et Technologique (LGT)</span></div>
+    </div>
+    <div class="sec-title" style="margin-top:1rem">Couleur</div>
+    <div class="color-grid" id="cls-color-grid"></div>
+    <div class="modal-acts">
+      <button class="btn btn-g" onclick="closeM('m-add-cls')">Annuler</button>
+      <button class="btn btn-p" id="btn-save-cls">Ajouter la classe</button>
+    </div>
+  </div></div>
 <div id="pg-suivi">
   <div class="s-header">
     <div style="display:flex;align-items:center;gap:10px;flex-shrink:0">
@@ -838,27 +859,6 @@ textarea{resize:vertical;min-height:70px}
     <div class="modal-acts">
       <button class="btn btn-g" data-close="m-profil-plan">Annuler</button>
       <button class="btn btn-p" id="btn-save-profil-plan">Enregistrer</button>
-    </div>
-  </div></div>
-  <div class="mb" id="m-add-cls"><div class="modal">
-    <div class="modal-title">Ajouter une classe</div>
-    <div class="fg">
-      <div class="fgrp full"><label>Nom de la classe</label><input type="text" id="cls-nom" placeholder="Ex: 2NDE ENER B, 3eme A, Terminale Pro..."></div>
-      <div class="fgrp full"><label>Description courte (optionnel)</label><input type="text" id="cls-sub" placeholder="Ex: Energie Gr. B, Section sport..."></div>
-    </div>
-    <div class="sec-title" style="margin-top:1rem">Filiere</div>
-    <div class="filiere-grid" id="cls-filiere-grid">
-      <div class="filiere-btn" data-f="bacpro" style="--fc:#4f8aff">Lycee Pro<br><span style="font-size:.65rem;opacity:.7">Bac Pro</span></div>
-      <div class="filiere-btn" data-f="cap" style="--fc:#56cfb2">Lycee Pro<br><span style="font-size:.65rem;opacity:.7">CAP</span></div>
-      <div class="filiere-btn" data-f="col3" style="--fc:#fb923c">College<br><span style="font-size:.65rem;opacity:.7">Cycle 3 (6eme)</span></div>
-      <div class="filiere-btn" data-f="col4" style="--fc:#f472b6">College<br><span style="font-size:.65rem;opacity:.7">Cycle 4 (5e-4e-3e)</span></div>
-      <div class="filiere-btn" data-f="lgt" style="--fc:#a78bfa" style="grid-column:1/-1">Lycee General<br><span style="font-size:.65rem;opacity:.7">et Technologique (LGT)</span></div>
-    </div>
-    <div class="sec-title" style="margin-top:1rem">Couleur</div>
-    <div class="color-grid" id="cls-color-grid"></div>
-    <div class="modal-acts">
-      <button class="btn btn-g" data-close="m-add-cls">Annuler</button>
-      <button class="btn btn-p" id="btn-save-cls">Ajouter la classe</button>
     </div>
   </div></div>
   <div class="mb" id="m-seance"><div class="modal modal-xl">
@@ -1438,7 +1438,18 @@ function saveNewCls(){
   toast('Classe "'+nom+'" ajoutee !');
 }
 
-function accInit(){var now=new Date();var J=['Dimanche','Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi'];var M=['janv.','fevr.','mars','avr.','mai','juin','juil.','aout','sept.','oct.','nov.','dec.'];ge('acc-date').innerHTML=J[now.getDay()]+' '+now.getDate()+' '+M[now.getMonth()]+' '+now.getFullYear()+'<br>Annee scolaire 2025-2026';accRenderClsGrid();var ac=ge('acc-apsa-container');ac.innerHTML='';for(var gi=0;gi<CA_GROUPS.length;gi++){(function(g){var grp=document.createElement('div');grp.className='ca-group';var h='<div class="ca-group-header"><span class="ca-label" style="background:'+g.color+'22;color:'+g.color+'">'+g.ca+'</span><span class="ca-desc">'+g.desc+'</span></div><div class="ca-apsa-row">';for(var ai=0;ai<g.apsa.length;ai++){var a=g.apsa[ai];h+='<div class="acc-apsa" id="ap-'+a.id+'"><div class="acc-apsa-emoji">'+a.emoji+'</div><div class="acc-apsa-name">'+a.name+'</div></div>';}h+='</div>';grp.innerHTML=h;for(var ai2=0;ai2<g.apsa.length;ai2++){(function(a){var el=grp.querySelector('#ap-'+a.id);if(el)el.addEventListener('click',function(){accPickApsa(a.id);});})(g.apsa[ai2]);}ac.appendChild(grp);})(CA_GROUPS[gi]);}for(var n=1;n<=3;n++){(function(tn){var el=ge('tr-'+tn);if(el)el.addEventListener('click',function(){accPickTrim(tn);});})(n);}ge('acc-custom-input').addEventListener('input',function(){accCustom(this.value);});ge('acc-btn').addEventListener('click',function(){accLaunch();});ghLoadConfig();accRenderRecent();}
+function accInit(){var now=new Date();var J=['Dimanche','Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi'];var M=['janv.','fevr.','mars','avr.','mai','juin','juil.','aout','sept.','oct.','nov.','dec.'];ge('acc-date').innerHTML=J[now.getDay()]+' '+now.getDate()+' '+M[now.getMonth()]+' '+now.getFullYear()+'<br>Annee scolaire 2025-2026';accRenderClsGrid();var ac=ge('acc-apsa-container');ac.innerHTML='';for(var gi=0;gi<CA_GROUPS.length;gi++){(function(g){var grp=document.createElement('div');grp.className='ca-group';var h='<div class="ca-group-header"><span class="ca-label" style="background:'+g.color+'22;color:'+g.color+'">'+g.ca+'</span><span class="ca-desc">'+g.desc+'</span></div><div class="ca-apsa-row">';for(var ai=0;ai<g.apsa.length;ai++){var a=g.apsa[ai];h+='<div class="acc-apsa" id="ap-'+a.id+'"><div class="acc-apsa-emoji">'+a.emoji+'</div><div class="acc-apsa-name">'+a.name+'</div></div>';}h+='</div>';grp.innerHTML=h;for(var ai2=0;ai2<g.apsa.length;ai2++){(function(a){var el=grp.querySelector('#ap-'+a.id);if(el)el.addEventListener('click',function(){accPickApsa(a.id);});})(g.apsa[ai2]);}ac.appendChild(grp);})(CA_GROUPS[gi]);}for(var n=1;n<=3;n++){(function(tn){var el=ge('tr-'+tn);if(el)el.addEventListener('click',function(){accPickTrim(tn);});})(n);}ge('acc-custom-input').addEventListener('input',function(){accCustom(this.value);});ge('acc-btn').addEventListener('click',function(){accLaunch();});ghLoadConfig();accRenderRecent();
+  // Events modale ajout classe
+  var fbtns2=document.querySelectorAll('.filiere-btn');
+  for(var _fi2=0;_fi2<fbtns2.length;_fi2++){(function(btn){btn.addEventListener('click',function(){
+    CLS_SEL_FILIERE=this.dataset.f;
+    var all=document.querySelectorAll('.filiere-btn');
+    for(var i=0;i<all.length;i++)all[i].classList.remove('sel');
+    this.classList.add('sel');
+  });})(fbtns2[_fi2]);}
+  var saveClsBtn=ge('btn-save-cls');
+  if(saveClsBtn)saveClsBtn.addEventListener('click',saveNewCls);
+}
 function accPickCls(id){selCls=null;for(var i=0;i<CLASSES.length;i++){if(CLASSES[i].id===id){selCls=CLASSES[i];break;}}var els=document.querySelectorAll('.acc-cls');for(var i=0;i<els.length;i++)els[i].classList.remove('sel');ge('cl-'+id).classList.add('sel');accUpd();}
 function accPickApsa(id){selApsa=null;for(var i=0;i<APSA_FLAT.length;i++){if(APSA_FLAT[i].id===id){selApsa=APSA_FLAT[i];break;}}ge('acc-custom-input').value='';var els=document.querySelectorAll('.acc-apsa');for(var i=0;i<els.length;i++)els[i].classList.remove('sel');ge('ap-'+id).classList.add('sel');accUpd();showAccAflp(selApsa);}
 function accPickTrim(n){selTrim=n;var els=document.querySelectorAll('.acc-trim');for(var i=0;i<els.length;i++)els[i].classList.remove('sel');ge('tr-'+n).classList.add('sel');accUpd();}
