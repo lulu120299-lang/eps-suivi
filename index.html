@@ -554,6 +554,7 @@ textarea{resize:vertical;min-height:70px}
         <input class="gh-input" type="password" id="gh-token" placeholder="Token GitHub (ghp_...)" style="width:160px;font-size:.65rem;padding:5px 8px">
         <input class="gh-input" type="text" id="gh-repo" placeholder="user/repo" style="width:110px;font-size:.65rem;padding:5px 8px">
         <button class="gh-btn" id="btn-gh-save" style="padding:5px 10px;font-size:.7rem">OK</button>
+        <button class="gh-btn" id="btn-gh-pull-cls" style="padding:5px 10px;font-size:.7rem;background:#1a4a6b" title="Recuperer les classes depuis GitHub">&#8595; Classes</button>
         <div id="gh-status" style="font-size:.65rem;color:#56cfb2"></div>
       </div>
     </div>
@@ -1240,6 +1241,27 @@ function fmtDate(d){if(!d)return'';var p=d.split('-');var M=['jan.','fev.','mars
 function toast(msg,type){type=type||'ok';var t=ge('_toast');if(!t){t=document.createElement('div');t.id='_toast';t.style.cssText='position:fixed;bottom:24px;right:24px;z-index:9999;padding:10px 18px;border-radius:9px;font-size:.85rem;font-weight:500;pointer-events:none;transition:opacity .3s;opacity:0';document.body.appendChild(t);}var c={ok:'#56cfb2',err:'#ff6b6b',warn:'#ffd166',info:'#4f8aff'};var col=c[type]||c.ok;t.style.background=col+'20';t.style.border='1px solid '+col;t.style.color=col;t.textContent=msg;t.style.opacity='1';clearTimeout(t._t);t._t=setTimeout(function(){t.style.opacity='0';},3400);}
 function ghLoadConfig(){try{var s=localStorage.getItem('eps-gh');if(s)GH=JSON.parse(s);}catch(e){}if(GH.token)ge('gh-token').value=GH.token;if(GH.repo)ge('gh-repo').value=GH.repo;ge('gh-status').innerHTML=GH.token&&GH.repo?'<span style="color:#56cfb2">Connecte : '+GH.repo+'</span>':'<span style="color:#ffd166">Configurez votre token et repo</span>';}
 function ghSaveConfig(){GH.token=ge('gh-token').value.trim();GH.repo=ge('gh-repo').value.trim();localStorage.setItem('eps-gh',JSON.stringify(GH));ghLoadConfig();toast('GitHub enregistre');}
+function ghPushClasses(){
+  if(!GH.token||!GH.repo)return;
+  ghPushFile('data/classes.json',CLASSES,'EPS save classes',function(){
+    ge('gh-status').innerHTML='<span style="color:#56cfb2">Classes sync OK</span>';
+    setTimeout(function(){ghLoadConfig();},2000);
+  });
+}
+function ghPullClasses(onDone){
+  if(!GH.token||!GH.repo){if(onDone)onDone();return;}
+  fetch('https://api.github.com/repos/'+GH.repo+'/contents/data/classes.json',{headers:{'Authorization':'token '+GH.token,'Accept':'application/vnd.github.v3+json'}})
+  .then(function(r){return r.ok?r.json():null;})
+  .then(function(d){
+    if(d&&d.content){
+      try{
+        var cls=JSON.parse(decodeURIComponent(escape(atob(d.content))));
+        if(cls&&cls.length){CLASSES=cls;classesSave();accRenderClsGrid();toast('Classes synchronisees !','ok');}
+      }catch(e){}
+    }
+    if(onDone)onDone();
+  }).catch(function(){if(onDone)onDone();});
+}
 function ghPushFile(fn,data,msg,onOk){
   var encoded=btoa(unescape(encodeURIComponent(JSON.stringify(data,null,2))));
   fetch('https://api.github.com/repos/'+GH.repo+'/contents/'+fn,{headers:{'Authorization':'token '+GH.token,'Accept':'application/vnd.github.v3+json'}})
@@ -1398,12 +1420,13 @@ function accRenderClsGrid(){
         if(confirm('Supprimer la classe "'+c.label+'" ?')){
           CLASSES.splice(idx,1);
           classesSave();
+          ghPushClasses();
           selCls=null;
           accRenderClsGrid();
           accUpd();
         }
       });
-      d.addEventListener('click',function(){accPickCls(c.id);});
+      d.addEventListener('click',function(e){e.preventDefault();e.stopPropagation();accPickCls(c.id);});
       cgrid.appendChild(d);
     })(CLASSES[i],i);
   }
@@ -1412,6 +1435,11 @@ function accRenderClsGrid(){
   addBtn.innerHTML='<div class="acc-cls-add-icon">+</div><div class="acc-cls-add-lbl">Ajouter</div>';
   addBtn.addEventListener('click',function(){openAddCls();});
   cgrid.appendChild(addBtn);
+  // Restaurer la selection si une classe etait deja choisie
+  if(selCls){
+    var el=ge('cl-'+selCls.id);
+    if(el)el.classList.add('sel');
+  }
 }
 
 function openAddCls(){
@@ -1470,13 +1498,14 @@ function saveNewCls(){
   };
   CLASSES.push(newCls);
   classesSave();
+  ghPushClasses();
   closeM('m-add-cls');
   accRenderClsGrid();
   accPickCls(id);
   toast('Classe "'+nom+'" ajoutee !');
 }
 
-function accInit(){var now=new Date();var J=['Dimanche','Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi'];var M=['janv.','fevr.','mars','avr.','mai','juin','juil.','aout','sept.','oct.','nov.','dec.'];ge('acc-date').innerHTML=J[now.getDay()]+' '+now.getDate()+' '+M[now.getMonth()]+' '+now.getFullYear()+'<br>Annee scolaire 2025-2026';accRenderClsGrid();var ac=ge('acc-apsa-container');ac.innerHTML='';for(var gi=0;gi<CA_GROUPS.length;gi++){(function(g){var grp=document.createElement('div');grp.className='ca-group';var h='<div class="ca-group-header"><span class="ca-label" style="background:'+g.color+'22;color:'+g.color+'">'+g.ca+'</span><span class="ca-desc">'+g.desc+'</span></div><div class="ca-apsa-row">';for(var ai=0;ai<g.apsa.length;ai++){var a=g.apsa[ai];h+='<div class="acc-apsa" id="ap-'+a.id+'"><div class="acc-apsa-emoji">'+a.emoji+'</div><div class="acc-apsa-name">'+a.name+'</div></div>';}h+='</div>';grp.innerHTML=h;for(var ai2=0;ai2<g.apsa.length;ai2++){(function(a){var el=grp.querySelector('#ap-'+a.id);if(el)el.addEventListener('click',function(){accPickApsa(a.id);});})(g.apsa[ai2]);}ac.appendChild(grp);})(CA_GROUPS[gi]);}for(var n=1;n<=3;n++){(function(tn){var el=ge('tr-'+tn);if(el)el.addEventListener('click',function(){accPickTrim(tn);});})(n);}ge('acc-custom-input').addEventListener('input',function(){accCustom(this.value);});ge('acc-btn').addEventListener('click',function(){accLaunch();});ghLoadConfig();accRenderRecent();
+function accInit(){var now=new Date();var J=['Dimanche','Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi'];var M=['janv.','fevr.','mars','avr.','mai','juin','juil.','aout','sept.','oct.','nov.','dec.'];ge('acc-date').innerHTML=J[now.getDay()]+' '+now.getDate()+' '+M[now.getMonth()]+' '+now.getFullYear()+'<br>Annee scolaire 2025-2026';accRenderClsGrid();var ac=ge('acc-apsa-container');ac.innerHTML='';for(var gi=0;gi<CA_GROUPS.length;gi++){(function(g){var grp=document.createElement('div');grp.className='ca-group';var h='<div class="ca-group-header"><span class="ca-label" style="background:'+g.color+'22;color:'+g.color+'">'+g.ca+'</span><span class="ca-desc">'+g.desc+'</span></div><div class="ca-apsa-row">';for(var ai=0;ai<g.apsa.length;ai++){var a=g.apsa[ai];h+='<div class="acc-apsa" id="ap-'+a.id+'"><div class="acc-apsa-emoji">'+a.emoji+'</div><div class="acc-apsa-name">'+a.name+'</div></div>';}h+='</div>';grp.innerHTML=h;for(var ai2=0;ai2<g.apsa.length;ai2++){(function(a){var el=grp.querySelector('#ap-'+a.id);if(el){el.addEventListener('touchend',function(e){e.preventDefault();accPickApsa(a.id);});el.addEventListener('click',function(e){e.preventDefault();e.stopPropagation();accPickApsa(a.id);});}})(g.apsa[ai2]);}ac.appendChild(grp);})(CA_GROUPS[gi]);}for(var n=1;n<=3;n++){(function(tn){var el=ge('tr-'+tn);if(el)el.addEventListener('click',function(e){e.preventDefault();e.stopPropagation();accPickTrim(tn);});})(n);}ge('acc-custom-input').addEventListener('input',function(){accCustom(this.value);});ge('acc-btn').addEventListener('click',function(){accLaunch();});ghLoadConfig();accRenderRecent();
   // Events modale ajout classe
   var fbtns2=document.querySelectorAll('.filiere-btn');
   for(var _fi2=0;_fi2<fbtns2.length;_fi2++){(function(btn){btn.addEventListener('click',function(){
@@ -1487,6 +1516,8 @@ function accInit(){var now=new Date();var J=['Dimanche','Lundi','Mardi','Mercred
   });})(fbtns2[_fi2]);}
   var saveClsBtn=ge('btn-save-cls');
   if(saveClsBtn)saveClsBtn.addEventListener('click',saveNewCls);
+  var pullClsBtn=ge('btn-gh-pull-cls');
+  if(pullClsBtn)pullClsBtn.addEventListener('click',function(){ghPullClasses(null);});
 }
 function accPickCls(id){selCls=null;for(var i=0;i<CLASSES.length;i++){if(CLASSES[i].id===id){selCls=CLASSES[i];break;}}var els=document.querySelectorAll('.acc-cls');for(var i=0;i<els.length;i++)els[i].classList.remove('sel');ge('cl-'+id).classList.add('sel');accUpd();}
 function accPickApsa(id){selApsa=null;for(var i=0;i<APSA_FLAT.length;i++){if(APSA_FLAT[i].id===id){selApsa=APSA_FLAT[i];break;}}ge('acc-custom-input').value='';var els=document.querySelectorAll('.acc-apsa');for(var i=0;i<els.length;i++)els[i].classList.remove('sel');ge('ap-'+id).classList.add('sel');accUpd();showAccAflp(selApsa);}
