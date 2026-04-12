@@ -143,7 +143,7 @@ body{font-family:"DM Sans",sans-serif}
 .g4{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem}
 .stat{background:#1c1f2c;border:1px solid #252836;border-radius:12px;padding:1.1rem 1.3rem;position:relative;overflow:hidden}
 .stat::before{content:"";position:absolute;top:0;left:0;right:0;height:3px}
-.stat.bl::before{background:#4f8aff}.stat.gr::before{background:#56cfb2}.stat.rd::before{background:#ff6b6b}.stat.yw::before{background:#ffd166}
+.stat.bl::before{background:#4f8aff}.stat.gr::before{background:#56cfb2}.stat.rd::before{background:#ff6b6b}.stat.yw::before{background:#ffd166}.stat.pu::before{background:#a78bfa}
 .stat-lbl{font-size:.72rem;color:#6b7280;text-transform:uppercase;letter-spacing:.05em;margin-bottom:5px}
 .stat-val{font-family:"DM Serif Display",serif;font-size:2rem;line-height:1}
 .stat-sub{font-size:.74rem;color:#6b7280;margin-top:3px}
@@ -692,7 +692,7 @@ textarea{resize:vertical;min-height:70px}
         <div class="stat bl"><div class="stat-lbl">Seances</div><div class="stat-val" id="acc-ss-s">0</div><div class="stat-sub">programmees</div></div>
         <div class="stat gr"><div class="stat-lbl">Eleves</div><div class="stat-val" id="acc-ss-e">0</div><div class="stat-sub">dans la classe</div></div>
         <div class="stat yw"><div class="stat-lbl">Presence moy.</div><div class="stat-val" id="acc-ss-p">-</div><div class="stat-sub">sur les seances</div></div>
-        <div class="stat bl" id="stat-comp-box"><div class="stat-lbl">Competences</div><div class="stat-val" id="acc-ss-n" style="font-size:1.2rem">-</div><div class="stat-sub" id="acc-ss-n-sub">AFLP atteints</div></div>
+        <div class="stat pu" id="stat-comp-box"><div class="stat-lbl">Seances</div><div class="stat-val" id="acc-ss-n">-</div><div class="stat-sub" id="acc-ss-n-sub">restantes</div></div>
       </div>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.25rem;margin-bottom:1.25rem">
         <div class="card" style="margin-bottom:0">
@@ -742,7 +742,7 @@ textarea{resize:vertical;min-height:70px}
         <div class="stat bl"><div class="stat-lbl">Seances</div><div class="stat-val" id="ss-s">0</div><div class="stat-sub">programmees</div></div>
         <div class="stat gr"><div class="stat-lbl">Eleves</div><div class="stat-val" id="ss-e">0</div><div class="stat-sub">dans la classe</div></div>
         <div class="stat yw"><div class="stat-lbl">Presence moy.</div><div class="stat-val" id="ss-p">-</div><div class="stat-sub">sur les seances</div></div>
-        <div class="stat rd"><div class="stat-lbl">Note moy.</div><div class="stat-val" id="ss-n">-</div><div class="stat-sub">/20</div></div>
+        <div class="stat pu"><div class="stat-lbl">Seances</div><div class="stat-val" id="ss-n">-</div><div class="stat-sub" id="ss-n-sub">restantes</div></div>
       </div>
       <div style="margin-bottom:.75rem;display:flex;align-items:center;gap:.75rem">
         <div class="slbl" style="margin:0">Seances</div>
@@ -1719,41 +1719,28 @@ function showView(id){
 }
 function renderAll(){renderAccueilSuivi();renderStats();renderSeances();renderApList();renderEleves();renderNotes();renderBilanComp();renderGrille();renderProfil();renderComp();}
 function highlightEvalAflp(){var worked={};for(var i=0;i<state.seances.length;i++){var t=state.seances[i].aflpTravailles||[];for(var j=0;j<t.length;j++)worked[t[j]]=true;}var items=document.querySelectorAll('.eval-aflp-item');for(var i=0;i<items.length;i++){var n=items[i].querySelector('.eval-n');if(n)items[i].classList.toggle('worked',!!worked[n.textContent]);}}
-function renderStats(){ge('ss-s').textContent=state.seances.length;ge('ss-e').textContent=state.eleves.length;ge('s-pg-sub').textContent=state.eleves.length+' eleves - '+state.seances.length+' seances';var tot=0,pres=0;for(var i=0;i<state.seances.length;i++){for(var j=0;j<state.eleves.length;j++){tot++;var p=state.presences[state.seances[i].id]||{};if((p[state.eleves[j].id]||'')==='Present')pres++;}}ge('ss-p').textContent=tot>0?Math.round(pres/tot*100)+'%':'-';var noted=[];for(var i=0;i<state.eleves.length;i++){if(state.eleves[i].noteFinale!=null)noted.push(parseFloat(state.eleves[i].noteFinale));}ge('ss-n').textContent=noted.length>0?(noted.reduce(function(a,b){return a+b;},0)/noted.length).toFixed(1):'-';}
+function renderStats(){ge('ss-s').textContent=state.seances.length;ge('ss-e').textContent=state.eleves.length;ge('s-pg-sub').textContent=state.eleves.length+' eleves - '+state.seances.length+' seances';var tot=0,pres=0;for(var i=0;i<state.seances.length;i++){for(var j=0;j<state.eleves.length;j++){tot++;var p=state.presences[state.seances[i].id]||{};if((p[state.eleves[j].id]||'')==='Present')pres++;}}ge('ss-p').textContent=tot>0?Math.round(pres/tot*100)+'%':'-';var seq3=seqGet();
+var totalTrame3=(seq3.trame||[]).length;
+var faitesCount3=state.seances.filter(function(s){return s.bilan&&s.bilan.trim();}).length;
+var totalSeances3=totalTrame3||state.seances.length;
+var restantes3=Math.max(0,totalSeances3-faitesCount3);
+ge('ss-n').textContent=faitesCount3+'/'+totalSeances3;
+var ssub=ge('ss-n-sub');
+if(ssub)ssub.textContent=restantes3+' restante'+(restantes3>1?'s':'');}
 function seqGet(){return state.seq||{objet:'',objectifs:'',aflpPrio:[],trame:[]};}
 function seqSave(d){state.seq=d;save();}
-function renderAccueilSuivi(){ge('acc-ss-s').textContent=state.seances.length;ge('acc-ss-e').textContent=state.eleves.length;ge('sc-sub-seances').textContent=state.seances.length+' seance'+(state.seances.length>1?'s':'');ge('sc-sub-eleves').textContent=state.eleves.length+' eleve'+(state.eleves.length>1?'s':'');var tot=0,pres=0;for(var i=0;i<state.seances.length;i++){for(var j=0;j<state.eleves.length;j++){tot++;var p=state.presences[state.seances[i].id]||{};if((p[state.eleves[j].id]||'Present')==='Present')pres++;}}ge('acc-ss-p').textContent=tot>0?Math.round(pres/tot*100)+'%':'-';var seq2=seqGet();var aflpPrio2=seq2.aflpPrio||[];
-if(aflpPrio2.length&&state.eleves.length){
-  var compData2=compGetData();
-  var totalAflp=aflpPrio2.length;
-  var eleveCount=state.eleves.length;
-  var atteintCount=0;
-  for(var _ai=0;_ai<aflpPrio2.length;_ai++){
-    var _an=aflpPrio2[_ai];
-    var _nbOk=0;
-    for(var _ei=0;_ei<state.eleves.length;_ei++){
-      var _eid=state.eleves[_ei].id;
-      var _best=0;
-      for(var _si=0;_si<state.seances.length;_si++){
-        var _s=state.seances[_si];
-        if((_s.aflpTravailles||[]).indexOf(_an)<0)continue;
-        var _ck=_s.id+'__'+_an+'__'+_eid;
-        if(compData2[_ck]&&compData2[_ck]>_best)_best=compData2[_ck];
-      }
-      if(_best>=3)_nbOk++;
-    }
-    atteintCount+=_nbOk;
-  }
-  var pctComp=totalAflp?Math.round(atteintCount/(totalAflp*eleveCount)*100):0;
-  ge('acc-ss-n').textContent=pctComp+'%';
-  ge('acc-ss-n').style.fontSize='1.5rem';
-  var subEl=ge('acc-ss-n-sub');
-  if(subEl)subEl.textContent=atteintCount+'/'+(totalAflp*eleveCount)+' eleves x AFLP';
-}else{
-  ge('acc-ss-n').textContent='-';
-  var subEl=ge('acc-ss-n-sub');
-  if(subEl)subEl.textContent='AFLP atteints';
-}var seq=seqGet();var objetEl=ge('acc-objet-display');if(seq.objet||seq.objectifs){objetEl.style.fontStyle='normal';objetEl.style.color='#e4e6ef';objetEl.innerHTML=(seq.objet?'<div style="margin-bottom:.5rem;font-size:.95rem;line-height:1.6">'+esc(seq.objet)+'</div>':'')+(seq.objectifs?'<div style="font-size:.88rem;color:#c8d4ff;border-top:1px solid #252836;padding-top:.6rem;margin-top:.3rem;line-height:1.7;white-space:pre-wrap">'+esc(seq.objectifs)+'</div>':'');}else{objetEl.style.fontStyle='italic';objetEl.style.color='#6b7280';objetEl.textContent='Non defini - cliquez sur Modifier la sequence';}var aflpEl=ge('acc-aflp-display');if(seq.aflpPrio&&seq.aflpPrio.length){
+function renderAccueilSuivi(){ge('acc-ss-s').textContent=state.seances.length;ge('acc-ss-e').textContent=state.eleves.length;ge('sc-sub-seances').textContent=state.seances.length+' seance'+(state.seances.length>1?'s':'');ge('sc-sub-eleves').textContent=state.eleves.length+' eleve'+(state.eleves.length>1?'s':'');var tot=0,pres=0;for(var i=0;i<state.seances.length;i++){for(var j=0;j<state.eleves.length;j++){tot++;var p=state.presences[state.seances[i].id]||{};if((p[state.eleves[j].id]||'Present')==='Present')pres++;}}ge('acc-ss-p').textContent=tot>0?Math.round(pres/tot*100)+'%':'-';var seq2=seqGet();
+var totalTrame=(seq2.trame||[]).length;
+var faitesCount=state.seances.filter(function(s){return s.bilan&&s.bilan.trim();}).length;
+var totalSeances2=totalTrame||state.seances.length;
+var restantes=Math.max(0,totalSeances2-faitesCount);
+var nEl=ge('acc-ss-n');
+var nSub=ge('acc-ss-n-sub');
+if(nEl){
+  nEl.textContent=faitesCount+'/'+totalSeances2;
+  nEl.style.fontSize='1.6rem';
+}
+if(nSub)nSub.textContent=restantes+' restante'+(restantes>1?'s':'');var seq=seqGet();var objetEl=ge('acc-objet-display');if(seq.objet||seq.objectifs){objetEl.style.fontStyle='normal';objetEl.style.color='#e4e6ef';objetEl.innerHTML=(seq.objet?'<div style="margin-bottom:.5rem;font-size:.95rem;line-height:1.6">'+esc(seq.objet)+'</div>':'')+(seq.objectifs?'<div style="font-size:.88rem;color:#c8d4ff;border-top:1px solid #252836;padding-top:.6rem;margin-top:.3rem;line-height:1.7;white-space:pre-wrap">'+esc(seq.objectifs)+'</div>':'');}else{objetEl.style.fontStyle='italic';objetEl.style.color='#6b7280';objetEl.textContent='Non defini - cliquez sur Modifier la sequence';}var aflpEl=ge('acc-aflp-display');if(seq.aflpPrio&&seq.aflpPrio.length){
   var f2=CTX.cls?CTX.cls.filiere:'bacpro';
   var aflpRef=CTX.apsa?(AFLP[f2]||AFLP.bacpro)[CTX.apsa.caFull]:null;
   var h='';
