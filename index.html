@@ -433,6 +433,28 @@ textarea{resize:vertical;min-height:70px}
 .color-grid{display:flex;gap:8px;flex-wrap:wrap;margin-top:.5rem}
 .color-swatch{width:28px;height:28px;border-radius:50%;cursor:pointer;border:3px solid transparent;transition:all .15s;flex-shrink:0}
 .color-swatch.sel{border-color:#fff;transform:scale(1.15)}
+
+.btn-ia{background:none;border:none;cursor:pointer;padding:3px 6px;border-radius:6px;color:#4a5070;font-size:.78rem;transition:all .15s;line-height:1;opacity:.6}
+.btn-ia:hover{opacity:1;color:#a78bfa;background:rgba(167,139,250,.1)}
+.ia-panel{display:none;background:#0d0f18;border:1px solid #a78bfa40;border-radius:10px;padding:1rem 1.1rem;margin-bottom:1rem}
+.ia-panel.open{display:block}
+.ia-panel-title{font-family:"DM Mono",monospace;font-size:.6rem;text-transform:uppercase;letter-spacing:.15em;color:#a78bfa;margin-bottom:.75rem;display:flex;align-items:center;gap:6px}
+.ia-field{margin-bottom:.6rem}
+.ia-field label{font-size:.7rem;color:#4a5070;display:block;margin-bottom:3px}
+.ia-field textarea,.ia-field input{background:#13161f;border:1px solid #252836;border-radius:6px;color:#d4d8eb;font-size:.78rem;padding:6px 9px;width:100%;outline:none;resize:vertical}
+.ia-field textarea:focus,.ia-field input:focus{border-color:#a78bfa}
+.ia-btn{background:rgba(167,139,250,.15);border:1px solid rgba(167,139,250,.3);border-radius:7px;color:#a78bfa;font-family:"DM Mono",monospace;font-size:.68rem;padding:6px 14px;cursor:pointer;transition:all .15s;width:100%}
+.ia-btn:hover{background:rgba(167,139,250,.25)}
+.ia-btn:disabled{opacity:.4;cursor:not-allowed}
+.ia-result{margin-top:.75rem;display:flex;flex-direction:column;gap:.6rem}
+.ia-sit{background:#13161f;border:1px solid #1e2438;border-left:3px solid #a78bfa;border-radius:0 8px 8px 0;padding:.75rem 1rem}
+.ia-sit-title{font-size:.85rem;font-weight:600;color:#e4e6ef;margin-bottom:.4rem}
+.ia-sit-body{font-size:.75rem;color:#9aa0b8;line-height:1.6}
+.ia-sit-body b{color:#c8d0f0;font-weight:500}
+.ia-sit-actions{display:flex;gap:6px;margin-top:.6rem}
+.ia-sit-btn{background:#1c1f2c;border:1px solid #252836;border-radius:5px;color:#9aa0b8;font-size:.68rem;padding:3px 9px;cursor:pointer;transition:all .15s}
+.ia-sit-btn:hover{background:#252836;color:#e4e6ef}
+.ia-loading{text-align:center;padding:.75rem;color:#4a5070;font-size:.78rem;font-family:"DM Mono",monospace}
 .comp-btn-niv{display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:5px;border:1.5px solid #2a2f42;background:rgba(37,40,54,.4);color:#4a4f62;font-size:.65rem;font-weight:700;cursor:pointer;margin:1px;transition:all .15s}
 .comp-btn-niv:hover{transform:scale(1.1)}
 .comp-btn-niv.sel-1{border-color:#ff6b6b;background:rgba(255,107,107,.2);color:#ff6b6b}
@@ -885,7 +907,20 @@ textarea{resize:vertical;min-height:70px}
     </div>
   </div></div>
   <div class="mb" id="m-edit-s"><div class="modal modal-xl">
-    <div class="modal-title">Modifier la seance <span id="es-badge" style="font-family:'DM Mono',monospace;font-size:.9rem;background:#4f8aff;color:#fff;padding:2px 9px;border-radius:5px"></span></div>
+    <div class="modal-title" style="display:flex;align-items:center;gap:10px">
+      <span>Modifier la seance</span>
+      <span id="es-badge" style="font-family:'DM Mono',monospace;font-size:.9rem;background:#4f8aff;color:#fff;padding:2px 9px;border-radius:5px"></span>
+      <button class="btn-ia" id="btn-ia-toggle" title="Generateur de situations IA">&#10024; IA</button>
+    </div>
+    <div class="ia-panel" id="ia-panel">
+      <div class="ia-panel-title">&#10024; Generateur de situations d apprentissage</div>
+      <div class="ia-field">
+        <label>Contraintes / contexte du jour</label>
+        <textarea id="ia-contexte" rows="2" placeholder="Ex: Gymnase demi-fond, 45 min, groupes de 4, pas de filet..."></textarea>
+      </div>
+      <button class="ia-btn" id="btn-ia-gen">Generer 3 situations pour cette seance</button>
+      <div id="ia-result-zone"></div>
+    </div>
     <input type="hidden" id="es-id">
     <div class="fg" style="margin-bottom:1rem">
       <div class="fgrp"><label>Numero</label><input type="number" id="es-n"></div>
@@ -2523,6 +2558,103 @@ function reloadNotesRapides(){
   var nta=ge('notes-rapides-textarea');
   if(nta)nta.value=localStorage.getItem('eps-notes-rapides-'+STORAGE_KEY)||'';
 }
+function iaToggle(){
+  var p=ge('ia-panel');
+  if(p)p.classList.toggle('open');
+}
+async function iaGenerer(){
+  var btn=ge('btn-ia-gen');
+  var zone=ge('ia-result-zone');
+  if(!btn||!zone)return;
+  var apsa=CTX.apsa?CTX.apsa.name:'';
+  var filiere=CTX.cls?(FILIERES[CTX.cls.filiere]||{label:'EPS'}).label:'EPS';
+  var sid=ge('es-id')?ge('es-id').value:'';
+  var s=null;
+  for(var i=0;i<state.seances.length;i++){if(state.seances[i].id===sid){s=state.seances[i];break;}}
+  var titre=ge('es-o')?ge('es-o').value:'';
+  var aflpSel=aflpEditSel||[];
+  var contexte=ge('ia-contexte')?ge('ia-contexte').value:'';
+  var seq=seqGet();
+  var numSeance=s?s.num:1;
+  var totalSeances=(seq.trame||[]).length||state.seances.length;
+
+  zone.innerHTML='<div class="ia-loading">Generation en cours...</div>';
+  btn.disabled=true;
+
+  var prompt='Tu es un expert EPS enseignant en '+filiere+'.\n'+
+    'APSA : '+apsa+'\n'+
+    'Seance S'+numSeance+' sur '+totalSeances+'\n'+
+    'Objectif de la seance : '+(titre||'non precise')+'\n'+
+    (aflpSel.length?'AFLP travailles : '+aflpSel.join(', ')+'\n':'')+
+    (contexte?'Contexte : '+contexte+'\n':'')+
+    'Propose exactement 3 situations d apprentissage. Reponds UNIQUEMENT en JSON sans markdown :\n'+
+    '{"situations":[{"titre":"...","objectif":"...","dispositif":"...","consignes":"...","criteres":"...","variante":"...","niveau":"debutant|intermediaire|avance"}]}';
+
+  try{
+    var resp=await fetch('https://api.anthropic.com/v1/messages',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({
+        model:'claude-sonnet-4-20250514',
+        max_tokens:1200,
+        messages:[{role:'user',content:prompt}]
+      })
+    });
+    var data=await resp.json();
+    var text=data.content[0].text;
+    var clean=text.replace(/```json|```/g,'').trim();
+    var parsed=JSON.parse(clean);
+    var sits=parsed.situations||[];
+    var nivBg={debutant:'rgba(86,207,178,.12)',intermediaire:'rgba(255,209,102,.12)',avance:'rgba(255,107,107,.12)'};
+    var nivCol={debutant:'#56cfb2',intermediaire:'#ffd166',avance:'#ff6b6b'};
+    var nivLbl={debutant:'Debutant',intermediaire:'Intermediaire',avance:'Avance'};
+    var h='<div class="ia-result">';
+    for(var i=0;i<sits.length;i++){
+      var sv=sits[i];
+      var niv=sv.niveau||'debutant';
+      h+='<div class="ia-sit">';
+      h+='<div style="display:flex;align-items:center;gap:7px;margin-bottom:.4rem">';
+      h+='<span class="ia-sit-title">'+esc(sv.titre)+'</span>';
+      h+='<span style="font-size:.62rem;padding:2px 7px;border-radius:10px;background:'+nivBg[niv]+';color:'+nivCol[niv]+';font-family:DM Mono,monospace;flex-shrink:0">'+nivLbl[niv]+'</span>';
+      h+='</div>';
+      h+='<div class="ia-sit-body">';
+      h+='<b>Objectif</b> '+esc(sv.objectif)+'<br>';
+      h+='<b>Dispositif</b> '+esc(sv.dispositif)+'<br>';
+      h+='<b>Consignes</b> '+esc(sv.consignes)+'<br>';
+      h+='<b>Criteres</b> '+esc(sv.criteres);
+      if(sv.variante)h+='<br><b>Variante</b> '+esc(sv.variante);
+      h+='</div>';
+      h+='<div class="ia-sit-actions">';
+      h+='<button class="ia-sit-btn" onclick="iaInsererPartie('+i+')">+ Ajouter comme partie</button>';
+      h+='</div>';
+      h+='</div>';
+    }
+    h+='</div>';
+    zone.innerHTML=h;
+    zone._sits=sits;
+  }catch(e){
+    zone.innerHTML='<div style="color:#ff6b6b;font-size:.78rem;padding:.5rem">Erreur : '+e.message+'</div>';
+  }
+  btn.disabled=false;
+}
+function iaInsererPartie(idx){
+  var zone=ge('ia-result-zone');
+  if(!zone||!zone._sits)return;
+  var sv=zone._sits[idx];
+  var p={
+    id:'p'+Date.now()+Math.random().toString(36).slice(2,5),
+    titre:sv.titre,
+    objectif:sv.objectif,
+    consignes:sv.dispositif+'\n'+sv.consignes,
+    criteres:sv.criteres,
+    contenus:'',
+    bilan:''
+  };
+  partiesEdit.push(p);
+  renderPartieBlock('parties-edit',p,partiesEdit.length-1,'edit');
+  toast('Situation ajoutee comme partie !');
+}
+
 function meteoRenderDots(sid, prefix){
   prefix=prefix||'';
   var data=meteoGet();
@@ -2998,7 +3130,7 @@ for(var _fi=0;_fi<fbtns.length;_fi++){(function(btn){btn.addEventListener('click
   var all=document.querySelectorAll('.filiere-btn');
   for(var i=0;i<all.length;i++)all[i].classList.remove('sel');
   this.classList.add('sel');
-});})(fbtns[_fi]);}s('s-back-btn','click',goAcc);s('btn-push','click',ghPush);s('btn-pull','click',ghPull);s('btn-edit-seq','click',openSeqModal);s('btn-pdf-sequence','click',exportSequencePDF);s('btn-save-seq','click',saveSeq);s('btn-add-trame-seance','click',addTrameSeance);s('btn-new-seance','click',function(){openM('m-seance');});s('btn-save-seance','click',saveSeance);s('btn-add-partie-new','click',function(){addPartie('new');});s('btn-upd-seance','click',updSeance);s('btn-del-seance','click',delSeance);s('btn-add-partie-edit','click',function(){addPartie('edit');});s('btn-pdf-seance','click',exportSeancePDF);s('btn-export-seance-json','click',exportSeanceJSON);s('btn-import-seance-json','change',function(){importSeanceJSON(this.files[0]);this.value='';}); s('srch','input',renderSeances);s('btn-pdf-eleves','click',exportElevesPDF);s('btn-pdf-bilan','click',exportBilanPDF);s('btn-profil-classe','click',toggleProfilZone);s('btn-save-profil-plan','click',saveProfilPlan);s('btn-new-eleve','click',function(){openM('m-eleve');});s('btn-save-eleve','click',saveEleve);s('btn-upd-eleve','click',updEleve);s('btn-del-eleve','click',delEleve);s('btn-import-pdf','click',function(){openM('m-pdf');});s('btn-export-eleves-json','click',exportElevesJSON);s('btn-import-eleves-json','change',function(){importElevesJSON(this.files[0]);this.value='';});s('btn-csv','click',exportCSV);s('btn-save-fiche','click',saveFicheAmen);s('photo-drop','click',function(){var pi=ge('photo-input');if(pi)pi.click();});s('photo-input','change',function(){handlePhoto(this);});s('photo-del-btn','click',function(){fichePhotoData=null;var t=ge('photo-thumb');if(t)t.style.display='none';this.style.display='none';var pi=ge('photo-input');if(pi)pi.value='';});s('photo-thumb','click',function(){if(fichePhotoData){var w=window.open('','_blank');if(w){w.document.write('<html><body style="margin:0;background:#000;display:flex;justify-content:center;align-items:center;min-height:100vh"><img src="'+fichePhotoData+'" style="max-width:100%;max-height:100vh;object-fit:contain"><\/body><\/html>');w.document.close();}}});var pd=ge('photo-drop');if(pd){var drevts=['dragenter','dragover'];for(var i=0;i<drevts.length;i++)pd.addEventListener(drevts[i],function(e){e.preventDefault();pd.classList.add('drag');});var dlvts=['dragleave','drop'];for(var i=0;i<dlvts.length;i++)pd.addEventListener(dlvts[i],function(e){e.preventDefault();pd.classList.remove('drag');});pd.addEventListener('drop',function(e){var f=e.dataTransfer.files[0];if(f&&f.type.startsWith('image/')){var dt=new DataTransfer();dt.items.add(f);ge('photo-input').files=dt.files;handlePhoto(ge('photo-input'));}});}var dz=ge('pdf-drop');if(dz){dz.addEventListener('click',function(){var pi=ge('pdf-input');if(pi)pi.click();});s('pdf-input','change',function(){handlePdf(this);});var drevts2=['dragenter','dragover'];for(var i=0;i<drevts2.length;i++)dz.addEventListener(drevts2[i],function(e){e.preventDefault();dz.classList.add('drag');});var dlvts2=['dragleave','drop'];for(var i=0;i<dlvts2.length;i++)dz.addEventListener(dlvts2[i],function(e){e.preventDefault();dz.classList.remove('drag');});dz.addEventListener('drop',function(e){var f=e.dataTransfer.files[0];if(f&&f.type==='application/pdf'){var dt=new DataTransfer();dt.items.add(f);ge('pdf-input').files=dt.files;handlePdf(ge('pdf-input'));}});}s('btn-pdf-all','click',function(){var cbs=document.querySelectorAll('#pdf-names input[type=checkbox]');for(var i=0;i<cbs.length;i++)cbs[i].checked=true;});s('btn-pdf-none','click',function(){var cbs=document.querySelectorAll('#pdf-names input[type=checkbox]');for(var i=0;i<cbs.length;i++)cbs[i].checked=false;});s('btn-pdf-import','click',pdfImport);var _ss=ge('comp-seuil-sel');if(_ss)_ss.addEventListener('change',renderComp);
+});})(fbtns[_fi]);}s('s-back-btn','click',goAcc);s('btn-push','click',ghPush);s('btn-pull','click',ghPull);s('btn-edit-seq','click',openSeqModal);s('btn-pdf-sequence','click',exportSequencePDF);s('btn-save-seq','click',saveSeq);s('btn-add-trame-seance','click',addTrameSeance);s('btn-new-seance','click',function(){openM('m-seance');});s('btn-save-seance','click',saveSeance);s('btn-add-partie-new','click',function(){addPartie('new');});s('btn-upd-seance','click',updSeance);s('btn-del-seance','click',delSeance);s('btn-add-partie-edit','click',function(){addPartie('edit');});s('btn-pdf-seance','click',exportSeancePDF);s('btn-export-seance-json','click',exportSeanceJSON);s('btn-ia-toggle','click',iaToggle);s('btn-ia-gen','click',iaGenerer);s('btn-import-seance-json','change',function(){importSeanceJSON(this.files[0]);this.value='';}); s('srch','input',renderSeances);s('btn-pdf-eleves','click',exportElevesPDF);s('btn-pdf-bilan','click',exportBilanPDF);s('btn-profil-classe','click',toggleProfilZone);s('btn-save-profil-plan','click',saveProfilPlan);s('btn-new-eleve','click',function(){openM('m-eleve');});s('btn-save-eleve','click',saveEleve);s('btn-upd-eleve','click',updEleve);s('btn-del-eleve','click',delEleve);s('btn-import-pdf','click',function(){openM('m-pdf');});s('btn-export-eleves-json','click',exportElevesJSON);s('btn-import-eleves-json','change',function(){importElevesJSON(this.files[0]);this.value='';});s('btn-csv','click',exportCSV);s('btn-save-fiche','click',saveFicheAmen);s('photo-drop','click',function(){var pi=ge('photo-input');if(pi)pi.click();});s('photo-input','change',function(){handlePhoto(this);});s('photo-del-btn','click',function(){fichePhotoData=null;var t=ge('photo-thumb');if(t)t.style.display='none';this.style.display='none';var pi=ge('photo-input');if(pi)pi.value='';});s('photo-thumb','click',function(){if(fichePhotoData){var w=window.open('','_blank');if(w){w.document.write('<html><body style="margin:0;background:#000;display:flex;justify-content:center;align-items:center;min-height:100vh"><img src="'+fichePhotoData+'" style="max-width:100%;max-height:100vh;object-fit:contain"><\/body><\/html>');w.document.close();}}});var pd=ge('photo-drop');if(pd){var drevts=['dragenter','dragover'];for(var i=0;i<drevts.length;i++)pd.addEventListener(drevts[i],function(e){e.preventDefault();pd.classList.add('drag');});var dlvts=['dragleave','drop'];for(var i=0;i<dlvts.length;i++)pd.addEventListener(dlvts[i],function(e){e.preventDefault();pd.classList.remove('drag');});pd.addEventListener('drop',function(e){var f=e.dataTransfer.files[0];if(f&&f.type.startsWith('image/')){var dt=new DataTransfer();dt.items.add(f);ge('photo-input').files=dt.files;handlePhoto(ge('photo-input'));}});}var dz=ge('pdf-drop');if(dz){dz.addEventListener('click',function(){var pi=ge('pdf-input');if(pi)pi.click();});s('pdf-input','change',function(){handlePdf(this);});var drevts2=['dragenter','dragover'];for(var i=0;i<drevts2.length;i++)dz.addEventListener(drevts2[i],function(e){e.preventDefault();dz.classList.add('drag');});var dlvts2=['dragleave','drop'];for(var i=0;i<dlvts2.length;i++)dz.addEventListener(dlvts2[i],function(e){e.preventDefault();dz.classList.remove('drag');});dz.addEventListener('drop',function(e){var f=e.dataTransfer.files[0];if(f&&f.type==='application/pdf'){var dt=new DataTransfer();dt.items.add(f);ge('pdf-input').files=dt.files;handlePdf(ge('pdf-input'));}});}s('btn-pdf-all','click',function(){var cbs=document.querySelectorAll('#pdf-names input[type=checkbox]');for(var i=0;i<cbs.length;i++)cbs[i].checked=true;});s('btn-pdf-none','click',function(){var cbs=document.querySelectorAll('#pdf-names input[type=checkbox]');for(var i=0;i<cbs.length;i++)cbs[i].checked=false;});s('btn-pdf-import','click',pdfImport);var _ss=ge('comp-seuil-sel');if(_ss)_ss.addEventListener('change',renderComp);
   // Barre nav bas
   var bnavBtns2=document.querySelectorAll('.s-bnav-btn[data-view]');
   for(var i=0;i<bnavBtns2.length;i++){
