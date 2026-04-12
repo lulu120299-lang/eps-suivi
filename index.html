@@ -1277,6 +1277,9 @@ function ghPush(){
   toast('Sauvegarde...','info');
   var exp=JSON.parse(JSON.stringify(state));
   for(var i=0;i<exp.eleves.length;i++){if(exp.eleves[i].fiche)exp.eleves[i].fiche.photo=null;}
+  // Inclure météo et notes rapides dans le state
+  exp._meteo=meteoGet();
+  exp._notes=localStorage.getItem('eps-notes-rapides-'+(CTX.key||'default'))||'';
   ghPushFile('data/'+STORAGE_KEY+'.json',exp,'EPS save state',null);
   ghPushFile('data/classes.json',CLASSES,'EPS save classes',function(){toast('Sauvegarde OK !','ok');});
 }
@@ -1306,6 +1309,15 @@ function ghPull(){
     if(!state.comp)state.comp={};
     if(!state.seq)state.seq={};
     if(!state.grilleNotes)state.grilleNotes={};
+    // Restaurer météo
+    if(state._meteo){meteoSave(state._meteo);delete state._meteo;}
+    // Restaurer notes rapides
+    if(state._notes!==undefined){
+      localStorage.setItem('eps-notes-rapides-'+(CTX.key||'default'),state._notes);
+      var nta=ge('notes-rapides-textarea');
+      if(nta)nta.value=state._notes;
+      delete state._notes;
+    }
     save();renderAll();toast('Synchronise !','ok');
   }).catch(function(e){toast('Erreur: '+e.message,'err');});
 }
