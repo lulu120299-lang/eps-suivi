@@ -414,6 +414,20 @@ textarea{resize:vertical;min-height:70px}
 .progress-info{display:flex;justify-content:space-between;font-family:"DM Mono",monospace;font-size:.65rem}
 .progress-done{color:#a78bfa;font-weight:700}
 .progress-rest{color:#4a5070}
+
+.acc-cls-add{background:transparent;border:2px dashed #2a3050;border-radius:8px;padding:1.1rem .9rem;cursor:pointer;transition:all .15s;text-align:center;color:#3a4a70;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;min-height:90px}
+.acc-cls-add:hover{border-color:#4f8aff;color:#4f8aff}
+.acc-cls-add-icon{font-size:1.4rem;line-height:1}
+.acc-cls-add-lbl{font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em}
+.acc-cls-del{position:absolute;top:4px;right:5px;background:none;border:none;color:#ff6b6b;cursor:pointer;font-size:.75rem;opacity:0;transition:opacity .15s;padding:2px 5px;line-height:1;border-radius:4px;z-index:2}
+.acc-cls:hover .acc-cls-del{opacity:1}
+.filiere-grid{display:grid;grid-template-columns:1fr 1fr;gap:.5rem;margin-top:.5rem}
+.filiere-btn{background:#13161f;border:1.5px solid #252836;border-radius:8px;padding:.65rem .75rem;cursor:pointer;font-size:.78rem;color:#9aa0b8;text-align:center;transition:all .15s;line-height:1.3}
+.filiere-btn:hover{border-color:#4f8aff;color:#4f8aff}
+.filiere-btn.sel{border-color:var(--fc);background:color-mix(in srgb,var(--fc) 12%,transparent);color:var(--fc);font-weight:700}
+.color-grid{display:flex;gap:8px;flex-wrap:wrap;margin-top:.5rem}
+.color-swatch{width:28px;height:28px;border-radius:50%;cursor:pointer;border:3px solid transparent;transition:all .15s;flex-shrink:0}
+.color-swatch.sel{border-color:#fff;transform:scale(1.15)}
 .comp-btn-niv{display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:5px;border:1.5px solid #2a2f42;background:rgba(37,40,54,.4);color:#4a4f62;font-size:.65rem;font-weight:700;cursor:pointer;margin:1px;transition:all .15s}
 .comp-btn-niv:hover{transform:scale(1.1)}
 .comp-btn-niv.sel-1{border-color:#ff6b6b;background:rgba(255,107,107,.2);color:#ff6b6b}
@@ -826,6 +840,27 @@ textarea{resize:vertical;min-height:70px}
       <button class="btn btn-p" id="btn-save-profil-plan">Enregistrer</button>
     </div>
   </div></div>
+  <div class="mb" id="m-add-cls"><div class="modal">
+    <div class="modal-title">Ajouter une classe</div>
+    <div class="fg">
+      <div class="fgrp full"><label>Nom de la classe</label><input type="text" id="cls-nom" placeholder="Ex: 2NDE ENER B, 3eme A, Terminale Pro..."></div>
+      <div class="fgrp full"><label>Description courte (optionnel)</label><input type="text" id="cls-sub" placeholder="Ex: Energie Gr. B, Section sport..."></div>
+    </div>
+    <div class="sec-title" style="margin-top:1rem">Filiere</div>
+    <div class="filiere-grid" id="cls-filiere-grid">
+      <div class="filiere-btn" data-f="bacpro" style="--fc:#4f8aff">Lycee Pro<br><span style="font-size:.65rem;opacity:.7">Bac Pro</span></div>
+      <div class="filiere-btn" data-f="cap" style="--fc:#56cfb2">Lycee Pro<br><span style="font-size:.65rem;opacity:.7">CAP</span></div>
+      <div class="filiere-btn" data-f="col3" style="--fc:#fb923c">College<br><span style="font-size:.65rem;opacity:.7">Cycle 3 (6eme)</span></div>
+      <div class="filiere-btn" data-f="col4" style="--fc:#f472b6">College<br><span style="font-size:.65rem;opacity:.7">Cycle 4 (5e-4e-3e)</span></div>
+      <div class="filiere-btn" data-f="lgt" style="--fc:#a78bfa" style="grid-column:1/-1">Lycee General<br><span style="font-size:.65rem;opacity:.7">et Technologique (LGT)</span></div>
+    </div>
+    <div class="sec-title" style="margin-top:1rem">Couleur</div>
+    <div class="color-grid" id="cls-color-grid"></div>
+    <div class="modal-acts">
+      <button class="btn btn-g" data-close="m-add-cls">Annuler</button>
+      <button class="btn btn-p" id="btn-save-cls">Ajouter la classe</button>
+    </div>
+  </div></div>
   <div class="mb" id="m-seance"><div class="modal modal-xl">
     <div class="modal-title">Nouvelle seance</div>
     <div class="fg" style="margin-bottom:1rem">
@@ -981,7 +1016,14 @@ textarea{resize:vertical;min-height:70px}
   </div>
 </div>
 <script>
-var CLASSES=[{id:'2nde-ener-b',label:'2NDE ENER B',level:'2NDE',sub:'Energie Gr. B',color:'#c8400a',light:'#c8400a0d',filiere:'bacpro'},{id:'2nde-mrc-b',label:'2NDE MRC B',level:'2NDE',sub:'MRC Gr. B',color:'#1a6b3a',light:'#1a6b3a0d',filiere:'bacpro'},{id:'cap-epc-1',label:'CAP EPC 1',level:'CAP',sub:'Equipier polyvalent de commerce',color:'#1e4fa0',light:'#1e4fa00d',filiere:'cap'},{id:'cap-elec-2',label:'CAP ELEC 2',level:'CAP',sub:'Electricite',color:'#7c28b8',light:'#7c28b80d',filiere:'cap'},{id:'3e-pm',label:'3e PM',level:'3e',sub:'Prepa Metiers',color:'#a07800',light:'#a078000d',filiere:'col4'}];
+var CLASSES_DEFAULT=[{id:'2nde-ener-b',label:'2NDE ENER B',level:'2NDE',sub:'Energie Gr. B',color:'#c8400a',light:'#c8400a0d',filiere:'bacpro'},{id:'2nde-mrc-b',label:'2NDE MRC B',level:'2NDE',sub:'MRC Gr. B',color:'#1a6b3a',light:'#1a6b3a0d',filiere:'bacpro'},{id:'cap-epc-1',label:'CAP EPC 1',level:'CAP',sub:'Equipier polyvalent de commerce',color:'#1e4fa0',light:'#1e4fa00d',filiere:'cap'},{id:'cap-elec-2',label:'CAP ELEC 2',level:'CAP',sub:'Electricite',color:'#7c28b8',light:'#7c28b80d',filiere:'cap'},{id:'3e-pm',label:'3e PM',level:'3e',sub:'Prepa Metiers',color:'#a07800',light:'#a078000d',filiere:'col4'}];
+var CLASSES=[];
+function classesLoad(){try{var s=localStorage.getItem('eps-classes');CLASSES=s?JSON.parse(s):CLASSES_DEFAULT.slice();}catch(e){CLASSES=CLASSES_DEFAULT.slice();}}
+function classesSave(){localStorage.setItem('eps-classes',JSON.stringify(CLASSES));}
+classesLoad();
+var CLS_COLORS=['#c8400a','#1a6b3a','#1e4fa0','#7c28b8','#a07800','#0e7490','#be185d','#065f46','#92400e','#1d4ed8','#7e22ce','#b45309'];
+var CLS_SEL_COLOR=CLS_COLORS[0];
+var CLS_SEL_FILIERE='bacpro';
 var CA_GROUPS=[{ca:'CA1',caFull:'CA1',color:'#ff6b6b',desc:'Realiser sa performance motrice maximale',apsa:[{id:'vitesse',name:'Course de vitesse',emoji:'&#9889;'},{id:'athle',name:'Athletisme multisport',emoji:'&#127947;'}]},{ca:'CA2',caFull:'CA2',color:'#a78bfa',desc:"Adapter son deplacement a des environnements varies",apsa:[{id:'orientation',name:"Course d'orientation",emoji:'&#129517;'}]},{ca:'CA3',caFull:'CA3',color:'#ffd166',desc:'Realiser une prestation corporelle appreciee',apsa:[{id:'acrosport',name:'Acrosport',emoji:'&#129338;'}]},{ca:'CA4',caFull:'CA4',color:'#4f8aff',desc:'Conduire un affrontement pour gagner',apsa:[{id:'volley',name:'Volley-Ball',emoji:'&#127952;'},{id:'tdt',name:'Tennis de Table',emoji:'&#127955;'},{id:'badminton',name:'Badminton',emoji:'&#127992;'}]},{ca:'CA5',caFull:'CA5',color:'#56cfb2',desc:"Orienter son activite pour s'entretenir",apsa:[{id:'duree',name:'Course de duree',emoji:'&#127939;'}]}];
 var APSA_FLAT=[];for(var _gi=0;_gi<CA_GROUPS.length;_gi++){var _g=CA_GROUPS[_gi];for(var _ai=0;_ai<_g.apsa.length;_ai++){var _a=_g.apsa[_ai];APSA_FLAT.push({id:_a.id,name:_a.name,emoji:_a.emoji,ca:_g.ca,caFull:_g.caFull,caColor:_g.color});}}
 var AFLP={
@@ -1269,7 +1311,106 @@ function addAttachItem(list,nom,type,dataUrl,pid,mode){
   });
   row.appendChild(del);list.appendChild(row);
 }
-function accInit(){var now=new Date();var J=['Dimanche','Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi'];var M=['janv.','fevr.','mars','avr.','mai','juin','juil.','aout','sept.','oct.','nov.','dec.'];ge('acc-date').innerHTML=J[now.getDay()]+' '+now.getDate()+' '+M[now.getMonth()]+' '+now.getFullYear()+'<br>Annee scolaire 2025-2026';var cgrid=ge('acc-cls-grid');cgrid.innerHTML='';for(var i=0;i<CLASSES.length;i++){(function(c){var d=document.createElement('div');d.className='acc-cls';d.id='cl-'+c.id;d.style.setProperty('--c',c.color);d.style.setProperty('--cl',c.light);d.innerHTML='<div class="acc-cls-lv">'+c.level+'</div><div class="acc-cls-name">'+c.label+'</div><div class="acc-cls-sub">'+c.sub+'</div><div class="acc-cls-dot"></div>';d.addEventListener('click',function(){accPickCls(c.id);});cgrid.appendChild(d);})(CLASSES[i]);}var ac=ge('acc-apsa-container');ac.innerHTML='';for(var gi=0;gi<CA_GROUPS.length;gi++){(function(g){var grp=document.createElement('div');grp.className='ca-group';var h='<div class="ca-group-header"><span class="ca-label" style="background:'+g.color+'22;color:'+g.color+'">'+g.ca+'</span><span class="ca-desc">'+g.desc+'</span></div><div class="ca-apsa-row">';for(var ai=0;ai<g.apsa.length;ai++){var a=g.apsa[ai];h+='<div class="acc-apsa" id="ap-'+a.id+'"><div class="acc-apsa-emoji">'+a.emoji+'</div><div class="acc-apsa-name">'+a.name+'</div></div>';}h+='</div>';grp.innerHTML=h;for(var ai2=0;ai2<g.apsa.length;ai2++){(function(a){var el=grp.querySelector('#ap-'+a.id);if(el)el.addEventListener('click',function(){accPickApsa(a.id);});})(g.apsa[ai2]);}ac.appendChild(grp);})(CA_GROUPS[gi]);}for(var n=1;n<=3;n++){(function(tn){var el=ge('tr-'+tn);if(el)el.addEventListener('click',function(){accPickTrim(tn);});})(n);}ge('acc-custom-input').addEventListener('input',function(){accCustom(this.value);});ge('acc-btn').addEventListener('click',function(){accLaunch();});ghLoadConfig();accRenderRecent();}
+function accRenderClsGrid(){
+  var cgrid=ge('acc-cls-grid');
+  if(!cgrid)return;
+  cgrid.innerHTML='';
+  for(var i=0;i<CLASSES.length;i++){
+    (function(c,idx){
+      var d=document.createElement('div');
+      d.className='acc-cls';
+      d.id='cl-'+c.id;
+      d.style.setProperty('--c',c.color);
+      d.style.setProperty('--cl',c.light||c.color+'0d');
+      d.innerHTML='<button class="acc-cls-del" data-idx="'+idx+'" title="Supprimer cette classe">&#10005;</button>'+
+        '<div class="acc-cls-lv">'+esc(c.level||'')+'</div>'+
+        '<div class="acc-cls-name">'+esc(c.label)+'</div>'+
+        '<div class="acc-cls-sub">'+esc(c.sub||'')+'</div>'+
+        '<div class="acc-cls-dot"></div>';
+      d.querySelector('.acc-cls-del').addEventListener('click',function(e){
+        e.stopPropagation();
+        if(confirm('Supprimer la classe "'+c.label+'" ?')){
+          CLASSES.splice(idx,1);
+          classesSave();
+          selCls=null;
+          accRenderClsGrid();
+          accUpd();
+        }
+      });
+      d.addEventListener('click',function(){accPickCls(c.id);});
+      cgrid.appendChild(d);
+    })(CLASSES[i],i);
+  }
+  var addBtn=document.createElement('div');
+  addBtn.className='acc-cls-add';
+  addBtn.innerHTML='<div class="acc-cls-add-icon">+</div><div class="acc-cls-add-lbl">Ajouter</div>';
+  addBtn.addEventListener('click',function(){openAddCls();});
+  cgrid.appendChild(addBtn);
+}
+
+function openAddCls(){
+  CLS_SEL_FILIERE='bacpro';
+  CLS_SEL_COLOR=CLS_COLORS[0];
+  ge('cls-nom').value='';
+  ge('cls-sub').value='';
+  var fbts=document.querySelectorAll('.filiere-btn');
+  for(var i=0;i<fbts.length;i++){
+    fbts[i].classList.remove('sel');
+    if(fbts[i].dataset.f==='bacpro')fbts[i].classList.add('sel');
+  }
+  renderColorSwatches();
+  openM('m-add-cls');
+}
+
+function renderColorSwatches(){
+  var grid=ge('cls-color-grid');
+  if(!grid)return;
+  grid.innerHTML='';
+  for(var i=0;i<CLS_COLORS.length;i++){
+    (function(col){
+      var sw=document.createElement('div');
+      sw.className='color-swatch'+(col===CLS_SEL_COLOR?' sel':'');
+      sw.style.background=col;
+      sw.addEventListener('click',function(){
+        CLS_SEL_COLOR=col;
+        var all=document.querySelectorAll('.color-swatch');
+        for(var j=0;j<all.length;j++)all[j].classList.remove('sel');
+        this.classList.add('sel');
+      });
+      grid.appendChild(sw);
+    })(CLS_COLORS[i]);
+  }
+}
+
+function filiereLabel(f){
+  var labels={bacpro:'Bac Pro',cap:'CAP',col3:'College C3',col4:'College C4',lgt:'LGT'};
+  return labels[f]||f;
+}
+
+function saveNewCls(){
+  var nom=ge('cls-nom').value.trim();
+  if(!nom){toast('Entrez un nom de classe','warn');return;}
+  var sub=ge('cls-sub').value.trim();
+  var id='cls-'+Date.now();
+  var col=CLS_SEL_COLOR;
+  var newCls={
+    id:id,
+    label:nom,
+    level:filiereLabel(CLS_SEL_FILIERE),
+    sub:sub,
+    color:col,
+    light:col+'1a',
+    filiere:CLS_SEL_FILIERE
+  };
+  CLASSES.push(newCls);
+  classesSave();
+  closeM('m-add-cls');
+  accRenderClsGrid();
+  accPickCls(id);
+  toast('Classe "'+nom+'" ajoutee !');
+}
+
+function accInit(){var now=new Date();var J=['Dimanche','Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi'];var M=['janv.','fevr.','mars','avr.','mai','juin','juil.','aout','sept.','oct.','nov.','dec.'];ge('acc-date').innerHTML=J[now.getDay()]+' '+now.getDate()+' '+M[now.getMonth()]+' '+now.getFullYear()+'<br>Annee scolaire 2025-2026';accRenderClsGrid();var ac=ge('acc-apsa-container');ac.innerHTML='';for(var gi=0;gi<CA_GROUPS.length;gi++){(function(g){var grp=document.createElement('div');grp.className='ca-group';var h='<div class="ca-group-header"><span class="ca-label" style="background:'+g.color+'22;color:'+g.color+'">'+g.ca+'</span><span class="ca-desc">'+g.desc+'</span></div><div class="ca-apsa-row">';for(var ai=0;ai<g.apsa.length;ai++){var a=g.apsa[ai];h+='<div class="acc-apsa" id="ap-'+a.id+'"><div class="acc-apsa-emoji">'+a.emoji+'</div><div class="acc-apsa-name">'+a.name+'</div></div>';}h+='</div>';grp.innerHTML=h;for(var ai2=0;ai2<g.apsa.length;ai2++){(function(a){var el=grp.querySelector('#ap-'+a.id);if(el)el.addEventListener('click',function(){accPickApsa(a.id);});})(g.apsa[ai2]);}ac.appendChild(grp);})(CA_GROUPS[gi]);}for(var n=1;n<=3;n++){(function(tn){var el=ge('tr-'+tn);if(el)el.addEventListener('click',function(){accPickTrim(tn);});})(n);}ge('acc-custom-input').addEventListener('input',function(){accCustom(this.value);});ge('acc-btn').addEventListener('click',function(){accLaunch();});ghLoadConfig();accRenderRecent();}
 function accPickCls(id){selCls=null;for(var i=0;i<CLASSES.length;i++){if(CLASSES[i].id===id){selCls=CLASSES[i];break;}}var els=document.querySelectorAll('.acc-cls');for(var i=0;i<els.length;i++)els[i].classList.remove('sel');ge('cl-'+id).classList.add('sel');accUpd();}
 function accPickApsa(id){selApsa=null;for(var i=0;i<APSA_FLAT.length;i++){if(APSA_FLAT[i].id===id){selApsa=APSA_FLAT[i];break;}}ge('acc-custom-input').value='';var els=document.querySelectorAll('.acc-apsa');for(var i=0;i<els.length;i++)els[i].classList.remove('sel');ge('ap-'+id).classList.add('sel');accUpd();showAccAflp(selApsa);}
 function accPickTrim(n){selTrim=n;var els=document.querySelectorAll('.acc-trim');for(var i=0;i<els.length;i++)els[i].classList.remove('sel');ge('tr-'+n).classList.add('sel');accUpd();}
@@ -2522,7 +2663,15 @@ function renderComp(){
   }
 }
 
-function initEvents(){var closes=document.querySelectorAll('[data-close]');for(var i=0;i<closes.length;i++){(function(btn){btn.addEventListener('click',function(){closeM(this.dataset.close);});})(closes[i]);}var tabs=document.querySelectorAll('.s-tab');for(var i=0;i<tabs.length;i++){(function(tab){tab.addEventListener('click',function(){showView(this.dataset.view);});})(tabs[i]);}var shortcuts=document.querySelectorAll('.acc-shortcut');for(var i=0;i<shortcuts.length;i++){(function(el){el.addEventListener('click',function(){showView(this.dataset.view);});})(shortcuts[i]);}var profilBtns=document.querySelectorAll('.profil-edit-btn');for(var i=0;i<profilBtns.length;i++){(function(btn){btn.addEventListener('click',function(){openProfilPlan(this.dataset.plan);});})(profilBtns[i]);}var dispBtns=document.querySelectorAll('.disp-type-btn');for(var i=0;i<dispBtns.length;i++){(function(btn){btn.addEventListener('click',function(){var all=document.querySelectorAll('.disp-type-btn');for(var i=0;i<all.length;i++)all[i].classList.remove('sel');this.classList.add('sel');});})(dispBtns[i]);}function s(id,ev,fn){var el=ge(id);if(el)el.addEventListener(ev,fn);}s('btn-gh-save','click',ghSaveConfig);s('s-back-btn','click',goAcc);s('btn-push','click',ghPush);s('btn-pull','click',ghPull);s('btn-edit-seq','click',openSeqModal);s('btn-save-seq','click',saveSeq);s('btn-add-trame-seance','click',addTrameSeance);s('btn-new-seance','click',function(){openM('m-seance');});s('btn-save-seance','click',saveSeance);s('btn-add-partie-new','click',function(){addPartie('new');});s('btn-upd-seance','click',updSeance);s('btn-del-seance','click',delSeance);s('btn-add-partie-edit','click',function(){addPartie('edit');});s('btn-pdf-seance','click',exportSeancePDF);s('btn-export-seance-json','click',exportSeanceJSON);s('btn-import-seance-json','change',function(){importSeanceJSON(this.files[0]);this.value='';}); s('srch','input',renderSeances);s('btn-pdf-eleves','click',exportElevesPDF);s('btn-pdf-bilan','click',exportBilanPDF);s('btn-profil-classe','click',toggleProfilZone);s('btn-save-profil-plan','click',saveProfilPlan);s('btn-new-eleve','click',function(){openM('m-eleve');});s('btn-save-eleve','click',saveEleve);s('btn-upd-eleve','click',updEleve);s('btn-del-eleve','click',delEleve);s('btn-import-pdf','click',function(){openM('m-pdf');});s('btn-export-eleves-json','click',exportElevesJSON);s('btn-import-eleves-json','change',function(){importElevesJSON(this.files[0]);this.value='';});s('btn-csv','click',exportCSV);s('btn-save-fiche','click',saveFicheAmen);s('photo-drop','click',function(){var pi=ge('photo-input');if(pi)pi.click();});s('photo-input','change',function(){handlePhoto(this);});s('photo-del-btn','click',function(){fichePhotoData=null;var t=ge('photo-thumb');if(t)t.style.display='none';this.style.display='none';var pi=ge('photo-input');if(pi)pi.value='';});s('photo-thumb','click',function(){if(fichePhotoData){var w=window.open('','_blank');if(w){w.document.write('<html><body style="margin:0;background:#000;display:flex;justify-content:center;align-items:center;min-height:100vh"><img src="'+fichePhotoData+'" style="max-width:100%;max-height:100vh;object-fit:contain"><\/body><\/html>');w.document.close();}}});var pd=ge('photo-drop');if(pd){var drevts=['dragenter','dragover'];for(var i=0;i<drevts.length;i++)pd.addEventListener(drevts[i],function(e){e.preventDefault();pd.classList.add('drag');});var dlvts=['dragleave','drop'];for(var i=0;i<dlvts.length;i++)pd.addEventListener(dlvts[i],function(e){e.preventDefault();pd.classList.remove('drag');});pd.addEventListener('drop',function(e){var f=e.dataTransfer.files[0];if(f&&f.type.startsWith('image/')){var dt=new DataTransfer();dt.items.add(f);ge('photo-input').files=dt.files;handlePhoto(ge('photo-input'));}});}var dz=ge('pdf-drop');if(dz){dz.addEventListener('click',function(){var pi=ge('pdf-input');if(pi)pi.click();});s('pdf-input','change',function(){handlePdf(this);});var drevts2=['dragenter','dragover'];for(var i=0;i<drevts2.length;i++)dz.addEventListener(drevts2[i],function(e){e.preventDefault();dz.classList.add('drag');});var dlvts2=['dragleave','drop'];for(var i=0;i<dlvts2.length;i++)dz.addEventListener(dlvts2[i],function(e){e.preventDefault();dz.classList.remove('drag');});dz.addEventListener('drop',function(e){var f=e.dataTransfer.files[0];if(f&&f.type==='application/pdf'){var dt=new DataTransfer();dt.items.add(f);ge('pdf-input').files=dt.files;handlePdf(ge('pdf-input'));}});}s('btn-pdf-all','click',function(){var cbs=document.querySelectorAll('#pdf-names input[type=checkbox]');for(var i=0;i<cbs.length;i++)cbs[i].checked=true;});s('btn-pdf-none','click',function(){var cbs=document.querySelectorAll('#pdf-names input[type=checkbox]');for(var i=0;i<cbs.length;i++)cbs[i].checked=false;});s('btn-pdf-import','click',pdfImport);var _ss=ge('comp-seuil-sel');if(_ss)_ss.addEventListener('change',renderComp);
+function initEvents(){var closes=document.querySelectorAll('[data-close]');for(var i=0;i<closes.length;i++){(function(btn){btn.addEventListener('click',function(){closeM(this.dataset.close);});})(closes[i]);}var tabs=document.querySelectorAll('.s-tab');for(var i=0;i<tabs.length;i++){(function(tab){tab.addEventListener('click',function(){showView(this.dataset.view);});})(tabs[i]);}var shortcuts=document.querySelectorAll('.acc-shortcut');for(var i=0;i<shortcuts.length;i++){(function(el){el.addEventListener('click',function(){showView(this.dataset.view);});})(shortcuts[i]);}var profilBtns=document.querySelectorAll('.profil-edit-btn');for(var i=0;i<profilBtns.length;i++){(function(btn){btn.addEventListener('click',function(){openProfilPlan(this.dataset.plan);});})(profilBtns[i]);}var dispBtns=document.querySelectorAll('.disp-type-btn');for(var i=0;i<dispBtns.length;i++){(function(btn){btn.addEventListener('click',function(){var all=document.querySelectorAll('.disp-type-btn');for(var i=0;i<all.length;i++)all[i].classList.remove('sel');this.classList.add('sel');});})(dispBtns[i]);}function s(id,ev,fn){var el=ge(id);if(el)el.addEventListener(ev,fn);}s('btn-gh-save','click',ghSaveConfig);
+s('btn-save-cls','click',saveNewCls);
+var fbtns=document.querySelectorAll('.filiere-btn');
+for(var _fi=0;_fi<fbtns.length;_fi++){(function(btn){btn.addEventListener('click',function(){
+  CLS_SEL_FILIERE=this.dataset.f;
+  var all=document.querySelectorAll('.filiere-btn');
+  for(var i=0;i<all.length;i++)all[i].classList.remove('sel');
+  this.classList.add('sel');
+});})(fbtns[_fi]);}s('s-back-btn','click',goAcc);s('btn-push','click',ghPush);s('btn-pull','click',ghPull);s('btn-edit-seq','click',openSeqModal);s('btn-save-seq','click',saveSeq);s('btn-add-trame-seance','click',addTrameSeance);s('btn-new-seance','click',function(){openM('m-seance');});s('btn-save-seance','click',saveSeance);s('btn-add-partie-new','click',function(){addPartie('new');});s('btn-upd-seance','click',updSeance);s('btn-del-seance','click',delSeance);s('btn-add-partie-edit','click',function(){addPartie('edit');});s('btn-pdf-seance','click',exportSeancePDF);s('btn-export-seance-json','click',exportSeanceJSON);s('btn-import-seance-json','change',function(){importSeanceJSON(this.files[0]);this.value='';}); s('srch','input',renderSeances);s('btn-pdf-eleves','click',exportElevesPDF);s('btn-pdf-bilan','click',exportBilanPDF);s('btn-profil-classe','click',toggleProfilZone);s('btn-save-profil-plan','click',saveProfilPlan);s('btn-new-eleve','click',function(){openM('m-eleve');});s('btn-save-eleve','click',saveEleve);s('btn-upd-eleve','click',updEleve);s('btn-del-eleve','click',delEleve);s('btn-import-pdf','click',function(){openM('m-pdf');});s('btn-export-eleves-json','click',exportElevesJSON);s('btn-import-eleves-json','change',function(){importElevesJSON(this.files[0]);this.value='';});s('btn-csv','click',exportCSV);s('btn-save-fiche','click',saveFicheAmen);s('photo-drop','click',function(){var pi=ge('photo-input');if(pi)pi.click();});s('photo-input','change',function(){handlePhoto(this);});s('photo-del-btn','click',function(){fichePhotoData=null;var t=ge('photo-thumb');if(t)t.style.display='none';this.style.display='none';var pi=ge('photo-input');if(pi)pi.value='';});s('photo-thumb','click',function(){if(fichePhotoData){var w=window.open('','_blank');if(w){w.document.write('<html><body style="margin:0;background:#000;display:flex;justify-content:center;align-items:center;min-height:100vh"><img src="'+fichePhotoData+'" style="max-width:100%;max-height:100vh;object-fit:contain"><\/body><\/html>');w.document.close();}}});var pd=ge('photo-drop');if(pd){var drevts=['dragenter','dragover'];for(var i=0;i<drevts.length;i++)pd.addEventListener(drevts[i],function(e){e.preventDefault();pd.classList.add('drag');});var dlvts=['dragleave','drop'];for(var i=0;i<dlvts.length;i++)pd.addEventListener(dlvts[i],function(e){e.preventDefault();pd.classList.remove('drag');});pd.addEventListener('drop',function(e){var f=e.dataTransfer.files[0];if(f&&f.type.startsWith('image/')){var dt=new DataTransfer();dt.items.add(f);ge('photo-input').files=dt.files;handlePhoto(ge('photo-input'));}});}var dz=ge('pdf-drop');if(dz){dz.addEventListener('click',function(){var pi=ge('pdf-input');if(pi)pi.click();});s('pdf-input','change',function(){handlePdf(this);});var drevts2=['dragenter','dragover'];for(var i=0;i<drevts2.length;i++)dz.addEventListener(drevts2[i],function(e){e.preventDefault();dz.classList.add('drag');});var dlvts2=['dragleave','drop'];for(var i=0;i<dlvts2.length;i++)dz.addEventListener(dlvts2[i],function(e){e.preventDefault();dz.classList.remove('drag');});dz.addEventListener('drop',function(e){var f=e.dataTransfer.files[0];if(f&&f.type==='application/pdf'){var dt=new DataTransfer();dt.items.add(f);ge('pdf-input').files=dt.files;handlePdf(ge('pdf-input'));}});}s('btn-pdf-all','click',function(){var cbs=document.querySelectorAll('#pdf-names input[type=checkbox]');for(var i=0;i<cbs.length;i++)cbs[i].checked=true;});s('btn-pdf-none','click',function(){var cbs=document.querySelectorAll('#pdf-names input[type=checkbox]');for(var i=0;i<cbs.length;i++)cbs[i].checked=false;});s('btn-pdf-import','click',pdfImport);var _ss=ge('comp-seuil-sel');if(_ss)_ss.addEventListener('change',renderComp);
   // Barre nav bas
   var bnavBtns2=document.querySelectorAll('.s-bnav-btn[data-view]');
   for(var i=0;i<bnavBtns2.length;i++){
