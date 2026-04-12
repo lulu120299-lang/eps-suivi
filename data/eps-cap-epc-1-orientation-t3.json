@@ -377,7 +377,7 @@
         "AFLP 4"
       ],
       "parties": [],
-      "autreobj": "",
+      "autreobj": "Essaie",
       "contenus": "",
       "fps": "Au complet"
     }
@@ -926,5 +926,7 @@
         ]
       }
     ]
-  }
+  },
+  "_meteo": {},
+  "_notes": ""
 }
