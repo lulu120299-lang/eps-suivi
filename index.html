@@ -1243,7 +1243,7 @@ function ghLoadConfig(){try{var s=localStorage.getItem('eps-gh');if(s)GH=JSON.pa
 function ghSaveConfig(){GH.token=ge('gh-token').value.trim();GH.repo=ge('gh-repo').value.trim();localStorage.setItem('eps-gh',JSON.stringify(GH));ghLoadConfig();toast('GitHub enregistre');}
 function ghPushClasses(){
   if(!GH.token||!GH.repo)return;
-  ghPushFile('data/classes.json',CLASSES,'EPS save classes',function(){
+  ghPushFile('data/classes.json',CLASSES,function(){
     ge('gh-status').innerHTML='<span style="color:#56cfb2">Classes sync OK</span>';
     setTimeout(function(){ghLoadConfig();},2000);
   });
@@ -1262,58 +1262,83 @@ function ghPullClasses(onDone){
     if(onDone)onDone();
   }).catch(function(){if(onDone)onDone();});
 }
-function ghPushFile(fn,data,msg,onOk){
-  var encoded=btoa(unescape(encodeURIComponent(JSON.stringify(data,null,2))));
-  fetch('https://api.github.com/repos/'+GH.repo+'/contents/'+fn,{headers:{'Authorization':'token '+GH.token,'Accept':'application/vnd.github.v3+json'}})
-  .then(function(r){return r.ok?r.json():null;})
-  .then(function(d){
-    var body={message:msg,content:encoded};
-    if(d&&d.sha)body.sha=d.sha;
-    return fetch('https://api.github.com/repos/'+GH.repo+'/contents/'+fn,{method:'PUT',headers:{'Authorization':'token '+GH.token,'Accept':'application/vnd.github.v3+json','Content-Type':'application/json'},body:JSON.stringify(body)});
-  }).then(function(r){if(r&&r.ok&&onOk)onOk();}).catch(function(e){toast('Erreur: '+e.message,'err');});
+var GH_SHA={};
+function ghHeaders(){return {'Authorization':'token '+GH.token,'Accept':'application/vnd.github.v3+json'};}
+function ghEncode(data){return btoa(unescape(encodeURIComponent(JSON.stringify(data))));}
+function ghDecode(b64){return JSON.parse(decodeURIComponent(escape(atob(b64))));}
+
+function ghPushFile(fn,data,onOk){
+  var encoded=ghEncode(data);
+  var body={message:'EPS save',content:encoded};
+  if(GH_SHA[fn])body.sha=GH_SHA[fn];
+  fetch('https://api.github.com/repos/'+GH.repo+'/contents/'+fn,{
+    method:'PUT',
+    headers:Object.assign({'Content-Type':'application/json'},ghHeaders()),
+    body:JSON.stringify(body)
+  }).then(function(r){
+    if(r&&r.ok){
+      return r.json().then(function(d){
+        if(d&&d.content&&d.content.sha)GH_SHA[fn]=d.content.sha;
+        if(onOk)onOk();
+      });
+    } else if(r&&r.status===409){
+      // Conflit SHA - on recharge le SHA et on réessaie
+      return fetch('https://api.github.com/repos/'+GH.repo+'/contents/'+fn,{headers:ghHeaders()})
+        .then(function(r2){return r2.ok?r2.json():null;})
+        .then(function(d){
+          if(d&&d.sha){GH_SHA[fn]=d.sha;body.sha=d.sha;}
+          return fetch('https://api.github.com/repos/'+GH.repo+'/contents/'+fn,{
+            method:'PUT',headers:Object.assign({'Content-Type':'application/json'},ghHeaders()),
+            body:JSON.stringify(body)
+          });
+        }).then(function(r3){if(r3&&r3.ok&&onOk)onOk();});
+    } else {
+      toast('Erreur GitHub','warn');
+    }
+  }).catch(function(e){toast('Erreur: '+e.message,'err');});
 }
+
 function ghPush(){
   if(!GH.token||!GH.repo){toast('Configurez GitHub','warn');return;}
   toast('Sauvegarde...','info');
   var exp=JSON.parse(JSON.stringify(state));
   for(var i=0;i<exp.eleves.length;i++){if(exp.eleves[i].fiche)exp.eleves[i].fiche.photo=null;}
-  // Inclure météo et notes rapides dans le state
   exp._meteo=meteoGet();
   exp._notes=localStorage.getItem('eps-notes-rapides-'+STORAGE_KEY)||'';
-  ghPushFile('data/'+STORAGE_KEY+'.json',exp,'EPS save state',null);
-  ghPushFile('data/classes.json',CLASSES,'EPS save classes',function(){toast('Sauvegarde OK !','ok');});
+  var done=0;
+  function onOne(){done++;if(done===2)toast('Sauvegarde OK !','ok');}
+  ghPushFile('data/'+STORAGE_KEY+'.json',exp,onOne);
+  ghPushFile('data/classes.json',CLASSES,onOne);
 }
+
 function ghPull(){
   if(!GH.token||!GH.repo){toast('Configurez GitHub','warn');return;}
   toast('Synchronisation...','info');
-  // Tirer les classes d'abord
-  fetch('https://api.github.com/repos/'+GH.repo+'/contents/data/classes.json',{headers:{'Authorization':'token '+GH.token,'Accept':'application/vnd.github.v3+json'}})
-  .then(function(r){return r.ok?r.json():null;})
-  .then(function(d){
-    if(d&&d.content){
+  var h=ghHeaders();
+  // Tirer classes et state EN PARALLELE
+  Promise.all([
+    fetch('https://api.github.com/repos/'+GH.repo+'/contents/data/classes.json',{headers:h}).then(function(r){return r.ok?r.json():null;}).catch(function(){return null;}),
+    fetch('https://api.github.com/repos/'+GH.repo+'/contents/data/'+STORAGE_KEY+'.json',{headers:h}).then(function(r){return r.ok?r.json():null;}).catch(function(){return null;})
+  ]).then(function(results){
+    var clsData=results[0];
+    var stateData=results[1];
+    if(clsData&&clsData.content){
       try{
-        var cls=JSON.parse(decodeURIComponent(escape(atob(d.content))));
+        var cls=ghDecode(clsData.content);
         if(cls&&cls.length){CLASSES=cls;classesSave();accRenderClsGrid();}
       }catch(e){}
     }
-    // Tirer le state
-    var fn='data/'+STORAGE_KEY+'.json';
-    return fetch('https://api.github.com/repos/'+GH.repo+'/contents/'+fn,{headers:{'Authorization':'token '+GH.token,'Accept':'application/vnd.github.v3+json'}});
-  })
-  .then(function(r){if(!r||!r.ok){toast('Aucune donnee GitHub','warn');return null;}return r.json();})
-  .then(function(d){
-    if(!d)return;
-    state=JSON.parse(decodeURIComponent(escape(atob(d.content))));
+    if(!stateData){toast('Aucune donnee GitHub','warn');return;}
+    state=ghDecode(stateData.content);
+    GH_SHA['data/'+STORAGE_KEY+'.json']=stateData.sha;
+    if(clsData&&clsData.sha)GH_SHA['data/classes.json']=clsData.sha;
     if(!state.seanceObjectifs)state.seanceObjectifs={};
     if(!state.profil)state.profil={};
     if(!state.comp)state.comp={};
     if(!state.seq)state.seq={};
     if(!state.grilleNotes)state.grilleNotes={};
-    // Restaurer météo
     if(state._meteo){meteoSave(state._meteo);delete state._meteo;}
-    // Restaurer notes rapides
     if(state._notes!==undefined){
-      localStorage.setItem('eps-notes-rapides-'+STORAGE_KEY,state._notes);
       localStorage.setItem('eps-notes-rapides-'+STORAGE_KEY,state._notes);
       delete state._notes;
     }
