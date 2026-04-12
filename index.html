@@ -1505,7 +1505,22 @@ function saveNewCls(){
   toast('Classe "'+nom+'" ajoutee !');
 }
 
-function accInit(){var now=new Date();var J=['Dimanche','Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi'];var M=['janv.','fevr.','mars','avr.','mai','juin','juil.','aout','sept.','oct.','nov.','dec.'];ge('acc-date').innerHTML=J[now.getDay()]+' '+now.getDate()+' '+M[now.getMonth()]+' '+now.getFullYear()+'<br>Annee scolaire 2025-2026';accRenderClsGrid();var ac=ge('acc-apsa-container');ac.innerHTML='';for(var gi=0;gi<CA_GROUPS.length;gi++){(function(g){var grp=document.createElement('div');grp.className='ca-group';var h='<div class="ca-group-header"><span class="ca-label" style="background:'+g.color+'22;color:'+g.color+'">'+g.ca+'</span><span class="ca-desc">'+g.desc+'</span></div><div class="ca-apsa-row">';for(var ai=0;ai<g.apsa.length;ai++){var a=g.apsa[ai];h+='<div class="acc-apsa" id="ap-'+a.id+'"><div class="acc-apsa-emoji">'+a.emoji+'</div><div class="acc-apsa-name">'+a.name+'</div></div>';}h+='</div>';grp.innerHTML=h;for(var ai2=0;ai2<g.apsa.length;ai2++){(function(a){var el=grp.querySelector('#ap-'+a.id);if(el){el.addEventListener('touchend',function(e){e.preventDefault();accPickApsa(a.id);});el.addEventListener('click',function(e){e.preventDefault();e.stopPropagation();accPickApsa(a.id);});}})(g.apsa[ai2]);}ac.appendChild(grp);})(CA_GROUPS[gi]);}for(var n=1;n<=3;n++){(function(tn){var el=ge('tr-'+tn);if(el)el.addEventListener('click',function(e){e.preventDefault();e.stopPropagation();accPickTrim(tn);});})(n);}ge('acc-custom-input').addEventListener('input',function(){accCustom(this.value);});ge('acc-btn').addEventListener('click',function(){accLaunch();});ghLoadConfig();accRenderRecent();
+function accInit(){var now=new Date();var J=['Dimanche','Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi'];var M=['janv.','fevr.','mars','avr.','mai','juin','juil.','aout','sept.','oct.','nov.','dec.'];ge('acc-date').innerHTML=J[now.getDay()]+' '+now.getDate()+' '+M[now.getMonth()]+' '+now.getFullYear()+'<br>Annee scolaire 2025-2026';accRenderClsGrid();var ac=ge('acc-apsa-container');ac.innerHTML='';for(var gi=0;gi<CA_GROUPS.length;gi++){(function(g){var grp=document.createElement('div');grp.className='ca-group';var h='<div class="ca-group-header"><span class="ca-label" style="background:'+g.color+'22;color:'+g.color+'">'+g.ca+'</span><span class="ca-desc">'+g.desc+'</span></div><div class="ca-apsa-row">';for(var ai=0;ai<g.apsa.length;ai++){var a=g.apsa[ai];h+='<div class="acc-apsa" id="ap-'+a.id+'"><div class="acc-apsa-emoji">'+a.emoji+'</div><div class="acc-apsa-name">'+a.name+'</div></div>';}h+='</div>';grp.innerHTML=h;for(var ai2=0;ai2<g.apsa.length;ai2++){(function(a){var el=grp.querySelector('#ap-'+a.id);if(el){el.addEventListener('click',function(e){e.stopPropagation();accPickApsa(a.id);});}})(g.apsa[ai2]);}ac.appendChild(grp);})(CA_GROUPS[gi]);}for(var n=1;n<=3;n++){(function(tn){var el=ge('tr-'+tn);if(el)el.addEventListener('click',function(e){e.preventDefault();e.stopPropagation();accPickTrim(tn);});})(n);}ge('acc-custom-input').addEventListener('input',function(){accCustom(this.value);});ge('acc-btn').addEventListener('click',function(){accLaunch();});
+  // Anti-scroll-click iOS : detecter le scroll sur window
+  var _accScrolling=false;
+  var _accScrollTimer=null;
+  window.addEventListener('scroll',function(){
+    _accScrolling=true;
+    clearTimeout(_accScrollTimer);
+    _accScrollTimer=setTimeout(function(){_accScrolling=false;},300);
+  },{passive:true});
+  // Detecter aussi via touchmove sur le body
+  document.body.addEventListener('touchmove',function(){
+    _accScrolling=true;
+    clearTimeout(_accScrollTimer);
+    _accScrollTimer=setTimeout(function(){_accScrolling=false;},300);
+  },{passive:true});
+  window.accIsScrolling=function(){return _accScrolling;};ghLoadConfig();accRenderRecent();
   // Events modale ajout classe
   var fbtns2=document.querySelectorAll('.filiere-btn');
   for(var _fi2=0;_fi2<fbtns2.length;_fi2++){(function(btn){btn.addEventListener('click',function(){
@@ -1519,8 +1534,8 @@ function accInit(){var now=new Date();var J=['Dimanche','Lundi','Mardi','Mercred
   var pullClsBtn=ge('btn-gh-pull-cls');
   if(pullClsBtn)pullClsBtn.addEventListener('click',function(){ghPullClasses(null);});
 }
-function accPickCls(id){selCls=null;for(var i=0;i<CLASSES.length;i++){if(CLASSES[i].id===id){selCls=CLASSES[i];break;}}var els=document.querySelectorAll('.acc-cls');for(var i=0;i<els.length;i++)els[i].classList.remove('sel');ge('cl-'+id).classList.add('sel');accUpd();}
-function accPickApsa(id){selApsa=null;for(var i=0;i<APSA_FLAT.length;i++){if(APSA_FLAT[i].id===id){selApsa=APSA_FLAT[i];break;}}ge('acc-custom-input').value='';var els=document.querySelectorAll('.acc-apsa');for(var i=0;i<els.length;i++)els[i].classList.remove('sel');ge('ap-'+id).classList.add('sel');accUpd();showAccAflp(selApsa);}
+function accPickCls(id){if(window.accIsScrolling&&window.accIsScrolling())return;selCls=null;for(var i=0;i<CLASSES.length;i++){if(CLASSES[i].id===id){selCls=CLASSES[i];break;}}var els=document.querySelectorAll('.acc-cls');for(var i=0;i<els.length;i++)els[i].classList.remove('sel');ge('cl-'+id).classList.add('sel');accUpd();}
+function accPickApsa(id){if(window.accIsScrolling&&window.accIsScrolling())return;selApsa=null;for(var i=0;i<APSA_FLAT.length;i++){if(APSA_FLAT[i].id===id){selApsa=APSA_FLAT[i];break;}}ge('acc-custom-input').value='';var els=document.querySelectorAll('.acc-apsa');for(var i=0;i<els.length;i++)els[i].classList.remove('sel');ge('ap-'+id).classList.add('sel');accUpd();showAccAflp(selApsa);}
 function accPickTrim(n){selTrim=n;var els=document.querySelectorAll('.acc-trim');for(var i=0;i<els.length;i++)els[i].classList.remove('sel');ge('tr-'+n).classList.add('sel');accUpd();}
 function accCustom(v){selApsa=v.trim()?{id:'custom',name:v.trim(),ca:'CA?',caFull:'CA4',emoji:'&#127957;',caColor:'#6b7280'}:null;var els=document.querySelectorAll('.acc-apsa');for(var i=0;i<els.length;i++)els[i].classList.remove('sel');accUpd();if(selApsa)showAccAflp(selApsa);else ge('aflp-acc-zone').style.display='none';}
 function showAccAflp(apsa){var f=selCls?selCls.filiere:'bacpro';var d=(AFLP[f]||AFLP.bacpro)[apsa.caFull];if(!d){ge('aflp-acc-zone').style.display='none';return;}ge('aflp-acc-zone').style.display='block';ge('aflp-acc-sec-title').textContent=apsa.ca+' - '+apsa.name;ge('aflp-acc-ca-title').textContent=d.titre;var h='';for(var i=0;i<d.items.length;i++)h+='<div class="aflp-acc-item"><span class="aflp-acc-num">'+d.items[i].n+'</span><span>'+d.items[i].t+'</span></div>';ge('aflp-acc-list').innerHTML=h;}
