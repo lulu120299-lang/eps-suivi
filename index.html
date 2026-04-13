@@ -430,6 +430,54 @@ textarea{resize:vertical;min-height:70px}
 .progress-done{color:#a78bfa;font-weight:700}
 .progress-rest{color:#4a5070}
 
+
+.acc-biblio{margin-top:1.5rem;padding-top:1.5rem;border-top:1px solid #1a1f30}
+.acc-biblio-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:.75rem}
+.acc-biblio-title{font-family:"JetBrains Mono",monospace;font-size:.6rem;text-transform:uppercase;letter-spacing:.18em;color:#4a5070;font-weight:700}
+.acc-biblio-btn{background:rgba(167,139,250,.15);border:1px solid rgba(167,139,250,.3);border-radius:7px;color:#a78bfa;font-family:"DM Mono",monospace;font-size:.62rem;padding:4px 10px;cursor:pointer;transition:all .15s}
+.acc-biblio-btn:hover{background:rgba(167,139,250,.25)}
+.bib-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
+@media(max-width:600px){.bib-grid{grid-template-columns:1fr}}
+.bib-card{background:#111520;border:1px solid #1e2438;border-radius:10px;padding:10px 12px;cursor:pointer;transition:border-color .15s}
+.bib-card:hover{border-color:#a78bfa}
+.bib-card-tags{display:flex;gap:4px;margin-bottom:6px;flex-wrap:wrap}
+.bib-tag{font-size:.58rem;font-weight:700;padding:2px 6px;border-radius:8px;font-family:monospace}
+.bib-title{font-size:.82rem;font-weight:600;color:#e4e6ef;margin-bottom:3px;line-height:1.3}
+.bib-meta{font-size:.68rem;color:#4a5070;font-family:monospace}
+
+/* Modale bibliothèque */
+.mb-bib{display:none;position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:600;overflow-y:auto;padding:16px}
+.mb-bib.open{display:block}
+.bib-modal{background:#0d1018;border:1px solid #252836;border-radius:16px;max-width:680px;margin:0 auto;min-height:400px}
+.bib-modal-header{padding:16px 20px;border-bottom:1px solid #1e2438;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;background:#0d1018;z-index:1;border-radius:16px 16px 0 0}
+.bib-modal-title{font-family:"DM Mono",monospace;font-size:.62rem;text-transform:uppercase;letter-spacing:.15em;color:#a78bfa}
+.bib-modal-close{background:none;border:none;color:#4a5070;font-size:1.2rem;cursor:pointer}
+.bib-modal-close:hover{color:#e4e6ef}
+.bib-search{background:#13161f;border:1px solid #252836;border-radius:8px;padding:8px 12px;width:100%;color:#e4e6ef;font-size:.8rem;outline:none;margin-bottom:10px}
+.bib-search:focus{border-color:#a78bfa}
+.bib-filters{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px}
+.bib-filter{background:#13161f;border:1px solid #252836;border-radius:20px;color:#6b7280;font-size:.65rem;padding:4px 10px;cursor:pointer;font-family:monospace}
+.bib-filter.on{background:rgba(167,139,250,.15);border-color:#a78bfa;color:#a78bfa}
+.bib-list{display:flex;flex-direction:column;gap:8px}
+.bib-item{background:#13161f;border:1px solid #1e2438;border-radius:10px;overflow:hidden}
+.bib-item-head{padding:10px 14px;cursor:pointer}
+.bib-item-head:hover{background:#161824}
+.bib-item-body{padding:10px 14px;border-top:1px solid #1e2438;display:none;background:#0d1018}
+.bib-item-body.open{display:block}
+.bib-field{margin-bottom:8px;font-size:.78rem}
+.bib-field-lbl{font-family:monospace;font-size:.58rem;text-transform:uppercase;letter-spacing:.08em;color:#4a5070;margin-bottom:3px;display:block}
+.bib-field-val{color:#c8d0f0;line-height:1.6;background:#13161f;border-radius:6px;padding:6px 10px}
+.bib-item-actions{display:flex;gap:6px;padding:8px 14px;border-top:1px solid #1e2438;background:#111520}
+.bib-act-btn{flex:1;background:#1e2438;border:none;border-radius:6px;color:#9aa0b8;font-size:.65rem;padding:5px 8px;cursor:pointer;font-family:monospace}
+.bib-act-btn:hover{background:#252836;color:#e4e6ef}
+.bib-act-btn.ins{background:rgba(167,139,250,.15);border:1px solid rgba(167,139,250,.3);color:#a78bfa}
+.bib-act-btn.del{color:#ff6b6b}
+.bib-empty{text-align:center;padding:32px;color:#3a4060;font-size:.82rem}
+
+/* Modale ajout/édition situation */
+.mb-bib-edit{display:none;position:fixed;inset:0;background:rgba(0,0,0,.8);z-index:700;overflow-y:auto;padding:16px}
+.mb-bib-edit.open{display:block}
+.bib-edit-modal{background:#0d1018;border:1px solid #252836;border-radius:16px;max-width:600px;margin:0 auto}
 .acc-cls-add{background:transparent;border:2px dashed #2a3050;border-radius:8px;padding:1.1rem .9rem;cursor:pointer;transition:all .15s;text-align:center;color:#3a4a70;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;min-height:90px}
 .acc-cls-add:hover{border-color:#4f8aff;color:#4f8aff}
 .acc-cls-add-icon{font-size:1.4rem;line-height:1}
@@ -682,8 +730,107 @@ textarea{resize:vertical;min-height:70px}
       <div class="acc-recent-title">Sessions recentes</div>
       <div class="acc-chips" id="acc-chips"></div>
     </div>
+    <div class="acc-biblio">
+      <div class="acc-biblio-header">
+        <div class="acc-biblio-title">&#128218; Bibliotheque de situations</div>
+        <button class="acc-biblio-btn" id="btn-open-biblio">Ouvrir</button>
+      </div>
+      <div class="bib-grid" id="acc-bib-preview"></div>
+    </div>
   </div>
 </div>
+  <!-- MODALE BIBLIOTHEQUE -->
+  <div class="mb-bib" id="mb-bib">
+    <div class="bib-modal">
+      <div class="bib-modal-header">
+        <span class="bib-modal-title">&#128218; Bibliotheque de situations</span>
+        <div style="display:flex;gap:8px;align-items:center">
+          <button class="acc-biblio-btn" id="btn-bib-add">+ Nouvelle situation</button>
+          <button class="bib-modal-close" onclick="closeBiblio()">&#10005;</button>
+        </div>
+      </div>
+      <div style="padding:14px 20px 0">
+        <input class="bib-search" id="bib-search" placeholder="Rechercher...">
+        <div class="bib-filters" id="bib-filters"></div>
+      </div>
+      <div style="padding:0 20px 20px">
+        <div class="bib-list" id="bib-list"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODALE AJOUT/EDIT SITUATION -->
+  <div class="mb-bib-edit" id="mb-bib-edit">
+    <div class="bib-edit-modal">
+      <div class="bib-modal-header">
+        <span class="bib-modal-title" id="bib-edit-title">&#128218; Nouvelle situation</span>
+        <button class="bib-modal-close" onclick="closeBiblioEdit()">&#10005;</button>
+      </div>
+      <div style="padding:16px 20px">
+        <div class="fg">
+          <div class="fgrp full"><label>Titre de la situation</label><input type="text" id="bib-e-titre" placeholder="Ex: Rallye photo, 3 touches obligatoires..."></div>
+          <div class="fgrp"><label>CA</label>
+            <select id="bib-e-ca">
+              <option value="">-- CA --</option>
+              <option value="CA1">CA1 - Performance</option>
+              <option value="CA2">CA2 - Pleine nature</option>
+              <option value="CA3">CA3 - Prestation corporelle</option>
+              <option value="CA4">CA4 - Affrontement</option>
+              <option value="CA5">CA5 - Entretien</option>
+            </select>
+          </div>
+          <div class="fgrp"><label>APSA</label><input type="text" id="bib-e-apsa" placeholder="Ex: Orientation, Volley..."></div>
+          <div class="fgrp"><label>Filiere</label>
+            <select id="bib-e-filiere">
+              <option value="">-- Filiere --</option>
+              <option value="bacpro">Lycee Pro Bac Pro</option>
+              <option value="cap">Lycee Pro CAP</option>
+              <option value="col3">College Cycle 3</option>
+              <option value="col4">College Cycle 4</option>
+              <option value="lgt">Bac LGT</option>
+            </select>
+          </div>
+          <div class="fgrp"><label>Type de seance</label>
+            <select id="bib-e-seance">
+              <option value="">-- Type --</option>
+              <option>S1 - Decouverte</option>
+              <option>S2 - Apprentissage</option>
+              <option>S3 - Consolidation</option>
+              <option>S4 - Approfondissement</option>
+              <option>S5 - Situation de reference</option>
+              <option>S6 - Evaluation / CCF</option>
+            </select>
+          </div>
+          <div class="fgrp"><label>Partie</label>
+            <select id="bib-e-fps">
+              <option value="">-- Partie --</option>
+              <option>Echauffement</option>
+              <option>Situation d apprentissage</option>
+              <option>Bilan et retour au calme</option>
+            </select>
+          </div>
+          <div class="fgrp"><label>Niveau eleves</label>
+            <select id="bib-e-niveau">
+              <option value="">-- Niveau --</option>
+              <option value="debutant">Debutant</option>
+              <option value="intermediaire">Intermediaire</option>
+              <option value="avance">Avance</option>
+            </select>
+          </div>
+          <div class="fgrp full"><label>Objectif</label><textarea id="bib-e-objectif" style="min-height:50px" placeholder="Ce que l eleve sera capable de faire..."></textarea></div>
+          <div class="fgrp full"><label>Dispositif &amp; consignes</label><textarea id="bib-e-consignes" style="min-height:60px" placeholder="Organisation, groupes, consignes..."></textarea></div>
+          <div class="fgrp full"><label>Criteres de reussite</label><textarea id="bib-e-criteres" style="min-height:50px" placeholder="Mesurables, observables..."></textarea></div>
+          <div class="fgrp full"><label>Criteres de realisation</label><textarea id="bib-e-realisation" style="min-height:50px" placeholder="Ce que l enseignant observe..."></textarea></div>
+          <div class="fgrp full"><label>Remediations</label><textarea id="bib-e-remediation" style="min-height:50px" placeholder="Facilite / Avance..."></textarea></div>
+        </div>
+        <div class="modal-acts" style="margin-top:1rem">
+          <button class="btn btn-g" onclick="closeBiblioEdit()">Annuler</button>
+          <button class="btn btn-p" id="btn-bib-save">Enregistrer</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <div class="mb" id="m-add-cls"><div class="modal">
     <div class="modal-title">Ajouter une classe</div>
     <div class="fg">
@@ -720,6 +867,7 @@ textarea{resize:vertical;min-height:70px}
       <button class="s-tab active" data-view="v-accueil">Accueil</button>
       <button class="s-tab" data-view="v-seances">Seances</button>
       <button class="s-tab" data-view="v-appel">Appel</button>
+      <button class="s-tab" data-view="v-biblio">Biblio</button>
       <button class="s-tab" data-view="v-eleves">Classe</button>
       <button class="s-tab" data-view="v-comp">Competences</button>
       <button class="s-tab" data-view="v-eval">Bilan</button>
@@ -824,6 +972,17 @@ textarea{resize:vertical;min-height:70px}
             <button class="meteo-save-btn" id="btn-appel-meteo-bilan" style="flex:1;background:rgba(79,138,255,.12);border-color:rgba(79,138,255,.25);color:#4f8aff">&#8594; Copier dans bilan</button>
           </div>
         </div>
+      </div>
+    </div>
+    <div id="v-biblio" class="view">
+      <div class="ph">
+        <div><div class="ph-title">Bibliotheque</div><div class="ph-sub">Mes situations d apprentissage</div></div>
+        <button class="btn btn-p" id="btn-biblio-new-seq">+ Nouvelle situation</button>
+      </div>
+      <div style="padding:.5rem 0">
+        <input class="bib-search" id="bib-search-seq" placeholder="Rechercher..." style="margin-bottom:10px">
+        <div class="bib-filters" id="bib-filters-seq" style="margin-bottom:12px"></div>
+        <div class="bib-list" id="bib-list-seq"></div>
       </div>
     </div>
     <div id="v-eleves" class="view">
@@ -1158,6 +1317,10 @@ textarea{resize:vertical;min-height:70px}
       <button class="s-bnav-btn" data-view="v-seances">
         <span class="bnav-icon">&#128203;</span>
         <span class="bnav-label">Seances</span>
+      </button>
+      <button class="s-bnav-btn" data-view="v-biblio">
+        <span class="bnav-icon">&#128218;</span>
+        <span class="bnav-label">Biblio</span>
       </button>
       <button class="s-bnav-btn" data-view="v-appel">
         <span class="bnav-icon">&#9995;</span>
@@ -1751,7 +1914,7 @@ function accInit(){var now=new Date();var J=['Dimanche','Lundi','Mardi','Mercred
     clearTimeout(_accScrollTimer);
     _accScrollTimer=setTimeout(function(){_accScrolling=false;},300);
   },{passive:true});
-  window.accIsScrolling=function(){return _accScrolling;};ghLoadConfig();accRenderRecent();
+  window.accIsScrolling=function(){return _accScrolling;};ghLoadConfig();accRenderRecent();bibRenderPreview();
   // Events modale ajout classe
   var fbtns2=document.querySelectorAll('.filiere-btn');
   for(var _fi2=0;_fi2<fbtns2.length;_fi2++){(function(btn){btn.addEventListener('click',function(){
@@ -1773,7 +1936,7 @@ function showAccAflp(apsa){var f=selCls?selCls.filiere:'bacpro';var d=(AFLP[f]||
 function accUpd(){ge('acc-s1').className='acc-step'+(selCls?' done':' active');ge('acc-s2').className='acc-step'+(selCls&&!selApsa?' active':selApsa?' done':'');ge('acc-s3').className='acc-step'+(selApsa&&!selTrim?' active':selTrim?' done':'');ge('acc-s4').className='acc-step'+(selApsa&&selTrim?' active':'');var btn=ge('acc-btn'),sum=ge('acc-sum');if(selCls&&selApsa&&selTrim){sum.innerHTML='<em>'+selCls.label+'</em> - '+selApsa.ca+' - '+selApsa.name+' - T'+selTrim;btn.disabled=false;}else if(selCls&&selApsa){sum.textContent=selCls.label+' - '+selApsa.name+' - Choisissez un trimestre';btn.disabled=true;}else if(selCls){sum.textContent=selCls.label+' - Choisissez une APSA';btn.disabled=true;}else{sum.textContent='Choisissez une classe, une APSA et un trimestre';btn.disabled=true;}}
 function accLaunch(cls,apsa,trim){cls=cls||selCls;apsa=apsa||selApsa;trim=trim||selTrim;if(!cls||!apsa||!trim)return;var key='eps-'+cls.id+'-'+apsa.id+'-t'+trim;var sessions=[];try{sessions=JSON.parse(localStorage.getItem('eps-recent')||'[]');}catch(e){}for(var i=sessions.length-1;i>=0;i--){if(sessions[i].key===key)sessions.splice(i,1);}sessions.unshift({key:key,cls:cls,apsa:apsa,trim:trim,ts:Date.now()});localStorage.setItem('eps-recent',JSON.stringify(sessions.slice(0,8)));openSuivi(cls,apsa,key,trim);}
 function accRenderRecent(){var sessions=[];try{sessions=JSON.parse(localStorage.getItem('eps-recent')||'[]');}catch(e){}var zone=ge('acc-recent');if(!sessions.length){zone.style.display='none';return;}zone.style.display='block';var chips=ge('acc-chips');chips.innerHTML='';for(var i=0;i<sessions.length;i++){(function(s){var cls=null;for(var j=0;j<CLASSES.length;j++){if(CLASSES[j].id===s.cls.id){cls=CLASSES[j];break;}}if(!cls)cls=s.cls;var d=new Date(s.ts);var chip=document.createElement('div');chip.className='acc-chip';chip.innerHTML='<div class="dot" style="background:'+(cls.color||'#888')+'"></div><span>'+s.cls.label+'</span><span style="color:#9a9080">-</span><span>'+s.apsa.name+'</span>'+(s.trim?'<span style="font-weight:800;color:#4f8aff">T'+s.trim+'</span>':'')+'<span style="color:#9a9080;font-size:.68rem">'+d.getDate()+'/'+(d.getMonth()+1)+'</span><span class="x">x</span>';chip.querySelector('.x').addEventListener('click',function(e){e.stopPropagation();var ss=[];try{ss=JSON.parse(localStorage.getItem('eps-recent')||'[]');}catch(err){}for(var k=ss.length-1;k>=0;k--){if(ss[k].key===s.key)ss.splice(k,1);}localStorage.setItem('eps-recent',JSON.stringify(ss));accRenderRecent();});chip.addEventListener('click',function(){accLaunch(s.cls,s.apsa,s.trim||1);});chips.appendChild(chip);})(sessions[i]);}}
-function openSuivi(cls,apsa,key,trim){CTX={cls:cls,apsa:apsa,key:key,trim:trim};STORAGE_KEY=key;loadState();ge('s-logo').innerHTML=apsa.emoji+' '+apsa.name+' <span class="s-badge">'+apsa.ca+'</span>';var ctx=ge('s-ctx');ctx.textContent=cls.label+(trim?' - T'+trim:'');ctx.style.display='inline';ge('s-pg-title').textContent=apsa.ca+' - '+apsa.name;var f=cls.filiere||'bacpro';var fil=FILIERES[f];ge('eval-filiere-sub').textContent='Filiere : '+fil.label+' - T'+(trim||'');var badge=ge('eval-filiere-badge');badge.textContent=fil.label;badge.style.background=fil.color+'22';badge.style.color=fil.color;var aflpData=(AFLP[f]||AFLP.bacpro)[apsa.caFull];if(aflpData){ge('eval-aflp-ca-title').textContent=aflpData.titre;var h='';for(var i=0;i<aflpData.items.length;i++)h+='<div class="eval-aflp-item"><span class="eval-n">'+aflpData.items[i].n+'</span><span class="eval-t">'+aflpData.items[i].t+'</span></div>';ge('eval-aflp-list').innerHTML=h;}ge('pg-acc').style.display='none';ge('pg-suivi').style.display='block';showView('v-accueil');renderAll();initNotesRapides();}
+function openSuivi(cls,apsa,key,trim){CTX={cls:cls,apsa:apsa,key:key,trim:trim};STORAGE_KEY=key;loadState();ge('s-logo').innerHTML=apsa.emoji+' '+apsa.name+' <span class="s-badge">'+apsa.ca+'</span>';var ctx=ge('s-ctx');ctx.textContent=cls.label+(trim?' - T'+trim:'');ctx.style.display='inline';ge('s-pg-title').textContent=apsa.ca+' - '+apsa.name;var f=cls.filiere||'bacpro';var fil=FILIERES[f];ge('eval-filiere-sub').textContent='Filiere : '+fil.label+' - T'+(trim||'');var badge=ge('eval-filiere-badge');badge.textContent=fil.label;badge.style.background=fil.color+'22';badge.style.color=fil.color;var aflpData=(AFLP[f]||AFLP.bacpro)[apsa.caFull];if(aflpData){ge('eval-aflp-ca-title').textContent=aflpData.titre;var h='';for(var i=0;i<aflpData.items.length;i++)h+='<div class="eval-aflp-item"><span class="eval-n">'+aflpData.items[i].n+'</span><span class="eval-t">'+aflpData.items[i].t+'</span></div>';ge('eval-aflp-list').innerHTML=h;}ge('pg-acc').style.display='none';ge('pg-suivi').style.display='block';showView('v-accueil');renderAll();initNotesRapides();bibRenderList('bib-list-seq');bibRenderFilters('bib-filters-seq');}
 function goAcc(){ge('pg-suivi').style.display='none';ge('pg-acc').style.display='block';accRenderRecent();}
 function loadState(){
   try{
@@ -2126,7 +2289,7 @@ function saveProfilPlan(){var planKey=ge('profil-plan-key').value;var obs=ge('pr
 function renderSeances(){var el=ge('slist');var q=(ge('srch').value||'').toLowerCase();var sorted=state.seances.slice().sort(function(a,b){return a.num-b.num;});var filtered=[];for(var i=0;i<sorted.length;i++){if((sorted[i].objectif||'').toLowerCase().indexOf(q)>=0||String(sorted[i].num).indexOf(q)>=0)filtered.push(sorted[i]);}if(!filtered.length){el.innerHTML='<div class="empty">Aucune seance. Creez la premiere !</div>';return;}var f=CTX.cls?CTX.cls.filiere:'bacpro';var aflpData=CTX.apsa?(AFLP[f]||AFLP.bacpro)[CTX.apsa.caFull]:null;var caColor=CTX.apsa?CTX.apsa.caColor:'#4f8aff';el.innerHTML='';for(var i=0;i<filtered.length;i++){(function(s){var presMap=state.presences[s.id]||{};var nbP=0;for(var k in presMap){if((presMap[k]||'')==='Present')nbP++;}var np=(s.parties||[]).length;var aflpT=s.aflpTravailles||[];var objData=state.seanceObjectifs[s.id]||{};var sp=null;if(s.parties){for(var j=0;j<s.parties.length;j++){if(s.parties[j].titre&&s.parties[j].titre.toLowerCase().indexOf('sit')>=0){sp=s.parties[j];break;}}if(!sp&&s.parties.length)sp=s.parties[0];}var div=document.createElement('div');div.className='scard';div.dataset.sid=s.id;var h='<div class="scard-head"><div class="scard-num" style="background:'+caColor+'"><span class="scard-num-label">Seance</span>'+s.num+'</div><div class="scard-main"><div class="scard-title">'+esc(s.objectif||'Sans titre')+'</div><div class="scard-date">'+(s.date?fmtDate(s.date):'Date non definie')+'</div><div class="scard-chips"><span class="chip c-gr">'+nbP+'/'+state.eleves.length+'</span>';if(np)h+='<span class="chip c-pu">'+np+' partie'+(np>1?'s':'')+'</span>';if(s.bilan)h+='<span class="chip c-bl">Bilan</span>';if(aflpT.length)h+='<span class="chip c-bl">'+aflpT.length+' AFLP</span>';h+='</div></div></div>';if(sp&&(sp.objectif||sp.criteres||sp.contenus)){h+='<div class="scard-body">';if(sp.objectif)h+='<div><div class="scard-sec-lbl">Objectif situation</div><div class="scard-sec-val">'+esc(sp.objectif)+'</div></div>';if(sp.criteres)h+='<div><div class="scard-sec-lbl">Criteres</div><div class="scard-sec-val">'+esc(sp.criteres)+'</div></div>';if(sp.contenus)h+='<div><div class="scard-sec-lbl">Contenus</div><div class="scard-sec-val">'+esc(sp.contenus)+'</div></div>';h+='</div>';}if(objData.obj1)h+='<div class="scard-body" style="border-top:1px solid #1a1d2a"><div><div class="scard-sec-lbl">Objectif eleves</div><div class="scard-sec-val">'+esc(objData.obj1)+(objData.obj2?' / '+esc(objData.obj2):'')+'</div></div></div>';if(np){h+='<div class="scard-parts">';for(var j=0;j<s.parties.length;j++)h+='<span class="scard-part-pill">Partie '+(j+1)+(s.parties[j].titre?' - '+esc(s.parties[j].titre):'')+'</span>';h+='</div>';}if(aflpT.length&&aflpData){h+='<div class="scard-aflp-row"><span class="scard-aflp-lbl">AFLP :</span>';for(var j=0;j<aflpT.length;j++)h+='<span class="scard-aflp-tag">'+aflpT[j]+'</span>';h+='</div>';}div.innerHTML=h;el.appendChild(div);})(filtered[i]);}el.onclick=function(e){var card=e.target.closest('.scard');if(card)openEditS(card.dataset.sid);};}
 function mkPid(){return'p'+Date.now()+Math.random().toString(36).slice(2,5);}
 function addPartie(mode){var p={id:mkPid(),titre:'',objectif:'',consignes:'',criteres:'',contenus:'',realisation:'',remediation:'',bilan:'',photos:[],tableaux:[],fichiers:[]};if(mode==='new')partiesNew.push(p);else partiesEdit.push(p);var arr=mode==='new'?partiesNew:partiesEdit;renderPartieBlock(mode==='new'?'parties-new':'parties-edit',p,arr.length-1,mode);}
-function renderPartieBlock(cid,p,idx,mode){var c=ge(cid);var div=document.createElement('div');div.className='partie-block';div.id='pb-'+p.id;div.innerHTML='<div class="partie-header"><span class="partie-num-badge">&#9654; Partie '+(idx+1)+'</span><input class="partie-title-input" type="text" placeholder="Titre de la partie (Echauffement, Situation principale...)" value="'+esc(p.titre)+'"><button class="partie-del" data-pid="'+p.id+'" data-mode="'+mode+'">&#128465;</button></div>'+'<div class="partie-grid">'+'<div class="pf obj" style="grid-column:1/-1"><label>&#127919; Objectif</label><textarea rows="2" placeholder="Quel est le but de cette partie pour l eleve ?">'+esc(p.objectif)+'</textarea></div>'+'<div class="pf cons" style="grid-column:1/-1"><label>&#128221; Consignes</label><div class="pf-cons-hint">Ecrivez chaque consigne sur une nouvelle ligne pour plus de lisibilite</div><textarea rows="5" placeholder="- Consigne 1&#10;- Consigne 2&#10;- Consigne 3...">'+esc(p.consignes)+'</textarea></div>'+'<div class="pf crit"><label>&#9989; Criteres de reussite</label><textarea rows="3" placeholder="Ce que l eleve doit reussir pour valider la partie...">'+esc(p.criteres)+'</textarea></div>'+'<div class="pf cont"><label>&#127891; Contenus d enseignement</label><textarea rows="3" placeholder="Ce que j enseigne / Points cles...">'+esc(p.contenus||'')+'</textarea></div>'+'<div class="pf real"><label>&#128269; Criteres de realisation</label><textarea rows="3" placeholder="Les indicateurs observables pour l enseignant (ce que je vois chez l eleve qui fait bien)...">'+esc(p.realisation||'')+'</textarea></div>'+'<div class="pf rem"><label>&#128260; Remediations</label><textarea rows="3" placeholder="Pour les eleves en difficulte : adaptations, simplifications, aides...">'+esc(p.remediation||'')+'</textarea></div>'+'<div class="pf bil" style="grid-column:1/-1"><label>&#128203; Bilan de partie</label><textarea rows="2" placeholder="Observations apres la seance...">'+esc(p.bilan)+'</textarea></div>'+'</div>';
+function renderPartieBlock(cid,p,idx,mode){var c=ge(cid);var div=document.createElement('div');div.className='partie-block';div.id='pb-'+p.id;div.innerHTML='<div class="partie-header"><span class="partie-num-badge">&#9654; Partie '+(idx+1)+'</span><input class="partie-title-input" type="text" placeholder="Titre de la partie (Echauffement, Situation principale...)" value="'+esc(p.titre)+'"><button class="btn-bib-save-partie" data-pid="'+p.id+'" title="Sauvegarder dans la bibliotheque" style="background:rgba(167,139,250,.12);border:1px solid rgba(167,139,250,.25);border-radius:6px;color:#a78bfa;font-size:.62rem;padding:3px 7px;cursor:pointer;white-space:nowrap">&#128218;</button><button class="partie-del" data-pid="'+p.id+'" data-mode="'+mode+'">&#128465;</button></div>'+'<div class="partie-grid">'+'<div class="pf obj" style="grid-column:1/-1"><label>&#127919; Objectif</label><textarea rows="2" placeholder="Quel est le but de cette partie pour l eleve ?">'+esc(p.objectif)+'</textarea></div>'+'<div class="pf cons" style="grid-column:1/-1"><label>&#128221; Consignes</label><div class="pf-cons-hint">Ecrivez chaque consigne sur une nouvelle ligne pour plus de lisibilite</div><textarea rows="5" placeholder="- Consigne 1&#10;- Consigne 2&#10;- Consigne 3...">'+esc(p.consignes)+'</textarea></div>'+'<div class="pf crit"><label>&#9989; Criteres de reussite</label><textarea rows="3" placeholder="Ce que l eleve doit reussir pour valider la partie...">'+esc(p.criteres)+'</textarea></div>'+'<div class="pf cont"><label>&#127891; Contenus d enseignement</label><textarea rows="3" placeholder="Ce que j enseigne / Points cles...">'+esc(p.contenus||'')+'</textarea></div>'+'<div class="pf real"><label>&#128269; Criteres de realisation</label><textarea rows="3" placeholder="Les indicateurs observables pour l enseignant (ce que je vois chez l eleve qui fait bien)...">'+esc(p.realisation||'')+'</textarea></div>'+'<div class="pf rem"><label>&#128260; Remediations</label><textarea rows="3" placeholder="Pour les eleves en difficulte : adaptations, simplifications, aides...">'+esc(p.remediation||'')+'</textarea></div>'+'<div class="pf bil" style="grid-column:1/-1"><label>&#128203; Bilan de partie</label><textarea rows="2" placeholder="Observations apres la seance...">'+esc(p.bilan)+'</textarea></div>'+'</div>';
 // Zone extras (photos, tableau, pieces jointes)
 var extras=document.createElement('div');extras.className='partie-extras';
 // Photos
@@ -2975,6 +3138,238 @@ function gpCopier(){
   }).catch(function(){toast('Erreur copie','warn');});
 }
 
+// ══════════════════════════════════════════
+// BIBLIOTHÈQUE DE SITUATIONS
+// ══════════════════════════════════════════
+var BIB_KEY='eps-bibliotheque';
+var BIB_EDIT_ID=null;
+var BIB_COLS={CA1:'#ff6b6b',CA2:'#a78bfa',CA3:'#ffd166',CA4:'#4f8aff',CA5:'#56cfb2'};
+var BIB_NIV={debutant:{bg:'rgba(86,207,178,.15)',color:'#56cfb2',lbl:'Débutant'},intermediaire:{bg:'rgba(255,209,102,.15)',color:'#ffd166',lbl:'Intermédiaire'},avance:{bg:'rgba(255,107,107,.15)',color:'#ff6b6b',lbl:'Avancé'}};
+
+function bibLoad(){try{return JSON.parse(localStorage.getItem(BIB_KEY)||'[]');}catch(e){return[];}}
+function bibSave(data){localStorage.setItem(BIB_KEY,JSON.stringify(data));}
+
+function bibPush(){
+  if(!GH.token||!GH.repo)return;
+  ghPushFile('data/bibliotheque.json',bibLoad(),function(){});
+}
+function bibPull(){
+  if(!GH.token||!GH.repo)return;
+  fetch('https://api.github.com/repos/'+GH.repo+'/contents/data/bibliotheque.json',{headers:ghHeaders()})
+  .then(function(r){return r.ok?r.json():null;})
+  .then(function(d){
+    if(d&&d.content){
+      try{var b=ghDecode(d.content);if(b&&b.length){bibSave(b);bibRenderPreview();bibRenderList('bib-list');bibRenderList('bib-list-seq');toast('Bibliotheque synchronisee !');}}catch(e){}
+    }
+  }).catch(function(){});
+}
+
+function bibRenderPreview(){
+  var zone=ge('acc-bib-preview');if(!zone)return;
+  var data=bibLoad();
+  if(!data.length){zone.innerHTML='<div style="color:#3a4060;font-size:.75rem;font-style:italic;grid-column:1/-1">Aucune situation sauvegardee. Ouvrez la bibliotheque pour en ajouter.</div>';return;}
+  var html='';
+  var preview=data.slice(0,4);
+  for(var i=0;i<preview.length;i++){
+    var s=preview[i];
+    var caCol=BIB_COLS[s.ca]||'#4f8aff';
+    var niv=BIB_NIV[s.niveau]||{bg:'rgba(79,138,255,.15)',color:'#4f8aff',lbl:s.niveau||''};
+    html+='<div class="bib-card" onclick="openBiblio()">';
+    html+='<div class="bib-card-tags">';
+    if(s.ca)html+='<span class="bib-tag" style="background:'+caCol+'22;color:'+caCol+'">'+s.ca+'</span>';
+    if(s.niveau)html+='<span class="bib-tag" style="background:'+niv.bg+';color:'+niv.color+'">'+niv.lbl+'</span>';
+    if(s.apsa)html+='<span class="bib-tag" style="background:#13161f;color:#4a5070;border:1px solid #252836">'+esc(s.apsa)+'</span>';
+    html+='</div>';
+    html+='<div class="bib-title">'+esc(s.titre||'Sans titre')+'</div>';
+    html+='<div class="bib-meta">'+(s.fps||'')+(s.seanceType?' · '+s.seanceType:'')+'</div>';
+    html+='</div>';
+  }
+  if(data.length>4)html+='<div style="grid-column:1/-1;text-align:center;color:#4a5070;font-size:.72rem;font-family:monospace;padding:6px 0">... et '+(data.length-4)+' autres situations</div>';
+  zone.innerHTML=html;
+}
+
+function bibRenderList(zoneId,filter){
+  var zone=ge(zoneId);if(!zone)return;
+  var data=bibLoad();
+  var searchId=zoneId==='bib-list'?'bib-search':'bib-search-seq';
+  var searchEl=ge(searchId);
+  var q=(searchEl?searchEl.value:'').toLowerCase().trim();
+  if(q){data=data.filter(function(s){return (s.titre||'').toLowerCase().indexOf(q)>=0||(s.apsa||'').toLowerCase().indexOf(q)>=0||(s.ca||'').toLowerCase().indexOf(q)>=0;});}
+  if(filter&&filter!=='all'){data=data.filter(function(s){return s.ca===filter||s.niveau===filter||s.filiere===filter;});}
+  if(!data.length){zone.innerHTML='<div class="bib-empty">Aucune situation. Cliquez sur "+ Nouvelle situation" pour commencer.</div>';return;}
+  var html='';
+  for(var i=0;i<data.length;i++){
+    var s=data[i];var id=s.id;
+    var caCol=BIB_COLS[s.ca]||'#4f8aff';
+    var niv=BIB_NIV[s.niveau]||{bg:'rgba(79,138,255,.15)',color:'#4f8aff',lbl:s.niveau||''};
+    html+='<div class="bib-item" id="bib-item-'+id+'">';
+    html+='<div class="bib-item-head" onclick="bibToggle(\''+id+'\')">';
+    html+='<div style="display:flex;gap:5px;margin-bottom:5px;flex-wrap:wrap">';
+    if(s.ca)html+='<span class="bib-tag" style="background:'+caCol+'22;color:'+caCol+'">'+s.ca+'</span>';
+    if(s.filiere)html+='<span class="bib-tag" style="background:#13161f;color:#4a5070;border:1px solid #252836">'+(FILIERES[s.filiere]?FILIERES[s.filiere].label:s.filiere)+'</span>';
+    if(s.apsa)html+='<span class="bib-tag" style="background:#13161f;color:#4a5070;border:1px solid #252836">'+esc(s.apsa)+'</span>';
+    if(s.seanceType)html+='<span class="bib-tag" style="background:#13161f;color:#4a5070;border:1px solid #252836">'+esc(s.seanceType)+'</span>';
+    if(s.niveau)html+='<span class="bib-tag" style="background:'+niv.bg+';color:'+niv.color+'">'+niv.lbl+'</span>';
+    html+='</div>';
+    html+='<div style="font-size:.85rem;font-weight:600;color:#e4e6ef">'+esc(s.titre||'Sans titre')+'</div>';
+    if(s.fps)html+='<div style="font-size:.68rem;color:#4a5070;font-family:monospace;margin-top:2px">'+esc(s.fps)+'</div>';
+    html+='</div>';
+    html+='<div class="bib-item-body" id="bib-body-'+id+'">';
+    if(s.objectif)html+='<div class="bib-field"><span class="bib-field-lbl">Objectif</span><div class="bib-field-val">'+esc(s.objectif)+'</div></div>';
+    if(s.consignes)html+='<div class="bib-field"><span class="bib-field-lbl">Dispositif &amp; consignes</span><div class="bib-field-val">'+esc(s.consignes)+'</div></div>';
+    if(s.criteres)html+='<div class="bib-field"><span class="bib-field-lbl">Criteres de reussite</span><div class="bib-field-val" style="border-left:2px solid #ffd166">'+esc(s.criteres)+'</div></div>';
+    if(s.realisation)html+='<div class="bib-field"><span class="bib-field-lbl">Criteres de realisation</span><div class="bib-field-val" style="border-left:2px solid #56cfb2">'+esc(s.realisation)+'</div></div>';
+    if(s.remediation)html+='<div class="bib-field"><span class="bib-field-lbl">Remediations</span><div class="bib-field-val" style="border-left:2px solid #a78bfa">'+esc(s.remediation)+'</div></div>';
+    html+='</div>';
+    html+='<div class="bib-item-actions">';
+    // Bouton insérer seulement dans pg-suivi
+    if(zoneId==='bib-list-seq')html+='<button class="bib-act-btn ins" onclick="bibInserer(\''+id+'\')">&#8618; Inserer en partie</button>';
+    html+='<button class="bib-act-btn" onclick="bibEdit(\''+id+'\')">&#9998; Modifier</button>';
+    html+='<button class="bib-act-btn del" onclick="bibDelete(\''+id+'\')">&#128465;</button>';
+    html+='</div>';
+    html+='</div>';
+  }
+  zone.innerHTML=html;
+}
+
+function bibRenderFilters(zoneId){
+  var zone=ge(zoneId);if(!zone)return;
+  var data=bibLoad();
+  var cas=[...new Set(data.map(function(s){return s.ca;}).filter(Boolean))];
+  var html='<div class="bib-filter on" onclick="bibFilterClick(this,\''+zoneId+'\',\'all\')">Toutes ('+data.length+')</div>';
+  for(var i=0;i<cas.length;i++){
+    var col=BIB_COLS[cas[i]]||'#4f8aff';
+    html+='<div class="bib-filter" style="" onclick="bibFilterClick(this,\''+zoneId+'\',\''+cas[i]+'\')" data-f="'+cas[i]+'">'+cas[i]+'</div>';
+  }
+  zone.innerHTML=html;
+}
+
+function bibFilterClick(el,zoneId,f){
+  var filtersEl=el.parentElement;
+  var all=filtersEl.querySelectorAll('.bib-filter');
+  for(var i=0;i<all.length;i++)all[i].classList.remove('on');
+  el.classList.add('on');
+  var listId=zoneId==='bib-filters'?'bib-list':'bib-list-seq';
+  bibRenderList(listId,f==='all'?null:f);
+}
+
+function bibToggle(id){
+  var body=ge('bib-body-'+id);
+  if(body)body.classList.toggle('open');
+}
+
+function openBiblio(){
+  ge('mb-bib').classList.add('open');
+  bibRenderList('bib-list');
+  bibRenderFilters('bib-filters');
+  var s=ge('bib-search');if(s)s.addEventListener('input',function(){bibRenderList('bib-list');});
+}
+function closeBiblio(){ge('mb-bib').classList.remove('open');}
+
+function openBiblioEdit(){
+  BIB_EDIT_ID=null;
+  ge('bib-edit-title').textContent='Nouvelle situation';
+  ['titre','apsa','objectif','consignes','criteres','realisation','remediation'].forEach(function(f){var el=ge('bib-e-'+f);if(el)el.value='';});
+  ['ca','filiere','seance','fps','niveau'].forEach(function(f){var el=ge('bib-e-'+f);if(el)el.value='';});
+  ge('mb-bib-edit').classList.add('open');
+}
+function closeBiblioEdit(){ge('mb-bib-edit').classList.remove('open');}
+
+function bibSaveSituation(){
+  var titre=ge('bib-e-titre').value.trim();
+  if(!titre){toast('Entrez un titre','warn');return;}
+  var data=bibLoad();
+  var sit={
+    id:BIB_EDIT_ID||('b'+Date.now()),
+    titre:titre,
+    ca:ge('bib-e-ca').value,
+    apsa:ge('bib-e-apsa').value.trim(),
+    filiere:ge('bib-e-filiere').value,
+    seanceType:ge('bib-e-seance').value,
+    fps:ge('bib-e-fps').value,
+    niveau:ge('bib-e-niveau').value,
+    objectif:ge('bib-e-objectif').value.trim(),
+    consignes:ge('bib-e-consignes').value.trim(),
+    criteres:ge('bib-e-criteres').value.trim(),
+    realisation:ge('bib-e-realisation').value.trim(),
+    remediation:ge('bib-e-remediation').value.trim()
+  };
+  if(BIB_EDIT_ID){
+    for(var i=0;i<data.length;i++){if(data[i].id===BIB_EDIT_ID){data[i]=sit;break;}}
+  }else{
+    data.unshift(sit);
+  }
+  bibSave(data);
+  bibPush();
+  closeBiblioEdit();
+  bibRenderPreview();
+  bibRenderList('bib-list');
+  bibRenderFilters('bib-filters');
+  bibRenderList('bib-list-seq');
+  bibRenderFilters('bib-filters-seq');
+  toast('Situation sauvegardee !');
+}
+
+function bibEdit(id){
+  var data=bibLoad();
+  var sit=null;for(var i=0;i<data.length;i++){if(data[i].id===id){sit=data[i];break;}}
+  if(!sit)return;
+  BIB_EDIT_ID=id;
+  ge('bib-edit-title').textContent='Modifier la situation';
+  ['titre','apsa','objectif','consignes','criteres','realisation','remediation'].forEach(function(f){var el=ge('bib-e-'+f);if(el)el.value=sit[f]||'';});
+  ge('bib-e-ca').value=sit.ca||'';
+  ge('bib-e-filiere').value=sit.filiere||'';
+  ge('bib-e-seance').value=sit.seanceType||'';
+  ge('bib-e-fps').value=sit.fps||'';
+  ge('bib-e-niveau').value=sit.niveau||'';
+  ge('mb-bib-edit').classList.add('open');
+}
+
+function bibDelete(id){
+  if(!confirm('Supprimer cette situation ?'))return;
+  var data=bibLoad().filter(function(s){return s.id!==id;});
+  bibSave(data);
+  bibPush();
+  bibRenderPreview();
+  bibRenderList('bib-list');
+  bibRenderFilters('bib-filters');
+  bibRenderList('bib-list-seq');
+  bibRenderFilters('bib-filters-seq');
+  toast('Situation supprimee');
+}
+
+function bibInserer(id){
+  var data=bibLoad();
+  var sit=null;for(var i=0;i<data.length;i++){if(data[i].id===id){sit=data[i];break;}}
+  if(!sit)return;
+  var p={id:'p'+Date.now()+Math.random().toString(36).slice(2,5),titre:sit.titre||'',objectif:sit.objectif||'',consignes:sit.consignes||'',criteres:sit.criteres||'',contenus:'',realisation:sit.realisation||'',remediation:sit.remediation||'',bilan:''};
+  // Insérer dans la modale ouverte
+  var mEditOpen=ge('m-edit-s')&&ge('m-edit-s').classList.contains('open');
+  var mNewOpen=ge('m-seance')&&ge('m-seance').classList.contains('open');
+  if(mEditOpen){partiesEdit.push(p);renderPartieBlock('parties-edit',p,partiesEdit.length-1,'edit');toast('Situation inseree comme partie !');}
+  else if(mNewOpen){partiesNew.push(p);renderPartieBlock('parties-new',p,partiesNew.length-1,'new');toast('Situation inseree comme partie !');}
+  else{toast('Ouvrez d abord une seance pour inserer','warn');}
+}
+
+// Bouton "→ Copier vers bibliothèque" dans chaque partie
+function bibCopierDepuisPartie(pData,seanceMeta){
+  BIB_EDIT_ID=null;
+  ge('bib-edit-title').textContent='Sauvegarder dans la bibliotheque';
+  ge('bib-e-titre').value=pData.titre||'';
+  ge('bib-e-objectif').value=pData.objectif||'';
+  ge('bib-e-consignes').value=pData.consignes||'';
+  ge('bib-e-criteres').value=pData.criteres||'';
+  ge('bib-e-realisation').value=pData.realisation||'';
+  ge('bib-e-remediation').value=pData.remediation||'';
+  if(seanceMeta){
+    if(seanceMeta.ca)ge('bib-e-ca').value=seanceMeta.ca;
+    if(seanceMeta.apsa)ge('bib-e-apsa').value=seanceMeta.apsa;
+    if(seanceMeta.filiere)ge('bib-e-filiere').value=seanceMeta.filiere;
+    if(seanceMeta.fps)ge('bib-e-fps').value=seanceMeta.fps;
+  }
+  ge('mb-bib-edit').classList.add('open');
+}
+
 function iaReset(){
   var panel=ge('ia-panel');
   var panelNew=ge('ia-panel-new');
@@ -3701,6 +4096,12 @@ for(var _fi=0;_fi<fbtns.length;_fi++){(function(btn){btn.addEventListener('click
   for(var i=0;i<all.length;i++)all[i].classList.remove('sel');
   this.classList.add('sel');
 });})(fbtns[_fi]);}s('s-back-btn','click',goAcc);s('btn-push','click',ghPush);s('btn-pull','click',ghPull);s('btn-edit-seq','click',openSeqModal);s('btn-pdf-sequence','click',exportSequencePDF);s('btn-recap-presences','click',openRecapPresences);s('btn-save-seq','click',saveSeq);s('btn-add-trame-seance','click',addTrameSeance);s('btn-new-seance','click',function(){iaReset();openM('m-seance');});s('btn-save-seance','click',saveSeance);s('btn-add-partie-new','click',function(){addPartie('new');});s('btn-upd-seance','click',updSeance);s('btn-del-seance','click',delSeance);s('btn-add-partie-edit','click',function(){addPartie('edit');});s('btn-pdf-seance','click',exportSeancePDF);s('btn-export-seance-json','click',exportSeanceJSON);s('btn-ia-toggle','click',iaToggle);s('btn-ia-gen','click',iaGenerer);s('btn-ia-toggle-new','click',iaToggleNew);s('btn-ia-gen-new','click',iaGenererNew);s('btn-ia-copy-edit','click',function(){iaCopierPrompt2('edit');});s('btn-ia-copy-new','click',function(){iaCopierPrompt2('new');});s('btn-import-seance-json','change',function(){importSeanceJSON(this.files[0]);this.value='';}); s('srch','input',renderSeances);s('btn-pdf-eleves','click',exportElevesPDF);s('btn-pdf-bilan','click',exportBilanPDF);s('btn-profil-classe','click',toggleProfilZone);s('btn-save-profil-plan','click',saveProfilPlan);s('btn-new-eleve','click',function(){openM('m-eleve');});s('btn-save-eleve','click',saveEleve);s('btn-upd-eleve','click',updEleve);s('btn-del-eleve','click',delEleve);s('btn-import-pdf','click',function(){openM('m-pdf');});s('btn-export-eleves-json','click',exportElevesJSON);s('btn-import-eleves-json','change',function(){importElevesJSON(this.files[0]);this.value='';});s('btn-csv','click',exportCSV);s('btn-save-fiche','click',saveFicheAmen);s('photo-drop','click',function(){var pi=ge('photo-input');if(pi)pi.click();});s('photo-input','change',function(){handlePhoto(this);});s('photo-del-btn','click',function(){fichePhotoData=null;var t=ge('photo-thumb');if(t)t.style.display='none';this.style.display='none';var pi=ge('photo-input');if(pi)pi.value='';});s('photo-thumb','click',function(){if(fichePhotoData){var w=window.open('','_blank');if(w){w.document.write('<html><body style="margin:0;background:#000;display:flex;justify-content:center;align-items:center;min-height:100vh"><img src="'+fichePhotoData+'" style="max-width:100%;max-height:100vh;object-fit:contain"><\/body><\/html>');w.document.close();}}});var pd=ge('photo-drop');if(pd){var drevts=['dragenter','dragover'];for(var i=0;i<drevts.length;i++)pd.addEventListener(drevts[i],function(e){e.preventDefault();pd.classList.add('drag');});var dlvts=['dragleave','drop'];for(var i=0;i<dlvts.length;i++)pd.addEventListener(dlvts[i],function(e){e.preventDefault();pd.classList.remove('drag');});pd.addEventListener('drop',function(e){var f=e.dataTransfer.files[0];if(f&&f.type.startsWith('image/')){var dt=new DataTransfer();dt.items.add(f);ge('photo-input').files=dt.files;handlePhoto(ge('photo-input'));}});}var dz=ge('pdf-drop');if(dz){dz.addEventListener('click',function(){var pi=ge('pdf-input');if(pi)pi.click();});s('pdf-input','change',function(){handlePdf(this);});var drevts2=['dragenter','dragover'];for(var i=0;i<drevts2.length;i++)dz.addEventListener(drevts2[i],function(e){e.preventDefault();dz.classList.add('drag');});var dlvts2=['dragleave','drop'];for(var i=0;i<dlvts2.length;i++)dz.addEventListener(dlvts2[i],function(e){e.preventDefault();dz.classList.remove('drag');});dz.addEventListener('drop',function(e){var f=e.dataTransfer.files[0];if(f&&f.type==='application/pdf'){var dt=new DataTransfer();dt.items.add(f);ge('pdf-input').files=dt.files;handlePdf(ge('pdf-input'));}});}s('btn-pdf-all','click',function(){var cbs=document.querySelectorAll('#pdf-names input[type=checkbox]');for(var i=0;i<cbs.length;i++)cbs[i].checked=true;});s('btn-pdf-none','click',function(){var cbs=document.querySelectorAll('#pdf-names input[type=checkbox]');for(var i=0;i<cbs.length;i++)cbs[i].checked=false;});s('btn-pdf-import','click',pdfImport);var _ss=ge('comp-seuil-sel');if(_ss)_ss.addEventListener('change',renderComp);
+s('btn-open-biblio','click',openBiblio);
+s('btn-bib-add','click',openBiblioEdit);
+s('btn-bib-save','click',bibSaveSituation);
+s('btn-biblio-new-seq','click',openBiblioEdit);
+var bsSeq=ge('bib-search-seq');
+if(bsSeq)bsSeq.addEventListener('input',function(){bibRenderList('bib-list-seq');});
 // Bottom nav mobile
 var bnavMoreBtn=ge('bnav-more-btn');
 var bnavMorePanel=ge('bnav-more-panel');
