@@ -1942,6 +1942,20 @@ function saveNewCls(){
   toast('Classe "'+nom+'" ajoutee !');
 }
 
+function openM(id){
+  if(id==='m-seance'){
+    partiesNew=[];aflpNewSel=[];
+    var pn=ge('parties-new');if(pn)pn.innerHTML='';
+    renderAflpChecks('aflp-check-new',aflpNewSel);
+    var fd=ge('fd');if(fd)fd.value=new Date().toISOString().split('T')[0];
+    var fn=ge('fn');if(fn)fn.value=state.seances.length+1;
+  }
+  var el=ge(id);if(!el)return;
+  el.classList.add('open');
+  el.scrollTop=0;
+}
+function closeM(id){var el=ge(id);if(el)el.classList.remove('open');}
+
 function accInit(){var now=new Date();var J=['Dimanche','Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi'];var M=['janv.','fevr.','mars','avr.','mai','juin','juil.','aout','sept.','oct.','nov.','dec.'];ge('acc-date').innerHTML=J[now.getDay()]+' '+now.getDate()+' '+M[now.getMonth()]+' '+now.getFullYear()+'<br>Annee scolaire 2025-2026';accRenderClsGrid();var ac=ge('acc-apsa-container');ac.innerHTML='';for(var gi=0;gi<CA_GROUPS.length;gi++){(function(g){var grp=document.createElement('div');grp.className='ca-group';var h='<div class="ca-group-header"><span class="ca-label" style="background:'+g.color+'22;color:'+g.color+'">'+g.ca+'</span><span class="ca-desc">'+g.desc+'</span></div><div class="ca-apsa-row">';for(var ai=0;ai<g.apsa.length;ai++){var a=g.apsa[ai];h+='<div class="acc-apsa" id="ap-'+a.id+'"><div class="acc-apsa-emoji">'+a.emoji+'</div><div class="acc-apsa-name">'+a.name+'</div></div>';}h+='</div>';grp.innerHTML=h;for(var ai2=0;ai2<g.apsa.length;ai2++){(function(a){var el=grp.querySelector('#ap-'+a.id);if(el){el.addEventListener('click',function(e){e.stopPropagation();accPickApsa(a.id);});}})(g.apsa[ai2]);}ac.appendChild(grp);})(CA_GROUPS[gi]);}for(var n=1;n<=3;n++){(function(tn){var el=ge('tr-'+tn);if(el)el.addEventListener('click',function(e){e.preventDefault();e.stopPropagation();accPickTrim(tn);});})(n);}ge('acc-custom-input').addEventListener('input',function(){accCustom(this.value);});ge('acc-btn').addEventListener('click',function(){accLaunch();});
   // Anti-scroll-click iOS : detecter le scroll sur window
   var _accScrolling=false;
