@@ -1048,7 +1048,7 @@ textarea{resize:vertical;min-height:70px}
       <div class="ph">
         <div><div class="ph-title">Grille d'&#233;valuation</div><div class="ph-sub">Creez vos propres criteres</div></div>
         <div style="display:flex;gap:8px">
-          <button class="btn btn-g" id="btn-grille-cfg">Configurer</button>
+          <button class="btn btn-g" id="btn-grille-cfg" onclick="openGrilleConfig()">Configurer</button>
           <button class="btn btn-g" id="btn-grille-pdf">Export PDF</button>
           <button class="btn btn-g" id="btn-grille-csv">CSV</button>
           <button class="btn btn-g" id="btn-grille-export-json" title="Exporter la grille pour la réutiliser dans une autre classe">&#8595; Export grille</button>
@@ -1268,7 +1268,7 @@ textarea{resize:vertical;min-height:70px}
     <div class="sec-title">Criteres d'evaluation</div>
     <p style="font-size:.78rem;color:#6b7280;margin-bottom:.75rem">Definissez vos criteres et les 4 niveaux de maitrise.</p>
     <div id="criteres-container"></div>
-    <button class="add-partie-btn" id="btn-add-critere">+ Ajouter un critere</button>
+    <button class="add-partie-btn" id="btn-add-critere" onclick="addCritere()">+ Ajouter un critere</button>
     <div class="modal-acts">
       <button class="btn btn-g" data-close="m-grille-cfg">Annuler</button>
       <button class="btn btn-p" id="btn-save-grille-cfg">Enregistrer la grille</button>
@@ -3056,6 +3056,45 @@ function addCritere(){
   renderCritereBlock(newC,g.criteres.length-1);
 }
 
+function exportGrilleCSV(){
+  var g=grilleGetData();var notes=grilleGetNotes();
+  var sorted=state.eleves.slice().sort(function(a,b){return a.nom.localeCompare(b.nom);});
+  if(!g.criteres||!g.criteres.length){toast('Aucune grille configuree','warn');return;}
+  var totalMax=g.criteres.reduce(function(a,c){return a+c.pts;},0);
+  var h='Eleve;'+g.criteres.map(function(c){return c.nom+' /'+c.pts;}).join(';')+';Total /'+totalMax+';Note /20';
+  var rows=[h];
+  for(var i=0;i<sorted.length;i++){
+    var e=sorted[i];var en=notes[e.id]||{};var total=0;var hasAll=true;
+    var vals=g.criteres.map(function(c){var v=en[c.id];if(v!==undefined&&v!==''){total+=parseFloat(v);return v;}hasAll=false;return '';});
+    var note20=hasAll?(total/totalMax*20).toFixed(1):'';
+    rows.push(e.nom+';'+vals.join(';')+';'+total+';'+note20);
+  }
+  var a=document.createElement('a');
+  a.href='data:text/csv;charset=utf-8,%EF%BB%BF'+encodeURIComponent(rows.join(String.fromCharCode(10)));
+  a.download='grille_'+(CTX.cls?CTX.cls.id:'eps')+'.csv';a.click();
+  toast('Export CSV OK');
+}
+function exportGrilleJSON(){
+  var data={grille:grilleGetData(),notes:grilleGetNotes()};
+  var a=document.createElement('a');
+  a.href='data:application/json,'+encodeURIComponent(JSON.stringify(data,null,2));
+  a.download='grille_'+(CTX.cls?CTX.cls.id:'eps')+'.json';a.click();
+}
+function importGrilleJSON(file){
+  if(!file)return;
+  var reader=new FileReader();
+  reader.onload=function(e){
+    try{
+      var data=JSON.parse(e.target.result);
+      if(data.grille)grilleSaveData(data.grille);
+      if(data.notes)grilleSaveNotes(data.notes);
+      renderGrille();toast('Grille importee !');
+    }catch(err){toast('Fichier invalide','warn');}
+  };
+  reader.readAsText(file);
+}
+function exportGrillePDF(){toast('Export PDF grille - bientot disponible','warn');}
+
 function openGrilleConfig(){var g=grilleGetData();ge('grille-titre-inp').value=g.titre||'';var container=ge('criteres-container');container.innerHTML='';for(var i=0;i<g.criteres.length;i++)renderCritereBlock(g.criteres[i],i);openM('m-grille-cfg');}
 function renderCritereBlock(c,idx){var container=ge('criteres-container');var div=document.createElement('div');div.className='critere-block';div.id='critere-'+c.id;var noms=['Insuffisant','Fragile','Satisfaisant','Tres bien'];var cols=['#ff6b6b','#ffd166','#56cfb2','#4f8aff'];var h='<div style="display:flex;align-items:center;gap:10px;margin-bottom:.75rem"><span style="background:#4f8aff;color:#fff;font-family:DM Mono,monospace;font-size:.68rem;padding:3px 9px;border-radius:5px;flex-shrink:0">Critere '+(idx+1)+'</span><input type="text" class="crit-nom-inp" value="'+esc(c.nom)+'" placeholder="Nom du critere..." style="flex:1"><label style="font-size:.72rem;color:#6b7280;white-space:nowrap">Max :</label><input type="number" class="crit-pts-inp ni" min="1" max="20" value="'+c.pts+'" style="width:55px"><span style="font-size:.78rem;color:#6b7280">pts</span><button class="partie-del crit-del-btn">x</button></div><div class="critere-row">';for(var i=0;i<c.niveaux.length;i++){var nv=c.niveaux[i];h+='<div class="critere-lvl-inp" style="border-top:3px solid '+cols[i]+'"><label style="color:'+cols[i]+'">'+noms[i]+'</label><input type="number" class="crit-lvl-pts" min="0" max="20" value="'+nv.pts+'" placeholder="pts"><textarea class="crit-lvl-desc" rows="2" placeholder="Description...">'+esc(nv.desc)+'</textarea></div>';}h+='</div>';div.innerHTML=h;div.querySelector('.crit-del-btn').addEventListener('click',function(){div.remove();});container.appendChild(div);}
 function saveGrilleConfig(){var titre=ge('grille-titre-inp').value.trim();var criteres=[];var blocks=document.querySelectorAll('.critere-block');for(var i=0;i<blocks.length;i++){var div=blocks[i];var nom=div.querySelector('.crit-nom-inp').value.trim();var pts=parseFloat(div.querySelector('.crit-pts-inp').value)||10;var descs=div.querySelectorAll('.crit-lvl-desc');var ptsArr=div.querySelectorAll('.crit-lvl-pts');var noms2=['Insuffisant','Fragile','Satisfaisant','Tres bien'];var niveaux=[];for(var j=0;j<4;j++)niveaux.push({label:noms2[j],desc:descs[j]?descs[j].value:'',pts:ptsArr[j]?parseFloat(ptsArr[j].value)||0:0});if(nom)criteres.push({id:'c'+(i+1),nom:nom,pts:pts,niveaux:niveaux});}if(!criteres.length){alert('Ajoutez au moins un critere');return;}grilleSaveData({titre:titre||'Ma grille',criteres:criteres});closeM('m-grille-cfg');renderGrille();toast('Grille enregistree');}
@@ -4305,6 +4344,15 @@ if(bnavMoreBtn&&bnavMorePanel){
 }
 // Bouton récap présences
 s('btn-recap-presences','click',openRecapPresences);
+s('btn-grille-cfg','click',openGrilleConfig);
+s('btn-grille-config','click',openGrilleConfig);
+s('btn-add-critere','click',addCritere);
+s('btn-save-grille','click',saveGrilleConfig);
+s('btn-grille-pdf','click',function(){if(typeof exportGrillePDF==='function')exportGrillePDF();else toast('Bientot disponible','warn');});
+s('btn-grille-csv','click',function(){if(typeof exportGrilleCSV==='function')exportGrilleCSV();else toast('Bientot disponible','warn');});
+s('btn-grille-export-json','click',function(){if(typeof exportGrilleJSON==='function')exportGrilleJSON();});
+s('btn-grille-import-json','change',function(){if(typeof importGrilleJSON==='function')importGrilleJSON(this.files[0]);this.value='';});
+s('btn-notes-clear','click',function(){var n=ge('notes-rapides-ta');if(n){n.value='';localStorage.setItem('eps-notes-rapides-'+STORAGE_KEY,'');}});
 // s-tabs
 qsa('.s-tab',function(btn){btn.addEventListener('click',function(){showView(this.dataset.view);});});
 qsa('.s-bnav-btn[data-view]',function(btn){btn.addEventListener('click',function(){showView(this.dataset.view);});});
