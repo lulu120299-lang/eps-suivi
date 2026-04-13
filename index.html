@@ -2357,6 +2357,21 @@ if(p.fichiers&&p.fichiers.length){setTimeout(function(){var al=ge('al-'+p.id);if
 fileWrap.appendChild(addFileBtn);fileWrap.appendChild(fileInp);
 extras.appendChild(fileWrap);
 div.appendChild(extras);
+div.querySelector('.btn-bib-save-partie').addEventListener('click',function(){
+  var pid=this.dataset.pid;
+  var arr=(c.id==='parties-new')?partiesNew:partiesEdit;
+  var pData=null;for(var _i=0;_i<arr.length;_i++){if(arr[_i].id===pid){pData=arr[_i];break;}}
+  if(!pData){
+    // Lire les valeurs actuelles depuis le DOM
+    var b=ge('pb-'+pid);
+    if(b){var tas=b.querySelectorAll('textarea');var ti=b.querySelector('.partie-title-input');
+    pData={id:pid,titre:ti?ti.value:'',objectif:tas[0]?tas[0].value:'',consignes:tas[1]?tas[1].value:'',criteres:tas[2]?tas[2].value:'',contenus:tas[3]?tas[3].value:'',realisation:tas[4]?tas[4].value:'',remediation:tas[5]?tas[5].value:'',bilan:''};}
+  }
+  if(pData){
+    var meta={ca:CTX.apsa?CTX.apsa.caFull:null,apsa:CTX.apsa?CTX.apsa.name:null,filiere:CTX.cls?CTX.cls.filiere:null,fps:pData.titre||null};
+    bibCopierDepuisPartie(pData,meta);
+  }
+});
 div.querySelector('.partie-del').addEventListener('click',function(){var pid=this.dataset.pid,m=this.dataset.mode;if(m==='new'){for(var i=partiesNew.length-1;i>=0;i--){if(partiesNew[i].id===pid){partiesNew.splice(i,1);break;}}}else{for(var i=partiesEdit.length-1;i>=0;i--){if(partiesEdit[i].id===pid){partiesEdit.splice(i,1);break;}}}div.remove();renumParties(m==='new'?'parties-new':'parties-edit');});c.appendChild(div);}
 function renumParties(cid){var badges=ge(cid).querySelectorAll('.partie-num-badge');for(var i=0;i<badges.length;i++)badges[i].textContent='Partie '+(i+1);}
 function readParties(cid,arr){var result=[];for(var i=0;i<arr.length;i++){var b=ge('pb-'+arr[i].id);if(!b){result.push(arr[i]);continue;}var ti=b.querySelector('.partie-title-input');var ta=b.querySelectorAll('textarea');var ph=arr[i].photos||[];var fi=arr[i].fichiers||[];var tbl=[];var tblWrap=b.querySelector('.extra-table-wrap');if(tblWrap){var rows=tblWrap.querySelectorAll('tr');var tblData=[];for(var r=0;r<rows.length;r++){var cells=rows[r].querySelectorAll('th,td');var row=[];for(var c2=0;c2<cells.length;c2++)row.push(cells[c2].textContent);tblData.push(row);}if(tblData.length)tbl=[tblData];}result.push({id:arr[i].id,titre:ti?ti.value:'',objectif:ta[0]?ta[0].value:'',consignes:ta[1]?ta[1].value:'',criteres:ta[2]?ta[2].value:'',contenus:ta[3]?ta[3].value:'',realisation:ta[4]?ta[4].value:'',remediation:ta[5]?ta[5].value:'',bilan:ta[6]?ta[6].value:'',photos:ph,tableaux:tbl,fichiers:fi});}return result;}
