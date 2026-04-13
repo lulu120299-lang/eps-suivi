@@ -2612,10 +2612,106 @@ function saveFicheAmen(){var eid=ge('fiche-id').value;var e=null;for(var i=0;i<s
 function handlePhoto(input){var file=input.files[0];if(!file)return;var reader=new FileReader();reader.onload=function(evt){fichePhotoData=evt.target.result;var thumb=ge('photo-thumb');thumb.src=fichePhotoData;thumb.style.display='block';ge('photo-del-btn').style.display='inline-flex';};reader.readAsDataURL(file);}
 
 function compGetData(){return state.comp||{};}
+function compSaveData(d){state.comp=d;save();}
 function compSave(d){state.comp=d;save();}
 
 function renderComp(){
-  renderBilanComp('comp-zone');
+  var zone=ge("comp-zone");
+  var seuilEl=ge("comp-seuil-sel");
+  var seuil=seuilEl?parseInt(seuilEl.value)||3:3;
+  var filiere=CTX.cls?CTX.cls.filiere:"bacpro";
+  var aflpData=CTX.apsa?(AFLP[filiere]||AFLP.bacpro)[CTX.apsa.caFull]:null;
+  var compData=compGetData();
+  var seances=state.seances.slice().sort(function(a,b){return a.num-b.num;});
+  var seancesAvecAflp=seances.filter(function(s){return s.aflpTravailles&&s.aflpTravailles.length;});
+  if(!seancesAvecAflp.length){
+    zone.innerHTML='<div class="empty">Aucun AFLP coche. Allez dans Seances et cochez des AFLP.</div>';
+    return;
+  }
+  var aflpMap={};
+  for(var i=0;i<seancesAvecAflp.length;i++){var t=seancesAvecAflp[i].aflpTravailles;for(var j=0;j<t.length;j++)aflpMap[t[j]]=true;}
+  var aflpList=Object.keys(aflpMap).sort();
+  var eleves=state.eleves.slice().sort(function(a,b){return a.nom.localeCompare(b.nom);});
+  var NOMS=["","Insuf.","Fragile","Satisf.","Tres bien"];
+  var gC=["#4f8aff","#ff6b6b","#56cfb2","#ffd166","#a78bfa","#fb923c","#f472b6"];
+  var html="";
+  for(var ai=0;ai<aflpList.length;ai++){
+    var aflpN=aflpList[ai];
+    var aflpInfo=null;
+    if(aflpData){for(var k=0;k<aflpData.items.length;k++){if(aflpData.items[k].n===aflpN){aflpInfo=aflpData.items[k];break;}}}
+    var sPA=[];
+    for(var i=0;i<seancesAvecAflp.length;i++){if(seancesAvecAflp[i].aflpTravailles.indexOf(aflpN)>=0)sPA.push(seancesAvecAflp[i]);}
+    html+='<div style="margin-bottom:2.5rem">';
+    html+='<div style="display:flex;align-items:center;gap:10px;margin-bottom:.75rem;flex-wrap:wrap">';
+    html+='<span style="font-family:DM Mono,monospace;font-size:.75rem;background:rgba(79,138,255,.15);color:#4f8aff;padding:4px 12px;border-radius:5px;font-weight:700">'+aflpN+'</span>';
+    if(aflpInfo)html+='<span style="font-size:.8rem;color:#9aa0b8">'+esc(aflpInfo.t)+'</span>';
+    html+='</div>';
+    html+='<div style="overflow-x:auto"><table style="width:100%;border-collapse:collapse;font-size:.82rem">';
+    html+='<thead><tr style="background:#13161f">';
+    html+='<th style="padding:9px 12px;text-align:left;font-size:.72rem;color:#6b7280;text-transform:uppercase;border-bottom:1px solid #252836;border-right:1px solid #252836;min-width:150px">Eleve</th>';
+    for(var si=0;si<sPA.length;si++){
+      var s2=sPA[si];
+      html+='<th style="padding:9px 8px;text-align:center;font-size:.68rem;color:#6b7280;text-transform:uppercase;border-bottom:1px solid #252836;border-right:1px solid #252836;min-width:110px">S'+s2.num+(s2.date?'<br><span style="font-weight:400;color:#3a4060">'+fmtDate(s2.date)+'</span>':'')+'</th>';
+    }
+    html+='<th style="padding:9px 8px;text-align:center;font-size:.68rem;color:#6b7280;text-transform:uppercase;border-bottom:1px solid #252836;min-width:90px">Bilan</th>';
+    html+='</tr></thead><tbody>';
+    for(var ei=0;ei<eleves.length;ei++){
+      var e=eleves[ei];
+      var vE=[];
+      html+='<tr>';
+      html+='<td style="padding:8px 12px;border-bottom:1px solid rgba(37,40,54,.5);border-right:1px solid #252836;font-size:.82rem;font-weight:500">'+esc(e.nom)+(e.amenagement?'<br><span style="font-size:.7rem;color:#ffd166">'+esc(e.amenagement)+'</span>':'')+'</td>';
+      for(var si=0;si<sPA.length;si++){
+        var s2=sPA[si];
+        var ck=s2.id+'__'+aflpN+'__'+e.id;
+        var v=compData[ck]||0;
+        if(v>0)vE.push(v);
+        html+='<td style="padding:6px 4px;border-bottom:1px solid rgba(37,40,54,.5);border-right:1px solid #252836;text-align:center">';
+        for(var nv=1;nv<=4;nv++){
+          var sc=v===nv?' sel-'+nv:'';
+          html+='<button class="comp-btn-niv'+sc+'" data-key="'+ck+'" data-val="'+nv+'" title="'+NOMS[nv]+'">'+nv+'</button>';
+        }
+        html+='</td>';
+      }
+      var dv=vE.length?vE[vE.length-1]:0;
+      var att=dv>=seuil;
+      var enc=vE.length>0&&!att;
+      html+='<td style="padding:8px;border-bottom:1px solid rgba(37,40,54,.5);text-align:center">';
+      if(att)html+='<span class="comp-bilan oui">Atteinte</span>';
+      else if(enc)html+='<span class="comp-bilan cours">En cours</span>';
+      else html+='<span class="comp-bilan non">Non evalue</span>';
+      html+='</td></tr>';
+    }
+    html+='</tbody></table></div>';
+    if(sPA.length>=1&&eleves.length>0){
+      var W2=Math.max(320,sPA.length*80+90);
+      var H2=140;var pL=50,pR=25,pT=15,pB=30;var gW=W2-pL-pR,gH=H2-pT-pB;
+      html+='<div style="background:#13161f;border:1px solid #252836;border-radius:10px;padding:1rem;margin-top:.75rem;overflow-x:auto">';
+      html+='<div style="font-family:DM Mono,monospace;font-size:.62rem;text-transform:uppercase;color:#6b7280;margin-bottom:.5rem">Evolution '+aflpN+'</div>';
+      html+='<svg width="'+W2+'" height="'+H2+'" xmlns="http://www.w3.org/2000/svg" style="display:block">';
+      html+='<rect width="'+W2+'" height="'+H2+'" fill="#13161f" rx="6"/>';
+      var lL=['','Insuf','Fragile','Satisf','Tres B'];
+      for(var nv=1;nv<=4;nv++){var yy=pT+gH-(nv-1)*gH/3;html+='<line x1="'+pL+'" y1="'+yy+'" x2="'+(pL+gW)+'" y2="'+yy+'" stroke="#1e2130" stroke-width="1"/><text x="'+(pL-5)+'" y="'+(yy+4)+'" fill="#3a4060" font-size="8" text-anchor="end">'+lL[nv]+'</text>';}
+      var yS=pT+gH-(seuil-1)*gH/3;
+      html+='<line x1="'+pL+'" y1="'+yS+'" x2="'+(pL+gW)+'" y2="'+yS+'" stroke="#56cfb2" stroke-width="1.5" stroke-dasharray="4,3"/>';
+      html+='<text x="'+(pL+gW+3)+'" y="'+(yS+4)+'" fill="#56cfb2" font-size="8">seuil</text>';
+      for(var si=0;si<sPA.length;si++){var xx=pL+(sPA.length>1?si*(gW/(sPA.length-1)):gW/2);html+='<text x="'+xx+'" y="'+(H2-pB+12)+'" fill="#3a4060" font-size="9" text-anchor="middle">S'+sPA[si].num+'</text>';}
+      for(var ei=0;ei<eleves.length;ei++){
+        var e=eleves[ei];var col=gC[ei%gC.length];var pts=[];
+        for(var si=0;si<sPA.length;si++){var s2=sPA[si];var ck=s2.id+'__'+aflpN+'__'+e.id;var v2=compData[ck]||0;if(v2>0){var xx=pL+(sPA.length>1?si*(gW/(sPA.length-1)):gW/2);pts.push({x:xx,y:pT+gH-(v2-1)*gH/3});}}
+        if(pts.length>=2){var dp='M '+pts[0].x+' '+pts[0].y;for(var p=1;p<pts.length;p++){var mx=(pts[p-1].x+pts[p].x)/2;dp+=' C '+mx+' '+pts[p-1].y+' '+mx+' '+pts[p].y+' '+pts[p].x+' '+pts[p].y;}html+='<path d="'+dp+'" fill="none" stroke="'+col+'" stroke-width="2" stroke-linecap="round"/>';}
+        for(var p=0;p<pts.length;p++)html+='<circle cx="'+pts[p].x+'" cy="'+pts[p].y+'" r="4" fill="'+col+'" stroke="#13161f" stroke-width="1.5"/>';
+      }
+      html+='</svg><div style="display:flex;gap:.75rem;flex-wrap:wrap;margin-top:.4rem">';
+      for(var ei=0;ei<eleves.length;ei++){var col=gC[ei%gC.length];html+='<div style="display:flex;align-items:center;gap:5px;font-size:.7rem;color:#9aa0b8"><div style="width:16px;height:3px;border-radius:2px;background:'+col+'"></div>'+esc(eleves[ei].nom.split(' ')[0])+'</div>';}
+      html+='</div></div>';
+    }
+    html+='</div>';
+  }
+  zone.innerHTML=html;
+  var btns=zone.querySelectorAll('.comp-btn-niv');
+  for(var i=0;i<btns.length;i++){
+    (function(btn){btn.addEventListener('click',function(){var ck=this.dataset.key;var val=parseInt(this.dataset.val);var data=compGetData();data[ck]=(data[ck]===val)?0:val;compSaveData(data);renderComp();});})(btns[i]);
+  }
 }
 function _renderCompOld(){
   var zone=ge('comp-zone');
