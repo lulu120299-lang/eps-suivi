@@ -733,9 +733,8 @@ textarea{resize:vertical;min-height:70px}
     <div class="acc-biblio">
       <div class="acc-biblio-header">
         <div class="acc-biblio-title">&#128218; Bibliotheque de situations</div>
-        <button class="acc-biblio-btn" id="btn-open-biblio">Ouvrir</button>
+        <button class="acc-biblio-btn" id="btn-open-biblio">Ouvrir &#8594;</button>
       </div>
-      <div class="bib-grid" id="acc-bib-preview"></div>
     </div>
   </div>
 </div>
@@ -818,6 +817,7 @@ textarea{resize:vertical;min-height:70px}
             </select>
           </div>
           <div class="fgrp full"><label>Objectif</label><textarea id="bib-e-objectif" style="min-height:50px" placeholder="Ce que l eleve sera capable de faire..."></textarea></div>
+          <div class="fgrp full"><label>Contenus d enseignement</label><textarea id="bib-e-contenus" style="min-height:50px" placeholder="Savoirs, techniques, tactiques transmis..."></textarea></div>
           <div class="fgrp full"><label>Dispositif &amp; consignes</label><textarea id="bib-e-consignes" style="min-height:60px" placeholder="Organisation, groupes, consignes..."></textarea></div>
           <div class="fgrp full"><label>Criteres de reussite</label><textarea id="bib-e-criteres" style="min-height:50px" placeholder="Mesurables, observables..."></textarea></div>
           <div class="fgrp full"><label>Criteres de realisation</label><textarea id="bib-e-realisation" style="min-height:50px" placeholder="Ce que l enseignant observe..."></textarea></div>
@@ -1914,7 +1914,7 @@ function accInit(){var now=new Date();var J=['Dimanche','Lundi','Mardi','Mercred
     clearTimeout(_accScrollTimer);
     _accScrollTimer=setTimeout(function(){_accScrolling=false;},300);
   },{passive:true});
-  window.accIsScrolling=function(){return _accScrolling;};ghLoadConfig();accRenderRecent();bibRenderPreview();
+  window.accIsScrolling=function(){return _accScrolling;};ghLoadConfig();accRenderRecent();
   // Events modale ajout classe
   var fbtns2=document.querySelectorAll('.filiere-btn');
   for(var _fi2=0;_fi2<fbtns2.length;_fi2++){(function(btn){btn.addEventListener('click',function(){
@@ -2369,6 +2369,8 @@ div.querySelector('.btn-bib-save-partie').addEventListener('click',function(){
   }
   if(pData){
     var meta={ca:CTX.apsa?CTX.apsa.caFull:null,apsa:CTX.apsa?CTX.apsa.name:null,filiere:CTX.cls?CTX.cls.filiere:null,fps:pData.titre||null};
+    // Lire contenus depuis DOM si pas dans pData
+    if(!pData.contenus){var b2=ge('pb-'+pid);if(b2){var tas2=b2.querySelectorAll('textarea');pData.contenus=tas2[3]?tas2[3].value:'';}}
     bibCopierDepuisPartie(pData,meta);
   }
 });
@@ -3174,12 +3176,13 @@ function bibPull(){
   .then(function(r){return r.ok?r.json():null;})
   .then(function(d){
     if(d&&d.content){
-      try{var b=ghDecode(d.content);if(b&&b.length){bibSave(b);bibRenderPreview();bibRenderList('bib-list');bibRenderList('bib-list-seq');toast('Bibliotheque synchronisee !');}}catch(e){}
+      try{var b=ghDecode(d.content);if(b&&b.length){bibSave(b);bibRenderList('bib-list');bibRenderList('bib-list-seq');toast('Bibliotheque synchronisee !');}}catch(e){}
     }
   }).catch(function(){});
 }
 
 function bibRenderPreview(){
+  return; // Aperçu supprimé
   var zone=ge('acc-bib-preview');if(!zone)return;
   var data=bibLoad();
   if(!data.length){zone.innerHTML='<div style="color:#3a4060;font-size:.75rem;font-style:italic;grid-column:1/-1">Aucune situation sauvegardee. Ouvrez la bibliotheque pour en ajouter.</div>';return;}
@@ -3231,6 +3234,7 @@ function bibRenderList(zoneId,filter){
     html+='</div>';
     html+='<div class="bib-item-body" id="bib-body-'+id+'">';
     if(s.objectif)html+='<div class="bib-field"><span class="bib-field-lbl">Objectif</span><div class="bib-field-val">'+esc(s.objectif)+'</div></div>';
+    if(s.contenus)html+='<div class="bib-field"><span class="bib-field-lbl">Contenus d enseignement</span><div class="bib-field-val" style="border-left:2px solid #a78bfa">'+esc(s.contenus)+'</div></div>';
     if(s.consignes)html+='<div class="bib-field"><span class="bib-field-lbl">Dispositif &amp; consignes</span><div class="bib-field-val">'+esc(s.consignes)+'</div></div>';
     if(s.criteres)html+='<div class="bib-field"><span class="bib-field-lbl">Criteres de reussite</span><div class="bib-field-val" style="border-left:2px solid #ffd166">'+esc(s.criteres)+'</div></div>';
     if(s.realisation)html+='<div class="bib-field"><span class="bib-field-lbl">Criteres de realisation</span><div class="bib-field-val" style="border-left:2px solid #56cfb2">'+esc(s.realisation)+'</div></div>';
@@ -3304,6 +3308,7 @@ function bibSaveSituation(){
     fps:ge('bib-e-fps').value,
     niveau:ge('bib-e-niveau').value,
     objectif:ge('bib-e-objectif').value.trim(),
+    contenus:ge('bib-e-contenus')?ge('bib-e-contenus').value.trim():'',
     consignes:ge('bib-e-consignes').value.trim(),
     criteres:ge('bib-e-criteres').value.trim(),
     realisation:ge('bib-e-realisation').value.trim(),
@@ -3317,7 +3322,7 @@ function bibSaveSituation(){
   bibSave(data);
   bibPush();
   closeBiblioEdit();
-  bibRenderPreview();
+  
   bibRenderList('bib-list');
   bibRenderFilters('bib-filters');
   bibRenderList('bib-list-seq');
@@ -3331,7 +3336,7 @@ function bibEdit(id){
   if(!sit)return;
   BIB_EDIT_ID=id;
   ge('bib-edit-title').textContent='Modifier la situation';
-  ['titre','apsa','objectif','consignes','criteres','realisation','remediation'].forEach(function(f){var el=ge('bib-e-'+f);if(el)el.value=sit[f]||'';});
+  ['titre','apsa','objectif','contenus','consignes','criteres','realisation','remediation'].forEach(function(f){var el=ge('bib-e-'+f);if(el)el.value=sit[f]||'';});
   ge('bib-e-ca').value=sit.ca||'';
   ge('bib-e-filiere').value=sit.filiere||'';
   ge('bib-e-seance').value=sit.seanceType||'';
@@ -3345,7 +3350,7 @@ function bibDelete(id){
   var data=bibLoad().filter(function(s){return s.id!==id;});
   bibSave(data);
   bibPush();
-  bibRenderPreview();
+  
   bibRenderList('bib-list');
   bibRenderFilters('bib-filters');
   bibRenderList('bib-list-seq');
@@ -3357,7 +3362,7 @@ function bibInserer(id){
   var data=bibLoad();
   var sit=null;for(var i=0;i<data.length;i++){if(data[i].id===id){sit=data[i];break;}}
   if(!sit)return;
-  var p={id:'p'+Date.now()+Math.random().toString(36).slice(2,5),titre:sit.titre||'',objectif:sit.objectif||'',consignes:sit.consignes||'',criteres:sit.criteres||'',contenus:'',realisation:sit.realisation||'',remediation:sit.remediation||'',bilan:''};
+  var p={id:'p'+Date.now()+Math.random().toString(36).slice(2,5),titre:sit.titre||'',objectif:sit.objectif||'',consignes:sit.consignes||'',criteres:sit.criteres||'',contenus:sit.contenus||'',realisation:sit.realisation||'',remediation:sit.remediation||'',bilan:''};
   // Insérer dans la modale ouverte
   var mEditOpen=ge('m-edit-s')&&ge('m-edit-s').classList.contains('open');
   var mNewOpen=ge('m-seance')&&ge('m-seance').classList.contains('open');
@@ -3372,6 +3377,7 @@ function bibCopierDepuisPartie(pData,seanceMeta){
   ge('bib-edit-title').textContent='Sauvegarder dans la bibliotheque';
   ge('bib-e-titre').value=pData.titre||'';
   ge('bib-e-objectif').value=pData.objectif||'';
+  var bce=ge('bib-e-contenus');if(bce)bce.value=pData.contenus||'';
   ge('bib-e-consignes').value=pData.consignes||'';
   ge('bib-e-criteres').value=pData.criteres||'';
   ge('bib-e-realisation').value=pData.realisation||'';
