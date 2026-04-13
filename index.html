@@ -992,18 +992,18 @@ textarea{resize:vertical;min-height:70px}
       </div>
       <div id="profil-zone" style="display:none;margin-bottom:1.25rem">
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1rem">
-          <div class="card" style="margin-bottom:0"><div class="profil-card-title" style="color:#4f8aff">Plan moteur</div><div id="profil-moteur-display" class="profil-display"></div><button class="btn btn-g btn-sm profil-edit-btn" data-plan="moteur" style="margin-top:.6rem">Modifier</button></div>
-          <div class="card" style="margin-bottom:0"><div class="profil-card-title" style="color:#56cfb2">Plan social</div><div id="profil-social-display" class="profil-display"></div><button class="btn btn-g btn-sm profil-edit-btn" data-plan="social" style="margin-top:.6rem">Modifier</button></div>
-          <div class="card" style="margin-bottom:0"><div class="profil-card-title" style="color:#ffd166">Plan m&#233;dical</div><div id="profil-medical-display" class="profil-display"></div><button class="btn btn-g btn-sm profil-edit-btn" data-plan="medical" style="margin-top:.6rem">Modifier</button></div>
-          <div class="card" style="margin-bottom:0"><div class="profil-card-title" style="color:#ff6b6b">Plan m&#233;thodologie</div><div id="profil-scolaire-display" class="profil-display"></div><button class="btn btn-g btn-sm profil-edit-btn" data-plan="scolaire" style="margin-top:.6rem">Modifier</button></div>
-          <div class="card" style="margin-bottom:0"><div class="profil-card-title" style="color:#34d399">Engagement</div><div id="profil-engagement-display" class="profil-display"></div><button class="btn btn-g btn-sm profil-edit-btn" data-plan="engagement" style="margin-top:.6rem">Modifier</button></div>
-          <div class="card" style="margin-bottom:0"><div class="profil-card-title" style="color:#60a5fa">Profil &#233;l&#232;ves sur l'APSA</div><div id="profil-profilapsa-display" class="profil-display"></div><button class="btn btn-g btn-sm profil-edit-btn" data-plan="profilapsa" style="margin-top:.6rem">Modifier</button></div>
+          <div class="card" style="margin-bottom:0"><div class="profil-card-title" style="color:#4f8aff">Plan moteur</div><div id="profil-moteur-display" class="profil-display"></div><button class="btn btn-g btn-sm profil-edit-btn" onclick="openProfilPlan('moteur')" data-plan="moteur" style="margin-top:.6rem">Modifier</button></div>
+          <div class="card" style="margin-bottom:0"><div class="profil-card-title" style="color:#56cfb2">Plan social</div><div id="profil-social-display" class="profil-display"></div><button class="btn btn-g btn-sm profil-edit-btn" onclick="openProfilPlan('social')" data-plan="social" style="margin-top:.6rem">Modifier</button></div>
+          <div class="card" style="margin-bottom:0"><div class="profil-card-title" style="color:#ffd166">Plan m&#233;dical</div><div id="profil-medical-display" class="profil-display"></div><button class="btn btn-g btn-sm profil-edit-btn" onclick="openProfilPlan('medical')" data-plan="medical" style="margin-top:.6rem">Modifier</button></div>
+          <div class="card" style="margin-bottom:0"><div class="profil-card-title" style="color:#ff6b6b">Plan m&#233;thodologie</div><div id="profil-scolaire-display" class="profil-display"></div><button class="btn btn-g btn-sm profil-edit-btn" onclick="openProfilPlan('scolaire')" data-plan="scolaire" style="margin-top:.6rem">Modifier</button></div>
+          <div class="card" style="margin-bottom:0"><div class="profil-card-title" style="color:#34d399">Engagement</div><div id="profil-engagement-display" class="profil-display"></div><button class="btn btn-g btn-sm profil-edit-btn" onclick="openProfilPlan('engagement')" data-plan="engagement" style="margin-top:.6rem">Modifier</button></div>
+          <div class="card" style="margin-bottom:0"><div class="profil-card-title" style="color:#60a5fa">Profil &#233;l&#232;ves sur l'APSA</div><div id="profil-profilapsa-display" class="profil-display"></div><button class="btn btn-g btn-sm profil-edit-btn" onclick="openProfilPlan('profilapsa')" data-plan="profilapsa" style="margin-top:.6rem">Modifier</button></div>
         </div>
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1rem">
-          <div class="card" style="margin-bottom:0"><div class="profil-card-title" style="color:#f472b6">Axes prioritaires — Niveau 1</div><div id="profil-axes1-display" class="profil-display"></div><button class="btn btn-g btn-sm profil-edit-btn" data-plan="axes1" style="margin-top:.6rem">Modifier</button></div>
-          <div class="card" style="margin-bottom:0"><div class="profil-card-title" style="color:#fb923c">Axes prioritaires — Niveau 2</div><div id="profil-axes2-display" class="profil-display"></div><button class="btn btn-g btn-sm profil-edit-btn" data-plan="axes2" style="margin-top:.6rem">Modifier</button></div>
+          <div class="card" style="margin-bottom:0"><div class="profil-card-title" style="color:#f472b6">Axes prioritaires — Niveau 1</div><div id="profil-axes1-display" class="profil-display"></div><button class="btn btn-g btn-sm profil-edit-btn" onclick="openProfilPlan('axes1')" data-plan="axes1" style="margin-top:.6rem">Modifier</button></div>
+          <div class="card" style="margin-bottom:0"><div class="profil-card-title" style="color:#fb923c">Axes prioritaires — Niveau 2</div><div id="profil-axes2-display" class="profil-display"></div><button class="btn btn-g btn-sm profil-edit-btn" onclick="openProfilPlan('axes2')" data-plan="axes2" style="margin-top:.6rem">Modifier</button></div>
         </div>
-        <div class="card"><div class="profil-card-title" style="color:#a78bfa">Autres (lien projet &#233;tablissement, EPS, AS...)</div><div id="profil-autre-display" class="profil-display"></div><button class="btn btn-g btn-sm profil-edit-btn" data-plan="autre" style="margin-top:.6rem">Modifier</button></div>
+        <div class="card"><div class="profil-card-title" style="color:#a78bfa">Autres (lien projet &#233;tablissement, EPS, AS...)</div><div id="profil-autre-display" class="profil-display"></div><button class="btn btn-g btn-sm profil-edit-btn" onclick="openProfilPlan('autre')" data-plan="autre" style="margin-top:.6rem">Modifier</button></div>
       </div>
       <div class="card"><div class="tw"><table>
         <thead><tr><th>Eleve</th><th>Amenagement</th><th>Maitrise moy.</th><th>Note /20</th><th></th></tr></thead>
@@ -4352,6 +4352,11 @@ s('btn-grille-pdf','click',function(){if(typeof exportGrillePDF==='function')exp
 s('btn-grille-csv','click',function(){if(typeof exportGrilleCSV==='function')exportGrilleCSV();else toast('Bientot disponible','warn');});
 s('btn-grille-export-json','click',function(){if(typeof exportGrilleJSON==='function')exportGrilleJSON();});
 s('btn-grille-import-json','change',function(){if(typeof importGrilleJSON==='function')importGrilleJSON(this.files[0]);this.value='';});
+// Délégation pour les boutons profil-edit-btn
+document.addEventListener('click',function(e){
+  var btn=e.target.closest('.profil-edit-btn');
+  if(btn&&btn.dataset.plan)openProfilPlan(btn.dataset.plan);
+});
 s('btn-notes-clear','click',function(){var n=ge('notes-rapides-ta');if(n){n.value='';localStorage.setItem('eps-notes-rapides-'+STORAGE_KEY,'');}});
 // s-tabs
 qsa('.s-tab',function(btn){btn.addEventListener('click',function(){showView(this.dataset.view);});});
