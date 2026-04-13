@@ -3345,6 +3345,7 @@ function bibEdit(id){
   ge('mb-bib-edit').classList.add('open');
 }
 
+function bibCopier(id){var data=bibLoad();var sit=null;for(var i=0;i<data.length;i++){if(data[i].id===id){sit=data[i];break;}}if(!sit)return;var nl=String.fromCharCode(10);var parts=[];parts.push('SITUATION : '+(sit.titre||''));if(sit.ca)parts.push('CA : '+sit.ca);if(sit.apsa)parts.push('APSA : '+sit.apsa);if(sit.seanceType)parts.push('Seance : '+sit.seanceType);if(sit.fps)parts.push('Partie FPS : '+sit.fps);parts.push('');if(sit.objectif)parts.push('Objectif :'+nl+(sit.objectif||''));if(sit.contenus)parts.push('Contenus :'+nl+(sit.contenus||''));if(sit.consignes)parts.push('Dispositif et consignes :'+nl+(sit.consignes||''));if(sit.criteres)parts.push('Criteres de reussite :'+nl+(sit.criteres||''));if(sit.realisation)parts.push('Criteres de realisation :'+nl+(sit.realisation||''));if(sit.remediation)parts.push('Remediations :'+nl+(sit.remediation||''));var txt=parts.join(nl+nl);navigator.clipboard.writeText(txt).then(function(){toast('Situation copiee !');}).catch(function(){toast('Erreur copie','warn');});}
 function bibDelete(id){
   if(!confirm('Supprimer cette situation ?'))return;
   var data=bibLoad().filter(function(s){return s.id!==id;});
