@@ -2817,7 +2817,7 @@ css+='.footer{padding:10px 26px;border-top:2px solid #f0f0f0;display:flex;justif
       h+='<tr style="background:'+(ei%2?'#f8f8fc':'#fff')+'"><td class="elt">'+esc(e.nom)+'</td>';
       for(var ai=0;ai<aflpList.length;ai++){
         var n=aflpList[ai].n;var lastVal=0;
-        for(var si=0;si<state.seances.length;si++){var s=state.seances[si];if((s.aflpTravailles||[]).indexOf(n)<0)continue;var ae=(state.autoEval[s.id]||{})[e.id]||{};if(ae.maitrise1&&nmv[ae.maitrise1])lastVal=nmv[ae.maitrise1];if(ae.maitrise2&&nmv[ae.maitrise2])lastVal=Math.max(lastVal,nmv[ae.maitrise2]);}
+        for(var si=0;si<state.seances.length;si++){var s=state.seances[si];if((s.aflpTravailles||[]).indexOf(n)<0)continue;var ae=(state.autoEval[s.id]||{})[e.id]||{};if(ae.maitrise1&&nmv[ae.maitrise1]){lastVal=nmv[ae.maitrise1];}else if(ae.maitrise2&&nmv[ae.maitrise2]){lastVal=nmv[ae.maitrise2];}}
         vals.push(lastVal);
         if(lastVal>0){var lbl=MAITRISE[lastVal-1];h+='<td><span class="niv" style="background:'+BGLBL[lbl]+';color:'+COLS_PDF[lbl]+'">'+lastVal+'/4</span></td>';}
         else h+='<td style="color:#d1d5db">—</td>';
