@@ -867,7 +867,6 @@ textarea{resize:vertical;min-height:70px}
       <button class="s-tab active" data-view="v-accueil">Accueil</button>
       <button class="s-tab" data-view="v-seances">Seances</button>
       <button class="s-tab" data-view="v-appel">Appel</button>
-      <button class="s-tab" data-view="v-biblio">Biblio</button>
       <button class="s-tab" data-view="v-eleves">Classe</button>
       <button class="s-tab" data-view="v-comp">Competences</button>
       <button class="s-tab" data-view="v-eval">Bilan</button>
@@ -974,17 +973,7 @@ textarea{resize:vertical;min-height:70px}
         </div>
       </div>
     </div>
-    <div id="v-biblio" class="view">
-      <div class="ph">
-        <div><div class="ph-title">Bibliotheque</div><div class="ph-sub">Mes situations d apprentissage</div></div>
-        <button class="btn btn-p" id="btn-biblio-new-seq" onclick="openBiblioEdit()">+ Nouvelle situation</button>
-      </div>
-      <div style="padding:.5rem 0">
-        <input class="bib-search" id="bib-search-seq" placeholder="Rechercher..." style="margin-bottom:10px">
-        <div class="bib-filters" id="bib-filters-seq" style="margin-bottom:12px"></div>
-        <div class="bib-list" id="bib-list-seq"></div>
-      </div>
-    </div>
+
     <div id="v-eleves" class="view">
       <div class="ph">
         <div><div class="ph-title">Classe</div><div class="ph-sub">Profil, am&#233;nagements, PAP, dispenses</div></div>
@@ -1127,7 +1116,10 @@ textarea{resize:vertical;min-height:70px}
     </div>
     <div class="sec-title">AFLP travailles cette seance</div>
     <div id="aflp-check-new" class="aflp-check-grid"></div>
-    <div class="sec-title" style="margin-top:1.2rem">Parties de la seance</div>
+    <div class="sec-title" style="margin-top:1.2rem;display:flex;align-items:center;justify-content:space-between">
+      <span>Parties de la seance</span>
+      <button class="btn-ia" onclick="openBiblioForSeance('new')" style="opacity:.7;font-size:.72rem">&#128218; Depuis bibliotheque</button>
+    </div>
     <div id="parties-new"></div>
     <button class="add-partie-btn" id="btn-add-partie-new">+ Ajouter une partie</button>
     <div class="modal-acts">
@@ -1170,7 +1162,10 @@ textarea{resize:vertical;min-height:70px}
     </div>
     <div class="sec-title">AFLP travailles cette seance</div>
     <div id="aflp-check-edit" class="aflp-check-grid"></div>
-    <div class="sec-title" style="margin-top:1.2rem">Parties de la seance</div>
+    <div class="sec-title" style="margin-top:1.2rem;display:flex;align-items:center;justify-content:space-between">
+      <span>Parties de la seance</span>
+      <button class="btn-ia" onclick="openBiblioForSeance('edit')" style="opacity:.7;font-size:.72rem">&#128218; Depuis bibliotheque</button>
+    </div>
     <div id="parties-edit"></div>
     <button class="add-partie-btn" id="btn-add-partie-edit">+ Ajouter une partie</button>
     <div class="modal-acts">
@@ -1307,6 +1302,22 @@ textarea{resize:vertical;min-height:70px}
       <div id="gp-zone"></div>
     </div>
   </div>
+  <!-- MODALE BIBLIO DEPUIS SEANCE -->
+  <div class="mb-bib" id="mb-bib-seance" onclick="if(event.target===this)closeBiblioSeance()" style="z-index:650">
+    <div class="bib-modal">
+      <div class="bib-modal-header">
+        <span class="bib-modal-title">&#128218; Choisir une situation</span>
+        <button class="bib-modal-close" onclick="closeBiblioSeance()">&#10005;</button>
+      </div>
+      <div style="padding:14px 20px 0">
+        <input class="bib-search" id="bib-search-seance" placeholder="Rechercher...">
+        <div class="bib-filters" id="bib-filters-seance" style="margin-bottom:10px"></div>
+      </div>
+      <div style="padding:0 20px 20px">
+        <div class="bib-list" id="bib-list-seance"></div>
+      </div>
+    </div>
+  </div>
   <!-- BOTTOM NAV MOBILE -->
   <div class="s-bottom-nav" id="s-bottom-nav">
     <div class="s-bottom-nav-inner">
@@ -1318,10 +1329,7 @@ textarea{resize:vertical;min-height:70px}
         <span class="bnav-icon">&#128203;</span>
         <span class="bnav-label">Seances</span>
       </button>
-      <button class="s-bnav-btn" data-view="v-biblio">
-        <span class="bnav-icon">&#128218;</span>
-        <span class="bnav-label">Biblio</span>
-      </button>
+
       <button class="s-bnav-btn" data-view="v-appel">
         <span class="bnav-icon">&#9995;</span>
         <span class="bnav-label">Appel</span>
@@ -1667,6 +1675,7 @@ function ghPush(){
   function onOne(){done++;if(done===2)toast('Sauvegarde OK !','ok');}
   ghPushFile('data/'+STORAGE_KEY+'.json',exp,onOne);
   ghPushFile('data/classes.json',CLASSES,onOne);
+  ghPushFile('data/bibliotheque.json',bibLoad(),null);
 }
 
 function ghPull(){
@@ -1686,6 +1695,12 @@ function ghPull(){
         if(cls&&cls.length){CLASSES=cls;classesSave();accRenderClsGrid();}
       }catch(e){}
     }
+    // Tirer la bibliothèque
+    fetch('https://api.github.com/repos/'+GH.repo+'/contents/data/bibliotheque.json',{headers:h})
+    .then(function(r){return r.ok?r.json():null;}).catch(function(){return null;})
+    .then(function(bd){
+      if(bd&&bd.content){try{var bib=ghDecode(bd.content);if(bib&&bib.length)bibSave(bib);}catch(e){}}
+    });
     if(!stateData){toast('Aucune donnee GitHub','warn');return;}
     state=ghDecode(stateData.content);
     GH_SHA['data/'+STORAGE_KEY+'.json']=stateData.sha;
@@ -2940,6 +2955,81 @@ function iaCollerReponse(mode){
   }catch(e){
     toast('JSON invalide — verifie la reponse de Claude','warn');
   }
+}
+
+var BIB_SEANCE_MODE='new';
+function openBiblioForSeance(mode){
+  BIB_SEANCE_MODE=mode;
+  ge('mb-bib-seance').classList.add('open');
+  bibRenderListSeance();
+  bibRenderFiltersSeance();
+  var s=ge('bib-search-seance');
+  if(s&&!s._init){s._init=true;s.addEventListener('input',function(){bibRenderListSeance();});}
+}
+function closeBiblioSeance(){ge('mb-bib-seance').classList.remove('open');}
+
+function bibRenderListSeance(filter){
+  var zone=ge('bib-list-seance');if(!zone)return;
+  var data=bibLoad();
+  var q=(ge('bib-search-seance')?ge('bib-search-seance').value:'').toLowerCase().trim();
+  if(q)data=data.filter(function(s){return(s.titre||'').toLowerCase().indexOf(q)>=0||(s.apsa||'').toLowerCase().indexOf(q)>=0||(s.ca||'').toLowerCase().indexOf(q)>=0;});
+  if(filter&&filter!=='all')data=data.filter(function(s){return s.ca===filter||s.niveau===filter;});
+  if(!data.length){zone.innerHTML='<div class="bib-empty">Aucune situation. Ajoutez-en depuis la page de demarrage.</div>';return;}
+  var html='';
+  for(var i=0;i<data.length;i++){
+    var s=data[i];var id=s.id;
+    var caCol=BIB_COLS[s.ca]||'#4f8aff';
+    var niv=BIB_NIV[s.niveau]||{bg:'rgba(79,138,255,.15)',color:'#4f8aff',lbl:s.niveau||''};
+    html+='<div class="bib-item">';
+    html+='<div class="bib-item-head" onclick="bibToggle(\'s-'+id+'\')">';
+    html+='<div style="display:flex;gap:5px;margin-bottom:5px;flex-wrap:wrap">';
+    if(s.ca)html+='<span class="bib-tag" style="background:'+caCol+'22;color:'+caCol+'">'+s.ca+'</span>';
+    if(s.apsa)html+='<span class="bib-tag" style="background:#13161f;color:#4a5070;border:1px solid #252836">'+esc(s.apsa)+'</span>';
+    if(s.fps)html+='<span class="bib-tag" style="background:#13161f;color:#4a5070;border:1px solid #252836">'+esc(s.fps)+'</span>';
+    if(s.niveau)html+='<span class="bib-tag" style="background:'+niv.bg+';color:'+niv.color+'">'+niv.lbl+'</span>';
+    html+='</div>';
+    html+='<div style="font-size:.85rem;font-weight:600;color:#e4e6ef">'+esc(s.titre||'Sans titre')+'</div>';
+    html+='</div>';
+    html+='<div class="bib-item-body" id="bib-body-s-'+id+'">';
+    if(s.objectif)html+='<div class="bib-field"><span class="bib-field-lbl">Objectif</span><div class="bib-field-val">'+esc(s.objectif)+'</div></div>';
+    if(s.consignes)html+='<div class="bib-field"><span class="bib-field-lbl">Consignes</span><div class="bib-field-val">'+esc(s.consignes)+'</div></div>';
+    html+='</div>';
+    html+='<div class="bib-item-actions">';
+    html+='<button class="bib-act-btn ins" onclick="bibInsererDepuisSeance(\''+id+'\')">&#8618; Inserer comme partie</button>';
+    html+='</div>';
+    html+='</div>';
+  }
+  zone.innerHTML=html;
+}
+
+function bibRenderFiltersSeance(){
+  var zone=ge('bib-filters-seance');if(!zone)return;
+  var data=bibLoad();
+  var cas=[...new Set(data.map(function(s){return s.ca;}).filter(Boolean))];
+  var html='<div class="bib-filter on" onclick="bibFilterSeanceClick(this,\'all\')">Toutes</div>';
+  for(var i=0;i<cas.length;i++){
+    html+='<div class="bib-filter" onclick="bibFilterSeanceClick(this,\''+cas[i]+'\')">'+cas[i]+'</div>';
+  }
+  zone.innerHTML=html;
+}
+
+function bibFilterSeanceClick(el,f){
+  var all=el.parentElement.querySelectorAll('.bib-filter');
+  for(var i=0;i<all.length;i++)all[i].classList.remove('on');
+  el.classList.add('on');
+  bibRenderListSeance(f==='all'?null:f);
+}
+
+function bibInsererDepuisSeance(id){
+  var data=bibLoad();
+  var sit=null;for(var i=0;i<data.length;i++){if(data[i].id===id){sit=data[i];break;}}
+  if(!sit)return;
+  var p={id:'p'+Date.now()+Math.random().toString(36).slice(2,5),titre:sit.titre||'',objectif:sit.objectif||'',consignes:sit.consignes||'',criteres:sit.criteres||'',contenus:sit.contenus||'',realisation:sit.realisation||'',remediation:sit.remediation||'',bilan:''};
+  var mode=BIB_SEANCE_MODE;
+  if(mode==='new'){partiesNew.push(p);renderPartieBlock('parties-new',p,partiesNew.length-1,'new');}
+  else{partiesEdit.push(p);renderPartieBlock('parties-edit',p,partiesEdit.length-1,'edit');}
+  closeBiblioSeance();
+  toast('Situation inseree comme partie !');
 }
 
 var GP_SID=null;
