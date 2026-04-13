@@ -2615,20 +2615,7 @@ function compGetData(){return state.comp||{};}
 function compSave(d){state.comp=d;save();}
 
 function renderComp(){
-  // Déléguer à renderBilanComp en swappant la zone cible
-  var zone=ge('comp-zone');
-  var bilanZone=ge('bilan-comp-zone');
-  if(!zone)return;
-  if(bilanZone){
-    // Sauvegarder le contenu bilan, rendre dans comp-zone, restaurer
-    var savedBilan=bilanZone.innerHTML;
-    bilanZone.id='comp-zone-swap';
-    zone.id='bilan-comp-zone';
-    renderBilanComp();
-    zone.id='comp-zone';
-    bilanZone.id='bilan-comp-zone';
-    bilanZone.innerHTML=savedBilan;
-  }
+  renderBilanComp('comp-zone');
 }
 function _renderCompOld(){
   var zone=ge('comp-zone');
@@ -2691,8 +2678,8 @@ function _renderCompOld(){
   }
 }
 
-function renderBilanComp(){
-  var zone=ge('bilan-comp-zone');
+function renderBilanComp(targetZoneId){
+  var zone=ge(targetZoneId||'bilan-comp-zone');
   if(!zone)return;
   var f=CTX.cls?CTX.cls.filiere:'bacpro';
   var aflpData=CTX.apsa?(AFLP[f]||AFLP.bacpro)[CTX.apsa.caFull]:null;
