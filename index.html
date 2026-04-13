@@ -673,9 +673,9 @@ textarea{resize:vertical;min-height:70px}
       <div class="acc-author">MALLET Lucas</div>
       <div class="acc-meta" id="acc-date"></div>
       <div style="margin-top:10px;display:flex;gap:6px;align-items:center;justify-content:flex-end;flex-wrap:wrap">
-        <input class="gh-input" type="password" id="gh-token" placeholder="Token GitHub (ghp_...)" style="width:160px;font-size:.65rem;padding:5px 8px">
-        <input class="gh-input" type="text" id="gh-repo" placeholder="user/repo" style="width:110px;font-size:.65rem;padding:5px 8px">
-        <button class="gh-btn" id="btn-gh-save" style="padding:5px 10px;font-size:.7rem">OK</button>
+        <input class="gh-input" type="password" id="gh-token" placeholder="Token GitHub (ghp_...)" style="width:160px;font-size:.65rem;padding:5px 8px" onkeydown="if(event.key==='Enter')ghSaveConfig()">
+        <input class="gh-input" type="text" id="gh-repo" placeholder="user/repo" style="width:110px;font-size:.65rem;padding:5px 8px" onkeydown="if(event.key==='Enter')ghSaveConfig()">
+        <button class="gh-btn" id="btn-gh-save" onclick="ghSaveConfig()" style="padding:5px 10px;font-size:.7rem">OK</button>
         <button class="gh-btn" id="btn-gh-pull-cls" style="padding:5px 10px;font-size:.7rem;background:#1a4a6b" title="Recuperer les classes depuis GitHub">&#8595; Classes</button>
         <div id="gh-status" style="font-size:.65rem;color:#56cfb2"></div>
       </div>
@@ -4028,7 +4028,7 @@ function initEvents(){
 s('s-back-btn','click',goAcc);
 s('btn-push','click',ghPush);
 s('btn-pull','click',ghPull);
-s('btn-edit-seq','click',openSeqModal);
+s('btn-gh-save','click',ghSaveConfig);s('btn-edit-seq','click',openSeqModal);
 s('btn-pdf-sequence','click',exportSequencePDF);
 s('btn-save-seq','click',saveSeq);
 s('btn-add-trame-seance','click',addTrameSeance);
