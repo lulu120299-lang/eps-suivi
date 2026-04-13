@@ -733,7 +733,7 @@ textarea{resize:vertical;min-height:70px}
     <div class="acc-biblio">
       <div class="acc-biblio-header">
         <div class="acc-biblio-title">&#128218; Bibliotheque de situations</div>
-        <button class="acc-biblio-btn" id="btn-open-biblio">Ouvrir &#8594;</button>
+        <button class="acc-biblio-btn" id="btn-open-biblio" onclick="openBiblio()">Ouvrir &#8594;</button>
       </div>
     </div>
   </div>
@@ -744,7 +744,7 @@ textarea{resize:vertical;min-height:70px}
       <div class="bib-modal-header">
         <span class="bib-modal-title">&#128218; Bibliotheque de situations</span>
         <div style="display:flex;gap:8px;align-items:center">
-          <button class="acc-biblio-btn" id="btn-bib-add">+ Nouvelle situation</button>
+          <button class="acc-biblio-btn" id="btn-bib-add" onclick="openBiblioEdit()">+ Nouvelle situation</button>
           <button class="bib-modal-close" onclick="closeBiblio()">&#10005;</button>
         </div>
       </div>
@@ -825,7 +825,7 @@ textarea{resize:vertical;min-height:70px}
         </div>
         <div class="modal-acts" style="margin-top:1rem">
           <button class="btn btn-g" onclick="closeBiblioEdit()">Annuler</button>
-          <button class="btn btn-p" id="btn-bib-save">Enregistrer</button>
+          <button class="btn btn-p" id="btn-bib-save" onclick="bibSaveSituation()">Enregistrer</button>
         </div>
       </div>
     </div>
@@ -977,7 +977,7 @@ textarea{resize:vertical;min-height:70px}
     <div id="v-biblio" class="view">
       <div class="ph">
         <div><div class="ph-title">Bibliotheque</div><div class="ph-sub">Mes situations d apprentissage</div></div>
-        <button class="btn btn-p" id="btn-biblio-new-seq">+ Nouvelle situation</button>
+        <button class="btn btn-p" id="btn-biblio-new-seq" onclick="openBiblioEdit()">+ Nouvelle situation</button>
       </div>
       <div style="padding:.5rem 0">
         <input class="bib-search" id="bib-search-seq" placeholder="Rechercher..." style="margin-bottom:10px">
@@ -3242,10 +3242,10 @@ function bibRenderList(zoneId,filter){
     if(s.remediation)html+='<div class="bib-field"><span class="bib-field-lbl">Remediations</span><div class="bib-field-val" style="border-left:2px solid #a78bfa">'+esc(s.remediation)+'</div></div>';
     html+='</div>';
     html+='<div class="bib-item-actions">';
-    // Bouton insérer seulement dans pg-suivi
-    if(zoneId==='bib-list-seq')html+='<button class="bib-act-btn ins" onclick="bibInserer(\''+id+'\')">&#8618; Inserer en partie</button>';
-    html+='<button class="bib-act-btn" onclick="bibEdit(\''+id+'\')">&#9998; Modifier</button>';
-    html+='<button class="bib-act-btn del" onclick="bibDelete(\''+id+'\')">&#128465;</button>';
+    html+='<button class="bib-act-btn ins" onclick="bibInserer(\''+id+'\')">☘ Inserer</button>';
+    html+='<button class="bib-act-btn" onclick="bibCopier(\''+id+'\')">&#128203; Copier</button>';
+    html+='<button class="bib-act-btn" onclick="bibEdit(\''+id+'\')">✎ Modifier</button>';
+    html+='<button class="bib-act-btn del" onclick="bibDelete(\''+id+'\')">🗑</button>';
     html+='</div>';
     html+='</div>';
   }
