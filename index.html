@@ -1675,19 +1675,29 @@ function ghPushFile(fn,data,onOk){
         if(d&&d.content&&d.content.sha)GH_SHA[fn]=d.content.sha;
         if(onOk)onOk();
       });
-    } else if(r&&r.status===409){
-      // Conflit SHA - on recharge le SHA et on réessaie
+    } else if(r&&(r.status===409||r.status===422||r.status===404)){
+      // Conflit SHA ou fichier inexistant - recharger le SHA et réessayer
       return fetch('https://api.github.com/repos/'+GH.repo+'/contents/'+fn,{headers:ghHeaders()})
         .then(function(r2){return r2.ok?r2.json():null;})
         .then(function(d){
           if(d&&d.sha){GH_SHA[fn]=d.sha;body.sha=d.sha;}
+          else{delete body.sha;}
           return fetch('https://api.github.com/repos/'+GH.repo+'/contents/'+fn,{
             method:'PUT',headers:objAssign({'Content-Type':'application/json'},ghHeaders()),
             body:JSON.stringify(body)
           });
-        }).then(function(r3){if(r3&&r3.ok&&onOk)onOk();});
+        }).then(function(r3){
+          if(r3&&r3.ok){
+            r3.json().then(function(d){if(d&&d.content&&d.content.sha)GH_SHA[fn]=d.content.sha;});
+            if(onOk)onOk();
+          } else {
+            toast('Erreur GitHub ('+r3.status+')','warn');
+          }
+        });
     } else {
-      toast('Erreur GitHub','warn');
+      r.json().then(function(d){
+        toast('Erreur GitHub: '+(d&&d.message?d.message:r.status),'warn');
+      }).catch(function(){toast('Erreur GitHub ('+r.status+')','warn');});
     }
   }).catch(function(e){toast('Erreur: '+e.message,'err');});
 }
@@ -2916,7 +2926,15 @@ css+='.footer{padding:10px 26px;border-top:2px solid #f0f0f0;display:flex;justif
       h+='<tr style="background:'+(ei%2?'#f8f8fc':'#fff')+'"><td class="elt">'+esc(e.nom)+'</td>';
       for(var ai=0;ai<aflpList.length;ai++){
         var n=aflpList[ai].n;var lastVal=0;
-        for(var si=0;si<state.seances.length;si++){var s=state.seances[si];if((s.aflpTravailles||[]).indexOf(n)<0)continue;var ae=(state.autoEval[s.id]||{})[e.id]||{};if(ae.maitrise1&&nmv[ae.maitrise1]){lastVal=nmv[ae.maitrise1];}else if(ae.maitrise2&&nmv[ae.maitrise2]){lastVal=nmv[ae.maitrise2];}}
+        var compD=state.comp||{};
+        for(var si=0;si<state.seances.length;si++){
+          var s=state.seances[si];
+          if((s.aflpTravailles||[]).indexOf(n)<0)continue;
+          // Priorité : state.comp (boutons 1/2/3/4) puis autoEval
+          var ck=s.id+'__'+n+'__'+e.id;
+          if(compD[ck]&&compD[ck]>0){lastVal=compD[ck];}
+          else{var ae=(state.autoEval[s.id]||{})[e.id]||{};if(ae.maitrise1&&nmv[ae.maitrise1])lastVal=nmv[ae.maitrise1];else if(ae.maitrise2&&nmv[ae.maitrise2])lastVal=nmv[ae.maitrise2];}
+        }
         vals.push(lastVal);
         if(lastVal>0){var lbl=MAITRISE[lastVal-1];h+='<td><span class="niv" style="background:'+BGLBL[lbl]+';color:'+COLS_PDF[lbl]+'">'+lastVal+'/4</span></td>';}
         else h+='<td style="color:#d1d5db">—</td>';
