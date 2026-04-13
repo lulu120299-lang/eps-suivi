@@ -1663,43 +1663,46 @@ function ghPushFileSilent(fn,data){
 }
 function ghPushFile(fn,data,onOk){
   var encoded=ghEncode(data);
-  var body={message:'EPS save',content:encoded};
-  if(GH_SHA[fn])body.sha=GH_SHA[fn];
-  fetch('https://api.github.com/repos/'+GH.repo+'/contents/'+fn,{
-    method:'PUT',
-    headers:objAssign({'Content-Type':'application/json'},ghHeaders()),
-    body:JSON.stringify(body)
-  }).then(function(r){
-    if(r&&r.ok){
-      return r.json().then(function(d){
-        if(d&&d.content&&d.content.sha)GH_SHA[fn]=d.content.sha;
+  // Toujours récupérer le SHA actuel avant de pusher
+  function doPut(sha){
+    var body={message:'EPS save',content:encoded};
+    if(sha)body.sha=sha;
+    fetch('https://api.github.com/repos/'+GH.repo+'/contents/'+fn,{
+      method:'PUT',
+      headers:objAssign({'Content-Type':'application/json'},ghHeaders()),
+      body:JSON.stringify(body)
+    }).then(function(r){
+      if(r&&r.ok){
+        r.json().then(function(d){if(d&&d.content&&d.content.sha)GH_SHA[fn]=d.content.sha;});
         if(onOk)onOk();
-      });
-    } else if(r&&(r.status===409||r.status===422||r.status===404)){
-      // Conflit SHA ou fichier inexistant - recharger le SHA et réessayer
-      return fetch('https://api.github.com/repos/'+GH.repo+'/contents/'+fn,{headers:ghHeaders()})
+      } else if(r&&r.status===409){
+        // SHA périmé - récupérer le bon et réessayer une fois
+        fetch('https://api.github.com/repos/'+GH.repo+'/contents/'+fn,{headers:ghHeaders()})
         .then(function(r2){return r2.ok?r2.json():null;})
         .then(function(d){
-          if(d&&d.sha){GH_SHA[fn]=d.sha;body.sha=d.sha;}
-          else{delete body.sha;}
-          return fetch('https://api.github.com/repos/'+GH.repo+'/contents/'+fn,{
-            method:'PUT',headers:objAssign({'Content-Type':'application/json'},ghHeaders()),
-            body:JSON.stringify(body)
-          });
-        }).then(function(r3){
-          if(r3&&r3.ok){
-            r3.json().then(function(d){if(d&&d.content&&d.content.sha)GH_SHA[fn]=d.content.sha;});
-            if(onOk)onOk();
-          } else {
-            toast('Erreur GitHub ('+r3.status+')','warn');
-          }
-        });
-    } else {
-      r.json().then(function(d){
-        toast('Erreur GitHub: '+(d&&d.message?d.message:r.status),'warn');
-      }).catch(function(){toast('Erreur GitHub ('+r.status+')','warn');});
-    }
-  }).catch(function(e){toast('Erreur: '+e.message,'err');});
+          if(d&&d.sha){GH_SHA[fn]=d.sha;doPut(d.sha);}
+          else if(onOk)onOk();
+        }).catch(function(){if(onOk)onOk();});
+      } else {
+        if(onOk)onOk();
+        r.json().then(function(d){
+          toast('Erreur GitHub: '+(d&&d.message?d.message:r.status),'warn');
+        }).catch(function(){toast('Erreur GitHub ('+r.status+')','warn');});
+      }
+    }).catch(function(e){if(onOk)onOk();toast('Erreur reseau','warn');});
+  }
+  // Si on a un SHA en cache, l'utiliser directement
+  if(GH_SHA[fn]){doPut(GH_SHA[fn]);}
+  else{
+    // Récupérer le SHA depuis GitHub
+    fetch('https://api.github.com/repos/'+GH.repo+'/contents/'+fn,{headers:ghHeaders()})
+    .then(function(r){return r.ok?r.json():null;})
+    .then(function(d){
+      var sha=d&&d.sha?d.sha:null;
+      if(sha)GH_SHA[fn]=sha;
+      doPut(sha);
+    }).catch(function(){doPut(null);});
+  }
 }
 
 function ghPush(){
