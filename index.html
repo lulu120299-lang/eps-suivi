@@ -1271,7 +1271,7 @@ textarea{resize:vertical;min-height:70px}
     <button class="add-partie-btn" id="btn-add-critere" onclick="addCritere()">+ Ajouter un critere</button>
     <div class="modal-acts">
       <button class="btn btn-g" data-close="m-grille-cfg">Annuler</button>
-      <button class="btn btn-p" id="btn-save-grille-cfg">Enregistrer la grille</button>
+      <button class="btn btn-p" id="btn-save-grille-cfg" onclick="saveGrilleConfig()">Enregistrer la grille</button>
     </div>
   </div></div>
   <!-- MODALE GROUPES -->
@@ -4347,7 +4347,7 @@ s('btn-recap-presences','click',openRecapPresences);
 s('btn-grille-cfg','click',openGrilleConfig);
 s('btn-grille-config','click',openGrilleConfig);
 s('btn-add-critere','click',addCritere);
-s('btn-save-grille','click',saveGrilleConfig);
+s('btn-save-grille-cfg','click',saveGrilleConfig);
 s('btn-grille-pdf','click',function(){if(typeof exportGrillePDF==='function')exportGrillePDF();else toast('Bientot disponible','warn');});
 s('btn-grille-csv','click',function(){if(typeof exportGrilleCSV==='function')exportGrilleCSV();else toast('Bientot disponible','warn');});
 s('btn-grille-export-json','click',function(){if(typeof exportGrilleJSON==='function')exportGrilleJSON();});
@@ -4364,7 +4364,7 @@ qsa('.s-bnav-btn[data-view]',function(btn){btn.addEventListener('click',function
 // Grille config
 s('btn-grille-config','click',openGrilleConfig);
 s('btn-add-critere','click',addCritere);
-s('btn-save-grille','click',saveGrilleConfig);
+
 // Bilan
 s('btn-comp-bilan','click',exportBilanPDF);
 s('btn-bilan-pdf','click',exportBilanPDF);
