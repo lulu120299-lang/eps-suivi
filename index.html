@@ -101,6 +101,51 @@ html,body{overflow-x:hidden;max-width:100vw}body{font-family:"DM Sans",sans-seri
 .acc-btn:hover:not(:disabled)::before{opacity:1}
 .acc-btn:disabled{background:#1e2438;color:#3a4060;cursor:not-allowed;box-shadow:none}
 /* Sessions récentes */
+
+/* ══ PANNEAU WIDGETS ACCUEIL ══ */
+.widget-panel{display:flex;flex-direction:column;gap:10px;margin-top:1.5rem}
+.widget-card{background:#111520;border:1px solid #1e2438;border-radius:12px;padding:12px 14px;position:relative}
+.widget-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
+.widget-title{font-family:"DM Mono",monospace;font-size:.58rem;text-transform:uppercase;letter-spacing:.12em;color:#4a5070;font-weight:700}
+.widget-toggle{background:none;border:none;color:#4a5070;cursor:pointer;font-size:.85rem;padding:0;transition:color .15s}
+.widget-toggle:hover{color:#9aa0b8}
+.widget-body{transition:all .2s}
+.widget-body.hidden{display:none}
+/* Météo */
+.meteo-main-row{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+.meteo-big-icon{font-size:2rem;line-height:1}
+.meteo-big-temp{font-size:1.7rem;font-weight:700;color:#fff;line-height:1}
+.meteo-big-desc{font-size:.68rem;color:#9aa0b8;margin-top:2px}
+.meteo-details-row{display:flex;gap:0;border-top:1px solid #1e2438;padding-top:8px;margin-top:2px}
+.meteo-det{flex:1;text-align:center;border-right:1px solid #1e2438}
+.meteo-det:last-child{border:none}
+.meteo-det-val{font-size:.72rem;font-weight:600;color:#e4e6ef}
+.meteo-det-lbl{font-size:.55rem;color:#4a5070;margin-top:1px;font-family:monospace;text-transform:uppercase}
+.meteo-conseil{background:rgba(86,207,178,.08);border:1px solid rgba(86,207,178,.15);border-radius:6px;padding:5px 8px;margin-top:7px;font-size:.65rem;color:#56cfb2}
+/* Calendrier */
+.cal-week{display:grid;grid-template-columns:repeat(5,1fr);gap:4px;margin-bottom:10px}
+.cal-d{border-radius:8px;padding:6px 4px;text-align:center;border:1px solid transparent;cursor:pointer}
+.cal-d.today{border-color:rgba(79,138,255,.4);background:rgba(79,138,255,.08)}
+.cal-d-name{font-size:.53rem;color:#4a5070;text-transform:uppercase;letter-spacing:.04em;margin-bottom:2px;font-family:monospace}
+.cal-d-num{font-size:.82rem;font-weight:700;color:#6b7280;margin-bottom:3px}
+.cal-d.today .cal-d-num{color:#fff}
+.cal-d-dots{display:flex;gap:2px;justify-content:center;min-height:6px}
+.cal-d-dot{width:5px;height:5px;border-radius:50%}
+.cal-seances-list{display:flex;flex-direction:column;gap:4px}
+.cal-seance-row{display:flex;align-items:center;gap:7px;background:#0d1018;border-radius:7px;padding:6px 8px;border-left:2px solid transparent}
+.cal-seance-heure{font-family:monospace;font-size:.62rem;color:#6b7280;min-width:34px;flex-shrink:0}
+.cal-seance-body{flex:1;min-width:0}
+.cal-seance-cls{font-size:.62rem;font-weight:700;color:#9aa0b8;font-family:monospace}
+.cal-seance-obj{font-size:.72rem;color:#e4e6ef;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cal-seance-snum{font-size:.58rem;font-family:monospace;font-weight:700;padding:1px 5px;border-radius:3px;flex-shrink:0}
+/* AFLP barres */
+.aflp-bar-rows{display:flex;flex-direction:column;gap:6px}
+.aflp-bar-row{display:flex;align-items:center;gap:7px}
+.aflp-bar-tag{font-size:.58rem;font-weight:700;padding:2px 5px;border-radius:4px;color:#fff;font-family:monospace;flex-shrink:0;min-width:42px;text-align:center}
+.aflp-bar-track{flex:1;height:6px;background:#0d1018;border-radius:3px;overflow:hidden;border:1px solid #1e2438}
+.aflp-bar-fill{height:100%;border-radius:3px}
+.aflp-bar-pct{font-size:.62rem;font-family:monospace;min-width:26px;text-align:right}
+.aflp-bar-n{font-size:.55rem;color:#4a5070;font-family:monospace;min-width:26px;text-align:right}
 .acc-recent{margin-top:2rem;padding-top:1.5rem;border-top:1px solid #1a1f30}
 .acc-recent-title{font-family:"JetBrains Mono",monospace;font-size:.6rem;text-transform:uppercase;letter-spacing:.18em;color:#4a5070;margin-bottom:.75rem;font-weight:700}
 .acc-chips{display:flex;flex-wrap:wrap;gap:7px}
@@ -839,7 +884,7 @@ textarea{resize:vertical;min-height:70px}
   <div class="mb" id="m-add-cls"><div class="modal">
     <div class="modal-title">Ajouter une classe</div>
     <div class="fg">
-      <div class="fgrp full"><label>Nom de la classe</label><input type="text" id="cls-nom" placeholder="Ex: 2NDE ENER B, 3eme A, Terminale Pro..."></div>
+      <div class="fgrp full"><label>Nom de la classe</label><input type="text" id="cls-nom" placeholder="Ex: 2NDE ENER B, 3eme A, Terminale Pro..."><div class="fgrp"><label>Heure habituelle</label><input type="text" id="cls-heure" placeholder="Ex: 08h05, 10h00, 14h30"></div></div>
       <div class="fgrp full"><label>Description courte (optionnel)</label><input type="text" id="cls-sub" placeholder="Ex: Energie Gr. B, Section sport..."></div>
     </div>
     <div class="sec-title" style="margin-top:1rem">Filiere</div>
@@ -912,6 +957,44 @@ textarea{resize:vertical;min-height:70px}
               </div>
               <textarea id="notes-rapides-textarea" placeholder="Penser a... / Preparer... / Voir avec..."></textarea>
             </div>
+          </div>
+
+          <!-- WIDGET PANEL -->
+          <div class="widget-panel" id="widget-panel">
+
+            <!-- MÉTÉO -->
+            <div class="widget-card" id="widget-meteo">
+              <div class="widget-header">
+                <span class="widget-title">&#127777; Météo Lyon</span>
+                <button class="widget-toggle" onclick="toggleWidget('meteo')" title="Afficher/Masquer">&#128065;</button>
+              </div>
+              <div class="widget-body" id="widget-body-meteo">
+                <div id="meteo-content"><div style="font-size:.72rem;color:#4a5070;text-align:center;padding:8px">Chargement...</div></div>
+              </div>
+            </div>
+
+            <!-- CALENDRIER -->
+            <div class="widget-card" id="widget-cal">
+              <div class="widget-header">
+                <span class="widget-title">&#128197; Semaine</span>
+                <button class="widget-toggle" onclick="toggleWidget('cal')" title="Afficher/Masquer">&#128065;</button>
+              </div>
+              <div class="widget-body" id="widget-body-cal">
+                <div id="cal-content"></div>
+              </div>
+            </div>
+
+            <!-- AFLP -->
+            <div class="widget-card" id="widget-aflp">
+              <div class="widget-header">
+                <span class="widget-title">&#128200; Progression AFLP</span>
+                <button class="widget-toggle" onclick="toggleWidget('aflp')" title="Afficher/Masquer">&#128065;</button>
+              </div>
+              <div class="widget-body" id="widget-body-aflp">
+                <div id="aflp-content"></div>
+              </div>
+            </div>
+
           </div>
 
         </div>
@@ -1381,7 +1464,7 @@ textarea{resize:vertical;min-height:70px}
   </div>
 </div>
 <script>
-var CLASSES_DEFAULT=[{id:'2nde-ener-b',label:'2NDE ENER B',level:'2NDE',sub:'Energie Gr. B',color:'#c8400a',light:'#c8400a0d',filiere:'bacpro'},{id:'2nde-mrc-b',label:'2NDE MRC B',level:'2NDE',sub:'MRC Gr. B',color:'#1a6b3a',light:'#1a6b3a0d',filiere:'bacpro'},{id:'cap-epc-1',label:'CAP EPC 1',level:'CAP',sub:'Equipier polyvalent de commerce',color:'#1e4fa0',light:'#1e4fa00d',filiere:'cap'},{id:'cap-elec-2',label:'CAP ELEC 2',level:'CAP',sub:'Electricite',color:'#7c28b8',light:'#7c28b80d',filiere:'cap'},{id:'3e-pm',label:'3e PM',level:'3e',sub:'Prepa Metiers',color:'#a07800',light:'#a078000d',filiere:'col4'}];
+var CLASSES_DEFAULT=[{id:'2nde-ener-b',label:'2NDE ENER B',level:'2NDE',sub:'Energie Gr. B',color:'#c8400a',light:'#c8400a0d',filiere:'bacpro',heure:'10h00'},{id:'2nde-mrc-b',label:'2NDE MRC B',level:'2NDE',sub:'MRC Gr. B',color:'#1a6b3a',light:'#1a6b3a0d',filiere:'bacpro',heure:'08h05'},{id:'cap-epc-1',label:'CAP EPC 1',level:'CAP',sub:'Equipier polyvalent de commerce',color:'#1e4fa0',light:'#1e4fa00d',filiere:'cap',heure:'10h00'},{id:'cap-elec-2',label:'CAP ELEC 2',level:'CAP',sub:'Electricite',color:'#7c28b8',light:'#7c28b80d',filiere:'cap',heure:'08h05'},{id:'3e-pm',label:'3e PM',level:'3e',sub:'Prepa Metiers',color:'#a07800',light:'#a078000d',filiere:'col4',heure:'10h00'}];
 var CLASSES=[];
 function classesLoad(){try{var s=localStorage.getItem('eps-classes');CLASSES=s?JSON.parse(s):CLASSES_DEFAULT.slice();}catch(e){CLASSES=CLASSES_DEFAULT.slice();}}
 function classesSave(){localStorage.setItem('eps-classes',JSON.stringify(CLASSES));}
@@ -1944,7 +2027,8 @@ function saveNewCls(){
     sub:sub,
     color:col,
     light:col+'1a',
-    filiere:CLS_SEL_FILIERE
+    filiere:CLS_SEL_FILIERE,
+    heure:ge('cls-heure')?ge('cls-heure').value.trim():''
   };
   CLASSES.push(newCls);
   classesSave();
@@ -1968,6 +2052,273 @@ function openM(id){
   el.scrollTop=0;
 }
 function closeM(id){var el=ge(id);if(el)el.classList.remove('open');}
+
+// ══════════════════════════════════════════
+// WIDGETS ACCUEIL
+// ══════════════════════════════════════════
+var WIDGET_PREFS_KEY = 'eps-widget-prefs';
+
+function getWidgetPrefs(){
+  try{return JSON.parse(localStorage.getItem(WIDGET_PREFS_KEY)||'{}');}catch(e){return{};}
+}
+function saveWidgetPrefs(p){localStorage.setItem(WIDGET_PREFS_KEY,JSON.stringify(p));}
+
+function toggleWidget(name){
+  var body=ge('widget-body-'+name);
+  var btn=document.querySelector('#widget-'+name+' .widget-toggle');
+  if(!body)return;
+  var hidden=body.classList.toggle('hidden');
+  if(btn)btn.style.opacity=hidden?'0.3':'1';
+  var prefs=getWidgetPrefs();prefs[name]=!hidden;saveWidgetPrefs(prefs);
+}
+
+function initWidgets(){
+  // Restaurer état visible/caché
+  var prefs=getWidgetPrefs();
+  ['meteo','cal','aflp'].forEach(function(name){
+    if(prefs[name]===false){
+      var body=ge('widget-body-'+name);
+      var btn=document.querySelector('#widget-'+name+' .widget-toggle');
+      if(body){body.classList.add('hidden');if(btn)btn.style.opacity='0.3';}
+    }
+  });
+  renderWidgetMeteo();
+  renderWidgetCal();
+  renderWidgetAflp();
+}
+
+// ── MÉTÉO ──
+function renderWidgetMeteo(){
+  var zone=ge('meteo-content');
+  if(!zone)return;
+  // API open-meteo (gratuit, pas de clé)
+  // Lyon: lat=45.748, lon=4.847
+  fetch('https://api.open-meteo.com/v1/forecast?latitude=45.748&longitude=4.847&current=temperature_2m,weathercode,windspeed_10m,relativehumidity_2m&timezone=Europe/Paris')
+  .then(function(r){return r.ok?r.json():null;})
+  .then(function(d){
+    if(!d||!d.current){zone.innerHTML='<div style="font-size:.7rem;color:#4a5070;text-align:center">Météo indisponible</div>';return;}
+    var temp=Math.round(d.current.temperature_2m);
+    var code=d.current.weathercode;
+    var wind=Math.round(d.current.windspeed_10m);
+    var hum=d.current.relativehumidity_2m;
+    var icon=meteoIcon(code);
+    var desc=meteoDesc(code);
+    var conseil=meteoConseil(code,temp,wind);
+    var now=new Date();
+    var jours=['Dim','Lun','Mar','Mer','Jeu','Ven','Sam'];
+    var mois=['janv.','févr.','mars','avr.','mai','juin','juil.','août','sept.','oct.','nov.','déc.'];
+    var dateStr=jours[now.getDay()]+' '+now.getDate()+' '+mois[now.getMonth()];
+    zone.innerHTML=
+      '<div style="font-size:.6rem;color:#4a5070;font-family:monospace;margin-bottom:6px">Lyon · '+dateStr+'</div>'+
+      '<div class="meteo-main-row">'+
+        '<div class="meteo-big-icon">'+icon+'</div>'+
+        '<div><div class="meteo-big-temp">'+temp+'°</div><div class="meteo-big-desc">'+desc+'</div></div>'+
+      '</div>'+
+      '<div class="meteo-details-row">'+
+        '<div class="meteo-det"><div class="meteo-det-val">💨 '+wind+'</div><div class="meteo-det-lbl">km/h</div></div>'+
+        '<div class="meteo-det"><div class="meteo-det-val">💧 '+hum+'%</div><div class="meteo-det-lbl">humidité</div></div>'+
+      '</div>'+
+      '<div class="meteo-conseil">'+conseil+'</div>';
+  }).catch(function(){
+    zone.innerHTML='<div style="font-size:.7rem;color:#4a5070;text-align:center">Météo indisponible</div>';
+  });
+}
+
+function meteoIcon(code){
+  if(code===0)return'☀️';
+  if(code<=2)return'⛅';
+  if(code<=3)return'☁️';
+  if(code<=49)return'🌫️';
+  if(code<=59)return'🌦️';
+  if(code<=69)return'🌧️';
+  if(code<=79)return'🌨️';
+  if(code<=82)return'🌧️';
+  if(code<=86)return'❄️';
+  return'⛈️';
+}
+function meteoDesc(code){
+  if(code===0)return'Ciel dégagé';
+  if(code<=2)return'Partiellement nuageux';
+  if(code<=3)return'Couvert';
+  if(code<=49)return'Brouillard';
+  if(code<=59)return'Bruine';
+  if(code<=69)return'Pluie';
+  if(code<=79)return'Neige';
+  if(code<=82)return'Averses';
+  if(code<=86)return'Neige';
+  return'Orage';
+}
+function meteoConseil(code,temp,wind){
+  if(code>=80||wind>40)return'⚠️ Séance en extérieur déconseillée';
+  if(code>=50||temp<5)return'🏠 Prévoir une alternative en intérieur';
+  if(code<=2&&temp>=10)return'✅ Conditions favorables en extérieur';
+  return'🏃 Conditions acceptables pour une séance';
+}
+
+// ── CALENDRIER ──
+function renderWidgetCal(){
+  var zone=ge('cal-content');
+  if(!zone)return;
+  var now=new Date();
+  var dayOfWeek=now.getDay();
+  var monday=new Date(now);
+  monday.setDate(now.getDate()-(dayOfWeek===0?6:dayOfWeek-1));
+  var jours=['Lun','Mar','Mer','Jeu','Ven'];
+  var COLS=['#c8400a','#1a6b3a','#56cfb2','#ffd166','#a78bfa','#4f8aff','#ff6b6b','#fb923c'];
+
+  // Collecter toutes les séances de la semaine depuis TOUTES les séquences récentes
+  // On utilise les données en mémoire si disponibles + les classes avec leurs heures
+  var seancesParJour={};
+  for(var d=0;d<5;d++){
+    var day=new Date(monday);day.setDate(monday.getDate()+d);
+    var dateStr=day.toISOString().split('T')[0];
+    seancesParJour[dateStr]=[];
+  }
+
+  // Récupérer les séances depuis le localStorage pour toutes les clés eps-*
+  try{
+    var keys=[];
+    for(var k in localStorage){
+      if(k.indexOf('eps-') === 0 && k.indexOf('-seq') < 0 && k.indexOf('-comp') < 0 && 
+         k.indexOf('-profil') < 0 && k.indexOf('-grille') < 0 && k.indexOf('eps-classes') < 0 &&
+         k.indexOf('eps-gh') < 0 && k.indexOf('eps-recent') < 0 && k.indexOf('eps-widget') < 0 &&
+         k.indexOf('eps-notes') < 0 && k.indexOf('eps-bibliotheque') < 0){
+        try{
+          var data=JSON.parse(localStorage.getItem(k));
+          if(data&&data.seances&&Array.isArray(data.seances)){
+            // Trouver la classe correspondante
+            var cls=null;
+            for(var ci=0;ci<CLASSES.length;ci++){
+              if(k.indexOf(CLASSES[ci].id)>=0){cls=CLASSES[ci];break;}
+            }
+            for(var si=0;si<data.seances.length;si++){
+              var s=data.seances[si];
+              if(s.date&&seancesParJour[s.date]!==undefined){
+                seancesParJour[s.date].push({
+                  num:s.num,
+                  objectif:s.objectif||'Séance '+s.num,
+                  cls:cls,
+                  key:k
+                });
+              }
+            }
+          }
+        }catch(e){}
+      }
+    }
+  }catch(e){}
+
+  // Construire le HTML
+  var todayStr=now.toISOString().split('T')[0];
+  var h='<div class="cal-week">';
+  for(var d=0;d<5;d++){
+    var day=new Date(monday);day.setDate(monday.getDate()+d);
+    var dateStr=day.toISOString().split('T')[0];
+    var isToday=dateStr===todayStr;
+    var seances=seancesParJour[dateStr]||[];
+    h+='<div class="cal-d'+(isToday?' today':'')+(seances.length?' has-seance':'')+'" onclick="calSelectDay(\''+dateStr+'\')">';
+    h+='<div class="cal-d-name">'+jours[d]+'</div>';
+    h+='<div class="cal-d-num">'+day.getDate()+'</div>';
+    h+='<div class="cal-d-dots">';
+    for(var si=0;si<Math.min(seances.length,3);si++){
+      var col2=seances[si].cls?seances[si].cls.color:'#4f8aff';
+      h+='<div class="cal-d-dot" style="background:'+col2+'"></div>';
+    }
+    h+='</div></div>';
+  }
+  h+='</div>';
+
+  // Séances du jour
+  var todaySeances=seancesParJour[todayStr]||[];
+  var joursLong=['Dimanche','Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi'];
+  var moisLong=['janv.','févr.','mars','avr.','mai','juin','juil.','août','sept.','oct.','nov.','déc.'];
+  h+='<div style="font-family:\'DM Mono\',monospace;font-size:.55rem;text-transform:uppercase;letter-spacing:.1em;color:#4a5070;margin-bottom:5px">'+joursLong[now.getDay()]+' '+now.getDate()+' '+moisLong[now.getMonth()]+'</div>';
+  
+  if(!todaySeances.length){
+    h+='<div style="font-size:.7rem;color:#2a3050;text-align:center;padding:8px 0;font-style:italic">Aucune séance planifiée</div>';
+  } else {
+    h+='<div class="cal-seances-list">';
+    todaySeances.sort(function(a,b){
+      var ha=(a.cls&&a.cls.heure?a.cls.heure:'99h99');
+      var hb=(b.cls&&b.cls.heure?b.cls.heure:'99h99');
+      return ha.localeCompare(hb);
+    });
+    for(var si=0;si<todaySeances.length;si++){
+      var s=todaySeances[si];
+      var col3=s.cls?s.cls.color:'#4f8aff';
+      var heure=s.cls&&s.cls.heure?s.cls.heure:'—';
+      var clsLabel=s.cls?s.cls.label:'Classe';
+      h+='<div class="cal-seance-row" style="border-left-color:'+col3+'">';
+      h+='<div class="cal-seance-heure">'+heure+'</div>';
+      h+='<div class="cal-seance-body">';
+      h+='<div class="cal-seance-cls">'+esc(clsLabel)+'</div>';
+      h+='<div class="cal-seance-obj">'+esc(s.objectif)+'</div>';
+      h+='</div>';
+      h+='<span class="cal-seance-snum" style="background:'+col3+'22;color:'+col3+'">S'+s.num+'</span>';
+      h+='</div>';
+    }
+    h+='</div>';
+  }
+  zone.innerHTML=h;
+}
+
+function calSelectDay(dateStr){
+  // Re-render avec le jour sélectionné
+  // Pour simplifier on reload juste le widget
+  renderWidgetCal();
+}
+
+// ── AFLP ──
+function renderWidgetAflp(){
+  var zone=ge('aflp-content');
+  if(!zone)return;
+  if(!CTX.apsa){zone.innerHTML='<div style="font-size:.7rem;color:#2a3050;text-align:center;padding:8px 0">Ouvrez une séquence</div>';return;}
+  
+  var f=CTX.cls?CTX.cls.filiere:'bacpro';
+  var aflpData=(AFLP[f]||AFLP.bacpro)[CTX.apsa.caFull];
+  var seq=seqGet();
+  var aflpPrio=seq.aflpPrio||[];
+  if(!aflpPrio.length){zone.innerHTML='<div style="font-size:.7rem;color:#2a3050;text-align:center;padding:8px 0">Aucun AFLP défini</div>';return;}
+  
+  var compData=compGetData();
+  var eleves=state.eleves;
+  var seuil=3;
+  
+  var clsLabel=CTX.cls?CTX.cls.label:'';
+  var h='<div style="font-size:.58rem;color:#4a5070;font-family:monospace;margin-bottom:8px">'+esc(clsLabel)+' · '+eleves.length+' élèves</div>';
+  h+='<div class="aflp-bar-rows">';
+  
+  for(var ai=0;ai<aflpPrio.length;ai++){
+    var an=aflpPrio[ai];
+    // Compter les élèves ayant atteint le seuil
+    var atteints=0;
+    for(var ei=0;ei<eleves.length;ei++){
+      var best=0;
+      for(var si=0;si<state.seances.length;si++){
+        var s=state.seances[si];
+        if((s.aflpTravailles||[]).indexOf(an)<0)continue;
+        var ck=s.id+'__'+an+'__'+eleves[ei].id;
+        if(compData[ck]&&compData[ck]>best)best=compData[ck];
+      }
+      if(best>=seuil)atteints++;
+    }
+    var pct=eleves.length?Math.round(atteints/eleves.length*100):0;
+    var col4=pct>=75?'#56cfb2':pct>=50?'#ffd166':'#ff6b6b';
+    var bg4=pct>=75?'linear-gradient(90deg,#56cfb2,#4f8aff)':pct>=50?'linear-gradient(90deg,#ffd166,#fb923c)':'linear-gradient(90deg,#ff6b6b,#fb923c)';
+    
+    // Trouver la couleur du tag AFLP
+    var tagColor=CTX.apsa?CTX.apsa.caColor:'#4f8aff';
+    
+    h+='<div class="aflp-bar-row">';
+    h+='<span class="aflp-bar-tag" style="background:'+tagColor+'">'+esc(an)+'</span>';
+    h+='<div class="aflp-bar-track"><div class="aflp-bar-fill" style="width:'+pct+'%;background:'+bg4+'"></div></div>';
+    h+='<div class="aflp-bar-pct" style="color:'+col4+'">'+pct+'%</div>';
+    h+='<div class="aflp-bar-n">'+atteints+'/'+eleves.length+'</div>';
+    h+='</div>';
+  }
+  h+='</div>';
+  zone.innerHTML=h;
+}
 
 function accInit(){var now=new Date();var J=['Dimanche','Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi'];var M=['janv.','fevr.','mars','avr.','mai','juin','juil.','aout','sept.','oct.','nov.','dec.'];ge('acc-date').innerHTML=J[now.getDay()]+' '+now.getDate()+' '+M[now.getMonth()]+' '+now.getFullYear()+'<br>Annee scolaire 2025-2026';accRenderClsGrid();var ac=ge('acc-apsa-container');ac.innerHTML='';for(var gi=0;gi<CA_GROUPS.length;gi++){(function(g){var grp=document.createElement('div');grp.className='ca-group';var h='<div class="ca-group-header"><span class="ca-label" style="background:'+g.color+'22;color:'+g.color+'">'+g.ca+'</span><span class="ca-desc">'+g.desc+'</span></div><div class="ca-apsa-row">';for(var ai=0;ai<g.apsa.length;ai++){var a=g.apsa[ai];h+='<div class="acc-apsa" id="ap-'+a.id+'"><div class="acc-apsa-emoji">'+a.emoji+'</div><div class="acc-apsa-name">'+a.name+'</div></div>';}h+='</div>';grp.innerHTML=h;for(var ai2=0;ai2<g.apsa.length;ai2++){(function(a){var el=grp.querySelector('#ap-'+a.id);if(el){el.addEventListener('click',function(e){e.stopPropagation();accPickApsa(a.id);});}})(g.apsa[ai2]);}ac.appendChild(grp);})(CA_GROUPS[gi]);}for(var n=1;n<=3;n++){(function(tn){var el=ge('tr-'+tn);if(el)el.addEventListener('click',function(e){e.preventDefault();e.stopPropagation();accPickTrim(tn);});})(n);}ge('acc-custom-input').addEventListener('input',function(){accCustom(this.value);});ge('acc-btn').addEventListener('click',function(){accLaunch();});
   // Anti-scroll-click iOS : detecter le scroll sur window
@@ -2007,7 +2358,7 @@ function showAccAflp(apsa){var f=selCls?selCls.filiere:'bacpro';var d=(AFLP[f]||
 function accUpd(){ge('acc-s1').className='acc-step'+(selCls?' done':' active');ge('acc-s2').className='acc-step'+(selCls&&!selApsa?' active':selApsa?' done':'');ge('acc-s3').className='acc-step'+(selApsa&&!selTrim?' active':selTrim?' done':'');ge('acc-s4').className='acc-step'+(selApsa&&selTrim?' active':'');var btn=ge('acc-btn'),sum=ge('acc-sum');if(selCls&&selApsa&&selTrim){sum.innerHTML='<em>'+selCls.label+'</em> - '+selApsa.ca+' - '+selApsa.name+' - T'+selTrim;btn.disabled=false;}else if(selCls&&selApsa){sum.textContent=selCls.label+' - '+selApsa.name+' - Choisissez un trimestre';btn.disabled=true;}else if(selCls){sum.textContent=selCls.label+' - Choisissez une APSA';btn.disabled=true;}else{sum.textContent='Choisissez une classe, une APSA et un trimestre';btn.disabled=true;}}
 function accLaunch(cls,apsa,trim){cls=cls||selCls;apsa=apsa||selApsa;trim=trim||selTrim;if(!cls||!apsa||!trim)return;var key='eps-'+cls.id+'-'+apsa.id+'-t'+trim;var sessions=[];try{sessions=JSON.parse(localStorage.getItem('eps-recent')||'[]');}catch(e){}for(var i=sessions.length-1;i>=0;i--){if(sessions[i].key===key)sessions.splice(i,1);}sessions.unshift({key:key,cls:cls,apsa:apsa,trim:trim,ts:Date.now()});localStorage.setItem('eps-recent',JSON.stringify(sessions.slice(0,8)));openSuivi(cls,apsa,key,trim);}
 function accRenderRecent(){var sessions=[];try{sessions=JSON.parse(localStorage.getItem('eps-recent')||'[]');}catch(e){}var zone=ge('acc-recent');if(!sessions.length){zone.style.display='none';return;}zone.style.display='block';var chips=ge('acc-chips');chips.innerHTML='';for(var i=0;i<sessions.length;i++){(function(s){var cls=null;for(var j=0;j<CLASSES.length;j++){if(CLASSES[j].id===s.cls.id){cls=CLASSES[j];break;}}if(!cls)cls=s.cls;var d=new Date(s.ts);var chip=document.createElement('div');chip.className='acc-chip';chip.innerHTML='<div class="dot" style="background:'+(cls.color||'#888')+'"></div><span>'+s.cls.label+'</span><span style="color:#9a9080">-</span><span>'+s.apsa.name+'</span>'+(s.trim?'<span style="font-weight:800;color:#4f8aff">T'+s.trim+'</span>':'')+'<span style="color:#9a9080;font-size:.68rem">'+d.getDate()+'/'+(d.getMonth()+1)+'</span><span class="x">x</span>';chip.querySelector('.x').addEventListener('click',function(e){e.stopPropagation();var ss=[];try{ss=JSON.parse(localStorage.getItem('eps-recent')||'[]');}catch(err){}for(var k=ss.length-1;k>=0;k--){if(ss[k].key===s.key)ss.splice(k,1);}localStorage.setItem('eps-recent',JSON.stringify(ss));accRenderRecent();});chip.addEventListener('click',function(){accLaunch(s.cls,s.apsa,s.trim||1);});chips.appendChild(chip);})(sessions[i]);}}
-function openSuivi(cls,apsa,key,trim){CTX={cls:cls,apsa:apsa,key:key,trim:trim};STORAGE_KEY=key;loadState();ge('s-logo').innerHTML=apsa.emoji+' '+apsa.name+' <span class="s-badge">'+apsa.ca+'</span>';var ctx=ge('s-ctx');ctx.textContent=cls.label+(trim?' - T'+trim:'');ctx.style.display='inline';ge('s-pg-title').textContent=apsa.ca+' - '+apsa.name;var f=cls.filiere||'bacpro';var fil=FILIERES[f];ge('eval-filiere-sub').textContent='Filiere : '+fil.label+' - T'+(trim||'');var badge=ge('eval-filiere-badge');badge.textContent=fil.label;badge.style.background=fil.color+'22';badge.style.color=fil.color;var aflpData=(AFLP[f]||AFLP.bacpro)[apsa.caFull];if(aflpData){ge('eval-aflp-ca-title').textContent=aflpData.titre;var h='';for(var i=0;i<aflpData.items.length;i++)h+='<div class="eval-aflp-item"><span class="eval-n">'+aflpData.items[i].n+'</span><span class="eval-t">'+aflpData.items[i].t+'</span></div>';ge('eval-aflp-list').innerHTML=h;}ge('pg-acc').style.display='none';ge('pg-suivi').style.display='block';showView('v-accueil');renderAll();initNotesRapides();bibRenderList('bib-list-seq');bibRenderFilters('bib-filters-seq');}
+function openSuivi(cls,apsa,key,trim){CTX={cls:cls,apsa:apsa,key:key,trim:trim};STORAGE_KEY=key;loadState();ge('s-logo').innerHTML=apsa.emoji+' '+apsa.name+' <span class="s-badge">'+apsa.ca+'</span>';var ctx=ge('s-ctx');ctx.textContent=cls.label+(trim?' - T'+trim:'');ctx.style.display='inline';ge('s-pg-title').textContent=apsa.ca+' - '+apsa.name;var f=cls.filiere||'bacpro';var fil=FILIERES[f];ge('eval-filiere-sub').textContent='Filiere : '+fil.label+' - T'+(trim||'');var badge=ge('eval-filiere-badge');badge.textContent=fil.label;badge.style.background=fil.color+'22';badge.style.color=fil.color;var aflpData=(AFLP[f]||AFLP.bacpro)[apsa.caFull];if(aflpData){ge('eval-aflp-ca-title').textContent=aflpData.titre;var h='';for(var i=0;i<aflpData.items.length;i++)h+='<div class="eval-aflp-item"><span class="eval-n">'+aflpData.items[i].n+'</span><span class="eval-t">'+aflpData.items[i].t+'</span></div>';ge('eval-aflp-list').innerHTML=h;}ge('pg-acc').style.display='none';ge('pg-suivi').style.display='block';showView('v-accueil');renderAll();initNotesRapides();initWidgets();bibRenderList('bib-list-seq');bibRenderFilters('bib-filters-seq');}
 function goAcc(){ge('pg-suivi').style.display='none';ge('pg-acc').style.display='block';accRenderRecent();}
 function loadState(){
   try{
@@ -2075,7 +2426,7 @@ function showView(id){
   var panel=ge('s-more-panel');
   if(panel)panel.classList.remove('open');
 }
-function renderAll(){renderAccueilSuivi();renderStats();renderSeances();renderApList();renderEleves();renderNotes();renderBilanComp();renderGrille();renderProfil();renderComp();}
+function renderAll(){renderAccueilSuivi();renderStats();renderSeances();renderApList();renderEleves();renderNotes();renderBilanComp();renderGrille();renderProfil();renderComp();renderWidgetAflp();}
 function highlightEvalAflp(){var worked={};for(var i=0;i<state.seances.length;i++){var t=state.seances[i].aflpTravailles||[];for(var j=0;j<t.length;j++)worked[t[j]]=true;}var items=document.querySelectorAll('.eval-aflp-item');for(var i=0;i<items.length;i++){var n=items[i].querySelector('.eval-n');if(n)items[i].classList.toggle('worked',!!worked[n.textContent]);}}
 function renderStats(){ge('ss-s').textContent=state.seances.length;ge('ss-e').textContent=state.eleves.length;ge('s-pg-sub').textContent=state.eleves.length+' eleves - '+state.seances.length+' seances';var tot=0,pres=0;for(var i=0;i<state.seances.length;i++){for(var j=0;j<state.eleves.length;j++){tot++;var p=state.presences[state.seances[i].id]||{};if((p[state.eleves[j].id]||'')==='Present')pres++;}}ge('ss-p').textContent=tot>0?Math.round(pres/tot*100)+'%':'-';var seq3=seqGet();
 var totalTrame3=(seq3.trame||[]).length;
