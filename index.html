@@ -3078,11 +3078,12 @@ function extractTrombiPhotos(canvas,noms){
       var pw=Math.round(photoW*W);
       var ph=Math.round(photoH*H);
       
+      // Compresser à 60x80px pour économiser de l'espace
       var tmpCanvas=document.createElement('canvas');
-      tmpCanvas.width=pw;tmpCanvas.height=ph;
+      tmpCanvas.width=60;tmpCanvas.height=80;
       var tmpCtx=tmpCanvas.getContext('2d');
-      tmpCtx.drawImage(canvas,x,y,pw,ph,0,0,pw,ph);
-      photos.push(tmpCanvas.toDataURL('image/jpeg',0.7));
+      tmpCtx.drawImage(canvas,x,y,pw,ph,0,0,60,80);
+      photos.push(tmpCanvas.toDataURL('image/jpeg',0.6));
       n++;
     }
   }
