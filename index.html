@@ -440,6 +440,9 @@ textarea{resize:vertical;min-height:70px}
 .next-seance-aflp{display:flex;gap:4px;flex-wrap:wrap;margin-top:.4rem}
 .next-seance-aflp-tag{font-family:"DM Mono",monospace;font-size:.58rem;background:rgba(79,138,255,.15);color:#4f8aff;border:1px solid rgba(79,138,255,.2);padding:1px 6px;border-radius:3px;font-weight:700}
 .next-seance-empty{color:#4a5070;font-size:.82rem;font-style:italic;text-align:center;padding:.75rem 0}
+
+.el-photo{width:36px;height:46px;object-fit:cover;object-position:top;border-radius:5px;border:1px solid #1e2438;display:block}
+.el-photo-empty{width:36px;height:46px;border-radius:5px;border:1px solid #1e2438;background:#111520;display:flex;align-items:center;justify-content:center;font-size:.9rem;color:#2a3050}
 .notes-rapides-card{background:#111520;border:1px solid #252836;border-radius:14px;padding:1.4rem 1.5rem;position:relative}
 .notes-rapides-card::before{content:"";position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#ffd166,#fb923c)}
 .notes-rapides-lbl{font-family:"DM Mono",monospace;font-size:.6rem;text-transform:uppercase;letter-spacing:.15em;color:#ffd166;margin-bottom:.6rem;display:flex;align-items:center;justify-content:space-between}
@@ -1070,7 +1073,7 @@ textarea{resize:vertical;min-height:70px}
           <button class="btn btn-g" id="btn-pdf-eleves">&#128196; Export PDF</button>
           <button class="btn btn-g" id="btn-export-eleves-json" title="Exporter la liste pour la réutiliser">&#8595; Export classe</button>
           <label class="btn btn-g" style="cursor:pointer;margin:0" title="Importer une liste depuis une autre séquence">&#8593; Import classe<input type="file" id="btn-import-eleves-json" accept=".json" style="display:none"></label>
-          <button class="btn btn-p" id="btn-new-eleve">+ Ajouter</button>
+          <label class="btn btn-g" style="cursor:pointer;margin:0" title="Importer trombinoscope PDF École Direct"><input type="file" id="btn-import-trombi" accept=".pdf" style="display:none" onchange="if(this.files[0])importTrombiPDF(this.files[0]);this.value=''">📷 Trombi PDF</label><button class="btn btn-p" id="btn-new-eleve">+ Ajouter</button>
         </div>
       </div>
       <div id="profil-zone" style="display:none;margin-bottom:1.25rem">
@@ -1089,7 +1092,7 @@ textarea{resize:vertical;min-height:70px}
         <div class="card"><div class="profil-card-title" style="color:#a78bfa">Autres (lien projet &#233;tablissement, EPS, AS...)</div><div id="profil-autre-display" class="profil-display"></div><button class="btn btn-g btn-sm profil-edit-btn" onclick="openProfilPlan('autre')" data-plan="autre" style="margin-top:.6rem">Modifier</button></div>
       </div>
       <div class="card"><div class="tw"><table>
-        <thead><tr><th>Eleve</th><th>Amenagement</th><th>Maitrise moy.</th><th>Note /20</th><th></th></tr></thead>
+        <thead><tr><th style="width:50px"></th><th>Eleve</th><th>Amenagement</th><th>Maitrise moy.</th><th>Note /20</th><th></th></tr></thead>
         <tbody id="el-tbody"></tbody>
       </table></div></div>
     </div>
@@ -2970,7 +2973,197 @@ h+='<div class="obj-box">'+'<div style="display:flex;align-items:center;justify-
   if(btnGrp)btnGrp.addEventListener('click',function(){openGroupes(this.dataset.sid);});
   ap.addEventListener('change',function(e){var el=e.target;if(!el.dataset.sid)return;var s2=el.dataset.sid,eid=el.dataset.eid,f=el.dataset.f;if(f==='pres'){if(!state.presences[s2])state.presences[s2]={};state.presences[s2][eid]=el.value;save();renderStats();showAppel(s2);}else{if(!state.autoEval[s2])state.autoEval[s2]={};if(!state.autoEval[s2][eid])state.autoEval[s2][eid]={};state.autoEval[s2][eid][f]=el.value;save();}});}
 function ndsp(n){var p=n/20;return'<span class="nd '+(p>=.7?'nh':p>=.5?'nm':'nl')+'">'+n+'/20</span>';}
-function renderEleves(){var tb=ge('el-tbody');var nmv={'Maitrise insuffisante':1,'Maitrise fragile':2,'Maitrise satisfaisante':3,'Tres bonne maitrise':4};if(!state.eleves.length){tb.innerHTML='<tr><td colspan="5" style="text-align:center;color:#6b7280;padding:2rem">Aucun eleve.</td></tr>';return;}tb.innerHTML='';var sorted=state.eleves.slice().sort(function(a,b){return a.nom.localeCompare(b.nom);});for(var i=0;i<sorted.length;i++){(function(e){var mts=[];for(var j=0;j<state.seances.length;j++){var ae=(state.autoEval[state.seances[j].id]||{})[e.id]||{};if(ae.maitrise1&&nmv[ae.maitrise1])mts.push(nmv[ae.maitrise1]);if(ae.maitrise2&&nmv[ae.maitrise2])mts.push(nmv[ae.maitrise2]);}var mAvg=mts.length>0?mts.reduce(function(a,b){return a+b;},0)/mts.length:null;var mM=mAvg?MAITRISE[Math.round(mAvg)-1]:'';var mMcl=mAvg?(mAvg>=3?'nh':mAvg>=2?'nm':'nl'):'';var hasFiche=e.fiche&&(e.fiche.type||e.fiche.desc);var tr=document.createElement('tr');tr.innerHTML='<td><span style="font-weight:500;font-size:.85rem">'+esc(e.nom)+'</span></td><td><span class="amen-tag '+(e.amenagement||hasFiche?'has':'none')+'" data-eid="'+e.id+'">'+(e.amenagement||hasFiche?'! '+(e.amenagement||(e.fiche?e.fiche.type:'')):'+Ajouter fiche')+'</span></td><td>'+(mM?'<span class="nd '+mMcl+'" style="font-size:.72rem">'+mM+'</span>':'<span style="color:#6b7280">-</span>')+'</td><td>'+(e.noteFinale!=null?ndsp(e.noteFinale):'<span style="color:#6b7280">-</span>')+'</td><td><button class="btn btn-g btn-sm" data-eid="'+e.id+'">Modifier</button></td>';tb.appendChild(tr);
+// ══════════════════════════════════════════
+// IMPORT TROMBINOSCOPE PDF
+// ══════════════════════════════════════════
+function importTrombiPDF(file){
+  if(!file||file.type!=='application/pdf'){toast('Fichier PDF invalide','warn');return;}
+  toast('Lecture du PDF...','info');
+  var reader=new FileReader();
+  reader.onload=function(e){
+    var data=new Uint8Array(e.target.result);
+    // Extraire les images via PDF.js (chargé depuis CDN)
+    if(typeof pdfjsLib==='undefined'){
+      // Charger PDF.js dynamiquement
+      var script=document.createElement('script');
+      script.src='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js';
+      script.onload=function(){
+        pdfjsLib.GlobalWorkerOptions.workerSrc='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+        processTrombiPDF(data);
+      };
+      document.head.appendChild(script);
+    } else {
+      processTrombiPDF(data);
+    }
+  };
+  reader.readAsArrayBuffer(file);
+}
+
+function processTrombiPDF(data){
+  pdfjsLib.getDocument({data:data}).promise.then(function(pdf){
+    return pdf.getPage(1);
+  }).then(function(page){
+    // Rendre la page à haute résolution pour extraire les photos
+    var scale=3;
+    var viewport=page.getViewport({scale:scale});
+    var canvas=document.createElement('canvas');
+    var ctx=canvas.getContext('2d');
+    canvas.width=viewport.width;
+    canvas.height=viewport.height;
+    return page.render({canvasContext:ctx,viewport:viewport}).promise.then(function(){
+      return {canvas:canvas,page:page,viewport:viewport};
+    });
+  }).then(function(res){
+    // Extraire les noms depuis le texte
+    res.page.getTextContent().then(function(tc){
+      var items=tc.items.map(function(i){return i.str.trim();}).filter(function(s){return s.length>1;});
+      // Identifier les noms (mots en MAJUSCULES)
+      var noms=[];
+      var nomCourant='';
+      for(var i=0;i<items.length;i++){
+        var s=items[i];
+        if(s===s.toUpperCase()&&s.length>1&&!/^\d/.test(s)&&s!=='2025'&&s!=='2026'&&!s.includes('Classe')&&!s.includes('/')) {
+          if(nomCourant)nomCourant+=' '+s;
+          else nomCourant=s;
+        } else {
+          if(nomCourant&&nomCourant.length>3)noms.push(nomCourant);
+          nomCourant='';
+        }
+      }
+      if(nomCourant&&nomCourant.length>3)noms.push(nomCourant);
+      
+      // Dédupliquer et nettoyer
+      var nomsClean=[];
+      var seen={};
+      for(var i=0;i<noms.length;i++){
+        var n=noms[i].replace(/\s+/g,' ').trim();
+        if(!seen[n]&&n.length>2){seen[n]=true;nomsClean.push(n);}
+      }
+      
+      // Extraire les photos depuis le canvas rendu
+      // Les photos sont disposées en grille dans le PDF
+      // On détecte les zones d'image par leur position
+      extractTrombiPhotos(res.canvas,nomsClean);
+    });
+  }).catch(function(err){
+    toast('Erreur lecture PDF: '+err.message,'warn');
+  });
+}
+
+function extractTrombiPhotos(canvas,noms){
+  // Le trombinoscope École Direct a une mise en page standard:
+  // 5 colonnes, photos en haut, noms en dessous
+  // On découpe le canvas en zones de photos
+  var ctx=canvas.getContext('2d');
+  var W=canvas.width;var H=canvas.height;
+  
+  // Zones approximatives pour 5 colonnes, 3 lignes (15 élèves max)
+  // Marge haut ~15%, largeur colonne ~18%, hauteur photo ~22%
+  var cols=5;
+  var marginLeft=0.03;
+  var marginTop=0.12;
+  var colW=0.185;
+  var rowH=0.28;
+  var photoW=0.13;
+  var photoH=0.2;
+  
+  var photos=[];
+  var n=0;
+  outer:
+  for(var row=0;row<4;row++){
+    for(var col=0;col<cols;col++){
+      if(n>=noms.length)break outer;
+      var x=Math.round((marginLeft+col*(colW))*W);
+      var y=Math.round((marginTop+row*rowH)*H);
+      var pw=Math.round(photoW*W);
+      var ph=Math.round(photoH*H);
+      
+      var tmpCanvas=document.createElement('canvas');
+      tmpCanvas.width=pw;tmpCanvas.height=ph;
+      var tmpCtx=tmpCanvas.getContext('2d');
+      tmpCtx.drawImage(canvas,x,y,pw,ph,0,0,pw,ph);
+      photos.push(tmpCanvas.toDataURL('image/jpeg',0.7));
+      n++;
+    }
+  }
+  
+  // Afficher la modale de confirmation
+  openTrombiConfirm(noms,photos);
+}
+
+function openTrombiConfirm(noms,photos){
+  // Construire la liste de correspondances
+  var matches=[];
+  for(var i=0;i<noms.length;i++){
+    var nom=noms[i];
+    var photo=photos[i]||null;
+    // Chercher si l'élève existe déjà
+    var existing=null;
+    var nomLower=nom.toLowerCase().replace(/\s+/g,' ');
+    for(var j=0;j<state.eleves.length;j++){
+      var eLower=state.eleves[j].nom.toLowerCase().replace(/\s+/g,' ');
+      if(eLower===nomLower||eLower.includes(nomLower.split(' ')[0])){
+        existing=state.eleves[j];break;
+      }
+    }
+    matches.push({nom:nom,photo:photo,existing:existing,create:!existing});
+  }
+  
+  // Afficher dans la modale
+  var modal=ge('m-trombi-confirm');
+  if(!modal)return;
+  var zone=ge('trombi-confirm-list');
+  if(!zone)return;
+  
+  var html='';
+  for(var i=0;i<matches.length;i++){
+    var m=matches[i];
+    var status=m.existing?
+      '<span style="color:#56cfb2;font-size:.68rem;font-family:monospace">✓ Existe — photo ajoutée</span>':
+      '<span style="color:#ffd166;font-size:.68rem;font-family:monospace">+ Nouvel élève à créer</span>';
+    html+='<div style="display:flex;align-items:center;gap:10px;padding:7px 0;border-bottom:1px solid #1e2438">';
+    if(m.photo)html+='<img src="'+m.photo+'" style="width:32px;height:42px;object-fit:cover;border-radius:4px;border:1px solid #1e2438">';
+    else html+='<div style="width:32px;height:42px;background:#111520;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:.8rem">👤</div>';
+    html+='<div style="flex:1"><div style="font-size:.8rem;font-weight:600;color:#e4e6ef">'+esc(m.nom)+'</div>'+status+'</div>';
+    html+='<input type="checkbox" checked data-idx="'+i+'" style="width:16px;height:16px;accent-color:#4f8aff">';
+    html+='</div>';
+  }
+  zone.innerHTML=html;
+  
+  // Stocker les données pour la confirmation
+  window._trombiMatches=matches;
+  openM('m-trombi-confirm');
+}
+
+function confirmTrombiImport(){
+  var matches=window._trombiMatches||[];
+  var checkboxes=document.querySelectorAll('#trombi-confirm-list input[type=checkbox]');
+  var created=0;var updated=0;
+  
+  for(var i=0;i<checkboxes.length;i++){
+    if(!checkboxes[i].checked)continue;
+    var m=matches[parseInt(checkboxes[i].dataset.idx)];
+    if(!m)continue;
+    
+    if(m.existing){
+      // Ajouter juste la photo
+      m.existing.trombiPhoto=m.photo;
+      updated++;
+    } else {
+      // Créer l'élève
+      var newE={id:'e'+Date.now()+'_'+i,nom:m.nom,amenagement:'',noteFinale:null,trombiPhoto:m.photo};
+      state.eleves.push(newE);
+      created++;
+    }
+  }
+  
+  save();
+  closeM('m-trombi-confirm');
+  renderEleves();
+  toast(updated+' photos ajoutees, '+created+' eleves crees','ok');
+}
+
+function renderEleves(){var tb=ge('el-tbody');var nmv={'Maitrise insuffisante':1,'Maitrise fragile':2,'Maitrise satisfaisante':3,'Tres bonne maitrise':4};if(!state.eleves.length){tb.innerHTML='<tr><td colspan="5" style="text-align:center;color:#6b7280;padding:2rem">Aucun eleve.</td></tr>';return;}tb.innerHTML='';var sorted=state.eleves.slice().sort(function(a,b){return a.nom.localeCompare(b.nom);});for(var i=0;i<sorted.length;i++){(function(e){var mts=[];for(var j=0;j<state.seances.length;j++){var ae=(state.autoEval[state.seances[j].id]||{})[e.id]||{};if(ae.maitrise1&&nmv[ae.maitrise1])mts.push(nmv[ae.maitrise1]);if(ae.maitrise2&&nmv[ae.maitrise2])mts.push(nmv[ae.maitrise2]);}var mAvg=mts.length>0?mts.reduce(function(a,b){return a+b;},0)/mts.length:null;var mM=mAvg?MAITRISE[Math.round(mAvg)-1]:'';var mMcl=mAvg?(mAvg>=3?'nh':mAvg>=2?'nm':'nl'):'';var hasFiche=e.fiche&&(e.fiche.type||e.fiche.desc);var photoHtml=e.trombiPhoto?'<img class="el-photo" src="'+e.trombiPhoto+'" alt="'+esc(e.nom)+'">':'<div class="el-photo-empty">👤</div>';var tr=document.createElement('tr');tr.innerHTML='<td style="padding:4px 8px 4px 14px">'+photoHtml+'</td><td><span style="font-weight:500;font-size:.85rem">'+esc(e.nom)+'</span></td><td><span class="amen-tag '+(e.amenagement||hasFiche?'has':'none')+'" data-eid="'+e.id+'">'+(e.amenagement||hasFiche?'! '+(e.amenagement||(e.fiche?e.fiche.type:'')):'+Ajouter fiche')+'</span></td><td>'+(mM?'<span class="nd '+mMcl+'" style="font-size:.72rem">'+mM+'</span>':'<span style="color:#6b7280">-</span>')+'</td><td>'+(e.noteFinale!=null?ndsp(e.noteFinale):'<span style="color:#6b7280">-</span>')+'</td><td><button class="btn btn-g btn-sm" data-eid="'+e.id+'">Modifier</button></td>';tb.appendChild(tr);
 var amenTag=tr.querySelector('.amen-tag');if(amenTag)amenTag.addEventListener('click',function(){openFicheAmen(this.dataset.eid);});
 var editBtn=tr.querySelector('.btn');if(editBtn)editBtn.addEventListener('click',function(){openEditE(this.dataset.eid);});})(sorted[i]);}}
 function openFicheAmen(eid){var e=null;for(var i=0;i<state.eleves.length;i++){if(state.eleves[i].id===eid){e=state.eleves[i];break;}}if(!e)return;ge('fiche-id').value=eid;ge('fiche-nom').textContent=e.nom;var f=e.fiche||{};ge('fa-desc').value=f.desc||'';ge('fa-debut').value=f.debut||'';ge('fa-fin').value=f.fin||'';ge('fa-med').value=f.med||'';var btns=document.querySelectorAll('.disp-type-btn');for(var i=0;i<btns.length;i++)btns[i].classList.toggle('sel',btns[i].dataset.type===f.type);fichePhotoData=f.photo||null;var thumb=ge('photo-thumb'),delBtn=ge('photo-del-btn');if(fichePhotoData){thumb.src=fichePhotoData;thumb.style.display='block';delBtn.style.display='inline-flex';}else{thumb.style.display='none';delBtn.style.display='none';}openM('m-fiche');}
@@ -4708,6 +4901,7 @@ document.addEventListener('click',function(e){
   var btn=e.target.closest('.profil-edit-btn');
   if(btn&&btn.dataset.plan)openProfilPlan(btn.dataset.plan);
 });
+s('btn-import-trombi','change',function(){if(this.files[0])importTrombiPDF(this.files[0]);this.value='';});
 s('btn-notes-clear','click',function(){var n=ge('notes-rapides-ta');if(n){n.value='';localStorage.setItem('eps-notes-rapides-'+STORAGE_KEY,'');}});
 // s-tabs
 qsa('.s-tab',function(btn){btn.addEventListener('click',function(){showView(this.dataset.view);});});
