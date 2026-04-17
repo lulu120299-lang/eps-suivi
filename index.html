@@ -2474,16 +2474,25 @@ if(nextEl){
   // On prend la seance avec la plus petite date future, ou la plus grande deja realisee
   var today=new Date();today.setHours(0,0,0,0);
   var next=null;
-  // D'abord chercher la prochaine seance non encore faite (date future ou pas de date)
-  // "Pas encore faite" = pas de bilan renseigne ET date pas encore passee (ou pas de date)
+  // 1. Chercher la séance avec date future la plus proche d'aujourd'hui
+  var bestFuture=null;var bestFutureDiff=Infinity;
   for(var i=0;i<sorted2.length;i++){
     var s2=sorted2[i];
-    var isPast=s2.date&&new Date(s2.date)<today;
-    var isDone=s2.bilan&&s2.bilan.trim().length>0;
-    if(!isPast||!isDone){next=s2;break;}
+    if(s2.date){
+      var d=new Date(s2.date);d.setHours(0,0,0,0);
+      var diff=d-today;
+      if(diff>=0&&diff<bestFutureDiff){bestFutureDiff=diff;bestFuture=s2;}
+    }
   }
-  // Si toutes faites, prendre la derniere
-  if(!next&&sorted2.length)next=sorted2[sorted2.length-1];
+  if(bestFuture){next=bestFuture;}
+  else{
+    // 2. Pas de date future → prendre la première séance sans bilan
+    for(var i=0;i<sorted2.length;i++){
+      if(!sorted2[i].bilan||!sorted2[i].bilan.trim()){next=sorted2[i];break;}
+    }
+    // 3. Toutes ont un bilan → dernière séance
+    if(!next&&sorted2.length)next=sorted2[sorted2.length-1];
+  }
 
   if(next){
     var tr2=null;var seq2=seqGet();var trame2=seq2.trame||[];
@@ -4334,20 +4343,23 @@ async function iaGenerer(){
     clearTimeout(_timer);
     if(!resp.ok){throw new Error('Erreur '+resp.status);}
     var data=await resp.json();
+    if(!data||!data.content||!data.content[0]){
+      throw new Error('Reponse vide du serveur - verifie la cle Groq dans Cloudflare');
+    }
     var text=data.content[0].text;
-    var clean=text.replace(/```json|```/g,'').trim();
-    var parsed=JSON.parse(clean);
+    var clean=text.replace(/```json[\s\S]*?```|```/g,'').trim();
+    // Extraire le JSON même s'il y a du texte autour
+    var jsonMatch=clean.match(/\{[\s\S]*\}/);
+    if(!jsonMatch)throw new Error('Pas de JSON dans la reponse : '+clean.substring(0,100));
+    var parsed=JSON.parse(jsonMatch[0]);
     clearInterval(_dotTimer);
     iaAfficherResultats(parsed.situations||[],'ia-result-zone','edit');
   }catch(e){
     clearInterval(_dotTimer);
-    zone.innerHTML='<div style="background:#1a0f0f;border:1px solid #ff6b6b40;border-radius:8px;padding:.9rem 1rem;font-size:.78rem;color:#ff6b6b;line-height:1.6">'+
-      'Erreur : '+(e.name==='AbortError'?'Timeout - le serveur met trop longtemps (>15s). Reessaie ou utilise le bouton Copier le prompt.':esc(e.message))+'<br><br>'+
-      '<span style="color:#9aa0b8;font-size:.72rem">Verifie dans Cloudflare :<br>'+
-      '1. Worker deploye sur eps-ia-proxy.lulu120299.workers.dev<br>'+
-      '2. Variable GROQ_KEY definie dans Settings > Variables and Secrets<br>'+
-      '3. Cle Groq commence par gsk_...</span>'+
-      '</div>';
+    var errMsg=e.name==='AbortError'?'Timeout (>15s) — reessaie':'Erreur : '+esc(e.message);
+    zone.innerHTML='<div style="background:#1a0f0f;border:1px solid #ff6b6b40;border-radius:8px;padding:.9rem 1rem;font-size:.78rem;color:#ff6b6b">'+errMsg+'</div>';
+    toast('Erreur IA : '+e.message,'warn');
+    console.error('IA error:',e);
   }
   btn.disabled=false;
 }
@@ -4403,20 +4415,20 @@ async function iaGenererNew(){
     if(!resp.ok){throw new Error('Erreur HTTP '+resp.status);}
     var data=await resp.json();
     if(data.error){throw new Error(data.error);}
+    if(!data||!data.content||!data.content[0])throw new Error('Reponse vide - verifie la cle Groq dans Cloudflare');
     var text=data.content[0].text;
     var clean=text.replace(/```json|```/g,'').trim();
-    var parsed=JSON.parse(clean);
+    var jsonMatch=clean.match(/\{[\s\S]*\}/);
+    if(!jsonMatch)throw new Error('Pas de JSON dans la reponse : '+clean.substring(0,100));
+    var parsed=JSON.parse(jsonMatch[0]);
     clearInterval(_dotTimer);
     iaAfficherResultats(parsed.situations||[],'ia-result-zone-new','new');
   }catch(e){
     clearInterval(_dotTimer);
-    zone.innerHTML='<div style="background:#1a0f0f;border:1px solid #ff6b6b40;border-radius:8px;padding:.9rem 1rem;font-size:.78rem;color:#ff6b6b;line-height:1.6">'+
-      'Erreur : '+(e.name==='AbortError'?'Timeout - le serveur met trop longtemps (>15s). Reessaie ou utilise le bouton Copier le prompt.':esc(e.message))+'<br><br>'+
-      '<span style="color:#9aa0b8;font-size:.72rem">Verifie dans Cloudflare :<br>'+
-      '1. Worker deploye sur eps-ia-proxy.lulu120299.workers.dev<br>'+
-      '2. Variable GROQ_KEY definie dans Settings > Variables and Secrets<br>'+
-      '3. Cle Groq commence par gsk_...</span>'+
-      '</div>';
+    var errMsg=e.name==='AbortError'?'Timeout (>15s) — reessaie':'Erreur : '+esc(e.message);
+    zone.innerHTML='<div style="background:#1a0f0f;border:1px solid #ff6b6b40;border-radius:8px;padding:.9rem 1rem;font-size:.78rem;color:#ff6b6b">'+errMsg+'</div>';
+    toast('Erreur IA : '+e.message,'warn');
+    console.error('IA error:',e);
   }
   btn.disabled=false;
 }
@@ -4890,6 +4902,10 @@ if(bnavMoreBtn&&bnavMorePanel){
 // Bouton récap présences
 s('btn-recap-presences','click',openRecapPresences);
 s('btn-grille-cfg','click',openGrilleConfig);
+s('acc-next-seance','click',function(){
+  var sid=this.dataset.sid;
+  if(sid){showView('v-seances');openEditS(sid);}
+});
 s('btn-grille-config','click',openGrilleConfig);
 s('btn-add-critere','click',addCritere);
 s('btn-save-grille-cfg','click',saveGrilleConfig);
