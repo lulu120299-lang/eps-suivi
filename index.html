@@ -1189,7 +1189,8 @@ textarea{resize:vertical;min-height:70px}
         <button class="ia-btn" id="btn-ia-gen-new" style="flex:1">&#10024; Generer via IA</button>
         <button class="ia-btn" id="btn-ia-copy-new" style="flex:1;background:rgba(79,138,255,.12);border-color:rgba(79,138,255,.3);color:#4f8aff" title="Copier le prompt pour le coller dans Claude.ai">&#128203; Copier le prompt</button>
       </div>
-      <div id="ia-paste-zone-new" style="display:none;margin-bottom:.5rem">
+      <textarea id="ia-prompt-display-new" style="display:none;width:100%;height:80px;background:#0d1018;border:1px solid #252836;border-radius:8px;color:#9aa0b8;font-size:.68rem;padding:8px;resize:none;margin-bottom:8px" readonly></textarea>
+          <div id="ia-paste-zone-new" style="display:none;margin-bottom:.5rem">
         <div style="font-family:DM Mono,monospace;font-size:.62rem;text-transform:uppercase;letter-spacing:.1em;color:#ffd166;margin-bottom:.4rem">Coller la reponse de Claude.ai</div>
         <textarea id="ia-paste-text-new" placeholder="Colle ici la reponse JSON de Claude..." style="width:100%;background:#0d1018;border:1px solid #1e2438;border-radius:6px;color:#d4d8eb;font-size:.75rem;padding:.6rem .75rem;resize:vertical;outline:none;min-height:70px;line-height:1.5"></textarea>
         <button class="ia-sit-btn" style="margin-top:.4rem;width:100%;background:rgba(255,209,102,.1);border-color:rgba(255,209,102,.3);color:#ffd166" onclick="iaCollerReponse('new')">+ Charger les situations</button>
@@ -1234,7 +1235,8 @@ textarea{resize:vertical;min-height:70px}
         <button class="ia-btn" id="btn-ia-gen" style="flex:1">&#10024; Generer via IA</button>
         <button class="ia-btn" id="btn-ia-copy-edit" style="flex:1;background:rgba(79,138,255,.12);border-color:rgba(79,138,255,.3);color:#4f8aff" title="Copier le prompt pour le coller dans Claude.ai">&#128203; Copier le prompt</button>
       </div>
-      <div id="ia-paste-zone-edit" style="display:none;margin-bottom:.5rem">
+      <textarea id="ia-prompt-display-edit" style="display:none;width:100%;height:80px;background:#0d1018;border:1px solid #252836;border-radius:8px;color:#9aa0b8;font-size:.68rem;padding:8px;resize:none;margin-bottom:8px" readonly></textarea>
+          <div id="ia-paste-zone-edit" style="display:none;margin-bottom:.5rem">
         <div style="font-family:DM Mono,monospace;font-size:.62rem;text-transform:uppercase;letter-spacing:.1em;color:#ffd166;margin-bottom:.4rem">Coller la reponse de Claude.ai</div>
         <textarea id="ia-paste-text-edit" placeholder="Colle ici la reponse JSON de Claude..." style="width:100%;background:#0d1018;border:1px solid #1e2438;border-radius:6px;color:#d4d8eb;font-size:.75rem;padding:.6rem .75rem;resize:vertical;outline:none;min-height:70px;line-height:1.5"></textarea>
         <button class="ia-sit-btn" style="margin-top:.4rem;width:100%;background:rgba(255,209,102,.1);border-color:rgba(255,209,102,.3);color:#ffd166" onclick="iaCollerReponse('edit')">+ Charger les situations</button>
@@ -3714,20 +3716,27 @@ function iaGenPrompt(mode){
 function iaCopierPrompt2(mode){
   var prompt=iaGenPrompt(mode);
   var pzId=mode==='new'?'ia-paste-zone-new':'ia-paste-zone-edit';
-  if(navigator.clipboard&&navigator.clipboard.writeText){
-    navigator.clipboard.writeText(prompt).then(function(){
-      toast('Prompt copie ! Colle-le dans Claude.ai puis reviens coller la reponse.');
-      ge(pzId).style.display='block';
-    }).catch(function(){
-      ge(pzId).style.display='block';
-      toast('Prompt affiche ci-dessous — copie-le manuellement','warn');
-    });
-  } else {
-    // Fallback Safari
-    ge(pzId).style.display='block';
-    var ta=ge(pzId).querySelector('textarea');
-    if(ta){ta.value=prompt;ta.select();}
-    toast('Selectionne le texte et copie-le (Cmd+C)','warn');
+  var pz=ge(pzId);
+  if(pz)pz.style.display='block';
+  // Afficher le prompt dans la zone de texte
+  var promptZoneId=mode==='new'?'ia-prompt-display-new':'ia-prompt-display-edit';
+  var pDisplay=ge(promptZoneId);
+  if(pDisplay){pDisplay.value=prompt;pDisplay.style.display='block';}
+  // Tenter la copie
+  try{
+    if(navigator.clipboard&&navigator.clipboard.writeText){
+      navigator.clipboard.writeText(prompt).then(function(){
+        toast('Prompt copie dans le presse-papiers !');
+      }).catch(function(){
+        toast('Prompt affiche ci-dessous — selectionne tout et copie (Cmd+A puis Cmd+C)','warn');
+      });
+    } else {
+      // Fallback : selectionner le texte
+      if(pDisplay){pDisplay.select();document.execCommand('copy');toast('Prompt copie !');}
+      else toast('Prompt affiche ci-dessous','warn');
+    }
+  }catch(e){
+    toast('Prompt affiche ci-dessous — copie manuellement','warn');
   }
 }
 
