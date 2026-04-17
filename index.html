@@ -3697,7 +3697,7 @@ function iaGenPrompt(mode){
   return 'Reponds UNIQUEMENT en JSON valide, commence par {, pas de texte avant ou apres.\n'+
     'APSA: '+apsa+' | Filiere: '+filiere+' | Seance S'+numSeance+'/'+totalSeances+'\n'+
     'Objectif: '+(titre||'non precise')+'\n'+
-    (aflpSel.length?'AFLP: '+aflpSel.join(', ')+'\n':'')+
+    (aflp.length?'AFLP: '+aflp.join(', ')+'\n':'')+
     (contexte?'Contraintes: '+contexte+'\n':'')+
     'PARTIES: 1.Echauffement(8-10min) 2.Situation apprentissage(20-25min) 3.Bilan(5-8min)\n'+
     'EXIGENCES STRICTES:\n'+
@@ -3714,13 +3714,21 @@ function iaGenPrompt(mode){
 function iaCopierPrompt2(mode){
   var prompt=iaGenPrompt(mode);
   var pzId=mode==='new'?'ia-paste-zone-new':'ia-paste-zone-edit';
-  navigator.clipboard.writeText(prompt).then(function(){
-    toast('Prompt copie ! Colle-le dans Claude.ai puis reviens coller la reponse.');
+  if(navigator.clipboard&&navigator.clipboard.writeText){
+    navigator.clipboard.writeText(prompt).then(function(){
+      toast('Prompt copie ! Colle-le dans Claude.ai puis reviens coller la reponse.');
+      ge(pzId).style.display='block';
+    }).catch(function(){
+      ge(pzId).style.display='block';
+      toast('Prompt affiche ci-dessous — copie-le manuellement','warn');
+    });
+  } else {
+    // Fallback Safari
     ge(pzId).style.display='block';
-  }).catch(function(){
-    toast('Erreur copie','warn');
-    ge(pzId).style.display='block';
-  });
+    var ta=ge(pzId).querySelector('textarea');
+    if(ta){ta.value=prompt;ta.select();}
+    toast('Selectionne le texte et copie-le (Cmd+C)','warn');
+  }
 }
 
 function iaCollerReponse(mode){
@@ -4357,11 +4365,11 @@ async function iaGenerer(){
     }
     var text=data.content[0].text;
     if(typeof text!=='string')text=JSON.stringify(text);
-    var clean=text.replace(/```json[\s\S]*?```|```/g,'').trim();
-    // Extraire le JSON même s'il y a du texte autour
-    var jsonMatch=clean.match(/\{[\s\S]*\}/);
-    if(!jsonMatch)throw new Error('Pas de JSON dans la reponse : '+clean.substring(0,100));
-    var parsed=JSON.parse(jsonMatch[0]);
+    var parsed=null;
+    try{parsed=JSON.parse(text.trim());}catch(e1){}
+    if(!parsed){var _s=text.indexOf('{');var _e=text.lastIndexOf('}');if(_s>=0&&_e>_s){try{parsed=JSON.parse(text.substring(_s,_e+1));}catch(e2){}}}
+    if(!parsed){var _t=text.replace(/```json|```/g,'').trim();var _s2=_t.indexOf('{');var _e2=_t.lastIndexOf('}');if(_s2>=0&&_e2>_s2){try{parsed=JSON.parse(_t.substring(_s2,_e2+1));}catch(e3){}}}
+    if(!parsed||!parsed.situations){clearInterval(_dotTimer);zone.innerHTML='<div style="color:#ff6b6b;padding:1rem;font-size:.8rem">Reponse IA incorrecte. Reessaie dans quelques secondes.</div>';btn.disabled=false;return;}
     clearInterval(_dotTimer);
     iaAfficherResultats(parsed.situations||[],'ia-result-zone','edit');
   }catch(e){
