@@ -3694,15 +3694,21 @@ function iaGenPrompt(mode){
     aflp=aflpNewSel||[];
     contexte=ge('ia-contexte-new')?ge('ia-contexte-new').value:'';
   }
-  return 'Tu es un professeur d EPS experimente, specialiste de la pedagogie par situations d apprentissage en lycee professionnel et college.\n'+
-    'APSA : '+apsa+' | Filiere : '+filiere+' | Seance S'+numSeance+'/'+totalSeances+'\n'+
-    'Objectif : '+(titre||'non precise')+'\n'+
-    (aflp.length?'AFLP travailles : '+aflp.join(', ')+'\n':'')+
-    (contexte?'Contraintes : '+contexte+'\n':'')+
-    'Genere 3 parties : 1. Echauffement specifique (8-10min) 2. Situation d apprentissage principale (20-25min) 3. Bilan collectif et retour au calme (5-8min).\n'+
-    'Pour chaque partie remplis ces champs avec du detail : titre, objectif (verbe d action), dispositif (organisation spatiale, groupes, materiel), consignes (formulation directe aux eleves), criteres (criteres de reussite mesurables avec chiffres), contenus (savoirs techniques tactiques transmis), realisation (criteres de realisation = indicateurs observables par l enseignant, ce que l on voit chez un eleve qui fait bien), remediation (adaptations et simplifications pour les eleves en difficulte), fps (Echauffement / Situation d apprentissage / Bilan et retour au calme), variante (Facilite: ... | Avance: ...), niveau (debutant/intermediaire/avance).\n'+
-    'Reponds UNIQUEMENT en JSON valide sans backticks :\n'+
-    '{"situations":[{"titre":"...","objectif":"...","dispositif":"...","consignes":"...","criteres":"...","contenus":"...","realisation":"...","remediation":"...","fps":"...","variante":"...","niveau":"..."},{"titre":"...","objectif":"...","dispositif":"...","consignes":"...","criteres":"...","contenus":"...","realisation":"...","remediation":"...","fps":"...","variante":"...","niveau":"..."},{"titre":"...","objectif":"...","dispositif":"...","consignes":"...","criteres":"...","contenus":"...","realisation":"...","remediation":"...","fps":"...","variante":"...","niveau":"..."}]}';
+  return 'Tu es un professeur EPS expert en lycee professionnel. Genere une seance EPS complete avec des consignes longues et detaillees.\n'+
+    'APSA: '+apsa+' | Filiere: '+filiere+' | Seance S'+numSeance+'/'+totalSeances+'\n'+
+    'Objectif: '+(titre||'non precise')+'\n'+
+    (aflpSel.length?'AFLP: '+aflpSel.join(', ')+'\n':'')+
+    (contexte?'Contraintes: '+contexte+'\n':'')+
+    'PARTIES: 1.Echauffement(8-10min) 2.Situation apprentissage(20-25min) 3.Bilan(5-8min)\n'+
+    'EXIGENCES STRICTES:\n'+
+    'dispositif: 5 phrases min, organisation espace groupes materiel.\n'+
+    'consignes: AU MOINS 4 consignes formulees exactement comme aux eleves, commence par Vous devez ou Vous allez, longues et precises.\n'+
+    'criteres: 3 criteres mesurables avec chiffres.\n'+
+    'contenus: 4 savoirs techniques a transmettre.\n'+
+    'realisation: description precise de ce que fait l eleve.\n'+
+    'remediation: 2 adaptations concretes.\n'+
+    'REPONDS UNIQUEMENT en JSON valide sans texte avant ou apres:\n'+
+    '{"situations":[{"titre":"","objectif":"","dispositif":"","consignes":"","criteres":"","contenus":"","realisation":"","remediation":"","fps":"Echauffement","variante":"","niveau":"debutant"},{"titre":"","objectif":"","dispositif":"","consignes":"","criteres":"","contenus":"","realisation":"","remediation":"","fps":"Situation d apprentissage","variante":"","niveau":"intermediaire"},{"titre":"","objectif":"","dispositif":"","consignes":"","criteres":"","contenus":"","realisation":"","remediation":"","fps":"Bilan et retour au calme","variante":"","niveau":"intermediaire"}]}'
 }
 
 function iaCopierPrompt2(mode){
@@ -4316,13 +4322,22 @@ async function iaGenerer(){
   btn.disabled=true;
 
   var prompt=
-    'Prof EPS lycee pro. APSA:'+apsa+' Filiere:'+filiere+' S'+numSeance+'/'+totalSeances+'.\\n'+
-    'Objectif:'+(titre||'non precise')+'\\n'+
-    (aflpSel.length?'AFLP:'+aflpSel.join(',')+'\\n':'')+
-    (contexte?'Contraintes:'+contexte+'\\n':'')+
-    'Genere 3 parties: 1.Echauffement 2.Situation apprentissage 3.Bilan\\n'+
-    'JSON uniquement, sans texte autour:\\n'+
-    '{"situations":[{"titre":"","objectif":"","dispositif":"","consignes":"","criteres":"","contenus":"","fps":"Echauffement","niveau":"debutant"},{"titre":"","objectif":"","dispositif":"","consignes":"","criteres":"","contenus":"","fps":"Situation d apprentissage","niveau":"intermediaire"},{"titre":"","objectif":"","dispositif":"","consignes":"","criteres":"","contenus":"","fps":"Bilan et retour au calme","niveau":"intermediaire"}]}';
+    'Tu es un professeur EPS expert en lycee professionnel. Genere une seance EPS complete avec des consignes longues et detaillees.\\n'+
+    'APSA: '+apsa+' | Filiere: '+filiere+' | Seance S'+numSeance+'/'+totalSeances+'\\n'+
+    'Objectif: '+(titre||'non precise')+'\\n'+
+    (aflpSel.length?'AFLP: '+aflpSel.join(', ')+'\\n':'')+
+    (contexte?'Contraintes: '+contexte+'\\n':'')+
+    'PARTIES: 1.Echauffement(8-10min) 2.Situation apprentissage(20-25min) 3.Bilan(5-8min)\\n'+
+    'EXIGENCES STRICTES par partie:\\n'+
+    'dispositif: description complete organisation espace groupes materiel (5 phrases minimum)\\n'+
+    'consignes: AU MOINS 4 consignes formulees exactement comme dit aux eleves, chaque consigne commence par Vous devez ou Vous allez, detaillees et precises\\n'+
+    'criteres: 3 criteres de reussite mesurables avec chiffres ou pourcentages\\n'+
+    'contenus: 4 savoirs techniques ou tactiques a transmettre\\n'+
+    'realisation: description precise de ce que fait chaque eleve pendant la situation\\n'+
+    'remediation: 2 adaptations concretes pour eleves en difficulte\\n'+
+    'variante: une facilitation et une complexification\\n'+
+    'REPONDS UNIQUEMENT en JSON valide sans texte avant ou apres:\\n'+
+    '{"situations":[{"titre":"","objectif":"","dispositif":"","consignes":"","criteres":"","contenus":"","realisation":"","remediation":"","fps":"Echauffement","variante":"","niveau":"debutant"},{"titre":"","objectif":"","dispositif":"","consignes":"","criteres":"","contenus":"","realisation":"","remediation":"","fps":"Situation d apprentissage","variante":"","niveau":"intermediaire"},{"titre":"","objectif":"","dispositif":"","consignes":"","criteres":"","contenus":"","realisation":"","remediation":"","fps":"Bilan et retour au calme","variante":"","niveau":"intermediaire"}]}'
 
 
   try{
