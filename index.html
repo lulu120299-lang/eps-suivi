@@ -4316,19 +4316,13 @@ async function iaGenerer(){
   btn.disabled=true;
 
   var prompt=
-    'Tu es un professeur d EPS experimente, specialiste de la pedagogie par situations d apprentissage en lycee professionnel et college.\\n'+
-    'APSA : '+apsa+' | Filiere : '+filiere+' | Seance S'+numSeance+'/'+totalSeances+'\\n'+
-    'Objectif de la seance : '+(titre||'non precise')+'\\n'+
-    (aflpSel.length?'AFLP travailles : '+aflpSel.join(', ')+'\\n':'')+
-    (contexte?'Contraintes : '+contexte+'\\n':'')+
-    'GENERE EXACTEMENT 3 PARTIES dans cet ordre :\\n'+
-    '1. ECHAUFFEMENT (8-10 min) : preparation physique ET cognitive specifique a l APSA et a l objectif\\n'+
-    '2. SITUATION D APPRENTISSAGE (20-25 min) : situation centrale qui travaille directement l objectif et les AFLP\\n'+
-    '3. BILAN COLLECTIF (5-8 min) : verbalisation, auto-evaluation, retour au calme\\n'+
-    'EXIGENCES pour chaque champ :\\n'+
-    'titre : nom court evocateur | objectif : verbe d action mesurable | dispositif : organisation spatiale precise groupes materiel terrain minimum 3 phrases | consignes : formulation exacte comme dit aux eleves commencer par Vous devez | criteres : mesurables avec chiffres pourcentages repetitions | contenus : savoirs techniques tactiques transmis minimum 2 points | fps : exactement Echauffement OU Situation d apprentissage OU Bilan et retour au calme | variante : Facilite:[adaptation] Avance:[complexification] | niveau : debutant OU intermediaire OU avance\\n'+
-    'REPONDS UNIQUEMENT avec du JSON valide sans texte avant ou apres sans backtick :\\n'+
-    '{"situations":[{"titre":"...","objectif":"...","dispositif":"...","consignes":"...","criteres":"...","contenus":"...","realisation":"...","remediation":"...","fps":"...","variante":"...","niveau":"..."},{"titre":"...","objectif":"...","dispositif":"...","consignes":"...","criteres":"...","contenus":"...","realisation":"...","remediation":"...","fps":"...","variante":"...","niveau":"..."},{"titre":"...","objectif":"...","dispositif":"...","consignes":"...","criteres":"...","contenus":"...","realisation":"...","remediation":"...","fps":"...","variante":"...","niveau":"..."}]}';
+    'Prof EPS lycee pro. APSA:'+apsa+' Filiere:'+filiere+' S'+numSeance+'/'+totalSeances+'.\\n'+
+    'Objectif:'+(titre||'non precise')+'\\n'+
+    (aflpSel.length?'AFLP:'+aflpSel.join(',')+'\\n':'')+
+    (contexte?'Contraintes:'+contexte+'\\n':'')+
+    'Genere 3 parties: 1.Echauffement 2.Situation apprentissage 3.Bilan\\n'+
+    'JSON uniquement, sans texte autour:\\n'+
+    '{"situations":[{"titre":"","objectif":"","dispositif":"","consignes":"","criteres":"","contenus":"","fps":"Echauffement","niveau":"debutant"},{"titre":"","objectif":"","dispositif":"","consignes":"","criteres":"","contenus":"","fps":"Situation d apprentissage","niveau":"intermediaire"},{"titre":"","objectif":"","dispositif":"","consignes":"","criteres":"","contenus":"","fps":"Bilan et retour au calme","niveau":"intermediaire"}]}';
 
 
   try{
