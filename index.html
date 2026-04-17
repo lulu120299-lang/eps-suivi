@@ -3694,7 +3694,7 @@ function iaGenPrompt(mode){
     aflp=aflpNewSel||[];
     contexte=ge('ia-contexte-new')?ge('ia-contexte-new').value:'';
   }
-  return 'Tu es un professeur EPS expert en lycee professionnel. Genere une seance EPS complete avec des consignes longues et detaillees.\n'+
+  return 'Reponds UNIQUEMENT en JSON valide, commence par {, pas de texte avant ou apres.\n'+
     'APSA: '+apsa+' | Filiere: '+filiere+' | Seance S'+numSeance+'/'+totalSeances+'\n'+
     'Objectif: '+(titre||'non precise')+'\n'+
     (aflpSel.length?'AFLP: '+aflpSel.join(', ')+'\n':'')+
@@ -4322,7 +4322,7 @@ async function iaGenerer(){
   btn.disabled=true;
 
   var prompt=
-    'Tu es un professeur EPS expert en lycee professionnel. Genere une seance EPS complete avec des consignes longues et detaillees.\\n'+
+    'Reponds UNIQUEMENT en JSON valide, commence par {, pas de texte avant ou apres.\\n'+
     'APSA: '+apsa+' | Filiere: '+filiere+' | Seance S'+numSeance+'/'+totalSeances+'\\n'+
     'Objectif: '+(titre||'non precise')+'\\n'+
     (aflpSel.length?'AFLP: '+aflpSel.join(', ')+'\\n':'')+
@@ -4356,6 +4356,7 @@ async function iaGenerer(){
       throw new Error('Reponse vide du serveur - verifie la cle Groq dans Cloudflare');
     }
     var text=data.content[0].text;
+    if(typeof text!=='string')text=JSON.stringify(text);
     var clean=text.replace(/```json[\s\S]*?```|```/g,'').trim();
     // Extraire le JSON même s'il y a du texte autour
     var jsonMatch=clean.match(/\{[\s\S]*\}/);
@@ -4426,6 +4427,7 @@ async function iaGenererNew(){
     if(data.error){throw new Error(data.error);}
     if(!data||!data.content||!data.content[0])throw new Error('Reponse vide - verifie la cle Groq dans Cloudflare');
     var text=data.content[0].text;
+    if(typeof text!=='string')text=JSON.stringify(text);
     var clean=text.replace(/```json|```/g,'').trim();
     var jsonMatch=clean.match(/\{[\s\S]*\}/);
     if(!jsonMatch)throw new Error('Pas de JSON dans la reponse : '+clean.substring(0,100));
