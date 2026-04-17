@@ -163,13 +163,15 @@ html,body{overflow-x:hidden;max-width:100vw}body{font-family:"DM Sans",sans-seri
 .gh-input:focus{border-color:#56cfb2}
 .gh-btn{background:#1a6b3a;color:#fff;border:none;border-radius:5px;padding:8px 16px;font-family:"Syne",sans-serif;font-size:.82rem;font-weight:700;cursor:pointer;white-space:nowrap}
 #pg-suivi{background:#0d1018;color:#e4e6ef;min-height:100vh;display:none;overflow-x:hidden;max-width:100vw}
-.s-header{background:#13161f;border-bottom:1px solid #252836;padding:.5rem 1.5rem;display:flex;align-items:center;justify-content:space-between;min-height:60px;position:sticky;top:0;z-index:100;gap:1rem;flex-wrap:wrap}
+.s-header{background:#000;border-bottom:0.5px solid rgba(255,255,255,.08);padding:.5rem 1.5rem;display:flex;align-items:center;justify-content:space-between;min-height:60px;position:sticky;top:0;z-index:100;gap:1rem;flex-wrap:wrap}
+.s-header::before{content:"";position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#30d158,#0a84ff,#ff9f0a,#ff453a);z-index:101}
+.s-header{position:sticky}
 .s-logo{font-family:"DM Serif Display",serif;font-size:1.1rem;display:flex;align-items:center;gap:9px}
 .s-badge{background:#4f8aff;color:#fff;font-family:"DM Mono",monospace;font-size:.6rem;padding:2px 7px;border-radius:4px}
 .s-ctx{font-family:"DM Mono",monospace;font-size:.68rem;padding:4px 9px;border-radius:16px;background:rgba(79,138,255,.1);color:#4f8aff;border:1px solid rgba(79,138,255,.2)}
-.s-back{background:none;border:1px solid #252836;border-radius:7px;color:#6b7280;font-size:.8rem;padding:5px 10px;cursor:pointer;white-space:nowrap}
-.s-back:hover{border-color:#e4e6ef;color:#e4e6ef}
-.s-sync-btn{border-radius:7px;font-family:"DM Mono",monospace;font-size:.68rem;padding:6px 14px;cursor:pointer;white-space:nowrap;font-weight:700;transition:all .15s}
+.s-back{background:#1c1c1e;border:none;border-radius:8px;color:#f5f5f7;font-size:.85rem;padding:6px 10px;cursor:pointer;white-space:nowrap}
+.s-back:hover{background:#2c2c2e}
+.s-sync-btn{border-radius:10px;font-family:"DM Mono",monospace;font-size:.72rem;padding:8px 16px;cursor:pointer;white-space:nowrap;font-weight:700;transition:all .15s}
 .s-sync-btn:hover{transform:translateY(-1px)}
 @media(max-width:600px){
   #btn-push{font-size:.62rem;padding:5px 9px}
@@ -913,8 +915,8 @@ textarea{resize:vertical;min-height:70px}
     </div>
     <div style="display:flex;align-items:center;gap:8px">
       <span class="s-ctx" id="s-ctx" style="display:none"></span>
-      <button class="s-sync-btn" id="btn-push" style="background:#56cfb2;border:none;color:#0a1810">&#8593;<span> Sauvegarder</span></button>
-      <button class="s-sync-btn" id="btn-pull" style="background:transparent;border:1px solid #3a4060;color:#9aa0b8">&#8595;<span> Synchroniser</span></button>
+      <button class="s-sync-btn" id="btn-push" style="background:#ffffff;border:none;color:#000000;font-weight:700">&#8593;<span> Sauvegarder</span></button>
+      <button class="s-sync-btn" id="btn-pull" style="background:#3a3a3c;border:none;color:#f5f5f7;font-weight:600">&#8595;<span> Synchroniser</span></button>
     </div>
     <div class="s-nav">
       <button class="s-tab active" data-view="v-accueil">Accueil</button>
