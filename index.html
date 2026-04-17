@@ -4442,9 +4442,29 @@ async function iaGenererNew(){
   btn.disabled=false;
 }
 
+function iaSanitize(v){
+  if(v===null||v===undefined)return'';
+  if(typeof v==='object')return JSON.stringify(v).replace(/[{}"\[\]]/g,'').replace(/,/g,' / ');
+  return String(v);
+}
 function iaAfficherResultats(sits,zoneId,mode){
   var zone=ge(zoneId);
   if(!zone)return;
+  // Sanitiser toutes les valeurs
+  for(var i=0;i<sits.length;i++){
+    var sv=sits[i];
+    sv.titre=iaSanitize(sv.titre);
+    sv.objectif=iaSanitize(sv.objectif);
+    sv.dispositif=iaSanitize(sv.dispositif);
+    sv.consignes=iaSanitize(sv.consignes);
+    sv.criteres=iaSanitize(sv.criteres);
+    sv.contenus=iaSanitize(sv.contenus);
+    sv.realisation=iaSanitize(sv.realisation);
+    sv.remediation=iaSanitize(sv.remediation);
+    sv.variante=iaSanitize(sv.variante);
+    sv.niveau=iaSanitize(sv.niveau)||'intermediaire';
+    sv.fps=iaSanitize(sv.fps);
+  }
   var nivBg={debutant:'rgba(86,207,178,.12)',intermediaire:'rgba(255,209,102,.12)',avance:'rgba(255,107,107,.12)'};
   var nivCol={debutant:'#56cfb2',intermediaire:'#ffd166',avance:'#ff6b6b'};
   var nivLbl={debutant:'Debutant',intermediaire:'Intermediaire',avance:'Avance'};
