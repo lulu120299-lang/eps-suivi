@@ -906,7 +906,33 @@ textarea{resize:vertical;min-height:70px}
       <button class="btn btn-g" onclick="closeM('m-add-cls')">Annuler</button>
       <button class="btn btn-p" id="btn-save-cls">Ajouter la classe</button>
     </div>
+  </div>
+  <!-- MODALE SYNC CONFIRM -->
+  <div class="mb" id="m-sync-confirm"><div class="modal">
+    <div class="modal-title">Ouvrir la séquence</div>
+    <div style="font-size:.82rem;color:#9aa0b8;margin-bottom:6px">Classe : <span id="sync-confirm-cls" style="color:#e4e6ef;font-weight:600"></span></div>
+    <div style="font-size:.78rem;color:#6b7280;margin-bottom:20px">Voulez-vous synchroniser les données depuis GitHub avant d'ouvrir ?</div>
+    <div style="display:flex;flex-direction:column;gap:8px">
+      <button class="btn btn-p" onclick="accLaunchWithSync()" style="width:100%;padding:10px;font-size:.82rem">↓ Synchroniser puis ouvrir</button>
+      <button class="btn btn-g" onclick="accLaunchWithoutSync()" style="width:100%;padding:10px;font-size:.82rem">Ouvrir sans synchroniser</button>
+    </div>
+    <div style="text-align:center;margin-top:12px">
+      <button class="btn btn-g btn-sm" data-close="m-sync-confirm" style="font-size:.7rem;color:#6b7280">Annuler</button>
+    </div>
   </div></div>
+
+  <!-- MODALE CONFIRMATION TROMBI -->
+  <div class="mb" id="m-trombi-confirm"><div class="modal">
+    <div class="modal-title">📷 Import trombinoscope</div>
+    <div style="font-size:.78rem;color:#9aa0b8;margin-bottom:12px">Vérifiez les correspondances avant de valider.</div>
+    <div id="trombi-confirm-list" style="max-height:350px;overflow-y:auto"></div>
+    <div class="modal-actions" style="margin-top:14px">
+      <button class="btn btn-g" data-close="m-trombi-confirm">Annuler</button>
+      <button class="btn btn-p" onclick="confirmTrombiImport()">Valider l'import</button>
+    </div>
+  </div></div>
+
+</div>
 <div id="pg-suivi" style="display:none">
   <div class="s-header">
     <div style="display:flex;align-items:center;gap:10px;flex-shrink:0">
