@@ -2364,13 +2364,11 @@ function accCustom(v){selApsa=v.trim()?{id:'custom',name:v.trim(),ca:'CA?',caFul
 function showAccAflp(apsa){var f=selCls?selCls.filiere:'bacpro';var d=(AFLP[f]||AFLP.bacpro)[apsa.caFull];if(!d){ge('aflp-acc-zone').style.display='none';return;}ge('aflp-acc-zone').style.display='block';ge('aflp-acc-sec-title').textContent=apsa.ca+' - '+apsa.name;ge('aflp-acc-ca-title').textContent=d.titre;var h='';for(var i=0;i<d.items.length;i++)h+='<div class="aflp-acc-item"><span class="aflp-acc-num">'+d.items[i].n+'</span><span>'+d.items[i].t+'</span></div>';ge('aflp-acc-list').innerHTML=h;}
 function accUpd(){ge('acc-s1').className='acc-step'+(selCls?' done':' active');ge('acc-s2').className='acc-step'+(selCls&&!selApsa?' active':selApsa?' done':'');ge('acc-s3').className='acc-step'+(selApsa&&!selTrim?' active':selTrim?' done':'');ge('acc-s4').className='acc-step'+(selApsa&&selTrim?' active':'');var btn=ge('acc-btn'),sum=ge('acc-sum');if(selCls&&selApsa&&selTrim){sum.innerHTML='<em>'+selCls.label+'</em> - '+selApsa.ca+' - '+selApsa.name+' - T'+selTrim;btn.disabled=false;}else if(selCls&&selApsa){sum.textContent=selCls.label+' - '+selApsa.name+' - Choisissez un trimestre';btn.disabled=true;}else if(selCls){sum.textContent=selCls.label+' - Choisissez une APSA';btn.disabled=true;}else{sum.textContent='Choisissez une classe, une APSA et un trimestre';btn.disabled=true;}}
 function accLaunch(cls,apsa,trim){cls=cls||selCls;apsa=apsa||selApsa;trim=trim||selTrim;if(!cls||!apsa||!trim)return;var key='eps-'+cls.id+'-'+apsa.id+'-t'+trim;var sessions=[];try{sessions=JSON.parse(localStorage.getItem('eps-recent')||'[]');}catch(e){}for(var i=sessions.length-1;i>=0;i--){if(sessions[i].key===key)sessions.splice(i,1);}sessions.unshift({key:key,cls:cls,apsa:apsa,trim:trim,ts:Date.now()});localStorage.setItem('eps-recent',JSON.stringify(sessions.slice(0,8)));
-  // Toujours afficher la modale de sync
+  // Demander sync avec confirm natif
   window._pendingLaunch={cls:cls,apsa:apsa,key:key,trim:trim};
-  var z=ge('sync-confirm-cls');if(z)z.textContent=cls.label+' — '+apsa.name+' T'+trim;
-  var scModal=ge('m-sync-confirm');
-  if(scModal){
-    scModal.classList.add('open');
-    scModal.scrollTop=0;
+  if(GH.token&&GH.repo){
+    var doSync=confirm("Synchroniser depuis GitHub avant d'ouvrir ?");
+    if(doSync){accLaunchWithSync();}else{accLaunchWithoutSync();}
   } else {
     openSuivi(cls,apsa,key,trim);
   }
@@ -2448,12 +2446,39 @@ function loadState(){
     if(!state.seq)state.seq={};
     if(!state.grilleNotes)state.grilleNotes={};
     if(!state.grille)state.grille=null;
+    // Réintegrer les photos trombi
+    try{
+      var photosData=localStorage.getItem(STORAGE_KEY+'-photos');
+      if(photosData){
+        var photosMap2=JSON.parse(photosData);
+        for(var i=0;i<state.eleves.length;i++){
+          if(photosMap2[state.eleves[i].id]){
+            state.eleves[i].trombiPhoto=photosMap2[state.eleves[i].id];
+          }
+        }
+      }
+    }catch(e){}
     save();
     return;
   }
   state={seances:[],eleves:[],presences:{},autoEval:{},seanceObjectifs:{},profil:{},comp:{},seq:{},grilleNotes:{},grille:null};
 }
-function save(){localStorage.setItem(STORAGE_KEY,JSON.stringify(state));}
+function save(){
+  // Exclure les photos trombi du state principal pour éviter les ralentissements
+  var stateLight=JSON.parse(JSON.stringify(state));
+  var photosMap={};
+  for(var i=0;i<stateLight.eleves.length;i++){
+    if(stateLight.eleves[i].trombiPhoto){
+      photosMap[stateLight.eleves[i].id]=stateLight.eleves[i].trombiPhoto;
+      delete stateLight.eleves[i].trombiPhoto;
+    }
+  }
+  localStorage.setItem(STORAGE_KEY,JSON.stringify(stateLight));
+  // Sauvegarder les photos séparément (moins souvent modifiées)
+  if(Object.keys(photosMap).length){
+    localStorage.setItem(STORAGE_KEY+'-photos',JSON.stringify(photosMap));
+  }
+}
 function showView(id){
   var views=document.querySelectorAll('.view');
   for(var i=0;i<views.length;i++)views[i].classList.remove('active');
@@ -3027,7 +3052,13 @@ h+='<div class="obj-box">'+'<div style="display:flex;align-items:center;justify-
   return opts;
 })()+'</select></td><td><select class="ss" data-sid="'+sid+'" data-eid="'+e.id+'" data-f="maitrise1"'+(dis?' disabled':'')+'>'+mOpts+'</select></td><td><select class="ss" data-sid="'+sid+'" data-eid="'+e.id+'" data-f="maitrise2"'+(dis||!hasObj2?' disabled':'')+'>'+mOpts2+'</select></td><td><input class="ni" type="number" min="0" max="4" step="1" value="'+(ae.qte!==undefined?ae.qte:'')+'" placeholder="-"'+(dis?' disabled':'')+' data-sid="'+sid+'" data-eid="'+e.id+'" data-f="qte" style="width:55px"></td></tr>';}h+='</tbody></table></div></div>';var ap=ge('ap-content');ap.innerHTML=h;ge('obj1-inp').addEventListener('change',function(){if(!state.seanceObjectifs[sid])state.seanceObjectifs[sid]={};state.seanceObjectifs[sid].obj1=this.value;save();renderSeances();});ge('obj2-inp').addEventListener('change',function(){if(!state.seanceObjectifs[sid])state.seanceObjectifs[sid]={};state.seanceObjectifs[sid].obj2=this.value;save();renderSeances();});var btnGrp=ge('btn-open-groupes');
   if(btnGrp)btnGrp.addEventListener('click',function(){openGroupes(this.dataset.sid);});
-  ap.addEventListener('change',function(e){var el=e.target;if(!el.dataset.sid)return;var s2=el.dataset.sid,eid=el.dataset.eid,f=el.dataset.f;if(f==='pres'){if(!state.presences[s2])state.presences[s2]={};state.presences[s2][eid]=el.value;save();renderStats();showAppel(s2);}else{if(!state.autoEval[s2])state.autoEval[s2]={};if(!state.autoEval[s2][eid])state.autoEval[s2][eid]={};state.autoEval[s2][eid][f]=el.value;save();}});}
+  ap.addEventListener('change',function(e){var el=e.target;if(!el.dataset.sid)return;var s2=el.dataset.sid,eid=el.dataset.eid,f=el.dataset.f;if(f==='pres'){if(!state.presences[s2])state.presences[s2]={};state.presences[s2][eid]=el.value;save();renderStats();
+  // Mettre à jour juste le compteur présences sans reconstruire tout le tableau
+  var presMap2=state.presences[s2]||{};var nbPres=0;
+  for(var pk in presMap2){if((presMap2[pk]||'')==='Present')nbPres++;}
+  var cntEl=ge('ap-pres-count-'+s2);if(cntEl)cntEl.textContent=nbPres+'/'+state.eleves.length;
+  var headChip=ge('ap-head-chip');if(headChip)headChip.textContent=nbPres+'/'+state.eleves.length;
+}else{if(!state.autoEval[s2])state.autoEval[s2]={};if(!state.autoEval[s2][eid])state.autoEval[s2][eid]={};state.autoEval[s2][eid][f]=el.value;save();}});}
 function ndsp(n){var p=n/20;return'<span class="nd '+(p>=.7?'nh':p>=.5?'nm':'nl')+'">'+n+'/20</span>';}
 // ══════════════════════════════════════════
 // IMPORT TROMBINOSCOPE PDF
