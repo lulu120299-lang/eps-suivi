@@ -3745,7 +3745,7 @@ function grilleGetData(){
 function grilleSaveData(g){state.grille=g;save();}
 function grilleGetNotes(){return state.grilleNotes||{};}
 function grilleSaveNotes(n){state.grilleNotes=n;save();}
-function renderGrille(){var zone=ge('grille-zone');var g=grilleGetData();var notes=grilleGetNotes();var eleves=state.eleves.slice().sort(function(a,b){return a.nom.localeCompare(b.nom);});if(!g.criteres||!g.criteres.length){zone.innerHTML='<div class="grille-empty">Aucune grille configuree. Cliquez sur Configurer.</div>';return;}if(!eleves.length){zone.innerHTML='<div class="grille-empty">Aucun eleve dans cette sequence.</div>';return;}var totalMax=g.criteres.reduce(function(a,c){return a+c.pts;},0);var nomsCols=['Maitrise insuffisante','Maitrise fragile','Maitrise satisfaisante','Tres bonne maitrise'];var h='<div style="margin-bottom:1rem"><div style="font-family:DM Serif Display,serif;font-size:1.3rem;color:#e4e6ef">'+esc(g.titre)+'</div><div style="font-size:.78rem;color:#6b7280;margin-top:3px">Total sur '+totalMax+' points - '+g.criteres.length+' critere'+(g.criteres.length>1?'s':'')+'</div></div>';h+='<div style="overflow-x:auto;margin-bottom:1.5rem"><table class="grille-table"><thead><tr><th style="min-width:140px">Critere</th>';for(var i=0;i<4;i++)h+='<th class="'+['ins-col','fra-col','sat-col','tres-col'][i]+'" style="min-width:160px">'+nomsCols[i]+'</th>';h+='</tr></thead><tbody>';for(var i=0;i<g.criteres.length;i++){var c=g.criteres[i];h+='<tr><td><strong>'+esc(c.nom)+'</strong><div style="font-family:DM Mono,monospace;font-size:.68rem;color:#6b7280">/'+c.pts+' pts</div></td>';for(var j=0;j<c.niveaux.length;j++){var nv=c.niveaux[j];h+='<td><div class="grille-lvl '+['ins','fra','sat','tres'][j]+'"><div class="grille-lvl-pts">'+nv.pts+' pts - '+esc(nv.label)+'</div>'+esc(nv.desc)+'</div></td>';}h+='</tr>';}h+='</tbody></table></div>';h+='<div style="font-family:DM Mono,monospace;font-size:.65rem;text-transform:uppercase;letter-spacing:.12em;color:#6b7280;margin-bottom:.6rem">Notes des eleves</div>';h+='<div style="overflow-x:auto"><table class="grille-table"><thead><tr><th style="min-width:160px">Eleve</th>';for(var i=0;i<g.criteres.length;i++)h+='<th style="min-width:100px">'+esc(g.criteres[i].nom)+'<br><span style="font-weight:400;color:#6b7280">/'+g.criteres[i].pts+'</span></th>';h+='<th style="min-width:80px">Total /'+totalMax+'</th><th style="min-width:80px">Note /20</th></tr></thead><tbody>';for(var i=0;i<eleves.length;i++){var e=eleves[i];var en=notes[e.id]||{};var total=0,hasAll=true;h+='<tr><td><div style="font-weight:600;font-size:.82rem">'+esc(e.nom)+'</div>'+(e.amenagement?'<div style="font-size:.7rem;color:#ffd166">'+esc(e.amenagement)+'</div>':'')+'</td>';for(var j=0;j<g.criteres.length;j++){var c=g.criteres[j];var v=en[c.id];if(v!==undefined&&v!=='')total+=parseFloat(v);else hasAll=false;h+='<td><input class="grille-note-input" type="number" min="0" max="'+c.pts+'" step="0.5" value="'+(v!==undefined?v:'')+'" placeholder="-" data-eid="'+e.id+'" data-cid="'+c.id+'"></td>';}var note20=hasAll?(total/totalMax*20).toFixed(1):'-';var noteColor=hasAll?(parseFloat(note20)>=12?'#56cfb2':parseFloat(note20)>=10?'#ffd166':'#ff6b6b'):'#6b7280';h+='<td style="font-family:DM Mono,monospace;font-weight:700;color:#e4e6ef">'+(hasAll?total:'-')+'</td><td><span style="font-family:DM Mono,monospace;font-weight:700;font-size:.9rem;color:'+noteColor+'">'+note20+(hasAll?'/20':'')+'</span></td></tr>';}h+='</tbody></table></div>';zone.innerHTML=h;qsa('.grille-note-input',function(inp){inp.addEventListener('change',function(){var eid=this.dataset.eid,cid=this.dataset.cid;var allNotes=grilleGetNotes();if(!allNotes[eid])allNotes[eid]={};allNotes[eid][cid]=this.value===''?undefined:parseFloat(this.value);grilleSaveNotes(allNotes);renderGrille();});});}
+
 function addCritere(){
   var g=grilleGetData();
   var newC={id:'c'+(Date.now()),nom:'Nouveau critere',pts:10,niveaux:[
@@ -3823,15 +3823,28 @@ function geGetAflps(){
        degs:['Ne respecte pas','Rappels nécessaires','Règles respectées','Garant de la sécurité']},
     ];
   }
-  // Convertir les critères configurés
-  return g.criteres.map(function(c,i){
+  // Convertir les critères configurés en utilisant les vrais points des niveaux
+  return g.criteres.map(function(c){
     var mp = c.pts||10;
-    var step = Math.floor(mp/4);
+    var niveaux = c.niveaux||[];
+    // Construire les ranges à partir des points réels de chaque niveau
+    var ranges = [];
+    for(var d=0;d<4;d++){
+      var n = niveaux[d]||{};
+      var ptsCur = n.pts!=null ? n.pts : Math.floor(mp/4*d);
+      var ptsNext = d<3 ? (niveaux[d+1]||{}).pts : mp;
+      if(ptsNext==null) ptsNext = mp;
+      // La plage va de ptsCur jusqu'à ptsNext-0.5 (ou ptsCur si dernier)
+      var pMin = ptsCur;
+      var pMax = d<3 ? Math.max(ptsCur, ptsNext-0.5) : mp;
+      ranges.push([pMin, pMax]);
+    }
     return {
       id:c.id, label:c.nom, desc:'', maxPts:mp,
-      ranges:[[0,step-1],[step,step*2-1],[step*2,step*3-1],[step*3,mp]],
-      degs: c.niveaux ? c.niveaux.map(function(n){return n.label+(n.desc?' — '+n.desc:'');}) :
-        ['Insuffisant','Fragile','Satisfaisant','Très bien']
+      ranges:ranges,
+      degs: niveaux.length ? niveaux.map(function(n){
+        return n.label+(n.desc?' — '+n.desc:'');
+      }) : ['Insuffisant','Fragile','Satisfaisant','Très bien']
     };
   });
 }
