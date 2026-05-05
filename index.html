@@ -1180,7 +1180,7 @@ textarea{resize:vertical;min-height:70px}
       <div id="bilan-comp-zone" style="margin-bottom:1.25rem"></div>
       <div style="font-family:'DM Mono',monospace;font-size:.65rem;text-transform:uppercase;letter-spacing:.1em;color:#4f8aff;margin-bottom:.75rem">&#128203; Notes et pr&#233;sences</div>
       <div class="card"><div class="tw"><table>
-        <thead><tr><th>Eleve</th><th>Presences</th><th>Absences</th><th>Dispense</th><th>Qte travail /4</th><th>Maitrise moy.</th><th>Note finale /20</th></tr></thead>
+        <thead><tr><th>Eleve</th><th>Presences</th><th>Absences</th><th>Dispense</th><th>Qte travail /4</th><th>Note finale /20</th></tr></thead>
         <tbody id="nt-tbody"></tbody>
       </table></div></div>
     </div>
@@ -3513,7 +3513,7 @@ function renderBilanComp(targetZoneId){
     h+='<th style="background:#13161f;padding:9px 10px;text-align:center;color:#4f8aff;font-size:.68rem;border-bottom:1px solid #252836;border-left:1px solid #252836;max-width:100px;white-space:normal;line-height:1.3">';
     h+=esc(aflpList[ai].n)+'</th>';
   }
-  h+='<th style="background:#13161f;padding:9px 10px;text-align:center;color:#ffd166;font-size:.7rem;text-transform:uppercase;border-bottom:1px solid #252836;border-left:1px solid #1e2438">Moy.</th>';
+  
   h+='</tr></thead><tbody>';
   for(var ei=0;ei<sorted.length;ei++){
     var e=sorted[ei];
@@ -3535,23 +3535,13 @@ function renderBilanComp(targetZoneId){
         var lbl=MAITRISE[lastVal-1];
         var col=COLS[lbl]||'#6b7280';
         h+='<td style="padding:7px 10px;text-align:center;border-bottom:1px solid rgba(37,40,54,.5);border-left:1px solid rgba(37,40,54,.3)">';
-        h+='<span style="display:inline-block;background:'+col+'20;color:'+col+';border:1px solid '+col+'50;border-radius:5px;font-family:DM Mono,monospace;font-size:.65rem;padding:2px 7px;font-weight:700">'+lastVal+'/4</span>';
+        h+='<span style="display:inline-block;background:'+col+'20;color:'+col+';border:1px solid '+col+'50;border-radius:5px;font-family:DM Mono,monospace;font-size:.65rem;padding:2px 7px;font-weight:700">Degr&#233; '+lastVal+'</span>';
         h+='</td>';
       } else {
         h+='<td style="padding:7px 10px;text-align:center;border-bottom:1px solid rgba(37,40,54,.5);border-left:1px solid rgba(37,40,54,.3);color:#3a4060;font-size:.7rem">—</td>';
       }
     }
-    // Moyenne
-    var valsNonZero=vals.filter(function(v){return v>0;});
-    if(valsNonZero.length){
-      var avg=(valsNonZero.reduce(function(a,b){return a+b;},0)/valsNonZero.length).toFixed(1);
-      var avgN=parseFloat(avg);
-      var avgCol=avgN>=3?'#56cfb2':avgN>=2?'#ffd166':'#ff6b6b';
-      h+='<td style="padding:7px 10px;text-align:center;border-bottom:1px solid rgba(37,40,54,.5);border-left:1px solid #1e2438">';
-      h+='<span style="font-family:DM Mono,monospace;font-size:.75rem;font-weight:700;color:'+avgCol+'">'+avg+'</span></td>';
-    } else {
-      h+='<td style="padding:7px 10px;text-align:center;border-bottom:1px solid rgba(37,40,54,.5);border-left:1px solid #1e2438;color:#3a4060">—</td>';
-    }
+
     h+='</tr>';
   }
   h+='</tbody></table></div>';
@@ -3671,7 +3661,7 @@ css+='.footer{padding:10px 26px;border-top:2px solid #f0f0f0;display:flex;justif
   h+='</body></html>';
   openPdfWindow(h,'Bilan-'+clsLabel+'.pdf');
 }
-function renderNotes(){var tb=ge('nt-tbody');var worked={};for(var i=0;i<state.seances.length;i++){var t=state.seances[i].aflpTravailles||[];for(var j=0;j<t.length;j++)worked[t[j]]=true;}var items=document.querySelectorAll('.eval-aflp-item');for(var i=0;i<items.length;i++){var n=items[i].querySelector('.eval-n');if(n)items[i].classList.toggle('worked',!!worked[n.textContent]);}var nmv={'Maitrise insuffisante':1,'Maitrise fragile':2,'Maitrise satisfaisante':3,'Tres bonne maitrise':4};if(!state.eleves.length){tb.innerHTML='<tr><td colspan="7" style="text-align:center;color:#6b7280;padding:2rem">Aucun eleve.</td></tr>';return;}tb.innerHTML='';var sorted=state.eleves.slice().sort(function(a,b){return a.nom.localeCompare(b.nom);});for(var i=0;i<sorted.length;i++){(function(e){var pres=0,abs=0,disp=0,qtes=[],mts=[];for(var j=0;j<state.seances.length;j++){var st=(state.presences[state.seances[j].id]||{})[e.id]||'';if(st==='Present')pres++;else if(st==='Absent')abs++;else if(st==='Dispense')disp++;var ae=(state.autoEval[state.seances[j].id]||{})[e.id]||{};if(ae.qte!==undefined&&ae.qte!=='')qtes.push(parseFloat(ae.qte));if(ae.maitrise1&&nmv[ae.maitrise1])mts.push(nmv[ae.maitrise1]);if(ae.maitrise2&&nmv[ae.maitrise2])mts.push(nmv[ae.maitrise2]);}var mQ=qtes.length>0?(qtes.reduce(function(a,b){return a+b;},0)/qtes.length).toFixed(1):'-';var mAvg=mts.length>0?mts.reduce(function(a,b){return a+b;},0)/mts.length:null;var mMlbl=mAvg?MAITRISE[Math.round(mAvg)-1]:'-';var mMcl=mAvg?(mAvg>=3?'nh':mAvg>=2?'nm':'nl'):'';var tr=document.createElement('tr');tr.innerHTML='<td style="font-weight:500;font-size:.85rem">'+esc(e.nom)+'</td><td><span class="chip c-gr">'+pres+'</span></td><td><span class="chip c-rd">'+abs+'</span></td><td><span class="chip c-yw">'+disp+'</span></td><td>'+(mQ!=='-'?'<span class="nd '+(parseFloat(mQ)>=3?'nh':parseFloat(mQ)>=2?'nm':'nl')+'">'+mQ+'/4</span>':'<span style="color:#6b7280">-</span>')+'</td><td>'+(mMlbl!=='-'?'<span class="nd '+mMcl+'" style="font-size:.72rem">'+mMlbl+'</span>':'<span style="color:#6b7280">-</span>')+'</td><td><input class="ni" type="number" min="0" max="20" step="0.5" value="'+(e.noteFinale!=null?e.noteFinale:'')+'" placeholder="-" data-eid="'+e.id+'" style="width:65px"></td>';tr.querySelector('input.ni').addEventListener('change',function(){var el=null;for(var i=0;i<state.eleves.length;i++){if(state.eleves[i].id===this.dataset.eid){el=state.eleves[i];break;}}if(el){el.noteFinale=this.value===''?null:parseFloat(this.value);save();renderStats();}});tb.appendChild(tr);})(sorted[i]);}}
+function renderNotes(){var tb=ge('nt-tbody');var worked={};for(var i=0;i<state.seances.length;i++){var t=state.seances[i].aflpTravailles||[];for(var j=0;j<t.length;j++)worked[t[j]]=true;}var items=document.querySelectorAll('.eval-aflp-item');for(var i=0;i<items.length;i++){var n=items[i].querySelector('.eval-n');if(n)items[i].classList.toggle('worked',!!worked[n.textContent]);}var nmv={'Maitrise insuffisante':1,'Maitrise fragile':2,'Maitrise satisfaisante':3,'Tres bonne maitrise':4};if(!state.eleves.length){tb.innerHTML='<tr><td colspan="7" style="text-align:center;color:#6b7280;padding:2rem">Aucun eleve.</td></tr>';return;}tb.innerHTML='';var sorted=state.eleves.slice().sort(function(a,b){return a.nom.localeCompare(b.nom);});for(var i=0;i<sorted.length;i++){(function(e){var pres=0,abs=0,disp=0,qtes=[],mts=[];for(var j=0;j<state.seances.length;j++){var st=(state.presences[state.seances[j].id]||{})[e.id]||'';if(st==='Present')pres++;else if(st==='Absent')abs++;else if(st==='Dispense')disp++;var ae=(state.autoEval[state.seances[j].id]||{})[e.id]||{};if(ae.qte!==undefined&&ae.qte!=='')qtes.push(parseFloat(ae.qte));if(ae.maitrise1&&nmv[ae.maitrise1])mts.push(nmv[ae.maitrise1]);if(ae.maitrise2&&nmv[ae.maitrise2])mts.push(nmv[ae.maitrise2]);}var mQ=qtes.length>0?(qtes.reduce(function(a,b){return a+b;},0)/qtes.length).toFixed(1):'-';var mAvg=mts.length>0?mts.reduce(function(a,b){return a+b;},0)/mts.length:null;var mMlbl=mAvg?MAITRISE[Math.round(mAvg)-1]:'-';var mMcl=mAvg?(mAvg>=3?'nh':mAvg>=2?'nm':'nl'):'';var tr=document.createElement('tr');tr.innerHTML='<td style="font-weight:500;font-size:.85rem">'+esc(e.nom)+'</td><td><span class="chip c-gr">'+pres+'</span></td><td><span class="chip c-rd">'+abs+'</span></td><td><span class="chip c-yw">'+disp+'</span></td><td>'+(mQ!=='-'?'<span class="nd '+(parseFloat(mQ)>=3?'nh':parseFloat(mQ)>=2?'nm':'nl')+'">'+mQ+'/4</span>':'<span style="color:#6b7280">-</span>')+'</td><td>'+(mMlbl!=='-'?'<span class="nd '+mMcl+'" style="font-size:.72rem">'+mMlbl+'</span>':'<span style="color:#6b7280">-</span>')+'</td><td><input class="ni" type="number" min="0" max="20" step="0.5" value="'+(e.noteFinale!=null?e.noteFinale:'')+'" placeholder="-" data-eid="'+e.id+'" style="width:65px"></td>';tb.appendChild(tr);})(sorted[i]);}}
 function exportCSV(){var nmv={'Maitrise insuffisante':1,'Maitrise fragile':2,'Maitrise satisfaisante':3,'Tres bonne maitrise':4};var h='Eleve;Amenagement;Presences;Absences;Dispenses;Moy.Qte/4;Maitrise;Note/20';var rows=[];var sorted=state.eleves.slice().sort(function(a,b){return a.nom.localeCompare(b.nom);});for(var i=0;i<sorted.length;i++){var e=sorted[i];var p=0,ab=0,d=0,q=[],mts=[];for(var j=0;j<state.seances.length;j++){var st=(state.presences[state.seances[j].id]||{})[e.id]||'';if(st==='Present')p++;else if(st==='Absent')ab++;else if(st==='Dispense')d++;var ae=(state.autoEval[state.seances[j].id]||{})[e.id]||{};if(ae.qte!==undefined&&ae.qte!=='')q.push(parseFloat(ae.qte));if(ae.maitrise1&&nmv[ae.maitrise1])mts.push(nmv[ae.maitrise1]);if(ae.maitrise2&&nmv[ae.maitrise2])mts.push(nmv[ae.maitrise2]);}var mM=mts.length?MAITRISE[Math.round(mts.reduce(function(a,b){return a+b;},0)/mts.length)-1]:'';rows.push([e.nom,e.amenagement||'',p,ab,d,q.length?(q.reduce(function(a,b){return a+b;},0)/q.length).toFixed(1):'',mM,e.noteFinale!=null?e.noteFinale:''].join(';'));}var a=document.createElement('a');a.href='data:text/csv;charset=utf-8,\uFEFF'+encodeURIComponent([h].concat(rows).join('\n'));a.download='eval_'+(CTX.cls?CTX.cls.id:'eps')+'.csv';a.click();}
 function saveEleve(){var n=ge('en').value.trim();if(!n){alert('Nom requis');return;}state.eleves.push({id:'e'+Date.now(),nom:n,amenagement:ge('ea').value,fiche:null,noteFinale:null});save();closeM('m-eleve');ge('en').value='';ge('ea').value='';renderAll();}
 function openEditE(id){var e=null;for(var i=0;i<state.eleves.length;i++){if(state.eleves[i].id===id){e=state.eleves[i];break;}}if(!e)return;ge('ee-id').value=id;ge('ee-n').value=e.nom;ge('ee-a').value=e.amenagement||'';ge('ee-note').value=e.noteFinale!=null?e.noteFinale:'';openM('m-edit-e');}
