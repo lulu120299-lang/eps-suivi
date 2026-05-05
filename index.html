@@ -1189,8 +1189,8 @@ textarea{resize:vertical;min-height:70px}
         <div><div class="ph-title">Grille d'&#233;valuation</div><div class="ph-sub">Cliquez sur un &#233;l&#232;ve pour noter</div></div>
         <div style="display:flex;gap:8px">
           <button class="btn btn-g" id="btn-grille-cfg" onclick="openGrilleConfig()">Configurer</button>
-          <button class="btn btn-g" id="btn-grille-csv" onclick="exportGrilleCSV()">CSV</button>
-          <button class="btn btn-g" id="btn-grille-export-json" onclick="exportGrilleJSON()">JSON</button>
+          <button class="btn btn-g" id="btn-grille-csv" onclick="exportGrilleCSV()">Export CSV</button>
+          <button class="btn btn-g" id="btn-grille-export-json" onclick="exportGrilleJSON()">Export JSON</button>
           <label class="btn btn-g" style="cursor:pointer"><input type="file" id="btn-grille-import-json" accept=".json" style="display:none" onchange="importGrilleJSON(this.files[0]);this.value=''">Import JSON</label>
         </div>
       </div>
@@ -1219,7 +1219,7 @@ textarea{resize:vertical;min-height:70px}
         </div>
       </div>
 
-      <div style="margin-top:1.5rem" id="grille-zone"></div>
+      
     
     <div id="seq-aflp-checks" class="aflp-check-grid"></div>
     <div class="sec-title" style="margin-top:1.2rem">Trame de sequence</div>
@@ -3988,7 +3988,7 @@ function geSetDeg(eid,aid,d){
   var a = null; aflps.forEach(function(x){if(x.id===aid)a=x;});
   if(!a) return;
   if(cur===d){GE_NOTES[eid][aid]={deg:0,slider:null};}
-  else{GE_NOTES[eid][aid]={deg:d,slider:a.ranges[d-1][0]};}
+  else{GE_NOTES[eid][aid]={deg:d,slider:parseFloat(a.ranges[d-1][0])};}
   // Sauvegarder dans state.grilleNotes
   if(!state.grilleNotes) state.grilleNotes={};
   state.grilleNotes[eid] = GE_NOTES[eid];
@@ -4000,7 +4000,7 @@ function geSetDeg(eid,aid,d){
 function geSetSlider(eid,aid,v){
   if(!GE_NOTES[eid]) GE_NOTES[eid]={};
   if(!GE_NOTES[eid][aid]) GE_NOTES[eid][aid]={deg:0,slider:0};
-  GE_NOTES[eid][aid].slider = parseInt(v);
+  GE_NOTES[eid][aid].slider = parseFloat(v);
   if(!state.grilleNotes) state.grilleNotes={};
   state.grilleNotes[eid] = GE_NOTES[eid];
   save();
