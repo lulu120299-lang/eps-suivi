@@ -3653,7 +3653,7 @@ css+='.footer{padding:10px 26px;border-top:2px solid #f0f0f0;display:flex;justif
     h+='<td style="color:#047857;font-weight:700">'+pres+'</td><td style="color:#dc2626">'+abs+'</td><td style="color:#b45309">'+disp+'</td>';
     h+='<td>'+(mQ!=='—'?'<span class="niv" style="background:#f8f8fc;color:#374151">'+mQ+'</span>':'—')+'</td>';
     h+='<td>'+(mLbl2!=='—'?'<span class="niv" style="background:'+mB2+';color:'+mC2+'">'+esc(mLbl2)+'</span>':'—')+'</td>';
-    h+='<td>'+(e.noteFinale!=null?'<strong style="font-size:11px;color:'+clsColor+'">'+e.noteFinale+'/20</strong>':'—')+'</td></tr>';
+    h+='<td>'+(function(){var gn=(typeof geCalcNote==='function')?geCalcNote(e.id):0;return gn>0?'<strong style="font-size:11px;color:'+clsColor+'">'+gn+'/20</strong>':(e.noteFinale!=null?'<strong style="font-size:11px;color:'+clsColor+'">'+e.noteFinale+'/20</strong>':'—');}())+'</td></tr>';
   }
   h+='</tbody></table></div>';
   h+='</div>';
@@ -3742,17 +3742,25 @@ function addCritere(){
 }
 
 function exportGrilleCSV(){
-  var g=grilleGetData();var notes=grilleGetNotes();
+  var aflps=geGetAflps();
   var sorted=state.eleves.slice().sort(function(a,b){return a.nom.localeCompare(b.nom);});
-  if(!g.criteres||!g.criteres.length){toast('Aucune grille configuree','warn');return;}
-  var totalMax=g.criteres.reduce(function(a,c){return a+c.pts;},0);
-  var h='Eleve;'+g.criteres.map(function(c){return c.nom+' /'+c.pts;}).join(';')+';Total /'+totalMax+';Note /20';
+  if(!aflps||!aflps.length){toast('Aucune grille configuree','warn');return;}
+  var maxPts=aflps.reduce(function(s,a){return s+a.maxPts;},0);
+  var h='Eleve;'+aflps.map(function(a){return a.label+' (degre);'+a.label+' (pts /'+a.maxPts+')';}).join(';')+';Total;Note /20';
   var rows=[h];
+  var degNames=['','Insuffisant','Fragile','Satisfaisant','Tres bien'];
   for(var i=0;i<sorted.length;i++){
-    var e=sorted[i];var en=notes[e.id]||{};var total=0;var hasAll=true;
-    var vals=g.criteres.map(function(c){var v=en[c.id];if(v!==undefined&&v!==''){total+=parseFloat(v);return v;}hasAll=false;return '';});
-    var note20=hasAll?(total/totalMax*20).toFixed(1):'';
-    rows.push(e.nom+';'+vals.join(';')+';'+total+';'+note20);
+    var e=sorted[i];
+    var eidNotes=GE_NOTES[e.id]||(state.grilleNotes&&state.grilleNotes[e.id])||{};
+    var total=geCalcTotal(e.id);
+    var note20=geCalcNote(e.id);
+    var cols=aflps.map(function(a){
+      var entry=eidNotes[a.id]||{};
+      var deg=entry.deg||0;
+      var slider=entry.slider!=null?entry.slider:(deg>0?a.ranges[deg-1][0]:0);
+      return (deg>0?degNames[deg]:'')+';'+(deg>0?slider:'');
+    });
+    rows.push(e.nom+';'+cols.join(';')+';'+total+';'+(note20>0?note20:''));
   }
   var a=document.createElement('a');
   a.href='data:text/csv;charset=utf-8,%EF%BB%BF'+encodeURIComponent(rows.join(String.fromCharCode(10)));
