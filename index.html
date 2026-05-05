@@ -3153,7 +3153,6 @@ function processTrombiPDF(data){
   pdfjsLib.getDocument({data:data}).promise.then(function(pdf){
     return pdf.getPage(1);
   }).then(function(page){
-    // Rendre la page à haute résolution pour extraire les photos
     var scale=3;
     var viewport=page.getViewport({scale:scale});
     var canvas=document.createElement('canvas');
@@ -3164,83 +3163,197 @@ function processTrombiPDF(data){
       return {canvas:canvas,page:page,viewport:viewport};
     });
   }).then(function(res){
-    // Extraire les noms depuis le texte
     res.page.getTextContent().then(function(tc){
-      var items=tc.items.map(function(i){return i.str.trim();}).filter(function(s){return s.length>1;});
-      // Identifier les noms (mots en MAJUSCULES)
-      var noms=[];
-      var nomCourant='';
-      for(var i=0;i<items.length;i++){
-        var s=items[i];
-        if(s===s.toUpperCase()&&s.length>1&&!/^\d/.test(s)&&s!=='2025'&&s!=='2026'&&!s.includes('Classe')&&!s.includes('/')) {
-          if(nomCourant)nomCourant+=' '+s;
-          else nomCourant=s;
-        } else {
-          if(nomCourant&&nomCourant.length>3)noms.push(nomCourant);
-          nomCourant='';
+      var W=res.canvas.width;
+      var H=res.canvas.height;
+      var vp=res.viewport;
+
+      // Récupérer tous les items texte avec leurs positions
+      var allItems=tc.items.filter(function(it){return it.str.trim().length>0;});
+
+      // Filtrer uniquement les noms d'élèves
+      // Les noms sont en MAJUSCULES ou Prénom en minuscule après NOM
+      // Exclure titre, date, année scolaire
+      var EXCLUDE=['CLASSE','CAP','BAC','EPS','2025','2026','05/05'];
+      function isNomLigne(s){
+        if(s.length<2)return false;
+        if(/^\d+/.test(s))return false;
+        for(var k=0;k<EXCLUDE.length;k++)if(s.toUpperCase().includes(EXCLUDE[k]))return false;
+        return true;
+      }
+
+      // Grouper les items texte par ligne Y (tolérance 20px)
+      var groups=[];
+      for(var i=0;i<allItems.length;i++){
+        var it=allItems[i];
+        var tx=it.transform[4]*scale;
+        var ty=H-it.transform[5]*scale;
+        var s=it.str.trim();
+        if(!isNomLigne(s))continue;
+
+        var found=false;
+        for(var g=0;g<groups.length;g++){
+          if(Math.abs(groups[g].y-ty)<25){
+            groups[g].parts.push({x:tx,s:s});
+            found=true;break;
+          }
+        }
+        if(!found)groups.push({y:ty,x:tx,parts:[{x:tx,s:s}]});
+      }
+
+      // Trier les groupes par Y (haut en bas)
+      groups.sort(function(a,b){return a.y-b.y;});
+
+      // Construire les noms complets ordonnés par position X dans chaque groupe
+      var namedEntries=[];
+      for(var g=0;g<groups.length;g++){
+        var grp=groups[g];
+        grp.parts.sort(function(a,b){return a.x-b.x;});
+        // Chaque groupe de texte proche en Y peut avoir plusieurs colonnes
+        // Séparer par colonnes (gap > 15% de W)
+        var colGroups=[[]];
+        for(var p=0;p<grp.parts.length;p++){
+          var part=grp.parts[p];
+          var lastCol=colGroups[colGroups.length-1];
+          if(lastCol.length>0){
+            var lastX=lastCol[lastCol.length-1].x;
+            if(part.x-lastX>W*0.12)colGroups.push([part]);
+            else lastCol.push(part);
+          } else {
+            lastCol.push(part);
+          }
+        }
+        for(var c=0;c<colGroups.length;c++){
+          var nom=colGroups[c].map(function(p){return p.s;}).join(' ').trim();
+          if(nom.length>1)namedEntries.push({nom:nom,x:colGroups[c][0].x,y:grp.y});
         }
       }
-      if(nomCourant&&nomCourant.length>3)noms.push(nomCourant);
-      
-      // Dédupliquer et nettoyer
-      var nomsClean=[];
-      var seen={};
-      for(var i=0;i<noms.length;i++){
-        var n=noms[i].replace(/\s+/g,' ').trim();
-        if(!seen[n]&&n.length>2){seen[n]=true;nomsClean.push(n);}
+
+      // Trier globalement : ligne par ligne (Y), puis colonne (X)
+      // Regrouper par lignes (Y proches = même rangée)
+      var rows2=[];
+      for(var i=0;i<namedEntries.length;i++){
+        var e=namedEntries[i];
+        var found=false;
+        for(var r=0;r<rows2.length;r++){
+          if(Math.abs(rows2[r].y-e.y)<60){rows2[r].items.push(e);found=true;break;}
+        }
+        if(!found)rows2.push({y:e.y,items:[e]});
       }
-      
-      // Extraire les photos depuis le canvas rendu
-      // Les photos sont disposées en grille dans le PDF
-      // On détecte les zones d'image par leur position
-      extractTrombiPhotos(res.canvas,nomsClean);
+      rows2.sort(function(a,b){return a.y-b.y;});
+
+      var orderedNoms=[];
+      for(var r=0;r<rows2.length;r++){
+        rows2[r].items.sort(function(a,b){return a.x-b.x;});
+        for(var i=0;i<rows2[r].items.length;i++){
+          var nom=rows2[r].items[i].nom.replace(/\s+/g,' ').trim();
+          if(nom.length>1 && orderedNoms.indexOf(nom)<0)orderedNoms.push(nom);
+        }
+      }
+
+      // Correspondre les noms aux élèves de l'app
+      var matchedEleves=[];
+      for(var i=0;i<orderedNoms.length;i++){
+        var nom=orderedNoms[i];
+        var best=null;var bestScore=0;
+        var nomNorm=nom.toLowerCase().replace(/[^a-z]/g,' ').replace(/\s+/g,' ').trim();
+        for(var j=0;j<state.eleves.length;j++){
+          var eNorm=state.eleves[j].nom.toLowerCase().replace(/[^a-z]/g,' ').replace(/\s+/g,' ').trim();
+          // Score basé sur les mots communs
+          var nomWords=nomNorm.split(' ');
+          var eWords=eNorm.split(' ');
+          var common=0;
+          for(var w=0;w<nomWords.length;w++){
+            if(nomWords[w].length>2){
+              for(var v=0;v<eWords.length;v++){
+                if(eWords[v].startsWith(nomWords[w].substring(0,4))||nomWords[w].startsWith(eWords[v].substring(0,4)))common++;
+              }
+            }
+          }
+          if(common>bestScore){bestScore=common;best=state.eleves[j];}
+        }
+        matchedEleves.push({nomPDF:nom,eleve:best,score:bestScore});
+      }
+
+      // Extraire les photos dans le même ordre
+      extractTrombiPhotosOrdered(res.canvas,matchedEleves,rows2);
     });
   }).catch(function(err){
     toast('Erreur lecture PDF: '+err.message,'warn');
   });
 }
 
-function extractTrombiPhotos(canvas,noms){
-  // Le trombinoscope École Direct a une mise en page standard:
-  // 5 colonnes, photos en haut, noms en dessous
-  // On découpe le canvas en zones de photos
-  var ctx=canvas.getContext('2d');
+function extractTrombiPhotosOrdered(canvas,matchedEleves,rows2){
   var W=canvas.width;var H=canvas.height;
-  
-  // Zones approximatives pour 5 colonnes, 3 lignes (15 élèves max)
-  // Marge haut ~15%, largeur colonne ~18%, hauteur photo ~22%
-  var cols=5;
-  var marginLeft=0.03;
-  var marginTop=0.12;
-  var colW=0.185;
-  var rowH=0.28;
-  var photoW=0.13;
-  var photoH=0.2;
-  
   var photos=[];
-  var n=0;
-  outer:
-  for(var row=0;row<4;row++){
-    for(var col=0;col<cols;col++){
-      if(n>=noms.length)break outer;
-      var x=Math.round((marginLeft+col*(colW))*W);
-      var y=Math.round((marginTop+row*rowH)*H);
-      var pw=Math.round(photoW*W);
-      var ph=Math.round(photoH*H);
-      
-      // Compresser à 60x80px pour économiser de l'espace
-      var tmpCanvas=document.createElement('canvas');
-      tmpCanvas.width=60;tmpCanvas.height=80;
-      var tmpCtx=tmpCanvas.getContext('2d');
-      tmpCtx.drawImage(canvas,x,y,pw,ph,0,0,60,80);
-      photos.push(tmpCanvas.toDataURL('image/jpeg',0.6));
-      n++;
+
+  // Calculer la hauteur d'une rangée et la position des photos
+  // Les photos sont au-dessus des noms
+  // Estimer la hauteur de photo = distance entre rangées * 0.7
+  var rowHeight = rows2.length>1 ? (rows2[1].y - rows2[0].y) : H*0.28;
+  var photoH=Math.round(rowHeight*0.72);
+
+  for(var i=0;i<matchedEleves.length;i++){
+    var me=matchedEleves[i];
+    // Trouver la rangée et colonne de cet élève
+    var entryX=0,entryY=0;
+    // Chercher dans rows2
+    outer2:
+    for(var r=0;r<rows2.length;r++){
+      for(var c=0;c<rows2[r].items.length;c++){
+        var item=rows2[r].items[c];
+        var nomNorm=item.nom.toLowerCase().replace(/[^a-z]/g,' ').replace(/\s+/g,' ').trim();
+        var nomPDFNorm=me.nomPDF.toLowerCase().replace(/[^a-z]/g,' ').replace(/\s+/g,' ').trim();
+        if(nomNorm===nomPDFNorm){
+          entryX=item.x;
+          entryY=rows2[r].y;
+          break outer2;
+        }
+      }
     }
+
+    // La photo est au-dessus du nom
+    var photoX=Math.round(entryX-W*0.01);
+    var photoY=Math.round(entryY-photoH-H*0.02);
+    var photoW=Math.round(W*0.13);
+
+    var tmpCanvas=document.createElement('canvas');
+    tmpCanvas.width=60;tmpCanvas.height=80;
+    var tmpCtx=tmpCanvas.getContext('2d');
+    tmpCtx.drawImage(canvas,photoX,photoY,photoW,photoH,0,0,60,80);
+    photos.push(tmpCanvas.toDataURL('image/jpeg',0.7));
   }
-  
-  // Afficher la modale de confirmation
-  openTrombiConfirm(noms,photos);
+
+  openTrombiConfirmOrdered(matchedEleves,photos);
 }
+
+function openTrombiConfirmOrdered(matchedEleves,photos){
+  var modal=ge('m-trombi-confirm');
+  if(!modal)return;
+  var zone=ge('trombi-confirm-list');
+  if(!zone)return;
+
+  var html='';
+  for(var i=0;i<matchedEleves.length;i++){
+    var me=matchedEleves[i];
+    var photo=photos[i]||null;
+    var eleve=me.eleve;
+    var status=eleve?
+      '<span style="color:#56cfb2;font-size:.68rem;font-family:monospace">✓ '+esc(eleve.nom)+'</span>':
+      '<span style="color:#ff6b6b;font-size:.68rem;font-family:monospace">✗ Non trouvé</span>';
+    html+='<div style="display:flex;align-items:center;gap:10px;padding:7px 0;border-bottom:1px solid #1e2438">';
+    if(photo)html+='<img src="'+photo+'" style="width:32px;height:42px;object-fit:cover;border-radius:4px;border:1px solid #1e2438">';
+    else html+='<div style="width:32px;height:42px;background:#111520;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:.8rem">👤</div>';
+    html+='<div style="flex:1"><div style="font-size:.8rem;font-weight:600;color:#e4e6ef">'+esc(me.nomPDF)+'</div>'+status+'</div>';
+    html+='<input type="checkbox" '+(eleve?'checked':'')+'  data-idx="'+i+'" style="width:16px;height:16px;accent-color:#4f8aff">';
+    html+='</div>';
+  }
+  zone.innerHTML=html;
+
+  window._trombiMatchesOrdered={matches:matchedEleves,photos:photos};
+  openM('m-trombi-confirm');
+}
+
 
 function openTrombiConfirm(noms,photos){
   // Construire la liste de correspondances
@@ -3287,31 +3400,46 @@ function openTrombiConfirm(noms,photos){
 }
 
 function confirmTrombiImport(){
-  var matches=window._trombiMatches||[];
+  // Support nouveau format (ordered) et ancien format
+  var newData=window._trombiMatchesOrdered;
   var checkboxes=document.querySelectorAll('#trombi-confirm-list input[type=checkbox]');
-  var created=0;var updated=0;
-  
-  for(var i=0;i<checkboxes.length;i++){
-    if(!checkboxes[i].checked)continue;
-    var m=matches[parseInt(checkboxes[i].dataset.idx)];
-    if(!m)continue;
-    
-    if(m.existing){
-      // Ajouter juste la photo
+  var updated=0;
+
+  if(newData){
+    // Nouveau système avec correspondance élève
+    for(var i=0;i<checkboxes.length;i++){
+      if(!checkboxes[i].checked)continue;
+      var idx2=parseInt(checkboxes[i].dataset.idx);
+      var me=newData.matches[idx2];
+      var photo=newData.photos[idx2];
+      if(!me||!me.eleve||!photo)continue;
+      me.eleve.trombiPhoto=photo;
+      updated++;
+    }
+  } else {
+    // Ancien système
+    var matches=window._trombiMatches||[];
+    for(var i=0;i<checkboxes.length;i++){
+      if(!checkboxes[i].checked)continue;
+      var m=matches[parseInt(checkboxes[i].dataset.idx)];
+      if(!m||!m.existing)continue;
       m.existing.trombiPhoto=m.photo;
       updated++;
-    } else {
-      // Créer l'élève
-      var newE={id:'e'+Date.now()+'_'+i,nom:m.nom,amenagement:'',noteFinale:null,trombiPhoto:m.photo};
-      state.eleves.push(newE);
-      created++;
     }
   }
-  
+
+  // Sauvegarder photos séparément
+  var photosMap={};
+  for(var i=0;i<state.eleves.length;i++){
+    if(state.eleves[i].trombiPhoto)photosMap[state.eleves[i].id]=state.eleves[i].trombiPhoto;
+  }
+  localStorage.setItem(STORAGE_KEY+'-photos',JSON.stringify(photosMap));
   save();
   closeM('m-trombi-confirm');
+  window._trombiMatchesOrdered=null;
+  window._trombiMatches=null;
   renderEleves();
-  toast(updated+' photos ajoutees, '+created+' eleves crees','ok');
+  toast(updated+' photos ajoutees !','ok');
 }
 
 function renderEleves(){var tb=ge('el-tbody');var nmv={'Maitrise insuffisante':1,'Maitrise fragile':2,'Maitrise satisfaisante':3,'Tres bonne maitrise':4};if(!state.eleves.length){tb.innerHTML='<tr><td colspan="5" style="text-align:center;color:#6b7280;padding:2rem">Aucun eleve.</td></tr>';return;}tb.innerHTML='';var sorted=state.eleves.slice().sort(function(a,b){return a.nom.localeCompare(b.nom);});for(var i=0;i<sorted.length;i++){(function(e){var mts=[];for(var j=0;j<state.seances.length;j++){var ae=(state.autoEval[state.seances[j].id]||{})[e.id]||{};if(ae.maitrise1&&nmv[ae.maitrise1])mts.push(nmv[ae.maitrise1]);if(ae.maitrise2&&nmv[ae.maitrise2])mts.push(nmv[ae.maitrise2]);}var mAvg=mts.length>0?mts.reduce(function(a,b){return a+b;},0)/mts.length:null;var mM=mAvg?MAITRISE[Math.round(mAvg)-1]:'';var mMcl=mAvg?(mAvg>=3?'nh':mAvg>=2?'nm':'nl'):'';var hasFiche=e.fiche&&(e.fiche.type||e.fiche.desc);var photoHtml=e.trombiPhoto?'<img class="el-photo" src="'+e.trombiPhoto+'" alt="'+esc(e.nom)+'">':'<div class="el-photo-empty">👤</div>';var tr=document.createElement('tr');tr.innerHTML='<td style="padding:4px 8px 4px 14px">'+photoHtml+'</td><td><span style="font-weight:500;font-size:.85rem">'+esc(e.nom)+'</span></td><td><span class="amen-tag '+(e.amenagement||hasFiche?'has':'none')+'" data-eid="'+e.id+'">'+(e.amenagement||hasFiche?'! '+(e.amenagement||(e.fiche?e.fiche.type:'')):'+Ajouter fiche')+'</span><td><button class="btn btn-g btn-sm" data-eid="'+e.id+'">Modifier</button></td>';tb.appendChild(tr);
