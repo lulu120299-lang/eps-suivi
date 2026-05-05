@@ -1222,9 +1222,7 @@ textarea{resize:vertical;min-height:70px}
       
     
     <div id="seq-aflp-checks" class="aflp-check-grid"></div>
-    <div class="sec-title" style="margin-top:1.2rem">Trame de sequence</div>
-    <div id="seq-trame-container"></div>
-    <button class="add-partie-btn" id="btn-add-trame-seance">+ Ajouter une seance au planning</button>
+
     <div class="modal-acts">
       <button class="btn btn-g" data-close="m-seq">Annuler</button>
       <button class="btn btn-p" id="btn-save-seq">Enregistrer</button>
@@ -3831,12 +3829,12 @@ function geGetAflps(){
     var ranges = [];
     for(var d=0;d<4;d++){
       var n = niveaux[d]||{};
-      var ptsCur = n.pts!=null ? n.pts : Math.floor(mp/4*d);
-      var ptsNext = d<3 ? (niveaux[d+1]||{}).pts : mp;
-      if(ptsNext==null) ptsNext = mp;
-      // La plage va de ptsCur jusqu'à ptsNext-0.5 (ou ptsCur si dernier)
+      var ptsCur = n.pts!=null ? parseFloat(n.pts) : Math.floor(mp/4*d);
+      var ptsNext = d<3 ? parseFloat((niveaux[d+1]||{}).pts||0) : parseFloat(mp);
+      if(d===3) ptsNext = parseFloat(mp);
+      // Plage : de ptsCur à juste avant le niveau suivant (ou max si dernier)
       var pMin = ptsCur;
-      var pMax = d<3 ? Math.max(ptsCur, ptsNext-0.5) : mp;
+      var pMax = d<3 ? Math.max(ptsCur, ptsNext-0.5) : parseFloat(mp);
       ranges.push([pMin, pMax]);
     }
     return {
