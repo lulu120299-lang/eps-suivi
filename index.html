@@ -3834,8 +3834,10 @@ function geGetAflps(){
 function geCalcTotal(eid){
   var aflps = geGetAflps();
   var t = 0;
+  // Lire depuis GE_NOTES OU state.grilleNotes directement
+  var eidNotes = GE_NOTES[eid] || (state.grilleNotes && state.grilleNotes[eid]) || {};
   aflps.forEach(function(a){
-    var entry = ((GE_NOTES[eid]||{})[a.id]||{});
+    var entry = (eidNotes[a.id]||{});
     if(entry.deg>0) t += entry.slider!=null ? entry.slider : a.ranges[entry.deg-1][0];
   });
   return t;
