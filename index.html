@@ -1221,12 +1221,6 @@ textarea{resize:vertical;min-height:70px}
 
       
     
-    <div id="seq-aflp-checks" class="aflp-check-grid"></div>
-
-    <div class="modal-acts">
-      <button class="btn btn-g" data-close="m-seq">Annuler</button>
-      <button class="btn btn-p" id="btn-save-seq">Enregistrer</button>
-    </div>
   </div></div>
   <div class="mb" id="m-profil-plan"><div class="modal">
     <div class="modal-title" id="profil-plan-title">Profil de classe</div>
@@ -3926,6 +3920,14 @@ function geOpenPopup(eid){
 function geCloseOverlay(ev){
   if(ev.target === ge('ge-overlay')) ge('ge-overlay').classList.remove('open');
 }
+// Event delegation pour les sliders
+document.addEventListener('input', function(e){
+  if(e.target && e.target.classList.contains('ge-slider-input')){
+    var eid = e.target.getAttribute('data-eid');
+    var aid = e.target.getAttribute('data-aid');
+    if(eid && aid) geSetSlider(eid, aid, e.target.value);
+  }
+});
 
 function geRenderPopup(){
   var eid = GE_CUR_EID;
@@ -3981,7 +3983,7 @@ function geRenderPopup(){
     if(deg>0 && sMin!==sMax){
       html += '<div class="ge-slider-row">';
       html += '<span style="font-size:.62rem;color:#6b7280">'+sMin+'</span>';
-      html += '<input type="range" min="'+sMin+'" max="'+sMax+'" value="'+slVal+'" step="1" style="flex:1;accent-color:'+degColors[deg]+'" oninput="geSetSlider(\''+eid+'\',\''+a.id+'\',this.value)">';
+      html += '<input type="range" min="'+sMin+'" max="'+sMax+'" value="'+slVal+'" step="0.5" style="flex:1;accent-color:'+degColors[deg]+'" data-eid="'+eid+'" data-aid="'+a.id+'" class="ge-slider-input">';
       html += '<span style="font-size:.62rem;color:#6b7280">'+sMax+'</span>';
       html += '<span class="ge-slider-val" style="color:'+degColors[deg]+'">'+slVal+' pts</span>';
       html += '</div>';
