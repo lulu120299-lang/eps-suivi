@@ -3610,7 +3610,7 @@ css+='.footer{padding:10px 26px;border-top:2px solid #f0f0f0;display:flex;justif
     h+='<div class="sec"><div class="sec-hd"><div class="sec-dot"></div><div class="sec-lbl">Suivi des comp&#233;tences</div><div class="sec-line"></div></div>';
     h+='<table style="margin-bottom:10px"><thead><tr><th class="elh">El&#232;ve</th>';
     for(var ai=0;ai<aflpList.length;ai++)h+='<th>'+esc(aflpList[ai].n)+'<br><span style="font-weight:400;color:#9ca3af;font-size:6.5px">'+esc(aflpList[ai].t.substring(0,35))+'...</span></th>';
-    h+='<th style="background:#fffbeb;color:#b45309">Moy.</th></tr></thead><tbody>';
+    h+='</tr></thead><tbody>';
     for(var ei=0;ei<sorted.length;ei++){
       var e=sorted[ei];var vals=[];
       h+='<tr style="background:'+(ei%2?'#f8f8fc':'#fff')+'"><td class="elt">'+esc(e.nom)+'</td>';
@@ -3626,12 +3626,12 @@ css+='.footer{padding:10px 26px;border-top:2px solid #f0f0f0;display:flex;justif
           else{var ae=(state.autoEval[s.id]||{})[e.id]||{};if(ae.maitrise1&&nmv[ae.maitrise1])lastVal=nmv[ae.maitrise1];else if(ae.maitrise2&&nmv[ae.maitrise2])lastVal=nmv[ae.maitrise2];}
         }
         vals.push(lastVal);
-        if(lastVal>0){var lbl=MAITRISE[lastVal-1];h+='<td><span class="niv" style="background:'+BGLBL[lbl]+';color:'+COLS_PDF[lbl]+'">'+lastVal+'/4</span></td>';}
-        else h+='<td style="color:#d1d5db">—</td>';
+        if(lastVal>0){var lbl=MAITRISE[lastVal-1];h+='<td><span class="niv" style="background:'+BGLBL[lbl]+';color:'+COLS_PDF[lbl]+'">Degr&#233; '+lastVal+'</span></td>';}
+        else{h+='<td style="color:#d1d5db">—</td>';}
       }
-      var vv=vals.filter(function(v){return v>0;});
-      if(vv.length){var avg2=(vv.reduce(function(a,b){return a+b;},0)/vv.length).toFixed(1);var ac=parseFloat(avg2)>=3?COLS_PDF['Maitrise satisfaisante']:parseFloat(avg2)>=2?COLS_PDF['Maitrise fragile']:COLS_PDF['Maitrise insuffisante'];var ab=parseFloat(avg2)>=3?BGLBL['Maitrise satisfaisante']:parseFloat(avg2)>=2?BGLBL['Maitrise fragile']:BGLBL['Maitrise insuffisante'];h+='<td style="background:#fffbeb"><span class="niv" style="background:'+ab+';color:'+ac+'">'+avg2+'</span></td>';}
-      else h+='<td style="background:#fffbeb;color:#d1d5db">—</td>';
+
+
+
       h+='</tr>';
     }
     h+='</tbody></table>';
@@ -3640,7 +3640,7 @@ css+='.footer{padding:10px 26px;border-top:2px solid #f0f0f0;display:flex;justif
   }
 
   h+='<div class="sec"><div class="sec-hd"><div class="sec-dot"></div><div class="sec-lbl">Notes et pr&#233;sences</div><div class="sec-line"></div></div>';
-  h+='<table><thead><tr><th class="elh">El&#232;ve</th><th>Pr&#233;s.</th><th>Abs.</th><th>Disp.</th><th>Qte /4</th><th>Maitrise moy.</th><th>Note /20</th></tr></thead><tbody>';
+  h+='<table><thead><tr><th class="elh">El&#232;ve</th><th>Pr&#233;s.</th><th>Abs.</th><th>Disp.</th><th>Qte /4</th><th>Maitrise auto-eval</th><th>Note /20</th></tr></thead><tbody>';
   for(var ei=0;ei<sorted.length;ei++){
     var e=sorted[ei];var pres=0,abs=0,disp=0,qtes=[],mts=[];
     for(var si=0;si<state.seances.length;si++){var st2=(state.presences[state.seances[si].id]||{})[e.id]||'';if(st2==='Present')pres++;else if(st2==='Absent')abs++;else if(st2==='Dispense')disp++;var ae2=(state.autoEval[state.seances[si].id]||{})[e.id]||{};if(ae2.qte!==undefined&&ae2.qte!=='')qtes.push(parseFloat(ae2.qte));if(ae2.maitrise1&&nmv[ae2.maitrise1])mts.push(nmv[ae2.maitrise1]);if(ae2.maitrise2&&nmv[ae2.maitrise2])mts.push(nmv[ae2.maitrise2]);}
