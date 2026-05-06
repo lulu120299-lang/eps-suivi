@@ -2587,11 +2587,11 @@ function showView(id){
   if(panel)panel.classList.remove('open');
 }
 function renderAll(){
-  try{renderAccueilSuivi();}catch(e){console.log('renderAccueilSuivi err:',e.message);}
-  try{renderStats();}catch(e){console.log('renderStats err:',e.message);}
-  try{renderSeances();}catch(e){console.log('renderSeances err:',e.message);}
+  try{renderAccueilSuivi();}catch(e){toast('Err accueil:'+e.message,'warn');}
+  try{renderStats();}catch(e){toast('Err stats:'+e.message,'warn');}
+  try{renderSeances();}catch(e){toast('Err seances:'+e.message,'warn');}
   try{renderApList();}catch(e){}
-  try{renderEleves();}catch(e){console.log('renderEleves err:',e.message);}
+  try{renderEleves();}catch(e){toast('Err eleves:'+e.message,'warn');}
   try{renderNotes();}catch(e){}
   try{renderBilanComp();}catch(e){}
   try{renderGrille();}catch(e){}
