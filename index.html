@@ -988,6 +988,7 @@ textarea{resize:vertical;min-height:70px}
         <div><div class="ph-title">Ma sequence</div><div class="ph-sub" id="acc-seq-sub"></div></div>
         <div style="display:flex;gap:.5rem">
           <button class="btn btn-g" id="btn-pdf-sequence">&#128196; Export PDF</button>
+          <button class="btn btn-g" id="btn-export-all" onclick="exportTout()">&#128190; Tout exporter</button>
           <button class="btn btn-p" id="btn-edit-seq">Modifier la sequence</button>
         </div>
       </div>
@@ -2647,6 +2648,196 @@ var ssub=ge('ss-n-sub');
 if(ssub)ssub.textContent=restantes3+' restante'+(restantes3>1?'s':'');}
 function seqGet(){return state.seq||{objet:'',objectifs:'',aflpPrio:[],trame:[]};}
 function seqSave(d){state.seq=d;save();}
+function exportTout(){
+  toast('Export en cours...','info');
+  var cls=CTX.cls;var apsa=CTX.apsa;var trim=CTX.trim;
+  var seq=seqGet();
+  var f=cls?cls.filiere:'bacpro';
+  var aflpData=apsa?(AFLP[f]||AFLP.bacpro)[apsa.caFull]:null;
+  var compD=compGetData();
+  var degColors=['','#c0392b','#d4a017','#2980b9','#27ae60'];
+  var degNames=['','Insuffisant','Fragile','Satisfaisant','Tres bien'];
+
+  // ══ 1. PDF COMPLET ══
+  var h='<!DOCTYPE html><html><head><meta charset="utf-8">';
+  h+='<title>Sequence '+esc(apsa?apsa.name:'')+'</title>';
+  h+='<style>';
+  h+='body{font-family:Arial,sans-serif;font-size:12px;color:#1a1a2e;margin:0;padding:0}';
+  h+='.page{padding:30px 40px;max-width:900px;margin:0 auto}';
+  h+='.header{background:#1a1a2e;color:#fff;padding:20px 30px;border-radius:8px;margin-bottom:24px}';
+  h+='.header h1{font-size:22px;margin:0 0 4px}';
+  h+='.header .sub{font-size:13px;opacity:.7}';
+  h+='.section{margin-bottom:28px}';
+  h+='.section-title{font-size:15px;font-weight:700;color:#1a1a2e;border-bottom:2px solid #4f8aff;padding-bottom:6px;margin-bottom:14px}';
+  h+='.comp-text{font-size:13px;color:#333;line-height:1.7;background:#f0f4ff;border-left:4px solid #4f8aff;padding:12px 16px;border-radius:4px;margin-bottom:12px}';
+  h+='.aflp-tag{display:inline-block;background:#4f8aff;color:#fff;padding:2px 10px;border-radius:12px;font-size:11px;font-weight:700;margin:2px}';
+  h+='.seance-card{border:1px solid #dde;border-radius:8px;padding:14px;margin-bottom:14px;page-break-inside:avoid}';
+  h+='.seance-num{background:#4f8aff;color:#fff;padding:2px 10px;border-radius:12px;font-size:11px;font-weight:700;display:inline-block;margin-bottom:8px}';
+  h+='.seance-title{font-size:14px;font-weight:700;color:#1a1a2e;margin-bottom:8px}';
+  h+='.seance-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:8px}';
+  h+='.seance-field label{font-size:10px;font-weight:700;color:#888;text-transform:uppercase;display:block;margin-bottom:3px}';
+  h+='.seance-field p{font-size:12px;color:#333;margin:0;line-height:1.5}';
+  h+='.obj-row{background:#f8f9ff;border-radius:4px;padding:6px 10px;margin:3px 0;font-size:12px}';
+  h+='.obj-label{font-weight:700;color:#4f8aff;font-size:10px;text-transform:uppercase}';
+  h+='table{width:100%;border-collapse:collapse;font-size:11px}';
+  h+='th{background:#1a1a2e;color:#fff;padding:7px 10px;text-align:left}';
+  h+='td{padding:6px 10px;border-bottom:1px solid #eee}';
+  h+='tr:nth-child(even) td{background:#f9f9f9}';
+  h+='.badge{display:inline-block;padding:2px 8px;border-radius:10px;font-size:10px;font-weight:700}';
+  h+='@media print{.page{padding:0}.no-print{display:none}}';
+  h+='</style></head><body><div class="page">';
+
+  // Header
+  h+='<div class="header">';
+  h+='<h1>'+(apsa?esc(apsa.name):'Sequence EPS')+'</h1>';
+  h+='<div class="sub">'+(cls?esc(cls.label):'')+(trim?' &bull; Trimestre '+trim:'')+(apsa?' &bull; '+esc(apsa.ca):'')+'</div>';
+  h+='<div class="sub" style="margin-top:4px">Export du '+new Date().toLocaleDateString('fr-FR')+'</div>';
+  h+='</div>';
+
+  // Section 1 : Compétence attendue
+  h+='<div class="section"><div class="section-title">Comp&eacute;tence attendue</div>';
+  if(aflpData){
+    h+='<div class="comp-text">'+esc(aflpData.competence||'')+'</div>';
+    if(seq&&seq.objet)h+='<div style="font-size:12px;color:#555;margin-bottom:10px"><strong>Objet de s&eacute;quence :</strong> '+esc(seq.objet)+'</div>';
+    aflpData.items.forEach(function(it){
+      h+='<span class="aflp-tag">'+esc(it.n)+'</span>';
+    });
+  }
+  h+='</div>';
+
+  // Section 2 : Séances
+  var seances=state.seances.slice().sort(function(a,b){return (a.num||0)-(b.num||0);});
+  h+='<div class="section"><div class="section-title">S&eacute;ances ('+seances.length+')</div>';
+  seances.forEach(function(s){
+    h+='<div class="seance-card">';
+    h+='<span class="seance-num">S'+(s.num||'?')+'</span>';
+    if(s.date)h+='<span style="float:right;font-size:11px;color:#888">'+esc(s.date)+'</span>';
+    h+='<div class="seance-title">'+esc(s.objectif||'Sans titre')+'</div>';
+    if(s.obj1||s.obj2||s.obj3){
+      h+='<div style="margin-bottom:8px">';
+      if(s.obj1)h+='<div class="obj-row"><span class="obj-label">Objet 1 </span>'+esc(s.obj1)+'</div>';
+      if(s.obj2)h+='<div class="obj-row"><span class="obj-label">Objet 2 </span>'+esc(s.obj2)+'</div>';
+      if(s.obj3)h+='<div class="obj-row"><span class="obj-label">Objet 3 </span>'+esc(s.obj3)+'</div>';
+      h+='</div>';
+    }
+    h+='<div class="seance-grid">';
+    if(s.autreobj)h+='<div class="seance-field"><label>Autres objectifs</label><p>'+esc(s.autreobj)+'</p></div>';
+    if(s.contenus)h+='<div class="seance-field"><label>Contenus d\'enseignement</label><p>'+esc(s.contenus)+'</p></div>';
+    if(s.fps)h+='<div class="seance-field"><label>Partie FPS</label><p>'+esc(s.fps)+'</p></div>';
+    if(s.bilan)h+='<div class="seance-field"><label>Bilan</label><p>'+esc(s.bilan)+'</p></div>';
+    h+='</div>';
+    if((s.aflpTravailles||[]).length){
+      h+='<div style="margin-top:8px">';
+      s.aflpTravailles.forEach(function(a){h+='<span class="aflp-tag" style="background:#2ecc71">'+esc(a)+'</span>';});
+      h+='</div>';
+    }
+    h+='</div>';
+  });
+  h+='</div>';
+
+  // Section 3 : Bilan compétences
+  if(aflpData&&state.eleves.length){
+    h+='<div class="section" style="page-break-before:always"><div class="section-title">Bilan des comp&eacute;tences par &eacute;l&egrave;ve</div>';
+    h+='<table><thead><tr><th>El&egrave;ve</th>';
+    var workedAflp=[];
+    aflpData.items.forEach(function(it){
+      var worked=seances.some(function(s){return (s.aflpTravailles||[]).indexOf(it.n)>=0;});
+      if(worked){workedAflp.push(it);h+='<th>'+esc(it.n)+'</th>';}
+    });
+    h+='<th>Note /20</th></tr></thead><tbody>';
+    var sorted=state.eleves.slice().sort(function(a,b){return a.nom.localeCompare(b.nom);});
+    sorted.forEach(function(e){
+      h+='<tr><td><strong>'+esc(e.nom)+'</strong>'+(e.amenagement?'<br><small style="color:#e67e22">'+esc(e.amenagement)+'</small>':'')+'</td>';
+      workedAflp.forEach(function(it){
+        var lastVal=0;
+        seances.forEach(function(s){var ck=s.id+'__'+it.n+'__'+e.id;if(compD[ck]&&compD[ck]>0)lastVal=compD[ck];});
+        if(lastVal>0){
+          var col=degColors[lastVal];
+          h+='<td><span class="badge" style="background:'+col+'22;color:'+col+';border:1px solid '+col+'44">'+degNames[lastVal]+'</span></td>';
+        } else {
+          h+='<td style="color:#ccc">—</td>';
+        }
+      });
+      var note=geCalcNote(e.id);
+      h+='<td style="font-weight:700;color:'+(note>0?(note>=14?'#27ae60':note>=10?'#2980b9':'#c0392b'):'#ccc')+'">'+(note>0?note+' /20':'—')+'</td>';
+      h+='</tr>';
+    });
+    h+='</tbody></table></div>';
+  }
+
+  // Section 4 : Grille éval détaillée
+  var aflps=geGetAflps();
+  if(state.eleves.length&&aflps.length){
+    h+='<div class="section" style="page-break-before:always"><div class="section-title">Grille d\'&eacute;valuation CCF</div>';
+    h+='<table><thead><tr><th>El&egrave;ve</th>';
+    aflps.forEach(function(a){h+='<th>'+esc(a.label)+'<br><small>/'+a.maxPts+'pts</small></th>';});
+    h+='<th>Total</th><th>Note /20</th></tr></thead><tbody>';
+    var sorted2=state.eleves.slice().sort(function(a,b){return a.nom.localeCompare(b.nom);});
+    sorted2.forEach(function(e){
+      h+='<tr><td><strong>'+esc(e.nom)+'</strong></td>';
+      var eidNotes=GE_NOTES[e.id]||(state.grilleNotes&&state.grilleNotes[e.id])||{};
+      aflps.forEach(function(a){
+        var entry=eidNotes[a.id]||{};var deg=entry.deg||0;
+        var slider=entry.slider!=null?entry.slider:(deg>0?a.ranges[deg-1][0]:0);
+        if(deg>0){
+          var col=degColors[deg];
+          h+='<td><span class="badge" style="background:'+col+'22;color:'+col+';border:1px solid '+col+'44">D'+deg+' — '+slider+'pts</span></td>';
+        } else {
+          h+='<td style="color:#ccc">—</td>';
+        }
+      });
+      var total=geCalcTotal(e.id);var note=geCalcNote(e.id);
+      h+='<td style="font-weight:700">'+total+'</td>';
+      h+='<td style="font-weight:700;color:'+(note>0?(note>=14?'#27ae60':note>=10?'#2980b9':'#c0392b'):'#ccc')+'">'+(note>0?note+' /20':'—')+'</td>';
+      h+='</tr>';
+    });
+    h+='</tbody></table></div>';
+  }
+
+  h+='</div></body></html>';
+
+  // Ouvrir le PDF dans une nouvelle fenêtre pour impression
+  var win=window.open('','_blank');
+  if(win){
+    win.document.write(h);
+    win.document.close();
+    setTimeout(function(){win.print();},500);
+  }
+
+  // ══ 2. JSON PAR SÉANCE ══
+  setTimeout(function(){
+    seances.forEach(function(s,i){
+      setTimeout(function(){
+        var data=JSON.stringify({
+          version:1,
+          exported:new Date().toISOString(),
+          apsa:apsa?apsa.name:'',
+          ca:apsa?apsa.ca:'',
+          seance:{
+            num:s.num,
+            titre:s.objectif||'',
+            obj1:s.obj1||'',
+            obj2:s.obj2||'',
+            obj3:s.obj3||'',
+            date:s.date||'',
+            autreobj:s.autreobj||'',
+            contenus:s.contenus||'',
+            fps:s.fps||'',
+            bilan:s.bilan||'',
+            aflpTravailles:s.aflpTravailles||[],
+            parties:s.parties||[]
+          }
+        },null,2);
+        var a=document.createElement('a');
+        a.href='data:application/json;charset=utf-8,'+encodeURIComponent(data);
+        a.download='S'+(s.num||i+1)+'_'+(s.objectif||'seance').substring(0,20).replace(/[^a-zA-Z0-9]/g,'_')+'.json';
+        a.click();
+      },i*300);
+    });
+    toast('Export termine : PDF + '+seances.length+' JSON','ok');
+  },1000);
+}
+
 function acc2Init(){
   try{var e=ge('acc2-ss-s');if(e)e.textContent=state.seances.length;}catch(ex){}
   try{var e=ge('acc2-ss-e');if(e)e.textContent=state.eleves.length;}catch(ex){}
