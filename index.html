@@ -2580,7 +2580,20 @@ function showView(id){
   var panel=ge('s-more-panel');
   if(panel)panel.classList.remove('open');
 }
-function renderAll(){renderAccueilSuivi();renderStats();renderSeances();renderApList();renderEleves();renderNotes();renderBilanComp();renderGrille();renderProfil();renderComp();renderWidgetAflp();}
+function renderAll(){
+  try{renderAccueilSuivi();}catch(e){console.log('renderAccueilSuivi err:',e.message);}
+  try{renderStats();}catch(e){console.log('renderStats err:',e.message);}
+  try{renderSeances();}catch(e){console.log('renderSeances err:',e.message);}
+  try{renderApList();}catch(e){}
+  try{renderEleves();}catch(e){console.log('renderEleves err:',e.message);}
+  try{renderNotes();}catch(e){}
+  try{renderBilanComp();}catch(e){}
+  try{renderGrille();}catch(e){}
+  try{renderProfil();}catch(e){}
+  try{renderComp();}catch(e){}
+  try{renderWidgetAflp();}catch(e){}
+  try{acc2Init();}catch(e){}
+}
 function highlightEvalAflp(){var worked={};for(var i=0;i<state.seances.length;i++){var t=state.seances[i].aflpTravailles||[];for(var j=0;j<t.length;j++)worked[t[j]]=true;}var items=document.querySelectorAll('.eval-aflp-item');for(var i=0;i<items.length;i++){var n=items[i].querySelector('.eval-n');if(n)items[i].classList.toggle('worked',!!worked[n.textContent]);}}
 function renderStats(){ge('ss-s').textContent=state.seances.length;ge('ss-e').textContent=state.eleves.length;ge('s-pg-sub').textContent=state.eleves.length+' eleves - '+state.seances.length+' seances';var tot=0,pres=0;for(var i=0;i<state.seances.length;i++){for(var j=0;j<state.eleves.length;j++){tot++;var p=state.presences[state.seances[i].id]||{};if((p[state.eleves[j].id]||'')==='Present')pres++;}}ge('ss-p').textContent=tot>0?Math.round(pres/tot*100)+'%':'-';var seq3=seqGet();
 var totalTrame3=(seq3.trame||[]).length;
