@@ -1221,11 +1221,18 @@ textarea{resize:vertical;min-height:70px}
     </div>
     <div id="v-grille" class="view">
       <div class="ph">
-        <div><div class="ph-title">Grille evaluation''">Import JSON</label>
+        <div><div class="ph-title">Grille d'&#233;valuation</div><div class="ph-sub">Cliquez sur un &#233;l&#232;ve pour noter</div></div>
+        <div style="display:flex;gap:8px">
+          <button class="btn btn-g" id="btn-grille-cfg" onclick="openGrilleConfig()">Configurer</button>
+          <button class="btn btn-g" id="btn-grille-csv" onclick="exportGrilleCSV()">Export CSV</button>
+          <button class="btn btn-g" id="btn-grille-export-json" onclick="exportGrilleJSON()">Export JSON</button>
+          <label class="btn btn-g" style="cursor:pointer"><input type="file" id="btn-grille-import-json" accept=".json" style="display:none" onchange="importGrilleJSON(this.files[0]);this.value=''">Import JSON</label>
         </div>
       </div>
-      <div id="ge-grille-recap" style="margin-bottom:16px"></div>
-      <div class="grille-eleves-grid" id="ge-eleves-grid"></div>
+      <div style="display:grid;grid-template-columns:380px 1fr;gap:16px;align-items:start">
+        <div id="ge-grille-recap"></div>
+        <div class="grille-eleves-grid" id="ge-eleves-grid"></div>
+      </div>
 
       <!-- POPUP GRILLE EVAL -->
       <div class="ge-overlay" id="ge-overlay" onclick="geCloseOverlay(event)">
