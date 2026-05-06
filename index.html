@@ -983,74 +983,49 @@ textarea{resize:vertical;min-height:70px}
   </div>
   <div class="s-main">
     <div id="v-accueil" class="view active">
-      <div class="ph">
-        <div><div class="ph-title">Ma séquence</div><div class="ph-sub" id="acc-seq-sub"></div></div>
-        <div style="display:flex;gap:.5rem">
-          <button class="btn btn-g" id="btn-pdf-sequence">&#128196; Export PDF</button>
-          <button class="btn btn-p" id="btn-edit-seq">Modifier la séquence</button>
-        </div>
-      </div>
-
-      <!-- Éléments cachés pour compatibilité JS -->
-      <span id="sc-sub-seances" style="display:none"></span>
-      <span id="sc-sub-eleves" style="display:none"></span>
-      <span id="acc-objet-display" style="display:none"></span>
-      <span id="acc-aflp-display" style="display:none"></span>
-      <span id="acc-next-seance" style="display:none"></span>
-      <span id="acc-trame-display" style="display:none"></span>
-      <div id="widget-panel" style="display:none"></div>
-      <div id="widget-meteo" style="display:none"><div id="widget-body-meteo"><div id="meteo-content"></div></div></div>
-      <div id="widget-cal" style="display:none"><div id="widget-body-cal"><div id="cal-content"></div></div></div>
-      <div id="widget-aflp" style="display:none"><div id="widget-body-aflp"><div id="aflp-content"></div></div></div>
-      <div id="stat-comp-box" style="display:none"></div>
-      <div id="notes-rapides-textarea" style="display:none"></div>
-      <span id="btn-notes-clear" style="display:none"></span>
-
-      <!-- Stats 4 colonnes -->
-      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:10px">
+      <!-- Nouveaux éléments acc2 -->
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:10px" id="acc2-stats-row">
         <div style="background:#1c1c1e;border:0.5px solid rgba(255,255,255,.06);border-radius:12px;padding:11px">
           <div style="font-size:10px;color:#636366;text-transform:uppercase;letter-spacing:.04em;margin-bottom:2px">Séances</div>
-          <div style="font-size:19px;font-weight:600;color:#f5f5f7" id="acc-ss-s">0</div>
+          <div style="font-size:19px;font-weight:600;color:#f5f5f7" id="acc2-ss-s">0</div>
           <div style="font-size:10px;color:#48484a;margin-top:2px">programmées</div>
           <div style="height:2px;background:#2c2c2e;border-radius:1px;margin-top:7px"><div id="acc2-bar-s" style="height:100%;border-radius:1px;background:#30d158;width:0%"></div></div>
         </div>
         <div style="background:#1c1c1e;border:0.5px solid rgba(255,255,255,.06);border-radius:12px;padding:11px">
           <div style="font-size:10px;color:#636366;text-transform:uppercase;letter-spacing:.04em;margin-bottom:2px">Élèves</div>
-          <div style="font-size:19px;font-weight:600;color:#f5f5f7" id="acc-ss-e">0</div>
+          <div style="font-size:19px;font-weight:600;color:#f5f5f7" id="acc2-ss-e">0</div>
           <div style="font-size:10px;color:#48484a;margin-top:2px">dans la classe</div>
           <div style="height:2px;background:#2c2c2e;border-radius:1px;margin-top:7px"><div style="height:100%;border-radius:1px;background:#0a84ff;width:100%"></div></div>
         </div>
         <div style="background:#1c1c1e;border:0.5px solid rgba(255,255,255,.06);border-radius:12px;padding:11px">
           <div style="font-size:10px;color:#636366;text-transform:uppercase;letter-spacing:.04em;margin-bottom:2px">Présence moy.</div>
-          <div style="font-size:19px;font-weight:600;color:#ff9f0a" id="acc-ss-p">—</div>
+          <div style="font-size:19px;font-weight:600;color:#ff9f0a" id="acc2-ss-p">—</div>
           <div style="font-size:10px;color:#48484a;margin-top:2px">sur les séances</div>
           <div style="height:2px;background:#2c2c2e;border-radius:1px;margin-top:7px"><div id="acc2-bar-p" style="height:100%;border-radius:1px;background:#ff9f0a;width:0%"></div></div>
         </div>
         <div style="background:#1c1c1e;border:0.5px solid rgba(255,255,255,.06);border-radius:12px;padding:11px">
           <div style="font-size:10px;color:#636366;text-transform:uppercase;letter-spacing:.04em;margin-bottom:2px">Avancement</div>
-          <div style="font-size:19px;font-weight:600;color:#0a84ff" id="acc-ss-n">0/0</div>
-          <div style="font-size:10px;color:#48484a;margin-top:2px" id="acc-ss-n-sub">restantes</div>
+          <div style="font-size:19px;font-weight:600;color:#0a84ff" id="acc2-ss-n">0/0</div>
+          <div style="font-size:10px;color:#48484a;margin-top:2px" id="acc2-ss-n-sub">restantes</div>
           <div style="height:2px;background:#2c2c2e;border-radius:1px;margin-top:7px"><div id="acc2-bar-n" style="height:100%;border-radius:1px;background:#0a84ff;width:0%"></div></div>
         </div>
       </div>
-
-      <!-- Body 2 colonnes -->
       <div style="display:grid;grid-template-columns:155px 1fr;gap:10px">
         <div style="display:flex;flex-direction:column;gap:8px">
           <div style="background:#1c1c1e;border:0.5px solid rgba(255,255,255,.06);border-radius:12px;padding:11px">
-            <div style="font-size:9px;font-weight:600;color:#636366;text-transform:uppercase;letter-spacing:.06em;margin-bottom:7px;display:flex;align-items:center;gap:4px"><div style="width:5px;height:5px;border-radius:50%;background:#0a84ff"></div>Météo — Lyon</div>
+            <div style="font-size:9px;font-weight:600;color:#636366;text-transform:uppercase;letter-spacing:.06em;margin-bottom:7px">🌤 Météo — Lyon</div>
             <div style="display:flex;align-items:center;gap:8px"><div style="font-size:22px" id="acc2-meteo-icon">⛅</div><div><div style="font-size:18px;font-weight:600;color:#f5f5f7" id="acc2-meteo-temp">--°</div><div style="font-size:10px;color:#48484a" id="acc2-meteo-sub">...</div></div></div>
           </div>
           <div style="background:#1c1c1e;border:0.5px solid rgba(255,255,255,.06);border-radius:12px;padding:11px">
-            <div style="font-size:9px;font-weight:600;color:#636366;text-transform:uppercase;letter-spacing:.06em;margin-bottom:7px;display:flex;align-items:center;gap:4px"><div style="width:5px;height:5px;border-radius:50%;background:#0a84ff"></div>Prochaine séance</div>
+            <div style="font-size:9px;font-weight:600;color:#636366;text-transform:uppercase;letter-spacing:.06em;margin-bottom:7px">📅 Prochaine séance</div>
             <div id="acc2-next-content"><div style="font-size:11px;color:#48484a">Aucune séance</div></div>
           </div>
           <div style="background:#1c1c1e;border:0.5px solid rgba(255,255,255,.06);border-radius:12px;padding:11px">
-            <div style="font-size:9px;font-weight:600;color:#636366;text-transform:uppercase;letter-spacing:.06em;margin-bottom:7px;display:flex;align-items:center;gap:4px"><div style="width:5px;height:5px;border-radius:50%;background:#30d158"></div>Progression AFLP</div>
+            <div style="font-size:9px;font-weight:600;color:#636366;text-transform:uppercase;letter-spacing:.06em;margin-bottom:7px">📊 Progression AFLP</div>
             <div id="acc2-aflp-bars"><div style="font-size:11px;color:#48484a">Aucune donnée</div></div>
           </div>
           <div style="background:#1c1c1e;border:0.5px solid rgba(255,255,255,.06);border-radius:12px;padding:11px">
-            <div style="font-size:9px;font-weight:600;color:#636366;text-transform:uppercase;letter-spacing:.06em;margin-bottom:7px;display:flex;align-items:center;gap:4px"><div style="width:5px;height:5px;border-radius:50%;background:#ff9f0a"></div>Notes rapides</div>
+            <div style="font-size:9px;font-weight:600;color:#636366;text-transform:uppercase;letter-spacing:.06em;margin-bottom:7px">📝 Notes rapides</div>
             <textarea id="acc2-notes" style="width:100%;border:none;outline:none;font-size:11px;color:#ebebf5;background:transparent;resize:none;line-height:1.5;font-family:inherit;min-height:60px" placeholder="Penser à..."></textarea>
           </div>
         </div>
@@ -1075,7 +1050,95 @@ textarea{resize:vertical;min-height:70px}
           </div>
         </div>
       </div>
-    
+      <!-- Anciens éléments cachés (compatibilité JS) -->
+      <div style="display:none">
+      <div class="ph">
+        <div><div class="ph-title">Ma sequence</div><div class="ph-sub" id="acc-seq-sub"></div></div>
+        <div style="display:flex;gap:.5rem">
+          <button class="btn btn-g" id="btn-pdf-sequence">&#128196; Export PDF</button>
+          <button class="btn btn-p" id="btn-edit-seq">Modifier la sequence</button>
+        </div>
+      </div>
+      <div class="g4" style="margin-bottom:1.5rem">
+        <div class="stat bl"><div class="stat-lbl">Seances</div><div class="stat-val" id="acc-ss-s">0</div><div class="stat-sub">programmees</div></div>
+        <div class="stat gr"><div class="stat-lbl">Eleves</div><div class="stat-val" id="acc-ss-e">0</div><div class="stat-sub">dans la classe</div></div>
+        <div class="stat yw"><div class="stat-lbl">Presence moy.</div><div class="stat-val" id="acc-ss-p">-</div><div class="stat-sub">sur les seances</div></div>
+        <div class="stat pu" id="stat-comp-box"><div class="stat-lbl">Seances</div><div class="stat-val" id="acc-ss-n">-</div><div class="stat-sub" id="acc-ss-n-sub">restantes</div></div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.25rem;margin-bottom:1.25rem">
+        <div class="card" style="margin-bottom:0">
+          <div style="font-family:'DM Mono',monospace;font-size:.78rem;text-transform:uppercase;letter-spacing:.1em;color:#4f8aff;margin-bottom:.75rem;font-weight:700">&#127919; Comp&#233;tence attendue</div>
+          <div id="acc-objet-display" style="color:#9aa0b8;font-size:.88rem;line-height:1.6;font-style:italic">Non defini - cliquez sur Modifier la sequence</div>
+          <div style="font-family:'DM Mono',monospace;font-size:.78rem;text-transform:uppercase;letter-spacing:.1em;color:#4f8aff;margin-top:1.1rem;margin-bottom:.6rem;font-weight:700">&#9733; AFLP choisis</div>
+          <div id="acc-aflp-display"></div>
+          <div style="margin-top:1.75rem">
+            <div class="next-seance-card" id="acc-next-seance">
+              <div class="next-seance-empty">Aucune seance a venir</div>
+            </div>
+          </div>
+          <div style="margin-top:1.75rem">
+            <div class="notes-rapides-card">
+              <div class="notes-rapides-lbl">
+                <span>&#128204; Notes rapides</span>
+                <button id="btn-notes-clear" title="Effacer les notes">Effacer</button>
+              </div>
+              <textarea id="notes-rapides-textarea" placeholder="Penser a... / Preparer... / Voir avec..."></textarea>
+            </div>
+          </div>
+
+          <!-- WIDGET PANEL -->
+          <div class="widget-panel" id="widget-panel">
+
+            <!-- MÉTÉO -->
+            <div class="widget-card" id="widget-meteo">
+              <div class="widget-header">
+                <span class="widget-title">&#127777; Météo Lyon</span>
+                <button class="widget-toggle" onclick="toggleWidget('meteo')" title="Afficher/Masquer">&#128065;</button>
+              </div>
+              <div class="widget-body" id="widget-body-meteo">
+                <div id="meteo-content"><div style="font-size:.72rem;color:#4a5070;text-align:center;padding:8px">Chargement...</div></div>
+              </div>
+            </div>
+
+            <!-- CALENDRIER -->
+            <div class="widget-card" id="widget-cal">
+              <div class="widget-header">
+                <span class="widget-title">&#128197; Semaine</span>
+                <button class="widget-toggle" onclick="toggleWidget('cal')" title="Afficher/Masquer">&#128065;</button>
+              </div>
+              <div class="widget-body" id="widget-body-cal">
+                <div id="cal-content"></div>
+              </div>
+            </div>
+
+            <!-- AFLP -->
+            <div class="widget-card" id="widget-aflp">
+              <div class="widget-header">
+                <span class="widget-title">&#128200; Progression AFLP</span>
+                <button class="widget-toggle" onclick="toggleWidget('aflp')" title="Afficher/Masquer">&#128065;</button>
+              </div>
+              <div class="widget-body" id="widget-body-aflp">
+                <div id="aflp-content"></div>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+        <div class="card" style="margin-bottom:0">
+          <div style="font-family:'DM Mono',monospace;font-size:.78rem;text-transform:uppercase;letter-spacing:.1em;color:#a78bfa;margin-bottom:.75rem;font-weight:700">&#128205; Trame de sequence</div>
+          <div id="acc-trame-display"></div>
+        </div>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(6,1fr);gap:.75rem">
+        <div class="acc-shortcut" data-view="v-seances" style="--sc:#4f8aff"><div class="acc-sc-icon">&#128203;</div><div class="acc-sc-label">Seances</div><div class="acc-sc-sub" id="sc-sub-seances">0 seance</div></div>
+        <div class="acc-shortcut" data-view="v-appel" style="--sc:#56cfb2"><div class="acc-sc-icon">&#9995;</div><div class="acc-sc-label">Appel</div><div class="acc-sc-sub">Presences</div></div>
+        <div class="acc-shortcut" data-view="v-eleves" style="--sc:#ffd166"><div class="acc-sc-icon">&#128101;</div><div class="acc-sc-label">Classe</div><div class="acc-sc-sub" id="sc-sub-eleves">0 eleve</div></div>
+        <div class="acc-shortcut" data-view="v-comp" style="--sc:#56cfb2"><div class="acc-sc-icon">&#128200;</div><div class="acc-sc-label">Competences</div><div class="acc-sc-sub">Evolution AFLP</div></div>
+        <div class="acc-shortcut" data-view="v-eval" style="--sc:#ff6b6b"><div class="acc-sc-icon">&#128202;</div><div class="acc-sc-label">Bilan</div><div class="acc-sc-sub">Notes &amp; comp.</div></div>
+        <div class="acc-shortcut" data-view="v-grille" style="--sc:#a78bfa"><div class="acc-sc-icon">&#128221;</div><div class="acc-sc-label">Grille &#233;val</div><div class="acc-sc-sub">Personnalis&#233;e</div></div>
+      </div><!-- fin hidden -->
+    </div>
     <div id="v-seances" class="view">
       <div class="ph">
         <div><div class="ph-title" id="s-pg-title">Sequence</div><div class="ph-sub" id="s-pg-sub"></div></div>
@@ -2574,6 +2637,26 @@ if(ssub)ssub.textContent=restantes3+' restante'+(restantes3>1?'s':'');}
 function seqGet(){return state.seq||{objet:'',objectifs:'',aflpPrio:[],trame:[]};}
 function seqSave(d){state.seq=d;save();}
 function acc2Init(){
+  try{
+    var e=ge('acc2-ss-s');if(e)e.textContent=state.seances.length;
+    var e2=ge('acc2-ss-e');if(e2)e2.textContent=state.eleves.length;
+    var tot=0,pres=0;
+    for(var i=0;i<state.seances.length;i++){
+      for(var j=0;j<state.eleves.length;j++){
+        tot++;var p=state.presences[state.seances[i].id]||{};
+        if((p[state.eleves[j].id]||'')==='Present')pres++;
+      }
+    }
+    var presP=tot>0?Math.round(pres/tot*100):0;
+    var e3=ge('acc2-ss-p');if(e3){e3.textContent=presP>0?presP+'%':'—';}
+    var fait=0;
+    for(var i=0;i<state.seances.length;i++){if(Object.keys(state.presences[state.seances[i].id]||{}).length>0)fait++;}
+    var e4=ge('acc2-ss-n');if(e4)e4.textContent=fait+'/'+state.seances.length;
+    var e5=ge('acc2-ss-n-sub');if(e5)e5.textContent=(state.seances.length-fait)+' restantes';
+    var bs=ge('acc2-bar-s');if(bs)bs.style.width=(state.seances.length>0?Math.round(fait/state.seances.length*100):0)+'%';
+    var bp=ge('acc2-bar-p');if(bp)bp.style.width=presP+'%';
+    var bn=ge('acc2-bar-n');if(bn)bn.style.width=(state.seances.length>0?Math.round(fait/state.seances.length*100):0)+'%';
+  }catch(e){}
   try{acc2RenderMeteo();}catch(e){}
   try{acc2RenderNextSeance();}catch(e){}
   try{acc2RenderAflpBars();}catch(e){}
@@ -2608,10 +2691,7 @@ function acc2RenderNextSeance(){
   var heure=(CTX.cls&&CTX.cls.heure)||'';
   zone.innerHTML='<div style="font-size:10px;font-weight:700;background:rgba(10,132,255,.15);color:#0a84ff;padding:2px 8px;border-radius:5px;display:inline-block;margin-bottom:5px;font-family:monospace">S'+esc(String(next.num||'?'))+'</div>'+
     '<div style="font-size:12px;font-weight:600;color:#f5f5f7;margin-bottom:3px">'+esc(next.objectif||'Sans titre')+'</div>'+
-    '<div style="font-size:10px;color:#48484a;margin-bottom:5px;font-family:monospace">'+esc(next.date||'')+(heure?' · '+heure:'')+'</div>'+
-    '<div style="display:flex;gap:3px;flex-wrap:wrap">'+
-    (next.aflpTravailles||[]).map(function(a){return '<span style="font-size:10px;padding:1px 6px;border-radius:4px;font-weight:600;background:rgba(10,132,255,.12);color:#0a84ff">'+esc(a)+'</span>';}).join('')+
-    '</div>';
+    '<div style="font-size:10px;color:#48484a;font-family:monospace">'+esc(next.date||'')+(heure?' · '+heure:'')+'</div>';
 }
 function acc2RenderAflpBars(){
   var zone=ge('acc2-aflp-bars');if(!zone)return;
@@ -2621,13 +2701,12 @@ function acc2RenderAflpBars(){
   var worked={};
   state.seances.forEach(function(s){(s.aflpTravailles||[]).forEach(function(a){worked[a]=true;});});
   var list=aflpData.items.filter(function(it){return worked[it.n];}).slice(0,5);
-  if(!list.length){zone.innerHTML='<div style="font-size:11px;color:#48484a">Aucun AFLP travaillé</div>';return;}
+  if(!list.length){zone.innerHTML='<div style="font-size:11px;color:#48484a">Aucun AFLP</div>';return;}
   var compD=compGetData();
   zone.innerHTML=list.map(function(it){
     var total=0;
     state.eleves.forEach(function(e){
-      var last=0;
-      state.seances.forEach(function(s){var ck=s.id+'__'+it.n+'__'+e.id;if(compD[ck]&&compD[ck]>0)last=compD[ck];});
+      var last=0;state.seances.forEach(function(s){var ck=s.id+'__'+it.n+'__'+e.id;if(compD[ck]>0)last=compD[ck];});
       if(last>0)total++;
     });
     var pct=state.eleves.length>0?Math.round(total/state.eleves.length*100):0;
@@ -2645,12 +2724,11 @@ function acc2RenderComp(){
   var txt=ge('acc2-comp-text');if(txt&&aflpData)txt.textContent=aflpData.competence||'—';
   var aflps=ge('acc2-comp-aflps');
   if(aflps&&aflpData){
-    var worked={};
-    state.seances.forEach(function(s){(s.aflpTravailles||[]).forEach(function(a){worked[a]=true;});});
-    var cols=['rgba(10,132,255,.12)','rgba(10,132,255,.12)','rgba(255,159,10,.12)','rgba(255,69,58,.12)'];
-    var tc=['#0a84ff','#0a84ff','#ff9f0a','#ff453a'];
+    var worked={};state.seances.forEach(function(s){(s.aflpTravailles||[]).forEach(function(a){worked[a]=true;});});
     aflps.innerHTML=aflpData.items.filter(function(it){return worked[it.n];}).map(function(it,i){
-      return '<span style="font-size:10px;font-weight:600;padding:2px 7px;border-radius:4px;font-family:monospace;background:'+cols[i%4]+';color:'+tc[i%4]+'">'+esc(it.n)+'</span>';
+      var c=['rgba(10,132,255,.12)','rgba(10,132,255,.12)','rgba(255,159,10,.12)','rgba(255,69,58,.12)'][i%4];
+      var t=['#0a84ff','#0a84ff','#ff9f0a','#ff453a'][i%4];
+      return '<span style="font-size:10px;font-weight:600;padding:2px 7px;border-radius:4px;font-family:monospace;background:'+c+';color:'+t+'">'+esc(it.n)+'</span>';
     }).join(' ');
   }
 }
@@ -2672,8 +2750,7 @@ function acc2RenderTrame(){
   var grouped={};var keys=[];
   seances.forEach(function(s,i){
     var obj=(s.objectif||'').trim().substring(0,40)||'Séance '+(i+1);
-    if(!grouped[obj]){grouped[obj]=[];keys.push(obj);}
-    grouped[obj].push(i+1);
+    if(!grouped[obj]){grouped[obj]=[];keys.push(obj);}grouped[obj].push(i+1);
   });
   lz.innerHTML='';
   for(var r=0;r<Math.ceil(keys.length/3);r++){
@@ -2681,8 +2758,7 @@ function acc2RenderTrame(){
     var cursor=1;
     for(var c=0;c<3;c++){
       var ki=r*3+c;if(ki>=keys.length)break;
-      var sns=grouped[keys[ki]];
-      var from=sns[0],to=sns[sns.length-1],col=COLORS[ki%COLORS.length];
+      var sns=grouped[keys[ki]];var from=sns[0],to=sns[sns.length-1],col=COLORS[ki%COLORS.length];
       if(cursor<from){var v=document.createElement('div');v.style.flex=String(from-cursor);row.appendChild(v);}
       var b=document.createElement('div');b.className='acc2-trame-bloc';
       b.style.flex=String(to-from+1);b.style.background=col;b.textContent=keys[ki];
@@ -2709,29 +2785,12 @@ function acc2ShowDetail(s,bloc){
   var det=ge('acc2-det');if(!det)return;det.style.display='block';
   var heure=(CTX.cls&&CTX.cls.heure)||'';
   var col=bloc?bloc.color:'#0a84ff';det.style.borderLeftColor=col;
-  var today=new Date();today.setHours(0,0,0,0);var done=false;
-  if(s.date){var p=s.date.split('-');if(p.length===3){var d=new Date(parseInt(p[0]),parseInt(p[1])-1,parseInt(p[2]));if(d<today)done=true;}}
-  var seances=state.seances.slice().sort(function(a,b){return(a.num||0)-(b.num||0);});
-  var activeIdx=-1;for(var i=0;i<seances.length;i++){if(!seances[i]._done&&activeIdx<0)activeIdx=i;}
-  var isActive=activeIdx>=0&&seances[activeIdx].id===s.id;
-  var st=done?'Réalisée':isActive?'En cours':'À venir';
-  det.innerHTML=
-    '<div style="display:flex;align-items:center;gap:6px;margin-bottom:5px;flex-wrap:wrap">'+
-    '<span style="font-size:10px;font-weight:700;background:rgba(10,132,255,.15);color:#0a84ff;padding:2px 7px;border-radius:4px;font-family:monospace">S'+esc(String(s.num||'?'))+'</span>'+
-    '<span style="font-size:10px;color:#636366;font-family:monospace">'+st+(s.date?' · '+s.date:'')+(heure?' · '+heure:'')+'</span>'+
-    (bloc?'<span style="font-size:10px;font-weight:600;padding:2px 7px;border-radius:4px;background:'+col+'33;color:'+col+'">'+esc(bloc.label)+'</span>':'')+
-    '</div>'+
-    '<div style="font-size:13px;font-weight:600;color:#f5f5f7;margin-bottom:5px">'+esc(s.objectif||'Sans titre')+'</div>'+
-    '<div style="display:flex;gap:3px;flex-wrap:wrap;margin-bottom:6px">'+
+  det.innerHTML='<div style="font-size:13px;font-weight:600;color:#f5f5f7;margin-bottom:5px">'+esc(s.objectif||'Sans titre')+'</div>'+
+    '<div style="display:flex;gap:3px;flex-wrap:wrap;margin-bottom:5px">'+
     (s.aflpTravailles||[]).map(function(a){return '<span style="font-size:10px;background:rgba(10,132,255,.12);color:#0a84ff;padding:1px 6px;border-radius:3px;font-weight:600;font-family:monospace">'+esc(a)+'</span>';}).join('')+
     '</div>'+
-    '<div style="display:grid;grid-template-columns:1fr 1fr;gap:6px">'+
-    '<div style="background:#1c1c1e;border-radius:6px;padding:7px 9px;border:0.5px solid rgba(255,255,255,.06)"><div style="font-size:9px;font-weight:600;color:#636366;text-transform:uppercase;margin-bottom:4px">Autres objectifs</div><div style="font-size:11px;color:#9aa0b8">'+esc(s.autreobj||'—')+'</div></div>'+
-    '<div style="background:#1c1c1e;border-radius:6px;padding:7px 9px;border:0.5px solid rgba(255,255,255,.06)"><div style="font-size:9px;font-weight:600;color:#636366;text-transform:uppercase;margin-bottom:4px">Contenus</div><div style="font-size:11px;color:#9aa0b8">'+esc(s.contenus||'—')+'</div></div>'+
-    '</div>'+
-    '<div style="display:flex;justify-content:flex-end;margin-top:6px">'+
-    '<button style="font-size:10px;font-weight:600;color:#0a84ff;background:rgba(10,132,255,.12);padding:3px 10px;border-radius:20px;border:none;cursor:pointer" onclick="showView(\'v-seances\');openEditS(\''+s.id+'\')">Ouvrir →</button>'+
-    '</div>';
+    '<div style="font-size:10px;color:#48484a;font-family:monospace;margin-bottom:5px">'+(s.date||'')+(heure?' · '+heure:'')+'</div>'+
+    '<button style="font-size:10px;font-weight:600;color:#0a84ff;background:rgba(10,132,255,.12);padding:3px 10px;border-radius:20px;border:none;cursor:pointer" onclick="showView(\'v-seances\');openEditS(\''+s.id+'\')">Ouvrir →</button>';
 }
 function acc2Highlight(n){
   for(var i=1;i<=30;i++){var b=ge('acc2sb'+i);if(b){b.style.outline=i===n?'2px solid #0a84ff':'none';b.style.outlineOffset='2px';}}
