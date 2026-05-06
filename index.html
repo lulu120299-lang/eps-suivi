@@ -2567,6 +2567,12 @@ function showView(id){
   var tab=document.querySelector('.s-tab[data-view="'+id+'"]');
   if(tab)tab.classList.add('active');
   if(id==='v-eval'){highlightEvalAflp();renderBilanComp();}
+  if(id==='v-seances'){try{renderSeances();}catch(e){}}
+  if(id==='v-appel'){try{renderApList();}catch(e){}}
+  if(id==='v-eleves'){try{renderEleves();}catch(e){}}
+  if(id==='v-comp'){try{renderComp();}catch(e){}}
+  if(id==='v-grille'){try{renderGrille();}catch(e){}}
+  if(id==='v-accueil'){try{renderAccueilSuivi();}catch(e){}try{acc2Init();}catch(e){}}
   // Mettre a jour barre bas
   var bnavBtns=document.querySelectorAll('.s-bnav-btn[data-view]');
   for(var i=0;i<bnavBtns.length;i++)bnavBtns[i].classList.remove('active');
