@@ -1221,14 +1221,10 @@ textarea{resize:vertical;min-height:70px}
     </div>
     <div id="v-grille" class="view">
       <div class="ph">
-        <div><div class="ph-title">Grille d'&#233;valuation</div><div class="ph-sub">Cliquez sur un &#233;l&#232;ve pour noter</div></div>
-        <div style="display:flex;gap:8px">
-          <button class="btn btn-g" id="btn-grille-cfg" onclick="openGrilleConfig()">Configurer</button>
-          <button class="btn btn-g" id="btn-grille-csv" onclick="exportGrilleCSV()">Export CSV</button>
-          <button class="btn btn-g" id="btn-grille-export-json" onclick="exportGrilleJSON()">Export JSON</button>
-          <label class="btn btn-g" style="cursor:pointer"><input type="file" id="btn-grille-import-json" accept=".json" style="display:none" onchange="importGrilleJSON(this.files[0]);this.value=''">Import JSON</label>
+        <div><div class="ph-title">Grille evaluation''">Import JSON</label>
         </div>
       </div>
+      <div id="ge-grille-recap" style="margin-bottom:16px"></div>
       <div class="grille-eleves-grid" id="ge-eleves-grid"></div>
 
       <!-- POPUP GRILLE EVAL -->
@@ -1301,8 +1297,7 @@ textarea{resize:vertical;min-height:70px}
       <div class="fgrp full"><label>Objet n&#176;1 de travail</label><input type="text" id="fo2" placeholder="Ex: Conduire son d&#233;placement..."></div>
       <div class="fgrp full"><label>Objet n&#176;2 de travail</label><input type="text" id="fo3" placeholder="Ex: Lire la l&#233;gende..."></div>
       <div class="fgrp full"><label>Objet n&#176;3 de travail</label><input type="text" id="fo4" placeholder="Ex: R&#232;gles de s&#233;curit&#233;..."></div>
-      <div class="fgrp full"><label>Objet n&#176;2 de travail</label><input type="text" id="fo2" placeholder="Ex: Lire la l&#233;gende..."></div>
-      <div class="fgrp full"><label>Objet n&#176;3 de travail</label><input type="text" id="fo3" placeholder="Ex: R&#232;gles de s&#233;curit&#233;..."></div>
+      
       <div class="fgrp full"><label>Autres objectifs de la seance</label><textarea id="fn-autreobj" style="min-height:48px" placeholder="Ex: Cooperation, gestion effort, securite..."></textarea></div>
       <div class="fgrp full"><label>Contenus d enseignement a aborder</label><textarea id="fn-contenus" style="min-height:48px" placeholder="Ex: Lecture de carte, orientation au nord..."></textarea></div>
       <div class="fgrp full"><label>Parties de la FPS abordees</label><textarea id="fn-fps" style="min-height:48px" placeholder="Ex: Echauffement specifique, situation de reference..."></textarea></div>
@@ -4167,7 +4162,7 @@ function geGetAflps(){
       ranges:ranges,
       degs: niveaux.length ? niveaux.map(function(n){
         return n.label+(n.desc?' — '+n.desc:'');
-      }) : ['Insuffisant','Fragile','Satisfaisant','Très bien']
+      }) : ['Insuffisant','Fragile','Satisfaisant','Tres bien']
     };
   });
 }
@@ -4213,6 +4208,39 @@ function renderGrilleEleveGrid(){
   var zone = ge('ge-eleves-grid');
   if(!zone) return;
   var aflps = geGetAflps();
+  // Afficher la grille evaluation en resume
+  var recap = ge('ge-grille-recap');
+  if(recap){
+    var g = grilleGetData();
+    var maxTotal = aflps.reduce(function(s,a){return s+a.maxPts;},0);
+    var degColors = ['','#ff6b6b','#ffd166','#4f8aff','#56cfb2'];
+    var degNames = ['','Insuffisant','Fragile','Satisfaisant','Tres bien'];
+    var h = '<div style="background:#1c1f2c;border:0.5px solid #252836;border-radius:12px;overflow:hidden">';
+    h += '<div style="padding:10px 14px;border-bottom:0.5px solid #252836;display:flex;align-items:center;justify-content:space-between">';
+    h += '<div style="font-size:.8rem;font-weight:700;color:#e4e6ef">'+(g.titre||'Grille evaluation')+'</div>';
+    h += '<div style="font-size:.7rem;color:#6b7280;font-family:monospace">Total : /'+maxTotal+' pts</div>';
+    h += '</div>';
+    h += '<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:0">';
+    aflps.forEach(function(a){
+      h += '<div style="padding:10px 14px;border-right:0.5px solid #252836;border-bottom:0.5px solid #252836">';
+      h += '<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px">';
+      h += '<span style="font-size:.72rem;font-weight:700;color:#4f8aff;font-family:monospace">'+esc(a.label)+'</span>';
+      h += '<span style="font-size:.65rem;color:#6b7280">/'+a.maxPts+' pts</span>';
+      h += '</div>';
+      if(a.desc) h += '<div style="font-size:.62rem;color:#6b7280;margin-bottom:6px;line-height:1.4">'+esc(a.desc)+'</div>';
+      h += '<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:2px">';
+      for(var d=1;d<=4;d++){
+        h += '<div style="background:'+degColors[d]+'18;border:0.5px solid '+degColors[d]+'44;border-radius:4px;padding:3px 4px;text-align:center">';
+        h += '<div style="font-size:.55rem;font-weight:700;color:'+degColors[d]+'">D'+d+'</div>';
+        h += '<div style="font-size:.5rem;color:#9aa0b8;line-height:1.3">'+esc((a.degs&&a.degs[d-1]?a.degs[d-1].split(' — ')[0]:degNames[d]))+'</div>';
+        h += '<div style="font-size:.6rem;color:'+degColors[d]+';font-family:monospace;margin-top:2px">'+a.ranges[d-1][0]+(a.ranges[d-1][0]!==a.ranges[d-1][1]?'-'+a.ranges[d-1][1]:'')+'pt</div>';
+        h += '</div>';
+      }
+      h += '</div></div>';
+    });
+    h += '</div></div>';
+    recap.innerHTML = h;
+  }
   var html = '';
   var sorted = state.eleves.slice().sort(function(a,b){return a.nom.localeCompare(b.nom);});
   sorted.forEach(function(e){
@@ -4284,7 +4312,7 @@ function geRenderPopup(){
   if(!list) return;
   var html = '';
   var degColors = ['','#ff6b6b','#ffd166','#4f8aff','#56cfb2'];
-  var degNames = ['','Insuffisant','Fragile','Satisfaisant','Très bien'];
+  var degNames = ['','Insuffisant','Fragile','Satisfaisant','Tres bien'];
 
   aflps.forEach(function(a){
     var entry = (GE_NOTES[eid]||{})[a.id]||{};
