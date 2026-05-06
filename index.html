@@ -170,7 +170,7 @@ html,body{overflow-x:hidden;max-width:100vw}body{font-family:"DM Sans",sans-seri
 .ge-p-note-wrap .note-big{font-size:1.6rem;font-weight:700}
 .ge-p-note-wrap small{font-size:.72rem;color:#6b7280}
 .ge-p-close{width:26px;height:26px;border-radius:50%;border:1px solid #252836;background:#1e2438;cursor:pointer;font-size:.75rem;color:#9aa0b8;display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.ge-aflp-list{padding:10px 14px;display:flex;flex-direction:column;gap:8px}
+.ge-aflp-list{padding:10px 14px;display:flex;flex-direction:column;gap:10px}
 .ge-aflp-block{border:1px solid #252836;border-radius:8px;overflow:hidden}
 .ge-aflp-title{padding:8px 12px;background:#0d1018;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #252836}
 .ge-aflp-label{font-size:.75rem;font-weight:700;color:#e4e6ef}
@@ -198,7 +198,7 @@ html,body{overflow-x:hidden;max-width:100vw}body{font-family:"DM Sans",sans-seri
 .ge-prog-bar{flex:1;height:4px;background:#1e2438;border-radius:2px;overflow:hidden}
 .ge-prog-fill{height:100%;border-radius:2px;background:#4f8aff;transition:width .3s}
 .ge-prog-lbl{font-size:.65rem;color:#6b7280}
-.acc2-sbox{flex:1;border-radius:8px;padding:6px 3px 5px;cursor:pointer;display:flex;flex-direction:column;align-items:center;border:1.5px solid transparent;transition:all .12s}.acc2-sbox.done{background:#1a2a1a;border-color:#30d158}.acc2-sbox.active{background:#1a2038;border-color:#0a84ff}.acc2-sbox.future{background:#2c2c2e;border-color:#3a3a3c}.acc2-sbox-num{font-size:11px;font-weight:700;font-family:monospace}.acc2-sbox-num.done{color:#30d158}.acc2-sbox-num.active{color:#0a84ff}.acc2-sbox-num.future{color:#48484a}.acc2-sbox-lbl{font-size:8px;color:#48484a;text-align:center;margin-top:2px}.acc2-trame-bloc{display:flex;align-items:center;justify-content:center;border-radius:5px;font-size:10px;font-weight:600;text-align:center;cursor:pointer;padding:3px 6px;overflow:hidden;transition:opacity .12s;color:#fff}.acc2-trame-bloc:hover{opacity:.82}
+.acc2-sbox{flex:1;border-radius:10px;padding:9px 4px 7px;cursor:pointer;display:flex;flex-direction:column;align-items:center;border:1.5px solid transparent;transition:all .12s}.acc2-sbox.done{background:#1a2a1a;border-color:#30d158}.acc2-sbox.active{background:#1a2038;border-color:#0a84ff}.acc2-sbox.future{background:#2c2c2e;border-color:#3a3a3c}.acc2-sbox-num{font-size:12px;font-weight:700;font-family:monospace}.acc2-sbox-num.done{color:#30d158}.acc2-sbox-num.active{color:#0a84ff}.acc2-sbox-num.future{color:#48484a}.acc2-sbox-lbl{font-size:9px;color:#48484a;text-align:center;margin-top:3px}.acc2-trame-bloc{display:flex;align-items:center;justify-content:center;border-radius:6px;font-size:11px;font-weight:600;text-align:center;cursor:pointer;padding:4px 8px;overflow:hidden;transition:opacity .12s;color:#fff}.acc2-trame-bloc:hover{opacity:.82}
 .acc-recent{margin-top:2rem;padding-top:1.5rem;border-top:1px solid #1a1f30}
 .acc-recent-title{font-family:"JetBrains Mono",monospace;font-size:.6rem;text-transform:uppercase;letter-spacing:.18em;color:#4a5070;margin-bottom:.75rem;font-weight:700}
 .acc-chips{display:flex;flex-wrap:wrap;gap:7px}
@@ -1075,12 +1075,12 @@ textarea{resize:vertical;min-height:70px}
 
       <div id="acc2-wrapper">
         <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:10px">
-          <div style="background:#1c1c1e;border:0.5px solid rgba(255,255,255,.06);border-radius:12px;padding:11px"><div style="font-size:10px;color:#636366;text-transform:uppercase;letter-spacing:.04em;margin-bottom:2px">Séances</div><div style="font-size:19px;font-weight:600;color:#f5f5f7" id="acc2-ss-s">0</div><div style="font-size:10px;color:#48484a;margin-top:2px">programmées</div><div style="height:2px;background:#2c2c2e;border-radius:1px;margin-top:7px"><div id="acc2-bar-s" style="height:100%;background:#30d158;width:0%"></div></div></div>
-          <div style="background:#1c1c1e;border:0.5px solid rgba(255,255,255,.06);border-radius:12px;padding:11px"><div style="font-size:10px;color:#636366;text-transform:uppercase;letter-spacing:.04em;margin-bottom:2px">Élèves</div><div style="font-size:19px;font-weight:600;color:#f5f5f7" id="acc2-ss-e">0</div><div style="font-size:10px;color:#48484a;margin-top:2px">dans la classe</div><div style="height:2px;background:#2c2c2e;border-radius:1px;margin-top:7px"><div style="height:100%;background:#0a84ff;width:100%"></div></div></div>
-          <div style="background:#1c1c1e;border:0.5px solid rgba(255,255,255,.06);border-radius:12px;padding:11px"><div style="font-size:10px;color:#636366;text-transform:uppercase;letter-spacing:.04em;margin-bottom:2px">Présence</div><div style="font-size:19px;font-weight:600;color:#ff9f0a" id="acc2-ss-p">—</div><div style="font-size:10px;color:#48484a;margin-top:2px">sur les séances</div><div style="height:2px;background:#2c2c2e;border-radius:1px;margin-top:7px"><div id="acc2-bar-p" style="height:100%;background:#ff9f0a;width:0%"></div></div></div>
-          <div style="background:#1c1c1e;border:0.5px solid rgba(255,255,255,.06);border-radius:12px;padding:11px"><div style="font-size:10px;color:#636366;text-transform:uppercase;letter-spacing:.04em;margin-bottom:2px">Avancement</div><div style="font-size:19px;font-weight:600;color:#0a84ff" id="acc2-ss-n">0/0</div><div style="font-size:10px;color:#48484a;margin-top:2px" id="acc2-ss-n-sub">restantes</div><div style="height:2px;background:#2c2c2e;border-radius:1px;margin-top:7px"><div id="acc2-bar-n" style="height:100%;background:#0a84ff;width:0%"></div></div></div>
+          <div style="background:#1c1c1e;border:0.5px solid rgba(255,255,255,.06);border-radius:12px;padding:14px"><div style="font-size:10px;color:#636366;text-transform:uppercase;letter-spacing:.04em;margin-bottom:4px">Séances</div><div style="font-size:26px;font-weight:600;color:#f5f5f7" id="acc2-ss-s">0</div><div style="font-size:10px;color:#48484a;margin-top:2px">programmées</div><div style="height:2px;background:#2c2c2e;border-radius:1px;margin-top:7px"><div id="acc2-bar-s" style="height:100%;background:#30d158;width:0%"></div></div></div>
+          <div style="background:#1c1c1e;border:0.5px solid rgba(255,255,255,.06);border-radius:12px;padding:14px"><div style="font-size:10px;color:#636366;text-transform:uppercase;letter-spacing:.04em;margin-bottom:4px">Élèves</div><div style="font-size:26px;font-weight:600;color:#f5f5f7" id="acc2-ss-e">0</div><div style="font-size:10px;color:#48484a;margin-top:2px">dans la classe</div><div style="height:2px;background:#2c2c2e;border-radius:1px;margin-top:7px"><div style="height:100%;background:#0a84ff;width:100%"></div></div></div>
+          <div style="background:#1c1c1e;border:0.5px solid rgba(255,255,255,.06);border-radius:12px;padding:14px"><div style="font-size:10px;color:#636366;text-transform:uppercase;letter-spacing:.04em;margin-bottom:4px">Présence</div><div style="font-size:26px;font-weight:600;color:#ff9f0a" id="acc2-ss-p">—</div><div style="font-size:10px;color:#48484a;margin-top:2px">sur les séances</div><div style="height:2px;background:#2c2c2e;border-radius:1px;margin-top:7px"><div id="acc2-bar-p" style="height:100%;background:#ff9f0a;width:0%"></div></div></div>
+          <div style="background:#1c1c1e;border:0.5px solid rgba(255,255,255,.06);border-radius:12px;padding:14px"><div style="font-size:10px;color:#636366;text-transform:uppercase;letter-spacing:.04em;margin-bottom:4px">Avancement</div><div style="font-size:26px;font-weight:600;color:#0a84ff" id="acc2-ss-n">0/0</div><div style="font-size:10px;color:#48484a;margin-top:2px" id="acc2-ss-n-sub">restantes</div><div style="height:2px;background:#2c2c2e;border-radius:1px;margin-top:7px"><div id="acc2-bar-n" style="height:100%;background:#0a84ff;width:0%"></div></div></div>
         </div>
-        <div style="display:grid;grid-template-columns:155px 1fr;gap:10px">
+        <div style="display:grid;grid-template-columns:200px 1fr;gap:10px">
           <div style="display:flex;flex-direction:column;gap:8px">
             <div style="background:#1c1c1e;border:0.5px solid rgba(255,255,255,.06);border-radius:12px;padding:11px"><div style="font-size:9px;font-weight:600;color:#636366;text-transform:uppercase;letter-spacing:.06em;margin-bottom:7px">⛅ Météo — Lyon</div><div style="display:flex;align-items:center;gap:8px"><div style="font-size:22px" id="acc2-meteo-icon">⛅</div><div><div style="font-size:18px;font-weight:600;color:#f5f5f7" id="acc2-meteo-temp">--°</div><div style="font-size:10px;color:#48484a" id="acc2-meteo-sub">...</div></div></div></div>
             <div style="background:#1c1c1e;border:0.5px solid rgba(255,255,255,.06);border-radius:12px;padding:11px"><div style="font-size:9px;font-weight:600;color:#636366;text-transform:uppercase;letter-spacing:.06em;margin-bottom:7px">📅 Prochaine séance</div><div id="acc2-next-content"><div style="font-size:11px;color:#48484a">Aucune séance</div></div></div>
@@ -1088,11 +1088,11 @@ textarea{resize:vertical;min-height:70px}
             <div style="background:#1c1c1e;border:0.5px solid rgba(255,255,255,.06);border-radius:12px;padding:11px"><div style="font-size:9px;font-weight:600;color:#636366;text-transform:uppercase;letter-spacing:.06em;margin-bottom:7px">📝 Notes</div><textarea id="acc2-notes" style="width:100%;border:none;outline:none;font-size:11px;color:#ebebf5;background:transparent;resize:none;line-height:1.5;font-family:inherit;min-height:60px" placeholder="Penser à..."></textarea></div>
           </div>
           <div style="background:#1c1c1e;border:0.5px solid rgba(255,255,255,.06);border-radius:12px;overflow:hidden">
-            <div style="padding:9px 13px;border-bottom:0.5px solid rgba(255,255,255,.06);display:flex;align-items:center;justify-content:space-between"><span style="font-size:9px;font-weight:600;color:#636366;text-transform:uppercase">Fil rouge</span><span style="font-size:11px;color:#48484a;font-family:monospace" id="acc2-fil-prog">--</span></div>
-            <div style="padding:11px 12px">
-              <div style="background:#0d1018;border:0.5px solid rgba(255,255,255,.06);border-radius:8px;padding:9px 11px;margin-bottom:10px">
+            <div style="padding:12px 16px;border-bottom:0.5px solid rgba(255,255,255,.06);display:flex;align-items:center;justify-content:space-between"><span style="font-size:9px;font-weight:600;color:#636366;text-transform:uppercase">Fil rouge</span><span style="font-size:11px;color:#48484a;font-family:monospace" id="acc2-fil-prog">--</span></div>
+            <div style="padding:14px 16px">
+              <div style="background:#0d1018;border:0.5px solid rgba(255,255,255,.06);border-radius:10px;padding:12px 14px;margin-bottom:12px">
                 <div style="display:flex;align-items:center;gap:7px;margin-bottom:5px"><span style="font-size:9px;font-weight:700;background:rgba(48,209,88,.12);color:#30d158;padding:2px 7px;border-radius:4px;font-family:monospace" id="acc2-comp-ca">--</span><span style="font-size:9px;font-weight:600;color:#636366;text-transform:uppercase">Compétence attendue</span></div>
-                <div style="font-size:11px;color:#9aa0b8;line-height:1.6;margin-bottom:7px" id="acc2-comp-text">—</div>
+                <div style="font-size:12px;color:#9aa0b8;line-height:1.7;margin-bottom:9px" id="acc2-comp-text">—</div>
                 <div style="display:flex;gap:4px;flex-wrap:wrap" id="acc2-comp-aflps"></div>
               </div>
               <div style="font-size:9px;font-weight:600;color:#636366;text-transform:uppercase;margin-bottom:6px">Trame de séquence</div>
@@ -2740,7 +2740,7 @@ function acc2RenderTrame(){
     });
     if(!keys.length)continue;
     // Construire la ligne de blocs
-    var row=document.createElement('div');row.style.cssText='display:flex;height:28px;gap:2px;margin-bottom:2px';
+    var row=document.createElement('div');row.style.cssText='display:flex;height:36px;gap:3px;margin-bottom:3px';
     var cursor=1;var colorOffset=fi*3;
     keys.forEach(function(key){
       var sns=grouped[key];var from=sns[0],to=sns[sns.length-1];
