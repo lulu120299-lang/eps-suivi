@@ -1932,7 +1932,7 @@ function ghPull(){
       localStorage.setItem('eps-notes-rapides-'+STORAGE_KEY,state._notes);
       delete state._notes;
     }
-    save();renderAll();reloadNotesRapides();toast('Synchronise !','ok');
+    save();renderAll();reloadNotesRapides();toast('Synchronise ! '+state.seances.length+' seances, '+state.eleves.length+' eleves','ok');
   }).catch(function(e){toast('Erreur: '+e.message,'err');});
 }
 
