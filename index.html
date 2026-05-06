@@ -198,6 +198,21 @@ html,body{overflow-x:hidden;max-width:100vw}body{font-family:"DM Sans",sans-seri
 .ge-prog-bar{flex:1;height:4px;background:#1e2438;border-radius:2px;overflow:hidden}
 .ge-prog-fill{height:100%;border-radius:2px;background:#4f8aff;transition:width .3s}
 .ge-prog-lbl{font-size:.65rem;color:#6b7280}
+.acc2-sbox{flex:1;border-radius:8px;padding:6px 3px 5px;cursor:pointer;display:flex;flex-direction:column;align-items:center;border:1.5px solid transparent;transition:all .12s}
+.acc2-sbox.done{background:#1a2a1a;border-color:#30d158}
+.acc2-sbox.active{background:#1a2038;border-color:#0a84ff;box-shadow:0 0 0 3px rgba(10,132,255,.15)}
+.acc2-sbox.future{background:#2c2c2e;border-color:#3a3a3c}
+.acc2-sbox-num{font-size:11px;font-weight:700;font-family:monospace}
+.acc2-sbox-num.done{color:#30d158}
+.acc2-sbox-num.active{color:#0a84ff}
+.acc2-sbox-num.future{color:#48484a}
+.acc2-sbox-lbl{font-size:8px;color:#48484a;text-align:center;margin-top:2px;line-height:1.2}
+.acc2-sbox.active .acc2-sbox-lbl{color:#9aa0b8}
+.acc2-trame-bloc{display:flex;align-items:center;justify-content:center;border-radius:5px;font-size:10px;font-weight:600;text-align:center;cursor:pointer;padding:3px 6px;line-height:1.2;overflow:hidden;transition:opacity .12s;color:#fff}
+.acc2-trame-bloc:hover{opacity:.82}
+.acc2-det-sec{background:#1c1c1e;border-radius:6px;padding:7px 9px;border:0.5px solid rgba(255,255,255,.06)}
+.acc2-det-sec-lbl{font-size:9px;font-weight:600;color:#636366;text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px}
+.acc2-det-sec-txt{font-size:11px;color:#9aa0b8;line-height:1.5}
 .acc-recent{margin-top:2rem;padding-top:1.5rem;border-top:1px solid #1a1f30}
 .acc-recent-title{font-family:"JetBrains Mono",monospace;font-size:.6rem;text-transform:uppercase;letter-spacing:.18em;color:#4a5070;margin-bottom:.75rem;font-weight:700}
 .acc-chips{display:flex;flex-wrap:wrap;gap:7px}
@@ -982,93 +997,85 @@ textarea{resize:vertical;min-height:70px}
   </div>
   <div class="s-main">
     <div id="v-accueil" class="view active">
-      <div class="ph">
-        <div><div class="ph-title">Ma sequence</div><div class="ph-sub" id="acc-seq-sub"></div></div>
-        <div style="display:flex;gap:.5rem">
-          <button class="btn btn-g" id="btn-pdf-sequence">&#128196; Export PDF</button>
-          <button class="btn btn-p" id="btn-edit-seq">Modifier la sequence</button>
+
+      <!-- STATS -->
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:10px">
+        <div style="background:#1c1c1e;border:0.5px solid rgba(255,255,255,.06);border-radius:12px;padding:11px">
+          <div style="font-size:10px;color:#636366;text-transform:uppercase;letter-spacing:.04em;margin-bottom:2px">Séances</div>
+          <div style="font-size:19px;font-weight:600;color:#f5f5f7;letter-spacing:-.3px" id="acc-ss-s">0</div>
+          <div style="font-size:10px;color:#48484a;margin-top:2px">programmées</div>
+          <div style="height:2px;background:#2c2c2e;border-radius:1px;margin-top:7px;overflow:hidden"><div id="acc2-bar-s" style="height:100%;border-radius:1px;background:#30d158;width:0%"></div></div>
+        </div>
+        <div style="background:#1c1c1e;border:0.5px solid rgba(255,255,255,.06);border-radius:12px;padding:11px">
+          <div style="font-size:10px;color:#636366;text-transform:uppercase;letter-spacing:.04em;margin-bottom:2px">Élèves</div>
+          <div style="font-size:19px;font-weight:600;color:#f5f5f7;letter-spacing:-.3px" id="acc-ss-e">0</div>
+          <div style="font-size:10px;color:#48484a;margin-top:2px">dans la classe</div>
+          <div style="height:2px;background:#2c2c2e;border-radius:1px;margin-top:7px;overflow:hidden"><div style="height:100%;border-radius:1px;background:#0a84ff;width:100%"></div></div>
+        </div>
+        <div style="background:#1c1c1e;border:0.5px solid rgba(255,255,255,.06);border-radius:12px;padding:11px">
+          <div style="font-size:10px;color:#636366;text-transform:uppercase;letter-spacing:.04em;margin-bottom:2px">Présence moy.</div>
+          <div style="font-size:19px;font-weight:600;letter-spacing:-.3px;color:#ff9f0a" id="acc-ss-p">—</div>
+          <div style="font-size:10px;color:#48484a;margin-top:2px">sur les séances</div>
+          <div style="height:2px;background:#2c2c2e;border-radius:1px;margin-top:7px;overflow:hidden"><div id="acc2-bar-p" style="height:100%;border-radius:1px;background:#ff9f0a;width:0%"></div></div>
+        </div>
+        <div style="background:#1c1c1e;border:0.5px solid rgba(255,255,255,.06);border-radius:12px;padding:11px">
+          <div style="font-size:10px;color:#636366;text-transform:uppercase;letter-spacing:.04em;margin-bottom:2px">Avancement</div>
+          <div style="font-size:19px;font-weight:600;color:#0a84ff;letter-spacing:-.3px" id="acc-ss-n">0/0</div>
+          <div style="font-size:10px;color:#48484a;margin-top:2px" id="acc-ss-n-sub">restantes</div>
+          <div style="height:2px;background:#2c2c2e;border-radius:1px;margin-top:7px;overflow:hidden"><div id="acc2-bar-n" style="height:100%;border-radius:1px;background:#0a84ff;width:0%"></div></div>
         </div>
       </div>
-      <div class="g4" style="margin-bottom:1.5rem">
-        <div class="stat bl"><div class="stat-lbl">Seances</div><div class="stat-val" id="acc-ss-s">0</div><div class="stat-sub">programmees</div></div>
-        <div class="stat gr"><div class="stat-lbl">Eleves</div><div class="stat-val" id="acc-ss-e">0</div><div class="stat-sub">dans la classe</div></div>
-        <div class="stat yw"><div class="stat-lbl">Presence moy.</div><div class="stat-val" id="acc-ss-p">-</div><div class="stat-sub">sur les seances</div></div>
-        <div class="stat pu" id="stat-comp-box"><div class="stat-lbl">Seances</div><div class="stat-val" id="acc-ss-n">-</div><div class="stat-sub" id="acc-ss-n-sub">restantes</div></div>
-      </div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.25rem;margin-bottom:1.25rem">
-        <div class="card" style="margin-bottom:0">
-          <div style="font-family:'DM Mono',monospace;font-size:.78rem;text-transform:uppercase;letter-spacing:.1em;color:#4f8aff;margin-bottom:.75rem;font-weight:700">&#127919; Comp&#233;tence attendue</div>
-          <div id="acc-objet-display" style="color:#9aa0b8;font-size:.88rem;line-height:1.6;font-style:italic">Non defini - cliquez sur Modifier la sequence</div>
-          <div style="font-family:'DM Mono',monospace;font-size:.78rem;text-transform:uppercase;letter-spacing:.1em;color:#4f8aff;margin-top:1.1rem;margin-bottom:.6rem;font-weight:700">&#9733; AFLP choisis</div>
-          <div id="acc-aflp-display"></div>
-          <div style="margin-top:1.75rem">
-            <div class="next-seance-card" id="acc-next-seance">
-              <div class="next-seance-empty">Aucune seance a venir</div>
+
+      <!-- BODY 2 COLONNES -->
+      <div style="display:grid;grid-template-columns:155px 1fr;gap:10px">
+
+        <!-- GAUCHE : WIDGETS -->
+        <div style="display:flex;flex-direction:column;gap:8px">
+          <div style="background:#1c1c1e;border:0.5px solid rgba(255,255,255,.06);border-radius:12px;padding:11px">
+            <div style="font-size:9px;font-weight:600;color:#636366;text-transform:uppercase;letter-spacing:.06em;margin-bottom:7px;display:flex;align-items:center;gap:4px"><div style="width:5px;height:5px;border-radius:50%;background:#0a84ff;flex-shrink:0"></div>Météo — Lyon</div>
+            <div style="display:flex;align-items:center;gap:8px">
+              <div style="font-size:22px" id="acc2-meteo-icon">⛅</div>
+              <div><div style="font-size:18px;font-weight:600;color:#f5f5f7" id="acc2-meteo-temp">--°</div><div style="font-size:10px;color:#48484a" id="acc2-meteo-sub">Chargement...</div></div>
             </div>
           </div>
-          <div style="margin-top:1.75rem">
-            <div class="notes-rapides-card">
-              <div class="notes-rapides-lbl">
-                <span>&#128204; Notes rapides</span>
-                <button id="btn-notes-clear" title="Effacer les notes">Effacer</button>
-              </div>
-              <textarea id="notes-rapides-textarea" placeholder="Penser a... / Preparer... / Voir avec..."></textarea>
-            </div>
+          <div style="background:#1c1c1e;border:0.5px solid rgba(255,255,255,.06);border-radius:12px;padding:11px">
+            <div style="font-size:9px;font-weight:600;color:#636366;text-transform:uppercase;letter-spacing:.06em;margin-bottom:7px;display:flex;align-items:center;gap:4px"><div style="width:5px;height:5px;border-radius:50%;background:#0a84ff;flex-shrink:0"></div>Prochaine séance</div>
+            <div id="acc2-next-content"><div style="font-size:11px;color:#48484a">Aucune séance à venir</div></div>
           </div>
-
-          <!-- WIDGET PANEL -->
-          <div class="widget-panel" id="widget-panel">
-
-            <!-- MÉTÉO -->
-            <div class="widget-card" id="widget-meteo">
-              <div class="widget-header">
-                <span class="widget-title">&#127777; Météo Lyon</span>
-                <button class="widget-toggle" onclick="toggleWidget('meteo')" title="Afficher/Masquer">&#128065;</button>
-              </div>
-              <div class="widget-body" id="widget-body-meteo">
-                <div id="meteo-content"><div style="font-size:.72rem;color:#4a5070;text-align:center;padding:8px">Chargement...</div></div>
-              </div>
-            </div>
-
-            <!-- CALENDRIER -->
-            <div class="widget-card" id="widget-cal">
-              <div class="widget-header">
-                <span class="widget-title">&#128197; Semaine</span>
-                <button class="widget-toggle" onclick="toggleWidget('cal')" title="Afficher/Masquer">&#128065;</button>
-              </div>
-              <div class="widget-body" id="widget-body-cal">
-                <div id="cal-content"></div>
-              </div>
-            </div>
-
-            <!-- AFLP -->
-            <div class="widget-card" id="widget-aflp">
-              <div class="widget-header">
-                <span class="widget-title">&#128200; Progression AFLP</span>
-                <button class="widget-toggle" onclick="toggleWidget('aflp')" title="Afficher/Masquer">&#128065;</button>
-              </div>
-              <div class="widget-body" id="widget-body-aflp">
-                <div id="aflp-content"></div>
-              </div>
-            </div>
-
+          <div style="background:#1c1c1e;border:0.5px solid rgba(255,255,255,.06);border-radius:12px;padding:11px">
+            <div style="font-size:9px;font-weight:600;color:#636366;text-transform:uppercase;letter-spacing:.06em;margin-bottom:7px;display:flex;align-items:center;gap:4px"><div style="width:5px;height:5px;border-radius:50%;background:#30d158;flex-shrink:0"></div>Progression AFLP</div>
+            <div id="acc2-aflp-bars"><div style="font-size:11px;color:#48484a">Aucune donnée</div></div>
           </div>
-
+          <div style="background:#1c1c1e;border:0.5px solid rgba(255,255,255,.06);border-radius:12px;padding:11px">
+            <div style="font-size:9px;font-weight:600;color:#636366;text-transform:uppercase;letter-spacing:.06em;margin-bottom:7px;display:flex;align-items:center;gap:4px"><div style="width:5px;height:5px;border-radius:50%;background:#ff9f0a;flex-shrink:0"></div>Notes rapides</div>
+            <textarea id="acc2-notes" style="width:100%;border:none;outline:none;font-size:11px;color:#ebebf5;background:transparent;resize:none;line-height:1.5;font-family:inherit;min-height:60px" placeholder="Penser à... / Préparer..."></textarea>
+          </div>
         </div>
-        <div class="card" style="margin-bottom:0">
-          <div style="font-family:'DM Mono',monospace;font-size:.78rem;text-transform:uppercase;letter-spacing:.1em;color:#a78bfa;margin-bottom:.75rem;font-weight:700">&#128205; Trame de sequence</div>
-          <div id="acc-trame-display"></div>
+
+        <!-- DROITE : FIL ROUGE -->
+        <div style="background:#1c1c1e;border:0.5px solid rgba(255,255,255,.06);border-radius:12px;overflow:hidden">
+          <div style="padding:9px 13px;border-bottom:0.5px solid rgba(255,255,255,.06);display:flex;align-items:center;justify-content:space-between">
+            <span style="font-size:9px;font-weight:600;color:#636366;text-transform:uppercase;letter-spacing:.06em">Fil rouge de la séquence</span>
+            <span style="font-size:11px;color:#48484a;font-family:monospace" id="acc2-fil-prog">--</span>
+          </div>
+          <div style="padding:11px 12px">
+            <div style="background:#0d1018;border:0.5px solid rgba(255,255,255,.06);border-radius:8px;padding:9px 11px;margin-bottom:10px">
+              <div style="display:flex;align-items:center;gap:7px;margin-bottom:5px">
+                <span style="font-size:9px;font-weight:700;background:rgba(48,209,88,.12);color:#30d158;padding:2px 7px;border-radius:4px;font-family:monospace" id="acc2-comp-ca">--</span>
+                <span style="font-size:9px;font-weight:600;color:#636366;text-transform:uppercase;letter-spacing:.06em">Compétence attendue</span>
+              </div>
+              <div style="font-size:11px;color:#9aa0b8;line-height:1.6;margin-bottom:7px" id="acc2-comp-text">—</div>
+              <div style="display:flex;gap:4px;flex-wrap:wrap" id="acc2-comp-aflps"></div>
+            </div>
+            <div style="font-size:9px;font-weight:600;color:#636366;text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px">Trame de séquence</div>
+            <div id="acc2-trame-lignes" style="display:flex;flex-direction:column;gap:2px;margin-bottom:6px"></div>
+            <div id="acc2-seances-ligne" style="display:flex;gap:2px;margin-bottom:10px"></div>
+            <div id="acc2-det" style="display:none;background:#0d1018;border-radius:8px;border:0.5px solid rgba(255,255,255,.06);border-left:2px solid #0a84ff;padding:10px 12px"></div>
+          </div>
         </div>
+
       </div>
-      <div style="display:grid;grid-template-columns:repeat(6,1fr);gap:.75rem">
-        <div class="acc-shortcut" data-view="v-seances" style="--sc:#4f8aff"><div class="acc-sc-icon">&#128203;</div><div class="acc-sc-label">Seances</div><div class="acc-sc-sub" id="sc-sub-seances">0 seance</div></div>
-        <div class="acc-shortcut" data-view="v-appel" style="--sc:#56cfb2"><div class="acc-sc-icon">&#9995;</div><div class="acc-sc-label">Appel</div><div class="acc-sc-sub">Presences</div></div>
-        <div class="acc-shortcut" data-view="v-eleves" style="--sc:#ffd166"><div class="acc-sc-icon">&#128101;</div><div class="acc-sc-label">Classe</div><div class="acc-sc-sub" id="sc-sub-eleves">0 eleve</div></div>
-        <div class="acc-shortcut" data-view="v-comp" style="--sc:#56cfb2"><div class="acc-sc-icon">&#128200;</div><div class="acc-sc-label">Competences</div><div class="acc-sc-sub">Evolution AFLP</div></div>
-        <div class="acc-shortcut" data-view="v-eval" style="--sc:#ff6b6b"><div class="acc-sc-icon">&#128202;</div><div class="acc-sc-label">Bilan</div><div class="acc-sc-sub">Notes &amp; comp.</div></div>
-        <div class="acc-shortcut" data-view="v-grille" style="--sc:#a78bfa"><div class="acc-sc-icon">&#128221;</div><div class="acc-sc-label">Grille &#233;val</div><div class="acc-sc-sub">Personnalis&#233;e</div></div>
-      </div>
-    </div>
+    
     <div id="v-seances" class="view">
       <div class="ph">
         <div><div class="ph-title" id="s-pg-title">Sequence</div><div class="ph-sub" id="s-pg-sub"></div></div>
@@ -2424,17 +2431,7 @@ function accCustom(v){selApsa=v.trim()?{id:'custom',name:v.trim(),ca:'CA?',caFul
 function showAccAflp(apsa){var f=selCls?selCls.filiere:'bacpro';var d=(AFLP[f]||AFLP.bacpro)[apsa.caFull];if(!d){ge('aflp-acc-zone').style.display='none';return;}ge('aflp-acc-zone').style.display='block';ge('aflp-acc-sec-title').textContent=apsa.ca+' - '+apsa.name;ge('aflp-acc-ca-title').textContent=d.titre;var h='';for(var i=0;i<d.items.length;i++)h+='<div class="aflp-acc-item"><span class="aflp-acc-num">'+d.items[i].n+'</span><span>'+d.items[i].t+'</span></div>';ge('aflp-acc-list').innerHTML=h;}
 function accUpd(){ge('acc-s1').className='acc-step'+(selCls?' done':' active');ge('acc-s2').className='acc-step'+(selCls&&!selApsa?' active':selApsa?' done':'');ge('acc-s3').className='acc-step'+(selApsa&&!selTrim?' active':selTrim?' done':'');ge('acc-s4').className='acc-step'+(selApsa&&selTrim?' active':'');var btn=ge('acc-btn'),sum=ge('acc-sum');if(selCls&&selApsa&&selTrim){sum.innerHTML='<em>'+selCls.label+'</em> - '+selApsa.ca+' - '+selApsa.name+' - T'+selTrim;btn.disabled=false;}else if(selCls&&selApsa){sum.textContent=selCls.label+' - '+selApsa.name+' - Choisissez un trimestre';btn.disabled=true;}else if(selCls){sum.textContent=selCls.label+' - Choisissez une APSA';btn.disabled=true;}else{sum.textContent='Choisissez une classe, une APSA et un trimestre';btn.disabled=true;}}
 function accLaunch(cls,apsa,trim){cls=cls||selCls;apsa=apsa||selApsa;trim=trim||selTrim;if(!cls||!apsa||!trim)return;var key='eps-'+cls.id+'-'+apsa.id+'-t'+trim;var sessions=[];try{sessions=JSON.parse(localStorage.getItem('eps-recent')||'[]');}catch(e){}for(var i=sessions.length-1;i>=0;i--){if(sessions[i].key===key)sessions.splice(i,1);}sessions.unshift({key:key,cls:cls,apsa:apsa,trim:trim,ts:Date.now()});localStorage.setItem('eps-recent',JSON.stringify(sessions.slice(0,8)));
-  // Afficher modale de sync
-  window._pendingLaunch={cls:cls,apsa:apsa,key:key,trim:trim};
-  var syncModal=ge('m-sync-confirm');
-  var syncLabel=ge('sync-confirm-cls');
-  if(syncLabel)syncLabel.textContent=cls.label+' — '+apsa.name+' T'+trim;
-  if(syncModal){
-    syncModal.classList.add('open');
-    syncModal.scrollTop=0;
-  } else {
-    openSuivi(cls,apsa,key,trim);
-  }
+  openSuivi(cls,apsa,key,trim);
 }
 function accLaunchWithSync(){
   var p=window._pendingLaunch;if(!p)return;
@@ -2576,6 +2573,235 @@ var ssub=ge('ss-n-sub');
 if(ssub)ssub.textContent=restantes3+' restante'+(restantes3>1?'s':'');}
 function seqGet(){return state.seq||{objet:'',objectifs:'',aflpPrio:[],trame:[]};}
 function seqSave(d){state.seq=d;save();}
+function acc2Init(){
+  try{acc2RenderStats();}catch(e){}
+  try{acc2RenderMeteo();}catch(e){}
+  try{acc2RenderNextSeance();}catch(e){}
+  try{acc2RenderAflpBars();}catch(e){}
+  try{acc2RenderComp();}catch(e){}
+  try{acc2RenderTrame();}catch(e){}
+  try{acc2LoadNotes();}catch(e){}
+}
+
+function acc2RenderStats(){
+  var nbS=state.seances.length,nbE=state.eleves.length;
+  var fait=0,total=0,pres=0;
+  for(var i=0;i<state.seances.length;i++){
+    var pm=state.presences[state.seances[i].id]||{};
+    for(var j=0;j<state.eleves.length;j++){
+      var p=pm[state.eleves[j].id]||'';
+      if(p==='Present'||p==='Absent'||p==='Dispense'){if(p==='Present')pres++;total++;}
+    }
+    if(Object.keys(pm).length>0)fait++;
+  }
+  var presP=total>0?Math.round(pres/total*100):0;
+  function setEl(id,val){var el=ge(id);if(el)el.textContent=val;}
+  function setW(id,pct){var el=ge(id);if(el)el.style.width=pct+'%';}
+  setEl('acc-ss-s',nbS);setEl('acc-ss-e',nbE);
+  setEl('acc-ss-p',presP>0?presP+'%':'—');
+  setEl('acc-ss-n',fait+'/'+nbS);
+  setEl('acc-ss-n-sub',(nbS-fait)+' restantes');
+  setW('acc2-bar-s',nbS>0?Math.round(fait/nbS*100):0);
+  setW('acc2-bar-p',presP);
+  setW('acc2-bar-n',nbS>0?Math.round(fait/nbS*100):0);
+}
+
+function acc2RenderMeteo(){
+  fetch('https://api.open-meteo.com/v1/forecast?latitude=45.748&longitude=4.847&current_weather=true')
+    .then(function(r){return r.json();}).then(function(d){
+      if(!d||!d.current_weather)return;
+      var t=Math.round(d.current_weather.temperature);
+      var wc=d.current_weather.weathercode;
+      var ic=wc<=1?'☀️':wc<=3?'⛅':wc<=48?'🌫️':wc<=67?'🌧️':wc<=77?'🌨️':'⛈️';
+      var el=ge('acc2-meteo-temp');if(el)el.textContent=t+'°';
+      var ic2=ge('acc2-meteo-icon');if(ic2)ic2.textContent=ic;
+      var sub=ge('acc2-meteo-sub');if(sub)sub.textContent='Vent '+Math.round(d.current_weather.windspeed)+' km/h';
+    }).catch(function(){});
+}
+
+function acc2RenderNextSeance(){
+  var zone=ge('acc2-next-content');if(!zone)return;
+  var today=new Date();today.setHours(0,0,0,0);
+  var next=null;
+  for(var i=0;i<state.seances.length;i++){
+    var s=state.seances[i];if(!s.date)continue;
+    var parts=s.date.split('-');if(parts.length<3)continue;
+    var d=new Date(parseInt(parts[0]),parseInt(parts[1])-1,parseInt(parts[2]));
+    if(d>=today){if(!next||d<next.d)next={s:s,d:d};}
+  }
+  if(!next){zone.innerHTML='<div style="font-size:11px;color:#48484a">Aucune séance à venir</div>';return;}
+  var s=next.s;var heure=(CTX.cls&&CTX.cls.heure)||'';
+  var aflpHtml=(s.aflpTravailles||[]).map(function(a){return '<span style="font-size:10px;padding:1px 6px;border-radius:4px;font-weight:600;background:rgba(10,132,255,.12);color:#0a84ff;display:inline-block">'+esc(a)+'</span>';}).join(' ');
+  zone.innerHTML='<div style="font-size:10px;font-weight:700;background:rgba(10,132,255,.15);color:#0a84ff;padding:2px 8px;border-radius:5px;display:inline-block;margin-bottom:5px;font-family:monospace">S'+esc(String(s.num||'?'))+'</div>'+
+    '<div style="font-size:12px;font-weight:600;color:#f5f5f7;line-height:1.4;margin-bottom:3px">'+esc(s.objectif||'Sans titre')+'</div>'+
+    '<div style="font-size:10px;color:#48484a;margin-bottom:6px;font-family:monospace">'+esc(s.date||'')+(heure?' · '+heure:'')+'</div>'+
+    '<div style="display:flex;gap:3px;flex-wrap:wrap">'+aflpHtml+'</div>';
+}
+
+function acc2RenderAflpBars(){
+  var zone=ge('acc2-aflp-bars');if(!zone)return;
+  var f=CTX.cls?CTX.cls.filiere:'bacpro';
+  var aflpData=CTX.apsa?(AFLP[f]||AFLP.bacpro)[CTX.apsa.caFull]:null;
+  if(!aflpData||!state.eleves.length){zone.innerHTML='<div style="font-size:11px;color:#48484a">Aucune donnée</div>';return;}
+  var worked={};
+  for(var i=0;i<state.seances.length;i++){var t=state.seances[i].aflpTravailles||[];for(var j=0;j<t.length;j++)worked[t[j]]=true;}
+  var list=aflpData.items.filter(function(it){return worked[it.n];}).slice(0,5);
+  if(!list.length){zone.innerHTML='<div style="font-size:11px;color:#48484a">Aucun AFLP travaillé</div>';return;}
+  var compD=compGetData();
+  var h='';
+  for(var ai=0;ai<list.length;ai++){
+    var n=list[ai].n;var total2=0;
+    for(var ei=0;ei<state.eleves.length;ei++){
+      var lastVal=0;
+      for(var si=0;si<state.seances.length;si++){var ck=state.seances[si].id+'__'+n+'__'+state.eleves[ei].id;if(compD[ck]&&compD[ck]>0)lastVal=compD[ck];}
+      if(lastVal>0)total2++;
+    }
+    var pct=state.eleves.length>0?Math.round(total2/state.eleves.length*100):0;
+    var col=pct>=75?'#30d158':pct>=50?'#0a84ff':pct>=25?'#ff9f0a':'#ff453a';
+    h+='<div style="display:flex;align-items:center;gap:5px;margin-bottom:4px">';
+    h+='<div style="font-size:9px;color:#636366;width:36px;flex-shrink:0;font-family:monospace;font-weight:600">'+esc(n)+'</div>';
+    h+='<div style="flex:1;height:4px;background:#2c2c2e;border-radius:2px;overflow:hidden"><div style="height:100%;border-radius:2px;background:'+col+';width:'+pct+'%"></div></div>';
+    h+='<div style="font-size:9px;color:#48484a;width:26px;text-align:right;font-family:monospace">'+pct+'%</div>';
+    h+='</div>';
+  }
+  zone.innerHTML=h;
+}
+
+function acc2RenderComp(){
+  var f=CTX.cls?CTX.cls.filiere:'bacpro';
+  var aflpData=CTX.apsa?(AFLP[f]||AFLP.bacpro)[CTX.apsa.caFull]:null;
+  var ca=ge('acc2-comp-ca');var txt=ge('acc2-comp-text');var aflps=ge('acc2-comp-aflps');
+  if(ca&&CTX.apsa)ca.textContent=CTX.apsa.ca||'--';
+  if(txt&&aflpData)txt.textContent=aflpData.competence||'—';
+  if(aflps&&aflpData){
+    var worked={};
+    for(var i=0;i<state.seances.length;i++){var t=state.seances[i].aflpTravailles||[];for(var j=0;j<t.length;j++)worked[t[j]]=true;}
+    var cols=['rgba(10,132,255,.12)','rgba(10,132,255,.12)','rgba(255,159,10,.12)','rgba(255,69,58,.12)'];
+    var tcols=['#0a84ff','#0a84ff','#ff9f0a','#ff453a'];
+    aflps.innerHTML=aflpData.items.filter(function(it){return worked[it.n];}).map(function(it,i){
+      return '<span style="font-size:10px;font-weight:600;padding:2px 7px;border-radius:4px;font-family:monospace;background:'+cols[i%4]+';color:'+tcols[i%4]+'">'+esc(it.n)+'</span>';
+    }).join(' ');
+  }
+}
+
+function acc2RenderTrame(){
+  var lignesZone=ge('acc2-trame-lignes');
+  var seancesZone=ge('acc2-seances-ligne');
+  var progEl=ge('acc2-fil-prog');
+  if(!lignesZone||!seancesZone)return;
+  var seances=state.seances.slice().sort(function(a,b){return (a.num||0)-(b.num||0);});
+  var N=seances.length;
+  if(!N){lignesZone.innerHTML='';seancesZone.innerHTML='<div style="font-size:11px;color:#48484a;padding:4px 0">Aucune séance planifiée</div>';return;}
+  var today=new Date();today.setHours(0,0,0,0);
+  var fait=0;var activeIdx=-1;
+  for(var i=0;i<seances.length;i++){
+    var done=false;
+    if(seances[i].date){var p=seances[i].date.split('-');if(p.length===3){var d=new Date(parseInt(p[0]),parseInt(p[1])-1,parseInt(p[2]));if(d<today)done=true;}}
+    seances[i]._done=done;
+    if(done)fait++;
+    else if(activeIdx<0)activeIdx=i;
+  }
+  if(progEl)progEl.textContent=fait+'/'+N+(activeIdx>=0?' · S'+(seances[activeIdx].num||activeIdx+1)+' en cours':'');
+  // Construire lignes depuis objectifs
+  var COLORS=['#1a5faa','#1a7a35','#b85c00','#6d28d9','#b01a1a','#0e6655','#7a3b00'];
+  var grouped={};var orderedKeys=[];
+  for(var i=0;i<seances.length;i++){
+    var obj=(seances[i].objectif||'').trim().substring(0,40);
+    if(!obj)obj='Séance '+(i+1);
+    if(!grouped[obj]){grouped[obj]=[];orderedKeys.push(obj);}
+    grouped[obj].push(i+1);
+  }
+  var lignes=[];var perRow=3;
+  for(var r=0;r<Math.ceil(orderedKeys.length/perRow);r++){
+    var ligne=[];
+    for(var c=0;c<perRow;c++){
+      var ki=r*perRow+c;if(ki>=orderedKeys.length)break;
+      var sns=grouped[orderedKeys[ki]];
+      ligne.push({from:sns[0],to:sns[sns.length-1],label:orderedKeys[ki],color:COLORS[ki%COLORS.length]});
+    }
+    lignes.push(ligne);
+  }
+  lignesZone.innerHTML='';
+  lignes.forEach(function(ligne){
+    var row=document.createElement('div');
+    row.style.cssText='display:flex;height:28px;gap:2px;margin-bottom:2px';
+    var cursor=1;
+    ligne.forEach(function(bloc){
+      if(cursor<bloc.from){var v=document.createElement('div');v.style.flex=String(bloc.from-cursor);row.appendChild(v);}
+      var b=document.createElement('div');
+      b.className='acc2-trame-bloc';
+      b.style.flex=String(bloc.to-bloc.from+1);
+      b.style.background=bloc.color;
+      b.textContent=bloc.label;
+      b.onclick=(function(from){return function(){var s=seances[from-1];if(s)acc2ShowDetail(s,bloc);};})(bloc.from);
+      row.appendChild(b);cursor=bloc.to+1;
+    });
+    if(cursor<=N){var v=document.createElement('div');v.style.flex=String(N-cursor+1);row.appendChild(v);}
+    lignesZone.appendChild(row);
+  });
+  seancesZone.innerHTML='';
+  seances.forEach(function(s,i){
+    var isActive=i===activeIdx;
+    var st=s._done?'done':isActive?'active':'future';
+    var box=document.createElement('div');
+    box.className='acc2-sbox '+st;
+    box.id='acc2sb'+(i+1);
+    box.onclick=(function(ss,ii){return function(){acc2ShowDetail(ss,null);acc2Highlight(ii+1);};})(s,i);
+    var num=document.createElement('div');num.className='acc2-sbox-num '+st;
+    num.textContent=s._done?'S'+(s.num||i+1)+' ✓':'S'+(s.num||i+1);
+    var lbl=document.createElement('div');lbl.className='acc2-sbox-lbl';
+    lbl.textContent=(s.objectif||'').substring(0,8)+((s.objectif||'').length>8?'…':'');
+    box.appendChild(num);box.appendChild(lbl);seancesZone.appendChild(box);
+  });
+  if(activeIdx>=0)acc2ShowDetail(seances[activeIdx],null);
+  acc2Highlight(activeIdx>=0?seances[activeIdx].num||activeIdx+1:0);
+}
+
+function acc2ShowDetail(s,bloc){
+  var det=ge('acc2-det');if(!det)return;
+  det.style.display='block';
+  var today=new Date();today.setHours(0,0,0,0);
+  var done=false;
+  if(s.date){var p=s.date.split('-');if(p.length===3){var d=new Date(parseInt(p[0]),parseInt(p[1])-1,parseInt(p[2]));if(d<today)done=true;}}
+  var seances=state.seances.slice().sort(function(a,b){return(a.num||0)-(b.num||0);});
+  var activeIdx=-1;for(var i=0;i<seances.length;i++){if(!seances[i]._done&&activeIdx<0)activeIdx=i;}
+  var isActive=seances[activeIdx]&&seances[activeIdx].id===s.id;
+  var st=done?'Réalisée':isActive?'En cours':'À venir';
+  var heure=(CTX.cls&&CTX.cls.heure)||'';
+  var borderCol=bloc?bloc.color:'#0a84ff';
+  det.style.borderLeftColor=borderCol;
+  var aflpHtml=(s.aflpTravailles||[]).map(function(a){return '<span style="font-size:10px;background:rgba(10,132,255,.12);color:#0a84ff;padding:1px 6px;border-radius:3px;font-weight:600;font-family:monospace">'+esc(a)+'</span>';}).join('');
+  var themeHtml=bloc?'<span style="font-size:10px;font-weight:600;padding:2px 7px;border-radius:4px;background:'+borderCol+'33;color:'+borderCol+'">'+esc(bloc.label)+'</span>':'';
+  var seanceData=state.seanceObjectifs&&state.seanceObjectifs[s.id]?state.seanceObjectifs[s.id]:{};
+  det.innerHTML=
+    '<div style="display:flex;align-items:center;gap:6px;margin-bottom:5px;flex-wrap:wrap">'+
+      '<span style="font-size:10px;font-weight:700;background:rgba(10,132,255,.15);color:#0a84ff;padding:2px 7px;border-radius:4px;font-family:monospace">S'+esc(String(s.num||'?'))+'</span>'+
+      '<span style="font-size:10px;color:#636366;font-family:monospace">'+st+(s.date?' · '+s.date:'')+(heure?' · '+heure:'')+'</span>'+
+      themeHtml+
+    '</div>'+
+    '<div style="font-size:13px;font-weight:600;color:#f5f5f7;margin-bottom:5px;letter-spacing:-.2px">'+esc(s.objectif||'Sans titre')+'</div>'+
+    '<div style="display:flex;gap:3px;flex-wrap:wrap;margin-bottom:6px">'+aflpHtml+'</div>'+
+    '<div style="display:grid;grid-template-columns:1fr 1fr;gap:6px">'+
+      '<div class="acc2-det-sec"><div class="acc2-det-sec-lbl">Autres objectifs</div><div class="acc2-det-sec-txt">'+esc(seanceData.obj1||'Non renseigné')+'</div></div>'+
+      '<div class="acc2-det-sec"><div class="acc2-det-sec-lbl">Contenus d\'enseignement</div><div class="acc2-det-sec-txt">'+esc(s.bilan||'Non renseigné')+'</div></div>'+
+    '</div>'+
+    '<div style="display:flex;align-items:center;justify-content:space-between;margin-top:6px">'+
+      '<span style="font-size:10px;color:#48484a;font-family:monospace">'+(s.date||'')+(heure?' · '+heure:'')+'</span>'+
+      '<button style="font-size:10px;font-weight:600;color:#0a84ff;background:rgba(10,132,255,.12);padding:3px 10px;border-radius:20px;border:none;cursor:pointer" onclick="showView(\'v-seances\');openEditS(\''+s.id+'\')">Ouvrir S'+esc(String(s.num||'?'))+' →</button>'+
+    '</div>';
+}
+
+function acc2Highlight(n){
+  for(var i=1;i<=30;i++){var b=ge('acc2sb'+i);if(b){b.style.outline=i===n?'2px solid #0a84ff':'none';b.style.outlineOffset='2px';}}
+}
+
+function acc2LoadNotes(){
+  var n=ge('acc2-notes');if(!n)return;
+  var key='acc2-notes-'+STORAGE_KEY;
+  n.value=localStorage.getItem(key)||'';
+  n.addEventListener('input',function(){localStorage.setItem(key,n.value);});
+}
+
 function renderAccueilSuivi(){ge('acc-ss-s').textContent=state.seances.length;ge('acc-ss-e').textContent=state.eleves.length;ge('sc-sub-seances').textContent=state.seances.length+' seance'+(state.seances.length>1?'s':'');ge('sc-sub-eleves').textContent=state.eleves.length+' eleve'+(state.eleves.length>1?'s':'');var tot=0,pres=0;for(var i=0;i<state.seances.length;i++){for(var j=0;j<state.eleves.length;j++){tot++;var p=state.presences[state.seances[i].id]||{};if((p[state.eleves[j].id]||'Present')==='Present')pres++;}}ge('acc-ss-p').textContent=tot>0?Math.round(pres/tot*100)+'%':'-';var seq2=seqGet();
 var totalTrame=(seq2.trame||[]).length;
 var faitesCount=state.seances.filter(function(s){return s.bilan&&s.bilan.trim();}).length;
@@ -2683,7 +2909,9 @@ if(hasDetails){
   if(fps)h+='<div style="grid-column:1/-1"><div class="trame-detail-lbl">Partie FPS</div><div class="trame-detail-val">'+esc(fps)+'</div></div>';
   h+='</div>';
 }
-h+='</div>';}trameEl.innerHTML=h;}}
+h+='</div>';}trameEl.innerHTML=h;}
+  try{acc2Init();}catch(e){}
+}
 function openSeqModal(){var seq=seqGet();ge('seq-objet').value=seq.objet||'';ge('seq-objectifs').value=seq.objectifs||'';var f=CTX.cls?CTX.cls.filiere:'bacpro';var aflpData=CTX.apsa?(AFLP[f]||AFLP.bacpro)[CTX.apsa.caFull]:null;var c=ge('seq-aflp-checks');c.innerHTML='';if(aflpData){for(var i=0;i<aflpData.items.length;i++){(function(item){var prio=seq.aflpPrio||[];var checked=prio.indexOf(item.n)>=0;var lbl=document.createElement('label');lbl.className='aflp-check-item'+(checked?' checked-item':'');lbl.innerHTML='<input type="checkbox" '+(checked?'checked':'')+'><span class="aflp-check-num">'+item.n+'</span><span class="aflp-check-text">'+item.t+'</span>';lbl.querySelector('input').addEventListener('change',function(){lbl.className='aflp-check-item'+(this.checked?' checked-item':'');});c.appendChild(lbl);})(aflpData.items[i]);}}var tc=ge('seq-trame-container');tc.innerHTML='';var trame=seq.trame||[];for(var i=0;i<trame.length;i++)renderTrameRow(trame[i]);openM('m-seq');}
 function renderTrameRow(t){
   var c=ge('seq-trame-container');
