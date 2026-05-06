@@ -2561,7 +2561,7 @@ function showView(id){
   var panel=ge('s-more-panel');
   if(panel)panel.classList.remove('open');
 }
-function renderAll(){try{renderAccueilSuivi();}catch(e){}try{renderStats();}catch(e){}try{renderSeances();}catch(e){}try{renderApList();}catch(e){}try{renderEleves();}catch(e){}try{renderNotes();}catch(e){}try{renderBilanComp();}catch(e){}try{renderGrille();}catch(e){}try{renderProfil();}catch(e){}try{renderComp();}catch(e){}try{renderWidgetAflp();}catch(e){}try{acc2Init();}catch(e){}}
+function renderAll(){renderAccueilSuivi();renderStats();renderSeances();renderApList();renderEleves();renderNotes();renderBilanComp();renderGrille();renderProfil();renderComp();renderWidgetAflp();try{acc2Init();}catch(e){}}
 function highlightEvalAflp(){var worked={};for(var i=0;i<state.seances.length;i++){var t=state.seances[i].aflpTravailles||[];for(var j=0;j<t.length;j++)worked[t[j]]=true;}var items=document.querySelectorAll('.eval-aflp-item');for(var i=0;i<items.length;i++){var n=items[i].querySelector('.eval-n');if(n)items[i].classList.toggle('worked',!!worked[n.textContent]);}}
 function renderStats(){
   function setT(id,v){var el=ge(id);if(el)el.textContent=v;}
