@@ -393,7 +393,7 @@ textarea{resize:vertical;min-height:70px}
 .pdf-name-item{display:flex;align-items:center;gap:8px;padding:5px 8px;border-radius:5px;font-size:.83rem}
 .pdf-name-item input[type=checkbox]{accent-color:#4f8aff;width:14px;height:14px}
 .mb{display:none;position:fixed;inset:0;z-index:500;background:rgba(0,0,0,.7);overflow-y:auto;-webkit-overflow-scrolling:touch;padding:2rem 1rem 4rem}
-.mb.open{display:block}
+.mb.open{display:block}#m-sync-launch.open{display:flex!important}
 .modal{background:#1c1f2c;border:1px solid #252836;border-radius:16px;padding:1.75rem;width:100%;max-width:700px;margin:0 auto;position:relative}
 .modal-wide{max-width:820px}
 .modal-xl{max-width:960px}
@@ -1586,6 +1586,19 @@ textarea{resize:vertical;min-height:70px}
     <button class="btn btn-p" onclick="saveSeq()">Enregistrer</button>
   </div>
 </div></div>
+
+<div class="mb" id="m-sync-launch" style="display:none;position:fixed;inset:0;z-index:600;background:rgba(0,0,0,.75);align-items:center;justify-content:center">
+  <div style="background:#1c1f2c;border:1px solid #252836;border-radius:16px;padding:28px 24px;max-width:360px;width:90%;text-align:center">
+    <div style="font-size:2rem;margin-bottom:12px">🔄</div>
+    <div style="font-size:1rem;font-weight:700;color:#e4e6ef;margin-bottom:6px">Ouvrir le suivi</div>
+    <div id="m-sync-launch-lbl" style="font-size:.8rem;color:#6b7280;margin-bottom:20px;font-family:monospace"></div>
+    <div style="font-size:.82rem;color:#9aa0b8;margin-bottom:24px;line-height:1.6">Voulez-vous synchroniser depuis GitHub avant d'ouvrir ?</div>
+    <div style="display:flex;flex-direction:column;gap:10px">
+      <button onclick="document.getElementById('m-sync-launch').classList.remove('open');accLaunchWithSync();" style="background:#4f8aff;color:#fff;border:none;border-radius:10px;padding:12px;font-size:.9rem;font-weight:700;cursor:pointer">↓ Synchroniser puis ouvrir</button>
+      <button onclick="document.getElementById('m-sync-launch').classList.remove('open');var p=window._pendingLaunch;if(p)openSuivi(p.cls,p.apsa,p.key,p.trim);" style="background:#2a2d3e;color:#e4e6ef;border:1px solid #252836;border-radius:10px;padding:12px;font-size:.9rem;font-weight:600;cursor:pointer">Ouvrir sans synchroniser</button>
+    </div>
+  </div>
+</div>
 <script>
 var CLASSES_DEFAULT=[{id:'2nde-ener-b',label:'2NDE ENER B',level:'2NDE',sub:'Energie Gr. B',color:'#c8400a',light:'#c8400a0d',filiere:'bacpro',heure:'10h00'},{id:'2nde-mrc-b',label:'2NDE MRC B',level:'2NDE',sub:'MRC Gr. B',color:'#1a6b3a',light:'#1a6b3a0d',filiere:'bacpro',heure:'08h05'},{id:'cap-epc-1',label:'CAP EPC 1',level:'CAP',sub:'Equipier polyvalent de commerce',color:'#1e4fa0',light:'#1e4fa00d',filiere:'cap',heure:'10h00'},{id:'cap-elec-2',label:'CAP ELEC 2',level:'CAP',sub:'Electricite',color:'#7c28b8',light:'#7c28b80d',filiere:'cap',heure:'08h05'},{id:'3e-pm',label:'3e PM',level:'3e',sub:'Prepa Metiers',color:'#a07800',light:'#a078000d',filiere:'col4',heure:'10h00'}];
 var CLASSES=[];
@@ -2480,14 +2493,13 @@ function accCustom(v){selApsa=v.trim()?{id:'custom',name:v.trim(),ca:'CA?',caFul
 function showAccAflp(apsa){var f=selCls?selCls.filiere:'bacpro';var d=(AFLP[f]||AFLP.bacpro)[apsa.caFull];if(!d){ge('aflp-acc-zone').style.display='none';return;}ge('aflp-acc-zone').style.display='block';ge('aflp-acc-sec-title').textContent=apsa.ca+' - '+apsa.name;ge('aflp-acc-ca-title').textContent=d.titre;var h='';for(var i=0;i<d.items.length;i++)h+='<div class="aflp-acc-item"><span class="aflp-acc-num">'+d.items[i].n+'</span><span>'+d.items[i].t+'</span></div>';ge('aflp-acc-list').innerHTML=h;}
 function accUpd(){ge('acc-s1').className='acc-step'+(selCls?' done':' active');ge('acc-s2').className='acc-step'+(selCls&&!selApsa?' active':selApsa?' done':'');ge('acc-s3').className='acc-step'+(selApsa&&!selTrim?' active':selTrim?' done':'');ge('acc-s4').className='acc-step'+(selApsa&&selTrim?' active':'');var btn=ge('acc-btn'),sum=ge('acc-sum');if(selCls&&selApsa&&selTrim){sum.innerHTML='<em>'+selCls.label+'</em> - '+selApsa.ca+' - '+selApsa.name+' - T'+selTrim;btn.disabled=false;}else if(selCls&&selApsa){sum.textContent=selCls.label+' - '+selApsa.name+' - Choisissez un trimestre';btn.disabled=true;}else if(selCls){sum.textContent=selCls.label+' - Choisissez une APSA';btn.disabled=true;}else{sum.textContent='Choisissez une classe, une APSA et un trimestre';btn.disabled=true;}}
 function accLaunch(cls,apsa,trim){cls=cls||selCls;apsa=apsa||selApsa;trim=trim||selTrim;if(!cls||!apsa||!trim)return;var key='eps-'+cls.id+'-'+apsa.id+'-t'+trim;var sessions=[];try{sessions=JSON.parse(localStorage.getItem('eps-recent')||'[]');}catch(e){}for(var i=sessions.length-1;i>=0;i--){if(sessions[i].key===key)sessions.splice(i,1);}sessions.unshift({key:key,cls:cls,apsa:apsa,trim:trim,ts:Date.now()});localStorage.setItem('eps-recent',JSON.stringify(sessions.slice(0,8)));
-  // Si GitHub configuré, proposer la sync avant d'ouvrir
+  window._pendingLaunch={cls:cls,apsa:apsa,key:key,trim:trim};
   if(GH.token && GH.repo){
-    if(confirm('Synchroniser depuis GitHub avant d\'ouvrir ?')){
-      window._pendingLaunch={cls:cls,apsa:apsa,key:key,trim:trim};
-      accLaunchWithSync();
-    } else {
-      openSuivi(cls,apsa,key,trim);
-    }
+    var modal=ge('m-sync-launch');
+    var lbl=ge('m-sync-launch-lbl');
+    if(lbl)lbl.textContent=cls.label+' — '+apsa.name+' T'+trim;
+    if(modal)modal.classList.add('open');
+    else openSuivi(cls,apsa,key,trim);
   } else {
     openSuivi(cls,apsa,key,trim);
   }
