@@ -198,18 +198,7 @@ html,body{overflow-x:hidden;max-width:100vw}body{font-family:"DM Sans",sans-seri
 .ge-prog-bar{flex:1;height:4px;background:#1e2438;border-radius:2px;overflow:hidden}
 .ge-prog-fill{height:100%;border-radius:2px;background:#4f8aff;transition:width .3s}
 .ge-prog-lbl{font-size:.65rem;color:#6b7280}
-.acc2-sbox{flex:1;border-radius:8px;padding:6px 3px 5px;cursor:pointer;display:flex;flex-direction:column;align-items:center;border:1.5px solid transparent;transition:all .12s}
-.acc2-sbox.done{background:#1a2a1a;border-color:#30d158}
-.acc2-sbox.active{background:#1a2038;border-color:#0a84ff;box-shadow:0 0 0 3px rgba(10,132,255,.15)}
-.acc2-sbox.future{background:#2c2c2e;border-color:#3a3a3c}
-.acc2-sbox-num{font-size:11px;font-weight:700;font-family:monospace}
-.acc2-sbox-num.done{color:#30d158}
-.acc2-sbox-num.active{color:#0a84ff}
-.acc2-sbox-num.future{color:#48484a}
-.acc2-sbox-lbl{font-size:8px;color:#48484a;text-align:center;margin-top:2px;line-height:1.2}
-.acc2-sbox.active .acc2-sbox-lbl{color:#9aa0b8}
-.acc2-trame-bloc{display:flex;align-items:center;justify-content:center;border-radius:5px;font-size:10px;font-weight:600;text-align:center;cursor:pointer;padding:3px 6px;line-height:1.2;overflow:hidden;transition:opacity .12s;color:#fff}
-.acc2-trame-bloc:hover{opacity:.82}
+.acc2-sbox{flex:1;border-radius:8px;padding:6px 3px 5px;cursor:pointer;display:flex;flex-direction:column;align-items:center;border:1.5px solid transparent;transition:all .12s}.acc2-sbox.done{background:#1a2a1a;border-color:#30d158}.acc2-sbox.active{background:#1a2038;border-color:#0a84ff;box-shadow:0 0 0 3px rgba(10,132,255,.15)}.acc2-sbox.future{background:#2c2c2e;border-color:#3a3a3c}.acc2-sbox-num{font-size:11px;font-weight:700;font-family:monospace}.acc2-sbox-num.done{color:#30d158}.acc2-sbox-num.active{color:#0a84ff}.acc2-sbox-num.future{color:#48484a}.acc2-sbox-lbl{font-size:8px;color:#48484a;text-align:center;margin-top:2px;line-height:1.2}.acc2-sbox.active .acc2-sbox-lbl{color:#9aa0b8}.acc2-trame-bloc{display:flex;align-items:center;justify-content:center;border-radius:5px;font-size:10px;font-weight:600;text-align:center;cursor:pointer;padding:3px 6px;line-height:1.2;overflow:hidden;transition:opacity .12s;color:#fff}.acc2-trame-bloc:hover{opacity:.82}
 .acc-recent{margin-top:2rem;padding-top:1.5rem;border-top:1px solid #1a1f30}
 .acc-recent-title{font-family:"JetBrains Mono",monospace;font-size:.6rem;text-transform:uppercase;letter-spacing:.18em;color:#4a5070;margin-bottom:.75rem;font-weight:700}
 .acc-chips{display:flex;flex-wrap:wrap;gap:7px}
@@ -994,84 +983,77 @@ textarea{resize:vertical;min-height:70px}
   </div>
   <div class="s-main">
     <div id="v-accueil" class="view active">
-
-      <!-- Éléments cachés pour compatibilité avec renderAccueilSuivi -->
-      <span id="acc-seq-sub" style="display:none"></span>
-      <span id="sc-sub-seances" style="display:none"></span>
-      <span id="sc-sub-eleves" style="display:none"></span>
-      <span id="acc-objet-display" style="display:none"></span>
-      <span id="acc-aflp-display" style="display:none"></span>
-      <span id="acc-next-seance" style="display:none"></span>
-      <span id="acc-trame-display" style="display:none"></span>
-      <span id="notes-rapides-textarea" style="display:none"></span>
-      <span id="btn-notes-clear" style="display:none"></span>
-      <div id="widget-panel" style="display:none"></div>
-      <div id="widget-meteo" style="display:none"><div id="widget-body-meteo"><div id="meteo-content"></div></div></div>
-      <div id="widget-cal" style="display:none"><div id="widget-body-cal"><div id="cal-content"></div></div></div>
-      <div id="widget-aflp" style="display:none"><div id="widget-body-aflp"><div id="aflp-content"></div></div></div>
-      <div id="stat-comp-box" style="display:none"></div>
-
-      <!-- HEADER séquence -->
       <div class="ph">
-        <div><div class="ph-title" id="acc-ph-title">Ma séquence</div></div>
+        <div><div class="ph-title">Ma séquence</div><div class="ph-sub" id="acc-seq-sub"></div></div>
         <div style="display:flex;gap:.5rem">
           <button class="btn btn-g" id="btn-pdf-sequence">&#128196; Export PDF</button>
           <button class="btn btn-p" id="btn-edit-seq">Modifier la séquence</button>
         </div>
       </div>
 
-      <!-- STATS 4 colonnes -->
+      <!-- Éléments cachés pour compatibilité JS -->
+      <span id="sc-sub-seances" style="display:none"></span>
+      <span id="sc-sub-eleves" style="display:none"></span>
+      <span id="acc-objet-display" style="display:none"></span>
+      <span id="acc-aflp-display" style="display:none"></span>
+      <span id="acc-next-seance" style="display:none"></span>
+      <span id="acc-trame-display" style="display:none"></span>
+      <div id="widget-panel" style="display:none"></div>
+      <div id="widget-meteo" style="display:none"><div id="widget-body-meteo"><div id="meteo-content"></div></div></div>
+      <div id="widget-cal" style="display:none"><div id="widget-body-cal"><div id="cal-content"></div></div></div>
+      <div id="widget-aflp" style="display:none"><div id="widget-body-aflp"><div id="aflp-content"></div></div></div>
+      <div id="stat-comp-box" style="display:none"></div>
+      <div id="notes-rapides-textarea" style="display:none"></div>
+      <span id="btn-notes-clear" style="display:none"></span>
+
+      <!-- Stats 4 colonnes -->
       <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:10px">
         <div style="background:#1c1c1e;border:0.5px solid rgba(255,255,255,.06);border-radius:12px;padding:11px">
           <div style="font-size:10px;color:#636366;text-transform:uppercase;letter-spacing:.04em;margin-bottom:2px">Séances</div>
           <div style="font-size:19px;font-weight:600;color:#f5f5f7" id="acc-ss-s">0</div>
           <div style="font-size:10px;color:#48484a;margin-top:2px">programmées</div>
-          <div style="height:2px;background:#2c2c2e;border-radius:1px;margin-top:7px;overflow:hidden"><div id="acc2-bar-s" style="height:100%;border-radius:1px;background:#30d158;width:0%"></div></div>
+          <div style="height:2px;background:#2c2c2e;border-radius:1px;margin-top:7px"><div id="acc2-bar-s" style="height:100%;border-radius:1px;background:#30d158;width:0%"></div></div>
         </div>
         <div style="background:#1c1c1e;border:0.5px solid rgba(255,255,255,.06);border-radius:12px;padding:11px">
           <div style="font-size:10px;color:#636366;text-transform:uppercase;letter-spacing:.04em;margin-bottom:2px">Élèves</div>
           <div style="font-size:19px;font-weight:600;color:#f5f5f7" id="acc-ss-e">0</div>
           <div style="font-size:10px;color:#48484a;margin-top:2px">dans la classe</div>
-          <div style="height:2px;background:#2c2c2e;border-radius:1px;margin-top:7px;overflow:hidden"><div style="height:100%;border-radius:1px;background:#0a84ff;width:100%"></div></div>
+          <div style="height:2px;background:#2c2c2e;border-radius:1px;margin-top:7px"><div style="height:100%;border-radius:1px;background:#0a84ff;width:100%"></div></div>
         </div>
         <div style="background:#1c1c1e;border:0.5px solid rgba(255,255,255,.06);border-radius:12px;padding:11px">
           <div style="font-size:10px;color:#636366;text-transform:uppercase;letter-spacing:.04em;margin-bottom:2px">Présence moy.</div>
           <div style="font-size:19px;font-weight:600;color:#ff9f0a" id="acc-ss-p">—</div>
           <div style="font-size:10px;color:#48484a;margin-top:2px">sur les séances</div>
-          <div style="height:2px;background:#2c2c2e;border-radius:1px;margin-top:7px;overflow:hidden"><div id="acc2-bar-p" style="height:100%;border-radius:1px;background:#ff9f0a;width:0%"></div></div>
+          <div style="height:2px;background:#2c2c2e;border-radius:1px;margin-top:7px"><div id="acc2-bar-p" style="height:100%;border-radius:1px;background:#ff9f0a;width:0%"></div></div>
         </div>
         <div style="background:#1c1c1e;border:0.5px solid rgba(255,255,255,.06);border-radius:12px;padding:11px">
           <div style="font-size:10px;color:#636366;text-transform:uppercase;letter-spacing:.04em;margin-bottom:2px">Avancement</div>
           <div style="font-size:19px;font-weight:600;color:#0a84ff" id="acc-ss-n">0/0</div>
           <div style="font-size:10px;color:#48484a;margin-top:2px" id="acc-ss-n-sub">restantes</div>
-          <div style="height:2px;background:#2c2c2e;border-radius:1px;margin-top:7px;overflow:hidden"><div id="acc2-bar-n" style="height:100%;border-radius:1px;background:#0a84ff;width:0%"></div></div>
+          <div style="height:2px;background:#2c2c2e;border-radius:1px;margin-top:7px"><div id="acc2-bar-n" style="height:100%;border-radius:1px;background:#0a84ff;width:0%"></div></div>
         </div>
       </div>
 
-      <!-- BODY 2 colonnes -->
+      <!-- Body 2 colonnes -->
       <div style="display:grid;grid-template-columns:155px 1fr;gap:10px">
-
-        <!-- GAUCHE : widgets -->
         <div style="display:flex;flex-direction:column;gap:8px">
           <div style="background:#1c1c1e;border:0.5px solid rgba(255,255,255,.06);border-radius:12px;padding:11px">
-            <div style="font-size:9px;font-weight:600;color:#636366;text-transform:uppercase;letter-spacing:.06em;margin-bottom:7px;display:flex;align-items:center;gap:4px"><div style="width:5px;height:5px;border-radius:50%;background:#0a84ff;flex-shrink:0"></div>Météo — Lyon</div>
-            <div style="display:flex;align-items:center;gap:8px"><div style="font-size:22px" id="acc2-meteo-icon">⛅</div><div><div style="font-size:18px;font-weight:600;color:#f5f5f7" id="acc2-meteo-temp">--°</div><div style="font-size:10px;color:#48484a" id="acc2-meteo-sub">Chargement...</div></div></div>
+            <div style="font-size:9px;font-weight:600;color:#636366;text-transform:uppercase;letter-spacing:.06em;margin-bottom:7px;display:flex;align-items:center;gap:4px"><div style="width:5px;height:5px;border-radius:50%;background:#0a84ff"></div>Météo — Lyon</div>
+            <div style="display:flex;align-items:center;gap:8px"><div style="font-size:22px" id="acc2-meteo-icon">⛅</div><div><div style="font-size:18px;font-weight:600;color:#f5f5f7" id="acc2-meteo-temp">--°</div><div style="font-size:10px;color:#48484a" id="acc2-meteo-sub">...</div></div></div>
           </div>
           <div style="background:#1c1c1e;border:0.5px solid rgba(255,255,255,.06);border-radius:12px;padding:11px">
-            <div style="font-size:9px;font-weight:600;color:#636366;text-transform:uppercase;letter-spacing:.06em;margin-bottom:7px;display:flex;align-items:center;gap:4px"><div style="width:5px;height:5px;border-radius:50%;background:#0a84ff;flex-shrink:0"></div>Prochaine séance</div>
-            <div id="acc2-next-content"><div style="font-size:11px;color:#48484a">Aucune séance à venir</div></div>
+            <div style="font-size:9px;font-weight:600;color:#636366;text-transform:uppercase;letter-spacing:.06em;margin-bottom:7px;display:flex;align-items:center;gap:4px"><div style="width:5px;height:5px;border-radius:50%;background:#0a84ff"></div>Prochaine séance</div>
+            <div id="acc2-next-content"><div style="font-size:11px;color:#48484a">Aucune séance</div></div>
           </div>
           <div style="background:#1c1c1e;border:0.5px solid rgba(255,255,255,.06);border-radius:12px;padding:11px">
-            <div style="font-size:9px;font-weight:600;color:#636366;text-transform:uppercase;letter-spacing:.06em;margin-bottom:7px;display:flex;align-items:center;gap:4px"><div style="width:5px;height:5px;border-radius:50%;background:#30d158;flex-shrink:0"></div>Progression AFLP</div>
+            <div style="font-size:9px;font-weight:600;color:#636366;text-transform:uppercase;letter-spacing:.06em;margin-bottom:7px;display:flex;align-items:center;gap:4px"><div style="width:5px;height:5px;border-radius:50%;background:#30d158"></div>Progression AFLP</div>
             <div id="acc2-aflp-bars"><div style="font-size:11px;color:#48484a">Aucune donnée</div></div>
           </div>
           <div style="background:#1c1c1e;border:0.5px solid rgba(255,255,255,.06);border-radius:12px;padding:11px">
-            <div style="font-size:9px;font-weight:600;color:#636366;text-transform:uppercase;letter-spacing:.06em;margin-bottom:7px;display:flex;align-items:center;gap:4px"><div style="width:5px;height:5px;border-radius:50%;background:#ff9f0a;flex-shrink:0"></div>Notes rapides</div>
-            <textarea id="acc2-notes" style="width:100%;border:none;outline:none;font-size:11px;color:#ebebf5;background:transparent;resize:none;line-height:1.5;font-family:inherit;min-height:60px" placeholder="Penser à... / Préparer..."></textarea>
+            <div style="font-size:9px;font-weight:600;color:#636366;text-transform:uppercase;letter-spacing:.06em;margin-bottom:7px;display:flex;align-items:center;gap:4px"><div style="width:5px;height:5px;border-radius:50%;background:#ff9f0a"></div>Notes rapides</div>
+            <textarea id="acc2-notes" style="width:100%;border:none;outline:none;font-size:11px;color:#ebebf5;background:transparent;resize:none;line-height:1.5;font-family:inherit;min-height:60px" placeholder="Penser à..."></textarea>
           </div>
         </div>
-
-        <!-- DROITE : fil rouge -->
         <div style="background:#1c1c1e;border:0.5px solid rgba(255,255,255,.06);border-radius:12px;overflow:hidden">
           <div style="padding:9px 13px;border-bottom:0.5px solid rgba(255,255,255,.06);display:flex;align-items:center;justify-content:space-between">
             <span style="font-size:9px;font-weight:600;color:#636366;text-transform:uppercase;letter-spacing:.06em">Fil rouge de la séquence</span>
@@ -1092,7 +1074,6 @@ textarea{resize:vertical;min-height:70px}
             <div id="acc2-det" style="display:none;background:#0d1018;border-radius:8px;border:0.5px solid rgba(255,255,255,.06);border-left:2px solid #0a84ff;padding:10px 12px"></div>
           </div>
         </div>
-
       </div>
     
     <div id="v-seances" class="view">
@@ -1932,7 +1913,7 @@ function ghPull(){
       localStorage.setItem('eps-notes-rapides-'+STORAGE_KEY,state._notes);
       delete state._notes;
     }
-    save();renderAll();reloadNotesRapides();toast('Synchronise ! '+state.seances.length+' seances, '+state.eleves.length+' eleves','ok');
+    save();renderAll();reloadNotesRapides();toast('Synchronise !','ok');
   }).catch(function(e){toast('Erreur: '+e.message,'err');});
 }
 
@@ -2567,12 +2548,6 @@ function showView(id){
   var tab=document.querySelector('.s-tab[data-view="'+id+'"]');
   if(tab)tab.classList.add('active');
   if(id==='v-eval'){highlightEvalAflp();renderBilanComp();}
-  if(id==='v-seances'){try{renderSeances();}catch(e){}}
-  if(id==='v-appel'){try{renderApList();}catch(e){}}
-  if(id==='v-eleves'){try{renderEleves();}catch(e){}}
-  if(id==='v-comp'){try{renderComp();}catch(e){}}
-  if(id==='v-grille'){try{renderGrille();}catch(e){}}
-  if(id==='v-accueil'){try{renderAccueilSuivi();}catch(e){}try{acc2Init();}catch(e){}}
   // Mettre a jour barre bas
   var bnavBtns=document.querySelectorAll('.s-bnav-btn[data-view]');
   for(var i=0;i<bnavBtns.length;i++)bnavBtns[i].classList.remove('active');
@@ -2586,20 +2561,7 @@ function showView(id){
   var panel=ge('s-more-panel');
   if(panel)panel.classList.remove('open');
 }
-function renderAll(){
-  try{renderAccueilSuivi();}catch(e){toast('Err accueil:'+e.message,'warn');}
-  try{renderStats();}catch(e){toast('Err stats:'+e.message,'warn');}
-  try{renderSeances();}catch(e){toast('Err seances:'+e.message,'warn');}
-  try{renderApList();}catch(e){}
-  try{renderEleves();}catch(e){toast('Err eleves:'+e.message,'warn');}
-  try{renderNotes();}catch(e){}
-  try{renderBilanComp();}catch(e){}
-  try{renderGrille();}catch(e){}
-  try{renderProfil();}catch(e){}
-  try{renderComp();}catch(e){}
-  try{renderWidgetAflp();}catch(e){}
-  try{acc2Init();}catch(e){}
-}
+function renderAll(){renderAccueilSuivi();renderStats();renderSeances();renderApList();renderEleves();renderNotes();renderBilanComp();renderGrille();renderProfil();renderComp();renderWidgetAflp();}
 function highlightEvalAflp(){var worked={};for(var i=0;i<state.seances.length;i++){var t=state.seances[i].aflpTravailles||[];for(var j=0;j<t.length;j++)worked[t[j]]=true;}var items=document.querySelectorAll('.eval-aflp-item');for(var i=0;i<items.length;i++){var n=items[i].querySelector('.eval-n');if(n)items[i].classList.toggle('worked',!!worked[n.textContent]);}}
 function renderStats(){ge('ss-s').textContent=state.seances.length;ge('ss-e').textContent=state.eleves.length;ge('s-pg-sub').textContent=state.eleves.length+' eleves - '+state.seances.length+' seances';var tot=0,pres=0;for(var i=0;i<state.seances.length;i++){for(var j=0;j<state.eleves.length;j++){tot++;var p=state.presences[state.seances[i].id]||{};if((p[state.eleves[j].id]||'')==='Present')pres++;}}ge('ss-p').textContent=tot>0?Math.round(pres/tot*100)+'%':'-';var seq3=seqGet();
 var totalTrame3=(seq3.trame||[]).length;
@@ -2618,134 +2580,119 @@ function acc2Init(){
   try{acc2RenderComp();}catch(e){}
   try{acc2RenderTrame();}catch(e){}
   try{acc2LoadNotes();}catch(e){}
-  // Barres stats
-  var nb=state.seances.length;
-  var fait=0;for(var i=0;i<state.seances.length;i++){if(Object.keys(state.presences[state.seances[i].id]||{}).length>0)fait++;}
-  var el=ge('acc2-bar-s');if(el)el.style.width=(nb>0?Math.round(fait/nb*100):0)+'%';
 }
-
 function acc2RenderMeteo(){
   fetch('https://api.open-meteo.com/v1/forecast?latitude=45.748&longitude=4.847&current_weather=true')
     .then(function(r){return r.json();}).then(function(d){
       if(!d||!d.current_weather)return;
-      var t=Math.round(d.current_weather.temperature);
       var wc=d.current_weather.weathercode;
-      var ic=wc<=1?'☀️':wc<=3?'⛅':wc<=48?'🌫️':wc<=67?'🌧️':wc<=77?'🌨️':'⛈️';
-      var el=ge('acc2-meteo-temp');if(el)el.textContent=t+'°';
-      var ic2=ge('acc2-meteo-icon');if(ic2)ic2.textContent=ic;
-      var sub=ge('acc2-meteo-sub');if(sub)sub.textContent='Vent '+Math.round(d.current_weather.windspeed)+' km/h';
+      var ic=wc<=1?'☀️':wc<=3?'⛅':wc<=48?'🌫️':wc<=67?'🌧️':'⛈️';
+      var e1=ge('acc2-meteo-temp');if(e1)e1.textContent=Math.round(d.current_weather.temperature)+'°';
+      var e2=ge('acc2-meteo-icon');if(e2)e2.textContent=ic;
+      var e3=ge('acc2-meteo-sub');if(e3)e3.textContent='Vent '+Math.round(d.current_weather.windspeed)+' km/h';
     }).catch(function(){});
 }
-
 function acc2RenderNextSeance(){
   var zone=ge('acc2-next-content');if(!zone)return;
   var today=new Date();today.setHours(0,0,0,0);
-  var next=null;
   var sorted=state.seances.slice().sort(function(a,b){return (a.num||0)-(b.num||0);});
+  var next=null;
   for(var i=0;i<sorted.length;i++){
-    var s=sorted[i];if(!s.date)continue;
-    var p=s.date.split('-');if(p.length<3)continue;
+    if(!sorted[i].date)continue;
+    var p=sorted[i].date.split('-');if(p.length<3)continue;
     var d=new Date(parseInt(p[0]),parseInt(p[1])-1,parseInt(p[2]));
-    if(d>=today){next=s;break;}
+    if(d>=today){next=sorted[i];break;}
   }
   if(!next&&sorted.length)next=sorted[0];
-  if(!next){zone.innerHTML='<div style="font-size:11px;color:#48484a">Aucune séance à venir</div>';return;}
+  if(!next){zone.innerHTML='<div style="font-size:11px;color:#48484a">Aucune séance</div>';return;}
   var heure=(CTX.cls&&CTX.cls.heure)||'';
-  var aflpHtml=(next.aflpTravailles||[]).map(function(a){return '<span style="font-size:10px;padding:1px 6px;border-radius:4px;font-weight:600;background:rgba(10,132,255,.12);color:#0a84ff;display:inline-block;margin:1px">'+esc(a)+'</span>';}).join('');
   zone.innerHTML='<div style="font-size:10px;font-weight:700;background:rgba(10,132,255,.15);color:#0a84ff;padding:2px 8px;border-radius:5px;display:inline-block;margin-bottom:5px;font-family:monospace">S'+esc(String(next.num||'?'))+'</div>'+
-    '<div style="font-size:12px;font-weight:600;color:#f5f5f7;line-height:1.4;margin-bottom:3px">'+esc(next.objectif||'Sans titre')+'</div>'+
-    '<div style="font-size:10px;color:#48484a;margin-bottom:6px;font-family:monospace">'+esc(next.date||'')+(heure?' · '+heure:'')+'</div>'+
-    '<div style="display:flex;gap:3px;flex-wrap:wrap">'+aflpHtml+'</div>';
+    '<div style="font-size:12px;font-weight:600;color:#f5f5f7;margin-bottom:3px">'+esc(next.objectif||'Sans titre')+'</div>'+
+    '<div style="font-size:10px;color:#48484a;margin-bottom:5px;font-family:monospace">'+esc(next.date||'')+(heure?' · '+heure:'')+'</div>'+
+    '<div style="display:flex;gap:3px;flex-wrap:wrap">'+
+    (next.aflpTravailles||[]).map(function(a){return '<span style="font-size:10px;padding:1px 6px;border-radius:4px;font-weight:600;background:rgba(10,132,255,.12);color:#0a84ff">'+esc(a)+'</span>';}).join('')+
+    '</div>';
 }
-
 function acc2RenderAflpBars(){
   var zone=ge('acc2-aflp-bars');if(!zone)return;
   var f=CTX.cls?CTX.cls.filiere:'bacpro';
   var aflpData=CTX.apsa?(AFLP[f]||AFLP.bacpro)[CTX.apsa.caFull]:null;
   if(!aflpData||!state.eleves.length){zone.innerHTML='<div style="font-size:11px;color:#48484a">Aucune donnée</div>';return;}
   var worked={};
-  for(var i=0;i<state.seances.length;i++){var t=state.seances[i].aflpTravailles||[];for(var j=0;j<t.length;j++)worked[t[j]]=true;}
+  state.seances.forEach(function(s){(s.aflpTravailles||[]).forEach(function(a){worked[a]=true;});});
   var list=aflpData.items.filter(function(it){return worked[it.n];}).slice(0,5);
   if(!list.length){zone.innerHTML='<div style="font-size:11px;color:#48484a">Aucun AFLP travaillé</div>';return;}
-  var compD=compGetData();var h='';
-  for(var ai=0;ai<list.length;ai++){
-    var n=list[ai].n;var total2=0;
-    for(var ei=0;ei<state.eleves.length;ei++){
-      var lastVal=0;
-      for(var si=0;si<state.seances.length;si++){var ck=state.seances[si].id+'__'+n+'__'+state.eleves[ei].id;if(compD[ck]&&compD[ck]>0)lastVal=compD[ck];}
-      if(lastVal>0)total2++;
-    }
-    var pct=state.eleves.length>0?Math.round(total2/state.eleves.length*100):0;
+  var compD=compGetData();
+  zone.innerHTML=list.map(function(it){
+    var total=0;
+    state.eleves.forEach(function(e){
+      var last=0;
+      state.seances.forEach(function(s){var ck=s.id+'__'+it.n+'__'+e.id;if(compD[ck]&&compD[ck]>0)last=compD[ck];});
+      if(last>0)total++;
+    });
+    var pct=state.eleves.length>0?Math.round(total/state.eleves.length*100):0;
     var col=pct>=75?'#30d158':pct>=50?'#0a84ff':pct>=25?'#ff9f0a':'#ff453a';
-    h+='<div style="display:flex;align-items:center;gap:5px;margin-bottom:4px"><div style="font-size:9px;color:#636366;width:36px;flex-shrink:0;font-family:monospace;font-weight:600">'+esc(n)+'</div><div style="flex:1;height:4px;background:#2c2c2e;border-radius:2px;overflow:hidden"><div style="height:100%;border-radius:2px;background:'+col+';width:'+pct+'%"></div></div><div style="font-size:9px;color:#48484a;width:26px;text-align:right;font-family:monospace">'+pct+'%</div></div>';
-  }
-  zone.innerHTML=h;
+    return '<div style="display:flex;align-items:center;gap:5px;margin-bottom:4px">'+
+      '<div style="font-size:9px;color:#636366;width:36px;font-family:monospace;font-weight:600">'+esc(it.n)+'</div>'+
+      '<div style="flex:1;height:4px;background:#2c2c2e;border-radius:2px;overflow:hidden"><div style="height:100%;border-radius:2px;background:'+col+';width:'+pct+'%"></div></div>'+
+      '<div style="font-size:9px;color:#48484a;width:26px;text-align:right;font-family:monospace">'+pct+'%</div></div>';
+  }).join('');
 }
-
 function acc2RenderComp(){
   var f=CTX.cls?CTX.cls.filiere:'bacpro';
   var aflpData=CTX.apsa?(AFLP[f]||AFLP.bacpro)[CTX.apsa.caFull]:null;
-  var ca=ge('acc2-comp-ca');var txt=ge('acc2-comp-text');var aflps=ge('acc2-comp-aflps');
-  if(ca&&CTX.apsa)ca.textContent=CTX.apsa.ca||'--';
-  if(txt&&aflpData)txt.textContent=aflpData.competence||'—';
+  var ca=ge('acc2-comp-ca');if(ca&&CTX.apsa)ca.textContent=CTX.apsa.ca||'--';
+  var txt=ge('acc2-comp-text');if(txt&&aflpData)txt.textContent=aflpData.competence||'—';
+  var aflps=ge('acc2-comp-aflps');
   if(aflps&&aflpData){
     var worked={};
-    for(var i=0;i<state.seances.length;i++){var t=state.seances[i].aflpTravailles||[];for(var j=0;j<t.length;j++)worked[t[j]]=true;}
+    state.seances.forEach(function(s){(s.aflpTravailles||[]).forEach(function(a){worked[a]=true;});});
     var cols=['rgba(10,132,255,.12)','rgba(10,132,255,.12)','rgba(255,159,10,.12)','rgba(255,69,58,.12)'];
-    var tcols=['#0a84ff','#0a84ff','#ff9f0a','#ff453a'];
+    var tc=['#0a84ff','#0a84ff','#ff9f0a','#ff453a'];
     aflps.innerHTML=aflpData.items.filter(function(it){return worked[it.n];}).map(function(it,i){
-      return '<span style="font-size:10px;font-weight:600;padding:2px 7px;border-radius:4px;font-family:monospace;background:'+cols[i%4]+';color:'+tcols[i%4]+'">'+esc(it.n)+'</span>';
+      return '<span style="font-size:10px;font-weight:600;padding:2px 7px;border-radius:4px;font-family:monospace;background:'+cols[i%4]+';color:'+tc[i%4]+'">'+esc(it.n)+'</span>';
     }).join(' ');
   }
 }
-
 function acc2RenderTrame(){
-  var lignesZone=ge('acc2-trame-lignes');var seancesZone=ge('acc2-seances-ligne');var progEl=ge('acc2-fil-prog');
-  if(!lignesZone||!seancesZone)return;
+  var lz=ge('acc2-trame-lignes');var sz=ge('acc2-seances-ligne');var pe=ge('acc2-fil-prog');
+  if(!lz||!sz)return;
   var seances=state.seances.slice().sort(function(a,b){return (a.num||0)-(b.num||0);});
   var N=seances.length;
-  if(!N){lignesZone.innerHTML='';seancesZone.innerHTML='<div style="font-size:11px;color:#48484a;padding:4px 0">Aucune séance planifiée</div>';return;}
+  if(!N){lz.innerHTML='';sz.innerHTML='<div style="font-size:11px;color:#48484a">Aucune séance</div>';return;}
   var today=new Date();today.setHours(0,0,0,0);
   var fait=0;var activeIdx=-1;
-  for(var i=0;i<seances.length;i++){
+  seances.forEach(function(s,i){
     var done=false;
-    if(seances[i].date){var p=seances[i].date.split('-');if(p.length===3){var d=new Date(parseInt(p[0]),parseInt(p[1])-1,parseInt(p[2]));if(d<today)done=true;}}
-    seances[i]._done=done;if(done)fait++;else if(activeIdx<0)activeIdx=i;
-  }
-  if(progEl)progEl.textContent=fait+'/'+N+(activeIdx>=0?' · S'+(seances[activeIdx].num||activeIdx+1)+' en cours':'');
+    if(s.date){var p=s.date.split('-');if(p.length===3){var d=new Date(parseInt(p[0]),parseInt(p[1])-1,parseInt(p[2]));if(d<today)done=true;}}
+    s._done=done;if(done)fait++;else if(activeIdx<0)activeIdx=i;
+  });
+  if(pe)pe.textContent=fait+'/'+N+(activeIdx>=0?' · S'+(seances[activeIdx].num||activeIdx+1)+' en cours':'');
   var COLORS=['#1a5faa','#1a7a35','#b85c00','#6d28d9','#b01a1a','#0e6655','#7a3b00'];
-  var grouped={};var orderedKeys=[];
-  for(var i=0;i<seances.length;i++){
-    var obj=(seances[i].objectif||'').trim().substring(0,40);
-    if(!obj)obj='Séance '+(i+1);
-    if(!grouped[obj]){grouped[obj]=[];orderedKeys.push(obj);}
+  var grouped={};var keys=[];
+  seances.forEach(function(s,i){
+    var obj=(s.objectif||'').trim().substring(0,40)||'Séance '+(i+1);
+    if(!grouped[obj]){grouped[obj]=[];keys.push(obj);}
     grouped[obj].push(i+1);
-  }
-  var lignes=[];var perRow=3;
-  for(var r=0;r<Math.ceil(orderedKeys.length/perRow);r++){
-    var ligne=[];
-    for(var c=0;c<perRow;c++){
-      var ki=r*perRow+c;if(ki>=orderedKeys.length)break;
-      var sns=grouped[orderedKeys[ki]];
-      ligne.push({from:sns[0],to:sns[sns.length-1],label:orderedKeys[ki],color:COLORS[ki%COLORS.length]});
-    }
-    lignes.push(ligne);
-  }
-  lignesZone.innerHTML='';
-  lignes.forEach(function(ligne){
+  });
+  lz.innerHTML='';
+  for(var r=0;r<Math.ceil(keys.length/3);r++){
     var row=document.createElement('div');row.style.cssText='display:flex;height:28px;gap:2px;margin-bottom:2px';
     var cursor=1;
-    ligne.forEach(function(bloc){
-      if(cursor<bloc.from){var v=document.createElement('div');v.style.flex=String(bloc.from-cursor);row.appendChild(v);}
+    for(var c=0;c<3;c++){
+      var ki=r*3+c;if(ki>=keys.length)break;
+      var sns=grouped[keys[ki]];
+      var from=sns[0],to=sns[sns.length-1],col=COLORS[ki%COLORS.length];
+      if(cursor<from){var v=document.createElement('div');v.style.flex=String(from-cursor);row.appendChild(v);}
       var b=document.createElement('div');b.className='acc2-trame-bloc';
-      b.style.flex=String(bloc.to-bloc.from+1);b.style.background=bloc.color;b.textContent=bloc.label;
-      b.onclick=(function(from){return function(){var s=seances[from-1];if(s){acc2ShowDetail(s,bloc);acc2Highlight(from);}};})(bloc.from);
-      row.appendChild(b);cursor=bloc.to+1;
-    });
+      b.style.flex=String(to-from+1);b.style.background=col;b.textContent=keys[ki];
+      b.onclick=(function(f2,c2,lbl){return function(){var s=seances[f2-1];if(s){acc2ShowDetail(s,{color:c2,label:lbl});acc2Highlight(f2);}};})(from,col,keys[ki]);
+      row.appendChild(b);cursor=to+1;
+    }
     if(cursor<=N){var v=document.createElement('div');v.style.flex=String(N-cursor+1);row.appendChild(v);}
-    lignesZone.appendChild(row);
-  });
-  seancesZone.innerHTML='';
+    lz.appendChild(row);
+  }
+  sz.innerHTML='';
   seances.forEach(function(s,i){
     var isActive=i===activeIdx;var st=s._done?'done':isActive?'active':'future';
     var box=document.createElement('div');box.className='acc2-sbox '+st;box.id='acc2sb'+(i+1);
@@ -2754,53 +2701,47 @@ function acc2RenderTrame(){
     num.textContent=s._done?'S'+(s.num||i+1)+' ✓':'S'+(s.num||i+1);
     var lbl=document.createElement('div');lbl.className='acc2-sbox-lbl';
     lbl.textContent=(s.objectif||'').substring(0,8)+((s.objectif||'').length>8?'…':'');
-    box.appendChild(num);box.appendChild(lbl);seancesZone.appendChild(box);
+    box.appendChild(num);box.appendChild(lbl);sz.appendChild(box);
   });
   if(activeIdx>=0){acc2ShowDetail(seances[activeIdx],null);acc2Highlight(seances[activeIdx].num||activeIdx+1);}
 }
-
 function acc2ShowDetail(s,bloc){
   var det=ge('acc2-det');if(!det)return;det.style.display='block';
-  var today=new Date();today.setHours(0,0,0,0);
-  var done=false;
+  var heure=(CTX.cls&&CTX.cls.heure)||'';
+  var col=bloc?bloc.color:'#0a84ff';det.style.borderLeftColor=col;
+  var today=new Date();today.setHours(0,0,0,0);var done=false;
   if(s.date){var p=s.date.split('-');if(p.length===3){var d=new Date(parseInt(p[0]),parseInt(p[1])-1,parseInt(p[2]));if(d<today)done=true;}}
   var seances=state.seances.slice().sort(function(a,b){return(a.num||0)-(b.num||0);});
   var activeIdx=-1;for(var i=0;i<seances.length;i++){if(!seances[i]._done&&activeIdx<0)activeIdx=i;}
   var isActive=activeIdx>=0&&seances[activeIdx].id===s.id;
   var st=done?'Réalisée':isActive?'En cours':'À venir';
-  var heure=(CTX.cls&&CTX.cls.heure)||'';
-  var borderCol=bloc?bloc.color:'#0a84ff';
-  det.style.borderLeftColor=borderCol;
-  var aflpHtml=(s.aflpTravailles||[]).map(function(a){return '<span style="font-size:10px;background:rgba(10,132,255,.12);color:#0a84ff;padding:1px 6px;border-radius:3px;font-weight:600;font-family:monospace">'+esc(a)+'</span>';}).join('');
-  var themeHtml=bloc?'<span style="font-size:10px;font-weight:600;padding:2px 7px;border-radius:4px;background:'+borderCol+'33;color:'+borderCol+'">'+esc(bloc.label)+'</span>':'';
-  var seanceData=state.seanceObjectifs&&state.seanceObjectifs[s.id]?state.seanceObjectifs[s.id]:{};
   det.innerHTML=
     '<div style="display:flex;align-items:center;gap:6px;margin-bottom:5px;flex-wrap:wrap">'+
     '<span style="font-size:10px;font-weight:700;background:rgba(10,132,255,.15);color:#0a84ff;padding:2px 7px;border-radius:4px;font-family:monospace">S'+esc(String(s.num||'?'))+'</span>'+
-    '<span style="font-size:10px;color:#636366;font-family:monospace">'+st+(s.date?' · '+s.date:'')+(heure?' · '+heure:'')+'</span>'+themeHtml+'</div>'+
-    '<div style="font-size:13px;font-weight:600;color:#f5f5f7;margin-bottom:5px;letter-spacing:-.2px">'+esc(s.objectif||'Sans titre')+'</div>'+
-    '<div style="display:flex;gap:3px;flex-wrap:wrap;margin-bottom:6px">'+aflpHtml+'</div>'+
-    '<div style="display:grid;grid-template-columns:1fr 1fr;gap:6px">'+
-    '<div style="background:#1c1c1e;border-radius:6px;padding:7px 9px;border:0.5px solid rgba(255,255,255,.06)"><div style="font-size:9px;font-weight:600;color:#636366;text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px">Autres objectifs</div><div style="font-size:11px;color:#9aa0b8;line-height:1.5">'+esc(seanceData.obj1||s.autreobj||'Non renseigné')+'</div></div>'+
-    '<div style="background:#1c1c1e;border-radius:6px;padding:7px 9px;border:0.5px solid rgba(255,255,255,.06)"><div style="font-size:9px;font-weight:600;color:#636366;text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px">Contenus d\'enseignement</div><div style="font-size:11px;color:#9aa0b8;line-height:1.5">'+esc(s.contenus||'Non renseigné')+'</div></div>'+
+    '<span style="font-size:10px;color:#636366;font-family:monospace">'+st+(s.date?' · '+s.date:'')+(heure?' · '+heure:'')+'</span>'+
+    (bloc?'<span style="font-size:10px;font-weight:600;padding:2px 7px;border-radius:4px;background:'+col+'33;color:'+col+'">'+esc(bloc.label)+'</span>':'')+
     '</div>'+
-    '<div style="display:flex;align-items:center;justify-content:space-between;margin-top:6px">'+
-    '<span style="font-size:10px;color:#48484a;font-family:monospace">'+(s.date||'')+(heure?' · '+heure:'')+'</span>'+
-    '<button style="font-size:10px;font-weight:600;color:#0a84ff;background:rgba(10,132,255,.12);padding:3px 10px;border-radius:20px;border:none;cursor:pointer" onclick="showView(\'v-seances\');openEditS(\''+s.id+'\')">Ouvrir S'+esc(String(s.num||'?'))+' →</button>'+
+    '<div style="font-size:13px;font-weight:600;color:#f5f5f7;margin-bottom:5px">'+esc(s.objectif||'Sans titre')+'</div>'+
+    '<div style="display:flex;gap:3px;flex-wrap:wrap;margin-bottom:6px">'+
+    (s.aflpTravailles||[]).map(function(a){return '<span style="font-size:10px;background:rgba(10,132,255,.12);color:#0a84ff;padding:1px 6px;border-radius:3px;font-weight:600;font-family:monospace">'+esc(a)+'</span>';}).join('')+
+    '</div>'+
+    '<div style="display:grid;grid-template-columns:1fr 1fr;gap:6px">'+
+    '<div style="background:#1c1c1e;border-radius:6px;padding:7px 9px;border:0.5px solid rgba(255,255,255,.06)"><div style="font-size:9px;font-weight:600;color:#636366;text-transform:uppercase;margin-bottom:4px">Autres objectifs</div><div style="font-size:11px;color:#9aa0b8">'+esc(s.autreobj||'—')+'</div></div>'+
+    '<div style="background:#1c1c1e;border-radius:6px;padding:7px 9px;border:0.5px solid rgba(255,255,255,.06)"><div style="font-size:9px;font-weight:600;color:#636366;text-transform:uppercase;margin-bottom:4px">Contenus</div><div style="font-size:11px;color:#9aa0b8">'+esc(s.contenus||'—')+'</div></div>'+
+    '</div>'+
+    '<div style="display:flex;justify-content:flex-end;margin-top:6px">'+
+    '<button style="font-size:10px;font-weight:600;color:#0a84ff;background:rgba(10,132,255,.12);padding:3px 10px;border-radius:20px;border:none;cursor:pointer" onclick="showView(\'v-seances\');openEditS(\''+s.id+'\')">Ouvrir →</button>'+
     '</div>';
 }
-
 function acc2Highlight(n){
   for(var i=1;i<=30;i++){var b=ge('acc2sb'+i);if(b){b.style.outline=i===n?'2px solid #0a84ff':'none';b.style.outlineOffset='2px';}}
 }
-
 function acc2LoadNotes(){
   var n=ge('acc2-notes');if(!n)return;
   var key='acc2-notes-'+STORAGE_KEY;
   n.value=localStorage.getItem(key)||'';
-  n.removeEventListener('input',n._acc2handler);
-  n._acc2handler=function(){localStorage.setItem(key,n.value);};
-  n.addEventListener('input',n._acc2handler);
+  n._h=function(){localStorage.setItem(key,n.value);};
+  n.removeEventListener('input',n._h);n.addEventListener('input',n._h);
 }
 
 function renderAccueilSuivi(){ge('acc-ss-s').textContent=state.seances.length;ge('acc-ss-e').textContent=state.eleves.length;ge('sc-sub-seances').textContent=state.seances.length+' seance'+(state.seances.length>1?'s':'');ge('sc-sub-eleves').textContent=state.eleves.length+' eleve'+(state.eleves.length>1?'s':'');var tot=0,pres=0;for(var i=0;i<state.seances.length;i++){for(var j=0;j<state.eleves.length;j++){tot++;var p=state.presences[state.seances[i].id]||{};if((p[state.eleves[j].id]||'Present')==='Present')pres++;}}ge('acc-ss-p').textContent=tot>0?Math.round(pres/tot*100)+'%':'-';var seq2=seqGet();
