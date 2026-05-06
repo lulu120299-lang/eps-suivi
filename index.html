@@ -2563,12 +2563,16 @@ function showView(id){
 }
 function renderAll(){try{renderAccueilSuivi();}catch(e){}try{renderStats();}catch(e){}try{renderSeances();}catch(e){}try{renderApList();}catch(e){}try{renderEleves();}catch(e){}try{renderNotes();}catch(e){}try{renderBilanComp();}catch(e){}try{renderGrille();}catch(e){}try{renderProfil();}catch(e){}try{renderComp();}catch(e){}try{renderWidgetAflp();}catch(e){}try{acc2Init();}catch(e){}}
 function highlightEvalAflp(){var worked={};for(var i=0;i<state.seances.length;i++){var t=state.seances[i].aflpTravailles||[];for(var j=0;j<t.length;j++)worked[t[j]]=true;}var items=document.querySelectorAll('.eval-aflp-item');for(var i=0;i<items.length;i++){var n=items[i].querySelector('.eval-n');if(n)items[i].classList.toggle('worked',!!worked[n.textContent]);}}
-function renderStats(){ge('ss-s').textContent=state.seances.length;ge('ss-e').textContent=state.eleves.length;ge('s-pg-sub').textContent=state.eleves.length+' eleves - '+state.seances.length+' seances';var tot=0,pres=0;for(var i=0;i<state.seances.length;i++){for(var j=0;j<state.eleves.length;j++){tot++;var p=state.presences[state.seances[i].id]||{};if((p[state.eleves[j].id]||'')==='Present')pres++;}}ge('ss-p').textContent=tot>0?Math.round(pres/tot*100)+'%':'-';var seq3=seqGet();
+function renderStats(){
+  function setT(id,v){var el=ge(id);if(el)el.textContent=v;}
+  setT('ss-s',state.seances.length);
+  setT('ss-e',state.eleves.length);
+  setT('s-pg-sub',state.eleves.length+' eleves - '+state.seances.length+' seances');var tot=0,pres=0;for(var i=0;i<state.seances.length;i++){for(var j=0;j<state.eleves.length;j++){tot++;var p=state.presences[state.seances[i].id]||{};if((p[state.eleves[j].id]||'')==='Present')pres++;}}setT('ss-p',tot>0?Math.round(pres/tot*100)+'%':'-');var seq3=seqGet();
 var totalTrame3=(seq3.trame||[]).length;
 var faitesCount3=state.seances.filter(function(s){return s.bilan&&s.bilan.trim();}).length;
 var totalSeances3=totalTrame3||state.seances.length;
 var restantes3=Math.max(0,totalSeances3-faitesCount3);
-ge('ss-n').textContent=faitesCount3+'/'+totalSeances3;
+setT('ss-n',faitesCount3+'/'+totalSeances3);
 var ssub=ge('ss-n-sub');
 if(ssub)ssub.textContent=restantes3+' restante'+(restantes3>1?'s':'');}
 function seqGet(){return state.seq||{objet:'',objectifs:'',aflpPrio:[],trame:[]};}
