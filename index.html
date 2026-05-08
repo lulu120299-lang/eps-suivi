@@ -1300,9 +1300,11 @@ textarea{resize:vertical;min-height:70px}
       <div class="fgrp"><label>Numero</label><input type="number" id="fn" min="1" max="30"></div>
       <div class="fgrp"><label>Date</label><input type="date" id="fd"></div>
       <div class="fgrp full"><label>Titre de la s&#233;ance</label><input type="text" id="fo" placeholder="Ex: D&#233;couverte CO..."></div>
-      <div class="fgrp full"><label>Objet n&#176;1 de travail</label><input type="text" id="fo2" placeholder="Ex: Conduire son d&#233;placement..."></div>
-      <div class="fgrp full"><label>Objet n&#176;2 de travail</label><input type="text" id="fo3" placeholder="Ex: Lire la l&#233;gende..."></div>
-      <div class="fgrp full"><label>Objet n&#176;3 de travail</label><input type="text" id="fo4" placeholder="Ex: R&#232;gles de s&#233;curit&#233;..."></div>
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px">
+        <div class="fgrp"><label>Objet n&#176;1</label><input type="text" id="fo2" placeholder="Ex: Conduire..."></div>
+        <div class="fgrp"><label>Objet n&#176;2</label><input type="text" id="fo3" placeholder="Ex: Lire la l&#233;gende..."></div>
+        <div class="fgrp"><label>Objet n&#176;3</label><input type="text" id="fo4" placeholder="Ex: S&#233;curit&#233;..."></div>
+      </div>
       
       <div class="fgrp full"><label>Autres objectifs de la seance</label><textarea id="fn-autreobj" style="min-height:48px" placeholder="Ex: Cooperation, gestion effort, securite..."></textarea></div>
       <div class="fgrp full"><label>Contenus d enseignement a aborder</label><textarea id="fn-contenus" style="min-height:48px" placeholder="Ex: Lecture de carte, orientation au nord..."></textarea></div>
@@ -1351,9 +1353,11 @@ textarea{resize:vertical;min-height:70px}
       <div class="fgrp"><label>Numero</label><input type="number" id="es-n"></div>
       <div class="fgrp"><label>Date</label><input type="date" id="es-d"></div>
       <div class="fgrp full"><label>Titre de la s&#233;ance</label><input type="text" id="es-o"></div>
-      <div class="fgrp full"><label>Objet n&#176;1 de travail</label><input type="text" id="es-o2"></div>
-      <div class="fgrp full"><label>Objet n&#176;2 de travail</label><input type="text" id="es-o3"></div>
-      <div class="fgrp full"><label>Objet n&#176;3 de travail</label><input type="text" id="es-o4"></div>
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px">
+        <div class="fgrp"><label>Objet n&#176;1</label><input type="text" id="es-o2"></div>
+        <div class="fgrp"><label>Objet n&#176;2</label><input type="text" id="es-o3"></div>
+        <div class="fgrp"><label>Objet n&#176;3</label><input type="text" id="es-o4"></div>
+      </div>
       <div class="fgrp full"><label>Autres objectifs de la seance</label><textarea id="es-autreobj" style="min-height:48px" placeholder="Ex: Cooperation, gestion effort, securite..."></textarea></div>
       <div class="fgrp full"><label>Contenus d enseignement a aborder</label><textarea id="es-contenus" style="min-height:48px" placeholder="Ex: Lecture de carte, orientation au nord..."></textarea></div>
       <div class="fgrp full"><label>Parties de la FPS abordees</label><textarea id="es-fps" style="min-height:48px" placeholder="Ex: Echauffement specifique, situation de reference..."></textarea></div>
@@ -2036,6 +2040,22 @@ function buildTableEditor(data,pid,mode){
   return container;
 }
 
+function addLinkItem(zone,url,label,pid,mode){
+  if(!zone)return;
+  var item=document.createElement('div');
+  item.style.cssText='display:flex;align-items:center;gap:6px;padding:4px 0;border-bottom:0.5px solid #2a2d3e';
+  var a=document.createElement('a');
+  a.href=url;a.target='_blank';a.textContent=label||url;
+  a.style.cssText='flex:1;font-size:.75rem;color:#4f8aff;text-decoration:none;overflow:hidden;text-overflow:ellipsis;white-space:nowrap';
+  var del=document.createElement('button');del.textContent='×';
+  del.style.cssText='background:none;border:none;color:#ff453a;cursor:pointer;font-size:1rem;padding:0 4px';
+  del.addEventListener('click',function(){
+    var parr=mode==='new'?partiesNew:partiesEdit;
+    for(var k=0;k<parr.length;k++){if(parr[k].id===pid&&parr[k].liens){parr[k].liens=parr[k].liens.filter(function(l){return l.url!==url;});break;}}
+    item.remove();
+  });
+  item.appendChild(a);item.appendChild(del);zone.appendChild(item);
+}
 function addAttachItem(list,nom,type,dataUrl,pid,mode){
   if(!list)return;
   var row=document.createElement('div');row.className='extra-attach-item';
@@ -3248,11 +3268,13 @@ function renderSeances(){var el=ge('slist');var q=(ge('srch').value||'').toLower
 function mkPid(){return'p'+Date.now()+Math.random().toString(36).slice(2,5);}
 function addPartie(mode){var p={id:mkPid(),titre:'',objectif:'',consignes:'',criteres:'',contenus:'',realisation:'',remediation:'',bilan:'',photos:[],tableaux:[],fichiers:[]};if(mode==='new')partiesNew.push(p);else partiesEdit.push(p);var arr=mode==='new'?partiesNew:partiesEdit;renderPartieBlock(mode==='new'?'parties-new':'parties-edit',p,arr.length-1,mode);}
 function renderPartieBlock(cid,p,idx,mode){var c=ge(cid);var div=document.createElement('div');div.className='partie-block';div.id='pb-'+p.id;div.innerHTML='<div class="partie-header"><span class="partie-num-badge">&#9654; Partie '+(idx+1)+'</span><input class="partie-title-input" type="text" placeholder="Titre de la partie (Echauffement, Situation principale...)" value="'+esc(p.titre)+'"><button class="btn-bib-save-partie" data-pid="'+p.id+'" title="Sauvegarder dans la bibliotheque" style="background:rgba(167,139,250,.12);border:1px solid rgba(167,139,250,.25);border-radius:6px;color:#a78bfa;font-size:.62rem;padding:3px 7px;cursor:pointer;white-space:nowrap">&#128218;</button><button class="partie-del" data-pid="'+p.id+'" data-mode="'+mode+'">&#128465;</button></div>'+'<div class="partie-grid">'+'<div class="pf obj" style="grid-column:1/-1"><label>&#127919; Objectif</label><textarea rows="2" placeholder="Quel est le but de cette partie pour l eleve ?">'+esc(p.objectif)+'</textarea></div>'+'<div class="pf cons" style="grid-column:1/-1"><label>&#128221; Consignes</label><div class="pf-cons-hint">Ecrivez chaque consigne sur une nouvelle ligne pour plus de lisibilite</div><textarea rows="5" placeholder="- Consigne 1&#10;- Consigne 2&#10;- Consigne 3...">'+esc(p.consignes)+'</textarea></div>'+'<div class="pf crit"><label>&#9989; Criteres de reussite</label><textarea rows="3" placeholder="Ce que l eleve doit reussir pour valider la partie...">'+esc(p.criteres)+'</textarea></div>'+'<div class="pf cont"><label>&#127891; Contenus d enseignement</label><textarea rows="3" placeholder="Ce que j enseigne / Points cles...">'+esc(p.contenus||'')+'</textarea></div>'+'<div class="pf real"><label>&#128269; Criteres de realisation</label><textarea rows="3" placeholder="Les indicateurs observables pour l enseignant (ce que je vois chez l eleve qui fait bien)...">'+esc(p.realisation||'')+'</textarea></div>'+'<div class="pf rem"><label>&#128260; Remediations</label><textarea rows="3" placeholder="Pour les eleves en difficulte : adaptations, simplifications, aides...">'+esc(p.remediation||'')+'</textarea></div>'+'<div class="pf bil" style="grid-column:1/-1"><label>&#128203; Bilan de partie</label><textarea rows="2" placeholder="Observations apres la seance...">'+esc(p.bilan)+'</textarea></div>'+'</div>';
-// Zone extras (photos, tableau, pieces jointes)
-var extras=document.createElement('div');extras.className='partie-extras';
-// Photos
+// Zone extras en grille 2x2
+var extras=document.createElement('div');
+extras.style.cssText='display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px';
+
+// 1. Photos
 var photosWrap=document.createElement('div');
-photosWrap.innerHTML='<div class="extras-title">&#128247; Photos & Images</div><div class="extra-photos-grid" id="pg-'+p.id+'"></div>';
+photosWrap.innerHTML='<div class="extras-title">&#128247; Photos &amp; Images</div><div class="extra-photos-grid" id="pg-'+p.id+'"></div>';
 var addPhotoBtn=document.createElement('button');addPhotoBtn.className='extra-add-btn';addPhotoBtn.innerHTML='&#43; Ajouter une photo';
 var photoInp=document.createElement('input');photoInp.type='file';photoInp.accept='image/*';photoInp.multiple=true;photoInp.style.display='none';
 addPhotoBtn.addEventListener('click',function(){photoInp.click();});
@@ -3271,29 +3293,13 @@ photoInp.addEventListener('change',function(){
   }
   this.value='';
 });
-// Charger photos existantes
 if(p.photos&&p.photos.length){setTimeout(function(){var grid=ge('pg-'+p.id);if(grid){for(var k=0;k<p.photos.length;k++)addPhotoThumb(grid,p.photos[k],p.id,mode);}},0);}
 photosWrap.appendChild(addPhotoBtn);photosWrap.appendChild(photoInp);
 extras.appendChild(photosWrap);
-// Tableau
-var tableWrap=document.createElement('div');
-tableWrap.innerHTML='<div class="extras-title">&#128196; Tableau</div>';
-var hasTable=p.tableaux&&p.tableaux.length&&p.tableaux[0];
-if(hasTable){
-  tableWrap.appendChild(buildTableEditor(p.tableaux[0],p.id,mode));
-} else {
-  var addTblBtn=document.createElement('button');addTblBtn.className='extra-add-btn';addTblBtn.innerHTML='&#43; Ajouter un tableau';
-  addTblBtn.addEventListener('click',function(){
-    addTblBtn.remove();
-    var tbl=buildTableEditor(null,p.id,mode);
-    tableWrap.appendChild(tbl);
-  });
-  tableWrap.appendChild(addTblBtn);
-}
-extras.appendChild(tableWrap);
-// Fichiers
+
+// 2. Pièces jointes
 var fileWrap=document.createElement('div');
-fileWrap.innerHTML='<div class="extras-title">&#128206; Pieces jointes</div><div class="extra-attach-list" id="al-'+p.id+'"></div>';
+fileWrap.innerHTML='<div class="extras-title">&#128206; Pi&#232;ces jointes</div><div class="extra-attach-list" id="al-'+p.id+'"></div>';
 var addFileBtn=document.createElement('button');addFileBtn.className='extra-add-btn';addFileBtn.innerHTML='&#43; Ajouter un fichier';
 var fileInp=document.createElement('input');fileInp.type='file';fileInp.multiple=true;fileInp.style.display='none';
 addFileBtn.addEventListener('click',function(){fileInp.click();});
@@ -3314,6 +3320,50 @@ fileInp.addEventListener('change',function(){
 if(p.fichiers&&p.fichiers.length){setTimeout(function(){var al=ge('al-'+p.id);if(al){for(var k=0;k<p.fichiers.length;k++)addAttachItem(al,p.fichiers[k].nom,p.fichiers[k].type||'',p.fichiers[k].data||'',p.id,mode);}},0);}
 fileWrap.appendChild(addFileBtn);fileWrap.appendChild(fileInp);
 extras.appendChild(fileWrap);
+
+// 3. Tableau
+var tableWrap=document.createElement('div');
+tableWrap.innerHTML='<div class="extras-title">&#128196; Tableau</div>';
+var hasTable=p.tableaux&&p.tableaux.length&&p.tableaux[0];
+if(hasTable){
+  tableWrap.appendChild(buildTableEditor(p.tableaux[0],p.id,mode));
+} else {
+  var addTblBtn=document.createElement('button');addTblBtn.className='extra-add-btn';addTblBtn.innerHTML='&#43; Ajouter un tableau';
+  addTblBtn.addEventListener('click',function(){
+    addTblBtn.remove();
+    var tbl=buildTableEditor(null,p.id,mode);
+    tableWrap.appendChild(tbl);
+  });
+  tableWrap.appendChild(addTblBtn);
+}
+extras.appendChild(tableWrap);
+
+// 4. Liens externes
+var linkWrap=document.createElement('div');
+linkWrap.innerHTML='<div class="extras-title">&#128279; Liens</div><div class="extra-links-list" id="ll-'+p.id+'"></div>';
+var linkForm=document.createElement('div');
+linkForm.style.cssText='display:flex;gap:6px;margin-top:6px';
+var linkInp=document.createElement('input');
+linkInp.type='url';linkInp.placeholder='https://... (iCloud, YouTube...)';
+linkInp.style.cssText='flex:1;background:#13161f;border:1px solid #2a2d3e;border-radius:6px;padding:5px 8px;color:#e4e6ef;font-size:.75rem';
+var linkLblInp=document.createElement('input');
+linkLblInp.type='text';linkLblInp.placeholder='Nom du lien';
+linkLblInp.style.cssText='width:100px;background:#13161f;border:1px solid #2a2d3e;border-radius:6px;padding:5px 8px;color:#e4e6ef;font-size:.75rem';
+var addLinkBtn=document.createElement('button');
+addLinkBtn.className='extra-add-btn';addLinkBtn.style.margin='0';addLinkBtn.textContent='+';
+addLinkBtn.addEventListener('click',function(){
+  var url=linkInp.value.trim();var lbl=linkLblInp.value.trim()||url;
+  if(!url)return;
+  var parr=mode==='new'?partiesNew:partiesEdit;
+  for(var k=0;k<parr.length;k++){if(parr[k].id===p.id){if(!parr[k].liens)parr[k].liens=[];parr[k].liens.push({url:url,label:lbl});break;}}
+  addLinkItem(ge('ll-'+p.id),url,lbl,p.id,mode);
+  linkInp.value='';linkLblInp.value='';
+});
+linkForm.appendChild(linkLblInp);linkForm.appendChild(linkInp);linkForm.appendChild(addLinkBtn);
+linkWrap.appendChild(linkForm);
+// Charger liens existants
+if(p.liens&&p.liens.length){setTimeout(function(){var ll=ge('ll-'+p.id);if(ll){for(var k=0;k<p.liens.length;k++)addLinkItem(ll,p.liens[k].url,p.liens[k].label,p.id,mode);}},0);}
+extras.appendChild(linkWrap);
 div.appendChild(extras);
 div.querySelector('.btn-bib-save-partie').addEventListener('click',function(){
   var pid=this.dataset.pid;
