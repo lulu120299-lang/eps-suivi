@@ -1227,7 +1227,17 @@ textarea{resize:vertical;min-height:70px}
       <div id="bilan-comp-zone" style="margin-bottom:1.25rem"></div>
       <div style="font-family:'DM Mono',monospace;font-size:.65rem;text-transform:uppercase;letter-spacing:.1em;color:#4f8aff;margin-bottom:.75rem">&#128203; Notes et pr&#233;sences</div>
       <div class="card"><div class="tw"><table>
-        <thead><tr><th>Eleve</th><th>Presences</th><th>Absences</th><th>Dispense</th><th>Qte travail /10</th><th id="autre-eval-cols-header"></th><th>Note FPS /20</th></tr></thead>
+        <thead>
+          <tr id="nt-coeff-row">
+            <th style="background:#0d1018;padding:6px 12px;font-size:.65rem;color:#636366;text-transform:uppercase">Coefficient</th>
+            <th style="background:#0d1018;padding:6px 10px;text-align:center" colspan="3"></th>
+            <th style="background:#0d1018;padding:6px 10px;text-align:center"><input type="number" id="coeff-qte" min="0" max="10" step="0.5" value="1" style="width:44px;background:#1c1f2c;border:1px solid #2a2d3e;border-radius:5px;padding:3px 5px;color:#ffd166;font-size:.75rem;text-align:center" onchange="renderNotes()"></th>
+            <th id="coeff-autre-cells" style="background:#0d1018;padding:6px 10px;text-align:center"></th>
+            <th style="background:#0d1018;padding:6px 10px;text-align:center"><input type="number" id="coeff-fps" min="0" max="10" step="0.5" value="1" style="width:44px;background:#1c1f2c;border:1px solid #2a2d3e;border-radius:5px;padding:3px 5px;color:#4f8aff;font-size:.75rem;text-align:center" onchange="renderNotes()"></th>
+            <th style="background:#0d1018;padding:6px 10px;text-align:center"></th>
+          </tr>
+          <tr><th>Eleve</th><th>Presences</th><th>Absences</th><th>Dispense</th><th>Qte travail /10</th><th id="autre-eval-cols-header"></th><th>Note FPS /20</th><th style="color:#56cfb2">Moyenne /20</th></tr>
+        </thead>
         <tbody id="nt-tbody"></tbody>
       </table></div></div>
     </div>
@@ -2767,31 +2777,46 @@ function exportTout(){
   });
   h+='</div>';
 
-  // Section 3 : Bilan compétences
-  if(aflpData&&state.eleves.length){
-    h+='<div class="section" style="page-break-before:always"><div class="section-title">Bilan des comp&eacute;tences par &eacute;l&egrave;ve</div>';
-    h+='<table><thead><tr><th>El&egrave;ve</th>';
-    var workedAflp=[];
-    aflpData.items.forEach(function(it){
-      var worked=seances.some(function(s){return (s.aflpTravailles||[]).indexOf(it.n)>=0;});
-      if(worked){workedAflp.push(it);h+='<th>'+esc(it.n)+'</th>';}
-    });
-    h+='<th>Note /20</th></tr></thead><tbody>';
+  // Section 3 : Bilan présences et notes
+  if(state.eleves.length){
+    var autreEvals=state.autreEvals||[];
+    var coeffQteEl=ge('coeff-qte')?parseFloat(ge('coeff-qte').value)||1:1;
+    var coeffFpsEl=ge('coeff-fps')?parseFloat(ge('coeff-fps').value)||1:1;
+    h+='<div class="section" style="page-break-before:always"><div class="section-title">Bilan pr&eacute;sences et notes</div>';
+    h+='<table><thead>';
+    h+='<tr><th>Coefficients</th><th colspan="3"></th><th>'+coeffQteEl+'</th>';
+    autreEvals.forEach(function(ev){h+='<th>'+(ev.coeff||1)+'</th>';});
+    h+='<th>'+coeffFpsEl+'</th><th></th></tr>';
+    h+='<tr><th>El&egrave;ve</th><th>Pr&eacute;s.</th><th>Abs.</th><th>Disp.</th><th>Qt&eacute; /10</th>';
+    autreEvals.forEach(function(ev){h+='<th>'+esc(ev.objet||ev.date||'Eval')+'</th>';});
+    h+='<th>Note FPS /20</th><th style="color:#27ae60">Moy. /20</th></tr>';
+    h+='</thead><tbody>';
     var sorted=state.eleves.slice().sort(function(a,b){return a.nom.localeCompare(b.nom);});
     sorted.forEach(function(e){
-      h+='<tr><td><strong>'+esc(e.nom)+'</strong>'+(e.amenagement?'<br><small style="color:#e67e22">'+esc(e.amenagement)+'</small>':'')+'</td>';
-      workedAflp.forEach(function(it){
-        var lastVal=0;
-        seances.forEach(function(s){var ck=s.id+'__'+it.n+'__'+e.id;if(compD[ck]&&compD[ck]>0)lastVal=compD[ck];});
-        if(lastVal>0){
-          var col=degColors[lastVal];
-          h+='<td><span class="badge" style="background:'+col+'22;color:'+col+';border:1px solid '+col+'44">'+degNames[lastVal]+'</span></td>';
-        } else {
-          h+='<td style="color:#ccc">—</td>';
-        }
+      var pres=0,abs=0,disp=0,qtes=[];
+      for(var j=0;j<seances.length;j++){
+        var st=(state.presences[seances[j].id]||{})[e.id]||'';
+        if(st==='Present')pres++;else if(st==='Absent')abs++;else if(st==='Dispense')disp++;
+        var ae=(state.autoEval[seances[j].id]||{})[e.id]||{};
+        if(ae.qte!==undefined&&ae.qte!=='')qtes.push(parseFloat(ae.qte));
+      }
+      var mQ=qtes.length>0?(qtes.reduce(function(a,b){return a+b;},0)/qtes.length*10/4).toFixed(1):null;
+      var fpsnote=geCalcNote(e.id);
+      var totalPts=0,totalCoeff=0,hasData=false;
+      if(mQ!==null){totalPts+=parseFloat(mQ)/10*20*coeffQteEl;totalCoeff+=coeffQteEl;hasData=true;}
+      h+='<tr><td><strong>'+esc(e.nom)+'</strong></td><td style="text-align:center">'+pres+'</td><td style="text-align:center">'+abs+'</td><td style="text-align:center">'+disp+'</td>';
+      h+='<td style="text-align:center">'+(mQ!==null?mQ+'/10':'—')+'</td>';
+      autreEvals.forEach(function(ev){
+        var note=(ev.notes&&ev.notes[e.id])!=null&&ev.notes[e.id]!==''?parseFloat(ev.notes[e.id]):null;
+        var coeff=parseFloat(ev.coeff||1)||1;
+        if(note!==null){totalPts+=note*coeff;totalCoeff+=coeff;hasData=true;}
+        h+='<td style="text-align:center">'+(note!==null?note:'—')+'</td>';
       });
-      var note=geCalcNote(e.id);
-      h+='<td style="font-weight:700;color:'+(note>0?(note>=14?'#27ae60':note>=10?'#2980b9':'#c0392b'):'#ccc')+'">'+(note>0?note+' /20':'—')+'</td>';
+      if(fpsnote>0){totalPts+=fpsnote*coeffFpsEl;totalCoeff+=coeffFpsEl;hasData=true;}
+      var moy=hasData&&totalCoeff>0?(totalPts/totalCoeff).toFixed(1):null;
+      var moyCol=moy?(parseFloat(moy)>=14?'#27ae60':parseFloat(moy)>=10?'#2980b9':'#c0392b'):'#ccc';
+      h+='<td style="text-align:center;font-weight:700">'+(fpsnote>0?fpsnote+' /20':'—')+'</td>';
+      h+='<td style="text-align:center;font-weight:700;color:'+moyCol+'">'+(moy?moy+' /20':'—')+'</td>';
       h+='</tr>';
     });
     h+='</tbody></table></div>';
@@ -2932,6 +2957,13 @@ function autreEvalDelete(id){
   save();autreEvalRender();renderNotes();
 }
 
+function autreEvalSetCoeff(evalId,val){
+  if(!state.autreEvals)return;
+  for(var i=0;i<state.autreEvals.length;i++){
+    if(state.autreEvals[i].id===evalId){state.autreEvals[i].coeff=parseFloat(val)||1;break;}
+  }
+  save();
+}
 function autreEvalSetNote(evalId,eleveId,val){
   if(!state.autreEvals)return;
   for(var i=0;i<state.autreEvals.length;i++){
