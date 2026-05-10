@@ -1087,6 +1087,34 @@ textarea{resize:vertical;min-height:70px}
             <div style="background:rgba(255,255,255,.05);border:0.5px solid rgba(255,255,255,.1);border-radius:12px;padding:14px;backdrop-filter:blur(10px)"><div style="font-size:10px;font-weight:600;color:#636366;text-transform:uppercase;letter-spacing:.06em;margin-bottom:9px">⛅ Météo — Lyon</div><div style="display:flex;align-items:center;gap:8px"><div style="font-size:22px" id="acc2-meteo-icon">⛅</div><div><div style="font-size:22px;font-weight:600;color:#f5f5f7" id="acc2-meteo-temp">--°</div><div style="font-size:10px;color:#48484a" id="acc2-meteo-sub">...</div></div></div></div>
             <div style="background:rgba(255,255,255,.05);border:0.5px solid rgba(255,255,255,.1);border-radius:12px;padding:14px;backdrop-filter:blur(10px)">
               <div style="font-size:10px;font-weight:600;color:#636366;text-transform:uppercase;letter-spacing:.06em;margin-bottom:10px">FPS / CCF &#8212; Visualiser</div>
+              <div style="text-align:center;padding:6px 0 4px">
+                <div id="acc2-fps-btn" onclick="acc2FpsTap()" style="cursor:pointer">
+                  <div style="width:48px;height:48px;border-radius:12px;background:rgba(10,132,255,.15);display:flex;align-items:center;justify-content:center;margin:0 auto 10px;transition:background .15s">
+                    <span style="font-size:24px">&#128203;</span>
+                  </div>
+                  <div id="acc2-fps-name" style="font-size:13px;font-weight:600;color:#e4e6ef;margin-bottom:3px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;padding:0 4px">Configurer le lien</div>
+                  <div style="font-size:10px;color:#48484a">Appuyer pour acc&#233;der</div>
+                </div>
+              </div>
+              <!-- Menu contextuel -->
+              <div id="acc2-fps-menu" style="display:none;margin-top:10px;border-top:0.5px solid rgba(255,255,255,.06);padding-top:10px;display:flex;flex-direction:column;gap:6px">
+                <a id="acc2-fps-link" href="#" target="_blank" style="display:flex;align-items:center;gap:8px;background:rgba(10,132,255,.15);border:0.5px solid rgba(10,132,255,.3);border-radius:8px;padding:8px 12px;color:#4f8aff;font-size:12px;font-weight:600;text-decoration:none">
+                  <span>&#128279;</span> Ouvrir le document
+                </a>
+                <button onclick="acc2FpsEdit()" style="display:flex;align-items:center;gap:8px;background:rgba(255,255,255,.05);border:0.5px solid rgba(255,255,255,.1);border-radius:8px;padding:8px 12px;color:#9aa0b8;font-size:12px;cursor:pointer;width:100%;text-align:left">
+                  <span>&#9998;</span> Modifier le lien
+                </button>
+              </div>
+              <!-- Éditeur lien (caché par défaut) -->
+              <div id="acc2-fps-editor" style="display:none;margin-top:10px;border-top:0.5px solid rgba(255,255,255,.06);padding-top:10px">
+                <input type="url" id="acc2-fps-url" placeholder="Coller un lien iCloud, Drive..." style="width:100%;background:rgba(0,0,0,.3);border:0.5px solid rgba(255,255,255,.15);border-radius:8px;padding:7px 10px;color:#e4e6ef;font-size:11px;box-sizing:border-box;margin-bottom:6px">
+                <div style="display:flex;gap:6px">
+                  <button onclick="acc2SaveFpsLink()" style="flex:1;background:rgba(10,132,255,.2);border:0.5px solid rgba(10,132,255,.4);border-radius:7px;padding:7px;color:#4f8aff;font-size:11px;font-weight:600;cursor:pointer">Enregistrer</button>
+                  <button onclick="acc2FpsCloseEditor()" style="background:rgba(255,255,255,.05);border:0.5px solid rgba(255,255,255,.1);border-radius:7px;padding:7px 12px;color:#636366;font-size:11px;cursor:pointer">Annuler</button>
+                </div>
+              </div>
+            </div><div style="background:rgba(255,255,255,.05);border:0.5px solid rgba(255,255,255,.1);border-radius:12px;padding:14px;backdrop-filter:blur(10px)">
+              <div style="font-size:10px;font-weight:600;color:#636366;text-transform:uppercase;letter-spacing:.06em;margin-bottom:10px">FPS / CCF &#8212; Visualiser</div>
               <div style="text-align:center;padding:10px 0 8px">
                 <div style="width:44px;height:44px;border-radius:10px;background:rgba(10,132,255,.15);display:flex;align-items:center;justify-content:center;margin:0 auto 10px">
                   <span style="font-size:22px">&#128203;</span>
@@ -1644,6 +1672,22 @@ textarea{resize:vertical;min-height:70px}
     </div>
   </div>
 </div>
+
+<div class="mb" id="m-seance-menu"><div class="modal" style="max-width:320px">
+  <div class="modal-title" id="m-seance-menu-title">Séance</div>
+  <div class="modal-sub" id="m-seance-menu-sub" style="font-size:.78rem;color:#6b7280;margin-bottom:20px"></div>
+  <div style="display:flex;flex-direction:column;gap:10px">
+    <button id="m-seance-menu-view" style="display:flex;align-items:center;gap:12px;background:rgba(255,255,255,.04);border:0.5px solid rgba(255,255,255,.1);border-radius:10px;padding:14px;cursor:pointer;text-align:left;width:100%">
+      <span style="font-size:22px">&#128065;</span>
+      <div><div style="font-size:.88rem;font-weight:600;color:#e4e6ef">Visualiser</div><div style="font-size:.72rem;color:#6b7280">Lire le contenu de la séance</div></div>
+    </button>
+    <button id="m-seance-menu-edit" style="display:flex;align-items:center;gap:12px;background:rgba(10,132,255,.08);border:0.5px solid rgba(10,132,255,.25);border-radius:10px;padding:14px;cursor:pointer;text-align:left;width:100%">
+      <span style="font-size:22px">&#9998;</span>
+      <div><div style="font-size:.88rem;font-weight:600;color:#4f8aff">Modifier</div><div style="font-size:.72rem;color:#6b7280">Éditer le contenu de la séance</div></div>
+    </button>
+    <button onclick="closeM('m-seance-menu')" style="background:none;border:none;color:#6b7280;font-size:.82rem;cursor:pointer;padding:6px">Annuler</button>
+  </div>
+</div></div>
 <script>
 var CLASSES_DEFAULT=[{id:'2nde-ener-b',label:'2NDE ENER B',level:'2NDE',sub:'Energie Gr. B',color:'#c8400a',light:'#c8400a0d',filiere:'bacpro',heure:'10h00'},{id:'2nde-mrc-b',label:'2NDE MRC B',level:'2NDE',sub:'MRC Gr. B',color:'#1a6b3a',light:'#1a6b3a0d',filiere:'bacpro',heure:'08h05'},{id:'cap-epc-1',label:'CAP EPC 1',level:'CAP',sub:'Equipier polyvalent de commerce',color:'#1e4fa0',light:'#1e4fa00d',filiere:'cap',heure:'10h00'},{id:'cap-elec-2',label:'CAP ELEC 2',level:'CAP',sub:'Electricite',color:'#7c28b8',light:'#7c28b80d',filiere:'cap',heure:'08h05'},{id:'3e-pm',label:'3e PM',level:'3e',sub:'Prepa Metiers',color:'#a07800',light:'#a078000d',filiere:'col4',heure:'10h00'}];
 var CLASSES=[];
@@ -3437,7 +3481,7 @@ h+='</body></html>';
 openPdfWindow(h,'Eleves-'+(clsLabel||'classe')+'.pdf');
 }
 function saveProfilPlan(){var planKey=ge('profil-plan-key').value;var obs=ge('profil-plan-obs').value;var elevesNotes={};var tas=document.querySelectorAll('.profil-eleve-note');for(var i=0;i<tas.length;i++){if(tas[i].value.trim())elevesNotes[tas[i].dataset.eid]=tas[i].value.trim();}var data=profilGet();data[planKey]={obs:obs,eleves:elevesNotes};profilSave(data);closeM('m-profil-plan');renderProfil();toast('Profil enregistre');}
-function renderSeances(){var el=ge('slist');var q=(ge('srch').value||'').toLowerCase();var sorted=state.seances.slice().sort(function(a,b){return a.num-b.num;});var filtered=[];for(var i=0;i<sorted.length;i++){if((sorted[i].objectif||'').toLowerCase().indexOf(q)>=0||String(sorted[i].num).indexOf(q)>=0)filtered.push(sorted[i]);}if(!filtered.length){el.innerHTML='<div class="empty">Aucune seance. Creez la premiere !</div>';return;}var f=CTX.cls?CTX.cls.filiere:'bacpro';var aflpData=CTX.apsa?(AFLP[f]||AFLP.bacpro)[CTX.apsa.caFull]:null;var caColor=CTX.apsa?CTX.apsa.caColor:'#4f8aff';el.innerHTML='';for(var i=0;i<filtered.length;i++){(function(s){var presMap=state.presences[s.id]||{};var nbP=0;for(var k in presMap){if((presMap[k]||'')==='Present')nbP++;}var np=(s.parties||[]).length;var aflpT=s.aflpTravailles||[];var objData=state.seanceObjectifs[s.id]||{};var sp=null;if(s.parties){for(var j=0;j<s.parties.length;j++){if(s.parties[j].titre&&s.parties[j].titre.toLowerCase().indexOf('sit')>=0){sp=s.parties[j];break;}}if(!sp&&s.parties.length)sp=s.parties[0];}var div=document.createElement('div');div.className='scard';div.dataset.sid=s.id;var h='<div class="scard-head"><div class="scard-num" style="background:'+caColor+'"><span class="scard-num-label">Seance</span>'+s.num+'</div><div class="scard-main"><div class="scard-title">'+esc(s.objectif||'Sans titre')+'</div><div class="scard-date">'+(s.date?fmtDate(s.date):'Date non definie')+'</div><div class="scard-chips"><span class="chip c-gr">'+nbP+'/'+state.eleves.length+'</span>';if(np)h+='<span class="chip c-pu">'+np+' partie'+(np>1?'s':'')+'</span>';if(s.bilan)h+='<span class="chip c-bl">Bilan</span>';if(aflpT.length)h+='<span class="chip c-bl">'+aflpT.length+' AFLP</span>';h+='</div></div></div>';if(sp&&(sp.objectif||sp.criteres||sp.contenus)){h+='<div class="scard-body">';if(sp.objectif)h+='<div><div class="scard-sec-lbl">Objectif situation</div><div class="scard-sec-val">'+esc(sp.objectif)+'</div></div>';if(sp.criteres)h+='<div><div class="scard-sec-lbl">Criteres</div><div class="scard-sec-val">'+esc(sp.criteres)+'</div></div>';if(sp.contenus)h+='<div><div class="scard-sec-lbl">Contenus</div><div class="scard-sec-val">'+esc(sp.contenus)+'</div></div>';h+='</div>';}if(objData.obj1)h+='<div class="scard-body" style="border-top:1px solid #1a1d2a"><div><div class="scard-sec-lbl">Objectif eleves</div><div class="scard-sec-val">'+esc(objData.obj1)+(objData.obj2?' / '+esc(objData.obj2):'')+'</div></div></div>';if(np){h+='<div class="scard-parts">';for(var j=0;j<s.parties.length;j++)h+='<span class="scard-part-pill">Partie '+(j+1)+(s.parties[j].titre?' - '+esc(s.parties[j].titre):'')+'</span>';h+='</div>';}if(aflpT.length&&aflpData){h+='<div class="scard-aflp-row"><span class="scard-aflp-lbl">AFLP :</span>';for(var j=0;j<aflpT.length;j++)h+='<span class="scard-aflp-tag">'+aflpT[j]+'</span>';h+='</div>';}div.innerHTML=h;el.appendChild(div);})(filtered[i]);}el.onclick=function(e){var card=e.target.closest('.scard');if(card)openEditS(card.dataset.sid);};}
+function renderSeances(){var el=ge('slist');var q=(ge('srch').value||'').toLowerCase();var sorted=state.seances.slice().sort(function(a,b){return a.num-b.num;});var filtered=[];for(var i=0;i<sorted.length;i++){if((sorted[i].objectif||'').toLowerCase().indexOf(q)>=0||String(sorted[i].num).indexOf(q)>=0)filtered.push(sorted[i]);}if(!filtered.length){el.innerHTML='<div class="empty">Aucune seance. Creez la premiere !</div>';return;}var f=CTX.cls?CTX.cls.filiere:'bacpro';var aflpData=CTX.apsa?(AFLP[f]||AFLP.bacpro)[CTX.apsa.caFull]:null;var caColor=CTX.apsa?CTX.apsa.caColor:'#4f8aff';el.innerHTML='';for(var i=0;i<filtered.length;i++){(function(s){var presMap=state.presences[s.id]||{};var nbP=0;for(var k in presMap){if((presMap[k]||'')==='Present')nbP++;}var np=(s.parties||[]).length;var aflpT=s.aflpTravailles||[];var objData=state.seanceObjectifs[s.id]||{};var sp=null;if(s.parties){for(var j=0;j<s.parties.length;j++){if(s.parties[j].titre&&s.parties[j].titre.toLowerCase().indexOf('sit')>=0){sp=s.parties[j];break;}}if(!sp&&s.parties.length)sp=s.parties[0];}var div=document.createElement('div');div.className='scard';div.dataset.sid=s.id;var h='<div class="scard-head"><div class="scard-num" style="background:'+caColor+'"><span class="scard-num-label">Seance</span>'+s.num+'</div><div class="scard-main"><div class="scard-title">'+esc(s.objectif||'Sans titre')+'</div><div class="scard-date">'+(s.date?fmtDate(s.date):'Date non definie')+'</div><div class="scard-chips"><span class="chip c-gr">'+nbP+'/'+state.eleves.length+'</span>';if(np)h+='<span class="chip c-pu">'+np+' partie'+(np>1?'s':'')+'</span>';if(s.bilan)h+='<span class="chip c-bl">Bilan</span>';if(aflpT.length)h+='<span class="chip c-bl">'+aflpT.length+' AFLP</span>';h+='</div></div></div>';if(sp&&(sp.objectif||sp.criteres||sp.contenus)){h+='<div class="scard-body">';if(sp.objectif)h+='<div><div class="scard-sec-lbl">Objectif situation</div><div class="scard-sec-val">'+esc(sp.objectif)+'</div></div>';if(sp.criteres)h+='<div><div class="scard-sec-lbl">Criteres</div><div class="scard-sec-val">'+esc(sp.criteres)+'</div></div>';if(sp.contenus)h+='<div><div class="scard-sec-lbl">Contenus</div><div class="scard-sec-val">'+esc(sp.contenus)+'</div></div>';h+='</div>';}if(objData.obj1)h+='<div class="scard-body" style="border-top:1px solid #1a1d2a"><div><div class="scard-sec-lbl">Objectif eleves</div><div class="scard-sec-val">'+esc(objData.obj1)+(objData.obj2?' / '+esc(objData.obj2):'')+'</div></div></div>';if(np){h+='<div class="scard-parts">';for(var j=0;j<s.parties.length;j++)h+='<span class="scard-part-pill">Partie '+(j+1)+(s.parties[j].titre?' - '+esc(s.parties[j].titre):'')+'</span>';h+='</div>';}if(aflpT.length&&aflpData){h+='<div class="scard-aflp-row"><span class="scard-aflp-lbl">AFLP :</span>';for(var j=0;j<aflpT.length;j++)h+='<span class="scard-aflp-tag">'+aflpT[j]+'</span>';h+='</div>';}div.innerHTML=h;el.appendChild(div);})(filtered[i]);}el.onclick=function(e){var card=e.target.closest('.scard');if(card)openSeanceMenu(card.dataset.sid);};}
 function mkPid(){return'p'+Date.now()+Math.random().toString(36).slice(2,5);}
 function addPartie(mode){var p={id:mkPid(),titre:'',objectif:'',consignes:'',criteres:'',contenus:'',realisation:'',remediation:'',bilan:'',photos:[],tableaux:[],fichiers:[]};if(mode==='new')partiesNew.push(p);else partiesEdit.push(p);var arr=mode==='new'?partiesNew:partiesEdit;renderPartieBlock(mode==='new'?'parties-new':'parties-edit',p,arr.length-1,mode);}
 function renderPartieBlock(cid,p,idx,mode){var c=ge(cid);var div=document.createElement('div');div.className='partie-block';div.id='pb-'+p.id;div.innerHTML='<div class="partie-header"><span class="partie-num-badge">&#9654; Partie '+(idx+1)+'</span><input class="partie-title-input" type="text" placeholder="Titre de la partie (Echauffement, Situation principale...)" value="'+esc(p.titre)+'"><button class="btn-bib-save-partie" data-pid="'+p.id+'" title="Sauvegarder dans la bibliotheque" style="background:rgba(167,139,250,.12);border:1px solid rgba(167,139,250,.25);border-radius:6px;color:#a78bfa;font-size:.62rem;padding:3px 7px;cursor:pointer;white-space:nowrap">&#128218;</button><button class="partie-del" data-pid="'+p.id+'" data-mode="'+mode+'">&#128465;</button></div>'+'<div class="partie-grid">'+'<div class="pf obj" style="grid-column:1/-1"><label>&#127919; Objectif</label><textarea rows="2" placeholder="Quel est le but de cette partie pour l eleve ?">'+esc(p.objectif)+'</textarea></div>'+'<div class="pf cons" style="grid-column:1/-1"><label>&#128221; Consignes</label><div class="pf-cons-hint">Ecrivez chaque consigne sur une nouvelle ligne pour plus de lisibilite</div><textarea rows="5" placeholder="- Consigne 1&#10;- Consigne 2&#10;- Consigne 3...">'+esc(p.consignes)+'</textarea></div>'+'<div class="pf crit"><label>&#9989; Criteres de reussite</label><textarea rows="3" placeholder="Ce que l eleve doit reussir pour valider la partie...">'+esc(p.criteres)+'</textarea></div>'+'<div class="pf cont"><label>&#127891; Contenus d enseignement</label><textarea rows="3" placeholder="Ce que j enseigne / Points cles...">'+esc(p.contenus||'')+'</textarea></div>'+'<div class="pf real"><label>&#128269; Criteres de realisation</label><textarea rows="3" placeholder="Les indicateurs observables pour l enseignant (ce que je vois chez l eleve qui fait bien)...">'+esc(p.realisation||'')+'</textarea></div>'+'<div class="pf rem"><label>&#128260; Remediations</label><textarea rows="3" placeholder="Pour les eleves en difficulte : adaptations, simplifications, aides...">'+esc(p.remediation||'')+'</textarea></div>'+'<div class="pf bil" style="grid-column:1/-1"><label>&#128203; Bilan de partie</label><textarea rows="2" placeholder="Observations apres la seance...">'+esc(p.bilan)+'</textarea></div>'+'</div>';
@@ -3560,6 +3604,85 @@ function renumParties(cid){var badges=ge(cid).querySelectorAll('.partie-num-badg
 function readParties(cid,arr){var result=[];for(var i=0;i<arr.length;i++){var b=ge('pb-'+arr[i].id);if(!b){result.push(arr[i]);continue;}var ti=b.querySelector('.partie-title-input');var ta=b.querySelectorAll('textarea');var ph=arr[i].photos||[];var fi=arr[i].fichiers||[];var tbl=[];var tblWrap=b.querySelector('.extra-table-wrap');if(tblWrap){var rows=tblWrap.querySelectorAll('tr');var tblData=[];for(var r=0;r<rows.length;r++){var cells=rows[r].querySelectorAll('th,td');var row=[];for(var c2=0;c2<cells.length;c2++)row.push(cells[c2].textContent);tblData.push(row);}if(tblData.length)tbl=[tblData];}result.push({id:arr[i].id,titre:ti?ti.value:'',objectif:ta[0]?ta[0].value:'',consignes:ta[1]?ta[1].value:'',criteres:ta[2]?ta[2].value:'',contenus:ta[3]?ta[3].value:'',realisation:ta[4]?ta[4].value:'',remediation:ta[5]?ta[5].value:'',bilan:ta[6]?ta[6].value:'',photos:ph,tableaux:tbl,fichiers:fi,liens:arr[i].liens||[]});}return result;}
 function renderAflpChecks(cid,selArr){var c=ge(cid);if(!c)return;var f=CTX.cls?CTX.cls.filiere:'bacpro';var aflpData=CTX.apsa?(AFLP[f]||AFLP.bacpro)[CTX.apsa.caFull]:null;if(!aflpData){c.innerHTML='<div style="color:#6b7280;font-size:.78rem">Ouvrez d\'abord un suivi APSA.</div>';return;}c.innerHTML='';for(var i=0;i<aflpData.items.length;i++){(function(item){var checked=selArr.indexOf(item.n)>=0;var lbl=document.createElement('label');lbl.className='aflp-check-item'+(checked?' checked-item':'');lbl.innerHTML='<input type="checkbox" '+(checked?'checked':'')+'><span class="aflp-check-num">'+item.n+'</span><span class="aflp-check-text">'+item.t+'</span>';lbl.querySelector('input').addEventListener('change',function(){if(this.checked){if(selArr.indexOf(item.n)<0)selArr.push(item.n);}else{var idx=selArr.indexOf(item.n);if(idx>=0)selArr.splice(idx,1);}lbl.className='aflp-check-item'+(selArr.indexOf(item.n)>=0?' checked-item':'');});c.appendChild(lbl);})(aflpData.items[i]);}}
 function saveSeance(){var o=ge('fo').value.trim();if(!o){alert('Titre requis');return;}state.seances.push({id:'s'+Date.now(),num:parseInt(ge('fn').value)||(state.seances.length+1),date:ge('fd').value,objectif:o,obj1:ge('fo2').value.trim(),obj2:ge('fo3').value.trim(),obj3:ge('fo4').value.trim(),autreobj:ge('fn-autreobj').value,contenus:ge('fn-contenus').value,fps:ge('fn-fps').value,bilan:ge('fb').value,aflpTravailles:aflpNewSel.slice(),parties:readParties('parties-new',partiesNew)});save();closeM('m-seance');ge('fn').value='';ge('fd').value='';ge('fo').value='';ge('fo2').value='';ge('fo3').value='';ge('fo4').value='';ge('fn-autreobj').value='';ge('fn-contenus').value='';ge('fn-fps').value='';ge('fb').value='';ge('parties-new').innerHTML='';partiesNew=[];aflpNewSel=[];renderAll();}
+function openSeanceMenu(sid){
+  var s=null;
+  for(var i=0;i<state.seances.length;i++){if(state.seances[i].id===sid){s=state.seances[i];break;}}
+  if(!s)return;
+  var title=ge('m-seance-menu-title');
+  var sub=ge('m-seance-menu-sub');
+  var btnView=ge('m-seance-menu-view');
+  var btnEdit=ge('m-seance-menu-edit');
+  if(title)title.textContent='S'+(s.num||'?')+' — '+(s.objectif||'Séance');
+  if(sub)sub.textContent=s.date||'';
+  if(btnView)btnView.onclick=function(){closeM('m-seance-menu');openViewS(sid);};
+  if(btnEdit)btnEdit.onclick=function(){closeM('m-seance-menu');openEditS(sid);};
+  openM('m-seance-menu');
+}
+
+function openViewS(sid){
+  var s=null;
+  for(var i=0;i<state.seances.length;i++){if(state.seances[i].id===sid){s=state.seances[i];break;}}
+  if(!s)return;
+  var heure=(CTX.cls&&CTX.cls.heure)||'';
+  // Construire le HTML de visualisation dans m-edit-s en lecture seule
+  var modal=ge('m-view-s');
+  if(!modal){
+    var div=document.createElement('div');
+    div.className='mb';div.id='m-view-s';
+    div.innerHTML='<div class="modal" style="max-width:700px"><div class="modal-title" id="vs-title"></div><div id="vs-body" style="max-height:75vh;overflow-y:auto;padding-right:4px"></div><div class="modal-acts"><button class="btn btn-g" onclick="closeM(\'m-view-s\')">Fermer</button><button class="btn btn-p" onclick="closeM(\'m-view-s\');openEditS(\''+sid+'\')">Modifier</button></div></div>';
+    document.body.appendChild(div);
+  }
+  var title=ge('vs-title');
+  var body=ge('vs-body');
+  if(title)title.textContent='S'+(s.num||'?')+' — '+(s.objectif||'Séance');
+  if(!body)return;
+
+  function row(label,val){
+    if(!val||!val.trim())return'';
+    return'<div style="margin-bottom:12px"><div style="font-size:.65rem;font-weight:700;color:#636366;text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px">'+label+'</div><div style="font-size:.88rem;color:#c4c8d8;line-height:1.6;background:rgba(255,255,255,.03);border-radius:8px;padding:9px 12px;border-left:2px solid #2a2d3e">'+esc(val)+'</div></div>';
+  }
+
+  var h='<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:16px">';
+  h+='<div style="background:rgba(255,255,255,.04);border-radius:8px;padding:9px 12px"><div style="font-size:.62rem;color:#636366;text-transform:uppercase;margin-bottom:2px">Date</div><div style="font-size:.85rem;color:#e4e6ef;font-family:monospace">'+(s.date||'—')+(heure?' · '+heure:'')+'</div></div>';
+  h+='<div style="background:rgba(255,255,255,.04);border-radius:8px;padding:9px 12px"><div style="font-size:.62rem;color:#636366;text-transform:uppercase;margin-bottom:2px">AFLP travaillés</div><div style="display:flex;gap:4px;flex-wrap:wrap;margin-top:2px">'+(s.aflpTravailles||[]).map(function(a){return'<span style="background:rgba(10,132,255,.15);color:#4f8aff;padding:2px 8px;border-radius:4px;font-size:.7rem;font-weight:700">'+esc(a)+'</span>';}).join('')+'</div></div>';
+  h+='</div>';
+
+  if(s.obj1||s.obj2||s.obj3){
+    h+='<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin-bottom:12px">';
+    function objCard(n,v){return v?'<div style="background:rgba(255,255,255,.04);border-radius:8px;padding:8px 10px"><div style="font-size:.6rem;color:#636366;text-transform:uppercase;margin-bottom:3px">Objet '+n+'</div><div style="font-size:.8rem;color:#c4c8d8;line-height:1.5">'+esc(v)+'</div></div>':'';}
+    h+=objCard(1,s.obj1)+objCard(2,s.obj2)+objCard(3,s.obj3);
+    h+='</div>';
+  }
+
+  h+=row('Autres objectifs',s.autreobj);
+  h+=row('Contenus d\'enseignement',s.contenus);
+  h+=row('Partie FPS',s.fps);
+  h+=row('Bilan de séance',s.bilan);
+
+  // Parties
+  if(s.parties&&s.parties.length){
+    h+='<div style="font-size:.65rem;font-weight:700;color:#636366;text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px">Situations ('+s.parties.length+')</div>';
+    s.parties.forEach(function(p,pi){
+      h+='<div style="background:rgba(255,255,255,.04);border-radius:10px;padding:12px;margin-bottom:8px">';
+      h+='<div style="font-size:.82rem;font-weight:600;color:#e4e6ef;margin-bottom:8px">Situation '+(pi+1)+(p.titre?' — '+esc(p.titre):'')+'</div>';
+      if(p.objectif)h+='<div style="font-size:.78rem;color:#9aa0b8;margin-bottom:4px"><span style="color:#4f8aff;font-weight:600">Objectif : </span>'+esc(p.objectif)+'</div>';
+      if(p.consignes)h+='<div style="font-size:.78rem;color:#9aa0b8;margin-bottom:4px"><span style="color:#56cfb2;font-weight:600">Consignes : </span>'+esc(p.consignes)+'</div>';
+      if(p.criteres)h+='<div style="font-size:.78rem;color:#9aa0b8;margin-bottom:4px"><span style="color:#ffd166;font-weight:600">Critères : </span>'+esc(p.criteres)+'</div>';
+      if(p.contenus)h+='<div style="font-size:.78rem;color:#9aa0b8;margin-bottom:4px"><span style="color:#ff9f0a;font-weight:600">Contenus : </span>'+esc(p.contenus)+'</div>';
+      if(p.remediation)h+='<div style="font-size:.78rem;color:#9aa0b8"><span style="color:#ff6b6b;font-weight:600">Remédiation : </span>'+esc(p.remediation)+'</div>';
+      // Liens
+      if(p.liens&&p.liens.length){h+='<div style="margin-top:8px;display:flex;gap:6px;flex-wrap:wrap">';p.liens.forEach(function(l){h+='<a href="'+esc(l.url)+'" target="_blank" style="font-size:.72rem;color:#4f8aff;background:rgba(10,132,255,.1);padding:3px 9px;border-radius:5px;text-decoration:none">&#128279; '+esc(l.label||l.url)+'</a>';});h+='</div>';}
+      h+='</div>';
+    });
+  }
+
+  body.innerHTML=h;
+  // Mettre à jour le bouton Modifier avec le bon sid
+  var btnMod=modal.querySelector('.btn-p');
+  if(btnMod)btnMod.onclick=function(){closeM('m-view-s');openEditS(sid);};
+  openM('m-view-s');
+}
+
 function openEditS(id){var s=null;for(var i=0;i<state.seances.length;i++){if(state.seances[i].id===id){s=state.seances[i];break;}}if(!s)return;ge('es-id').value=id;ge('es-badge').textContent='S'+s.num;ge('es-n').value=s.num;ge('es-d').value=s.date||'';ge('es-o').value=s.objectif||'';ge('es-o2').value=s.obj1||'';ge('es-o3').value=s.obj2||'';ge('es-o4').value=s.obj3||'';ge('es-autreobj').value=s.autreobj||'';ge('es-contenus').value=s.contenus||'';ge('es-fps').value=s.fps||'';ge('es-b').value=s.bilan||'';ge('parties-edit').innerHTML='';partiesEdit=JSON.parse(JSON.stringify(s.parties||[]));for(var i=0;i<partiesEdit.length;i++)renderPartieBlock('parties-edit',partiesEdit[i],i,'edit');aflpEditSel=(s.aflpTravailles||[]).slice();renderAflpChecks('aflp-check-edit',aflpEditSel);iaReset();openM('m-edit-s');}
 function updSeance(){var id=ge('es-id').value;var s=null;for(var i=0;i<state.seances.length;i++){if(state.seances[i].id===id){s=state.seances[i];break;}}if(!s)return;s.num=parseInt(ge('es-n').value)||s.num;s.date=ge('es-d').value;s.objectif=ge('es-o').value;s.obj1=ge('es-o2').value;s.obj2=ge('es-o3').value;s.obj3=ge('es-o4').value;s.autreobj=ge('es-autreobj').value;s.contenus=ge('es-contenus').value;s.fps=ge('es-fps').value;s.bilan=ge('es-b').value;s.parties=readParties('parties-edit',partiesEdit);s.aflpTravailles=aflpEditSel.slice();save();closeM('m-edit-s');renderAll();}
 function delSeance(){var id=ge('es-id').value;if(!confirm('Supprimer cette seance ?'))return;for(var i=state.seances.length-1;i>=0;i--){if(state.seances[i].id===id){state.seances.splice(i,1);break;}}delete state.presences[id];delete state.autoEval[id];delete state.seanceObjectifs[id];save();closeM('m-edit-s');renderAll();}
