@@ -785,57 +785,18 @@ textarea{resize:vertical;min-height:70px}
     </div>
   </div>
   <div class="acc-main">
-
-    <div class="acc-steps">
-      <div class="acc-step active" id="acc-s1"><div class="acc-step-num">1</div>Classe</div>
-      <div class="acc-step-line"></div>
-      <div class="acc-step" id="acc-s2"><div class="acc-step-num">2</div>APSA</div>
-      <div class="acc-step-line"></div>
-      <div class="acc-step" id="acc-s3"><div class="acc-step-num">3</div>Trimestre</div>
-      <div class="acc-step-line"></div>
-      <div class="acc-step" id="acc-s4"><div class="acc-step-num">4</div>Ouvrir</div>
-    </div>
-    <div class="acc-sec-tag">Etape 1</div>
-    <div class="acc-sec-title">Quelle classe ?</div>
-    <div class="acc-cls-grid" id="acc-cls-grid"></div>
-    <div class="acc-divider"></div>
-    <div class="acc-sec-tag">Etape 2 - par Champ d'apprentissage</div>
-    <div class="acc-sec-title">Quelle APSA ?</div>
-    <div id="acc-apsa-container"></div>
-    <div class="acc-custom"><span>Autre APSA :</span><input type="text" id="acc-custom-input" placeholder="Ex: Natation..."></div>
-    <div class="acc-divider"></div>
-    <div class="acc-sec-tag">Etape 3</div>
-    <div class="acc-sec-title">Quel trimestre ?</div>
-    <div class="trim-grid">
-      <div class="acc-trim" id="tr-1" style="--tc:#4f8aff"><div class="acc-trim-num">T1</div><div class="acc-trim-label">Trimestre 1</div></div>
-      <div class="acc-trim" id="tr-2" style="--tc:#56cfb2"><div class="acc-trim-num">T2</div><div class="acc-trim-label">Trimestre 2</div></div>
-      <div class="acc-trim" id="tr-3" style="--tc:#ffd166"><div class="acc-trim-num">T3</div><div class="acc-trim-label">Trimestre 3</div></div>
-    </div>
-    <div class="acc-divider"></div>
-    <div id="aflp-acc-zone" style="display:none">
-      <div class="acc-sec-tag">Attendus de fin de lycee professionnel</div>
-      <div class="acc-sec-title" id="aflp-acc-sec-title"></div>
-      <div class="aflp-acc-box">
-        <div class="aflp-acc-title">Programme EPS voie professionnelle - BO 2019</div>
-        <div class="aflp-acc-ca-title" id="aflp-acc-ca-title"></div>
-        <div class="aflp-acc-list" id="aflp-acc-list"></div>
-      </div>
-      <div class="acc-divider"></div>
-    </div>
-    <div class="acc-cta">
-      <div>
-        <div class="acc-sum-lbl">Selection</div>
-        <div class="acc-sum-val" id="acc-sum">Choisissez une classe, une APSA et un trimestre</div>
-      </div>
-      <button class="acc-btn" id="acc-btn" disabled>Ouvrir le suivi</button>
-    </div>
-    <div class="acc-recent" id="acc-recent" style="display:none">
-      <div class="acc-recent-title">Sessions recentes</div>
-      <div class="acc-chips" id="acc-chips"></div>
+    <div id="acc-sq-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:12px;padding:0 0 2rem"></div>
+    <div style="display:none" aria-hidden="true">
+      <div id="acc-cls-grid"></div><div id="acc-apsa-container"></div>
+      <input id="acc-custom-input"><div id="tr-1"></div><div id="tr-2"></div><div id="tr-3"></div>
+      <div id="acc-s1"></div><div id="acc-s2"></div><div id="acc-s3"></div><div id="acc-s4"></div>
+      <div id="aflp-acc-zone"><div id="aflp-acc-sec-title"></div><div id="aflp-acc-ca-title"></div><div id="aflp-acc-list"></div></div>
+      <div id="acc-sum"></div><button id="acc-btn"></button>
+      <div id="acc-recent"><div id="acc-chips"></div></div>
     </div>
     <div class="acc-biblio">
       <div class="acc-biblio-header">
-        <div class="acc-biblio-title">&#128218; Bibliotheque de situations</div>
+        <div class="acc-biblio-title">&#128218; Biblioth&egrave;que de situations</div>
         <div style="display:flex;gap:6px">
           <button class="acc-biblio-btn" style="background:rgba(86,207,178,.15);border-color:rgba(86,207,178,.3);color:#56cfb2" onclick="bibPull()">&#8595; Sync</button>
           <button class="acc-biblio-btn" id="btn-open-biblio" onclick="openBiblio()">Ouvrir &#8594;</button>
@@ -1677,6 +1638,45 @@ textarea{resize:vertical;min-height:70px}
     <button class="btn btn-p" onclick="acc2SaveFpsLink()">Enregistrer</button>
   </div>
 </div></div>
+
+<div class="mb" id="m-new-seq"><div class="modal" style="max-width:520px">
+  <div class="modal-title">Nouvelle s&eacute;quence</div>
+  <div id="m-ns-s1">
+    <div style="font-size:.75rem;color:#6b7280;margin-bottom:10px">&Eacute;tape 1 / 3 &mdash; Classe</div>
+    <div id="m-ns-cls-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:8px;margin-bottom:16px"></div>
+    <div id="m-ns-add-cls" style="margin-bottom:10px;text-align:right"><button class="btn btn-g" style="font-size:.75rem;padding:4px 12px" onclick="closeM('m-new-seq');openM('m-add-cls')">+ Ajouter une classe</button></div>
+    <div id="m-ns-no-cls" style="display:none;text-align:center;padding:1.5rem;background:rgba(255,255,255,.03);border:1.5px dashed rgba(255,255,255,.1);border-radius:10px;margin-bottom:16px">
+      <div style="font-size:1.5rem;margin-bottom:.5rem">&#127979;</div>
+      <div style="font-size:.85rem;color:#9aa0b8;margin-bottom:10px">Aucune classe configur&eacute;e</div>
+      <button class="btn btn-p" onclick="closeM('m-new-seq');openM('m-add-cls')">+ Ajouter une classe</button>
+    </div>
+    <div class="modal-acts"><button class="btn btn-g" onclick="closeM('m-new-seq')">Annuler</button></div>
+  </div>
+  <div id="m-ns-s2" style="display:none">
+    <div style="font-size:.75rem;color:#6b7280;margin-bottom:10px">&Eacute;tape 2 / 3 &mdash; APSA</div>
+    <div id="m-ns-apsa-grid" style="max-height:55vh;overflow-y:auto;padding-right:4px"></div>
+    <div class="modal-acts"><button class="btn btn-g" onclick="nsStep(1)">&#8592; Retour</button></div>
+  </div>
+  <div id="m-ns-s3" style="display:none">
+    <div style="font-size:.75rem;color:#6b7280;margin-bottom:10px">&Eacute;tape 3 / 3 &mdash; Trimestre</div>
+    <div style="display:flex;gap:8px;margin-bottom:16px">
+      <button id="m-ns-t1" onclick="nsSelTrim(1)" style="flex:1;padding:12px;border:0.5px solid rgba(255,255,255,.1);border-radius:8px;background:rgba(255,255,255,.04);color:#e4e6ef;font-size:1rem;font-weight:600;cursor:pointer">T1</button>
+      <button id="m-ns-t2" onclick="nsSelTrim(2)" style="flex:1;padding:12px;border:0.5px solid rgba(255,255,255,.1);border-radius:8px;background:rgba(255,255,255,.04);color:#e4e6ef;font-size:1rem;font-weight:600;cursor:pointer">T2</button>
+      <button id="m-ns-t3" onclick="nsSelTrim(3)" style="flex:1;padding:12px;border:0.5px solid rgba(255,255,255,.1);border-radius:8px;background:rgba(255,255,255,.04);color:#e4e6ef;font-size:1rem;font-weight:600;cursor:pointer">T3</button>
+    </div>
+    <div id="m-ns-recap" style="display:none;background:rgba(255,255,255,.04);border-radius:10px;padding:12px;margin-bottom:16px">
+      <div style="font-size:.7rem;color:#6b7280;text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px">R&eacute;capitulatif</div>
+      <div style="display:flex;align-items:center;gap:10px">
+        <div id="m-ns-ri" style="font-size:24px"></div>
+        <div><div id="m-ns-rt" style="font-size:.9rem;font-weight:600;color:#e4e6ef"></div><div id="m-ns-rs" style="font-size:.78rem;color:#9aa0b8"></div></div>
+      </div>
+    </div>
+    <div class="modal-acts">
+      <button class="btn btn-g" onclick="nsStep(2)">&#8592; Retour</button>
+      <button id="m-ns-open" class="btn btn-p" disabled onclick="nsLaunch()">Ouvrir le suivi</button>
+    </div>
+  </div>
+</div></div>
 <script>
 var CLASSES_DEFAULT=[{id:'2nde-ener-b',label:'2NDE ENER B',level:'2NDE',sub:'Energie Gr. B',color:'#c8400a',light:'#c8400a0d',filiere:'bacpro',heure:'10h00'},{id:'2nde-mrc-b',label:'2NDE MRC B',level:'2NDE',sub:'MRC Gr. B',color:'#1a6b3a',light:'#1a6b3a0d',filiere:'bacpro',heure:'08h05'},{id:'cap-epc-1',label:'CAP EPC 1',level:'CAP',sub:'Equipier polyvalent de commerce',color:'#1e4fa0',light:'#1e4fa00d',filiere:'cap',heure:'10h00'},{id:'cap-elec-2',label:'CAP ELEC 2',level:'CAP',sub:'Electricite',color:'#7c28b8',light:'#7c28b80d',filiere:'cap',heure:'08h05'},{id:'3e-pm',label:'3e PM',level:'3e',sub:'Prepa Metiers',color:'#a07800',light:'#a078000d',filiere:'col4',heure:'10h00'}];
 var CLASSES=[];
@@ -2023,10 +2023,12 @@ function ghPull(){
   // Tirer classes et state EN PARALLELE
   Promise.all([
     fetch('https://api.github.com/repos/'+GH.repo+'/contents/data/classes.json',{headers:h}).then(function(r){return r.ok?r.json():null;}).catch(function(){return null;}),
+    fetch('https://api.github.com/repos/'+GH.repo+'/contents/data/sessions.json',{headers:h}).then(function(r){return r.ok?r.json():null;}).catch(function(){return null;}),
     fetch('https://api.github.com/repos/'+GH.repo+'/contents/data/'+STORAGE_KEY+'.json',{headers:h}).then(function(r){return r.ok?r.json():null;}).catch(function(){return null;})
   ]).then(function(results){
     var clsData=results[0];
-    var stateData=results[1];
+    var sessData=results[1];var stateData=results[2];
+    if(sessData&&sessData.content){try{var sess=ghDecode(sessData.content);if(sess&&Array.isArray(sess)){localStorage.setItem('eps-recent',JSON.stringify(sess));}}catch(e){}}
     if(clsData&&clsData.content){
       try{
         var cls=ghDecode(clsData.content);
@@ -2550,7 +2552,190 @@ function renderWidgetAflp(){
   zone.innerHTML=h;
 }
 
-function accInit(){var now=new Date();var J=['Dimanche','Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi'];var M=['janv.','fevr.','mars','avr.','mai','juin','juil.','aout','sept.','oct.','nov.','dec.'];ge('acc-date').innerHTML=J[now.getDay()]+' '+now.getDate()+' '+M[now.getMonth()]+' '+now.getFullYear()+'<br>Annee scolaire 2025-2026';accRenderClsGrid();var ac=ge('acc-apsa-container');ac.innerHTML='';for(var gi=0;gi<CA_GROUPS.length;gi++){(function(g){var grp=document.createElement('div');grp.className='ca-group';var h='<div class="ca-group-header"><span class="ca-label" style="background:'+g.color+'22;color:'+g.color+'">'+g.ca+'</span><span class="ca-desc">'+g.desc+'</span></div><div class="ca-apsa-row">';for(var ai=0;ai<g.apsa.length;ai++){var a=g.apsa[ai];h+='<div class="acc-apsa" id="ap-'+a.id+'"><div class="acc-apsa-emoji">'+a.emoji+'</div><div class="acc-apsa-name">'+a.name+'</div></div>';}h+='</div>';grp.innerHTML=h;for(var ai2=0;ai2<g.apsa.length;ai2++){(function(a){var el=grp.querySelector('#ap-'+a.id);if(el){el.addEventListener('click',function(e){e.stopPropagation();accPickApsa(a.id);});}})(g.apsa[ai2]);}ac.appendChild(grp);})(CA_GROUPS[gi]);}for(var n=1;n<=3;n++){(function(tn){var el=ge('tr-'+tn);if(el)el.addEventListener('click',function(e){e.preventDefault();e.stopPropagation();accPickTrim(tn);});})(n);}ge('acc-custom-input').addEventListener('input',function(){accCustom(this.value);});ge('acc-btn').addEventListener('click',function(){accLaunch();});
+var _nsCls=null,_nsApsa=null,_nsTrim=null;
+var _CA_C={'CA1':'#0C447C','CA2':'#185FA5','CA3':'#3C3489','CA4':'#712B13','CA5':'#27500A'};
+
+function accRenderSqGrid(){
+  var grid=ge('acc-sq-grid');if(!grid)return;
+  grid.innerHTML='';
+  var sessions=[];
+  try{sessions=JSON.parse(localStorage.getItem('eps-recent')||'[]');}catch(e){}
+  sessions.forEach(function(s){
+    var col=_CA_C[s.apsa&&s.apsa.ca]||'#1a2038';
+    var card=document.createElement('div');
+    card.style.cssText='aspect-ratio:1;border-radius:12px;padding:12px;display:flex;flex-direction:column;justify-content:space-between;cursor:pointer;transition:transform .12s;background:'+col;
+    card.innerHTML='<div style="display:flex;justify-content:space-between;align-items:flex-start"><span style="font-size:9px;font-weight:700;background:rgba(255,255,255,.2);color:rgba(255,255,255,.9);padding:2px 6px;border-radius:4px">'+(s.apsa&&s.apsa.ca||'')+'</span><span class="acc-sq-del" data-key="'+(s.key||'')+'" style="font-size:14px;color:rgba(255,255,255,.5);cursor:pointer;line-height:1;padding:0 2px" title="Supprimer">&#10005;</span></div>'+
+      '<div style="font-size:20px;margin:4px 0">'+(s.apsa&&s.apsa.emoji||'')+'</div>'+
+      '<div><div style="font-size:12px;font-weight:600;color:#fff;line-height:1.3;margin-bottom:2px">'+(s.apsa&&s.apsa.name||'')+'</div>'+
+      '<div style="font-size:10px;color:rgba(255,255,255,.6)">'+(s.cls&&s.cls.label||'')+' T'+(s.trim||'')+'</div></div>';
+    card.querySelector('.acc-sq-del').addEventListener('click',function(e){
+      e.stopPropagation();
+      if(confirm('Supprimer cette séquence ?'))sessionsDelete(this.dataset.key);
+    });
+    card.onmouseenter=function(){this.style.transform='scale(1.04)';};
+    card.onmouseleave=function(){this.style.transform='';};
+    card.onclick=(function(ss){return function(){accLaunch(ss.cls,ss.apsa,ss.trim);};})(s);
+    grid.appendChild(card);
+  });
+  var nc=document.createElement('div');
+  nc.style.cssText='aspect-ratio:1;border-radius:12px;border:1.5px dashed rgba(255,255,255,.2);background:rgba(255,255,255,.04);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;cursor:pointer;transition:background .12s';
+  nc.innerHTML='<div style="font-size:32px;color:#4f8aff;line-height:1">+</div><div style="font-size:11px;color:#9aa0b8;text-align:center">Nouvelle</div>';
+  nc.onmouseenter=function(){this.style.background='rgba(79,138,255,.08)';};
+  nc.onmouseleave=function(){this.style.background='rgba(255,255,255,.04)';};
+  nc.onclick=function(){nsOpenModal();};
+  grid.appendChild(nc);
+}
+
+function nsOpenModal(){
+  _nsCls=null;_nsApsa=null;_nsTrim=null;
+  nsStep(1);
+  var g=ge('m-ns-cls-grid');
+  var noCls=ge('m-ns-no-cls');
+  if(g){
+    g.innerHTML='';
+    if(!CLASSES.length){
+      if(noCls)noCls.style.display='block';
+      g.style.display='none';
+    } else {
+      if(noCls)noCls.style.display='none';
+      g.style.display='grid';
+      CLASSES.forEach(function(c){
+        var card=document.createElement('div');
+        card.style.cssText='padding:12px;border:0.5px solid rgba(255,255,255,.1);border-radius:10px;cursor:pointer;transition:all .12s;background:rgba(255,255,255,.04)';
+        card.innerHTML='<div style="display:flex;justify-content:space-between;align-items:flex-start"><div style="font-size:.68rem;font-weight:700;color:'+c.color+';text-transform:uppercase">'+esc(c.level||'')+'</div>'+
+          '<span data-del="1" style="font-size:12px;color:#6b7280;cursor:pointer;padding:0 2px" title="Supprimer">&#10005;</span></div>'+
+          '<div style="font-size:.9rem;font-weight:600;color:#e4e6ef;margin-top:2px">'+esc(c.label)+'</div>'+
+          '<div style="font-size:.75rem;color:#6b7280">'+esc(c.sub||'')+'</div>';
+        card.querySelector('[data-del]').addEventListener('click',function(e){
+          e.stopPropagation();
+          if(confirm('Supprimer la classe '+c.label+' ?')){
+            var idx=CLASSES.indexOf(c);if(idx>=0)CLASSES.splice(idx,1);
+            classesSave();ghPushClasses();
+            nsOpenModal();
+          }
+        });
+        card.onmouseenter=function(){this.style.background='rgba(79,138,255,.1)';this.style.borderColor='rgba(79,138,255,.3)';};
+        card.onmouseleave=function(){if(_nsCls!==c){this.style.background='rgba(255,255,255,.04)';this.style.borderColor='rgba(255,255,255,.1)';}};
+        card.onclick=function(){
+          _nsCls=c;
+          var cards=g.querySelectorAll('div');
+          cards.forEach(function(el){el.style.background='rgba(255,255,255,.04)';el.style.borderColor='rgba(255,255,255,.1)';});
+          card.style.background='rgba(79,138,255,.15)';card.style.borderColor='rgba(79,138,255,.4)';
+          setTimeout(function(){nsBuildApsa();nsStep(2);},200);
+        };
+        g.appendChild(card);
+      });
+    }
+  }
+  openM('m-new-seq');
+}
+
+function nsBuildApsa(){
+  var container=ge('m-ns-apsa-grid');if(!container)return;
+  container.innerHTML='';
+  CA_GROUPS.forEach(function(g){
+    var col=_CA_C[g.ca]||'#1a2038';
+    var grp=document.createElement('div');grp.style.marginBottom='1rem';
+    grp.innerHTML='<div style="display:flex;align-items:center;gap:6px;margin-bottom:6px">'+
+      '<span style="font-size:.68rem;font-weight:700;background:'+col+'33;color:'+col+';padding:2px 8px;border-radius:4px">'+g.ca+'</span>'+
+      '<span style="font-size:.68rem;color:#6b7280">'+g.desc+'</span></div>';
+    var rowGrid=document.createElement('div');
+    rowGrid.style.cssText='display:grid;grid-template-columns:repeat(auto-fill,minmax(90px,1fr));gap:6px';
+    g.apsa.forEach(function(a){
+      var card=document.createElement('div');
+      card.style.cssText='aspect-ratio:1;border-radius:10px;padding:9px;display:flex;flex-direction:column;justify-content:space-between;cursor:pointer;background:'+col+';transition:transform .1s;border:2px solid transparent';
+      card.innerHTML='<div style="font-size:16px">'+a.emoji+'</div>'+
+        '<div style="font-size:10px;font-weight:600;color:#fff;line-height:1.3">'+esc(a.name)+'</div>';
+      card.onmouseenter=function(){this.style.transform='scale(1.06)';};
+      card.onmouseleave=function(){this.style.transform='';};
+      card.onclick=function(){
+        _nsApsa={id:a.id,name:a.name,emoji:a.emoji,ca:g.ca,caFull:g.caFull};
+        container.querySelectorAll('div[style*="aspect-ratio"]').forEach(function(c){c.style.border='2px solid transparent';});
+        card.style.border='2px solid rgba(255,255,255,.8)';
+        setTimeout(function(){nsStep(3);nsUpdateRecap();},180);
+      };
+      rowGrid.appendChild(card);
+    });
+    grp.appendChild(rowGrid);container.appendChild(grp);
+  });
+}
+
+function nsUpdateRecap(){
+  if(!_nsApsa)return;
+  var ri=ge('m-ns-ri');var rt=ge('m-ns-rt');var rs=ge('m-ns-rs');var recap=ge('m-ns-recap');
+  if(ri)ri.textContent=_nsApsa.emoji;
+  if(rt)rt.textContent=_nsApsa.name;
+  if(rs)rs.textContent=(_nsCls?_nsCls.label:'')+(_nsTrim?' - T'+_nsTrim:'');
+  if(recap)recap.style.display='block';
+}
+
+function nsSelTrim(t){
+  _nsTrim=t;
+  [1,2,3].forEach(function(n){
+    var btn=ge('m-ns-t'+n);if(!btn)return;
+    var sel=n===t;
+    btn.style.background=sel?'rgba(79,138,255,.2)':'rgba(255,255,255,.04)';
+    btn.style.borderColor=sel?'rgba(79,138,255,.5)':'rgba(255,255,255,.1)';
+    btn.style.color=sel?'#4f8aff':'#e4e6ef';
+  });
+  var btn=ge('m-ns-open');if(btn)btn.disabled=false;
+  nsUpdateRecap();
+}
+
+function nsStep(n){
+  [1,2,3].forEach(function(i){
+    var el=ge('m-ns-s'+i);if(el)el.style.display=i===n?'block':'none';
+  });
+}
+
+function nsLaunch(){
+  if(!_nsCls||!_nsApsa||!_nsTrim)return;
+  closeM('m-new-seq');
+  accLaunch(_nsCls,_nsApsa,_nsTrim);
+}
+
+function sessionsSave(sessions){
+  localStorage.setItem('eps-recent',JSON.stringify(sessions));
+  if(GH.token&&GH.repo){
+    ghPushFile('data/sessions.json',sessions,null);
+  }
+}
+
+function sessionsPull(onDone){
+  if(!GH.token||!GH.repo){if(onDone)onDone();return;}
+  fetch('https://api.github.com/repos/'+GH.repo+'/contents/data/sessions.json',{headers:ghHeaders()})
+    .then(function(r){return r.ok?r.json():null;})
+    .catch(function(){return null;})
+    .then(function(d){
+      if(d&&d.content){
+        try{
+          var parsed=JSON.parse(atob(d.content.replace(/\n/g,'')));
+          localStorage.setItem('eps-recent',JSON.stringify(parsed));
+        }catch(e){}
+      }
+      if(onDone)onDone();
+    });
+}
+
+function sessionsGet(){
+  try{return JSON.parse(localStorage.getItem('eps-recent')||'[]');}catch(e){return [];}
+}
+
+function sessionsAdd(cls,apsa,trim,key){
+  var sessions=sessionsGet();
+  for(var i=sessions.length-1;i>=0;i--){if(sessions[i].key===key)sessions.splice(i,1);}
+  sessions.unshift({key:key,cls:cls,apsa:apsa,trim:trim,ts:Date.now()});
+  sessionsSave(sessions.slice(0,12));
+}
+
+function sessionsDelete(key){
+  var sessions=sessionsGet().filter(function(s){return s.key!==key;});
+  sessionsSave(sessions);
+  accRenderSqGrid();
+  toast('Séquence supprimée','ok');
+}
+
+function accInit(){var now=new Date();var J=['Dimanche','Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi'];var M=['janv.','fevr.','mars','avr.','mai','juin','juil.','aout','sept.','oct.','nov.','dec.'];ge('acc-date').innerHTML=J[now.getDay()]+' '+now.getDate()+' '+M[now.getMonth()]+' '+now.getFullYear()+'<br>Annee scolaire 2025-2026';accRenderClsGrid();accRenderSqGrid();for(var n=1;n<=3;n++){(function(tn){var el=ge('tr-'+tn);if(el)el.addEventListener('click',function(e){e.preventDefault();e.stopPropagation();accPickTrim(tn);});})(n);}ge('acc-custom-input').addEventListener('input',function(){accCustom(this.value);});ge('acc-btn').addEventListener('click',function(){accLaunch();});
   // Anti-scroll-click iOS : detecter le scroll sur window
   var _accScrolling=false;
   var _accScrollTimer=null;
@@ -2586,7 +2771,7 @@ function accPickTrim(n){selTrim=n;var els=document.querySelectorAll('.acc-trim')
 function accCustom(v){selApsa=v.trim()?{id:'custom',name:v.trim(),ca:'CA?',caFull:'CA4',emoji:'&#127957;',caColor:'#6b7280'}:null;var els=document.querySelectorAll('.acc-apsa');for(var i=0;i<els.length;i++)els[i].classList.remove('sel');accUpd();if(selApsa)showAccAflp(selApsa);else ge('aflp-acc-zone').style.display='none';}
 function showAccAflp(apsa){var f=selCls?selCls.filiere:'bacpro';var d=(AFLP[f]||AFLP.bacpro)[apsa.caFull];if(!d){ge('aflp-acc-zone').style.display='none';return;}ge('aflp-acc-zone').style.display='block';ge('aflp-acc-sec-title').textContent=apsa.ca+' - '+apsa.name;ge('aflp-acc-ca-title').textContent=d.titre;var h='';for(var i=0;i<d.items.length;i++)h+='<div class="aflp-acc-item"><span class="aflp-acc-num">'+d.items[i].n+'</span><span>'+d.items[i].t+'</span></div>';ge('aflp-acc-list').innerHTML=h;}
 function accUpd(){ge('acc-s1').className='acc-step'+(selCls?' done':' active');ge('acc-s2').className='acc-step'+(selCls&&!selApsa?' active':selApsa?' done':'');ge('acc-s3').className='acc-step'+(selApsa&&!selTrim?' active':selTrim?' done':'');ge('acc-s4').className='acc-step'+(selApsa&&selTrim?' active':'');var btn=ge('acc-btn'),sum=ge('acc-sum');if(selCls&&selApsa&&selTrim){sum.innerHTML='<em>'+selCls.label+'</em> - '+selApsa.ca+' - '+selApsa.name+' - T'+selTrim;btn.disabled=false;}else if(selCls&&selApsa){sum.textContent=selCls.label+' - '+selApsa.name+' - Choisissez un trimestre';btn.disabled=true;}else if(selCls){sum.textContent=selCls.label+' - Choisissez une APSA';btn.disabled=true;}else{sum.textContent='Choisissez une classe, une APSA et un trimestre';btn.disabled=true;}}
-function accLaunch(cls,apsa,trim){cls=cls||selCls;apsa=apsa||selApsa;trim=trim||selTrim;if(!cls||!apsa||!trim)return;var key='eps-'+cls.id+'-'+apsa.id+'-t'+trim;var sessions=[];try{sessions=JSON.parse(localStorage.getItem('eps-recent')||'[]');}catch(e){}for(var i=sessions.length-1;i>=0;i--){if(sessions[i].key===key)sessions.splice(i,1);}sessions.unshift({key:key,cls:cls,apsa:apsa,trim:trim,ts:Date.now()});localStorage.setItem('eps-recent',JSON.stringify(sessions.slice(0,8)));
+function accLaunch(cls,apsa,trim){cls=cls||selCls;apsa=apsa||selApsa;trim=trim||selTrim;if(!cls||!apsa||!trim)return;var key='eps-'+cls.id+'-'+apsa.id+'-t'+trim;sessionsAdd(cls,apsa,trim,key);
   window._pendingLaunch={cls:cls,apsa:apsa,key:key,trim:trim};
   if(GH.token && GH.repo){
     var modal=ge('m-sync-launch');
@@ -2631,8 +2816,8 @@ function accLaunchWithoutSync(){
   openSuivi(p.cls,p.apsa,p.key,p.trim);
 }
 function accRenderRecent(){var sessions=[];try{sessions=JSON.parse(localStorage.getItem('eps-recent')||'[]');}catch(e){}var zone=ge('acc-recent');if(!sessions.length){zone.style.display='none';return;}zone.style.display='block';var chips=ge('acc-chips');chips.innerHTML='';for(var i=0;i<sessions.length;i++){(function(s){var cls=null;for(var j=0;j<CLASSES.length;j++){if(CLASSES[j].id===s.cls.id){cls=CLASSES[j];break;}}if(!cls)cls=s.cls;var d=new Date(s.ts);var chip=document.createElement('div');chip.className='acc-chip';chip.innerHTML='<div class="dot" style="background:'+(cls.color||'#888')+'"></div><span>'+s.cls.label+'</span><span style="color:#9a9080">-</span><span>'+s.apsa.name+'</span>'+(s.trim?'<span style="font-weight:800;color:#4f8aff">T'+s.trim+'</span>':'')+'<span style="color:#9a9080;font-size:.68rem">'+d.getDate()+'/'+(d.getMonth()+1)+'</span><span class="x">x</span>';chip.querySelector('.x').addEventListener('click',function(e){e.stopPropagation();var ss=[];try{ss=JSON.parse(localStorage.getItem('eps-recent')||'[]');}catch(err){}for(var k=ss.length-1;k>=0;k--){if(ss[k].key===s.key)ss.splice(k,1);}localStorage.setItem('eps-recent',JSON.stringify(ss));accRenderRecent();});chip.addEventListener('click',function(){accLaunch(s.cls,s.apsa,s.trim||1);});chips.appendChild(chip);})(sessions[i]);}}
-function openSuivi(cls,apsa,key,trim){CTX={cls:cls,apsa:apsa,key:key,trim:trim};STORAGE_KEY=key;loadState();ge('s-logo').innerHTML=apsa.emoji+' '+apsa.name+' <span class="s-badge">'+apsa.ca+'</span>';var ctx=ge('s-ctx');ctx.textContent=cls.label+(trim?' - T'+trim:'');ctx.style.display='inline';ge('s-pg-title').textContent=apsa.ca+' - '+apsa.name;var f=cls.filiere||'bacpro';var fil=FILIERES[f];ge('eval-filiere-sub').textContent='Filiere : '+fil.label+' - T'+(trim||'');var badge=ge('eval-filiere-badge');badge.textContent=fil.label;badge.style.background=fil.color+'22';badge.style.color=fil.color;var aflpData=(AFLP[f]||AFLP.bacpro)[apsa.caFull];if(aflpData){ge('eval-aflp-ca-title').textContent=aflpData.titre;var h='';for(var i=0;i<aflpData.items.length;i++)h+='<div class="eval-aflp-item"><span class="eval-n">'+aflpData.items[i].n+'</span><span class="eval-t">'+aflpData.items[i].t+'</span></div>';ge('eval-aflp-list').innerHTML=h;}ge('pg-acc').style.display='none';ge('pg-suivi').style.display='block';showView('v-accueil');renderAll();initNotesRapides();initWidgets();bibRenderList('bib-list-seq');bibRenderFilters('bib-filters-seq');}
-function goAcc(){ge('pg-suivi').style.display='none';ge('pg-acc').style.display='block';accRenderRecent();}
+function openSuivi(cls,apsa,key,trim){CTX={cls:cls,apsa:apsa,key:key,trim:trim};STORAGE_KEY=key;loadState();ge('s-logo').innerHTML=apsa.emoji+' '+apsa.name+' <span class="s-badge">'+apsa.ca+'</span>';var ctx=ge('s-ctx');ctx.textContent=cls.label+(trim?' - T'+trim:'');ctx.style.display='inline';ge('s-pg-title').textContent=apsa.ca+' - '+apsa.name;var f=cls.filiere||'bacpro';var fil=FILIERES[f];ge('eval-filiere-sub').textContent='Filiere : '+fil.label+' - T'+(trim||'');var badge=ge('eval-filiere-badge');badge.textContent=fil.label;badge.style.background=fil.color+'22';badge.style.color=fil.color;var aflpData=(AFLP[f]||AFLP.bacpro)[apsa.caFull];if(aflpData){ge('eval-aflp-ca-title').textContent=aflpData.titre;var h='';for(var i=0;i<aflpData.items.length;i++)h+='<div class="eval-aflp-item"><span class="eval-n">'+aflpData.items[i].n+'</span><span class="eval-t">'+aflpData.items[i].t+'</span></div>';ge('eval-aflp-list').innerHTML=h;}ge('pg-acc').style.display='none';var _am=document.querySelector('.acc-main');if(_am)_am.style.display='none';ge('pg-suivi').style.display='block';showView('v-accueil');renderAll();initNotesRapides();initWidgets();bibRenderList('bib-list-seq');bibRenderFilters('bib-filters-seq');}
+function goAcc(){ge('pg-suivi').style.display='none';ge('pg-acc').style.display='block';var _am=document.querySelector('.acc-main');if(_am)_am.style.display='block';accRenderSqGrid();}
 function loadState(){
   try{
     var s=localStorage.getItem(STORAGE_KEY);
