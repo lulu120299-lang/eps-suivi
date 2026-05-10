@@ -4560,8 +4560,19 @@ function exportBilanPDF(){
   });
   h+='</tbody></table></body></html>';
 
+  // Ajouter barre d'action en haut
+  var toolbar='<div style="position:fixed;top:0;left:0;right:0;background:#1a1a2e;padding:10px 20px;display:flex;gap:10px;align-items:center;z-index:999;box-shadow:0 2px 8px rgba(0,0,0,.3)">';
+  toolbar+='<span style="color:#fff;font-size:13px;font-weight:700;flex:1">Bilan — Export PDF</span>';
+  toolbar+='<button onclick="window.print()" style="background:#4f8aff;color:#fff;border:none;border-radius:8px;padding:8px 18px;font-size:13px;font-weight:700;cursor:pointer">&#128196; Imprimer / Enregistrer PDF</button>';
+  toolbar+='<button onclick="window.close()" style="background:rgba(255,255,255,.1);color:#fff;border:1px solid rgba(255,255,255,.2);border-radius:8px;padding:8px 14px;font-size:13px;cursor:pointer">&#x2715; Fermer</button>';
+  toolbar+='</div>';
+  h=h.replace('<body>','<body style="padding-top:56px">'+toolbar);
+  h+=('<style>@media print{.no-print{display:none!important}body{padding-top:0!important}}</style>');
+  // Ajouter class no-print sur toolbar
+  h=h.replace('<div style="position:fixed','<div class="no-print" style="position:fixed');
+
   var win=window.open('','_blank');
-  if(win){win.document.write(h);win.document.close();setTimeout(function(){win.print();},400);}
+  if(win){win.document.write(h);win.document.close();}
 }
 function renderNotes(){
   var tb=ge('nt-tbody');
