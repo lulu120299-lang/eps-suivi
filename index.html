@@ -2037,7 +2037,7 @@ function ghPull(){
     if(clsData&&clsData.content){
       try{
         var cls=ghDecode(clsData.content);
-        if(cls&&cls.length){CLASSES=cls;classesSave();accRenderClsGrid();}
+        if(cls&&cls.length){CLASSES=cls;classesSave();accRenderClsGrid();toast(cls.length+' classe(s) synchronisée(s)','ok');}
       }catch(e){}
     }
     // Tirer la bibliothèque
@@ -2060,7 +2060,7 @@ function ghPull(){
       localStorage.setItem('eps-notes-rapides-'+STORAGE_KEY,state._notes);
       delete state._notes;
     }
-    save();renderAll();reloadNotesRapides();toast('Synchronise !','ok');
+    save();renderAll();reloadNotesRapides();try{accRenderSqGrid();}catch(ex){}toast('Synchronisé !','ok');
   }).catch(function(e){toast('Erreur: '+e.message,'err');});
 }
 
