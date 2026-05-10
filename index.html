@@ -170,7 +170,7 @@ html,body{overflow-x:hidden;max-width:100vw}body{font-family:"DM Sans",sans-seri
 .ge-p-note-wrap .note-big{font-size:1.6rem;font-weight:700}
 .ge-p-note-wrap small{font-size:.72rem;color:#6b7280}
 .ge-p-close{width:26px;height:26px;border-radius:50%;border:1px solid #252836;background:#1e2438;cursor:pointer;font-size:.75rem;color:#9aa0b8;display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.ge-aflp-list{padding:10px 14px;display:flex;flex-direction:column;gap:10px}
+.ge-aflp-list{padding:10px 14px;display:flex;flex-direction:column;gap:8px}
 .ge-aflp-block{border:1px solid #252836;border-radius:8px;overflow:hidden}
 .ge-aflp-title{padding:8px 12px;background:#0d1018;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #252836}
 .ge-aflp-label{font-size:.75rem;font-weight:700;color:#e4e6ef}
@@ -198,28 +198,16 @@ html,body{overflow-x:hidden;max-width:100vw}body{font-family:"DM Sans",sans-seri
 .ge-prog-bar{flex:1;height:4px;background:#1e2438;border-radius:2px;overflow:hidden}
 .ge-prog-fill{height:100%;border-radius:2px;background:#4f8aff;transition:width .3s}
 .ge-prog-lbl{font-size:.65rem;color:#6b7280}
-.acc2-sbox{flex:1;border-radius:10px;padding:9px 4px 7px;cursor:pointer;display:flex;flex-direction:column;align-items:center;border:1.5px solid transparent;transition:all .12s}.acc2-sbox.done{background:#1a2a1a;border-color:#30d158}.acc2-sbox.active{background:#1a2038;border-color:#0a84ff}.acc2-sbox.future{background:#2c2c2e;border-color:#3a3a3c}.acc2-sbox-num{font-size:12px;font-weight:700;font-family:monospace}.acc2-sbox-num.done{color:#30d158}.acc2-sbox-num.active{color:#0a84ff}.acc2-sbox-num.future{color:#48484a}.acc2-sbox-lbl{font-size:9px;color:#48484a;text-align:center;margin-top:3px}.acc2-trame-bloc{display:flex;align-items:center;justify-content:center;border-radius:6px;font-size:11px;font-weight:600;text-align:center;cursor:pointer;padding:4px 8px;overflow:hidden;transition:opacity .12s;color:#fff}.acc2-trame-bloc:hover{opacity:.82}
 
-/* Cartes carrées APSA */
-.apsa-sq-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:10px;margin-bottom:1rem}
-.apsa-sq-card{aspect-ratio:1;border-radius:12px;padding:12px;display:flex;flex-direction:column;justify-content:space-between;cursor:pointer;transition:transform .12s,box-shadow .12s;user-select:none;border:2px solid transparent}
+.apsa-sq-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:8px;margin-bottom:1rem}
+.apsa-sq-card{aspect-ratio:1;border-radius:12px;padding:10px;display:flex;flex-direction:column;justify-content:space-between;cursor:pointer;transition:transform .12s;border:2px solid transparent}
 .apsa-sq-card:hover{transform:scale(1.04)}
-.apsa-sq-card:active{transform:scale(.96)}
-.apsa-sq-card.selected{box-shadow:0 0 0 3px #fff;transform:scale(1.04)}
-.apsa-sq-badge{font-size:9px;font-weight:700;background:rgba(255,255,255,.2);color:rgba(255,255,255,.9);padding:2px 7px;border-radius:4px;display:inline-block;margin-bottom:4px}
-.apsa-sq-emoji{font-size:20px;display:block;margin-bottom:4px}
+.apsa-sq-card.selected{box-shadow:0 0 0 3px #fff}
+.apsa-sq-badge{font-size:9px;font-weight:700;background:rgba(255,255,255,.2);color:rgba(255,255,255,.9);padding:2px 6px;border-radius:4px;display:inline-block;margin-bottom:3px}
 .apsa-sq-name{font-size:11px;font-weight:600;color:#fff;margin:0;line-height:1.3}
-.apsa-sq-ca-group{margin-bottom:1.2rem}
-.apsa-sq-ca-label{font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-bottom:.5rem;display:flex;align-items:center;gap:6px}
-/* Cartes récentes */
-.acc-sq-recent{aspect-ratio:1;border-radius:12px;padding:12px;display:flex;flex-direction:column;justify-content:space-between;cursor:pointer;transition:transform .12s;user-select:none;position:relative}
-.acc-sq-recent:hover{transform:scale(1.04)}
-.acc-sq-recent-badge{font-size:9px;font-weight:700;background:rgba(255,255,255,.2);color:rgba(255,255,255,.9);padding:2px 7px;border-radius:4px;display:inline-block;margin-bottom:4px}
-.acc-sq-recent-emoji{font-size:18px;display:block;margin-bottom:4px}
-.acc-sq-recent-name{font-size:11px;font-weight:600;color:#fff;margin:0 0 2px;line-height:1.3}
-.acc-sq-recent-sub{font-size:10px;color:rgba(255,255,255,.65);margin:0}
-.acc-sq-bar-bg{height:3px;background:rgba(255,255,255,.2);border-radius:2px;overflow:hidden;margin-top:6px}
-.acc-sq-bar{height:100%;border-radius:2px;background:rgba(255,255,255,.8)}
+.acc-sq-recent-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:10px;margin-bottom:1.5rem}
+.acc-sq-recent-card{aspect-ratio:1;border-radius:12px;padding:12px;display:flex;flex-direction:column;justify-content:space-between;cursor:pointer;transition:transform .12s}
+.acc-sq-recent-card:hover{transform:scale(1.04)}
 .acc-recent{margin-top:2rem;padding-top:1.5rem;border-top:1px solid #1a1f30}
 .acc-recent-title{font-family:"JetBrains Mono",monospace;font-size:.6rem;text-transform:uppercase;letter-spacing:.18em;color:#4a5070;margin-bottom:.75rem;font-weight:700}
 .acc-chips{display:flex;flex-wrap:wrap;gap:7px}
@@ -253,8 +241,8 @@ html,body{overflow-x:hidden;max-width:100vw}body{font-family:"DM Sans",sans-seri
   /* Raccourcir le texte des boutons sur mobile */
   #btn-push span, #btn-pull span{display:none}
 }
-.s-nav{display:flex;gap:2px;flex-wrap:nowrap;overflow-x:auto}
-.s-tab{background:none;border:none;color:#6b7280;font-size:.72rem;font-weight:500;padding:5px 8px;border-radius:6px;cursor:pointer;white-space:nowrap}
+.s-nav{display:flex;gap:3px;flex-wrap:wrap}
+.s-tab{background:none;border:none;color:#6b7280;font-size:.82rem;font-weight:500;padding:7px 12px;border-radius:7px;cursor:pointer;white-space:nowrap}
 .s-tab:hover{background:#1c1f2c;color:#e4e6ef}.s-tab.active{background:#4f8aff;color:#fff}
 .s-main{padding:1.5rem;max-width:1400px;margin:0 auto}
 .view{display:none}.view.active{display:block}
@@ -414,7 +402,7 @@ textarea{resize:vertical;min-height:70px}
 .pdf-name-item{display:flex;align-items:center;gap:8px;padding:5px 8px;border-radius:5px;font-size:.83rem}
 .pdf-name-item input[type=checkbox]{accent-color:#4f8aff;width:14px;height:14px}
 .mb{display:none;position:fixed;inset:0;z-index:500;background:rgba(0,0,0,.7);overflow-y:auto;-webkit-overflow-scrolling:touch;padding:2rem 1rem 4rem}
-.mb.open{display:block}#m-sync-launch.open{display:flex!important}
+.mb.open{display:block}
 .modal{background:#1c1f2c;border:1px solid #252836;border-radius:16px;padding:1.75rem;width:100%;max-width:700px;margin:0 auto;position:relative}
 .modal-wide{max-width:820px}
 .modal-xl{max-width:960px}
@@ -804,93 +792,68 @@ textarea{resize:vertical;min-height:70px}
         <div id="gh-status" style="font-size:.65rem;color:#56cfb2"></div>
       </div>
     </div>
-  
+  </div>
   <div class="acc-main">
 
-    <!-- Sessions récentes -->
-    <div id="acc-recent-cards" style="display:none;margin-bottom:2rem">
-      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem">
-        <div class="acc-sec-tag" style="margin:0">Sessions récentes</div>
-        <button onclick="accShowNew()" style="font-size:.75rem;background:rgba(79,138,255,.12);border:0.5px solid rgba(79,138,255,.3);border-radius:6px;padding:4px 12px;color:#4f8aff;cursor:pointer">+ Nouvelle séquence</button>
-      </div>
-      <div id="acc-recent-sq-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:12px"></div>
+    <div class="acc-steps">
+      <div class="acc-step active" id="acc-s1"><div class="acc-step-num">1</div>Classe</div>
+      <div class="acc-step-line"></div>
+      <div class="acc-step" id="acc-s2"><div class="acc-step-num">2</div>APSA</div>
+      <div class="acc-step-line"></div>
+      <div class="acc-step" id="acc-s3"><div class="acc-step-num">3</div>Trimestre</div>
+      <div class="acc-step-line"></div>
+      <div class="acc-step" id="acc-s4"><div class="acc-step-num">4</div>Ouvrir</div>
     </div>
-
-    <!-- Nouvelle séquence (stepper) -->
-    <div id="acc-new-flow">
-      <!-- Étape 1 : Classe -->
-      <div id="acc-flow-s1">
-        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:.75rem">
-          <div><div class="acc-sec-tag" style="margin:0">Étape 1 / 3</div><div class="acc-sec-title" style="margin:.3rem 0 0">Quelle classe ?</div></div>
-          <div id="acc-back-recent" style="display:none"><button onclick="accShowRecent()" style="font-size:.75rem;background:rgba(255,255,255,.06);border:0.5px solid rgba(255,255,255,.15);border-radius:6px;padding:4px 12px;color:#6b7280;cursor:pointer">← Retour</button></div>
-        </div>
-        <div id="acc-cls-grid" class="acc-cls-grid"></div>
-        <div id="acc-no-cls" style="display:none;text-align:center;padding:2rem;background:rgba(255,255,255,.03);border:1.5px dashed rgba(255,255,255,.1);border-radius:12px;margin-bottom:1rem">
-          <div style="font-size:2rem;margin-bottom:.5rem">🏫</div>
-          <div style="font-size:.9rem;color:#9aa0b8;margin-bottom:1rem">Aucune classe configurée</div>
-          <button onclick="openM('m-add-cls')" style="background:rgba(79,138,255,.15);border:0.5px solid rgba(79,138,255,.3);border-radius:8px;padding:8px 20px;color:#4f8aff;font-size:.85rem;font-weight:600;cursor:pointer">+ Ajouter une classe</button>
-        </div>
-        <div style="margin-top:.75rem;display:flex;align-items:center;gap:.5rem">
-          <button onclick="openM('m-add-cls')" style="font-size:.72rem;background:rgba(255,255,255,.04);border:0.5px solid rgba(255,255,255,.1);border-radius:6px;padding:4px 10px;color:#6b7280;cursor:pointer">+ Ajouter une classe</button>
-          <button id="btn-pull-cls" style="font-size:.72rem;background:rgba(86,207,178,.08);border:0.5px solid rgba(86,207,178,.2);border-radius:6px;padding:4px 10px;color:#56cfb2;cursor:pointer">↓ Importer depuis GitHub</button>
-        </div>
-      </div>
-
-      <!-- Étape 2 : APSA -->
-      <div id="acc-flow-s2" style="display:none">
-        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:.75rem">
-          <div><div class="acc-sec-tag" style="margin:0">Étape 2 / 3</div><div class="acc-sec-title" style="margin:.3rem 0 0">Quelle APSA ?</div></div>
-          <button onclick="accFlowBack(1)" style="font-size:.75rem;background:rgba(255,255,255,.06);border:0.5px solid rgba(255,255,255,.15);border-radius:6px;padding:4px 12px;color:#6b7280;cursor:pointer">← Retour</button>
-        </div>
-        <div id="acc-apsa-sq-container"></div>
-        <div class="acc-custom" style="margin-top:.75rem"><span>Autre APSA :</span><input type="text" id="acc-custom-input" placeholder="Ex: Natation..."></div>
-      </div>
-
-      <!-- Étape 3 : Trimestre -->
-      <div id="acc-flow-s3" style="display:none">
-        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:.75rem">
-          <div><div class="acc-sec-tag" style="margin:0">Étape 3 / 3</div><div class="acc-sec-title" style="margin:.3rem 0 0">Quel trimestre ?</div></div>
-          <button onclick="accFlowBack(2)" style="font-size:.75rem;background:rgba(255,255,255,.06);border:0.5px solid rgba(255,255,255,.15);border-radius:6px;padding:4px 12px;color:#6b7280;cursor:pointer">← Retour</button>
-        </div>
-        <div class="trim-grid">
-          <div class="acc-trim" id="tr-1" style="--tc:#4f8aff" onclick="accSelTrim(1)"><div class="acc-trim-num">T1</div><div class="acc-trim-label">Trimestre 1</div></div>
-          <div class="acc-trim" id="tr-2" style="--tc:#56cfb2" onclick="accSelTrim(2)"><div class="acc-trim-num">T2</div><div class="acc-trim-label">Trimestre 2</div></div>
-          <div class="acc-trim" id="tr-3" style="--tc:#ffd166" onclick="accSelTrim(3)"><div class="acc-trim-num">T3</div><div class="acc-trim-label">Trimestre 3</div></div>
-        </div>
-        <!-- Récap + AFLP -->
-        <div id="aflp-acc-zone" style="display:none;margin-top:1.5rem">
-          <div class="acc-sec-tag">Attendus de fin de lycée professionnel</div>
-          <div class="acc-sec-title" id="aflp-acc-sec-title"></div>
-          <div class="aflp-acc-box">
-            <div class="aflp-acc-title">Programme EPS voie professionnelle - BO 2019</div>
-            <div class="aflp-acc-ca-title" id="aflp-acc-ca-title"></div>
-            <div class="aflp-acc-list" id="aflp-acc-list"></div>
-          </div>
-        </div>
-        <div class="acc-cta" style="margin-top:1.5rem">
-          <div>
-            <div class="acc-sum-lbl">Sélection</div>
-            <div class="acc-sum-val" id="acc-sum">Choisissez une classe, une APSA et un trimestre</div>
-          </div>
-          <button class="acc-btn" id="acc-btn" disabled onclick="accLaunch()">Ouvrir le suivi</button>
-        </div>
-      </div>
+    <div class="acc-sec-tag">Etape 1</div>
+    <div class="acc-sec-title">Quelle classe ?</div>
+    <div class="acc-cls-grid" id="acc-cls-grid"></div>
+    <div class="acc-divider"></div>
+    <div class="acc-sec-tag">Etape 2 - par Champ d'apprentissage</div>
+    <div class="acc-sec-title">Quelle APSA ?</div>
+    <div id="acc-apsa-container"></div>
+    <div class="acc-custom"><span>Autre APSA :</span><input type="text" id="acc-custom-input" placeholder="Ex: Natation..."></div>
+    <div class="acc-divider"></div>
+    <div class="acc-sec-tag">Etape 3</div>
+    <div class="acc-sec-title">Quel trimestre ?</div>
+    <div class="trim-grid">
+      <div class="acc-trim" id="tr-1" style="--tc:#4f8aff"><div class="acc-trim-num">T1</div><div class="acc-trim-label">Trimestre 1</div></div>
+      <div class="acc-trim" id="tr-2" style="--tc:#56cfb2"><div class="acc-trim-num">T2</div><div class="acc-trim-label">Trimestre 2</div></div>
+      <div class="acc-trim" id="tr-3" style="--tc:#ffd166"><div class="acc-trim-num">T3</div><div class="acc-trim-label">Trimestre 3</div></div>
     </div>
-
-    <!-- Bibliothèque -->
+    <div class="acc-divider"></div>
+    <div id="aflp-acc-zone" style="display:none">
+      <div class="acc-sec-tag">Attendus de fin de lycee professionnel</div>
+      <div class="acc-sec-title" id="aflp-acc-sec-title"></div>
+      <div class="aflp-acc-box">
+        <div class="aflp-acc-title">Programme EPS voie professionnelle - BO 2019</div>
+        <div class="aflp-acc-ca-title" id="aflp-acc-ca-title"></div>
+        <div class="aflp-acc-list" id="aflp-acc-list"></div>
+      </div>
+      <div class="acc-divider"></div>
+    </div>
+    <div class="acc-cta">
+      <div>
+        <div class="acc-sum-lbl">Selection</div>
+        <div class="acc-sum-val" id="acc-sum">Choisissez une classe, une APSA et un trimestre</div>
+      </div>
+      <button class="acc-btn" id="acc-btn" disabled>Ouvrir le suivi</button>
+    </div>
+    <div class="acc-recent" id="acc-recent" style="display:none">
+      <div class="acc-recent-title">Sessions recentes</div>
+      <div class="acc-chips" id="acc-chips"></div>
+    </div>
     <div class="acc-biblio">
       <div class="acc-biblio-header">
-        <div class="acc-biblio-title">📚 Bibliothèque de situations</div>
+        <div class="acc-biblio-title">&#128218; Bibliotheque de situations</div>
         <div style="display:flex;gap:6px">
-          <button class="acc-biblio-btn" style="background:rgba(86,207,178,.15);border-color:rgba(86,207,178,.3);color:#56cfb2" onclick="bibPull()">↓ Sync</button>
-          <button class="acc-biblio-btn" id="btn-open-biblio" onclick="openBiblio()">Ouvrir →</button>
+          <button class="acc-biblio-btn" style="background:rgba(86,207,178,.15);border-color:rgba(86,207,178,.3);color:#56cfb2" onclick="bibPull()">&#8595; Sync</button>
+          <button class="acc-biblio-btn" id="btn-open-biblio" onclick="openBiblio()">Ouvrir &#8594;</button>
         </div>
       </div>
     </div>
-
   </div>
 </div>
-<!-- MODALE BIBLIOTHEQUE -->
+  <!-- MODALE BIBLIOTHEQUE -->
   <div class="mb-bib" id="mb-bib">
     <div class="bib-modal">
       <div class="bib-modal-header">
@@ -1022,25 +985,21 @@ textarea{resize:vertical;min-height:70px}
       <button class="s-tab" data-view="v-seances">Seances</button>
       <button class="s-tab" data-view="v-appel">Appel</button>
       <button class="s-tab" data-view="v-eleves">Classe</button>
-      <button class="s-tab" data-view="v-comp">Comp&eacute;t.</button>
-      <button class="s-tab" data-view="v-grille">Grille FPS</button>
-      <button class="s-tab" data-view="v-autre-eval">Autre &#233;val</button>
+      <button class="s-tab" data-view="v-comp">Competences</button>
       <button class="s-tab" data-view="v-eval">Bilan</button>
+      <button class="s-tab" data-view="v-grille">Grille &#233;val</button>
     </div>
   </div>
   <div class="s-main">
     <div id="v-accueil" class="view active">
-
       <div class="ph">
         <div><div class="ph-title">Ma sequence</div><div class="ph-sub" id="acc-seq-sub"></div></div>
         <div style="display:flex;gap:.5rem">
           <button class="btn btn-g" id="btn-pdf-sequence">&#128196; Export PDF</button>
-          <button class="btn btn-g" id="btn-export-all" onclick="exportTout()">&#128190; Tout exporter</button>
           <button class="btn btn-p" id="btn-edit-seq">Modifier la sequence</button>
         </div>
       </div>
-
-      <div style="display:none" id="acc-old-layout"><div class="g4" style="margin-bottom:1.5rem">
+      <div class="g4" style="margin-bottom:1.5rem">
         <div class="stat bl"><div class="stat-lbl">Seances</div><div class="stat-val" id="acc-ss-s">0</div><div class="stat-sub">programmees</div></div>
         <div class="stat gr"><div class="stat-lbl">Eleves</div><div class="stat-val" id="acc-ss-e">0</div><div class="stat-sub">dans la classe</div></div>
         <div class="stat yw"><div class="stat-lbl">Presence moy.</div><div class="stat-val" id="acc-ss-p">-</div><div class="stat-sub">sur les seances</div></div>
@@ -1115,52 +1074,11 @@ textarea{resize:vertical;min-height:70px}
         <div class="acc-shortcut" data-view="v-seances" style="--sc:#4f8aff"><div class="acc-sc-icon">&#128203;</div><div class="acc-sc-label">Seances</div><div class="acc-sc-sub" id="sc-sub-seances">0 seance</div></div>
         <div class="acc-shortcut" data-view="v-appel" style="--sc:#56cfb2"><div class="acc-sc-icon">&#9995;</div><div class="acc-sc-label">Appel</div><div class="acc-sc-sub">Presences</div></div>
         <div class="acc-shortcut" data-view="v-eleves" style="--sc:#ffd166"><div class="acc-sc-icon">&#128101;</div><div class="acc-sc-label">Classe</div><div class="acc-sc-sub" id="sc-sub-eleves">0 eleve</div></div>
-        <div class="acc-shortcut" data-view="v-comp" style="--sc:#56cfb2"><div class="acc-sc-icon">&#128200;</div><div class="acc-sc-label">Comp&eacute;t.</div><div class="acc-sc-sub">Evolution AFLP</div></div>
+        <div class="acc-shortcut" data-view="v-comp" style="--sc:#56cfb2"><div class="acc-sc-icon">&#128200;</div><div class="acc-sc-label">Competences</div><div class="acc-sc-sub">Evolution AFLP</div></div>
         <div class="acc-shortcut" data-view="v-eval" style="--sc:#ff6b6b"><div class="acc-sc-icon">&#128202;</div><div class="acc-sc-label">Bilan</div><div class="acc-sc-sub">Notes &amp; comp.</div></div>
         <div class="acc-shortcut" data-view="v-grille" style="--sc:#a78bfa"><div class="acc-sc-icon">&#128221;</div><div class="acc-sc-label">Grille &#233;val</div><div class="acc-sc-sub">Personnalis&#233;e</div></div>
       </div>
-    </div></div>
-
-      <div id="acc2-wrapper">
-        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:10px">
-          <div style="background:rgba(255,255,255,.05);border:0.5px solid rgba(255,255,255,.1);border-radius:12px;padding:14px;backdrop-filter:blur(10px)"><div style="font-size:10px;color:#636366;text-transform:uppercase;letter-spacing:.04em;margin-bottom:4px">Séances</div><div style="font-size:26px;font-weight:600;color:#f5f5f7" id="acc2-ss-s">0</div><div style="font-size:10px;color:#48484a;margin-top:2px">programmées</div><div style="height:2px;background:#2c2c2e;border-radius:1px;margin-top:7px"><div id="acc2-bar-s" style="height:100%;background:#30d158;width:0%"></div></div></div>
-          <div style="background:rgba(255,255,255,.05);border:0.5px solid rgba(255,255,255,.1);border-radius:12px;padding:14px;backdrop-filter:blur(10px)"><div style="font-size:10px;color:#636366;text-transform:uppercase;letter-spacing:.04em;margin-bottom:4px">Élèves</div><div style="font-size:26px;font-weight:600;color:#f5f5f7" id="acc2-ss-e">0</div><div style="font-size:10px;color:#48484a;margin-top:2px">dans la classe</div><div style="height:2px;background:#2c2c2e;border-radius:1px;margin-top:7px"><div style="height:100%;background:#0a84ff;width:100%"></div></div></div>
-          <div style="background:rgba(255,255,255,.05);border:0.5px solid rgba(255,255,255,.1);border-radius:12px;padding:14px;backdrop-filter:blur(10px)"><div style="font-size:10px;color:#636366;text-transform:uppercase;letter-spacing:.04em;margin-bottom:4px">Présence</div><div style="font-size:26px;font-weight:600;color:#ff9f0a" id="acc2-ss-p">—</div><div style="font-size:10px;color:#48484a;margin-top:2px">sur les séances</div><div style="height:2px;background:#2c2c2e;border-radius:1px;margin-top:7px"><div id="acc2-bar-p" style="height:100%;background:#ff9f0a;width:0%"></div></div></div>
-          <div style="background:rgba(255,255,255,.05);border:0.5px solid rgba(255,255,255,.1);border-radius:12px;padding:14px;backdrop-filter:blur(10px)"><div style="font-size:10px;color:#636366;text-transform:uppercase;letter-spacing:.04em;margin-bottom:4px">Avancement</div><div style="font-size:26px;font-weight:600;color:#0a84ff" id="acc2-ss-n">0/0</div><div style="font-size:10px;color:#48484a;margin-top:2px" id="acc2-ss-n-sub">restantes</div><div style="height:2px;background:#2c2c2e;border-radius:1px;margin-top:7px"><div id="acc2-bar-n" style="height:100%;background:#0a84ff;width:0%"></div></div></div>
-        </div>
-        <div style="display:grid;grid-template-columns:200px 1fr;gap:10px">
-          <div style="display:flex;flex-direction:column;gap:8px">
-            <div style="background:rgba(255,255,255,.05);border:0.5px solid rgba(255,255,255,.1);border-radius:12px;padding:14px;backdrop-filter:blur(10px)"><div style="font-size:10px;font-weight:600;color:#636366;text-transform:uppercase;letter-spacing:.06em;margin-bottom:9px">⛅ Météo — Lyon</div><div style="display:flex;align-items:center;gap:8px"><div style="font-size:22px" id="acc2-meteo-icon">⛅</div><div><div style="font-size:22px;font-weight:600;color:#f5f5f7" id="acc2-meteo-temp">--°</div><div style="font-size:10px;color:#48484a" id="acc2-meteo-sub">...</div></div></div></div>
-            <div style="background:rgba(255,255,255,.05);border:0.5px solid rgba(255,255,255,.1);border-radius:12px;padding:14px;backdrop-filter:blur(10px)">
-              <div style="font-size:10px;font-weight:600;color:#636366;text-transform:uppercase;letter-spacing:.06em;margin-bottom:10px">FPS / CCF &#8212; Visualiser</div>
-              <div style="text-align:center;padding:6px 0 4px" onclick="acc2FpsTap()" style="cursor:pointer">
-                <div style="width:48px;height:48px;border-radius:12px;background:rgba(10,132,255,.15);display:flex;align-items:center;justify-content:center;margin:0 auto 10px;cursor:pointer">
-                  <span style="font-size:24px">&#128203;</span>
-                </div>
-                <div id="acc2-fps-name" style="font-size:13px;font-weight:600;color:#e4e6ef;margin-bottom:3px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;padding:0 4px;cursor:pointer" onclick="acc2FpsTap()">Configurer le lien</div>
-                <div style="font-size:10px;color:#48484a;cursor:pointer" onclick="acc2FpsTap()">Appuyer pour acc&#233;der</div>
-              </div>
-            </div>
-            <div style="background:rgba(255,255,255,.05);border:0.5px solid rgba(255,255,255,.1);border-radius:12px;padding:14px;backdrop-filter:blur(10px)"><div style="font-size:10px;font-weight:600;color:#636366;text-transform:uppercase;letter-spacing:.06em;margin-bottom:9px">📊 AFLP</div><div id="acc2-aflp-bars"><div style="font-size:11px;color:#48484a">Aucune donnée</div></div></div>
-            <div style="background:rgba(255,255,255,.05);border:0.5px solid rgba(255,255,255,.1);border-radius:12px;padding:14px;backdrop-filter:blur(10px)"><div style="font-size:10px;font-weight:600;color:#636366;text-transform:uppercase;letter-spacing:.06em;margin-bottom:9px">📝 Notes</div><textarea id="acc2-notes" style="width:100%;border:none;outline:none;font-size:11px;color:#ebebf5;background:transparent;resize:none;line-height:1.5;font-family:inherit;min-height:60px" placeholder="Penser à..."></textarea></div>
-          </div>
-          <div style="background:rgba(255,255,255,.05);border:0.5px solid rgba(255,255,255,.1);border-radius:12px;overflow:hidden;backdrop-filter:blur(10px)">
-            <div style="padding:12px 16px;border-bottom:0.5px solid rgba(255,255,255,.06);display:flex;align-items:center;justify-content:space-between"><span style="font-size:9px;font-weight:600;color:#636366;text-transform:uppercase">Fil rouge</span><span style="font-size:11px;color:#48484a;font-family:monospace" id="acc2-fil-prog">--</span></div>
-            <div style="padding:14px 16px">
-              <div style="background:rgba(0,0,0,.3);border:0.5px solid rgba(255,255,255,.1);border-radius:10px;padding:12px 14px;margin-bottom:12px">
-                <div style="display:flex;align-items:center;gap:7px;margin-bottom:5px"><span style="font-size:9px;font-weight:700;background:rgba(48,209,88,.12);color:#30d158;padding:2px 7px;border-radius:4px;font-family:monospace" id="acc2-comp-ca">--</span><span style="font-size:9px;font-weight:600;color:#636366;text-transform:uppercase">Compétence attendue</span></div>
-                <div style="font-size:12px;color:#9aa0b8;line-height:1.7;margin-bottom:9px" id="acc2-comp-text">—</div>
-                <div style="display:flex;gap:4px;flex-wrap:wrap" id="acc2-comp-aflps"></div>
-              </div>
-              <div style="font-size:9px;font-weight:600;color:#636366;text-transform:uppercase;margin-bottom:6px">Trame de séquence</div>
-              <div id="acc2-trame-lignes" style="display:flex;flex-direction:column;gap:2px;margin-bottom:6px"></div>
-              <div id="acc2-seances-ligne" style="display:flex;gap:2px;margin-bottom:10px"></div>
-              <div id="acc2-det" style="display:none;background:rgba(0,0,0,.3);border-radius:8px;border:0.5px solid rgba(255,255,255,.1);border-left:2px solid #0a84ff;padding:10px 12px"></div>
-            </div>
-          </div>
-        </div>
-      </div>
-    
+    </div>
     <div id="v-seances" class="view">
       <div class="ph">
         <div><div class="ph-title" id="s-pg-title">Sequence</div><div class="ph-sub" id="s-pg-sub"></div></div>
@@ -1255,16 +1173,6 @@ textarea{resize:vertical;min-height:70px}
       </div>
       <div id="comp-zone"><div class="empty">Aucun AFLP coche dans vos seances. Allez dans Seances et cochez des AFLP.</div></div>
     </div>
-    <div id="v-autre-eval" class="view">
-      <div class="ph">
-        <div><div class="ph-title">Autre &#233;valuation</div><div class="ph-sub">Notes libres par &#233;valuation</div></div>
-        <div style="display:flex;gap:8px">
-          <button class="btn btn-p" onclick="autreEvalAdd()">+ Nouvelle &#233;valuation</button>
-        </div>
-      </div>
-      <div id="autre-eval-list"></div>
-    </div>
-
     <div id="v-eval" class="view">
       <div class="ph">
         <div><div class="ph-title">Bilan</div><div class="ph-sub" id="eval-filiere-sub"></div></div>
@@ -1282,23 +1190,13 @@ textarea{resize:vertical;min-height:70px}
       <div id="bilan-comp-zone" style="margin-bottom:1.25rem"></div>
       <div style="font-family:'DM Mono',monospace;font-size:.65rem;text-transform:uppercase;letter-spacing:.1em;color:#4f8aff;margin-bottom:.75rem">&#128203; Notes et pr&#233;sences</div>
       <div class="card"><div class="tw"><table>
-        <thead>
-          <tr id="nt-coeff-row">
-            <th style="background:#0d1018;padding:6px 12px;font-size:.65rem;color:#636366;text-transform:uppercase">Coefficient</th>
-            <th style="background:#0d1018;padding:6px 10px;text-align:center" colspan="3"></th>
-            <th style="background:#0d1018;padding:6px 10px;text-align:center"><input type="number" id="coeff-qte" min="0" max="10" step="0.5" value="1" style="width:44px;background:#1c1f2c;border:1px solid #2a2d3e;border-radius:5px;padding:3px 5px;color:#ffd166;font-size:.75rem;text-align:center" onchange="state.coeffQte=parseFloat(this.value)||1;save();renderNotes()"></th>
-            <th id="coeff-autre-cells" style="background:#0d1018;padding:6px 10px;text-align:center"></th>
-            <th style="background:#0d1018;padding:6px 10px;text-align:center"><input type="number" id="coeff-fps" min="0" max="10" step="0.5" value="1" style="width:44px;background:#1c1f2c;border:1px solid #2a2d3e;border-radius:5px;padding:3px 5px;color:#4f8aff;font-size:.75rem;text-align:center" onchange="state.coeffFps=parseFloat(this.value)||1;save();renderNotes()"></th>
-            <th style="background:#0d1018;padding:6px 10px;text-align:center"></th>
-          </tr>
-          <tr><th>Eleve</th><th>Presences</th><th>Absences</th><th>Dispense</th><th>Qte travail /10</th><th id="autre-eval-cols-header"></th><th>Note FPS /20</th><th style="color:#56cfb2">Moyenne /20</th></tr>
-        </thead>
+        <thead><tr><th>Eleve</th><th>Presences</th><th>Absences</th><th>Dispense</th><th>Qte travail /4</th><th>Maitrise auto-eval</th><th>Note finale /20</th></tr></thead>
         <tbody id="nt-tbody"></tbody>
       </table></div></div>
     </div>
     <div id="v-grille" class="view">
       <div class="ph">
-        <div><div class="ph-title">Grille FPS</div><div class="ph-sub">Cliquez sur un &#233;l&#232;ve pour noter</div></div>
+        <div><div class="ph-title">Grille d'&#233;valuation</div><div class="ph-sub">Cliquez sur un &#233;l&#232;ve pour noter</div></div>
         <div style="display:flex;gap:8px">
           <button class="btn btn-g" id="btn-grille-cfg" onclick="openGrilleConfig()">Configurer</button>
           <button class="btn btn-g" id="btn-grille-csv" onclick="exportGrilleCSV()">Export CSV</button>
@@ -1306,7 +1204,6 @@ textarea{resize:vertical;min-height:70px}
           <label class="btn btn-g" style="cursor:pointer"><input type="file" id="btn-grille-import-json" accept=".json" style="display:none" onchange="importGrilleJSON(this.files[0]);this.value=''">Import JSON</label>
         </div>
       </div>
-      <div id="ge-grille-recap" style="margin-bottom:20px"></div>
       <div class="grille-eleves-grid" id="ge-eleves-grid"></div>
 
       <!-- POPUP GRILLE EVAL -->
@@ -1375,13 +1272,7 @@ textarea{resize:vertical;min-height:70px}
     <div class="fg" style="margin-bottom:1rem">
       <div class="fgrp"><label>Numero</label><input type="number" id="fn" min="1" max="30"></div>
       <div class="fgrp"><label>Date</label><input type="date" id="fd"></div>
-      <div class="fgrp full"><label>Titre de la s&#233;ance</label><input type="text" id="fo" placeholder="Ex: D&#233;couverte CO..."></div>
-      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px">
-        <div class="fgrp"><label>Objet n&#176;1</label><input type="text" id="fo2" placeholder="Ex: Conduire..."></div>
-        <div class="fgrp"><label>Objet n&#176;2</label><input type="text" id="fo3" placeholder="Ex: Lire la l&#233;gende..."></div>
-        <div class="fgrp"><label>Objet n&#176;3</label><input type="text" id="fo4" placeholder="Ex: S&#233;curit&#233;..."></div>
-      </div>
-      
+      <div class="fgrp full"><label>Titre</label><input type="text" id="fo" placeholder="Ex: Orientation debutant..."></div>
       <div class="fgrp full"><label>Autres objectifs de la seance</label><textarea id="fn-autreobj" style="min-height:48px" placeholder="Ex: Cooperation, gestion effort, securite..."></textarea></div>
       <div class="fgrp full"><label>Contenus d enseignement a aborder</label><textarea id="fn-contenus" style="min-height:48px" placeholder="Ex: Lecture de carte, orientation au nord..."></textarea></div>
       <div class="fgrp full"><label>Parties de la FPS abordees</label><textarea id="fn-fps" style="min-height:48px" placeholder="Ex: Echauffement specifique, situation de reference..."></textarea></div>
@@ -1428,12 +1319,7 @@ textarea{resize:vertical;min-height:70px}
     <div class="fg" style="margin-bottom:1rem">
       <div class="fgrp"><label>Numero</label><input type="number" id="es-n"></div>
       <div class="fgrp"><label>Date</label><input type="date" id="es-d"></div>
-      <div class="fgrp full"><label>Titre de la s&#233;ance</label><input type="text" id="es-o"></div>
-      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px">
-        <div class="fgrp"><label>Objet n&#176;1</label><input type="text" id="es-o2"></div>
-        <div class="fgrp"><label>Objet n&#176;2</label><input type="text" id="es-o3"></div>
-        <div class="fgrp"><label>Objet n&#176;3</label><input type="text" id="es-o4"></div>
-      </div>
+      <div class="fgrp full"><label>Titre</label><input type="text" id="es-o"></div>
       <div class="fgrp full"><label>Autres objectifs de la seance</label><textarea id="es-autreobj" style="min-height:48px" placeholder="Ex: Cooperation, gestion effort, securite..."></textarea></div>
       <div class="fgrp full"><label>Contenus d enseignement a aborder</label><textarea id="es-contenus" style="min-height:48px" placeholder="Ex: Lecture de carte, orientation au nord..."></textarea></div>
       <div class="fgrp full"><label>Parties de la FPS abordees</label><textarea id="es-fps" style="min-height:48px" placeholder="Ex: Echauffement specifique, situation de reference..."></textarea></div>
@@ -1654,75 +1540,6 @@ textarea{resize:vertical;min-height:70px}
     <iframe id="m-pdf-viewer-frame" style="flex:1;border:none;width:100%;background:#fff" src="about:blank"></iframe>
   </div>
 </div>
-<div class="mb" id="m-seq"><div class="modal" style="max-width:600px">
-  <div class="modal-title">Modifier la s&#233;quence</div>
-  <div class="fgrp"><label class="flbl">Objet de la s&#233;quence</label><input class="finp" id="seq-objet" type="text" placeholder="Ex: Conduire un d&#233;placement..."></div>
-  <div class="fgrp"><label class="flbl">Objectifs g&#233;n&#233;raux</label><textarea class="finp" id="seq-objectifs" rows="3" placeholder="Objectifs..."></textarea></div>
-  <div class="fgrp"><label class="flbl">AFLP prioritaires</label><div id="seq-aflp-checks" class="aflp-check-grid"></div></div>
-  <div class="sec-title" style="margin-top:1.2rem">Trame de s&#233;quence</div>
-  <div id="seq-trame-container"></div>
-  <button class="add-partie-btn" id="btn-add-trame-seance">+ Ajouter une s&#233;ance au planning</button>
-  <div class="modal-acts">
-    <button class="btn btn-g" data-close="m-seq">Annuler</button>
-    <button class="btn btn-p" onclick="saveSeq()">Enregistrer</button>
-  </div>
-</div></div>
-
-<div class="mb" id="m-sync-launch" style="display:none;position:fixed;inset:0;z-index:600;background:rgba(0,0,0,.75);align-items:center;justify-content:center">
-  <div style="background:#1c1f2c;border:1px solid #252836;border-radius:16px;padding:28px 24px;max-width:360px;width:90%;text-align:center">
-    <div style="font-size:2rem;margin-bottom:12px">🔄</div>
-    <div style="font-size:1rem;font-weight:700;color:#e4e6ef;margin-bottom:6px">Ouvrir le suivi</div>
-    <div id="m-sync-launch-lbl" style="font-size:.8rem;color:#6b7280;margin-bottom:20px;font-family:monospace"></div>
-    <div style="font-size:.82rem;color:#9aa0b8;margin-bottom:24px;line-height:1.6">Voulez-vous synchroniser depuis GitHub avant d'ouvrir ?</div>
-    <div style="display:flex;flex-direction:column;gap:10px">
-      <button onclick="document.getElementById('m-sync-launch').classList.remove('open');accLaunchWithSync();" style="background:#4f8aff;color:#fff;border:none;border-radius:10px;padding:12px;font-size:.9rem;font-weight:700;cursor:pointer">↓ Synchroniser puis ouvrir</button>
-      <button onclick="document.getElementById('m-sync-launch').classList.remove('open');var p=window._pendingLaunch;if(p)openSuivi(p.cls,p.apsa,p.key,p.trim);" style="background:#2a2d3e;color:#e4e6ef;border:1px solid #252836;border-radius:10px;padding:12px;font-size:.9rem;font-weight:600;cursor:pointer">Ouvrir sans synchroniser</button>
-    </div>
-  </div>
-</div>
-
-<div class="mb" id="m-seance-menu"><div class="modal" style="max-width:320px">
-  <div class="modal-title" id="m-seance-menu-title">Séance</div>
-  <div class="modal-sub" id="m-seance-menu-sub" style="font-size:.78rem;color:#6b7280;margin-bottom:20px"></div>
-  <div style="display:flex;flex-direction:column;gap:10px">
-    <button id="m-seance-menu-view" style="display:flex;align-items:center;gap:12px;background:rgba(255,255,255,.04);border:0.5px solid rgba(255,255,255,.1);border-radius:10px;padding:14px;cursor:pointer;text-align:left;width:100%">
-      <span style="font-size:22px">&#128065;</span>
-      <div><div style="font-size:.88rem;font-weight:600;color:#e4e6ef">Visualiser</div><div style="font-size:.72rem;color:#6b7280">Lire le contenu de la séance</div></div>
-    </button>
-    <button id="m-seance-menu-edit" style="display:flex;align-items:center;gap:12px;background:rgba(10,132,255,.08);border:0.5px solid rgba(10,132,255,.25);border-radius:10px;padding:14px;cursor:pointer;text-align:left;width:100%">
-      <span style="font-size:22px">&#9998;</span>
-      <div><div style="font-size:.88rem;font-weight:600;color:#4f8aff">Modifier</div><div style="font-size:.72rem;color:#6b7280">Éditer le contenu de la séance</div></div>
-    </button>
-    <button onclick="closeM('m-seance-menu')" style="background:none;border:none;color:#6b7280;font-size:.82rem;cursor:pointer;padding:6px">Annuler</button>
-  </div>
-</div></div>
-
-<div class="mb" id="m-fps-menu"><div class="modal" style="max-width:300px;text-align:center">
-  <div style="width:56px;height:56px;border-radius:14px;background:rgba(10,132,255,.15);display:flex;align-items:center;justify-content:center;margin:0 auto 12px">
-    <span style="font-size:28px">&#128203;</span>
-  </div>
-  <div style="font-size:.95rem;font-weight:600;color:#e4e6ef;margin-bottom:4px" id="m-fps-name">Document CCF</div>
-  <div style="font-size:.75rem;color:#6b7280;margin-bottom:20px">FPS / CCF</div>
-  <div style="display:flex;flex-direction:column;gap:8px">
-    <a id="m-fps-open" href="#" target="_blank" style="display:flex;align-items:center;justify-content:center;gap:8px;background:rgba(10,132,255,.18);border:0.5px solid rgba(10,132,255,.35);border-radius:10px;padding:11px 16px;color:#4f8aff;font-size:.88rem;font-weight:600;text-decoration:none">
-      &#128279; Ouvrir le document
-    </a>
-    <button onclick="closeM('m-fps-menu');acc2FpsEdit()" style="display:flex;align-items:center;justify-content:center;gap:8px;background:rgba(255,255,255,.05);border:0.5px solid rgba(255,255,255,.12);border-radius:10px;padding:11px 16px;color:#9aa0b8;font-size:.88rem;cursor:pointer;width:100%">
-      &#9998; Modifier le lien
-    </button>
-    <button onclick="closeM('m-fps-menu')" style="background:none;border:none;color:#636366;font-size:.8rem;cursor:pointer;padding:4px">Annuler</button>
-  </div>
-</div></div>
-
-<div class="mb" id="m-fps-editor"><div class="modal" style="max-width:340px">
-  <div class="modal-title">Modifier le lien FPS/CCF</div>
-  <div style="font-size:.78rem;color:#6b7280;margin-bottom:14px">Colle un lien iCloud Drive, Google Drive ou autre URL</div>
-  <input type="url" id="acc2-fps-url" placeholder="https://..." style="width:100%;background:#13161f;border:1px solid #2a2d3e;border-radius:8px;padding:9px 12px;color:#e4e6ef;font-size:.85rem;box-sizing:border-box;margin-bottom:12px">
-  <div class="modal-acts">
-    <button class="btn btn-g" onclick="closeM('m-fps-editor')">Annuler</button>
-    <button class="btn btn-p" onclick="acc2SaveFpsLink()">Enregistrer</button>
-  </div>
-</div></div>
 <script>
 var CLASSES_DEFAULT=[{id:'2nde-ener-b',label:'2NDE ENER B',level:'2NDE',sub:'Energie Gr. B',color:'#c8400a',light:'#c8400a0d',filiere:'bacpro',heure:'10h00'},{id:'2nde-mrc-b',label:'2NDE MRC B',level:'2NDE',sub:'MRC Gr. B',color:'#1a6b3a',light:'#1a6b3a0d',filiere:'bacpro',heure:'08h05'},{id:'cap-epc-1',label:'CAP EPC 1',level:'CAP',sub:'Equipier polyvalent de commerce',color:'#1e4fa0',light:'#1e4fa00d',filiere:'cap',heure:'10h00'},{id:'cap-elec-2',label:'CAP ELEC 2',level:'CAP',sub:'Electricite',color:'#7c28b8',light:'#7c28b80d',filiere:'cap',heure:'08h05'},{id:'3e-pm',label:'3e PM',level:'3e',sub:'Prepa Metiers',color:'#a07800',light:'#a078000d',filiere:'col4',heure:'10h00'}];
 var CLASSES=[];
@@ -1734,17 +1551,17 @@ var CLS_SEL_COLOR=CLS_COLORS[0];
 var CLS_SEL_FILIERE='bacpro';
 var CA_GROUPS=[
   {ca:'CA1',caFull:'CA1',color:'#ff6b6b',desc:'Realiser sa performance motrice maximale',apsa:[
-    {id:'vitesse',name:'Course de vitesse',emoji:'&#127939;'},
+    {id:'vitesse',name:'Course de vitesse',emoji:'&#9889;'},
     {id:'natation',name:'Natation vitesse',emoji:'&#127946;'},
     {id:'athle',name:'Athletisme multisport',emoji:'&#127947;'}
   ]},
   {ca:'CA2',caFull:'CA2',color:'#a78bfa',desc:'Adapter son deplacement a des environnements varies',apsa:[
     {id:'orientation',name:"Course d'orientation",emoji:'&#129517;'},
-    {id:'cross',name:'Cross',emoji:'&#127939;'}
+    {id:'cross',name:'Cross',emoji:'&#127807;'}
   ]},
   {ca:'CA3',caFull:'CA3',color:'#ffd166',desc:'Realiser une prestation corporelle appreciee',apsa:[
-    {id:'acrosport',name:'Acrosport',emoji:'&#129336;'},
-    {id:'gymnsol',name:'Gymnastique',emoji:'&#129336;'},
+    {id:'acrosport',name:'Acrosport',emoji:'&#129338;'},
+    {id:'gymnsol',name:'Gymnastique',emoji:'&#129337;'},
     {id:'danse',name:'Danse',emoji:'&#128131;'}
   ]},
   {ca:'CA4',caFull:'CA4',color:'#4f8aff',desc:'Conduire un affrontement pour gagner',apsa:[
@@ -2159,22 +1976,6 @@ function buildTableEditor(data,pid,mode){
   return container;
 }
 
-function addLinkItem(zone,url,label,pid,mode){
-  if(!zone)return;
-  var item=document.createElement('div');
-  item.style.cssText='display:flex;align-items:center;gap:6px;padding:4px 0;border-bottom:0.5px solid #2a2d3e';
-  var a=document.createElement('a');
-  a.href=url;a.target='_blank';a.textContent=label||url;
-  a.style.cssText='flex:1;font-size:.75rem;color:#4f8aff;text-decoration:none;overflow:hidden;text-overflow:ellipsis;white-space:nowrap';
-  var del=document.createElement('button');del.textContent='×';
-  del.style.cssText='background:none;border:none;color:#ff453a;cursor:pointer;font-size:1rem;padding:0 4px';
-  del.addEventListener('click',function(){
-    var parr=mode==='new'?partiesNew:partiesEdit;
-    for(var k=0;k<parr.length;k++){if(parr[k].id===pid&&parr[k].liens){parr[k].liens=parr[k].liens.filter(function(l){return l.url!==url;});break;}}
-    item.remove();
-  });
-  item.appendChild(a);item.appendChild(del);zone.appendChild(item);
-}
 function addAttachItem(list,nom,type,dataUrl,pid,mode){
   if(!list)return;
   var row=document.createElement('div');row.className='extra-attach-item';
@@ -2208,142 +2009,47 @@ function addAttachItem(list,nom,type,dataUrl,pid,mode){
   });
   row.appendChild(del);list.appendChild(row);
 }
-
-function accFlowShow(step){
-  ge('acc-flow-s1').style.display=step===1?'block':'none';
-  ge('acc-flow-s2').style.display=step===2?'block':'none';
-  ge('acc-flow-s3').style.display=step===3?'block':'none';
-}
-function accFlowBack(toStep){accFlowShow(toStep);}
-function accShowNew(){
-  ge('acc-recent-cards').style.display='none';
-  ge('acc-new-flow').style.display='block';
-  ge('acc-back-recent').style.display='block';
-}
-function accShowRecent(){
-  ge('acc-recent-cards').style.display='block';
-  ge('acc-new-flow').style.display='none';
-}
-
-function accRenderRecentCards(){
-  var sessions=[];
-  try{sessions=JSON.parse(localStorage.getItem('eps-recent')||'[]');}catch(e){}
-  var zone=ge('acc-recent-cards');
-  var grid=ge('acc-recent-sq-grid');
-  if(!sessions.length||!grid){
-    if(zone)zone.style.display='none';
-    return;
-  }
-  zone.style.display='block';
-  ge('acc-new-flow').style.display='none';
-  grid.innerHTML='';
-  var caColors={'CA1':'#0C447C','CA2':'#0C447C','CA3':'#3C3489','CA4':'#712B13','CA5':'#27500A'};
-  sessions.slice(0,8).forEach(function(s){
-    var col=caColors[s.apsa&&s.apsa.ca]||'#1a2038';
-    var card=document.createElement('div');
-    card.className='acc-sq-recent';
-    card.style.background=col;
-    var pct=0;
-    try{
-      var st=JSON.parse(localStorage.getItem(s.key)||'{}');
-      var ns=(st.seances||[]).length;var nf=(st.seances||[]).filter(function(x){return x.bilan&&x.bilan.trim();}).length;
-      pct=ns>0?Math.round(nf/ns*100):0;
-    }catch(e){}
-    card.innerHTML='<div>'+
-      '<span class="acc-sq-recent-badge">'+(s.apsa&&s.apsa.ca||'')+'</span>'+
-      '<span class="acc-sq-recent-emoji">'+(s.apsa&&s.apsa.emoji||'📚')+'</span>'+
-      '</div>'+
-      '<div>'+
-      '<p class="acc-sq-recent-name">'+(s.apsa&&s.apsa.name||'Séquence')+'</p>'+
-      '<p class="acc-sq-recent-sub">'+(s.cls&&s.cls.label||'')+' · '+(s.trim?'T'+s.trim:'')+'</p>'+
-      '<div class="acc-sq-bar-bg"><div class="acc-sq-bar" style="width:'+pct+'%"></div></div>'+
-      '</div>';
-    card.onclick=(function(ss){return function(){accLaunch(ss.cls,ss.apsa,ss.trim);};})(s);
-    grid.appendChild(card);
-  });
-  // Bouton nouvelle séquence
-  var newCard=document.createElement('div');
-  newCard.style.cssText='aspect-ratio:1;border-radius:12px;border:1.5px dashed rgba(255,255,255,.15);background:rgba(255,255,255,.04);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;cursor:pointer;transition:background .12s';
-  newCard.innerHTML='<div style="font-size:28px;color:#4f8aff">+</div><p style="font-size:11px;color:#6b7280;margin:0;text-align:center">Nouvelle séquence</p>';
-  newCard.onclick=accShowNew;
-  grid.appendChild(newCard);
-}
-
 function accRenderClsGrid(){
-  var cgrid=ge('acc-cls-grid');if(!cgrid)return;
+  var cgrid=ge('acc-cls-grid');
+  if(!cgrid)return;
   cgrid.innerHTML='';
-  var noClsDiv=ge('acc-no-cls');
-  if(!CLASSES.length){
-    if(noClsDiv)noClsDiv.style.display='block';
-    return;
-  }
-  if(noClsDiv)noClsDiv.style.display='none';
   for(var i=0;i<CLASSES.length;i++){
     (function(c,idx){
       var d=document.createElement('div');
-      d.className='acc-cls';d.id='cl-'+c.id;
+      d.className='acc-cls';
+      d.id='cl-'+c.id;
       d.setAttribute('style','--c:'+c.color+';--cl:'+(c.light||c.color+'0d')+';');
-      d.innerHTML='<button class="acc-cls-del" data-idx="'+idx+'" title="Supprimer">&#10005;</button>'+
+      d.innerHTML='<button class="acc-cls-del" data-idx="'+idx+'" title="Supprimer cette classe">&#10005;</button>'+
         '<div class="acc-cls-lv">'+esc(c.level||'')+'</div>'+
         '<div class="acc-cls-name">'+esc(c.label)+'</div>'+
-        '<div class="acc-cls-sub">'+esc(c.sub||'')+'</div>';
-      d.addEventListener('click',function(e){
-        if(e.target.classList.contains('acc-cls-del')){
-          var i2=parseInt(e.target.dataset.idx);
-          if(confirm('Supprimer la classe '+CLASSES[i2].label+' ?')){CLASSES.splice(i2,1);classesSave();accRenderClsGrid();}
-          return;
+        '<div class="acc-cls-sub">'+esc(c.sub||'')+'</div>'+
+        '<div class="acc-cls-dot"></div>';
+      var delBtn=d.querySelector('.acc-cls-del');
+      if(delBtn)delBtn.addEventListener('click',function(e){
+        e.stopPropagation();
+        if(confirm('Supprimer la classe "'+c.label+'" ?')){
+          CLASSES.splice(idx,1);
+          classesSave();
+          ghPushClasses();
+          selCls=null;
+          accRenderClsGrid();
+          accUpd();
         }
-        selCls=c;
-        document.querySelectorAll('.acc-cls').forEach(function(el){el.classList.remove('active');});
-        d.classList.add('active');
-        accFlowShow(2);
-        accRenderApsaSquare();
       });
+      d.addEventListener('click',function(e){e.preventDefault();e.stopPropagation();accPickCls(c.id);});
       cgrid.appendChild(d);
     })(CLASSES[i],i);
   }
-}
-
-function accRenderApsaSquare(){
-  var container=ge('acc-apsa-sq-container');if(!container)return;
-  container.innerHTML='';
-  var caColors={'CA1':'#0C447C','CA2':'#185FA5','CA3':'#3C3489','CA4':'#712B13','CA5':'#27500A'};
-  for(var gi=0;gi<CA_GROUPS.length;gi++){
-    var g=CA_GROUPS[gi];
-    var col=caColors[g.ca]||'#1a2038';
-    var grpDiv=document.createElement('div');grpDiv.className='apsa-sq-ca-group';
-    var label=document.createElement('div');label.className='apsa-sq-ca-label';
-    label.innerHTML='<span style="background:'+col+'33;color:'+col+';padding:2px 8px;border-radius:4px;font-family:monospace">'+g.ca+'</span>'+
-      '<span style="color:#6b7280;font-size:.68rem">'+g.desc+'</span>';
-    grpDiv.appendChild(label);
-    var grid=document.createElement('div');grid.className='apsa-sq-grid';
-    for(var ai=0;ai<g.apsa.length;ai++){
-      (function(a,gca,gcol){
-        var card=document.createElement('div');card.className='apsa-sq-card';
-        card.style.background=gcol;
-        card.innerHTML='<div><span class="apsa-sq-badge">'+gca+'</span><span class="apsa-sq-emoji">'+a.emoji+'</span></div>'+
-          '<p class="apsa-sq-name">'+esc(a.name)+'</p>';
-        card.onclick=function(){
-          selApsa={id:a.id,name:a.name,emoji:a.emoji,ca:g.ca,caFull:g.caFull};
-          document.querySelectorAll('.apsa-sq-card').forEach(function(c){c.classList.remove('selected');});
-          card.classList.add('selected');
-          accFlowShow(3);
-          accUpdateSum();accUpdateAflp();
-        };
-        grid.appendChild(card);
-      })(g.apsa[ai],g.ca,col);
-    }
-    grpDiv.appendChild(grid);
-    container.appendChild(grpDiv);
+  var addBtn=document.createElement('div');
+  addBtn.className='acc-cls-add';
+  addBtn.innerHTML='<div class="acc-cls-add-icon">+</div><div class="acc-cls-add-lbl">Ajouter</div>';
+  addBtn.addEventListener('click',function(){openAddCls();});
+  cgrid.appendChild(addBtn);
+  // Restaurer la selection si une classe etait deja choisie
+  if(selCls){
+    var el=ge('cl-'+selCls.id);
+    if(el)el.classList.add('sel');
   }
-}
-
-function accSelTrim(t){
-  selTrim=t;
-  [1,2,3].forEach(function(i){
-    var el=ge('tr-'+i);if(el)el.classList.toggle('active',i===t);
-  });
-  accUpdateSum();accUpdateAflp();
 }
 
 function openAddCls(){
@@ -2694,56 +2400,131 @@ function renderWidgetAflp(){
 function accUpdateSum(){
   var s=ge('acc-sum');if(!s)return;
   if(selCls&&selApsa&&selTrim){
-    s.textContent=selCls.label+' · '+selApsa.name+' · T'+selTrim;
+    s.textContent=selCls.label+' - '+selApsa.name+' - T'+selTrim;
     var btn=ge('acc-btn');if(btn)btn.disabled=false;
   } else {
     s.textContent='Choisissez une classe, une APSA et un trimestre';
     var btn=ge('acc-btn');if(btn)btn.disabled=true;
   }
 }
+
 function accUpdateAflp(){
-  if(!selApsa||!selApsa.caFull){ge('aflp-acc-zone').style.display='none';return;}
+  if(!selApsa||!selApsa.caFull){
+    var z=ge('aflp-acc-zone');if(z)z.style.display='none';
+    accUpdateSum();return;
+  }
   var f=selCls?selCls.filiere:'bacpro';
   var aflpData=(AFLP[f]||AFLP.bacpro)[selApsa.caFull];
-  if(!aflpData){ge('aflp-acc-zone').style.display='none';return;}
-  ge('aflp-acc-zone').style.display='block';
-  ge('aflp-acc-sec-title').textContent=selApsa.ca+' - '+selApsa.name;
-  ge('aflp-acc-ca-title').textContent=aflpData.competence||'';
-  var list=ge('aflp-acc-list');list.innerHTML='';
-  (aflpData.items||[]).forEach(function(it){
-    var d=document.createElement('div');d.className='aflp-acc-item';
-    d.innerHTML='<span class="aflp-acc-n">'+esc(it.n)+'</span><span class="aflp-acc-desc">'+esc(it.t||it.desc||'')+'</span>';
-    list.appendChild(d);
-  });
+  var z=ge('aflp-acc-zone');
+  if(!aflpData){if(z)z.style.display='none';accUpdateSum();return;}
+  if(z)z.style.display='block';
+  var t=ge('aflp-acc-sec-title');if(t)t.textContent=selApsa.ca+' - '+selApsa.name;
+  var ct=ge('aflp-acc-ca-title');if(ct)ct.textContent=aflpData.competence||'';
+  var list=ge('aflp-acc-list');if(list){
+    list.innerHTML='';
+    (aflpData.items||[]).forEach(function(it){
+      var d=document.createElement('div');d.className='aflp-acc-item';
+      d.innerHTML='<span class="aflp-acc-n">'+esc(it.n)+'</span><span class="aflp-acc-desc">'+esc(it.t||it.desc||'')+'</span>';
+      list.appendChild(d);
+    });
+  }
   accUpdateSum();
 }
 
 function accInit(){
-  ghLoadConfig();
   var now=new Date();
   var J=['Dimanche','Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi'];
   var M=['janv.','fevr.','mars','avr.','mai','juin','juil.','aout','sept.','oct.','nov.','dec.'];
-  var dateEl=ge('acc-date');
-  if(dateEl)dateEl.innerHTML=J[now.getDay()]+' '+now.getDate()+' '+M[now.getMonth()]+' '+now.getFullYear()+'<br>Annee scolaire 2025-2026';
-  // Afficher récents ou nouveau flow
-  accRenderRecentCards();
+  ge('acc-date').innerHTML=J[now.getDay()]+' '+now.getDate()+' '+M[now.getMonth()]+' '+now.getFullYear()+'<br>Annee scolaire 2025-2026';
+  ghLoadConfig();
+  accRenderRecentSq();
   accRenderClsGrid();
-  // Binder btn pull classes
-  var pullBtn=ge('btn-pull-cls');
-  if(pullBtn)pullBtn.onclick=function(){ghPullClasses(function(){accRenderClsGrid();toast('Classes importees !','ok');});};
-  // Binder trim clicks (au cas où pas encore bindés)
-  var accBtn=ge('acc-btn');
-  if(accBtn)accBtn.onclick=function(){accLaunch();};
-  // Custom APSA
+  accRenderApsaSq();
+  // Cacher étapes 2 et 3 au départ
+  var s2=document.querySelector('.acc-sec-tag+.acc-sec-title+.acc-apsa-container-wrap');
+  // Binder les trim
+  [1,2,3].forEach(function(t){
+    var el=ge('tr-'+t);
+    if(el)el.addEventListener('click',function(){
+      selTrim=t;
+      [1,2,3].forEach(function(i){var e=ge('tr-'+i);if(e)e.classList.toggle('active',i===t);});
+      accUpdateSum();accUpdateAflp();
+    });
+  });
+  // Binder acc-btn
+  var btn=ge('acc-btn');
+  if(btn)btn.onclick=function(){accLaunch();};
+  // Binder custom APSA
   var ci=ge('acc-custom-input');
-  if(ci){ci.addEventListener('change',function(){
+  if(ci)ci.addEventListener('change',function(){
     if(this.value.trim()){
       selApsa={id:'custom',name:this.value.trim(),emoji:'📌',ca:'',caFull:''};
-      accFlowShow(3);accUpdateSum();accUpdateAflp();
+      accUpdateSum();
     }
-  });}
-  // Sessions récentes ancien format (chips)
+  });
   accRenderRecent();
+}
+
+function accRenderRecentSq(){
+  var sessions=[];
+  try{sessions=JSON.parse(localStorage.getItem('eps-recent')||'[]');}catch(e){}
+  // Insérer les cartes récentes avant acc-steps si sessions
+  var stepsEl=document.querySelector('.acc-steps');
+  var existing=document.getElementById('acc-recent-sq');
+  if(existing)existing.remove();
+  if(!sessions.length||!stepsEl)return;
+  var caColors={'CA1':'#0C447C','CA2':'#185FA5','CA3':'#3C3489','CA4':'#712B13','CA5':'#27500A'};
+  var wrap=document.createElement('div');wrap.id='acc-recent-sq';wrap.style.marginBottom='1.5rem';
+  var title=document.createElement('div');title.className='acc-sec-tag';title.textContent='Sessions récentes';
+  wrap.appendChild(title);
+  var grid=document.createElement('div');grid.className='acc-sq-recent-grid';
+  sessions.slice(0,6).forEach(function(s){
+    var col=caColors[s.apsa&&s.apsa.ca]||'#1a2038';
+    var card=document.createElement('div');card.className='acc-sq-recent-card';
+    card.style.background=col;
+    card.innerHTML='<div><span style="font-size:9px;font-weight:700;background:rgba(255,255,255,.2);color:rgba(255,255,255,.9);padding:2px 6px;border-radius:4px">'+(s.apsa&&s.apsa.ca||'')+'</span><div style="font-size:18px;margin:4px 0">'+(s.apsa&&s.apsa.emoji||'📚')+'</div></div>'+
+      '<div><div style="font-size:11px;font-weight:600;color:#fff;line-height:1.3">'+(s.apsa&&s.apsa.name||'')+'</div>'+
+      '<div style="font-size:10px;color:rgba(255,255,255,.6);margin-top:2px">'+(s.cls&&s.cls.label||'')+' · T'+(s.trim||'')+'</div></div>';
+    card.onclick=(function(ss){return function(){accLaunch(ss.cls,ss.apsa,ss.trim);};})(s);
+    grid.appendChild(card);
+  });
+  var newCard=document.createElement('div');newCard.className='acc-sq-recent-card';
+  newCard.style.cssText='border:1.5px dashed rgba(255,255,255,.2);background:rgba(255,255,255,.04);align-items:center;justify-content:center;flex-direction:column;gap:6px;display:flex';
+  newCard.innerHTML='<div style="font-size:24px;color:#4f8aff">+</div><div style="font-size:11px;color:#6b7280;text-align:center">Nouvelle séquence</div>';
+  grid.appendChild(newCard);
+  wrap.appendChild(grid);
+  stepsEl.parentNode.insertBefore(wrap,stepsEl);
+}
+
+function accRenderApsaSq(){
+  var container=ge('acc-apsa-container');if(!container)return;
+  container.innerHTML='';
+  var caColors={'CA1':'#0C447C','CA2':'#185FA5','CA3':'#3C3489','CA4':'#712B13','CA5':'#27500A'};
+  for(var gi=0;gi<CA_GROUPS.length;gi++){
+    var g=CA_GROUPS[gi];var col=caColors[g.ca]||'#1a2038';
+    var grpDiv=document.createElement('div');grpDiv.className='ca-group';
+    var label=document.createElement('div');label.className='ca-group-header';
+    label.innerHTML='<span class="ca-label" style="background:'+col+'33;color:'+col+'">'+g.ca+'</span><span class="ca-desc">'+g.desc+'</span>';
+    grpDiv.appendChild(label);
+    var grid=document.createElement('div');grid.className='apsa-sq-grid';
+    for(var ai=0;ai<g.apsa.length;ai++){
+      (function(a,gcol,gca,gcaFull){
+        var card=document.createElement('div');card.className='apsa-sq-card';card.style.background=gcol;
+        card.innerHTML='<div><span class="apsa-sq-badge">'+gca+'</span><div style="font-size:18px">'+a.emoji+'</div></div>'+
+          '<div class="apsa-sq-name">'+esc(a.name)+'</div>';
+        card.onclick=function(){
+          selApsa={id:a.id,name:a.name,emoji:a.emoji,ca:gca,caFull:gcaFull};
+          document.querySelectorAll('.apsa-sq-card').forEach(function(c){c.classList.remove('selected');});
+          card.classList.add('selected');
+          accUpdateAflp();
+          // Scroll vers trimestre
+          var trim=ge('tr-1');if(trim)trim.scrollIntoView({behavior:'smooth',block:'center'});
+        };
+        grid.appendChild(card);
+      })(g.apsa[ai],col,g.ca,g.caFull);
+    }
+    grpDiv.appendChild(grid);container.appendChild(grpDiv);
+  }
 }
 function accPickCls(id){if(window.accIsScrolling&&window.accIsScrolling())return;selCls=null;for(var i=0;i<CLASSES.length;i++){if(CLASSES[i].id===id){selCls=CLASSES[i];break;}}var els=document.querySelectorAll('.acc-cls');for(var i=0;i<els.length;i++)els[i].classList.remove('sel');ge('cl-'+id).classList.add('sel');accUpd();}
 function accPickApsa(id){if(window.accIsScrolling&&window.accIsScrolling())return;selApsa=null;for(var i=0;i<APSA_FLAT.length;i++){if(APSA_FLAT[i].id===id){selApsa=APSA_FLAT[i];break;}}ge('acc-custom-input').value='';var els=document.querySelectorAll('.acc-apsa');for(var i=0;i<els.length;i++)els[i].classList.remove('sel');ge('ap-'+id).classList.add('sel');accUpd();showAccAflp(selApsa);}
@@ -2752,13 +2533,14 @@ function accCustom(v){selApsa=v.trim()?{id:'custom',name:v.trim(),ca:'CA?',caFul
 function showAccAflp(apsa){var f=selCls?selCls.filiere:'bacpro';var d=(AFLP[f]||AFLP.bacpro)[apsa.caFull];if(!d){ge('aflp-acc-zone').style.display='none';return;}ge('aflp-acc-zone').style.display='block';ge('aflp-acc-sec-title').textContent=apsa.ca+' - '+apsa.name;ge('aflp-acc-ca-title').textContent=d.titre;var h='';for(var i=0;i<d.items.length;i++)h+='<div class="aflp-acc-item"><span class="aflp-acc-num">'+d.items[i].n+'</span><span>'+d.items[i].t+'</span></div>';ge('aflp-acc-list').innerHTML=h;}
 function accUpd(){ge('acc-s1').className='acc-step'+(selCls?' done':' active');ge('acc-s2').className='acc-step'+(selCls&&!selApsa?' active':selApsa?' done':'');ge('acc-s3').className='acc-step'+(selApsa&&!selTrim?' active':selTrim?' done':'');ge('acc-s4').className='acc-step'+(selApsa&&selTrim?' active':'');var btn=ge('acc-btn'),sum=ge('acc-sum');if(selCls&&selApsa&&selTrim){sum.innerHTML='<em>'+selCls.label+'</em> - '+selApsa.ca+' - '+selApsa.name+' - T'+selTrim;btn.disabled=false;}else if(selCls&&selApsa){sum.textContent=selCls.label+' - '+selApsa.name+' - Choisissez un trimestre';btn.disabled=true;}else if(selCls){sum.textContent=selCls.label+' - Choisissez une APSA';btn.disabled=true;}else{sum.textContent='Choisissez une classe, une APSA et un trimestre';btn.disabled=true;}}
 function accLaunch(cls,apsa,trim){cls=cls||selCls;apsa=apsa||selApsa;trim=trim||selTrim;if(!cls||!apsa||!trim)return;var key='eps-'+cls.id+'-'+apsa.id+'-t'+trim;var sessions=[];try{sessions=JSON.parse(localStorage.getItem('eps-recent')||'[]');}catch(e){}for(var i=sessions.length-1;i>=0;i--){if(sessions[i].key===key)sessions.splice(i,1);}sessions.unshift({key:key,cls:cls,apsa:apsa,trim:trim,ts:Date.now()});localStorage.setItem('eps-recent',JSON.stringify(sessions.slice(0,8)));
+  // Afficher modale de sync
   window._pendingLaunch={cls:cls,apsa:apsa,key:key,trim:trim};
-  if(GH.token && GH.repo){
-    var modal=ge('m-sync-launch');
-    var lbl=ge('m-sync-launch-lbl');
-    if(lbl)lbl.textContent=cls.label+' — '+apsa.name+' T'+trim;
-    if(modal)modal.classList.add('open');
-    else openSuivi(cls,apsa,key,trim);
+  var syncModal=ge('m-sync-confirm');
+  var syncLabel=ge('sync-confirm-cls');
+  if(syncLabel)syncLabel.textContent=cls.label+' — '+apsa.name+' T'+trim;
+  if(syncModal){
+    syncModal.classList.add('open');
+    syncModal.scrollTop=0;
   } else {
     openSuivi(cls,apsa,key,trim);
   }
@@ -2796,44 +2578,8 @@ function accLaunchWithoutSync(){
   openSuivi(p.cls,p.apsa,p.key,p.trim);
 }
 function accRenderRecent(){var sessions=[];try{sessions=JSON.parse(localStorage.getItem('eps-recent')||'[]');}catch(e){}var zone=ge('acc-recent');if(!sessions.length){zone.style.display='none';return;}zone.style.display='block';var chips=ge('acc-chips');chips.innerHTML='';for(var i=0;i<sessions.length;i++){(function(s){var cls=null;for(var j=0;j<CLASSES.length;j++){if(CLASSES[j].id===s.cls.id){cls=CLASSES[j];break;}}if(!cls)cls=s.cls;var d=new Date(s.ts);var chip=document.createElement('div');chip.className='acc-chip';chip.innerHTML='<div class="dot" style="background:'+(cls.color||'#888')+'"></div><span>'+s.cls.label+'</span><span style="color:#9a9080">-</span><span>'+s.apsa.name+'</span>'+(s.trim?'<span style="font-weight:800;color:#4f8aff">T'+s.trim+'</span>':'')+'<span style="color:#9a9080;font-size:.68rem">'+d.getDate()+'/'+(d.getMonth()+1)+'</span><span class="x">x</span>';chip.querySelector('.x').addEventListener('click',function(e){e.stopPropagation();var ss=[];try{ss=JSON.parse(localStorage.getItem('eps-recent')||'[]');}catch(err){}for(var k=ss.length-1;k>=0;k--){if(ss[k].key===s.key)ss.splice(k,1);}localStorage.setItem('eps-recent',JSON.stringify(ss));accRenderRecent();});chip.addEventListener('click',function(){accLaunch(s.cls,s.apsa,s.trim||1);});chips.appendChild(chip);})(sessions[i]);}}
-function openSuivi(cls,apsa,key,trim){
-  CTX={cls:cls,apsa:apsa,key:key,trim:trim};
-  STORAGE_KEY=key;
-  loadState();
-  try{
-    var logo=ge('s-logo');
-    if(logo)logo.innerHTML=apsa.emoji+' '+apsa.name+' <span class="s-badge">'+apsa.ca+'</span>';
-    var ctx=ge('s-ctx');
-    if(ctx){ctx.textContent=cls.label+(trim?' - T'+trim:'');ctx.style.display='inline';}
-    var pgtitle=ge('s-pg-title');
-    if(pgtitle)pgtitle.textContent=apsa.ca+' - '+apsa.name;
-    var f=cls.filiere||'bacpro';
-    var fil=FILIERES[f]||FILIERES.bacpro;
-    var efsub=ge('eval-filiere-sub');
-    if(efsub)efsub.textContent='Filiere : '+fil.label+' - T'+(trim||'');
-    var badge=ge('eval-filiere-badge');
-    if(badge){badge.textContent=fil.label;badge.style.background=fil.color+'22';badge.style.color=fil.color;}
-    var aflpData=(AFLP[f]||AFLP.bacpro)[apsa.caFull];
-    if(aflpData){
-      var catitle=ge('eval-aflp-ca-title');
-      if(catitle)catitle.textContent=aflpData.titre;
-      var h='';
-      for(var i=0;i<aflpData.items.length;i++)
-        h+='<div class="eval-aflp-item"><span class="eval-n">'+aflpData.items[i].n+'</span><span class="eval-t">'+aflpData.items[i].t+'</span></div>';
-      var alist=ge('eval-aflp-list');
-      if(alist)alist.innerHTML=h;
-    }
-  }catch(e){console.log('openSuivi header err:',e.message);}
-  ge('pg-acc').style.display='none';
-  ge('pg-suivi').style.display='block';
-  showView('v-accueil');
-  try{renderAll();}catch(e){}
-  try{initNotesRapides();}catch(e){}
-  try{initWidgets();}catch(e){}
-  try{bibRenderList('bib-list-seq');}catch(e){}
-  try{bibRenderFilters('bib-filters-seq');}catch(e){}
-}
-function goAcc(){ge('pg-suivi').style.display='none';ge('pg-acc').style.display='block';accRenderRecent();accRenderRecentCards();accRenderClsGrid();}
+function openSuivi(cls,apsa,key,trim){CTX={cls:cls,apsa:apsa,key:key,trim:trim};STORAGE_KEY=key;loadState();ge('s-logo').innerHTML=apsa.emoji+' '+apsa.name+' <span class="s-badge">'+apsa.ca+'</span>';var ctx=ge('s-ctx');ctx.textContent=cls.label+(trim?' - T'+trim:'');ctx.style.display='inline';ge('s-pg-title').textContent=apsa.ca+' - '+apsa.name;var f=cls.filiere||'bacpro';var fil=FILIERES[f];ge('eval-filiere-sub').textContent='Filiere : '+fil.label+' - T'+(trim||'');var badge=ge('eval-filiere-badge');badge.textContent=fil.label;badge.style.background=fil.color+'22';badge.style.color=fil.color;var aflpData=(AFLP[f]||AFLP.bacpro)[apsa.caFull];if(aflpData){ge('eval-aflp-ca-title').textContent=aflpData.titre;var h='';for(var i=0;i<aflpData.items.length;i++)h+='<div class="eval-aflp-item"><span class="eval-n">'+aflpData.items[i].n+'</span><span class="eval-t">'+aflpData.items[i].t+'</span></div>';ge('eval-aflp-list').innerHTML=h;}ge('pg-acc').style.display='none';var am=document.querySelector('.acc-main');if(am)am.style.display='none';ge('pg-suivi').style.display='block';showView('v-accueil');renderAll();initNotesRapides();initWidgets();bibRenderList('bib-list-seq');bibRenderFilters('bib-filters-seq');}
+function goAcc(){ge('pg-suivi').style.display='none';ge('pg-acc').style.display='block';var am=document.querySelector('.acc-main');if(am)am.style.display='block';accRenderRecent();}
 function loadState(){
   try{
     var s=localStorage.getItem(STORAGE_KEY);
@@ -2911,9 +2657,6 @@ function showView(id){
   var tabs=document.querySelectorAll('.s-tab');
   for(var i=0;i<tabs.length;i++)tabs[i].classList.remove('active');
   ge(id).classList.add('active');
-  // Cacher/montrer acc2-wrapper selon l'onglet actif
-  var w=ge('acc2-wrapper');
-  if(w)w.style.display=(id==='v-accueil')?'block':'none';
   var tab=document.querySelector('.s-tab[data-view="'+id+'"]');
   if(tab)tab.classList.add('active');
   if(id==='v-eval'){highlightEvalAflp();renderBilanComp();}
@@ -2929,21 +2672,8 @@ function showView(id){
   // Fermer panel plus
   var panel=ge('s-more-panel');
   if(panel)panel.classList.remove('open');
-  if(id==='v-autre-eval'){try{autreEvalRender();}catch(ex){}}
 }
-function renderAll(){
-  try{renderAccueilSuivi();}catch(e){}
-  try{renderStats();}catch(e){}
-  try{renderSeances();}catch(e){}
-  try{renderApList();}catch(e){}
-  try{renderEleves();}catch(e){}
-  try{renderNotes();}catch(e){}
-  try{renderBilanComp();}catch(e){}
-  try{renderGrille();}catch(e){}
-  try{renderProfil();}catch(e){}
-  try{renderComp();}catch(e){}
-  try{renderWidgetAflp();}catch(e){}
-}
+function renderAll(){renderAccueilSuivi();renderStats();renderSeances();renderApList();renderEleves();renderNotes();renderBilanComp();renderGrille();renderProfil();renderComp();renderWidgetAflp();}
 function highlightEvalAflp(){var worked={};for(var i=0;i<state.seances.length;i++){var t=state.seances[i].aflpTravailles||[];for(var j=0;j<t.length;j++)worked[t[j]]=true;}var items=document.querySelectorAll('.eval-aflp-item');for(var i=0;i<items.length;i++){var n=items[i].querySelector('.eval-n');if(n)items[i].classList.toggle('worked',!!worked[n.textContent]);}}
 function renderStats(){ge('ss-s').textContent=state.seances.length;ge('ss-e').textContent=state.eleves.length;ge('s-pg-sub').textContent=state.eleves.length+' eleves - '+state.seances.length+' seances';var tot=0,pres=0;for(var i=0;i<state.seances.length;i++){for(var j=0;j<state.eleves.length;j++){tot++;var p=state.presences[state.seances[i].id]||{};if((p[state.eleves[j].id]||'')==='Present')pres++;}}ge('ss-p').textContent=tot>0?Math.round(pres/tot*100)+'%':'-';var seq3=seqGet();
 var totalTrame3=(seq3.trame||[]).length;
@@ -2955,488 +2685,6 @@ var ssub=ge('ss-n-sub');
 if(ssub)ssub.textContent=restantes3+' restante'+(restantes3>1?'s':'');}
 function seqGet(){return state.seq||{objet:'',objectifs:'',aflpPrio:[],trame:[]};}
 function seqSave(d){state.seq=d;save();}
-function exportTout(){
-  toast('Export en cours...','info');
-  var cls=CTX.cls;var apsa=CTX.apsa;var trim=CTX.trim;
-  var seq=seqGet();
-  var f=cls?cls.filiere:'bacpro';
-  var aflpData=apsa?(AFLP[f]||AFLP.bacpro)[apsa.caFull]:null;
-  var compD=compGetData();
-  var degColors=['','#c0392b','#d4a017','#2980b9','#27ae60'];
-  var degNames=['','Insuffisant','Fragile','Satisfaisant','Tres bien'];
-
-  // ══ 1. PDF COMPLET ══
-  var h='<!DOCTYPE html><html><head><meta charset="utf-8">';
-  h+='<title>Sequence '+esc(apsa?apsa.name:'')+'</title>';
-  h+='<style>';
-  h+='body{font-family:Arial,sans-serif;font-size:12px;color:#1a1a2e;margin:0;padding:0}';
-  h+='.page{padding:30px 40px;max-width:900px;margin:0 auto}';
-  h+='.header{background:#1a1a2e;color:#fff;padding:20px 30px;border-radius:8px;margin-bottom:24px}';
-  h+='.header h1{font-size:22px;margin:0 0 4px}';
-  h+='.header .sub{font-size:13px;opacity:.7}';
-  h+='.section{margin-bottom:28px}';
-  h+='.section-title{font-size:15px;font-weight:700;color:#1a1a2e;border-bottom:2px solid #4f8aff;padding-bottom:6px;margin-bottom:14px}';
-  h+='.comp-text{font-size:13px;color:#333;line-height:1.7;background:#f0f4ff;border-left:4px solid #4f8aff;padding:12px 16px;border-radius:4px;margin-bottom:12px}';
-  h+='.aflp-tag{display:inline-block;background:#4f8aff;color:#fff;padding:2px 10px;border-radius:12px;font-size:11px;font-weight:700;margin:2px}';
-  h+='.seance-card{border:1px solid #dde;border-radius:8px;padding:14px;margin-bottom:14px;page-break-inside:avoid}';
-  h+='.seance-num{background:#4f8aff;color:#fff;padding:2px 10px;border-radius:12px;font-size:11px;font-weight:700;display:inline-block;margin-bottom:8px}';
-  h+='.seance-title{font-size:14px;font-weight:700;color:#1a1a2e;margin-bottom:8px}';
-  h+='.seance-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:8px}';
-  h+='.seance-field label{font-size:10px;font-weight:700;color:#888;text-transform:uppercase;display:block;margin-bottom:3px}';
-  h+='.seance-field p{font-size:12px;color:#333;margin:0;line-height:1.5}';
-  h+='.obj-row{background:#f8f9ff;border-radius:4px;padding:6px 10px;margin:3px 0;font-size:12px}';
-  h+='.obj-label{font-weight:700;color:#4f8aff;font-size:10px;text-transform:uppercase}';
-  h+='table{width:100%;border-collapse:collapse;font-size:11px}';
-  h+='th{background:#1a1a2e;color:#fff;padding:7px 10px;text-align:left}';
-  h+='td{padding:6px 10px;border-bottom:1px solid #eee}';
-  h+='tr:nth-child(even) td{background:#f9f9f9}';
-  h+='.badge{display:inline-block;padding:2px 8px;border-radius:10px;font-size:10px;font-weight:700}';
-  h+='@media print{.page{padding:0}.no-print{display:none}}';
-  h+='</style></head><body><div class="page">';
-
-  // Header
-  h+='<div class="header">';
-  h+='<h1>'+(apsa?esc(apsa.name):'Sequence EPS')+'</h1>';
-  h+='<div class="sub">'+(cls?esc(cls.label):'')+(trim?' &bull; Trimestre '+trim:'')+(apsa?' &bull; '+esc(apsa.ca):'')+'</div>';
-  h+='<div class="sub" style="margin-top:4px">Export du '+new Date().toLocaleDateString('fr-FR')+'</div>';
-  h+='</div>';
-
-  // Section 1 : Compétence attendue
-  h+='<div class="section"><div class="section-title">Comp&eacute;tence attendue</div>';
-  if(aflpData){
-    h+='<div class="comp-text">'+esc(aflpData.competence||'')+'</div>';
-    if(seq&&seq.objet)h+='<div style="font-size:12px;color:#555;margin-bottom:10px"><strong>Objet de s&eacute;quence :</strong> '+esc(seq.objet)+'</div>';
-    aflpData.items.forEach(function(it){
-      h+='<span class="aflp-tag">'+esc(it.n)+'</span>';
-    });
-  }
-  h+='</div>';
-
-  // Section 2 : Séances
-  var seances=state.seances.slice().sort(function(a,b){return (a.num||0)-(b.num||0);});
-  h+='<div class="section"><div class="section-title">S&eacute;ances ('+seances.length+')</div>';
-  seances.forEach(function(s){
-    h+='<div class="seance-card">';
-    h+='<span class="seance-num">S'+(s.num||'?')+'</span>';
-    if(s.date)h+='<span style="float:right;font-size:11px;color:#888">'+esc(s.date)+'</span>';
-    h+='<div class="seance-title">'+esc(s.objectif||'Sans titre')+'</div>';
-    if(s.obj1||s.obj2||s.obj3){
-      h+='<div style="margin-bottom:8px">';
-      if(s.obj1)h+='<div class="obj-row"><span class="obj-label">Objet 1 </span>'+esc(s.obj1)+'</div>';
-      if(s.obj2)h+='<div class="obj-row"><span class="obj-label">Objet 2 </span>'+esc(s.obj2)+'</div>';
-      if(s.obj3)h+='<div class="obj-row"><span class="obj-label">Objet 3 </span>'+esc(s.obj3)+'</div>';
-      h+='</div>';
-    }
-    h+='<div class="seance-grid">';
-    if(s.autreobj)h+='<div class="seance-field"><label>Autres objectifs</label><p>'+esc(s.autreobj)+'</p></div>';
-    if(s.contenus)h+='<div class="seance-field"><label>Contenus d\'enseignement</label><p>'+esc(s.contenus)+'</p></div>';
-    if(s.fps)h+='<div class="seance-field"><label>Partie FPS</label><p>'+esc(s.fps)+'</p></div>';
-    if(s.bilan)h+='<div class="seance-field"><label>Bilan</label><p>'+esc(s.bilan)+'</p></div>';
-    h+='</div>';
-    if((s.aflpTravailles||[]).length){
-      h+='<div style="margin-top:8px">';
-      s.aflpTravailles.forEach(function(a){h+='<span class="aflp-tag" style="background:#2ecc71">'+esc(a)+'</span>';});
-      h+='</div>';
-    }
-    h+='</div>';
-  });
-  h+='</div>';
-
-  // Section 3 : Bilan présences et notes
-  if(state.eleves.length){
-    var autreEvals=state.autreEvals||[];
-    var coeffQteEl=ge('coeff-qte')?parseFloat(ge('coeff-qte').value)||1:1;
-    var coeffFpsEl=ge('coeff-fps')?parseFloat(ge('coeff-fps').value)||1:1;
-    h+='<div class="section" style="page-break-before:always"><div class="section-title">Bilan pr&eacute;sences et notes</div>';
-    h+='<table><thead>';
-    h+='<tr><th>Coefficients</th><th colspan="3"></th><th>'+coeffQteEl+'</th>';
-    autreEvals.forEach(function(ev){h+='<th>'+(ev.coeff||1)+'</th>';});
-    h+='<th>'+coeffFpsEl+'</th><th></th></tr>';
-    h+='<tr><th>El&egrave;ve</th><th>Pr&eacute;s.</th><th>Abs.</th><th>Disp.</th><th>Qt&eacute; /10</th>';
-    autreEvals.forEach(function(ev){h+='<th>'+esc(ev.objet||ev.date||'Eval')+'</th>';});
-    h+='<th>Note FPS /20</th><th style="color:#27ae60">Moy. /20</th></tr>';
-    h+='</thead><tbody>';
-    var sorted=state.eleves.slice().sort(function(a,b){return a.nom.localeCompare(b.nom);});
-    sorted.forEach(function(e){
-      var pres=0,abs=0,disp=0,qtes=[];
-      for(var j=0;j<seances.length;j++){
-        var st=(state.presences[seances[j].id]||{})[e.id]||'';
-        if(st==='Present')pres++;else if(st==='Absent')abs++;else if(st==='Dispense')disp++;
-        var ae=(state.autoEval[seances[j].id]||{})[e.id]||{};
-        if(ae.qte!==undefined&&ae.qte!=='')qtes.push(parseFloat(ae.qte));
-      }
-      var mQ=qtes.length>0?(qtes.reduce(function(a,b){return a+b;},0)/qtes.length*10/4).toFixed(1):null;
-      var fpsnote=geCalcNote(e.id);
-      var totalPts=0,totalCoeff=0,hasData=false;
-      if(mQ!==null){totalPts+=parseFloat(mQ)/10*20*coeffQteEl;totalCoeff+=coeffQteEl;hasData=true;}
-      h+='<tr><td><strong>'+esc(e.nom)+'</strong></td><td style="text-align:center">'+pres+'</td><td style="text-align:center">'+abs+'</td><td style="text-align:center">'+disp+'</td>';
-      h+='<td style="text-align:center">'+(mQ!==null?mQ+'/10':'—')+'</td>';
-      autreEvals.forEach(function(ev){
-        var note=(ev.notes&&ev.notes[e.id])!=null&&ev.notes[e.id]!==''?parseFloat(ev.notes[e.id]):null;
-        var coeff=parseFloat(ev.coeff||1)||1;
-        if(note!==null){totalPts+=note*coeff;totalCoeff+=coeff;hasData=true;}
-        h+='<td style="text-align:center">'+(note!==null?note:'—')+'</td>';
-      });
-      if(fpsnote>0){totalPts+=fpsnote*coeffFpsEl;totalCoeff+=coeffFpsEl;hasData=true;}
-      var moy=hasData&&totalCoeff>0?(totalPts/totalCoeff).toFixed(1):null;
-      var moyCol=moy?(parseFloat(moy)>=14?'#27ae60':parseFloat(moy)>=10?'#2980b9':'#c0392b'):'#ccc';
-      h+='<td style="text-align:center;font-weight:700">'+(fpsnote>0?fpsnote+' /20':'—')+'</td>';
-      h+='<td style="text-align:center;font-weight:700;color:'+moyCol+'">'+(moy?moy+' /20':'—')+'</td>';
-      h+='</tr>';
-    });
-    h+='</tbody></table></div>';
-  }
-
-  // Section 4 : Grille éval détaillée
-  var aflps=geGetAflps();
-  if(state.eleves.length&&aflps.length){
-    h+='<div class="section" style="page-break-before:always"><div class="section-title">Grille d\'&eacute;valuation CCF</div>';
-    h+='<table><thead><tr><th>El&egrave;ve</th>';
-    aflps.forEach(function(a){h+='<th>'+esc(a.label)+'<br><small>/'+a.maxPts+'pts</small></th>';});
-    h+='<th>Total</th><th>Note /20</th></tr></thead><tbody>';
-    var sorted2=state.eleves.slice().sort(function(a,b){return a.nom.localeCompare(b.nom);});
-    sorted2.forEach(function(e){
-      h+='<tr><td><strong>'+esc(e.nom)+'</strong></td>';
-      var eidNotes=GE_NOTES[e.id]||(state.grilleNotes&&state.grilleNotes[e.id])||{};
-      aflps.forEach(function(a){
-        var entry=eidNotes[a.id]||{};var deg=entry.deg||0;
-        var slider=entry.slider!=null?entry.slider:(deg>0?a.ranges[deg-1][0]:0);
-        if(deg>0){
-          var col=degColors[deg];
-          h+='<td><span class="badge" style="background:'+col+'22;color:'+col+';border:1px solid '+col+'44">D'+deg+' — '+slider+'pts</span></td>';
-        } else {
-          h+='<td style="color:#ccc">—</td>';
-        }
-      });
-      var total=geCalcTotal(e.id);var note=geCalcNote(e.id);
-      h+='<td style="font-weight:700">'+total+'</td>';
-      h+='<td style="font-weight:700;color:'+(note>0?(note>=14?'#27ae60':note>=10?'#2980b9':'#c0392b'):'#ccc')+'">'+(note>0?note+' /20':'—')+'</td>';
-      h+='</tr>';
-    });
-    h+='</tbody></table></div>';
-  }
-
-  h+='</div></body></html>';
-
-  // Ouvrir le PDF dans une nouvelle fenêtre pour impression
-  var win=window.open('','_blank');
-  if(win){
-    win.document.write(h);
-    win.document.close();
-    setTimeout(function(){win.print();},500);
-  }
-
-  // ══ 2. JSON PAR SÉANCE ══
-  setTimeout(function(){
-    seances.forEach(function(s,i){
-      setTimeout(function(){
-        var data=JSON.stringify({
-          version:1,
-          exported:new Date().toISOString(),
-          apsa:apsa?apsa.name:'',
-          ca:apsa?apsa.ca:'',
-          seance:{
-            num:s.num,
-            titre:s.objectif||'',
-            obj1:s.obj1||'',
-            obj2:s.obj2||'',
-            obj3:s.obj3||'',
-            date:s.date||'',
-            autreobj:s.autreobj||'',
-            contenus:s.contenus||'',
-            fps:s.fps||'',
-            bilan:s.bilan||'',
-            aflpTravailles:s.aflpTravailles||[],
-            parties:s.parties||[]
-          }
-        },null,2);
-        var a=document.createElement('a');
-        a.href='data:application/json;charset=utf-8,'+encodeURIComponent(data);
-        a.download='S'+(s.num||i+1)+'_'+(s.objectif||'seance').substring(0,20).replace(/[^a-zA-Z0-9]/g,'_')+'.json';
-        a.click();
-      },i*300);
-    });
-    toast('Export termine : PDF + '+seances.length+' JSON','ok');
-  },1000);
-}
-
-function autreEvalRender(){
-  var zone=ge('autre-eval-list');if(!zone)return;
-  if(!state.autreEvals||!state.autreEvals.length){
-    zone.innerHTML='<div style="color:#6b7280;padding:2rem;text-align:center">Aucune &#233;valuation. Cliquez sur "+ Nouvelle &#233;valuation".</div>';
-    return;
-  }
-  zone.innerHTML='';
-  state.autreEvals.forEach(function(ev,idx){
-    var card=document.createElement('div');
-    card.style.cssText='background:#1c1f2c;border:1px solid #252836;border-radius:12px;padding:16px;margin-bottom:14px';
-    // Header
-    var hdr=document.createElement('div');
-    hdr.style.cssText='display:flex;align-items:center;gap:12px;margin-bottom:14px;flex-wrap:wrap';
-    hdr.innerHTML=
-      '<div style="display:flex;align-items:center;gap:6px"><label style="font-size:.72rem;color:#6b7280">Date</label>'+
-      '<input type="date" value="'+esc(ev.date||'')+'" style="background:#13161f;border:1px solid #2a2d3e;border-radius:6px;padding:4px 8px;color:#e4e6ef;font-size:.78rem" onchange="autreEvalUpdate(\''+ev.id+'\',\'date\',this.value)"></div>'+
-      '<div style="flex:1;display:flex;align-items:center;gap:6px"><label style="font-size:.72rem;color:#6b7280">Objet</label>'+
-      '<input type="text" value="'+esc(ev.objet||'')+'" placeholder="Ex: Eval mi-parcours..." style="flex:1;background:#13161f;border:1px solid #2a2d3e;border-radius:6px;padding:4px 10px;color:#e4e6ef;font-size:.78rem" onchange="autreEvalUpdate(\''+ev.id+'\',\'objet\',this.value)"></div>'+
-      '<button onclick="autreEvalDelete(\''+ev.id+'\')" style="background:#ff453a22;border:1px solid #ff453a44;color:#ff453a;border-radius:6px;padding:4px 10px;font-size:.75rem;cursor:pointer">Supprimer</button>';
-    card.appendChild(hdr);
-    // Tableau élèves
-    var tbl=document.createElement('table');
-    tbl.style.cssText='width:100%;border-collapse:collapse;font-size:.82rem';
-    tbl.innerHTML='<thead><tr style="background:#13161f"><th style="padding:7px 12px;text-align:left;color:#6b7280;font-size:.7rem;border-bottom:1px solid #252836">El&#232;ve</th><th style="padding:7px 12px;text-align:center;color:#6b7280;font-size:.7rem;border-bottom:1px solid #252836">Note</th></tr></thead>';
-    var tbody=document.createElement('tbody');
-    var sorted=state.eleves.slice().sort(function(a,b){return a.nom.localeCompare(b.nom);});
-    sorted.forEach(function(e,ei){
-      var note=(ev.notes&&ev.notes[e.id])!=null?ev.notes[e.id]:'';
-      var tr=document.createElement('tr');
-      tr.style.background=ei%2===0?'transparent':'rgba(255,255,255,.02)';
-      tr.innerHTML='<td style="padding:6px 12px;border-bottom:1px solid rgba(37,40,54,.5);font-weight:500">'+esc(e.nom)+(e.amenagement?'<span style="font-size:.65rem;color:#ffd166;margin-left:6px">'+esc(e.amenagement)+'</span>':'')+'</td>'+
-        '<td style="padding:6px 12px;border-bottom:1px solid rgba(37,40,54,.5);text-align:center">'+
-        '<input type="number" min="0" max="20" step="0.5" value="'+esc(String(note))+'" placeholder="—" style="width:64px;background:#13161f;border:1px solid #2a2d3e;border-radius:6px;padding:4px 8px;color:#e4e6ef;font-size:.82rem;text-align:center" onchange="autreEvalSetNote(\''+ev.id+'\',\''+e.id+'\',this.value)">'+
-        '</td>';
-      tbody.appendChild(tr);
-    });
-    tbl.appendChild(tbody);
-    card.appendChild(tbl);
-    zone.appendChild(card);
-  });
-}
-
-function autreEvalAdd(){
-  if(!state.autreEvals)state.autreEvals=[];
-  state.autreEvals.push({id:'ae'+Date.now(),date:'',objet:'',notes:{}});
-  save();autreEvalRender();renderNotes();
-}
-
-function autreEvalUpdate(id,field,val){
-  if(!state.autreEvals)return;
-  for(var i=0;i<state.autreEvals.length;i++){
-    if(state.autreEvals[i].id===id){state.autreEvals[i][field]=val;break;}
-  }
-  save();renderNotes();
-}
-
-function autreEvalDelete(id){
-  if(!state.autreEvals)return;
-  state.autreEvals=state.autreEvals.filter(function(e){return e.id!==id;});
-  save();autreEvalRender();renderNotes();
-}
-
-function autreEvalSetCoeff(evalId,val){
-  if(!state.autreEvals)return;
-  for(var i=0;i<state.autreEvals.length;i++){
-    if(state.autreEvals[i].id===evalId){state.autreEvals[i].coeff=parseFloat(val)||1;break;}
-  }
-  save();
-}
-function autreEvalSetNote(evalId,eleveId,val){
-  if(!state.autreEvals)return;
-  for(var i=0;i<state.autreEvals.length;i++){
-    if(state.autreEvals[i].id===evalId){
-      if(!state.autreEvals[i].notes)state.autreEvals[i].notes={};
-      state.autreEvals[i].notes[eleveId]=val===''?'':parseFloat(val);
-      break;
-    }
-  }
-  save();
-}
-
-function acc2Init(){
-  try{var e=ge('acc2-ss-s');if(e)e.textContent=state.seances.length;}catch(ex){}
-  try{var e=ge('acc2-ss-e');if(e)e.textContent=state.eleves.length;}catch(ex){}
-  try{
-    var tot=0,pres=0;
-    for(var i=0;i<state.seances.length;i++){for(var j=0;j<state.eleves.length;j++){tot++;var p2=state.presences[state.seances[i].id]||{};if((p2[state.eleves[j].id]||'')==='Present')pres++;}}
-    var presP=tot>0?Math.round(pres/tot*100):0;
-    var e=ge('acc2-ss-p');if(e)e.textContent=presP>0?presP+'%':'—';
-    var fait=0;for(var i=0;i<state.seances.length;i++){if(Object.keys(state.presences[state.seances[i].id]||{}).length>0)fait++;}
-    var e=ge('acc2-ss-n');if(e)e.textContent=fait+'/'+state.seances.length;
-    var e=ge('acc2-ss-n-sub');if(e)e.textContent=(state.seances.length-fait)+' restantes';
-    var bs=ge('acc2-bar-s');if(bs)bs.style.width=(state.seances.length>0?Math.round(fait/state.seances.length*100):0)+'%';
-    var bp=ge('acc2-bar-p');if(bp)bp.style.width=presP+'%';
-    var bn=ge('acc2-bar-n');if(bn)bn.style.width=(state.seances.length>0?Math.round(fait/state.seances.length*100):0)+'%';
-  }catch(ex){}
-  try{acc2RenderMeteo();}catch(ex){}
-  try{acc2RenderNextSeance();}catch(ex){}
-  try{acc2RenderAflpBars();}catch(ex){}
-  try{acc2RenderComp();}catch(ex){}
-  try{acc2RenderTrame();}catch(ex){}
-  try{acc2LoadNotes();}catch(ex){}
-  try{acc2LoadFpsLink();}catch(ex){}
-}
-function acc2LoadFpsLink(){
-  var saved=state.fpsUrl||'';
-  var inp=ge('acc2-fps-url');if(inp)inp.value=saved;
-  acc2UpdateFpsWidget(saved);
-}
-function acc2FpsTap(){
-  var url=state.fpsUrl||'';
-  if(!url){acc2FpsEdit();return;}
-  var nameEl=ge('m-fps-name');
-  var openEl=ge('m-fps-open');
-  var savedName=ge('acc2-fps-name');
-  if(nameEl&&savedName)nameEl.textContent=savedName.textContent;
-  if(openEl)openEl.href=url;
-  openM('m-fps-menu');
-}
-function acc2FpsEdit(){
-  closeM('m-fps-menu');
-  var inp=ge('acc2-fps-url');
-  if(inp){inp.value=state.fpsUrl||'';}
-  openM('m-fps-editor');
-  if(inp)setTimeout(function(){inp.focus();inp.select();},200);
-}
-function acc2SaveFpsLink(){
-  var inp=ge('acc2-fps-url');if(!inp)return;
-  var v=inp.value.trim();
-  state.fpsUrl=v;save();
-  closeM('m-fps-editor');
-  acc2UpdateFpsWidget(v);
-  toast('Lien FPS enregistre','ok');
-}
-function acc2UpdateFpsWidget(url){
-  var name=ge('acc2-fps-name');
-  if(url){
-    var parts=url.split('/');
-    var rawName=decodeURIComponent(parts[parts.length-1]||'').split('?')[0]||'Document CCF';
-    if(rawName.length>26)rawName=rawName.substring(0,26)+'…';
-    if(name)name.textContent=rawName;
-  } else {
-    if(name)name.textContent='Configurer le lien';
-  }
-}
-function acc2RenderMeteo(){
-  fetch('https://api.open-meteo.com/v1/forecast?latitude=45.748&longitude=4.847&current_weather=true')
-    .then(function(r){return r.json();}).then(function(d){
-      if(!d||!d.current_weather)return;
-      var wc=d.current_weather.weathercode;
-      var ic=wc<=1?'☀️':wc<=3?'⛅':wc<=48?'🌫️':wc<=67?'🌧️':'⛈️';
-      var e=ge('acc2-meteo-temp');if(e)e.textContent=Math.round(d.current_weather.temperature)+'°';
-      var e=ge('acc2-meteo-icon');if(e)e.textContent=ic;
-      var e=ge('acc2-meteo-sub');if(e)e.textContent='Vent '+Math.round(d.current_weather.windspeed)+' km/h';
-    }).catch(function(){});
-}
-function acc2RenderNextSeance(){
-  var zone=ge('acc2-next-content');if(!zone)return;
-  var sorted=state.seances.slice().sort(function(a,b){return (a.num||0)-(b.num||0);});
-  var today=new Date();today.setHours(0,0,0,0);var next=null;
-  for(var i=0;i<sorted.length;i++){
-    if(!sorted[i].date)continue;
-    var pts=sorted[i].date.split('-');if(pts.length<3)continue;
-    var d=new Date(parseInt(pts[0]),parseInt(pts[1])-1,parseInt(pts[2]));
-    if(d>=today){next=sorted[i];break;}
-  }
-  if(!next&&sorted.length)next=sorted[0];
-  if(!next){zone.innerHTML='<div style="font-size:11px;color:#48484a">Aucune séance</div>';return;}
-  var heure=(CTX.cls&&CTX.cls.heure)||'';
-  zone.innerHTML='<b style="font-size:10px;color:#0a84ff;font-family:monospace">S'+esc(String(next.num||'?'))+'</b><div style="font-size:14px;font-weight:600;color:#f5f5f7;margin:3px 0">'+esc(next.objectif||'Sans titre')+'</div><div style="font-size:10px;color:#48484a">'+esc(next.date||'')+(heure?' · '+heure:'')+'</div>';
-}
-function acc2RenderAflpBars(){
-  var zone=ge('acc2-aflp-bars');if(!zone)return;
-  var f=CTX.cls?CTX.cls.filiere:'bacpro';
-  var aflpData=CTX.apsa?(AFLP[f]||AFLP.bacpro)[CTX.apsa.caFull]:null;
-  if(!aflpData||!state.eleves.length){zone.innerHTML='<div style="font-size:11px;color:#48484a">Aucune donnée</div>';return;}
-  var worked={};state.seances.forEach(function(s){(s.aflpTravailles||[]).forEach(function(a){worked[a]=true;});});
-  var list=aflpData.items.filter(function(it){return worked[it.n];}).slice(0,5);
-  if(!list.length){zone.innerHTML='<div style="font-size:11px;color:#48484a">Aucun AFLP</div>';return;}
-  var compD=compGetData();
-  zone.innerHTML=list.map(function(it){
-    var total=0;state.eleves.forEach(function(e){var last=0;state.seances.forEach(function(s){var ck=s.id+'__'+it.n+'__'+e.id;if(compD[ck]>0)last=compD[ck];});if(last>0)total++;});
-    var pct=state.eleves.length>0?Math.round(total/state.eleves.length*100):0;
-    var col=pct>=75?'#30d158':pct>=50?'#0a84ff':pct>=25?'#ff9f0a':'#ff453a';
-    return '<div style="display:flex;align-items:center;gap:5px;margin-bottom:4px"><div style="font-size:9px;color:#636366;width:36px;font-family:monospace">'+esc(it.n)+'</div><div style="flex:1;height:4px;background:#2c2c2e;border-radius:2px;overflow:hidden"><div style="height:100%;background:'+col+';width:'+pct+'%"></div></div><div style="font-size:9px;color:#48484a;width:26px;text-align:right">'+pct+'%</div></div>';
-  }).join('');
-}
-function acc2RenderComp(){
-  var f=CTX.cls?CTX.cls.filiere:'bacpro';
-  var aflpData=CTX.apsa?(AFLP[f]||AFLP.bacpro)[CTX.apsa.caFull]:null;
-  var ca=ge('acc2-comp-ca');if(ca&&CTX.apsa)ca.textContent=CTX.apsa.ca||'--';
-  var txt=ge('acc2-comp-text');
-  var seq=seqGet();
-  if(txt){
-    var objet=seq&&seq.objet?seq.objet:'';
-    var competence=aflpData?aflpData.competence:'';
-    txt.textContent=objet||(competence||'—');
-  }
-  var aflps=ge('acc2-comp-aflps');
-  if(aflps&&aflpData){
-    var worked={};state.seances.forEach(function(s){(s.aflpTravailles||[]).forEach(function(a){worked[a]=true;});});
-    aflps.innerHTML=aflpData.items.filter(function(it){return worked[it.n];}).map(function(it,i){
-      var c=['rgba(10,132,255,.12)','rgba(10,132,255,.12)','rgba(255,159,10,.12)','rgba(255,69,58,.12)'][i%4];
-      var t=['#0a84ff','#0a84ff','#ff9f0a','#ff453a'][i%4];
-      return '<span style="font-size:10px;font-weight:600;padding:2px 7px;border-radius:4px;font-family:monospace;background:'+c+';color:'+t+'">'+esc(it.n)+'</span>';
-    }).join(' ');
-  }
-}
-function acc2RenderTrame(){
-  var lz=ge('acc2-trame-lignes');var sz=ge('acc2-seances-ligne');var pe=ge('acc2-fil-prog');
-  if(!lz||!sz)return;
-  var seances=state.seances.slice().sort(function(a,b){return (a.num||0)-(b.num||0);});
-  var N=seances.length;
-  if(!N){lz.innerHTML='';sz.innerHTML='<div style="font-size:11px;color:#48484a">Aucune séance</div>';return;}
-  var today=new Date();today.setHours(0,0,0,0);var fait=0;var activeIdx=-1;
-  seances.forEach(function(s,i){
-    var done=false;if(s.date){var pts=s.date.split('-');if(pts.length===3){var d=new Date(parseInt(pts[0]),parseInt(pts[1])-1,parseInt(pts[2]));if(d<today)done=true;}}
-    s._done=done;if(done)fait++;else if(activeIdx<0)activeIdx=i;
-  });
-  if(pe)pe.textContent=fait+'/'+N+(activeIdx>=0?' · S'+(seances[activeIdx].num||activeIdx+1)+' en cours':'');
-  var COLORS=['#1a5faa','#1a7a35','#b85c00','#6d28d9','#b01a1a','#0e6655','#7a3b00'];
-  // 3 lignes : obj1, obj2, obj3
-  var FIELDS=['obj1','obj2','obj3'];
-  var FIELD_LABELS=['Objet 1','Objet 2','Objet 3'];
-  lz.innerHTML='';
-  for(var fi=0;fi<3;fi++){
-    var field=FIELDS[fi];
-    var hasData=seances.some(function(s){return s[field]&&s[field].trim();});
-    if(!hasData)continue;
-    var grouped={};var keys=[];
-    seances.forEach(function(s,i){
-      var obj=(s[field]||'').trim().substring(0,40);
-      if(!obj)return;
-      if(!grouped[obj]){grouped[obj]=[];keys.push(obj);}
-      grouped[obj].push(i+1);
-    });
-    if(!keys.length)continue;
-    // Construire la ligne de blocs
-    var row=document.createElement('div');row.style.cssText='display:flex;height:36px;gap:3px;margin-bottom:3px';
-    var cursor=1;var colorOffset=fi*3;
-    keys.forEach(function(key){
-      var sns=grouped[key];var from=sns[0],to=sns[sns.length-1];
-      var col=COLORS[(colorOffset+keys.indexOf(key))%COLORS.length];
-      if(cursor<from){var v=document.createElement('div');v.style.flex=String(from-cursor);row.appendChild(v);}
-      var b=document.createElement('div');b.className='acc2-trame-bloc';
-      b.style.flex=String(to-from+1);b.style.background=col;b.textContent=key;
-      b.onclick=(function(f2,c3,lbl){return function(){var s=seances[f2-1];if(s){acc2ShowDetail(s,{color:c3,label:lbl});acc2Highlight(f2);}};})(from,col,key);
-      row.appendChild(b);cursor=to+1;
-    });
-    if(cursor<=N){var v=document.createElement('div');v.style.flex=String(N-cursor+1);row.appendChild(v);}
-    lz.appendChild(row);
-  }
-  sz.innerHTML='';
-  seances.forEach(function(s,i){
-    var isActive=i===activeIdx;var st=s._done?'done':isActive?'active':'future';
-    var box=document.createElement('div');box.className='acc2-sbox '+st;box.id='acc2sb'+(i+1);
-    box.onclick=(function(ss,ii){return function(){acc2ShowDetail(ss,null);acc2Highlight(ii+1);};})(s,i);
-    var num=document.createElement('div');num.className='acc2-sbox-num '+st;num.textContent=s._done?'S'+(s.num||i+1)+' ✓':'S'+(s.num||i+1);
-    var lbl=document.createElement('div');lbl.className='acc2-sbox-lbl';lbl.textContent=(s.objectif||'').substring(0,8)+((s.objectif||'').length>8?'…':'');
-    box.appendChild(num);box.appendChild(lbl);sz.appendChild(box);
-  });
-  if(activeIdx>=0){acc2ShowDetail(seances[activeIdx],null);acc2Highlight(seances[activeIdx].num||activeIdx+1);}
-}
-function acc2ShowDetail(s,bloc){
-  var det=ge('acc2-det');if(!det)return;det.style.display='block';
-  var col=bloc?bloc.color:'#0a84ff';det.style.borderLeftColor=col;
-  var heure=(CTX.cls&&CTX.cls.heure)||'';
-  det.innerHTML='<div style="font-size:13px;font-weight:600;color:#f5f5f7;margin-bottom:4px">'+esc(s.objectif||'Sans titre')+'</div>'+
-    '<div style="font-size:10px;color:#48484a;margin-bottom:5px">'+esc(s.date||'')+(heure?' · '+heure:'')+'</div>'+
-    '<div style="display:flex;gap:3px;flex-wrap:wrap;margin-bottom:5px">'+
-    (s.aflpTravailles||[]).map(function(a){return '<span style="font-size:10px;background:rgba(10,132,255,.12);color:#0a84ff;padding:1px 6px;border-radius:3px;font-weight:600">'+esc(a)+'</span>';}).join('')+
-    '</div>'+
-    '<button style="font-size:10px;font-weight:600;color:#0a84ff;background:rgba(10,132,255,.12);padding:3px 10px;border-radius:20px;border:none;cursor:pointer" onclick="showView(\'v-seances\');openEditS(\''+s.id+'\')">Ouvrir →</button>';
-}
-function acc2Highlight(n){for(var i=1;i<=30;i++){var b=ge('acc2sb'+i);if(b){b.style.outline=i===n?'2px solid #0a84ff':'none';b.style.outlineOffset='2px';}}}
-function acc2LoadNotes(){var n=ge('acc2-notes');if(!n)return;var key='acc2-notes-'+STORAGE_KEY;n.value=localStorage.getItem(key)||'';n._h=function(){localStorage.setItem(key,n.value);};n.removeEventListener('input',n._h);n.addEventListener('input',n._h);}
-
 function renderAccueilSuivi(){ge('acc-ss-s').textContent=state.seances.length;ge('acc-ss-e').textContent=state.eleves.length;ge('sc-sub-seances').textContent=state.seances.length+' seance'+(state.seances.length>1?'s':'');ge('sc-sub-eleves').textContent=state.eleves.length+' eleve'+(state.eleves.length>1?'s':'');var tot=0,pres=0;for(var i=0;i<state.seances.length;i++){for(var j=0;j<state.eleves.length;j++){tot++;var p=state.presences[state.seances[i].id]||{};if((p[state.eleves[j].id]||'Present')==='Present')pres++;}}ge('acc-ss-p').textContent=tot>0?Math.round(pres/tot*100)+'%':'-';var seq2=seqGet();
 var totalTrame=(seq2.trame||[]).length;
 var faitesCount=state.seances.filter(function(s){return s.bilan&&s.bilan.trim();}).length;
@@ -3544,9 +2792,7 @@ if(hasDetails){
   if(fps)h+='<div style="grid-column:1/-1"><div class="trame-detail-lbl">Partie FPS</div><div class="trame-detail-val">'+esc(fps)+'</div></div>';
   h+='</div>';
 }
-h+='</div>';}trameEl.innerHTML=h;}
-  try{acc2Init();}catch(ex){}
-}
+h+='</div>';}trameEl.innerHTML=h;}}
 function openSeqModal(){var seq=seqGet();ge('seq-objet').value=seq.objet||'';ge('seq-objectifs').value=seq.objectifs||'';var f=CTX.cls?CTX.cls.filiere:'bacpro';var aflpData=CTX.apsa?(AFLP[f]||AFLP.bacpro)[CTX.apsa.caFull]:null;var c=ge('seq-aflp-checks');c.innerHTML='';if(aflpData){for(var i=0;i<aflpData.items.length;i++){(function(item){var prio=seq.aflpPrio||[];var checked=prio.indexOf(item.n)>=0;var lbl=document.createElement('label');lbl.className='aflp-check-item'+(checked?' checked-item':'');lbl.innerHTML='<input type="checkbox" '+(checked?'checked':'')+'><span class="aflp-check-num">'+item.n+'</span><span class="aflp-check-text">'+item.t+'</span>';lbl.querySelector('input').addEventListener('change',function(){lbl.className='aflp-check-item'+(this.checked?' checked-item':'');});c.appendChild(lbl);})(aflpData.items[i]);}}var tc=ge('seq-trame-container');tc.innerHTML='';var trame=seq.trame||[];for(var i=0;i<trame.length;i++)renderTrameRow(trame[i]);openM('m-seq');}
 function renderTrameRow(t){
   var c=ge('seq-trame-container');
@@ -3689,17 +2935,15 @@ h+='</body></html>';
 openPdfWindow(h,'Eleves-'+(clsLabel||'classe')+'.pdf');
 }
 function saveProfilPlan(){var planKey=ge('profil-plan-key').value;var obs=ge('profil-plan-obs').value;var elevesNotes={};var tas=document.querySelectorAll('.profil-eleve-note');for(var i=0;i<tas.length;i++){if(tas[i].value.trim())elevesNotes[tas[i].dataset.eid]=tas[i].value.trim();}var data=profilGet();data[planKey]={obs:obs,eleves:elevesNotes};profilSave(data);closeM('m-profil-plan');renderProfil();toast('Profil enregistre');}
-function renderSeances(){var el=ge('slist');var q=(ge('srch').value||'').toLowerCase();var sorted=state.seances.slice().sort(function(a,b){return a.num-b.num;});var filtered=[];for(var i=0;i<sorted.length;i++){if((sorted[i].objectif||'').toLowerCase().indexOf(q)>=0||String(sorted[i].num).indexOf(q)>=0)filtered.push(sorted[i]);}if(!filtered.length){el.innerHTML='<div class="empty">Aucune seance. Creez la premiere !</div>';return;}var f=CTX.cls?CTX.cls.filiere:'bacpro';var aflpData=CTX.apsa?(AFLP[f]||AFLP.bacpro)[CTX.apsa.caFull]:null;var caColor=CTX.apsa?CTX.apsa.caColor:'#4f8aff';el.innerHTML='';for(var i=0;i<filtered.length;i++){(function(s){var presMap=state.presences[s.id]||{};var nbP=0;for(var k in presMap){if((presMap[k]||'')==='Present')nbP++;}var np=(s.parties||[]).length;var aflpT=s.aflpTravailles||[];var objData=state.seanceObjectifs[s.id]||{};var sp=null;if(s.parties){for(var j=0;j<s.parties.length;j++){if(s.parties[j].titre&&s.parties[j].titre.toLowerCase().indexOf('sit')>=0){sp=s.parties[j];break;}}if(!sp&&s.parties.length)sp=s.parties[0];}var div=document.createElement('div');div.className='scard';div.dataset.sid=s.id;var h='<div class="scard-head"><div class="scard-num" style="background:'+caColor+'"><span class="scard-num-label">Seance</span>'+s.num+'</div><div class="scard-main"><div class="scard-title">'+esc(s.objectif||'Sans titre')+'</div><div class="scard-date">'+(s.date?fmtDate(s.date):'Date non definie')+'</div><div class="scard-chips"><span class="chip c-gr">'+nbP+'/'+state.eleves.length+'</span>';if(np)h+='<span class="chip c-pu">'+np+' partie'+(np>1?'s':'')+'</span>';if(s.bilan)h+='<span class="chip c-bl">Bilan</span>';if(aflpT.length)h+='<span class="chip c-bl">'+aflpT.length+' AFLP</span>';h+='</div></div></div>';if(sp&&(sp.objectif||sp.criteres||sp.contenus)){h+='<div class="scard-body">';if(sp.objectif)h+='<div><div class="scard-sec-lbl">Objectif situation</div><div class="scard-sec-val">'+esc(sp.objectif)+'</div></div>';if(sp.criteres)h+='<div><div class="scard-sec-lbl">Criteres</div><div class="scard-sec-val">'+esc(sp.criteres)+'</div></div>';if(sp.contenus)h+='<div><div class="scard-sec-lbl">Contenus</div><div class="scard-sec-val">'+esc(sp.contenus)+'</div></div>';h+='</div>';}if(objData.obj1)h+='<div class="scard-body" style="border-top:1px solid #1a1d2a"><div><div class="scard-sec-lbl">Objectif eleves</div><div class="scard-sec-val">'+esc(objData.obj1)+(objData.obj2?' / '+esc(objData.obj2):'')+'</div></div></div>';if(np){h+='<div class="scard-parts">';for(var j=0;j<s.parties.length;j++)h+='<span class="scard-part-pill">Partie '+(j+1)+(s.parties[j].titre?' - '+esc(s.parties[j].titre):'')+'</span>';h+='</div>';}if(aflpT.length&&aflpData){h+='<div class="scard-aflp-row"><span class="scard-aflp-lbl">AFLP :</span>';for(var j=0;j<aflpT.length;j++)h+='<span class="scard-aflp-tag">'+aflpT[j]+'</span>';h+='</div>';}div.innerHTML=h;el.appendChild(div);})(filtered[i]);}el.onclick=function(e){var card=e.target.closest('.scard');if(card)openSeanceMenu(card.dataset.sid);};}
+function renderSeances(){var el=ge('slist');var q=(ge('srch').value||'').toLowerCase();var sorted=state.seances.slice().sort(function(a,b){return a.num-b.num;});var filtered=[];for(var i=0;i<sorted.length;i++){if((sorted[i].objectif||'').toLowerCase().indexOf(q)>=0||String(sorted[i].num).indexOf(q)>=0)filtered.push(sorted[i]);}if(!filtered.length){el.innerHTML='<div class="empty">Aucune seance. Creez la premiere !</div>';return;}var f=CTX.cls?CTX.cls.filiere:'bacpro';var aflpData=CTX.apsa?(AFLP[f]||AFLP.bacpro)[CTX.apsa.caFull]:null;var caColor=CTX.apsa?CTX.apsa.caColor:'#4f8aff';el.innerHTML='';for(var i=0;i<filtered.length;i++){(function(s){var presMap=state.presences[s.id]||{};var nbP=0;for(var k in presMap){if((presMap[k]||'')==='Present')nbP++;}var np=(s.parties||[]).length;var aflpT=s.aflpTravailles||[];var objData=state.seanceObjectifs[s.id]||{};var sp=null;if(s.parties){for(var j=0;j<s.parties.length;j++){if(s.parties[j].titre&&s.parties[j].titre.toLowerCase().indexOf('sit')>=0){sp=s.parties[j];break;}}if(!sp&&s.parties.length)sp=s.parties[0];}var div=document.createElement('div');div.className='scard';div.dataset.sid=s.id;var h='<div class="scard-head"><div class="scard-num" style="background:'+caColor+'"><span class="scard-num-label">Seance</span>'+s.num+'</div><div class="scard-main"><div class="scard-title">'+esc(s.objectif||'Sans titre')+'</div><div class="scard-date">'+(s.date?fmtDate(s.date):'Date non definie')+'</div><div class="scard-chips"><span class="chip c-gr">'+nbP+'/'+state.eleves.length+'</span>';if(np)h+='<span class="chip c-pu">'+np+' partie'+(np>1?'s':'')+'</span>';if(s.bilan)h+='<span class="chip c-bl">Bilan</span>';if(aflpT.length)h+='<span class="chip c-bl">'+aflpT.length+' AFLP</span>';h+='</div></div></div>';if(sp&&(sp.objectif||sp.criteres||sp.contenus)){h+='<div class="scard-body">';if(sp.objectif)h+='<div><div class="scard-sec-lbl">Objectif situation</div><div class="scard-sec-val">'+esc(sp.objectif)+'</div></div>';if(sp.criteres)h+='<div><div class="scard-sec-lbl">Criteres</div><div class="scard-sec-val">'+esc(sp.criteres)+'</div></div>';if(sp.contenus)h+='<div><div class="scard-sec-lbl">Contenus</div><div class="scard-sec-val">'+esc(sp.contenus)+'</div></div>';h+='</div>';}if(objData.obj1)h+='<div class="scard-body" style="border-top:1px solid #1a1d2a"><div><div class="scard-sec-lbl">Objectif eleves</div><div class="scard-sec-val">'+esc(objData.obj1)+(objData.obj2?' / '+esc(objData.obj2):'')+'</div></div></div>';if(np){h+='<div class="scard-parts">';for(var j=0;j<s.parties.length;j++)h+='<span class="scard-part-pill">Partie '+(j+1)+(s.parties[j].titre?' - '+esc(s.parties[j].titre):'')+'</span>';h+='</div>';}if(aflpT.length&&aflpData){h+='<div class="scard-aflp-row"><span class="scard-aflp-lbl">AFLP :</span>';for(var j=0;j<aflpT.length;j++)h+='<span class="scard-aflp-tag">'+aflpT[j]+'</span>';h+='</div>';}div.innerHTML=h;el.appendChild(div);})(filtered[i]);}el.onclick=function(e){var card=e.target.closest('.scard');if(card)openEditS(card.dataset.sid);};}
 function mkPid(){return'p'+Date.now()+Math.random().toString(36).slice(2,5);}
 function addPartie(mode){var p={id:mkPid(),titre:'',objectif:'',consignes:'',criteres:'',contenus:'',realisation:'',remediation:'',bilan:'',photos:[],tableaux:[],fichiers:[]};if(mode==='new')partiesNew.push(p);else partiesEdit.push(p);var arr=mode==='new'?partiesNew:partiesEdit;renderPartieBlock(mode==='new'?'parties-new':'parties-edit',p,arr.length-1,mode);}
 function renderPartieBlock(cid,p,idx,mode){var c=ge(cid);var div=document.createElement('div');div.className='partie-block';div.id='pb-'+p.id;div.innerHTML='<div class="partie-header"><span class="partie-num-badge">&#9654; Partie '+(idx+1)+'</span><input class="partie-title-input" type="text" placeholder="Titre de la partie (Echauffement, Situation principale...)" value="'+esc(p.titre)+'"><button class="btn-bib-save-partie" data-pid="'+p.id+'" title="Sauvegarder dans la bibliotheque" style="background:rgba(167,139,250,.12);border:1px solid rgba(167,139,250,.25);border-radius:6px;color:#a78bfa;font-size:.62rem;padding:3px 7px;cursor:pointer;white-space:nowrap">&#128218;</button><button class="partie-del" data-pid="'+p.id+'" data-mode="'+mode+'">&#128465;</button></div>'+'<div class="partie-grid">'+'<div class="pf obj" style="grid-column:1/-1"><label>&#127919; Objectif</label><textarea rows="2" placeholder="Quel est le but de cette partie pour l eleve ?">'+esc(p.objectif)+'</textarea></div>'+'<div class="pf cons" style="grid-column:1/-1"><label>&#128221; Consignes</label><div class="pf-cons-hint">Ecrivez chaque consigne sur une nouvelle ligne pour plus de lisibilite</div><textarea rows="5" placeholder="- Consigne 1&#10;- Consigne 2&#10;- Consigne 3...">'+esc(p.consignes)+'</textarea></div>'+'<div class="pf crit"><label>&#9989; Criteres de reussite</label><textarea rows="3" placeholder="Ce que l eleve doit reussir pour valider la partie...">'+esc(p.criteres)+'</textarea></div>'+'<div class="pf cont"><label>&#127891; Contenus d enseignement</label><textarea rows="3" placeholder="Ce que j enseigne / Points cles...">'+esc(p.contenus||'')+'</textarea></div>'+'<div class="pf real"><label>&#128269; Criteres de realisation</label><textarea rows="3" placeholder="Les indicateurs observables pour l enseignant (ce que je vois chez l eleve qui fait bien)...">'+esc(p.realisation||'')+'</textarea></div>'+'<div class="pf rem"><label>&#128260; Remediations</label><textarea rows="3" placeholder="Pour les eleves en difficulte : adaptations, simplifications, aides...">'+esc(p.remediation||'')+'</textarea></div>'+'<div class="pf bil" style="grid-column:1/-1"><label>&#128203; Bilan de partie</label><textarea rows="2" placeholder="Observations apres la seance...">'+esc(p.bilan)+'</textarea></div>'+'</div>';
-// Zone extras en grille 2x2
-var extras=document.createElement('div');
-extras.style.cssText='display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px';
-
-// 1. Photos
+// Zone extras (photos, tableau, pieces jointes)
+var extras=document.createElement('div');extras.className='partie-extras';
+// Photos
 var photosWrap=document.createElement('div');
-photosWrap.innerHTML='<div class="extras-title">&#128247; Photos &amp; Images</div><div class="extra-photos-grid" id="pg-'+p.id+'"></div>';
+photosWrap.innerHTML='<div class="extras-title">&#128247; Photos & Images</div><div class="extra-photos-grid" id="pg-'+p.id+'"></div>';
 var addPhotoBtn=document.createElement('button');addPhotoBtn.className='extra-add-btn';addPhotoBtn.innerHTML='&#43; Ajouter une photo';
 var photoInp=document.createElement('input');photoInp.type='file';photoInp.accept='image/*';photoInp.multiple=true;photoInp.style.display='none';
 addPhotoBtn.addEventListener('click',function(){photoInp.click();});
@@ -3718,13 +2962,29 @@ photoInp.addEventListener('change',function(){
   }
   this.value='';
 });
+// Charger photos existantes
 if(p.photos&&p.photos.length){setTimeout(function(){var grid=ge('pg-'+p.id);if(grid){for(var k=0;k<p.photos.length;k++)addPhotoThumb(grid,p.photos[k],p.id,mode);}},0);}
 photosWrap.appendChild(addPhotoBtn);photosWrap.appendChild(photoInp);
 extras.appendChild(photosWrap);
-
-// 2. Pièces jointes
+// Tableau
+var tableWrap=document.createElement('div');
+tableWrap.innerHTML='<div class="extras-title">&#128196; Tableau</div>';
+var hasTable=p.tableaux&&p.tableaux.length&&p.tableaux[0];
+if(hasTable){
+  tableWrap.appendChild(buildTableEditor(p.tableaux[0],p.id,mode));
+} else {
+  var addTblBtn=document.createElement('button');addTblBtn.className='extra-add-btn';addTblBtn.innerHTML='&#43; Ajouter un tableau';
+  addTblBtn.addEventListener('click',function(){
+    addTblBtn.remove();
+    var tbl=buildTableEditor(null,p.id,mode);
+    tableWrap.appendChild(tbl);
+  });
+  tableWrap.appendChild(addTblBtn);
+}
+extras.appendChild(tableWrap);
+// Fichiers
 var fileWrap=document.createElement('div');
-fileWrap.innerHTML='<div class="extras-title">&#128206; Pi&#232;ces jointes</div><div class="extra-attach-list" id="al-'+p.id+'"></div>';
+fileWrap.innerHTML='<div class="extras-title">&#128206; Pieces jointes</div><div class="extra-attach-list" id="al-'+p.id+'"></div>';
 var addFileBtn=document.createElement('button');addFileBtn.className='extra-add-btn';addFileBtn.innerHTML='&#43; Ajouter un fichier';
 var fileInp=document.createElement('input');fileInp.type='file';fileInp.multiple=true;fileInp.style.display='none';
 addFileBtn.addEventListener('click',function(){fileInp.click();});
@@ -3745,50 +3005,6 @@ fileInp.addEventListener('change',function(){
 if(p.fichiers&&p.fichiers.length){setTimeout(function(){var al=ge('al-'+p.id);if(al){for(var k=0;k<p.fichiers.length;k++)addAttachItem(al,p.fichiers[k].nom,p.fichiers[k].type||'',p.fichiers[k].data||'',p.id,mode);}},0);}
 fileWrap.appendChild(addFileBtn);fileWrap.appendChild(fileInp);
 extras.appendChild(fileWrap);
-
-// 3. Tableau
-var tableWrap=document.createElement('div');
-tableWrap.innerHTML='<div class="extras-title">&#128196; Tableau</div>';
-var hasTable=p.tableaux&&p.tableaux.length&&p.tableaux[0];
-if(hasTable){
-  tableWrap.appendChild(buildTableEditor(p.tableaux[0],p.id,mode));
-} else {
-  var addTblBtn=document.createElement('button');addTblBtn.className='extra-add-btn';addTblBtn.innerHTML='&#43; Ajouter un tableau';
-  addTblBtn.addEventListener('click',function(){
-    addTblBtn.remove();
-    var tbl=buildTableEditor(null,p.id,mode);
-    tableWrap.appendChild(tbl);
-  });
-  tableWrap.appendChild(addTblBtn);
-}
-extras.appendChild(tableWrap);
-
-// 4. Liens externes
-var linkWrap=document.createElement('div');
-linkWrap.innerHTML='<div class="extras-title">&#128279; Liens</div><div class="extra-links-list" id="ll-'+p.id+'"></div>';
-var linkForm=document.createElement('div');
-linkForm.style.cssText='display:flex;gap:6px;margin-top:6px';
-var linkInp=document.createElement('input');
-linkInp.type='url';linkInp.placeholder='https://... (iCloud, YouTube...)';
-linkInp.style.cssText='flex:1;background:#13161f;border:1px solid #2a2d3e;border-radius:6px;padding:5px 8px;color:#e4e6ef;font-size:.75rem';
-var linkLblInp=document.createElement('input');
-linkLblInp.type='text';linkLblInp.placeholder='Nom du lien';
-linkLblInp.style.cssText='width:100px;background:#13161f;border:1px solid #2a2d3e;border-radius:6px;padding:5px 8px;color:#e4e6ef;font-size:.75rem';
-var addLinkBtn=document.createElement('button');
-addLinkBtn.className='extra-add-btn';addLinkBtn.style.margin='0';addLinkBtn.textContent='+';
-addLinkBtn.addEventListener('click',function(){
-  var url=linkInp.value.trim();var lbl=linkLblInp.value.trim()||url;
-  if(!url)return;
-  var parr=mode==='new'?partiesNew:partiesEdit;
-  for(var k=0;k<parr.length;k++){if(parr[k].id===p.id){if(!parr[k].liens)parr[k].liens=[];parr[k].liens.push({url:url,label:lbl});break;}}
-  addLinkItem(ge('ll-'+p.id),url,lbl,p.id,mode);
-  linkInp.value='';linkLblInp.value='';
-});
-linkForm.appendChild(linkLblInp);linkForm.appendChild(linkInp);linkForm.appendChild(addLinkBtn);
-linkWrap.appendChild(linkForm);
-// Charger liens existants
-if(p.liens&&p.liens.length){setTimeout(function(){var ll=ge('ll-'+p.id);if(ll){for(var k=0;k<p.liens.length;k++)addLinkItem(ll,p.liens[k].url,p.liens[k].label,p.id,mode);}},0);}
-extras.appendChild(linkWrap);
 div.appendChild(extras);
 div.querySelector('.btn-bib-save-partie').addEventListener('click',function(){
   var pid=this.dataset.pid;
@@ -3809,90 +3025,11 @@ div.querySelector('.btn-bib-save-partie').addEventListener('click',function(){
 });
 div.querySelector('.partie-del').addEventListener('click',function(){var pid=this.dataset.pid,m=this.dataset.mode;if(m==='new'){for(var i=partiesNew.length-1;i>=0;i--){if(partiesNew[i].id===pid){partiesNew.splice(i,1);break;}}}else{for(var i=partiesEdit.length-1;i>=0;i--){if(partiesEdit[i].id===pid){partiesEdit.splice(i,1);break;}}}div.remove();renumParties(m==='new'?'parties-new':'parties-edit');});c.appendChild(div);}
 function renumParties(cid){var badges=ge(cid).querySelectorAll('.partie-num-badge');for(var i=0;i<badges.length;i++)badges[i].textContent='Partie '+(i+1);}
-function readParties(cid,arr){var result=[];for(var i=0;i<arr.length;i++){var b=ge('pb-'+arr[i].id);if(!b){result.push(arr[i]);continue;}var ti=b.querySelector('.partie-title-input');var ta=b.querySelectorAll('textarea');var ph=arr[i].photos||[];var fi=arr[i].fichiers||[];var tbl=[];var tblWrap=b.querySelector('.extra-table-wrap');if(tblWrap){var rows=tblWrap.querySelectorAll('tr');var tblData=[];for(var r=0;r<rows.length;r++){var cells=rows[r].querySelectorAll('th,td');var row=[];for(var c2=0;c2<cells.length;c2++)row.push(cells[c2].textContent);tblData.push(row);}if(tblData.length)tbl=[tblData];}result.push({id:arr[i].id,titre:ti?ti.value:'',objectif:ta[0]?ta[0].value:'',consignes:ta[1]?ta[1].value:'',criteres:ta[2]?ta[2].value:'',contenus:ta[3]?ta[3].value:'',realisation:ta[4]?ta[4].value:'',remediation:ta[5]?ta[5].value:'',bilan:ta[6]?ta[6].value:'',photos:ph,tableaux:tbl,fichiers:fi,liens:arr[i].liens||[]});}return result;}
+function readParties(cid,arr){var result=[];for(var i=0;i<arr.length;i++){var b=ge('pb-'+arr[i].id);if(!b){result.push(arr[i]);continue;}var ti=b.querySelector('.partie-title-input');var ta=b.querySelectorAll('textarea');var ph=arr[i].photos||[];var fi=arr[i].fichiers||[];var tbl=[];var tblWrap=b.querySelector('.extra-table-wrap');if(tblWrap){var rows=tblWrap.querySelectorAll('tr');var tblData=[];for(var r=0;r<rows.length;r++){var cells=rows[r].querySelectorAll('th,td');var row=[];for(var c2=0;c2<cells.length;c2++)row.push(cells[c2].textContent);tblData.push(row);}if(tblData.length)tbl=[tblData];}result.push({id:arr[i].id,titre:ti?ti.value:'',objectif:ta[0]?ta[0].value:'',consignes:ta[1]?ta[1].value:'',criteres:ta[2]?ta[2].value:'',contenus:ta[3]?ta[3].value:'',realisation:ta[4]?ta[4].value:'',remediation:ta[5]?ta[5].value:'',bilan:ta[6]?ta[6].value:'',photos:ph,tableaux:tbl,fichiers:fi});}return result;}
 function renderAflpChecks(cid,selArr){var c=ge(cid);if(!c)return;var f=CTX.cls?CTX.cls.filiere:'bacpro';var aflpData=CTX.apsa?(AFLP[f]||AFLP.bacpro)[CTX.apsa.caFull]:null;if(!aflpData){c.innerHTML='<div style="color:#6b7280;font-size:.78rem">Ouvrez d\'abord un suivi APSA.</div>';return;}c.innerHTML='';for(var i=0;i<aflpData.items.length;i++){(function(item){var checked=selArr.indexOf(item.n)>=0;var lbl=document.createElement('label');lbl.className='aflp-check-item'+(checked?' checked-item':'');lbl.innerHTML='<input type="checkbox" '+(checked?'checked':'')+'><span class="aflp-check-num">'+item.n+'</span><span class="aflp-check-text">'+item.t+'</span>';lbl.querySelector('input').addEventListener('change',function(){if(this.checked){if(selArr.indexOf(item.n)<0)selArr.push(item.n);}else{var idx=selArr.indexOf(item.n);if(idx>=0)selArr.splice(idx,1);}lbl.className='aflp-check-item'+(selArr.indexOf(item.n)>=0?' checked-item':'');});c.appendChild(lbl);})(aflpData.items[i]);}}
-function saveSeance(){var o=ge('fo').value.trim();if(!o){alert('Titre requis');return;}state.seances.push({id:'s'+Date.now(),num:parseInt(ge('fn').value)||(state.seances.length+1),date:ge('fd').value,objectif:o,obj1:ge('fo2').value.trim(),obj2:ge('fo3').value.trim(),obj3:ge('fo4').value.trim(),autreobj:ge('fn-autreobj').value,contenus:ge('fn-contenus').value,fps:ge('fn-fps').value,bilan:ge('fb').value,aflpTravailles:aflpNewSel.slice(),parties:readParties('parties-new',partiesNew)});save();closeM('m-seance');ge('fn').value='';ge('fd').value='';ge('fo').value='';ge('fo2').value='';ge('fo3').value='';ge('fo4').value='';ge('fn-autreobj').value='';ge('fn-contenus').value='';ge('fn-fps').value='';ge('fb').value='';ge('parties-new').innerHTML='';partiesNew=[];aflpNewSel=[];renderAll();}
-function openSeanceMenu(sid){
-  var s=null;
-  for(var i=0;i<state.seances.length;i++){if(state.seances[i].id===sid){s=state.seances[i];break;}}
-  if(!s)return;
-  var title=ge('m-seance-menu-title');
-  var sub=ge('m-seance-menu-sub');
-  var btnView=ge('m-seance-menu-view');
-  var btnEdit=ge('m-seance-menu-edit');
-  if(title)title.textContent='S'+(s.num||'?')+' — '+(s.objectif||'Séance');
-  if(sub)sub.textContent=s.date||'';
-  if(btnView)btnView.onclick=function(){closeM('m-seance-menu');openViewS(sid);};
-  if(btnEdit)btnEdit.onclick=function(){closeM('m-seance-menu');openEditS(sid);};
-  openM('m-seance-menu');
-}
-
-function openViewS(sid){
-  var s=null;
-  for(var i=0;i<state.seances.length;i++){if(state.seances[i].id===sid){s=state.seances[i];break;}}
-  if(!s)return;
-  var heure=(CTX.cls&&CTX.cls.heure)||'';
-  // Construire le HTML de visualisation dans m-edit-s en lecture seule
-  var modal=ge('m-view-s');
-  if(!modal){
-    var div=document.createElement('div');
-    div.className='mb';div.id='m-view-s';
-    div.innerHTML='<div class="modal" style="max-width:700px"><div class="modal-title" id="vs-title"></div><div id="vs-body" style="max-height:75vh;overflow-y:auto;padding-right:4px"></div><div class="modal-acts"><button class="btn btn-g" onclick="closeM(\'m-view-s\')">Fermer</button><button class="btn btn-p" onclick="closeM(\'m-view-s\');openEditS(\''+sid+'\')">Modifier</button></div></div>';
-    document.body.appendChild(div);
-  }
-  var title=ge('vs-title');
-  var body=ge('vs-body');
-  if(title)title.textContent='S'+(s.num||'?')+' — '+(s.objectif||'Séance');
-  if(!body)return;
-
-  function row(label,val){
-    if(!val||!val.trim())return'';
-    return'<div style="margin-bottom:12px"><div style="font-size:.65rem;font-weight:700;color:#636366;text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px">'+label+'</div><div style="font-size:.88rem;color:#c4c8d8;line-height:1.6;background:rgba(255,255,255,.03);border-radius:8px;padding:9px 12px;border-left:2px solid #2a2d3e">'+esc(val)+'</div></div>';
-  }
-
-  var h='<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:16px">';
-  h+='<div style="background:rgba(255,255,255,.04);border-radius:8px;padding:9px 12px"><div style="font-size:.62rem;color:#636366;text-transform:uppercase;margin-bottom:2px">Date</div><div style="font-size:.85rem;color:#e4e6ef;font-family:monospace">'+(s.date||'—')+(heure?' · '+heure:'')+'</div></div>';
-  h+='<div style="background:rgba(255,255,255,.04);border-radius:8px;padding:9px 12px"><div style="font-size:.62rem;color:#636366;text-transform:uppercase;margin-bottom:2px">AFLP travaillés</div><div style="display:flex;gap:4px;flex-wrap:wrap;margin-top:2px">'+(s.aflpTravailles||[]).map(function(a){return'<span style="background:rgba(10,132,255,.15);color:#4f8aff;padding:2px 8px;border-radius:4px;font-size:.7rem;font-weight:700">'+esc(a)+'</span>';}).join('')+'</div></div>';
-  h+='</div>';
-
-  if(s.obj1||s.obj2||s.obj3){
-    h+='<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin-bottom:12px">';
-    function objCard(n,v){return v?'<div style="background:rgba(255,255,255,.04);border-radius:8px;padding:8px 10px"><div style="font-size:.6rem;color:#636366;text-transform:uppercase;margin-bottom:3px">Objet '+n+'</div><div style="font-size:.8rem;color:#c4c8d8;line-height:1.5">'+esc(v)+'</div></div>':'';}
-    h+=objCard(1,s.obj1)+objCard(2,s.obj2)+objCard(3,s.obj3);
-    h+='</div>';
-  }
-
-  h+=row('Autres objectifs',s.autreobj);
-  h+=row('Contenus d\'enseignement',s.contenus);
-  h+=row('Partie FPS',s.fps);
-  h+=row('Bilan de séance',s.bilan);
-
-  // Parties
-  if(s.parties&&s.parties.length){
-    h+='<div style="font-size:.65rem;font-weight:700;color:#636366;text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px">Situations ('+s.parties.length+')</div>';
-    s.parties.forEach(function(p,pi){
-      h+='<div style="background:rgba(255,255,255,.04);border-radius:10px;padding:12px;margin-bottom:8px">';
-      h+='<div style="font-size:.82rem;font-weight:600;color:#e4e6ef;margin-bottom:8px">Situation '+(pi+1)+(p.titre?' — '+esc(p.titre):'')+'</div>';
-      if(p.objectif)h+='<div style="font-size:.78rem;color:#9aa0b8;margin-bottom:4px"><span style="color:#4f8aff;font-weight:600">Objectif : </span>'+esc(p.objectif)+'</div>';
-      if(p.consignes)h+='<div style="font-size:.78rem;color:#9aa0b8;margin-bottom:4px"><span style="color:#56cfb2;font-weight:600">Consignes : </span>'+esc(p.consignes)+'</div>';
-      if(p.criteres)h+='<div style="font-size:.78rem;color:#9aa0b8;margin-bottom:4px"><span style="color:#ffd166;font-weight:600">Critères : </span>'+esc(p.criteres)+'</div>';
-      if(p.contenus)h+='<div style="font-size:.78rem;color:#9aa0b8;margin-bottom:4px"><span style="color:#ff9f0a;font-weight:600">Contenus : </span>'+esc(p.contenus)+'</div>';
-      if(p.remediation)h+='<div style="font-size:.78rem;color:#9aa0b8"><span style="color:#ff6b6b;font-weight:600">Remédiation : </span>'+esc(p.remediation)+'</div>';
-      // Liens
-      if(p.liens&&p.liens.length){h+='<div style="margin-top:8px;display:flex;gap:6px;flex-wrap:wrap">';p.liens.forEach(function(l){h+='<a href="'+esc(l.url)+'" target="_blank" style="font-size:.72rem;color:#4f8aff;background:rgba(10,132,255,.1);padding:3px 9px;border-radius:5px;text-decoration:none">&#128279; '+esc(l.label||l.url)+'</a>';});h+='</div>';}
-      h+='</div>';
-    });
-  }
-
-  body.innerHTML=h;
-  // Mettre à jour le bouton Modifier avec le bon sid
-  var btnMod=modal.querySelector('.btn-p');
-  if(btnMod)btnMod.onclick=function(){closeM('m-view-s');openEditS(sid);};
-  openM('m-view-s');
-}
-
-function openEditS(id){var s=null;for(var i=0;i<state.seances.length;i++){if(state.seances[i].id===id){s=state.seances[i];break;}}if(!s)return;ge('es-id').value=id;ge('es-badge').textContent='S'+s.num;ge('es-n').value=s.num;ge('es-d').value=s.date||'';ge('es-o').value=s.objectif||'';ge('es-o2').value=s.obj1||'';ge('es-o3').value=s.obj2||'';ge('es-o4').value=s.obj3||'';ge('es-autreobj').value=s.autreobj||'';ge('es-contenus').value=s.contenus||'';ge('es-fps').value=s.fps||'';ge('es-b').value=s.bilan||'';ge('parties-edit').innerHTML='';partiesEdit=JSON.parse(JSON.stringify(s.parties||[]));for(var i=0;i<partiesEdit.length;i++)renderPartieBlock('parties-edit',partiesEdit[i],i,'edit');aflpEditSel=(s.aflpTravailles||[]).slice();renderAflpChecks('aflp-check-edit',aflpEditSel);iaReset();openM('m-edit-s');}
-function updSeance(){var id=ge('es-id').value;var s=null;for(var i=0;i<state.seances.length;i++){if(state.seances[i].id===id){s=state.seances[i];break;}}if(!s)return;s.num=parseInt(ge('es-n').value)||s.num;s.date=ge('es-d').value;s.objectif=ge('es-o').value;s.obj1=ge('es-o2').value;s.obj2=ge('es-o3').value;s.obj3=ge('es-o4').value;s.autreobj=ge('es-autreobj').value;s.contenus=ge('es-contenus').value;s.fps=ge('es-fps').value;s.bilan=ge('es-b').value;s.parties=readParties('parties-edit',partiesEdit);s.aflpTravailles=aflpEditSel.slice();save();closeM('m-edit-s');renderAll();}
+function saveSeance(){var o=ge('fo').value.trim();if(!o){alert('Titre requis');return;}state.seances.push({id:'s'+Date.now(),num:parseInt(ge('fn').value)||(state.seances.length+1),date:ge('fd').value,objectif:o,autreobj:ge('fn-autreobj').value,contenus:ge('fn-contenus').value,fps:ge('fn-fps').value,bilan:ge('fb').value,aflpTravailles:aflpNewSel.slice(),parties:readParties('parties-new',partiesNew)});save();closeM('m-seance');ge('fn').value='';ge('fd').value='';ge('fo').value='';ge('fn-autreobj').value='';ge('fn-contenus').value='';ge('fn-fps').value='';ge('fb').value='';ge('parties-new').innerHTML='';partiesNew=[];aflpNewSel=[];renderAll();}
+function openEditS(id){var s=null;for(var i=0;i<state.seances.length;i++){if(state.seances[i].id===id){s=state.seances[i];break;}}if(!s)return;ge('es-id').value=id;ge('es-badge').textContent='S'+s.num;ge('es-n').value=s.num;ge('es-d').value=s.date||'';ge('es-o').value=s.objectif||'';ge('es-autreobj').value=s.autreobj||'';ge('es-contenus').value=s.contenus||'';ge('es-fps').value=s.fps||'';ge('es-b').value=s.bilan||'';ge('parties-edit').innerHTML='';partiesEdit=JSON.parse(JSON.stringify(s.parties||[]));for(var i=0;i<partiesEdit.length;i++)renderPartieBlock('parties-edit',partiesEdit[i],i,'edit');aflpEditSel=(s.aflpTravailles||[]).slice();renderAflpChecks('aflp-check-edit',aflpEditSel);iaReset();openM('m-edit-s');}
+function updSeance(){var id=ge('es-id').value;var s=null;for(var i=0;i<state.seances.length;i++){if(state.seances[i].id===id){s=state.seances[i];break;}}if(!s)return;s.num=parseInt(ge('es-n').value)||s.num;s.date=ge('es-d').value;s.objectif=ge('es-o').value;s.autreobj=ge('es-autreobj').value;s.contenus=ge('es-contenus').value;s.fps=ge('es-fps').value;s.bilan=ge('es-b').value;s.parties=readParties('parties-edit',partiesEdit);s.aflpTravailles=aflpEditSel.slice();save();closeM('m-edit-s');renderAll();}
 function delSeance(){var id=ge('es-id').value;if(!confirm('Supprimer cette seance ?'))return;for(var i=state.seances.length-1;i>=0;i--){if(state.seances[i].id===id){state.seances.splice(i,1);break;}}delete state.presences[id];delete state.autoEval[id];delete state.seanceObjectifs[id];save();closeM('m-edit-s');renderAll();}
 
 function openPdfWindow(html,filename){
@@ -4660,260 +3797,109 @@ function renderBilanComp(targetZoneId){
 
 function exportBilanPDF(){
   var f=CTX.cls?CTX.cls.filiere:'bacpro';
+  var aflpData=CTX.apsa?(AFLP[f]||AFLP.bacpro)[CTX.apsa.caFull]:null;
+  var fil=FILIERES[f]||{label:'EPS'};
+  var clsColor=CTX.cls?CTX.cls.color:'#4f8aff';
   var clsLabel=CTX.cls?CTX.cls.label:'';
   var apsaLabel=CTX.apsa?CTX.apsa.ca+' - '+CTX.apsa.name:'';
-  var aflpData=CTX.apsa?(AFLP[f]||AFLP.bacpro)[CTX.apsa.caFull]:null;
-  var autreEvals=state.autreEvals||[];
-  var coeffQte=parseFloat(state.coeffQte||1)||1;
-  var coeffFps=parseFloat(state.coeffFps||1)||1;
   var sorted=state.eleves.slice().sort(function(a,b){return a.nom.localeCompare(b.nom);});
-  var seances=state.seances.slice().sort(function(a,b){return (a.num||0)-(b.num||0);});
-  var compD=compGetData();
-  var degColors=['','#c0392b','#e67e22','#2980b9','#27ae60'];
-  var degNames=['','Insuffisant','Fragile','Satisfaisant','Tres bien'];
-
-  var h='<!DOCTYPE html><html><head><meta charset="utf-8">';
-  h+='<style>body{font-family:Arial,sans-serif;font-size:11px;color:#111;margin:24px}';
-  h+='h2{font-size:16px;margin:0 0 4px;color:#1a1a2e}';
-  h+='.sub{font-size:11px;color:#666;margin:0 0 16px}';
-  h+='h3{font-size:13px;margin:20px 0 8px;color:#1a1a2e;border-bottom:2px solid #4f8aff;padding-bottom:4px}';
-  h+='table{width:100%;border-collapse:collapse;margin-bottom:8px}';
-  h+='th{background:#1a1a2e;color:#fff;padding:6px 8px;text-align:left;font-size:10px;white-space:nowrap}';
-  h+='td{padding:5px 8px;border-bottom:1px solid #eee;font-size:11px}';
-  h+='tr:nth-child(even) td{background:#f9f9f9}';
-  h+='.badge{display:inline-block;padding:2px 7px;border-radius:8px;font-size:10px;font-weight:700}';
-  h+='.coeff-row td{background:#f0f4ff;font-style:italic;font-size:10px;color:#555}';
-  h+='@media print{body{margin:0}h3{page-break-before:auto}}';
-  h+='</style></head><body>';
-  h+='<h2>Bilan — '+esc(apsaLabel)+'</h2>';
-  h+='<div class="sub">'+esc(clsLabel)+' | Export du '+new Date().toLocaleDateString('fr-FR')+'</div>';
-
-  // ══ TABLEAU 1 : Compétences AFLP ══
-  if(aflpData){
-    h+='<h3>Suivi des comp&eacute;tences AFLP</h3>';
-    var workedAflp=aflpData.items.filter(function(it){return seances.some(function(s){return (s.aflpTravailles||[]).indexOf(it.n)>=0;});});
-    h+='<table><thead><tr><th>El&egrave;ve</th>';
-    workedAflp.forEach(function(it){h+='<th>'+esc(it.n)+'</th>';});
-    h+='</tr></thead><tbody>';
-    sorted.forEach(function(e){
-      h+='<tr><td><strong>'+esc(e.nom)+'</strong>'+(e.amenagement?'<br><small style="color:#e67e22">'+esc(e.amenagement)+'</small>':'')+'</td>';
-      workedAflp.forEach(function(it){
-        var last=0;
-        seances.forEach(function(s){var ck=s.id+'__'+it.n+'__'+e.id;if(compD[ck]>0)last=compD[ck];});
-        if(last>0){var col=degColors[last];h+='<td><span class="badge" style="background:'+col+'22;color:'+col+';border:1px solid '+col+'55">'+degNames[last]+'</span></td>';}
-        else h+='<td style="color:#ccc">—</td>';
-      });
-      h+='</tr>';
-    });
-    h+='</tbody></table>';
-  }
-
-  // ══ TABLEAU 2 : Grille FPS ══
-  var aflps=geGetAflps();
-  if(aflps.length){
-    h+='<h3>Grille FPS / CCF</h3>';
-    h+='<table><thead><tr><th>El&egrave;ve</th>';
-    aflps.forEach(function(a){h+='<th>'+esc(a.label)+'<br><small>/'+a.maxPts+'pts</small></th>';});
-    h+='<th>Total</th><th>Note /20</th></tr></thead><tbody>';
-    sorted.forEach(function(e){
-      h+='<tr><td><strong>'+esc(e.nom)+'</strong></td>';
-      var eidNotes=GE_NOTES[e.id]||(state.grilleNotes&&state.grilleNotes[e.id])||{};
-      aflps.forEach(function(a){
-        var entry=eidNotes[a.id]||{};var deg=entry.deg||0;
-        var slider=entry.slider!=null?entry.slider:(deg>0?a.ranges[deg-1][0]:0);
-        if(deg>0){var col=degColors[Math.min(deg,4)];h+='<td><span class="badge" style="background:'+col+'22;color:'+col+';border:1px solid '+col+'55">D'+deg+' ('+slider+'pts)</span></td>';}
-        else h+='<td style="color:#ccc">—</td>';
-      });
-      var total=geCalcTotal(e.id);var note=geCalcNote(e.id);
-      h+='<td style="font-weight:700">'+total+'</td>';
-      h+='<td style="font-weight:700;color:'+(note>0?(note>=14?'#27ae60':note>=10?'#2980b9':'#c0392b'):'#999')+'">'+(note>0?note+' /20':'—')+'</td>';
-      h+='</tr>';
-    });
-    h+='</tbody></table>';
-  }
-
-  // ══ TABLEAU 3 : Présences et notes ══
-  h+='<h3>Pr&eacute;sences et notes</h3>';
-  h+='<table><thead>';
-  h+='<tr class="coeff-row"><td>Coefficients</td><td colspan="3"></td><td>x'+coeffQte+'</td>';
-  autreEvals.forEach(function(ev){h+='<td>x'+(ev.coeff||1)+'</td>';});
-  h+='<td>x'+coeffFps+'</td><td></td></tr>';
-  h+='<tr><th>El&egrave;ve</th><th>Pr&eacute;s.</th><th>Abs.</th><th>Disp.</th><th>Qt&eacute; /10</th>';
-  autreEvals.forEach(function(ev){h+='<th>'+esc(ev.objet||ev.date||'Eval')+'</th>';});
-  h+='<th>Note FPS /20</th><th style="background:#1e3a2e">Moyenne /20</th></tr>';
-  h+='</thead><tbody>';
-  sorted.forEach(function(e){
-    var pres=0,abs=0,disp=0,qtes=[];
-    for(var j=0;j<seances.length;j++){
-      var st=(state.presences[seances[j].id]||{})[e.id]||'';
-      if(st==='Present')pres++;else if(st==='Absent')abs++;else if(st==='Dispense')disp++;
-      var ae=(state.autoEval&&state.autoEval[seances[j].id]||{})[e.id]||{};
-      if(ae.qte!==undefined&&ae.qte!=='')qtes.push(parseFloat(ae.qte));
-    }
-    var mQraw=qtes.length>0?(qtes.reduce(function(a,b){return a+b;},0)/qtes.length*10/4):null;
-    var mQ=mQraw!==null?mQraw.toFixed(1):null;
-    var fpsnote=geCalcNote(e.id);
-    var totalPts=0,totalCoeff=0;
-    if(mQ!==null){totalPts+=parseFloat(mQ)*coeffQte;totalCoeff+=coeffQte;}
-    h+='<tr><td><strong>'+esc(e.nom)+'</strong></td>';
-    h+='<td style="text-align:center">'+pres+'</td><td style="text-align:center">'+abs+'</td><td style="text-align:center">'+disp+'</td>';
-    h+='<td style="text-align:center">'+(mQ!==null?mQ+'/10':'—')+'</td>';
-    autreEvals.forEach(function(ev){
-      var note=(ev.notes&&ev.notes[e.id]!=null&&ev.notes[e.id]!=='')?parseFloat(ev.notes[e.id]):null;
-      var coeff=parseFloat(ev.coeff||1)||1;
-      if(note!==null){totalPts+=note*coeff;totalCoeff+=coeff;}
-      h+='<td style="text-align:center">'+(note!==null?note:'—')+'</td>';
-    });
-    if(fpsnote>0){totalPts+=fpsnote*coeffFps;totalCoeff+=coeffFps;}
-    var moy=totalCoeff>0?(totalPts/totalCoeff).toFixed(1):null;
-    var moyCol=moy?(parseFloat(moy)>=14?'#27ae60':parseFloat(moy)>=10?'#2980b9':'#c0392b'):'#999';
-    h+='<td style="text-align:center;font-weight:700">'+(fpsnote>0?fpsnote+' /20':'—')+'</td>';
-    h+='<td style="text-align:center;font-weight:700;color:'+moyCol+'">'+(moy?moy+' /20':'—')+'</td>';
-    h+='</tr>';
-  });
-  h+='</tbody></table></body></html>';
-
-  // Ajouter barre d'action en haut
-  var toolbar='<div style="position:fixed;top:0;left:0;right:0;background:#1a1a2e;padding:10px 20px;display:flex;gap:10px;align-items:center;z-index:999;box-shadow:0 2px 8px rgba(0,0,0,.3)">';
-  toolbar+='<span style="color:#fff;font-size:13px;font-weight:700;flex:1">Bilan — Export PDF</span>';
-  toolbar+='<button onclick="window.print()" style="background:#4f8aff;color:#fff;border:none;border-radius:8px;padding:8px 18px;font-size:13px;font-weight:700;cursor:pointer">&#128196; Imprimer / Enregistrer PDF</button>';
-  toolbar+='<button onclick="window.close()" style="background:rgba(255,255,255,.1);color:#fff;border:1px solid rgba(255,255,255,.2);border-radius:8px;padding:8px 14px;font-size:13px;cursor:pointer">&#x2715; Fermer</button>';
-  toolbar+='</div>';
-  h=h.replace('<body>','<body style="padding-top:56px">'+toolbar);
-  h+=('<style>@media print{.no-print{display:none!important}body{padding-top:0!important}}</style>');
-  // Ajouter class no-print sur toolbar
-  h=h.replace('<div style="position:fixed','<div class="no-print" style="position:fixed');
-
-  var win=window.open('','_blank');
-  if(win){win.document.write(h);win.document.close();}
-}
-function renderNotes(){
-  var tb=ge('nt-tbody');
+  var nmv={'Maitrise insuffisante':1,'Maitrise fragile':2,'Maitrise satisfaisante':3,'Tres bonne maitrise':4};
+  var COLS_PDF={'Maitrise insuffisante':'#dc2626','Maitrise fragile':'#b45309','Maitrise satisfaisante':'#047857','Tres bonne maitrise':'#1d4ed8'};
+  var BGLBL={'Maitrise insuffisante':'#fef2f2','Maitrise fragile':'#fffbeb','Maitrise satisfaisante':'#f0fdf4','Tres bonne maitrise':'#eff6ff'};
   var worked={};
   for(var i=0;i<state.seances.length;i++){var t=state.seances[i].aflpTravailles||[];for(var j=0;j<t.length;j++)worked[t[j]]=true;}
-  var items=document.querySelectorAll('.eval-aflp-item');
-  for(var i=0;i<items.length;i++){var n=items[i].querySelector('.eval-n');if(n)items[i].classList.toggle('worked',!!worked[n.textContent]);}
-  if(!state.eleves.length){if(tb)tb.innerHTML='<tr><td colspan="8" style="text-align:center;color:#6b7280;padding:2rem">Aucun eleve.</td></tr>';return;}
+  var aflpList=aflpData?aflpData.items.filter(function(it){return worked[it.n];}):[];
+  var _clsColor=clsColor;
+var css='';
+css+='*{box-sizing:border-box;margin:0;padding:0;-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important}';
+css+='@page{margin:0;size:A4}';
+css+='body{font-family:-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif;font-size:10px;color:#1e1e2e;background:#fff;width:210mm}';
+css+='.hero{background:'+_clsColor+';padding:20px 26px 16px;position:relative;overflow:hidden}';
+css+='.hero::before{content:"";position:absolute;top:-40px;right:-40px;width:160px;height:160px;border-radius:50%;background:rgba(255,255,255,.06)}';
+css+='.hero-eyebrow{font-size:8px;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.65);margin-bottom:6px;font-weight:600}';
+css+='.hero-title{font-size:20px;font-weight:700;color:#fff;line-height:1.2;margin-bottom:6px}';
+css+='.hero-chips{display:flex;gap:7px;flex-wrap:wrap}';
+css+='.hero-chip{background:rgba(255,255,255,.18);color:#fff;font-size:7.5px;font-weight:600;padding:3px 9px;border-radius:20px}';
+css+='.content{padding:16px 26px 0}';
+css+='.sec{margin-bottom:16px}';
+css+='.sec-hd{display:flex;align-items:center;gap:8px;margin-bottom:9px}';
+css+='.sec-dot{width:7px;height:7px;border-radius:50%;background:'+_clsColor+';flex-shrink:0}';
+css+='.sec-lbl{font-size:8px;font-weight:700;text-transform:uppercase;letter-spacing:.14em;color:#6b7280}';
+css+='.sec-line{flex:1;height:1px;background:#f0f0f0}';
+css+='.footer{padding:10px 26px;border-top:2px solid #f0f0f0;display:flex;justify-content:space-between;font-size:8px;color:#9ca3af;margin-top:14px}';
+  css+='@page{size:A4 landscape}';
+  css+='table{width:100%;border-collapse:collapse;font-size:9px}';
+  css+='th{background:#f8f8fc;padding:6px 9px;text-align:center;font-size:7.5px;font-weight:700;color:#6b7280;text-transform:uppercase;border-bottom:2px solid #ebebf5;border-right:1px solid #ebebf5}';
+  css+='th.elh{text-align:left;min-width:130px}';
+  css+='td{padding:6px 9px;border-bottom:1px solid #f4f4f8;border-right:1px solid #f4f4f8;text-align:center;vertical-align:middle}';
+  css+='td.elt{text-align:left;font-weight:600;font-size:9.5px}';
+  css+='.niv{border-radius:4px;font-size:7.5px;font-weight:700;padding:2px 7px;display:inline-block}';
+  css+='.leg{display:flex;gap:10px;flex-wrap:wrap;margin-top:8px;font-size:8px}';
+  css+='.leg-item{padding:2px 8px;border-radius:4px;font-weight:700}';
 
-  var autreEvals=state.autreEvals||[];
-  // Charger coefficients depuis state et sync inputs
-  var elQte=ge('coeff-qte');var elFps=ge('coeff-fps');
-  if(elQte&&state.coeffQte&&elQte.value!=state.coeffQte)elQte.value=state.coeffQte;
-  if(elFps&&state.coeffFps&&elFps.value!=state.coeffFps)elFps.value=state.coeffFps;
-  var coeffQte=parseFloat(state.coeffQte||(elQte&&elQte.value)||1)||1;
-  var coeffFps=parseFloat(state.coeffFps||(elFps&&elFps.value)||1)||1;
+  var h='<!DOCTYPE html><html><head><meta charset="UTF-8"><style>'+css+'</style></head><body>';
+  h+='<div class="hero"><div class="hero-eyebrow">'+esc(clsLabel)+(apsaLabel?' &bull; '+esc(apsaLabel):'')+(CTX.trim?' &bull; T'+CTX.trim:'')+'</div>';
+  h+='<div class="hero-title">Bilan de s&#233;quence</div>';
+  h+='<div class="hero-chips"><span class="hero-chip">'+fil.label+'</span><span class="hero-chip">'+sorted.length+' &#233;l&#232;ves</span><span class="hero-chip">'+state.seances.length+' s&#233;ances</span><span class="hero-chip">'+new Date().toLocaleDateString('fr-FR')+'</span></div></div>';
+  h+='<div class="content">';
 
-  // Header autre eval
-  var hdrCell=ge('autre-eval-cols-header');
-  var coeffCells=ge('coeff-autre-cells');
-  if(hdrCell){
-    hdrCell.colSpan=autreEvals.length||1;
-    hdrCell.innerHTML=autreEvals.map(function(ev){return '<span style="display:inline-block;padding:0 8px;font-size:.65rem;white-space:nowrap">'+esc(ev.objet||ev.date||'Eval')+'</span>';}).join('')||'';
-  }
-  if(coeffCells){
-    coeffCells.colSpan=autreEvals.length||1;
-    coeffCells.innerHTML=autreEvals.map(function(ev){
-      return '<input type="number" id="coeff-ae-'+ev.id+'" min="0" max="10" step="0.5" value="'+(ev.coeff||1)+'" style="width:44px;background:#1c1f2c;border:1px solid #2a2d3e;border-radius:5px;padding:3px 5px;color:#56cfb2;font-size:.75rem;text-align:center" onchange="autreEvalSetCoeff(\''+ev.id+'\',this.value);renderNotes()">';
-    }).join('')||'';
-  }
+  if(aflpList.length>0){
+    h+='<div class="sec"><div class="sec-hd"><div class="sec-dot"></div><div class="sec-lbl">Suivi des comp&#233;tences</div><div class="sec-line"></div></div>';
+    h+='<table style="margin-bottom:10px"><thead><tr><th class="elh">El&#232;ve</th>';
+    for(var ai=0;ai<aflpList.length;ai++)h+='<th>'+esc(aflpList[ai].n)+'<br><span style="font-weight:400;color:#9ca3af;font-size:6.5px">'+esc(aflpList[ai].t.substring(0,35))+'...</span></th>';
+    h+='</tr></thead><tbody>';
+    for(var ei=0;ei<sorted.length;ei++){
+      var e=sorted[ei];var vals=[];
+      h+='<tr style="background:'+(ei%2?'#f8f8fc':'#fff')+'"><td class="elt">'+esc(e.nom)+'</td>';
+      for(var ai=0;ai<aflpList.length;ai++){
+        var n=aflpList[ai].n;var lastVal=0;
+        var compD=state.comp||{};
+        for(var si=0;si<state.seances.length;si++){
+          var s=state.seances[si];
+          if((s.aflpTravailles||[]).indexOf(n)<0)continue;
+          // Priorité : state.comp (boutons 1/2/3/4) puis autoEval
+          var ck=s.id+'__'+n+'__'+e.id;
+          if(compD[ck]&&compD[ck]>0){lastVal=compD[ck];}
+          else{var ae=(state.autoEval[s.id]||{})[e.id]||{};if(ae.maitrise1&&nmv[ae.maitrise1])lastVal=nmv[ae.maitrise1];else if(ae.maitrise2&&nmv[ae.maitrise2])lastVal=nmv[ae.maitrise2];}
+        }
+        vals.push(lastVal);
+        if(lastVal>0){var lbl=MAITRISE[lastVal-1];h+='<td><span class="niv" style="background:'+BGLBL[lbl]+';color:'+COLS_PDF[lbl]+'">Degr&#233; '+lastVal+'</span></td>';}
+        else{h+='<td style="color:#d1d5db">—</td>';}
+      }
 
-  if(!tb)return;
-  tb.innerHTML='';
-  var sorted=state.eleves.slice().sort(function(a,b){return a.nom.localeCompare(b.nom);});
 
-  for(var i=0;i<sorted.length;i++){(function(e){
-    var pres=0,abs=0,disp=0,qtes=[];
-    for(var j=0;j<state.seances.length;j++){
-      var st=(state.presences[state.seances[j].id]||{})[e.id]||'';
-      if(st==='Present')pres++;else if(st==='Absent')abs++;else if(st==='Dispense')disp++;
-      var ae=(state.autoEval&&state.autoEval[state.seances[j].id]||{})[e.id]||{};
-      if(ae.qte!==undefined&&ae.qte!=='')qtes.push(parseFloat(ae.qte));
+
+      h+='</tr>';
     }
-    var mQraw=qtes.length>0?(qtes.reduce(function(a,b){return a+b;},0)/qtes.length*10/4):null;
-    var mQ=mQraw!==null?mQraw.toFixed(1):null;
+    h+='</tbody></table>';
+    h+='<div class="leg"><strong>L&#233;gende :</strong><span class="leg-item" style="background:#fef2f2;color:#dc2626">1 Insuf.</span><span class="leg-item" style="background:#fffbeb;color:#b45309">2 Fragile</span><span class="leg-item" style="background:#f0fdf4;color:#047857">3 Satisf.</span><span class="leg-item" style="background:#eff6ff;color:#1d4ed8">4 Tr&#232;s bien</span></div>';
+    h+='</div>';
+  }
 
-    // Calcul moyenne ponderee
-    var totalPts=0,totalCoeff=0;
-    if(mQ!==null){totalPts+=parseFloat(mQ)*coeffQte;totalCoeff+=coeffQte;}
-
-    var autreEvalCols='';
-    autreEvals.forEach(function(ev){
-      var note=(ev.notes&&ev.notes[e.id]!=null&&ev.notes[e.id]!=='')?parseFloat(ev.notes[e.id]):null;
-      var coeff=parseFloat(ev.coeff||1)||1;
-      if(note!==null){totalPts+=note*coeff;totalCoeff+=coeff;}
-      autreEvalCols+='<td style="text-align:center;padding:6px 8px;border-bottom:1px solid rgba(37,40,54,.5)"><input type="number" min="0" max="20" step="0.5" value="'+(note!=null?note:'')+'" placeholder="—" style="width:52px;background:#13161f;border:1px solid #2a2d3e;border-radius:6px;padding:3px 6px;color:#e4e6ef;font-size:.8rem;text-align:center" onchange="autreEvalSetNote(\''+ev.id+'\',\''+e.id+'\',this.value)"></td>';
-    });
-
-    var fpsnote=(typeof geCalcNote==='function')?geCalcNote(e.id):0;
-    if(fpsnote>0){totalPts+=fpsnote*coeffFps;totalCoeff+=coeffFps;}
-
-    var moyenne=(totalCoeff>0)?(totalPts/totalCoeff).toFixed(1):null;
-    var moyColor=moyenne?(parseFloat(moyenne)>=14?'#56cfb2':parseFloat(moyenne)>=10?'#4f8aff':parseFloat(moyenne)>=6?'#ffd166':'#ff6b6b'):'#6b7280';
-
-    var tr=document.createElement('tr');
-    tr.innerHTML=
-      '<td style="font-weight:500;font-size:.85rem;padding:7px 12px;border-bottom:1px solid rgba(37,40,54,.5)">'+esc(e.nom)+'</td>'+
-      '<td style="text-align:center;padding:6px 8px;border-bottom:1px solid rgba(37,40,54,.5)"><span class="chip c-gr">'+pres+'</span></td>'+
-      '<td style="text-align:center;padding:6px 8px;border-bottom:1px solid rgba(37,40,54,.5)"><span class="chip c-rd">'+abs+'</span></td>'+
-      '<td style="text-align:center;padding:6px 8px;border-bottom:1px solid rgba(37,40,54,.5)"><span class="chip c-yw">'+disp+'</span></td>'+
-      '<td style="text-align:center;padding:6px 8px;border-bottom:1px solid rgba(37,40,54,.5)">'+(mQ!==null?'<span class="nd '+(parseFloat(mQ)>=7?'nh':parseFloat(mQ)>=5?'nm':'nl')+'">'+mQ+'/10</span>':'<span style="color:#6b7280">—</span>')+'</td>'+
-      autreEvalCols+
-      '<td style="text-align:center;padding:6px 8px;border-bottom:1px solid rgba(37,40,54,.5)">'+(fpsnote>0?'<span style="font-family:monospace;font-size:.82rem;font-weight:700;color:'+(fpsnote>=14?'#56cfb2':fpsnote>=10?'#4f8aff':fpsnote>=6?'#ffd166':'#ff6b6b')+'">'+fpsnote+' /20</span>':'<span style="color:#6b7280">—</span>')+'</td>'+
-      '<td style="text-align:center;padding:6px 8px;border-bottom:1px solid rgba(37,40,54,.5);font-family:monospace;font-weight:700;font-size:.9rem;color:'+moyColor+'">'+(moyenne?moyenne+' /20':'—')+'</td>';
-    tb.appendChild(tr);
-  })(sorted[i]);}
+  h+='<div class="sec"><div class="sec-hd"><div class="sec-dot"></div><div class="sec-lbl">Notes et pr&#233;sences</div><div class="sec-line"></div></div>';
+  h+='<table><thead><tr><th class="elh">El&#232;ve</th><th>Pr&#233;s.</th><th>Abs.</th><th>Disp.</th><th>Qte /4</th><th>Maitrise auto-eval</th><th>Note /20</th></tr></thead><tbody>';
+  for(var ei=0;ei<sorted.length;ei++){
+    var e=sorted[ei];var pres=0,abs=0,disp=0,qtes=[],mts=[];
+    for(var si=0;si<state.seances.length;si++){var st2=(state.presences[state.seances[si].id]||{})[e.id]||'';if(st2==='Present')pres++;else if(st2==='Absent')abs++;else if(st2==='Dispense')disp++;var ae2=(state.autoEval[state.seances[si].id]||{})[e.id]||{};if(ae2.qte!==undefined&&ae2.qte!=='')qtes.push(parseFloat(ae2.qte));if(ae2.maitrise1&&nmv[ae2.maitrise1])mts.push(nmv[ae2.maitrise1]);if(ae2.maitrise2&&nmv[ae2.maitrise2])mts.push(nmv[ae2.maitrise2]);}
+    var mQ=qtes.length?(qtes.reduce(function(a,b){return a+b;},0)/qtes.length).toFixed(1):'—';
+    var mAvg2=mts.length?mts.reduce(function(a,b){return a+b;},0)/mts.length:null;
+    var mLbl2=mAvg2?MAITRISE[Math.round(mAvg2)-1]:'—';
+    var mC2=mAvg2?(mAvg2>=3?COLS_PDF['Maitrise satisfaisante']:mAvg2>=2?COLS_PDF['Maitrise fragile']:COLS_PDF['Maitrise insuffisante']):'#9ca3af';
+    var mB2=mAvg2?(mAvg2>=3?BGLBL['Maitrise satisfaisante']:mAvg2>=2?BGLBL['Maitrise fragile']:BGLBL['Maitrise insuffisante']):'#f9fafb';
+    h+='<tr style="background:'+(ei%2?'#f8f8fc':'#fff')+'"><td class="elt">'+esc(e.nom)+'</td>';
+    h+='<td style="color:#047857;font-weight:700">'+pres+'</td><td style="color:#dc2626">'+abs+'</td><td style="color:#b45309">'+disp+'</td>';
+    h+='<td>'+(mQ!=='—'?'<span class="niv" style="background:#f8f8fc;color:#374151">'+mQ+'</span>':'—')+'</td>';
+    h+='<td>'+(mLbl2!=='—'?'<span class="niv" style="background:'+mB2+';color:'+mC2+'">'+esc(mLbl2)+'</span>':'—')+'</td>';
+    h+='<td>'+(function(){var gn=(typeof geCalcNote==='function')?geCalcNote(e.id):0;return gn>0?'<strong style="font-size:11px;color:'+clsColor+'">'+gn+'/20</strong>':(e.noteFinale!=null?'<strong style="font-size:11px;color:'+clsColor+'">'+e.noteFinale+'/20</strong>':'—');}())+'</td></tr>';
+  }
+  h+='</tbody></table></div>';
+  h+='</div>';
+  h+='<div class="footer"><span>'+esc(clsLabel)+(apsaLabel?' &bull; '+esc(apsaLabel):'')+'</span><span>EPS &bull; MALLET Lucas &bull; '+new Date().toLocaleDateString('fr-FR')+'</span></div>';
+  h+='</body></html>';
+  openPdfWindow(h,'Bilan-'+clsLabel+'.pdf');
 }
-function exportCSV(){
-  var autreEvals=state.autreEvals||[];
-  var coeffQte=parseFloat((ge('coeff-qte')&&ge('coeff-qte').value)||1)||1;
-  var coeffFps=parseFloat((ge('coeff-fps')&&ge('coeff-fps').value)||1)||1;
-
-  // En-têtes
-  var headers=['Eleve','Amenagement','Presences','Absences','Dispenses','Qte travail /10'];
-  autreEvals.forEach(function(ev){headers.push(esc(ev.objet||ev.date||'Eval'));});
-  headers.push('Note FPS /20','Moyenne /20');
-  var rows=[headers];
-
-  // Ligne coefficients
-  var coeffRow=['Coefficients','','','','',coeffQte];
-  autreEvals.forEach(function(ev){coeffRow.push(ev.coeff||1);});
-  coeffRow.push(coeffFps,'');
-  rows.push(coeffRow);
-
-  var sorted=state.eleves.slice().sort(function(a,b){return a.nom.localeCompare(b.nom);});
-  sorted.forEach(function(e){
-    var pres=0,abs=0,disp=0,qtes=[];
-    for(var j=0;j<state.seances.length;j++){
-      var st=(state.presences[state.seances[j].id]||{})[e.id]||'';
-      if(st==='Present')pres++;else if(st==='Absent')abs++;else if(st==='Dispense')disp++;
-      var ae=(state.autoEval&&state.autoEval[state.seances[j].id]||{})[e.id]||{};
-      if(ae.qte!==undefined&&ae.qte!=='')qtes.push(parseFloat(ae.qte));
-    }
-    var mQraw=qtes.length>0?(qtes.reduce(function(a,b){return a+b;},0)/qtes.length*10/4):null;
-    var mQ=mQraw!==null?mQraw.toFixed(1):null;
-    var fpsnote=(typeof geCalcNote==='function')?geCalcNote(e.id):0;
-    var totalPts=0,totalCoeff=0;
-    if(mQ!==null){totalPts+=parseFloat(mQ)*coeffQte;totalCoeff+=coeffQte;}
-
-    var row=[e.nom,e.amenagement||'',pres,abs,disp,mQ!==null?mQ:''];
-    autreEvals.forEach(function(ev){
-      var note=(ev.notes&&ev.notes[e.id]!=null&&ev.notes[e.id]!=='')?parseFloat(ev.notes[e.id]):null;
-      var coeff=parseFloat(ev.coeff||1)||1;
-      if(note!==null){totalPts+=note*coeff;totalCoeff+=coeff;}
-      row.push(note!==null?note:'');
-    });
-    if(fpsnote>0){totalPts+=fpsnote*coeffFps;totalCoeff+=coeffFps;}
-    var moy=totalCoeff>0?(totalPts/totalCoeff).toFixed(1):'';
-    row.push(fpsnote>0?fpsnote:'',moy);
-    rows.push(row);
-  });
-
-  var csv=rows.map(function(r){return r.map(function(c){return '"'+String(c).replace(/"/g,'""')+'"';}).join(';');}).join('\n');
-  var a=document.createElement('a');
-  a.href='data:text/csv;charset=utf-8,\uFEFF'+encodeURIComponent(csv);
-  a.download='bilan_'+((CTX.cls?CTX.cls.label:'classe')+'_'+(CTX.apsa?CTX.apsa.name:'')).replace(/\s+/g,'_')+'.csv';
-  a.click();
-}
+function renderNotes(){var tb=ge('nt-tbody');var worked={};for(var i=0;i<state.seances.length;i++){var t=state.seances[i].aflpTravailles||[];for(var j=0;j<t.length;j++)worked[t[j]]=true;}var items=document.querySelectorAll('.eval-aflp-item');for(var i=0;i<items.length;i++){var n=items[i].querySelector('.eval-n');if(n)items[i].classList.toggle('worked',!!worked[n.textContent]);}var nmv={'Maitrise insuffisante':1,'Maitrise fragile':2,'Maitrise satisfaisante':3,'Tres bonne maitrise':4};if(!state.eleves.length){tb.innerHTML='<tr><td colspan="6" style="text-align:center;color:#6b7280;padding:2rem">Aucun eleve.</td></tr>';return;}tb.innerHTML='';var sorted=state.eleves.slice().sort(function(a,b){return a.nom.localeCompare(b.nom);});for(var i=0;i<sorted.length;i++){(function(e){var pres=0,abs=0,disp=0,qtes=[],mts=[];for(var j=0;j<state.seances.length;j++){var st=(state.presences[state.seances[j].id]||{})[e.id]||'';if(st==='Present')pres++;else if(st==='Absent')abs++;else if(st==='Dispense')disp++;var ae=(state.autoEval[state.seances[j].id]||{})[e.id]||{};if(ae.qte!==undefined&&ae.qte!=='')qtes.push(parseFloat(ae.qte));if(ae.maitrise1&&nmv[ae.maitrise1])mts.push(nmv[ae.maitrise1]);if(ae.maitrise2&&nmv[ae.maitrise2])mts.push(nmv[ae.maitrise2]);}var mQ=qtes.length>0?(qtes.reduce(function(a,b){return a+b;},0)/qtes.length).toFixed(1):'-';var mAvg=mts.length>0?mts.reduce(function(a,b){return a+b;},0)/mts.length:null;var mMlbl=mAvg?MAITRISE[Math.round(mAvg)-1]:'-';var mMcl=mAvg?(mAvg>=3?'nh':mAvg>=2?'nm':'nl'):'';var tr=document.createElement('tr');tr.innerHTML='<td style="font-weight:500;font-size:.85rem">'+esc(e.nom)+'</td><td><span class="chip c-gr">'+pres+'</span></td><td><span class="chip c-rd">'+abs+'</span></td><td><span class="chip c-yw">'+disp+'</span></td><td>'+(mQ!=='-'?'<span class="nd '+(parseFloat(mQ)>=3?'nh':parseFloat(mQ)>=2?'nm':'nl')+'">'+mQ+'/4</span>':'<span style="color:#6b7280">-</span>')+'</td><td>'+(mMlbl!=='-'?'<span class="nd '+mMcl+'" style="font-size:.72rem">'+mMlbl+'</span>':'<span style="color:#6b7280">-</span>')+'</td><td>'+(function(){var gn=typeof geCalcNote==='function'?geCalcNote(e.id):0;if(gn>0){var col=gn>=14?'#56cfb2':gn>=10?'#4f8aff':gn>=6?'#ffd166':'#ff6b6b';return '<span style="font-family:DM Mono,monospace;font-size:.82rem;font-weight:700;color:'+col+'">'+gn+' /20</span>';}return '<span style="color:#6b7280">—</span>';})()+'</td>';tb.appendChild(tr);})(sorted[i]);}}
+function exportCSV(){var nmv={'Maitrise insuffisante':1,'Maitrise fragile':2,'Maitrise satisfaisante':3,'Tres bonne maitrise':4};var h='Eleve;Amenagement;Presences;Absences;Dispenses;Moy.Qte/4;Maitrise;Note/20';var rows=[];var sorted=state.eleves.slice().sort(function(a,b){return a.nom.localeCompare(b.nom);});for(var i=0;i<sorted.length;i++){var e=sorted[i];var p=0,ab=0,d=0,q=[],mts=[];for(var j=0;j<state.seances.length;j++){var st=(state.presences[state.seances[j].id]||{})[e.id]||'';if(st==='Present')p++;else if(st==='Absent')ab++;else if(st==='Dispense')d++;var ae=(state.autoEval[state.seances[j].id]||{})[e.id]||{};if(ae.qte!==undefined&&ae.qte!=='')q.push(parseFloat(ae.qte));if(ae.maitrise1&&nmv[ae.maitrise1])mts.push(nmv[ae.maitrise1]);if(ae.maitrise2&&nmv[ae.maitrise2])mts.push(nmv[ae.maitrise2]);}var mM=mts.length?MAITRISE[Math.round(mts.reduce(function(a,b){return a+b;},0)/mts.length)-1]:'';rows.push([e.nom,e.amenagement||'',p,ab,d,q.length?(q.reduce(function(a,b){return a+b;},0)/q.length).toFixed(1):'',mM,e.noteFinale!=null?e.noteFinale:''].join(';'));}var a=document.createElement('a');a.href='data:text/csv;charset=utf-8,\uFEFF'+encodeURIComponent([h].concat(rows).join('\n'));a.download='eval_'+(CTX.cls?CTX.cls.id:'eps')+'.csv';a.click();}
 function saveEleve(){var n=ge('en').value.trim();if(!n){alert('Nom requis');return;}state.eleves.push({id:'e'+Date.now(),nom:n,amenagement:ge('ea').value,fiche:null,noteFinale:null});save();closeM('m-eleve');ge('en').value='';ge('ea').value='';renderAll();}
 function openEditE(id){var e=null;for(var i=0;i<state.eleves.length;i++){if(state.eleves[i].id===id){e=state.eleves[i];break;}}if(!e)return;ge('ee-id').value=id;ge('ee-n').value=e.nom;ge('ee-a').value=e.amenagement||'';ge('ee-note').value=e.noteFinale!=null?e.noteFinale:'';openM('m-edit-e');}
 function updEleve(){var id=ge('ee-id').value;var e=null;for(var i=0;i<state.eleves.length;i++){if(state.eleves[i].id===id){e=state.eleves[i];break;}}if(!e)return;e.nom=ge('ee-n').value;e.amenagement=ge('ee-a').value;var n=ge('ee-note').value;e.noteFinale=n===''?null:parseFloat(n);save();closeM('m-edit-e');renderAll();}
@@ -5085,7 +4071,7 @@ function geGetAflps(){
       ranges:ranges,
       degs: niveaux.length ? niveaux.map(function(n){
         return n.label+(n.desc?' — '+n.desc:'');
-      }) : ['Insuffisant','Fragile','Satisfaisant','Tres bien']
+      }) : ['Insuffisant','Fragile','Satisfaisant','Très bien']
     };
   });
 }
@@ -5131,42 +4117,6 @@ function renderGrilleEleveGrid(){
   var zone = ge('ge-eleves-grid');
   if(!zone) return;
   var aflps = geGetAflps();
-  // Afficher la grille evaluation en resume
-  var recap = ge('ge-grille-recap');
-  if(recap){
-    var g = grilleGetData();
-    var maxTotal = aflps.reduce(function(s,a){return s+a.maxPts;},0);
-    var degColors = ['','#ff6b6b','#ffd166','#4f8aff','#56cfb2'];
-    var degNames = ['','Insuffisant','Fragile','Satisfaisant','Tres bien'];
-    var h = '<div style="background:#1c1f2c;border:0.5px solid #252836;border-radius:12px;overflow:hidden">';
-    h += '<div style="padding:12px 16px;border-bottom:0.5px solid #252836;display:flex;align-items:center;justify-content:space-between">';
-    h += '<div style="font-size:.9rem;font-weight:700;color:#e4e6ef">'+(g.titre||'Grille evaluation')+'</div>';
-    h += '<div style="font-size:.75rem;color:#6b7280;font-family:monospace">Total : /'+maxTotal+' pts</div>';
-    h += '</div><div style="overflow-x:auto"><table style="width:100%;border-collapse:collapse">';
-    h += '<thead><tr style="background:#13161f">';
-    h += '<th style="padding:8px 14px;text-align:left;font-size:.7rem;color:#636366;font-weight:600;border-bottom:0.5px solid #252836;white-space:nowrap">AFLP</th>';
-    h += '<th style="padding:8px 14px;text-align:left;font-size:.7rem;color:#636366;font-weight:600;border-bottom:0.5px solid #252836">Description</th>';
-    var dh=['D1 — Insuffisant','D2 — Fragile','D3 — Satisfaisant','D4 — Tres bien'];
-    var dc=['#ff6b6b','#ffd166','#4f8aff','#56cfb2'];
-    for(var di=0;di<4;di++){h += '<th style="padding:8px 10px;text-align:center;font-size:.68rem;font-weight:700;border-bottom:0.5px solid #252836;color:'+dc[di]+';min-width:130px">'+dh[di]+'</th>';}
-    h += '<th style="padding:8px 10px;text-align:center;font-size:.7rem;color:#636366;font-weight:600;border-bottom:0.5px solid #252836">Pts</th></tr></thead><tbody>';
-    aflps.forEach(function(a,ai){
-      var bg=ai%2===0?'transparent':'rgba(255,255,255,.02)';
-      h += '<tr style="background:'+bg+'">';
-      h += '<td style="padding:10px 14px;border-bottom:0.5px solid rgba(37,40,54,.5);white-space:nowrap"><span style="font-size:.75rem;font-weight:700;color:#4f8aff;font-family:monospace">'+esc(a.label)+'</span></td>';
-      h += '<td style="padding:10px 14px;border-bottom:0.5px solid rgba(37,40,54,.5);font-size:.7rem;color:#6b7280">'+esc(a.desc||'')+'</td>';
-      for(var d=1;d<=4;d++){
-        var desc=a.degs&&a.degs[d-1]?a.degs[d-1]:'';
-        var pts=a.ranges[d-1][0]+(a.ranges[d-1][0]!==a.ranges[d-1][1]?' - '+a.ranges[d-1][1]:'');
-        h += '<td style="padding:10px 10px;border-bottom:0.5px solid rgba(37,40,54,.5);border-left:0.5px solid rgba(37,40,54,.5)">';
-        h += '<div style="font-size:.68rem;color:#c4c8d8;line-height:1.5">'+esc(desc)+'</div>';
-        h += '<div style="font-size:.65rem;color:'+dc[d-1]+';font-family:monospace;margin-top:4px;font-weight:700">'+pts+' pts</div></td>';
-      }
-      h += '<td style="padding:10px 10px;border-bottom:0.5px solid rgba(37,40,54,.5);border-left:0.5px solid rgba(37,40,54,.5);text-align:center"><span style="font-size:.75rem;font-weight:700;color:#e4e6ef;font-family:monospace">/'+a.maxPts+'</span></td></tr>';
-    });
-    h += '</tbody></table></div></div>';
-    recap.innerHTML = h;
-  }
   var html = '';
   var sorted = state.eleves.slice().sort(function(a,b){return a.nom.localeCompare(b.nom);});
   sorted.forEach(function(e){
@@ -5238,7 +4188,7 @@ function geRenderPopup(){
   if(!list) return;
   var html = '';
   var degColors = ['','#ff6b6b','#ffd166','#4f8aff','#56cfb2'];
-  var degNames = ['','Insuffisant','Fragile','Satisfaisant','Tres bien'];
+  var degNames = ['','Insuffisant','Fragile','Satisfaisant','Très bien'];
 
   aflps.forEach(function(a){
     var entry = (GE_NOTES[eid]||{})[a.id]||{};
