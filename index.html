@@ -1087,6 +1087,15 @@ textarea{resize:vertical;min-height:70px}
             <div style="background:rgba(255,255,255,.05);border:0.5px solid rgba(255,255,255,.1);border-radius:12px;padding:14px;backdrop-filter:blur(10px)"><div style="font-size:10px;font-weight:600;color:#636366;text-transform:uppercase;letter-spacing:.06em;margin-bottom:9px">⛅ Météo — Lyon</div><div style="display:flex;align-items:center;gap:8px"><div style="font-size:22px" id="acc2-meteo-icon">⛅</div><div><div style="font-size:22px;font-weight:600;color:#f5f5f7" id="acc2-meteo-temp">--°</div><div style="font-size:10px;color:#48484a" id="acc2-meteo-sub">...</div></div></div></div>
             <div style="background:rgba(255,255,255,.05);border:0.5px solid rgba(255,255,255,.1);border-radius:12px;padding:14px;backdrop-filter:blur(10px)">
               <div style="font-size:10px;font-weight:600;color:#636366;text-transform:uppercase;letter-spacing:.06em;margin-bottom:10px">FPS / CCF &#8212; Visualiser</div>
+              <div style="text-align:center;padding:6px 0 4px" onclick="acc2FpsTap()" style="cursor:pointer">
+                <div style="width:48px;height:48px;border-radius:12px;background:rgba(10,132,255,.15);display:flex;align-items:center;justify-content:center;margin:0 auto 10px;cursor:pointer">
+                  <span style="font-size:24px">&#128203;</span>
+                </div>
+                <div id="acc2-fps-name" style="font-size:13px;font-weight:600;color:#e4e6ef;margin-bottom:3px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;padding:0 4px;cursor:pointer" onclick="acc2FpsTap()">Configurer le lien</div>
+                <div style="font-size:10px;color:#48484a;cursor:pointer" onclick="acc2FpsTap()">Appuyer pour acc&#233;der</div>
+              </div>
+            </div><div style="background:rgba(255,255,255,.05);border:0.5px solid rgba(255,255,255,.1);border-radius:12px;padding:14px;backdrop-filter:blur(10px)">
+              <div style="font-size:10px;font-weight:600;color:#636366;text-transform:uppercase;letter-spacing:.06em;margin-bottom:10px">FPS / CCF &#8212; Visualiser</div>
               <div style="text-align:center;padding:6px 0 4px">
                 <div id="acc2-fps-btn" onclick="acc2FpsTap()" style="cursor:pointer">
                   <div style="width:48px;height:48px;border-radius:12px;background:rgba(10,132,255,.15);display:flex;align-items:center;justify-content:center;margin:0 auto 10px;transition:background .15s">
@@ -1667,6 +1676,33 @@ textarea{resize:vertical;min-height:70px}
       <div><div style="font-size:.88rem;font-weight:600;color:#4f8aff">Modifier</div><div style="font-size:.72rem;color:#6b7280">Éditer le contenu de la séance</div></div>
     </button>
     <button onclick="closeM('m-seance-menu')" style="background:none;border:none;color:#6b7280;font-size:.82rem;cursor:pointer;padding:6px">Annuler</button>
+  </div>
+</div></div>
+
+<div class="mb" id="m-fps-menu"><div class="modal" style="max-width:300px;text-align:center">
+  <div style="width:56px;height:56px;border-radius:14px;background:rgba(10,132,255,.15);display:flex;align-items:center;justify-content:center;margin:0 auto 12px">
+    <span style="font-size:28px">&#128203;</span>
+  </div>
+  <div style="font-size:.95rem;font-weight:600;color:#e4e6ef;margin-bottom:4px" id="m-fps-name">Document CCF</div>
+  <div style="font-size:.75rem;color:#6b7280;margin-bottom:20px">FPS / CCF</div>
+  <div style="display:flex;flex-direction:column;gap:8px">
+    <a id="m-fps-open" href="#" target="_blank" style="display:flex;align-items:center;justify-content:center;gap:8px;background:rgba(10,132,255,.18);border:0.5px solid rgba(10,132,255,.35);border-radius:10px;padding:11px 16px;color:#4f8aff;font-size:.88rem;font-weight:600;text-decoration:none">
+      &#128279; Ouvrir le document
+    </a>
+    <button onclick="closeM('m-fps-menu');acc2FpsEdit()" style="display:flex;align-items:center;justify-content:center;gap:8px;background:rgba(255,255,255,.05);border:0.5px solid rgba(255,255,255,.12);border-radius:10px;padding:11px 16px;color:#9aa0b8;font-size:.88rem;cursor:pointer;width:100%">
+      &#9998; Modifier le lien
+    </button>
+    <button onclick="closeM('m-fps-menu')" style="background:none;border:none;color:#636366;font-size:.8rem;cursor:pointer;padding:4px">Annuler</button>
+  </div>
+</div></div>
+
+<div class="mb" id="m-fps-editor"><div class="modal" style="max-width:340px">
+  <div class="modal-title">Modifier le lien FPS/CCF</div>
+  <div style="font-size:.78rem;color:#6b7280;margin-bottom:14px">Colle un lien iCloud Drive, Google Drive ou autre URL</div>
+  <input type="url" id="acc2-fps-url" placeholder="https://..." style="width:100%;background:#13161f;border:1px solid #2a2d3e;border-radius:8px;padding:9px 12px;color:#e4e6ef;font-size:.85rem;box-sizing:border-box;margin-bottom:12px">
+  <div class="modal-acts">
+    <button class="btn btn-g" onclick="closeM('m-fps-editor')">Annuler</button>
+    <button class="btn btn-p" onclick="acc2SaveFpsLink()">Enregistrer</button>
   </div>
 </div></div>
 <script>
@@ -3051,45 +3087,39 @@ function acc2LoadFpsLink(){
 function acc2FpsTap(){
   var url=localStorage.getItem('acc2-fps-url')||'';
   if(!url){acc2FpsEdit();return;}
-  var menu=ge('acc2-fps-menu');
-  if(menu)menu.style.display=menu.style.display==='none'?'flex':'none';
+  var nameEl=ge('m-fps-name');
+  var openEl=ge('m-fps-open');
+  var savedName=ge('acc2-fps-name');
+  if(nameEl&&savedName)nameEl.textContent=savedName.textContent;
+  if(openEl)openEl.href=url;
+  openM('m-fps-menu');
 }
 function acc2FpsEdit(){
-  var menu=ge('acc2-fps-menu');
-  var editor=ge('acc2-fps-editor');
-  if(menu)menu.style.display='none';
-  if(editor)editor.style.display='block';
-  var inp=ge('acc2-fps-url');if(inp){inp.focus();inp.select();}
-}
-function acc2FpsCloseEditor(){
-  var editor=ge('acc2-fps-editor');if(editor)editor.style.display='none';
-  var url=localStorage.getItem('acc2-fps-url')||'';
-  if(url){var menu=ge('acc2-fps-menu');if(menu)menu.style.display='flex';}
+  closeM('m-fps-menu');
+  var inp=ge('acc2-fps-url');
+  if(inp){inp.value=localStorage.getItem('acc2-fps-url')||'';}
+  openM('m-fps-editor');
+  if(inp)setTimeout(function(){inp.focus();inp.select();},200);
 }
 function acc2SaveFpsLink(){
   var inp=ge('acc2-fps-url');if(!inp)return;
   var v=inp.value.trim();
   localStorage.setItem('acc2-fps-url',v);
-  var editor=ge('acc2-fps-editor');if(editor)editor.style.display='none';
+  closeM('m-fps-editor');
   acc2UpdateFpsWidget(v);
+  toast('Lien FPS enregistre','ok');
 }
 function acc2UpdateFpsWidget(url){
-  var lnk=ge('acc2-fps-link');
   var name=ge('acc2-fps-name');
-  var menu=ge('acc2-fps-menu');
   if(url){
     var parts=url.split('/');
     var rawName=decodeURIComponent(parts[parts.length-1]||'').split('?')[0]||'Document CCF';
     if(rawName.length>26)rawName=rawName.substring(0,26)+'…';
     if(name)name.textContent=rawName;
-    if(lnk)lnk.href=url;
-    if(menu)menu.style.display='flex';
   } else {
     if(name)name.textContent='Configurer le lien';
-    if(menu)menu.style.display='none';
   }
 }
-
 function acc2RenderMeteo(){
   fetch('https://api.open-meteo.com/v1/forecast?latitude=45.748&longitude=4.847&current_weather=true')
     .then(function(r){return r.json();}).then(function(d){
