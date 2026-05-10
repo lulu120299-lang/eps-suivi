@@ -804,7 +804,7 @@ textarea{resize:vertical;min-height:70px}
         <div id="gh-status" style="font-size:.65rem;color:#56cfb2"></div>
       </div>
     </div>
-  </div>
+  
   <div class="acc-main">
 
     <!-- Sessions récentes -->
@@ -889,6 +889,7 @@ textarea{resize:vertical;min-height:70px}
     </div>
 
   </div>
+</div>
 <!-- MODALE BIBLIOTHEQUE -->
   <div class="mb-bib" id="mb-bib">
     <div class="bib-modal">
@@ -2796,7 +2797,6 @@ function accLaunchWithoutSync(){
 }
 function accRenderRecent(){var sessions=[];try{sessions=JSON.parse(localStorage.getItem('eps-recent')||'[]');}catch(e){}var zone=ge('acc-recent');if(!sessions.length){zone.style.display='none';return;}zone.style.display='block';var chips=ge('acc-chips');chips.innerHTML='';for(var i=0;i<sessions.length;i++){(function(s){var cls=null;for(var j=0;j<CLASSES.length;j++){if(CLASSES[j].id===s.cls.id){cls=CLASSES[j];break;}}if(!cls)cls=s.cls;var d=new Date(s.ts);var chip=document.createElement('div');chip.className='acc-chip';chip.innerHTML='<div class="dot" style="background:'+(cls.color||'#888')+'"></div><span>'+s.cls.label+'</span><span style="color:#9a9080">-</span><span>'+s.apsa.name+'</span>'+(s.trim?'<span style="font-weight:800;color:#4f8aff">T'+s.trim+'</span>':'')+'<span style="color:#9a9080;font-size:.68rem">'+d.getDate()+'/'+(d.getMonth()+1)+'</span><span class="x">x</span>';chip.querySelector('.x').addEventListener('click',function(e){e.stopPropagation();var ss=[];try{ss=JSON.parse(localStorage.getItem('eps-recent')||'[]');}catch(err){}for(var k=ss.length-1;k>=0;k--){if(ss[k].key===s.key)ss.splice(k,1);}localStorage.setItem('eps-recent',JSON.stringify(ss));accRenderRecent();});chip.addEventListener('click',function(){accLaunch(s.cls,s.apsa,s.trim||1);});chips.appendChild(chip);})(sessions[i]);}}
 function openSuivi(cls,apsa,key,trim){
-  toast('openSuivi appele: '+apsa.name+' T'+trim,'ok');
   CTX={cls:cls,apsa:apsa,key:key,trim:trim};
   STORAGE_KEY=key;
   loadState();
@@ -2826,9 +2826,8 @@ function openSuivi(cls,apsa,key,trim){
   }catch(e){console.log('openSuivi header err:',e.message);}
   ge('pg-acc').style.display='none';
   ge('pg-suivi').style.display='block';
-  toast('Ouverture...','info');
   showView('v-accueil');
-  try{renderAll();toast('OK','ok');}catch(e){toast('Err renderAll: '+e.message,'warn');}
+  try{renderAll();}catch(e){}
   try{initNotesRapides();}catch(e){}
   try{initWidgets();}catch(e){}
   try{bibRenderList('bib-list-seq');}catch(e){}
