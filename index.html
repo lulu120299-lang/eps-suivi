@@ -1240,9 +1240,9 @@ textarea{resize:vertical;min-height:70px}
           <tr id="nt-coeff-row">
             <th style="background:#0d1018;padding:6px 12px;font-size:.65rem;color:#636366;text-transform:uppercase">Coefficient</th>
             <th style="background:#0d1018;padding:6px 10px;text-align:center" colspan="3"></th>
-            <th style="background:#0d1018;padding:6px 10px;text-align:center"><input type="number" id="coeff-qte" min="0" max="10" step="0.5" value="1" style="width:44px;background:#1c1f2c;border:1px solid #2a2d3e;border-radius:5px;padding:3px 5px;color:#ffd166;font-size:.75rem;text-align:center" onchange="renderNotes()"></th>
+            <th style="background:#0d1018;padding:6px 10px;text-align:center"><input type="number" id="coeff-qte" min="0" max="10" step="0.5" value="1" style="width:44px;background:#1c1f2c;border:1px solid #2a2d3e;border-radius:5px;padding:3px 5px;color:#ffd166;font-size:.75rem;text-align:center" onchange="localStorage.setItem('coeff-qte-'+STORAGE_KEY,this.value);renderNotes()"></th>
             <th id="coeff-autre-cells" style="background:#0d1018;padding:6px 10px;text-align:center"></th>
-            <th style="background:#0d1018;padding:6px 10px;text-align:center"><input type="number" id="coeff-fps" min="0" max="10" step="0.5" value="1" style="width:44px;background:#1c1f2c;border:1px solid #2a2d3e;border-radius:5px;padding:3px 5px;color:#4f8aff;font-size:.75rem;text-align:center" onchange="renderNotes()"></th>
+            <th style="background:#0d1018;padding:6px 10px;text-align:center"><input type="number" id="coeff-fps" min="0" max="10" step="0.5" value="1" style="width:44px;background:#1c1f2c;border:1px solid #2a2d3e;border-radius:5px;padding:3px 5px;color:#4f8aff;font-size:.75rem;text-align:center" onchange="localStorage.setItem('coeff-fps-'+STORAGE_KEY,this.value);renderNotes()"></th>
             <th style="background:#0d1018;padding:6px 10px;text-align:center"></th>
           </tr>
           <tr><th>Eleve</th><th>Presences</th><th>Absences</th><th>Dispense</th><th>Qte travail /10</th><th id="autre-eval-cols-header"></th><th>Note FPS /20</th><th style="color:#56cfb2">Moyenne /20</th></tr>
@@ -4449,58 +4449,113 @@ function exportBilanPDF(){
   var f=CTX.cls?CTX.cls.filiere:'bacpro';
   var clsLabel=CTX.cls?CTX.cls.label:'';
   var apsaLabel=CTX.apsa?CTX.apsa.ca+' - '+CTX.apsa.name:'';
+  var aflpData=CTX.apsa?(AFLP[f]||AFLP.bacpro)[CTX.apsa.caFull]:null;
   var autreEvals=state.autreEvals||[];
-  var coeffQte=parseFloat((ge('coeff-qte')&&ge('coeff-qte').value)||1)||1;
-  var coeffFps=parseFloat((ge('coeff-fps')&&ge('coeff-fps').value)||1)||1;
+  var coeffQte=parseFloat(localStorage.getItem('coeff-qte-'+STORAGE_KEY)||1)||1;
+  var coeffFps=parseFloat(localStorage.getItem('coeff-fps-'+STORAGE_KEY)||1)||1;
   var sorted=state.eleves.slice().sort(function(a,b){return a.nom.localeCompare(b.nom);});
+  var seances=state.seances.slice().sort(function(a,b){return (a.num||0)-(b.num||0);});
+  var compD=compGetData();
+  var degColors=['','#c0392b','#e67e22','#2980b9','#27ae60'];
+  var degNames=['','Insuffisant','Fragile','Satisfaisant','Tres bien'];
 
   var h='<!DOCTYPE html><html><head><meta charset="utf-8">';
-  h+='<style>body{font-family:Arial,sans-serif;font-size:11px;color:#111;margin:20px}';
-  h+='h2{font-size:15px;margin-bottom:4px}p{margin:0 0 12px;color:#555;font-size:12px}';
-  h+='table{width:100%;border-collapse:collapse}th{background:#1a1a2e;color:#fff;padding:6px 8px;text-align:left;font-size:10px}';
-  h+='td{padding:5px 8px;border-bottom:1px solid #eee;font-size:11px}tr:nth-child(even) td{background:#f9f9f9}';
-  h+='.coeff{background:#2c3e50;color:#fff;padding:3px 8px;font-size:10px;font-style:italic}';
+  h+='<style>body{font-family:Arial,sans-serif;font-size:11px;color:#111;margin:24px}';
+  h+='h2{font-size:16px;margin:0 0 4px;color:#1a1a2e}';
+  h+='.sub{font-size:11px;color:#666;margin:0 0 16px}';
+  h+='h3{font-size:13px;margin:20px 0 8px;color:#1a1a2e;border-bottom:2px solid #4f8aff;padding-bottom:4px}';
+  h+='table{width:100%;border-collapse:collapse;margin-bottom:8px}';
+  h+='th{background:#1a1a2e;color:#fff;padding:6px 8px;text-align:left;font-size:10px;white-space:nowrap}';
+  h+='td{padding:5px 8px;border-bottom:1px solid #eee;font-size:11px}';
+  h+='tr:nth-child(even) td{background:#f9f9f9}';
+  h+='.badge{display:inline-block;padding:2px 7px;border-radius:8px;font-size:10px;font-weight:700}';
+  h+='.coeff-row td{background:#f0f4ff;font-style:italic;font-size:10px;color:#555}';
+  h+='@media print{body{margin:0}h3{page-break-before:auto}}';
   h+='</style></head><body>';
-  h+='<h2>Bilan — '+esc(apsaLabel)+'</h2><p>'+esc(clsLabel)+' | Export du '+new Date().toLocaleDateString('fr-FR')+'</p>';
+  h+='<h2>Bilan — '+esc(apsaLabel)+'</h2>';
+  h+='<div class="sub">'+esc(clsLabel)+' | Export du '+new Date().toLocaleDateString('fr-FR')+'</div>';
 
-  // Ligne coefficients
+  // ══ TABLEAU 1 : Compétences AFLP ══
+  if(aflpData){
+    h+='<h3>Suivi des comp&eacute;tences AFLP</h3>';
+    var workedAflp=aflpData.items.filter(function(it){return seances.some(function(s){return (s.aflpTravailles||[]).indexOf(it.n)>=0;});});
+    h+='<table><thead><tr><th>El&egrave;ve</th>';
+    workedAflp.forEach(function(it){h+='<th>'+esc(it.n)+'</th>';});
+    h+='</tr></thead><tbody>';
+    sorted.forEach(function(e){
+      h+='<tr><td><strong>'+esc(e.nom)+'</strong>'+(e.amenagement?'<br><small style="color:#e67e22">'+esc(e.amenagement)+'</small>':'')+'</td>';
+      workedAflp.forEach(function(it){
+        var last=0;
+        seances.forEach(function(s){var ck=s.id+'__'+it.n+'__'+e.id;if(compD[ck]>0)last=compD[ck];});
+        if(last>0){var col=degColors[last];h+='<td><span class="badge" style="background:'+col+'22;color:'+col+';border:1px solid '+col+'55">'+degNames[last]+'</span></td>';}
+        else h+='<td style="color:#ccc">—</td>';
+      });
+      h+='</tr>';
+    });
+    h+='</tbody></table>';
+  }
+
+  // ══ TABLEAU 2 : Grille FPS ══
+  var aflps=geGetAflps();
+  if(aflps.length){
+    h+='<h3>Grille FPS / CCF</h3>';
+    h+='<table><thead><tr><th>El&egrave;ve</th>';
+    aflps.forEach(function(a){h+='<th>'+esc(a.label)+'<br><small>/'+a.maxPts+'pts</small></th>';});
+    h+='<th>Total</th><th>Note /20</th></tr></thead><tbody>';
+    sorted.forEach(function(e){
+      h+='<tr><td><strong>'+esc(e.nom)+'</strong></td>';
+      var eidNotes=GE_NOTES[e.id]||(state.grilleNotes&&state.grilleNotes[e.id])||{};
+      aflps.forEach(function(a){
+        var entry=eidNotes[a.id]||{};var deg=entry.deg||0;
+        var slider=entry.slider!=null?entry.slider:(deg>0?a.ranges[deg-1][0]:0);
+        if(deg>0){var col=degColors[Math.min(deg,4)];h+='<td><span class="badge" style="background:'+col+'22;color:'+col+';border:1px solid '+col+'55">D'+deg+' ('+slider+'pts)</span></td>';}
+        else h+='<td style="color:#ccc">—</td>';
+      });
+      var total=geCalcTotal(e.id);var note=geCalcNote(e.id);
+      h+='<td style="font-weight:700">'+total+'</td>';
+      h+='<td style="font-weight:700;color:'+(note>0?(note>=14?'#27ae60':note>=10?'#2980b9':'#c0392b'):'#999')+'">'+(note>0?note+' /20':'—')+'</td>';
+      h+='</tr>';
+    });
+    h+='</tbody></table>';
+  }
+
+  // ══ TABLEAU 3 : Présences et notes ══
+  h+='<h3>Pr&eacute;sences et notes</h3>';
   h+='<table><thead>';
-  h+='<tr class="coeff"><td>Coefficients</td><td colspan="3"></td>';
-  h+='<td>×'+coeffQte+'</td>';
-  autreEvals.forEach(function(ev){h+='<td>×'+(ev.coeff||1)+'</td>';});
-  h+='<td>×'+coeffFps+'</td><td></td></tr>';
-
-  // En-têtes
-  h+='<tr><th>Élève</th><th>Prés.</th><th>Abs.</th><th>Disp.</th><th>Qté /10</th>';
+  h+='<tr class="coeff-row"><td>Coefficients</td><td colspan="3"></td><td>x'+coeffQte+'</td>';
+  autreEvals.forEach(function(ev){h+='<td>x'+(ev.coeff||1)+'</td>';});
+  h+='<td>x'+coeffFps+'</td><td></td></tr>';
+  h+='<tr><th>El&egrave;ve</th><th>Pr&eacute;s.</th><th>Abs.</th><th>Disp.</th><th>Qt&eacute; /10</th>';
   autreEvals.forEach(function(ev){h+='<th>'+esc(ev.objet||ev.date||'Eval')+'</th>';});
-  h+='<th>Note FPS /20</th><th>Moyenne /20</th></tr></thead><tbody>';
-
+  h+='<th>Note FPS /20</th><th style="background:#1e3a2e">Moyenne /20</th></tr>';
+  h+='</thead><tbody>';
   sorted.forEach(function(e){
     var pres=0,abs=0,disp=0,qtes=[];
-    for(var j=0;j<state.seances.length;j++){
-      var st=(state.presences[state.seances[j].id]||{})[e.id]||'';
+    for(var j=0;j<seances.length;j++){
+      var st=(state.presences[seances[j].id]||{})[e.id]||'';
       if(st==='Present')pres++;else if(st==='Absent')abs++;else if(st==='Dispense')disp++;
-      var ae=(state.autoEval&&state.autoEval[state.seances[j].id]||{})[e.id]||{};
+      var ae=(state.autoEval&&state.autoEval[seances[j].id]||{})[e.id]||{};
       if(ae.qte!==undefined&&ae.qte!=='')qtes.push(parseFloat(ae.qte));
     }
     var mQraw=qtes.length>0?(qtes.reduce(function(a,b){return a+b;},0)/qtes.length*10/4):null;
     var mQ=mQraw!==null?mQraw.toFixed(1):null;
-    var fpsnote=(typeof geCalcNote==='function')?geCalcNote(e.id):0;
+    var fpsnote=geCalcNote(e.id);
     var totalPts=0,totalCoeff=0;
     if(mQ!==null){totalPts+=parseFloat(mQ)*coeffQte;totalCoeff+=coeffQte;}
     h+='<tr><td><strong>'+esc(e.nom)+'</strong></td>';
-    h+='<td>'+pres+'</td><td>'+abs+'</td><td>'+disp+'</td>';
-    h+='<td>'+(mQ!==null?mQ+'/10':'—')+'</td>';
+    h+='<td style="text-align:center">'+pres+'</td><td style="text-align:center">'+abs+'</td><td style="text-align:center">'+disp+'</td>';
+    h+='<td style="text-align:center">'+(mQ!==null?mQ+'/10':'—')+'</td>';
     autreEvals.forEach(function(ev){
       var note=(ev.notes&&ev.notes[e.id]!=null&&ev.notes[e.id]!=='')?parseFloat(ev.notes[e.id]):null;
       var coeff=parseFloat(ev.coeff||1)||1;
       if(note!==null){totalPts+=note*coeff;totalCoeff+=coeff;}
-      h+='<td>'+(note!==null?note:'—')+'</td>';
+      h+='<td style="text-align:center">'+(note!==null?note:'—')+'</td>';
     });
     if(fpsnote>0){totalPts+=fpsnote*coeffFps;totalCoeff+=coeffFps;}
     var moy=totalCoeff>0?(totalPts/totalCoeff).toFixed(1):null;
-    h+='<td>'+(fpsnote>0?'<strong>'+fpsnote+' /20</strong>':'—')+'</td>';
-    h+='<td style="font-weight:700;color:'+(moy?(parseFloat(moy)>=14?'#27ae60':parseFloat(moy)>=10?'#2980b9':'#c0392b'):'#999')+'">'+(moy?moy+' /20':'—')+'</td>';
+    var moyCol=moy?(parseFloat(moy)>=14?'#27ae60':parseFloat(moy)>=10?'#2980b9':'#c0392b'):'#999';
+    h+='<td style="text-align:center;font-weight:700">'+(fpsnote>0?fpsnote+' /20':'—')+'</td>';
+    h+='<td style="text-align:center;font-weight:700;color:'+moyCol+'">'+(moy?moy+' /20':'—')+'</td>';
     h+='</tr>';
   });
   h+='</tbody></table></body></html>';
