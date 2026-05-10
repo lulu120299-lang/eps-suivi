@@ -783,12 +783,12 @@ textarea{resize:vertical;min-height:70px}
     </div>
   </div>
   <div class="acc-main">
-    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.2rem;padding:.6rem .9rem;background:rgba(255,255,255,.04);border:0.5px solid rgba(255,255,255,.08);border-radius:10px">
-      <div id="gh-status" style="font-size:.75rem;color:#56cfb2;flex:1"></div>
-      <div style="display:flex;gap:8px">
-        <button onclick="ghPull()" style="font-size:.75rem;background:rgba(86,207,178,.12);border:0.5px solid rgba(86,207,178,.3);border-radius:6px;padding:5px 12px;color:#56cfb2;cursor:pointer">&#8595; Synchroniser</button>
-        <button onclick="ghPushClasses()" style="font-size:.75rem;background:rgba(255,255,255,.06);border:0.5px solid rgba(255,255,255,.12);border-radius:6px;padding:5px 12px;color:#9aa0b8;cursor:pointer">&#8593; Classes</button>
-      </div>
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:1.4rem;padding:.65rem 1rem;background:rgba(255,255,255,.04);border:0.5px solid rgba(255,255,255,.08);border-radius:12px">
+      <div style="width:8px;height:8px;border-radius:50%;background:#56cfb2;flex-shrink:0;box-shadow:0 0 6px #56cfb2aa" id="gh-dot"></div>
+      <div id="gh-status" style="font-size:.78rem;color:#9aa0b8;flex:1">Non synchronisé</div>
+      <button onclick="ghPull()" style="display:flex;align-items:center;gap:6px;font-size:.78rem;font-weight:600;background:rgba(86,207,178,.12);border:0.5px solid rgba(86,207,178,.3);border-radius:8px;padding:6px 14px;color:#56cfb2;cursor:pointer;white-space:nowrap">
+        <span style="font-size:14px">&#8645;</span> Synchroniser
+      </button>
     </div>
     <div id="acc-sq-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:14px;padding:0 0 2rem"></div>
     <div style="display:none" aria-hidden="true">
@@ -1914,13 +1914,12 @@ function objAssign(a,b){var r={};for(var k in a)if(a.hasOwnProperty(k))r[k]=a[k]
 function esc(s){if(s===null||s===undefined)return'';s=String(s);return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
 function fmtDate(d){if(!d)return'';var p=d.split('-');var M=['jan.','fev.','mars','avr.','mai','juin','juil.','aout','sept.','oct.','nov.','dec.'];return parseInt(p[2])+' '+M[parseInt(p[1])-1]+' '+p[0];}
 function toast(msg,type){type=type||'ok';var t=ge('_toast');if(!t){t=document.createElement('div');t.id='_toast';t.style.cssText='position:fixed;bottom:24px;right:24px;z-index:9999;padding:10px 18px;border-radius:9px;font-size:.85rem;font-weight:500;pointer-events:none;transition:opacity .3s;opacity:0';document.body.appendChild(t);}var c={ok:'#56cfb2',err:'#ff6b6b',warn:'#ffd166',info:'#4f8aff'};var col=c[type]||c.ok;t.style.background=col+'20';t.style.border='1px solid '+col;t.style.color=col;t.textContent=msg;t.style.opacity='1';clearTimeout(t._t);t._t=setTimeout(function(){t.style.opacity='0';},3400);}
-function ghLoadConfig(){try{var s=localStorage.getItem('eps-gh');if(s)GH=JSON.parse(s);}catch(e){}if(GH.token)ge('gh-token').value=GH.token;if(GH.repo)ge('gh-repo').value=GH.repo;ge('gh-status').innerHTML=GH.token&&GH.repo?'<span style="color:#56cfb2">Connecte : '+GH.repo+'</span>':'<span style="color:#ffd166">Configurez votre token et repo</span>';}
+function ghLoadConfig(){try{var s=localStorage.getItem('eps-gh');if(s)GH=JSON.parse(s);}catch(e){}if(GH.token)ge('gh-token').value=GH.token;if(GH.repo)ge('gh-repo').value=GH.repo;var _dot=ge('gh-dot');var _st=ge('gh-status');if(GH.token&&GH.repo){if(_dot)_dot.style.background='#56cfb2';if(_st)_st.textContent=GH.repo;}else{if(_dot){_dot.style.background='#ffd166';_dot.style.boxShadow='0 0 6px #ffd166aa';}if(_st)_st.textContent='GitHub non configuré';}}
 function ghSaveConfig(){GH.token=ge('gh-token').value.trim();GH.repo=ge('gh-repo').value.trim();localStorage.setItem('eps-gh',JSON.stringify(GH));ghLoadConfig();toast('GitHub enregistre');}
 function ghPushClasses(){
   if(!GH.token||!GH.repo){toast('GitHub non configuré - classes sauvegardées localement','warn');return;}
   ghPushFile('data/classes.json',CLASSES,function(){
-    ge('gh-status').innerHTML='<span style="color:#56cfb2">Classes sync OK</span>';
-    setTimeout(function(){ghLoadConfig();},2000);
+    toast('Classes synchronisées ✓','ok');ghLoadConfig();
   });
 }
 function ghPullClasses(onDone){
