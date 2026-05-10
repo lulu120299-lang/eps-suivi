@@ -1917,7 +1917,7 @@ function toast(msg,type){type=type||'ok';var t=ge('_toast');if(!t){t=document.cr
 function ghLoadConfig(){try{var s=localStorage.getItem('eps-gh');if(s)GH=JSON.parse(s);}catch(e){}if(GH.token)ge('gh-token').value=GH.token;if(GH.repo)ge('gh-repo').value=GH.repo;ge('gh-status').innerHTML=GH.token&&GH.repo?'<span style="color:#56cfb2">Connecte : '+GH.repo+'</span>':'<span style="color:#ffd166">Configurez votre token et repo</span>';}
 function ghSaveConfig(){GH.token=ge('gh-token').value.trim();GH.repo=ge('gh-repo').value.trim();localStorage.setItem('eps-gh',JSON.stringify(GH));ghLoadConfig();toast('GitHub enregistre');}
 function ghPushClasses(){
-  if(!GH.token||!GH.repo)return;
+  if(!GH.token||!GH.repo){toast('GitHub non configuré - classes sauvegardées localement','warn');return;}
   ghPushFile('data/classes.json',CLASSES,function(){
     ge('gh-status').innerHTML='<span style="color:#56cfb2">Classes sync OK</span>';
     setTimeout(function(){ghLoadConfig();},2000);
@@ -2272,8 +2272,12 @@ function saveNewCls(){
   ghPushClasses();
   closeM('m-add-cls');
   accRenderClsGrid();
-  accPickCls(id);
-  toast('Classe "'+nom+'" ajoutee !');
+  try{accPickCls(id);}catch(ex){}
+  toast('Classe "'+nom+'" ajoutée !');
+  // Réouvrir la modale nouvelle séquence si elle était ouverte
+  if(document.getElementById('m-new-seq')&&!document.getElementById('m-new-seq').classList.contains('open')){
+    setTimeout(function(){nsOpenModal();},300);
+  }
 }
 
 function openM(id){
@@ -2820,7 +2824,7 @@ function accInit(){var now=new Date();var J=['Dimanche','Lundi','Mardi','Mercred
   var pullClsBtn=ge('btn-gh-pull-cls');
   if(pullClsBtn)pullClsBtn.addEventListener('click',function(){ghPullClasses(null);});
 }
-function accPickCls(id){if(window.accIsScrolling&&window.accIsScrolling())return;selCls=null;for(var i=0;i<CLASSES.length;i++){if(CLASSES[i].id===id){selCls=CLASSES[i];break;}}var els=document.querySelectorAll('.acc-cls');for(var i=0;i<els.length;i++)els[i].classList.remove('sel');ge('cl-'+id).classList.add('sel');accUpd();}
+function accPickCls(id){if(window.accIsScrolling&&window.accIsScrolling())return;selCls=null;for(var i=0;i<CLASSES.length;i++){if(CLASSES[i].id===id){selCls=CLASSES[i];break;}}var els=document.querySelectorAll('.acc-cls');for(var i=0;i<els.length;i++)els[i].classList.remove('sel');var _clEl=ge('cl-'+id);if(_clEl)_clEl.classList.add('sel');accUpd();}
 function accPickApsa(id){if(window.accIsScrolling&&window.accIsScrolling())return;selApsa=null;for(var i=0;i<APSA_FLAT.length;i++){if(APSA_FLAT[i].id===id){selApsa=APSA_FLAT[i];break;}}ge('acc-custom-input').value='';var els=document.querySelectorAll('.acc-apsa');for(var i=0;i<els.length;i++)els[i].classList.remove('sel');ge('ap-'+id).classList.add('sel');accUpd();showAccAflp(selApsa);}
 function accPickTrim(n){selTrim=n;var els=document.querySelectorAll('.acc-trim');for(var i=0;i<els.length;i++)els[i].classList.remove('sel');ge('tr-'+n).classList.add('sel');accUpd();}
 function accCustom(v){selApsa=v.trim()?{id:'custom',name:v.trim(),ca:'CA?',caFull:'CA4',emoji:'&#127957;',caColor:'#6b7280'}:null;var els=document.querySelectorAll('.acc-apsa');for(var i=0;i<els.length;i++)els[i].classList.remove('sel');accUpd();if(selApsa)showAccAflp(selApsa);else ge('aflp-acc-zone').style.display='none';}
