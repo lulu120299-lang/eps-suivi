@@ -199,6 +199,27 @@ html,body{overflow-x:hidden;max-width:100vw}body{font-family:"DM Sans",sans-seri
 .ge-prog-fill{height:100%;border-radius:2px;background:#4f8aff;transition:width .3s}
 .ge-prog-lbl{font-size:.65rem;color:#6b7280}
 .acc2-sbox{flex:1;border-radius:10px;padding:9px 4px 7px;cursor:pointer;display:flex;flex-direction:column;align-items:center;border:1.5px solid transparent;transition:all .12s}.acc2-sbox.done{background:#1a2a1a;border-color:#30d158}.acc2-sbox.active{background:#1a2038;border-color:#0a84ff}.acc2-sbox.future{background:#2c2c2e;border-color:#3a3a3c}.acc2-sbox-num{font-size:12px;font-weight:700;font-family:monospace}.acc2-sbox-num.done{color:#30d158}.acc2-sbox-num.active{color:#0a84ff}.acc2-sbox-num.future{color:#48484a}.acc2-sbox-lbl{font-size:9px;color:#48484a;text-align:center;margin-top:3px}.acc2-trame-bloc{display:flex;align-items:center;justify-content:center;border-radius:6px;font-size:11px;font-weight:600;text-align:center;cursor:pointer;padding:4px 8px;overflow:hidden;transition:opacity .12s;color:#fff}.acc2-trame-bloc:hover{opacity:.82}
+
+/* Cartes carrées APSA */
+.apsa-sq-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:10px;margin-bottom:1rem}
+.apsa-sq-card{aspect-ratio:1;border-radius:12px;padding:12px;display:flex;flex-direction:column;justify-content:space-between;cursor:pointer;transition:transform .12s,box-shadow .12s;user-select:none;border:2px solid transparent}
+.apsa-sq-card:hover{transform:scale(1.04)}
+.apsa-sq-card:active{transform:scale(.96)}
+.apsa-sq-card.selected{box-shadow:0 0 0 3px #fff;transform:scale(1.04)}
+.apsa-sq-badge{font-size:9px;font-weight:700;background:rgba(255,255,255,.2);color:rgba(255,255,255,.9);padding:2px 7px;border-radius:4px;display:inline-block;margin-bottom:4px}
+.apsa-sq-emoji{font-size:20px;display:block;margin-bottom:4px}
+.apsa-sq-name{font-size:11px;font-weight:600;color:#fff;margin:0;line-height:1.3}
+.apsa-sq-ca-group{margin-bottom:1.2rem}
+.apsa-sq-ca-label{font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-bottom:.5rem;display:flex;align-items:center;gap:6px}
+/* Cartes récentes */
+.acc-sq-recent{aspect-ratio:1;border-radius:12px;padding:12px;display:flex;flex-direction:column;justify-content:space-between;cursor:pointer;transition:transform .12s;user-select:none;position:relative}
+.acc-sq-recent:hover{transform:scale(1.04)}
+.acc-sq-recent-badge{font-size:9px;font-weight:700;background:rgba(255,255,255,.2);color:rgba(255,255,255,.9);padding:2px 7px;border-radius:4px;display:inline-block;margin-bottom:4px}
+.acc-sq-recent-emoji{font-size:18px;display:block;margin-bottom:4px}
+.acc-sq-recent-name{font-size:11px;font-weight:600;color:#fff;margin:0 0 2px;line-height:1.3}
+.acc-sq-recent-sub{font-size:10px;color:rgba(255,255,255,.65);margin:0}
+.acc-sq-bar-bg{height:3px;background:rgba(255,255,255,.2);border-radius:2px;overflow:hidden;margin-top:6px}
+.acc-sq-bar{height:100%;border-radius:2px;background:rgba(255,255,255,.8)}
 .acc-recent{margin-top:2rem;padding-top:1.5rem;border-top:1px solid #1a1f30}
 .acc-recent-title{font-family:"JetBrains Mono",monospace;font-size:.6rem;text-transform:uppercase;letter-spacing:.18em;color:#4a5070;margin-bottom:.75rem;font-weight:700}
 .acc-chips{display:flex;flex-wrap:wrap;gap:7px}
@@ -786,65 +807,89 @@ textarea{resize:vertical;min-height:70px}
   </div>
   <div class="acc-main">
 
-    <div class="acc-steps">
-      <div class="acc-step active" id="acc-s1"><div class="acc-step-num">1</div>Classe</div>
-      <div class="acc-step-line"></div>
-      <div class="acc-step" id="acc-s2"><div class="acc-step-num">2</div>APSA</div>
-      <div class="acc-step-line"></div>
-      <div class="acc-step" id="acc-s3"><div class="acc-step-num">3</div>Trimestre</div>
-      <div class="acc-step-line"></div>
-      <div class="acc-step" id="acc-s4"><div class="acc-step-num">4</div>Ouvrir</div>
-    </div>
-    <div class="acc-sec-tag">Etape 1</div>
-    <div class="acc-sec-title">Quelle classe ?</div>
-    <div class="acc-cls-grid" id="acc-cls-grid"></div>
-    <div class="acc-divider"></div>
-    <div class="acc-sec-tag">Etape 2 - par Champ d'apprentissage</div>
-    <div class="acc-sec-title">Quelle APSA ?</div>
-    <div id="acc-apsa-container"></div>
-    <div class="acc-custom"><span>Autre APSA :</span><input type="text" id="acc-custom-input" placeholder="Ex: Natation..."></div>
-    <div class="acc-divider"></div>
-    <div class="acc-sec-tag">Etape 3</div>
-    <div class="acc-sec-title">Quel trimestre ?</div>
-    <div class="trim-grid">
-      <div class="acc-trim" id="tr-1" style="--tc:#4f8aff"><div class="acc-trim-num">T1</div><div class="acc-trim-label">Trimestre 1</div></div>
-      <div class="acc-trim" id="tr-2" style="--tc:#56cfb2"><div class="acc-trim-num">T2</div><div class="acc-trim-label">Trimestre 2</div></div>
-      <div class="acc-trim" id="tr-3" style="--tc:#ffd166"><div class="acc-trim-num">T3</div><div class="acc-trim-label">Trimestre 3</div></div>
-    </div>
-    <div class="acc-divider"></div>
-    <div id="aflp-acc-zone" style="display:none">
-      <div class="acc-sec-tag">Attendus de fin de lycee professionnel</div>
-      <div class="acc-sec-title" id="aflp-acc-sec-title"></div>
-      <div class="aflp-acc-box">
-        <div class="aflp-acc-title">Programme EPS voie professionnelle - BO 2019</div>
-        <div class="aflp-acc-ca-title" id="aflp-acc-ca-title"></div>
-        <div class="aflp-acc-list" id="aflp-acc-list"></div>
+    <!-- Sessions récentes -->
+    <div id="acc-recent-cards" style="display:none;margin-bottom:2rem">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem">
+        <div class="acc-sec-tag" style="margin:0">Sessions récentes</div>
+        <button onclick="accShowNew()" style="font-size:.75rem;background:rgba(79,138,255,.12);border:0.5px solid rgba(79,138,255,.3);border-radius:6px;padding:4px 12px;color:#4f8aff;cursor:pointer">+ Nouvelle séquence</button>
       </div>
-      <div class="acc-divider"></div>
+      <div id="acc-recent-sq-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:12px"></div>
     </div>
-    <div class="acc-cta">
-      <div>
-        <div class="acc-sum-lbl">Selection</div>
-        <div class="acc-sum-val" id="acc-sum">Choisissez une classe, une APSA et un trimestre</div>
+
+    <!-- Nouvelle séquence (stepper) -->
+    <div id="acc-new-flow">
+      <!-- Étape 1 : Classe -->
+      <div id="acc-flow-s1">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:.75rem">
+          <div><div class="acc-sec-tag" style="margin:0">Étape 1 / 3</div><div class="acc-sec-title" style="margin:.3rem 0 0">Quelle classe ?</div></div>
+          <div id="acc-back-recent" style="display:none"><button onclick="accShowRecent()" style="font-size:.75rem;background:rgba(255,255,255,.06);border:0.5px solid rgba(255,255,255,.15);border-radius:6px;padding:4px 12px;color:#6b7280;cursor:pointer">← Retour</button></div>
+        </div>
+        <div id="acc-cls-grid" class="acc-cls-grid"></div>
+        <div id="acc-no-cls" style="display:none;text-align:center;padding:2rem;background:rgba(255,255,255,.03);border:1.5px dashed rgba(255,255,255,.1);border-radius:12px;margin-bottom:1rem">
+          <div style="font-size:2rem;margin-bottom:.5rem">🏫</div>
+          <div style="font-size:.9rem;color:#9aa0b8;margin-bottom:1rem">Aucune classe configurée</div>
+          <button onclick="openM('m-add-cls')" style="background:rgba(79,138,255,.15);border:0.5px solid rgba(79,138,255,.3);border-radius:8px;padding:8px 20px;color:#4f8aff;font-size:.85rem;font-weight:600;cursor:pointer">+ Ajouter une classe</button>
+        </div>
+        <div style="margin-top:.75rem;display:flex;align-items:center;gap:.5rem">
+          <button onclick="openM('m-add-cls')" style="font-size:.72rem;background:rgba(255,255,255,.04);border:0.5px solid rgba(255,255,255,.1);border-radius:6px;padding:4px 10px;color:#6b7280;cursor:pointer">+ Ajouter une classe</button>
+          <button id="btn-pull-cls" style="font-size:.72rem;background:rgba(86,207,178,.08);border:0.5px solid rgba(86,207,178,.2);border-radius:6px;padding:4px 10px;color:#56cfb2;cursor:pointer">↓ Importer depuis GitHub</button>
+        </div>
       </div>
-      <button class="acc-btn" id="acc-btn" disabled>Ouvrir le suivi</button>
-    </div>
-    <div class="acc-recent" id="acc-recent" style="display:none">
-      <div class="acc-recent-title">Sessions recentes</div>
-      <div class="acc-chips" id="acc-chips"></div>
-    </div>
-    <div class="acc-biblio">
-      <div class="acc-biblio-header">
-        <div class="acc-biblio-title">&#128218; Bibliotheque de situations</div>
-        <div style="display:flex;gap:6px">
-          <button class="acc-biblio-btn" style="background:rgba(86,207,178,.15);border-color:rgba(86,207,178,.3);color:#56cfb2" onclick="bibPull()">&#8595; Sync</button>
-          <button class="acc-biblio-btn" id="btn-open-biblio" onclick="openBiblio()">Ouvrir &#8594;</button>
+
+      <!-- Étape 2 : APSA -->
+      <div id="acc-flow-s2" style="display:none">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:.75rem">
+          <div><div class="acc-sec-tag" style="margin:0">Étape 2 / 3</div><div class="acc-sec-title" style="margin:.3rem 0 0">Quelle APSA ?</div></div>
+          <button onclick="accFlowBack(1)" style="font-size:.75rem;background:rgba(255,255,255,.06);border:0.5px solid rgba(255,255,255,.15);border-radius:6px;padding:4px 12px;color:#6b7280;cursor:pointer">← Retour</button>
+        </div>
+        <div id="acc-apsa-sq-container"></div>
+        <div class="acc-custom" style="margin-top:.75rem"><span>Autre APSA :</span><input type="text" id="acc-custom-input" placeholder="Ex: Natation..."></div>
+      </div>
+
+      <!-- Étape 3 : Trimestre -->
+      <div id="acc-flow-s3" style="display:none">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:.75rem">
+          <div><div class="acc-sec-tag" style="margin:0">Étape 3 / 3</div><div class="acc-sec-title" style="margin:.3rem 0 0">Quel trimestre ?</div></div>
+          <button onclick="accFlowBack(2)" style="font-size:.75rem;background:rgba(255,255,255,.06);border:0.5px solid rgba(255,255,255,.15);border-radius:6px;padding:4px 12px;color:#6b7280;cursor:pointer">← Retour</button>
+        </div>
+        <div class="trim-grid">
+          <div class="acc-trim" id="tr-1" style="--tc:#4f8aff" onclick="accSelTrim(1)"><div class="acc-trim-num">T1</div><div class="acc-trim-label">Trimestre 1</div></div>
+          <div class="acc-trim" id="tr-2" style="--tc:#56cfb2" onclick="accSelTrim(2)"><div class="acc-trim-num">T2</div><div class="acc-trim-label">Trimestre 2</div></div>
+          <div class="acc-trim" id="tr-3" style="--tc:#ffd166" onclick="accSelTrim(3)"><div class="acc-trim-num">T3</div><div class="acc-trim-label">Trimestre 3</div></div>
+        </div>
+        <!-- Récap + AFLP -->
+        <div id="aflp-acc-zone" style="display:none;margin-top:1.5rem">
+          <div class="acc-sec-tag">Attendus de fin de lycée professionnel</div>
+          <div class="acc-sec-title" id="aflp-acc-sec-title"></div>
+          <div class="aflp-acc-box">
+            <div class="aflp-acc-title">Programme EPS voie professionnelle - BO 2019</div>
+            <div class="aflp-acc-ca-title" id="aflp-acc-ca-title"></div>
+            <div class="aflp-acc-list" id="aflp-acc-list"></div>
+          </div>
+        </div>
+        <div class="acc-cta" style="margin-top:1.5rem">
+          <div>
+            <div class="acc-sum-lbl">Sélection</div>
+            <div class="acc-sum-val" id="acc-sum">Choisissez une classe, une APSA et un trimestre</div>
+          </div>
+          <button class="acc-btn" id="acc-btn" disabled>Ouvrir le suivi</button>
         </div>
       </div>
     </div>
+
+    <!-- Bibliothèque -->
+    <div class="acc-biblio">
+      <div class="acc-biblio-header">
+        <div class="acc-biblio-title">📚 Bibliothèque de situations</div>
+        <div style="display:flex;gap:6px">
+          <button class="acc-biblio-btn" style="background:rgba(86,207,178,.15);border-color:rgba(86,207,178,.3);color:#56cfb2" onclick="bibPull()">↓ Sync</button>
+          <button class="acc-biblio-btn" id="btn-open-biblio" onclick="openBiblio()">Ouvrir →</button>
+        </div>
+      </div>
+    </div>
+
   </div>
-</div>
-  <!-- MODALE BIBLIOTHEQUE -->
+<!-- MODALE BIBLIOTHEQUE -->
   <div class="mb-bib" id="mb-bib">
     <div class="bib-modal">
       <div class="bib-modal-header">
@@ -2162,47 +2207,142 @@ function addAttachItem(list,nom,type,dataUrl,pid,mode){
   });
   row.appendChild(del);list.appendChild(row);
 }
+
+function accFlowShow(step){
+  ge('acc-flow-s1').style.display=step===1?'block':'none';
+  ge('acc-flow-s2').style.display=step===2?'block':'none';
+  ge('acc-flow-s3').style.display=step===3?'block':'none';
+}
+function accFlowBack(toStep){accFlowShow(toStep);}
+function accShowNew(){
+  ge('acc-recent-cards').style.display='none';
+  ge('acc-new-flow').style.display='block';
+  ge('acc-back-recent').style.display='block';
+}
+function accShowRecent(){
+  ge('acc-recent-cards').style.display='block';
+  ge('acc-new-flow').style.display='none';
+}
+
+function accRenderRecentCards(){
+  var sessions=[];
+  try{sessions=JSON.parse(localStorage.getItem('eps-recent')||'[]');}catch(e){}
+  var zone=ge('acc-recent-cards');
+  var grid=ge('acc-recent-sq-grid');
+  if(!sessions.length||!grid){
+    if(zone)zone.style.display='none';
+    return;
+  }
+  zone.style.display='block';
+  ge('acc-new-flow').style.display='none';
+  grid.innerHTML='';
+  var caColors={'CA1':'#0C447C','CA2':'#0C447C','CA3':'#3C3489','CA4':'#712B13','CA5':'#27500A'};
+  sessions.slice(0,8).forEach(function(s){
+    var col=caColors[s.apsa&&s.apsa.ca]||'#1a2038';
+    var card=document.createElement('div');
+    card.className='acc-sq-recent';
+    card.style.background=col;
+    var pct=0;
+    try{
+      var st=JSON.parse(localStorage.getItem(s.key)||'{}');
+      var ns=(st.seances||[]).length;var nf=(st.seances||[]).filter(function(x){return x.bilan&&x.bilan.trim();}).length;
+      pct=ns>0?Math.round(nf/ns*100):0;
+    }catch(e){}
+    card.innerHTML='<div>'+
+      '<span class="acc-sq-recent-badge">'+(s.apsa&&s.apsa.ca||'')+'</span>'+
+      '<span class="acc-sq-recent-emoji">'+(s.apsa&&s.apsa.emoji||'📚')+'</span>'+
+      '</div>'+
+      '<div>'+
+      '<p class="acc-sq-recent-name">'+(s.apsa&&s.apsa.name||'Séquence')+'</p>'+
+      '<p class="acc-sq-recent-sub">'+(s.cls&&s.cls.label||'')+' · '+(s.trim?'T'+s.trim:'')+'</p>'+
+      '<div class="acc-sq-bar-bg"><div class="acc-sq-bar" style="width:'+pct+'%"></div></div>'+
+      '</div>';
+    card.onclick=(function(ss){return function(){accLaunch(ss.cls,ss.apsa,ss.trim);};})(s);
+    grid.appendChild(card);
+  });
+  // Bouton nouvelle séquence
+  var newCard=document.createElement('div');
+  newCard.style.cssText='aspect-ratio:1;border-radius:12px;border:1.5px dashed rgba(255,255,255,.15);background:rgba(255,255,255,.04);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;cursor:pointer;transition:background .12s';
+  newCard.innerHTML='<div style="font-size:28px;color:#4f8aff">+</div><p style="font-size:11px;color:#6b7280;margin:0;text-align:center">Nouvelle séquence</p>';
+  newCard.onclick=accShowNew;
+  grid.appendChild(newCard);
+}
+
 function accRenderClsGrid(){
-  var cgrid=ge('acc-cls-grid');
-  if(!cgrid)return;
+  var cgrid=ge('acc-cls-grid');if(!cgrid)return;
   cgrid.innerHTML='';
+  var noClsDiv=ge('acc-no-cls');
+  if(!CLASSES.length){
+    if(noClsDiv)noClsDiv.style.display='block';
+    return;
+  }
+  if(noClsDiv)noClsDiv.style.display='none';
   for(var i=0;i<CLASSES.length;i++){
     (function(c,idx){
       var d=document.createElement('div');
-      d.className='acc-cls';
-      d.id='cl-'+c.id;
+      d.className='acc-cls';d.id='cl-'+c.id;
       d.setAttribute('style','--c:'+c.color+';--cl:'+(c.light||c.color+'0d')+';');
-      d.innerHTML='<button class="acc-cls-del" data-idx="'+idx+'" title="Supprimer cette classe">&#10005;</button>'+
+      d.innerHTML='<button class="acc-cls-del" data-idx="'+idx+'" title="Supprimer">&#10005;</button>'+
         '<div class="acc-cls-lv">'+esc(c.level||'')+'</div>'+
         '<div class="acc-cls-name">'+esc(c.label)+'</div>'+
-        '<div class="acc-cls-sub">'+esc(c.sub||'')+'</div>'+
-        '<div class="acc-cls-dot"></div>';
-      var delBtn=d.querySelector('.acc-cls-del');
-      if(delBtn)delBtn.addEventListener('click',function(e){
-        e.stopPropagation();
-        if(confirm('Supprimer la classe "'+c.label+'" ?')){
-          CLASSES.splice(idx,1);
-          classesSave();
-          ghPushClasses();
-          selCls=null;
-          accRenderClsGrid();
-          accUpd();
+        '<div class="acc-cls-sub">'+esc(c.sub||'')+'</div>';
+      d.addEventListener('click',function(e){
+        if(e.target.classList.contains('acc-cls-del')){
+          var i2=parseInt(e.target.dataset.idx);
+          if(confirm('Supprimer la classe '+CLASSES[i2].label+' ?')){CLASSES.splice(i2,1);classesSave();accRenderClsGrid();}
+          return;
         }
+        selCls=c;
+        document.querySelectorAll('.acc-cls').forEach(function(el){el.classList.remove('active');});
+        d.classList.add('active');
+        accFlowShow(2);
+        accRenderApsaSquare();
       });
-      d.addEventListener('click',function(e){e.preventDefault();e.stopPropagation();accPickCls(c.id);});
       cgrid.appendChild(d);
     })(CLASSES[i],i);
   }
-  var addBtn=document.createElement('div');
-  addBtn.className='acc-cls-add';
-  addBtn.innerHTML='<div class="acc-cls-add-icon">+</div><div class="acc-cls-add-lbl">Ajouter</div>';
-  addBtn.addEventListener('click',function(){openAddCls();});
-  cgrid.appendChild(addBtn);
-  // Restaurer la selection si une classe etait deja choisie
-  if(selCls){
-    var el=ge('cl-'+selCls.id);
-    if(el)el.classList.add('sel');
+}
+
+function accRenderApsaSquare(){
+  var container=ge('acc-apsa-sq-container');if(!container)return;
+  container.innerHTML='';
+  var caColors={'CA1':'#0C447C','CA2':'#185FA5','CA3':'#3C3489','CA4':'#712B13','CA5':'#27500A'};
+  for(var gi=0;gi<CA_GROUPS.length;gi++){
+    var g=CA_GROUPS[gi];
+    var col=caColors[g.ca]||'#1a2038';
+    var grpDiv=document.createElement('div');grpDiv.className='apsa-sq-ca-group';
+    var label=document.createElement('div');label.className='apsa-sq-ca-label';
+    label.innerHTML='<span style="background:'+col+'33;color:'+col+';padding:2px 8px;border-radius:4px;font-family:monospace">'+g.ca+'</span>'+
+      '<span style="color:#6b7280;font-size:.68rem">'+g.desc+'</span>';
+    grpDiv.appendChild(label);
+    var grid=document.createElement('div');grid.className='apsa-sq-grid';
+    for(var ai=0;ai<g.apsa.length;ai++){
+      (function(a,gca,gcol){
+        var card=document.createElement('div');card.className='apsa-sq-card';
+        card.style.background=gcol;
+        card.innerHTML='<div><span class="apsa-sq-badge">'+gca+'</span><span class="apsa-sq-emoji">'+a.emoji+'</span></div>'+
+          '<p class="apsa-sq-name">'+esc(a.name)+'</p>';
+        card.onclick=function(){
+          selApsa={id:a.id,name:a.name,emoji:a.emoji,ca:g.ca,caFull:g.caFull};
+          document.querySelectorAll('.apsa-sq-card').forEach(function(c){c.classList.remove('selected');});
+          card.classList.add('selected');
+          accFlowShow(3);
+          accUpdateSum();accUpdateAflp();
+        };
+        grid.appendChild(card);
+      })(g.apsa[ai],g.ca,col);
+    }
+    grpDiv.appendChild(grid);
+    container.appendChild(grpDiv);
   }
+}
+
+function accSelTrim(t){
+  selTrim=t;
+  [1,2,3].forEach(function(i){
+    var el=ge('tr-'+i);if(el)el.classList.toggle('active',i===t);
+  });
+  accUpdateSum();accUpdateAflp();
 }
 
 function openAddCls(){
@@ -2550,35 +2690,58 @@ function renderWidgetAflp(){
   zone.innerHTML=h;
 }
 
-function accInit(){var now=new Date();var J=['Dimanche','Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi'];var M=['janv.','fevr.','mars','avr.','mai','juin','juil.','aout','sept.','oct.','nov.','dec.'];ge('acc-date').innerHTML=J[now.getDay()]+' '+now.getDate()+' '+M[now.getMonth()]+' '+now.getFullYear()+'<br>Annee scolaire 2025-2026';accRenderClsGrid();var ac=ge('acc-apsa-container');ac.innerHTML='';for(var gi=0;gi<CA_GROUPS.length;gi++){(function(g){var grp=document.createElement('div');grp.className='ca-group';var h='<div class="ca-group-header"><span class="ca-label" style="background:'+g.color+'22;color:'+g.color+'">'+g.ca+'</span><span class="ca-desc">'+g.desc+'</span></div><div class="ca-apsa-row">';for(var ai=0;ai<g.apsa.length;ai++){var a=g.apsa[ai];h+='<div class="acc-apsa" id="ap-'+a.id+'"><div class="acc-apsa-emoji">'+a.emoji+'</div><div class="acc-apsa-name">'+a.name+'</div></div>';}h+='</div>';grp.innerHTML=h;for(var ai2=0;ai2<g.apsa.length;ai2++){(function(a){var el=grp.querySelector('#ap-'+a.id);if(el){el.addEventListener('click',function(e){e.stopPropagation();accPickApsa(a.id);});}})(g.apsa[ai2]);}ac.appendChild(grp);})(CA_GROUPS[gi]);}for(var n=1;n<=3;n++){(function(tn){var el=ge('tr-'+tn);if(el)el.addEventListener('click',function(e){e.preventDefault();e.stopPropagation();accPickTrim(tn);});})(n);}ge('acc-custom-input').addEventListener('input',function(){accCustom(this.value);});ge('acc-btn').addEventListener('click',function(){accLaunch();});
-  // Anti-scroll-click iOS : detecter le scroll sur window
-  var _accScrolling=false;
-  var _accScrollTimer=null;
-  window.addEventListener('scroll',function(){
-    _accScrolling=true;
-    clearTimeout(_accScrollTimer);
-    _accScrollTimer=setTimeout(function(){_accScrolling=false;},300);
-  },{passive:true});
-  // Detecter aussi via touchmove sur le body
-  document.body.addEventListener('touchmove',function(){
-    _accScrolling=true;
-    clearTimeout(_accScrollTimer);
-    _accScrollTimer=setTimeout(function(){_accScrolling=false;},300);
-  },{passive:true});
-  window.accIsScrolling=function(){return _accScrolling;};ghLoadConfig();accRenderRecent();
+function accUpdateSum(){
+  var s=ge('acc-sum');if(!s)return;
+  if(selCls&&selApsa&&selTrim){
+    s.textContent=selCls.label+' · '+selApsa.name+' · T'+selTrim;
+    var btn=ge('acc-btn');if(btn)btn.disabled=false;
+  } else {
+    s.textContent='Choisissez une classe, une APSA et un trimestre';
+    var btn=ge('acc-btn');if(btn)btn.disabled=true;
+  }
+}
+function accUpdateAflp(){
+  if(!selApsa||!selApsa.caFull){ge('aflp-acc-zone').style.display='none';return;}
+  var f=selCls?selCls.filiere:'bacpro';
+  var aflpData=(AFLP[f]||AFLP.bacpro)[selApsa.caFull];
+  if(!aflpData){ge('aflp-acc-zone').style.display='none';return;}
+  ge('aflp-acc-zone').style.display='block';
+  ge('aflp-acc-sec-title').textContent=selApsa.ca+' - '+selApsa.name;
+  ge('aflp-acc-ca-title').textContent=aflpData.competence||'';
+  var list=ge('aflp-acc-list');list.innerHTML='';
+  (aflpData.items||[]).forEach(function(it){
+    var d=document.createElement('div');d.className='aflp-acc-item';
+    d.innerHTML='<span class="aflp-acc-n">'+esc(it.n)+'</span><span class="aflp-acc-desc">'+esc(it.desc||'')+'</span>';
+    list.appendChild(d);
+  });
+  accUpdateSum();
+}
 
-  // Events modale ajout classe
-  var fbtns2=document.querySelectorAll('.filiere-btn');
-  for(var _fi2=0;_fi2<fbtns2.length;_fi2++){(function(btn){btn.addEventListener('click',function(){
-    CLS_SEL_FILIERE=this.dataset.f;
-    var all=document.querySelectorAll('.filiere-btn');
-    for(var i=0;i<all.length;i++)all[i].classList.remove('sel');
-    this.classList.add('sel');
-  });})(fbtns2[_fi2]);}
-  var saveClsBtn=ge('btn-save-cls');
-  if(saveClsBtn)saveClsBtn.addEventListener('click',saveNewCls);
-  var pullClsBtn=ge('btn-gh-pull-cls');
-  if(pullClsBtn)pullClsBtn.addEventListener('click',function(){ghPullClasses(null);});
+function accInit(){
+  var now=new Date();
+  var J=['Dimanche','Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi'];
+  var M=['janv.','fevr.','mars','avr.','mai','juin','juil.','aout','sept.','oct.','nov.','dec.'];
+  var dateEl=ge('acc-date');
+  if(dateEl)dateEl.innerHTML=J[now.getDay()]+' '+now.getDate()+' '+M[now.getMonth()]+' '+now.getFullYear()+'<br>Annee scolaire 2025-2026';
+  // Afficher récents ou nouveau flow
+  accRenderRecentCards();
+  accRenderClsGrid();
+  // Binder btn pull classes
+  var pullBtn=ge('btn-pull-cls');
+  if(pullBtn)pullBtn.onclick=function(){ghPullClasses(function(){accRenderClsGrid();toast('Classes importees !','ok');});};
+  // Binder trim clicks (au cas où pas encore bindés)
+  var accBtn=ge('acc-btn');
+  if(accBtn)accBtn.onclick=function(){if(selCls&&selApsa&&selTrim)accLaunch(selCls,selApsa,selTrim);};
+  // Custom APSA
+  var ci=ge('acc-custom-input');
+  if(ci){ci.addEventListener('change',function(){
+    if(this.value.trim()){
+      selApsa={id:'custom',name:this.value.trim(),emoji:'📌',ca:'',caFull:''};
+      accFlowShow(3);accUpdateSum();accUpdateAflp();
+    }
+  });}
+  // Sessions récentes ancien format (chips)
+  accRenderChips();
 }
 function accPickCls(id){if(window.accIsScrolling&&window.accIsScrolling())return;selCls=null;for(var i=0;i<CLASSES.length;i++){if(CLASSES[i].id===id){selCls=CLASSES[i];break;}}var els=document.querySelectorAll('.acc-cls');for(var i=0;i<els.length;i++)els[i].classList.remove('sel');ge('cl-'+id).classList.add('sel');accUpd();}
 function accPickApsa(id){if(window.accIsScrolling&&window.accIsScrolling())return;selApsa=null;for(var i=0;i<APSA_FLAT.length;i++){if(APSA_FLAT[i].id===id){selApsa=APSA_FLAT[i];break;}}ge('acc-custom-input').value='';var els=document.querySelectorAll('.acc-apsa');for(var i=0;i<els.length;i++)els[i].classList.remove('sel');ge('ap-'+id).classList.add('sel');accUpd();showAccAflp(selApsa);}
