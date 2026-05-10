@@ -1113,25 +1113,6 @@ textarea{resize:vertical;min-height:70px}
                   <button onclick="acc2FpsCloseEditor()" style="background:rgba(255,255,255,.05);border:0.5px solid rgba(255,255,255,.1);border-radius:7px;padding:7px 12px;color:#636366;font-size:11px;cursor:pointer">Annuler</button>
                 </div>
               </div>
-            </div><div style="background:rgba(255,255,255,.05);border:0.5px solid rgba(255,255,255,.1);border-radius:12px;padding:14px;backdrop-filter:blur(10px)">
-              <div style="font-size:10px;font-weight:600;color:#636366;text-transform:uppercase;letter-spacing:.06em;margin-bottom:10px">FPS / CCF &#8212; Visualiser</div>
-              <div style="text-align:center;padding:10px 0 8px">
-                <div style="width:44px;height:44px;border-radius:10px;background:rgba(10,132,255,.15);display:flex;align-items:center;justify-content:center;margin:0 auto 10px">
-                  <span style="font-size:22px">&#128203;</span>
-                </div>
-                <div id="acc2-fps-name" style="font-size:12px;font-weight:600;color:#e4e6ef;margin-bottom:4px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;padding:0 4px">&#8212;</div>
-                <div style="font-size:10px;color:#48484a;margin-bottom:12px">Document de r&#233;f&#233;rence CCF</div>
-                <a id="acc2-fps-link" href="#" target="_blank" style="display:none;background:rgba(10,132,255,.18);border:0.5px solid rgba(10,132,255,.35);border-radius:8px;padding:8px 16px;color:#4f8aff;font-size:12px;font-weight:600;text-decoration:none;align-items:center;gap:6px;justify-content:center;width:100%;box-sizing:border-box">
-                  &#128279; Ouvrir le document &#8594;
-                </a>
-                <div id="acc2-fps-empty" style="background:rgba(255,255,255,.04);border:0.5px dashed rgba(255,255,255,.15);border-radius:8px;padding:8px 12px;font-size:11px;color:#48484a">
-                  Aucun lien configur&#233;
-                </div>
-              </div>
-              <div style="display:flex;align-items:center;gap:6px;margin-top:8px;border-top:0.5px solid rgba(255,255,255,.06);padding-top:8px">
-                <input type="url" id="acc2-fps-url" placeholder="Coller un lien iCloud, Drive..." style="flex:1;background:rgba(0,0,0,.3);border:0.5px solid rgba(255,255,255,.1);border-radius:6px;padding:5px 8px;color:#9aa0b8;font-size:10px;min-width:0">
-                <button onclick="acc2SaveFpsLink()" style="background:rgba(10,132,255,.2);border:0.5px solid rgba(10,132,255,.4);border-radius:6px;padding:5px 10px;color:#4f8aff;font-size:10px;font-weight:600;cursor:pointer;white-space:nowrap">OK</button>
-              </div>
             </div>
             <div style="background:rgba(255,255,255,.05);border:0.5px solid rgba(255,255,255,.1);border-radius:12px;padding:14px;backdrop-filter:blur(10px)"><div style="font-size:10px;font-weight:600;color:#636366;text-transform:uppercase;letter-spacing:.06em;margin-bottom:9px">📊 AFLP</div><div id="acc2-aflp-bars"><div style="font-size:11px;color:#48484a">Aucune donnée</div></div></div>
             <div style="background:rgba(255,255,255,.05);border:0.5px solid rgba(255,255,255,.1);border-radius:12px;padding:14px;backdrop-filter:blur(10px)"><div style="font-size:10px;font-weight:600;color:#636366;text-transform:uppercase;letter-spacing:.06em;margin-bottom:9px">📝 Notes</div><textarea id="acc2-notes" style="width:100%;border:none;outline:none;font-size:11px;color:#ebebf5;background:transparent;resize:none;line-height:1.5;font-family:inherit;min-height:60px" placeholder="Penser à..."></textarea></div>
@@ -1699,17 +1680,17 @@ var CLS_SEL_COLOR=CLS_COLORS[0];
 var CLS_SEL_FILIERE='bacpro';
 var CA_GROUPS=[
   {ca:'CA1',caFull:'CA1',color:'#ff6b6b',desc:'Realiser sa performance motrice maximale',apsa:[
-    {id:'vitesse',name:'Course de vitesse',emoji:'&#9889;'},
+    {id:'vitesse',name:'Course de vitesse',emoji:'&#127939;'},
     {id:'natation',name:'Natation vitesse',emoji:'&#127946;'},
     {id:'athle',name:'Athletisme multisport',emoji:'&#127947;'}
   ]},
   {ca:'CA2',caFull:'CA2',color:'#a78bfa',desc:'Adapter son deplacement a des environnements varies',apsa:[
     {id:'orientation',name:"Course d'orientation",emoji:'&#129517;'},
-    {id:'cross',name:'Cross',emoji:'&#127807;'}
+    {id:'cross',name:'Cross',emoji:'&#127939;'}
   ]},
   {ca:'CA3',caFull:'CA3',color:'#ffd166',desc:'Realiser une prestation corporelle appreciee',apsa:[
-    {id:'acrosport',name:'Acrosport',emoji:'&#129338;'},
-    {id:'gymnsol',name:'Gymnastique',emoji:'&#129337;'},
+    {id:'acrosport',name:'Acrosport',emoji:'&#129336;'},
+    {id:'gymnsol',name:'Gymnastique',emoji:'&#129336;'},
     {id:'danse',name:'Danse',emoji:'&#128131;'}
   ]},
   {ca:'CA4',caFull:'CA4',color:'#4f8aff',desc:'Conduire un affrontement pour gagner',apsa:[
@@ -3063,37 +3044,49 @@ function acc2Init(){
   try{acc2LoadFpsLink();}catch(ex){}
 }
 function acc2LoadFpsLink(){
-  var inp=ge('acc2-fps-url');
-  if(!inp)return;
   var saved=localStorage.getItem('acc2-fps-url')||'';
-  inp.value=saved;
+  var inp=ge('acc2-fps-url');if(inp)inp.value=saved;
   acc2UpdateFpsWidget(saved);
 }
+function acc2FpsTap(){
+  var url=localStorage.getItem('acc2-fps-url')||'';
+  if(!url){acc2FpsEdit();return;}
+  var menu=ge('acc2-fps-menu');
+  if(menu)menu.style.display=menu.style.display==='none'?'flex':'none';
+}
+function acc2FpsEdit(){
+  var menu=ge('acc2-fps-menu');
+  var editor=ge('acc2-fps-editor');
+  if(menu)menu.style.display='none';
+  if(editor)editor.style.display='block';
+  var inp=ge('acc2-fps-url');if(inp){inp.focus();inp.select();}
+}
+function acc2FpsCloseEditor(){
+  var editor=ge('acc2-fps-editor');if(editor)editor.style.display='none';
+  var url=localStorage.getItem('acc2-fps-url')||'';
+  if(url){var menu=ge('acc2-fps-menu');if(menu)menu.style.display='flex';}
+}
 function acc2SaveFpsLink(){
-  var inp=ge('acc2-fps-url');
-  if(!inp)return;
+  var inp=ge('acc2-fps-url');if(!inp)return;
   var v=inp.value.trim();
   localStorage.setItem('acc2-fps-url',v);
+  var editor=ge('acc2-fps-editor');if(editor)editor.style.display='none';
   acc2UpdateFpsWidget(v);
 }
 function acc2UpdateFpsWidget(url){
   var lnk=ge('acc2-fps-link');
-  var empty=ge('acc2-fps-empty');
   var name=ge('acc2-fps-name');
-  if(!lnk)return;
+  var menu=ge('acc2-fps-menu');
   if(url){
-    // Extraire un nom depuis l'URL
     var parts=url.split('/');
     var rawName=decodeURIComponent(parts[parts.length-1]||'').split('?')[0]||'Document CCF';
-    if(rawName.length>28)rawName=rawName.substring(0,28)+'…';
-    if(name)name.textContent=rawName||'Document CCF';
-    lnk.href=url;
-    lnk.style.display='flex';
-    if(empty)empty.style.display='none';
+    if(rawName.length>26)rawName=rawName.substring(0,26)+'…';
+    if(name)name.textContent=rawName;
+    if(lnk)lnk.href=url;
+    if(menu)menu.style.display='flex';
   } else {
-    if(name)name.textContent='—';
-    lnk.style.display='none';
-    if(empty)empty.style.display='block';
+    if(name)name.textContent='Configurer le lien';
+    if(menu)menu.style.display='none';
   }
 }
 
