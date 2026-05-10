@@ -232,8 +232,8 @@ html,body{overflow-x:hidden;max-width:100vw}body{font-family:"DM Sans",sans-seri
   /* Raccourcir le texte des boutons sur mobile */
   #btn-push span, #btn-pull span{display:none}
 }
-.s-nav{display:flex;gap:3px;flex-wrap:wrap}
-.s-tab{background:none;border:none;color:#6b7280;font-size:.82rem;font-weight:500;padding:7px 12px;border-radius:7px;cursor:pointer;white-space:nowrap}
+.s-nav{display:flex;gap:2px;flex-wrap:nowrap;overflow-x:auto}
+.s-tab{background:none;border:none;color:#6b7280;font-size:.72rem;font-weight:500;padding:5px 8px;border-radius:6px;cursor:pointer;white-space:nowrap}
 .s-tab:hover{background:#1c1f2c;color:#e4e6ef}.s-tab.active{background:#4f8aff;color:#fff}
 .s-main{padding:1.5rem;max-width:1400px;margin:0 auto}
 .view{display:none}.view.active{display:block}
@@ -962,21 +962,21 @@ textarea{resize:vertical;min-height:70px}
   </div></div>
 <div id="pg-suivi" style="display:none">
   <div class="s-header">
-    <div style="display:flex;align-items:center;gap:5px;flex-shrink:0">
-      <button class="s-back" id="s-back-btn" title="Retour aux classes" style="padding:3px 6px;font-size:1.1rem;line-height:1">&#127968;</button>
+    <div style="display:flex;align-items:center;gap:10px;flex-shrink:0">
+      <button class="s-back" id="s-back-btn" title="Retour aux classes" style="padding:5px 9px;font-size:1.1rem;line-height:1">&#127968;</button>
       <div class="s-logo" id="s-logo">EPS <span class="s-badge">SUIVI</span></div>
     </div>
-    <div style="display:flex;align-items:center;gap:2px">
+    <div style="display:flex;align-items:center;gap:8px">
       <span class="s-ctx" id="s-ctx" style="display:none"></span>
-      <button class="s-sync-btn" id="btn-push" style="background:#ffffff;border:none;color:#000000;font-weight:600">&#8593;<span> Sauvegarder</span></button>
-      <button class="s-sync-btn" id="btn-pull" style="background:#3a3a3c;border:none;color:#f5f5f7;font-weight:500">&#8595;<span> Synchroniser</span></button>
+      <button class="s-sync-btn" id="btn-push" style="background:#ffffff;border:none;color:#000000;font-weight:700">&#8593;<span> Sauvegarder</span></button>
+      <button class="s-sync-btn" id="btn-pull" style="background:#3a3a3c;border:none;color:#f5f5f7;font-weight:600">&#8595;<span> Synchroniser</span></button>
     </div>
     <div class="s-nav">
       <button class="s-tab active" data-view="v-accueil">Accueil</button>
       <button class="s-tab" data-view="v-seances">Seances</button>
       <button class="s-tab" data-view="v-appel">Appel</button>
       <button class="s-tab" data-view="v-eleves">Classe</button>
-      <button class="s-tab" data-view="v-comp">Comp&#233;tences</button>
+      <button class="s-tab" data-view="v-comp">Comp&eacute;t.</button>
       <button class="s-tab" data-view="v-grille">Grille FPS</button>
       <button class="s-tab" data-view="v-autre-eval">Autre &#233;val</button>
       <button class="s-tab" data-view="v-eval">Bilan</button>
@@ -1069,7 +1069,7 @@ textarea{resize:vertical;min-height:70px}
         <div class="acc-shortcut" data-view="v-seances" style="--sc:#4f8aff"><div class="acc-sc-icon">&#128203;</div><div class="acc-sc-label">Seances</div><div class="acc-sc-sub" id="sc-sub-seances">0 seance</div></div>
         <div class="acc-shortcut" data-view="v-appel" style="--sc:#56cfb2"><div class="acc-sc-icon">&#9995;</div><div class="acc-sc-label">Appel</div><div class="acc-sc-sub">Presences</div></div>
         <div class="acc-shortcut" data-view="v-eleves" style="--sc:#ffd166"><div class="acc-sc-icon">&#128101;</div><div class="acc-sc-label">Classe</div><div class="acc-sc-sub" id="sc-sub-eleves">0 eleve</div></div>
-        <div class="acc-shortcut" data-view="v-comp" style="--sc:#56cfb2"><div class="acc-sc-icon">&#128200;</div><div class="acc-sc-label">Competences</div><div class="acc-sc-sub">Evolution AFLP</div></div>
+        <div class="acc-shortcut" data-view="v-comp" style="--sc:#56cfb2"><div class="acc-sc-icon">&#128200;</div><div class="acc-sc-label">Comp&eacute;t.</div><div class="acc-sc-sub">Evolution AFLP</div></div>
         <div class="acc-shortcut" data-view="v-eval" style="--sc:#ff6b6b"><div class="acc-sc-icon">&#128202;</div><div class="acc-sc-label">Bilan</div><div class="acc-sc-sub">Notes &amp; comp.</div></div>
         <div class="acc-shortcut" data-view="v-grille" style="--sc:#a78bfa"><div class="acc-sc-icon">&#128221;</div><div class="acc-sc-label">Grille &#233;val</div><div class="acc-sc-sub">Personnalis&#233;e</div></div>
       </div>
@@ -1085,7 +1085,7 @@ textarea{resize:vertical;min-height:70px}
         <div style="display:grid;grid-template-columns:200px 1fr;gap:10px">
           <div style="display:flex;flex-direction:column;gap:8px">
             <div style="background:rgba(255,255,255,.05);border:0.5px solid rgba(255,255,255,.1);border-radius:12px;padding:14px;backdrop-filter:blur(10px)"><div style="font-size:10px;font-weight:600;color:#636366;text-transform:uppercase;letter-spacing:.06em;margin-bottom:9px">⛅ Météo — Lyon</div><div style="display:flex;align-items:center;gap:8px"><div style="font-size:22px" id="acc2-meteo-icon">⛅</div><div><div style="font-size:22px;font-weight:600;color:#f5f5f7" id="acc2-meteo-temp">--°</div><div style="font-size:10px;color:#48484a" id="acc2-meteo-sub">...</div></div></div></div>
-            <div style="background:rgba(255,255,255,.05);border:0.5px solid rgba(255,255,255,.1);border-radius:12px;padding:14px;backdrop-filter:blur(10px)"><div style="font-size:10px;font-weight:600;color:#636366;text-transform:uppercase;letter-spacing:.06em;margin-bottom:9px">📅 Prochaine séance</div><div id="acc2-next-content"><div style="font-size:11px;color:#48484a">Aucune séance</div></div></div>
+            <div style="background:rgba(255,255,255,.05);border:0.5px solid rgba(255,255,255,.1);border-radius:12px;padding:14px;backdrop-filter:blur(10px)"><div style="font-size:10px;font-weight:600;color:#636366;text-transform:uppercase;letter-spacing:.06em;margin-bottom:9px">📋 FPS / CCF — Visualiser</div><div><input type="url" id="acc2-fps-url" placeholder="Coller un lien iCloud, Drive..." style="width:100%;background:rgba(0,0,0,.3);border:0.5px solid rgba(255,255,255,.1);border-radius:8px;padding:7px 10px;color:#e4e6ef;font-size:.78rem;box-sizing:border-box;margin-bottom:8px" onchange="localStorage.setItem('acc2-fps-url',this.value)"><a id="acc2-fps-link" href="#" target="_blank" style="display:none;font-size:.82rem;font-weight:600;color:#0a84ff;text-decoration:none;display:flex;align-items:center;gap:5px">&#128279; Ouvrir le document →</a></div></div>
             <div style="background:rgba(255,255,255,.05);border:0.5px solid rgba(255,255,255,.1);border-radius:12px;padding:14px;backdrop-filter:blur(10px)"><div style="font-size:10px;font-weight:600;color:#636366;text-transform:uppercase;letter-spacing:.06em;margin-bottom:9px">📊 AFLP</div><div id="acc2-aflp-bars"><div style="font-size:11px;color:#48484a">Aucune donnée</div></div></div>
             <div style="background:rgba(255,255,255,.05);border:0.5px solid rgba(255,255,255,.1);border-radius:12px;padding:14px;backdrop-filter:blur(10px)"><div style="font-size:10px;font-weight:600;color:#636366;text-transform:uppercase;letter-spacing:.06em;margin-bottom:9px">📝 Notes</div><textarea id="acc2-notes" style="width:100%;border:none;outline:none;font-size:11px;color:#ebebf5;background:transparent;resize:none;line-height:1.5;font-family:inherit;min-height:60px" placeholder="Penser à..."></textarea></div>
           </div>
@@ -2997,7 +2997,25 @@ function acc2Init(){
   try{acc2RenderComp();}catch(ex){}
   try{acc2RenderTrame();}catch(ex){}
   try{acc2LoadNotes();}catch(ex){}
+  try{acc2LoadFpsLink();}catch(ex){}
 }
+function acc2LoadFpsLink(){
+  var inp=ge('acc2-fps-url');
+  var lnk=ge('acc2-fps-link');
+  if(!inp)return;
+  var saved=localStorage.getItem('acc2-fps-url')||'';
+  inp.value=saved;
+  if(lnk){
+    if(saved){lnk.href=saved;lnk.style.display='flex';}
+    else{lnk.style.display='none';}
+  }
+  inp.addEventListener('input',function(){
+    var v=this.value.trim();
+    localStorage.setItem('acc2-fps-url',v);
+    if(lnk){if(v){lnk.href=v;lnk.style.display='flex';}else{lnk.style.display='none';}}
+  });
+}
+
 function acc2RenderMeteo(){
   fetch('https://api.open-meteo.com/v1/forecast?latitude=45.748&longitude=4.847&current_weather=true')
     .then(function(r){return r.json();}).then(function(d){
@@ -4381,43 +4399,69 @@ function renderNotes(){
   for(var i=0;i<state.seances.length;i++){var t=state.seances[i].aflpTravailles||[];for(var j=0;j<t.length;j++)worked[t[j]]=true;}
   var items=document.querySelectorAll('.eval-aflp-item');
   for(var i=0;i<items.length;i++){var n=items[i].querySelector('.eval-n');if(n)items[i].classList.toggle('worked',!!worked[n.textContent]);}
-  if(!state.eleves.length){tb.innerHTML='<tr><td colspan="6" style="text-align:center;color:#6b7280;padding:2rem">Aucun eleve.</td></tr>';return;}
-  // Récupérer les évaluations de l'onglet autre eval
+  if(!state.eleves.length){if(tb)tb.innerHTML='<tr><td colspan="8" style="text-align:center;color:#6b7280;padding:2rem">Aucun eleve.</td></tr>';return;}
+
   var autreEvals=state.autreEvals||[];
-  // Mettre à jour l'en-tête des colonnes autre eval
+  var coeffQte=parseFloat((ge('coeff-qte')&&ge('coeff-qte').value)||1)||1;
+  var coeffFps=parseFloat((ge('coeff-fps')&&ge('coeff-fps').value)||1)||1;
+
+  // Header autre eval
   var hdrCell=ge('autre-eval-cols-header');
+  var coeffCells=ge('coeff-autre-cells');
   if(hdrCell){
-    if(autreEvals.length){
-      hdrCell.colSpan=autreEvals.length;
-      hdrCell.innerHTML=autreEvals.map(function(ev){return '<span style="display:inline-block;padding:0 6px;font-size:.65rem">'+esc(ev.objet||ev.date||'Eval')+'</span>';}).join('');
-    } else {
-      hdrCell.innerHTML='';
-    }
+    hdrCell.colSpan=autreEvals.length||1;
+    hdrCell.innerHTML=autreEvals.map(function(ev){return '<span style="display:inline-block;padding:0 8px;font-size:.65rem;white-space:nowrap">'+esc(ev.objet||ev.date||'Eval')+'</span>';}).join('')||'';
   }
+  if(coeffCells){
+    coeffCells.colSpan=autreEvals.length||1;
+    coeffCells.innerHTML=autreEvals.map(function(ev){
+      return '<input type="number" id="coeff-ae-'+ev.id+'" min="0" max="10" step="0.5" value="'+(ev.coeff||1)+'" style="width:44px;background:#1c1f2c;border:1px solid #2a2d3e;border-radius:5px;padding:3px 5px;color:#56cfb2;font-size:.75rem;text-align:center" onchange="autreEvalSetCoeff(\''+ev.id+'\',this.value);renderNotes()">';
+    }).join('')||'';
+  }
+
+  if(!tb)return;
   tb.innerHTML='';
   var sorted=state.eleves.slice().sort(function(a,b){return a.nom.localeCompare(b.nom);});
+
   for(var i=0;i<sorted.length;i++){(function(e){
     var pres=0,abs=0,disp=0,qtes=[];
     for(var j=0;j<state.seances.length;j++){
       var st=(state.presences[state.seances[j].id]||{})[e.id]||'';
       if(st==='Present')pres++;else if(st==='Absent')abs++;else if(st==='Dispense')disp++;
-      var ae=(state.autoEval[state.seances[j].id]||{})[e.id]||{};
+      var ae=(state.autoEval&&state.autoEval[state.seances[j].id]||{})[e.id]||{};
       if(ae.qte!==undefined&&ae.qte!=='')qtes.push(parseFloat(ae.qte));
     }
-    var mQ=qtes.length>0?(qtes.reduce(function(a,b){return a+b;},0)/qtes.length*10/4).toFixed(1):'-';
-    var tr=document.createElement('tr');
+    var mQraw=qtes.length>0?(qtes.reduce(function(a,b){return a+b;},0)/qtes.length*10/4):null;
+    var mQ=mQraw!==null?mQraw.toFixed(1):null;
+
+    // Calcul moyenne ponderee
+    var totalPts=0,totalCoeff=0;
+    if(mQ!==null){totalPts+=parseFloat(mQ)*coeffQte;totalCoeff+=coeffQte;}
+
     var autreEvalCols='';
     autreEvals.forEach(function(ev){
-      var note=(ev.notes&&ev.notes[e.id])!=null?ev.notes[e.id]:'';
-      autreEvalCols+='<td style="text-align:center"><input type="number" min="0" max="20" step="0.5" value="'+esc(String(note))+'" style="width:52px;background:#13161f;border:1px solid #2a2d3e;border-radius:6px;padding:3px 6px;color:#e4e6ef;font-size:.8rem;text-align:center" onchange="autreEvalSetNote(\''+ev.id+'\',\''+e.id+'\',this.value)"></td>';
+      var note=(ev.notes&&ev.notes[e.id]!=null&&ev.notes[e.id]!=='')?parseFloat(ev.notes[e.id]):null;
+      var coeff=parseFloat(ev.coeff||1)||1;
+      if(note!==null){totalPts+=note*coeff;totalCoeff+=coeff;}
+      autreEvalCols+='<td style="text-align:center;padding:6px 8px;border-bottom:1px solid rgba(37,40,54,.5)"><input type="number" min="0" max="20" step="0.5" value="'+(note!=null?note:'')+'" placeholder="—" style="width:52px;background:#13161f;border:1px solid #2a2d3e;border-radius:6px;padding:3px 6px;color:#e4e6ef;font-size:.8rem;text-align:center" onchange="autreEvalSetNote(\''+ev.id+'\',\''+e.id+'\',this.value)"></td>';
     });
-    tr.innerHTML='<td style="font-weight:500;font-size:.85rem">'+esc(e.nom)+'</td>'+
-      '<td><span class="chip c-gr">'+pres+'</span></td>'+
-      '<td><span class="chip c-rd">'+abs+'</span></td>'+
-      '<td><span class="chip c-yw">'+disp+'</span></td>'+
-      '<td>'+(mQ!=='-'?'<span class="nd '+(parseFloat(mQ)>=7?'nh':parseFloat(mQ)>=5?'nm':'nl')+'">'+mQ+'/10</span>':'<span style="color:#6b7280">-</span>')+'</td>'+
+
+    var fpsnote=(typeof geCalcNote==='function')?geCalcNote(e.id):0;
+    if(fpsnote>0){totalPts+=fpsnote*coeffFps;totalCoeff+=coeffFps;}
+
+    var moyenne=(totalCoeff>0)?(totalPts/totalCoeff).toFixed(1):null;
+    var moyColor=moyenne?(parseFloat(moyenne)>=14?'#56cfb2':parseFloat(moyenne)>=10?'#4f8aff':parseFloat(moyenne)>=6?'#ffd166':'#ff6b6b'):'#6b7280';
+
+    var tr=document.createElement('tr');
+    tr.innerHTML=
+      '<td style="font-weight:500;font-size:.85rem;padding:7px 12px;border-bottom:1px solid rgba(37,40,54,.5)">'+esc(e.nom)+'</td>'+
+      '<td style="text-align:center;padding:6px 8px;border-bottom:1px solid rgba(37,40,54,.5)"><span class="chip c-gr">'+pres+'</span></td>'+
+      '<td style="text-align:center;padding:6px 8px;border-bottom:1px solid rgba(37,40,54,.5)"><span class="chip c-rd">'+abs+'</span></td>'+
+      '<td style="text-align:center;padding:6px 8px;border-bottom:1px solid rgba(37,40,54,.5)"><span class="chip c-yw">'+disp+'</span></td>'+
+      '<td style="text-align:center;padding:6px 8px;border-bottom:1px solid rgba(37,40,54,.5)">'+(mQ!==null?'<span class="nd '+(parseFloat(mQ)>=7?'nh':parseFloat(mQ)>=5?'nm':'nl')+'">'+mQ+'/10</span>':'<span style="color:#6b7280">—</span>')+'</td>'+
       autreEvalCols+
-      '<td>'+(function(){var gn=typeof geCalcNote==='function'?geCalcNote(e.id):0;if(gn>0){var col=gn>=14?'#56cfb2':gn>=10?'#4f8aff':gn>=6?'#ffd166':'#ff6b6b';return '<span style="font-family:monospace;font-size:.82rem;font-weight:700;color:'+col+'">'+gn+' /20</span>';}return '<span style="color:#6b7280">—</span>';})()+'</td>';
+      '<td style="text-align:center;padding:6px 8px;border-bottom:1px solid rgba(37,40,54,.5)">'+(fpsnote>0?'<span style="font-family:monospace;font-size:.82rem;font-weight:700;color:'+(fpsnote>=14?'#56cfb2':fpsnote>=10?'#4f8aff':fpsnote>=6?'#ffd166':'#ff6b6b')+'">'+fpsnote+' /20</span>':'<span style="color:#6b7280">—</span>')+'</td>'+
+      '<td style="text-align:center;padding:6px 8px;border-bottom:1px solid rgba(37,40,54,.5);font-family:monospace;font-weight:700;font-size:.9rem;color:'+moyColor+'">'+(moyenne?moyenne+' /20':'—')+'</td>';
     tb.appendChild(tr);
   })(sorted[i]);}
 }
