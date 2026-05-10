@@ -1094,34 +1094,6 @@ textarea{resize:vertical;min-height:70px}
                 <div id="acc2-fps-name" style="font-size:13px;font-weight:600;color:#e4e6ef;margin-bottom:3px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;padding:0 4px;cursor:pointer" onclick="acc2FpsTap()">Configurer le lien</div>
                 <div style="font-size:10px;color:#48484a;cursor:pointer" onclick="acc2FpsTap()">Appuyer pour acc&#233;der</div>
               </div>
-            </div><div style="background:rgba(255,255,255,.05);border:0.5px solid rgba(255,255,255,.1);border-radius:12px;padding:14px;backdrop-filter:blur(10px)">
-              <div style="font-size:10px;font-weight:600;color:#636366;text-transform:uppercase;letter-spacing:.06em;margin-bottom:10px">FPS / CCF &#8212; Visualiser</div>
-              <div style="text-align:center;padding:6px 0 4px">
-                <div id="acc2-fps-btn" onclick="acc2FpsTap()" style="cursor:pointer">
-                  <div style="width:48px;height:48px;border-radius:12px;background:rgba(10,132,255,.15);display:flex;align-items:center;justify-content:center;margin:0 auto 10px;transition:background .15s">
-                    <span style="font-size:24px">&#128203;</span>
-                  </div>
-                  <div id="acc2-fps-name" style="font-size:13px;font-weight:600;color:#e4e6ef;margin-bottom:3px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;padding:0 4px">Configurer le lien</div>
-                  <div style="font-size:10px;color:#48484a">Appuyer pour acc&#233;der</div>
-                </div>
-              </div>
-              <!-- Menu contextuel -->
-              <div id="acc2-fps-menu" style="display:none;margin-top:10px;border-top:0.5px solid rgba(255,255,255,.06);padding-top:10px;display:flex;flex-direction:column;gap:6px">
-                <a id="acc2-fps-link" href="#" target="_blank" style="display:flex;align-items:center;gap:8px;background:rgba(10,132,255,.15);border:0.5px solid rgba(10,132,255,.3);border-radius:8px;padding:8px 12px;color:#4f8aff;font-size:12px;font-weight:600;text-decoration:none">
-                  <span>&#128279;</span> Ouvrir le document
-                </a>
-                <button onclick="acc2FpsEdit()" style="display:flex;align-items:center;gap:8px;background:rgba(255,255,255,.05);border:0.5px solid rgba(255,255,255,.1);border-radius:8px;padding:8px 12px;color:#9aa0b8;font-size:12px;cursor:pointer;width:100%;text-align:left">
-                  <span>&#9998;</span> Modifier le lien
-                </button>
-              </div>
-              <!-- Éditeur lien (caché par défaut) -->
-              <div id="acc2-fps-editor" style="display:none;margin-top:10px;border-top:0.5px solid rgba(255,255,255,.06);padding-top:10px">
-                <input type="url" id="acc2-fps-url" placeholder="Coller un lien iCloud, Drive..." style="width:100%;background:rgba(0,0,0,.3);border:0.5px solid rgba(255,255,255,.15);border-radius:8px;padding:7px 10px;color:#e4e6ef;font-size:11px;box-sizing:border-box;margin-bottom:6px">
-                <div style="display:flex;gap:6px">
-                  <button onclick="acc2SaveFpsLink()" style="flex:1;background:rgba(10,132,255,.2);border:0.5px solid rgba(10,132,255,.4);border-radius:7px;padding:7px;color:#4f8aff;font-size:11px;font-weight:600;cursor:pointer">Enregistrer</button>
-                  <button onclick="acc2FpsCloseEditor()" style="background:rgba(255,255,255,.05);border:0.5px solid rgba(255,255,255,.1);border-radius:7px;padding:7px 12px;color:#636366;font-size:11px;cursor:pointer">Annuler</button>
-                </div>
-              </div>
             </div>
             <div style="background:rgba(255,255,255,.05);border:0.5px solid rgba(255,255,255,.1);border-radius:12px;padding:14px;backdrop-filter:blur(10px)"><div style="font-size:10px;font-weight:600;color:#636366;text-transform:uppercase;letter-spacing:.06em;margin-bottom:9px">📊 AFLP</div><div id="acc2-aflp-bars"><div style="font-size:11px;color:#48484a">Aucune donnée</div></div></div>
             <div style="background:rgba(255,255,255,.05);border:0.5px solid rgba(255,255,255,.1);border-radius:12px;padding:14px;backdrop-filter:blur(10px)"><div style="font-size:10px;font-weight:600;color:#636366;text-transform:uppercase;letter-spacing:.06em;margin-bottom:9px">📝 Notes</div><textarea id="acc2-notes" style="width:100%;border:none;outline:none;font-size:11px;color:#ebebf5;background:transparent;resize:none;line-height:1.5;font-family:inherit;min-height:60px" placeholder="Penser à..."></textarea></div>
