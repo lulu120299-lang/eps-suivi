@@ -4292,106 +4292,66 @@ function renderBilanComp(targetZoneId){
 
 function exportBilanPDF(){
   var f=CTX.cls?CTX.cls.filiere:'bacpro';
-  var aflpData=CTX.apsa?(AFLP[f]||AFLP.bacpro)[CTX.apsa.caFull]:null;
-  var fil=FILIERES[f]||{label:'EPS'};
-  var clsColor=CTX.cls?CTX.cls.color:'#4f8aff';
   var clsLabel=CTX.cls?CTX.cls.label:'';
   var apsaLabel=CTX.apsa?CTX.apsa.ca+' - '+CTX.apsa.name:'';
+  var autreEvals=state.autreEvals||[];
+  var coeffQte=parseFloat((ge('coeff-qte')&&ge('coeff-qte').value)||1)||1;
+  var coeffFps=parseFloat((ge('coeff-fps')&&ge('coeff-fps').value)||1)||1;
   var sorted=state.eleves.slice().sort(function(a,b){return a.nom.localeCompare(b.nom);});
-  var nmv={'Maitrise insuffisante':1,'Maitrise fragile':2,'Maitrise satisfaisante':3,'Tres bonne maitrise':4};
-  var COLS_PDF={'Maitrise insuffisante':'#dc2626','Maitrise fragile':'#b45309','Maitrise satisfaisante':'#047857','Tres bonne maitrise':'#1d4ed8'};
-  var BGLBL={'Maitrise insuffisante':'#fef2f2','Maitrise fragile':'#fffbeb','Maitrise satisfaisante':'#f0fdf4','Tres bonne maitrise':'#eff6ff'};
-  var worked={};
-  for(var i=0;i<state.seances.length;i++){var t=state.seances[i].aflpTravailles||[];for(var j=0;j<t.length;j++)worked[t[j]]=true;}
-  var aflpList=aflpData?aflpData.items.filter(function(it){return worked[it.n];}):[];
-  var _clsColor=clsColor;
-var css='';
-css+='*{box-sizing:border-box;margin:0;padding:0;-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important}';
-css+='@page{margin:0;size:A4}';
-css+='body{font-family:-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif;font-size:10px;color:#1e1e2e;background:#fff;width:210mm}';
-css+='.hero{background:'+_clsColor+';padding:20px 26px 16px;position:relative;overflow:hidden}';
-css+='.hero::before{content:"";position:absolute;top:-40px;right:-40px;width:160px;height:160px;border-radius:50%;background:rgba(255,255,255,.06)}';
-css+='.hero-eyebrow{font-size:8px;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.65);margin-bottom:6px;font-weight:600}';
-css+='.hero-title{font-size:20px;font-weight:700;color:#fff;line-height:1.2;margin-bottom:6px}';
-css+='.hero-chips{display:flex;gap:7px;flex-wrap:wrap}';
-css+='.hero-chip{background:rgba(255,255,255,.18);color:#fff;font-size:7.5px;font-weight:600;padding:3px 9px;border-radius:20px}';
-css+='.content{padding:16px 26px 0}';
-css+='.sec{margin-bottom:16px}';
-css+='.sec-hd{display:flex;align-items:center;gap:8px;margin-bottom:9px}';
-css+='.sec-dot{width:7px;height:7px;border-radius:50%;background:'+_clsColor+';flex-shrink:0}';
-css+='.sec-lbl{font-size:8px;font-weight:700;text-transform:uppercase;letter-spacing:.14em;color:#6b7280}';
-css+='.sec-line{flex:1;height:1px;background:#f0f0f0}';
-css+='.footer{padding:10px 26px;border-top:2px solid #f0f0f0;display:flex;justify-content:space-between;font-size:8px;color:#9ca3af;margin-top:14px}';
-  css+='@page{size:A4 landscape}';
-  css+='table{width:100%;border-collapse:collapse;font-size:9px}';
-  css+='th{background:#f8f8fc;padding:6px 9px;text-align:center;font-size:7.5px;font-weight:700;color:#6b7280;text-transform:uppercase;border-bottom:2px solid #ebebf5;border-right:1px solid #ebebf5}';
-  css+='th.elh{text-align:left;min-width:130px}';
-  css+='td{padding:6px 9px;border-bottom:1px solid #f4f4f8;border-right:1px solid #f4f4f8;text-align:center;vertical-align:middle}';
-  css+='td.elt{text-align:left;font-weight:600;font-size:9.5px}';
-  css+='.niv{border-radius:4px;font-size:7.5px;font-weight:700;padding:2px 7px;display:inline-block}';
-  css+='.leg{display:flex;gap:10px;flex-wrap:wrap;margin-top:8px;font-size:8px}';
-  css+='.leg-item{padding:2px 8px;border-radius:4px;font-weight:700}';
 
-  var h='<!DOCTYPE html><html><head><meta charset="UTF-8"><style>'+css+'</style></head><body>';
-  h+='<div class="hero"><div class="hero-eyebrow">'+esc(clsLabel)+(apsaLabel?' &bull; '+esc(apsaLabel):'')+(CTX.trim?' &bull; T'+CTX.trim:'')+'</div>';
-  h+='<div class="hero-title">Bilan de s&#233;quence</div>';
-  h+='<div class="hero-chips"><span class="hero-chip">'+fil.label+'</span><span class="hero-chip">'+sorted.length+' &#233;l&#232;ves</span><span class="hero-chip">'+state.seances.length+' s&#233;ances</span><span class="hero-chip">'+new Date().toLocaleDateString('fr-FR')+'</span></div></div>';
-  h+='<div class="content">';
+  var h='<!DOCTYPE html><html><head><meta charset="utf-8">';
+  h+='<style>body{font-family:Arial,sans-serif;font-size:11px;color:#111;margin:20px}';
+  h+='h2{font-size:15px;margin-bottom:4px}p{margin:0 0 12px;color:#555;font-size:12px}';
+  h+='table{width:100%;border-collapse:collapse}th{background:#1a1a2e;color:#fff;padding:6px 8px;text-align:left;font-size:10px}';
+  h+='td{padding:5px 8px;border-bottom:1px solid #eee;font-size:11px}tr:nth-child(even) td{background:#f9f9f9}';
+  h+='.coeff{background:#2c3e50;color:#fff;padding:3px 8px;font-size:10px;font-style:italic}';
+  h+='</style></head><body>';
+  h+='<h2>Bilan — '+esc(apsaLabel)+'</h2><p>'+esc(clsLabel)+' | Export du '+new Date().toLocaleDateString('fr-FR')+'</p>';
 
-  if(aflpList.length>0){
-    h+='<div class="sec"><div class="sec-hd"><div class="sec-dot"></div><div class="sec-lbl">Suivi des comp&#233;tences</div><div class="sec-line"></div></div>';
-    h+='<table style="margin-bottom:10px"><thead><tr><th class="elh">El&#232;ve</th>';
-    for(var ai=0;ai<aflpList.length;ai++)h+='<th>'+esc(aflpList[ai].n)+'<br><span style="font-weight:400;color:#9ca3af;font-size:6.5px">'+esc(aflpList[ai].t.substring(0,35))+'...</span></th>';
-    h+='</tr></thead><tbody>';
-    for(var ei=0;ei<sorted.length;ei++){
-      var e=sorted[ei];var vals=[];
-      h+='<tr style="background:'+(ei%2?'#f8f8fc':'#fff')+'"><td class="elt">'+esc(e.nom)+'</td>';
-      for(var ai=0;ai<aflpList.length;ai++){
-        var n=aflpList[ai].n;var lastVal=0;
-        var compD=state.comp||{};
-        for(var si=0;si<state.seances.length;si++){
-          var s=state.seances[si];
-          if((s.aflpTravailles||[]).indexOf(n)<0)continue;
-          // Priorité : state.comp (boutons 1/2/3/4) puis autoEval
-          var ck=s.id+'__'+n+'__'+e.id;
-          if(compD[ck]&&compD[ck]>0){lastVal=compD[ck];}
-          else{var ae=(state.autoEval[s.id]||{})[e.id]||{};if(ae.maitrise1&&nmv[ae.maitrise1])lastVal=nmv[ae.maitrise1];else if(ae.maitrise2&&nmv[ae.maitrise2])lastVal=nmv[ae.maitrise2];}
-        }
-        vals.push(lastVal);
-        if(lastVal>0){var lbl=MAITRISE[lastVal-1];h+='<td><span class="niv" style="background:'+BGLBL[lbl]+';color:'+COLS_PDF[lbl]+'">Degr&#233; '+lastVal+'</span></td>';}
-        else{h+='<td style="color:#d1d5db">—</td>';}
-      }
+  // Ligne coefficients
+  h+='<table><thead>';
+  h+='<tr class="coeff"><td>Coefficients</td><td colspan="3"></td>';
+  h+='<td>×'+coeffQte+'</td>';
+  autreEvals.forEach(function(ev){h+='<td>×'+(ev.coeff||1)+'</td>';});
+  h+='<td>×'+coeffFps+'</td><td></td></tr>';
 
+  // En-têtes
+  h+='<tr><th>Élève</th><th>Prés.</th><th>Abs.</th><th>Disp.</th><th>Qté /10</th>';
+  autreEvals.forEach(function(ev){h+='<th>'+esc(ev.objet||ev.date||'Eval')+'</th>';});
+  h+='<th>Note FPS /20</th><th>Moyenne /20</th></tr></thead><tbody>';
 
-
-      h+='</tr>';
+  sorted.forEach(function(e){
+    var pres=0,abs=0,disp=0,qtes=[];
+    for(var j=0;j<state.seances.length;j++){
+      var st=(state.presences[state.seances[j].id]||{})[e.id]||'';
+      if(st==='Present')pres++;else if(st==='Absent')abs++;else if(st==='Dispense')disp++;
+      var ae=(state.autoEval&&state.autoEval[state.seances[j].id]||{})[e.id]||{};
+      if(ae.qte!==undefined&&ae.qte!=='')qtes.push(parseFloat(ae.qte));
     }
-    h+='</tbody></table>';
-    h+='<div class="leg"><strong>L&#233;gende :</strong><span class="leg-item" style="background:#fef2f2;color:#dc2626">1 Insuf.</span><span class="leg-item" style="background:#fffbeb;color:#b45309">2 Fragile</span><span class="leg-item" style="background:#f0fdf4;color:#047857">3 Satisf.</span><span class="leg-item" style="background:#eff6ff;color:#1d4ed8">4 Tr&#232;s bien</span></div>';
-    h+='</div>';
-  }
+    var mQraw=qtes.length>0?(qtes.reduce(function(a,b){return a+b;},0)/qtes.length*10/4):null;
+    var mQ=mQraw!==null?mQraw.toFixed(1):null;
+    var fpsnote=(typeof geCalcNote==='function')?geCalcNote(e.id):0;
+    var totalPts=0,totalCoeff=0;
+    if(mQ!==null){totalPts+=parseFloat(mQ)*coeffQte;totalCoeff+=coeffQte;}
+    h+='<tr><td><strong>'+esc(e.nom)+'</strong></td>';
+    h+='<td>'+pres+'</td><td>'+abs+'</td><td>'+disp+'</td>';
+    h+='<td>'+(mQ!==null?mQ+'/10':'—')+'</td>';
+    autreEvals.forEach(function(ev){
+      var note=(ev.notes&&ev.notes[e.id]!=null&&ev.notes[e.id]!=='')?parseFloat(ev.notes[e.id]):null;
+      var coeff=parseFloat(ev.coeff||1)||1;
+      if(note!==null){totalPts+=note*coeff;totalCoeff+=coeff;}
+      h+='<td>'+(note!==null?note:'—')+'</td>';
+    });
+    if(fpsnote>0){totalPts+=fpsnote*coeffFps;totalCoeff+=coeffFps;}
+    var moy=totalCoeff>0?(totalPts/totalCoeff).toFixed(1):null;
+    h+='<td>'+(fpsnote>0?'<strong>'+fpsnote+' /20</strong>':'—')+'</td>';
+    h+='<td style="font-weight:700;color:'+(moy?(parseFloat(moy)>=14?'#27ae60':parseFloat(moy)>=10?'#2980b9':'#c0392b'):'#999')+'">'+(moy?moy+' /20':'—')+'</td>';
+    h+='</tr>';
+  });
+  h+='</tbody></table></body></html>';
 
-  h+='<div class="sec"><div class="sec-hd"><div class="sec-dot"></div><div class="sec-lbl">Notes et pr&#233;sences</div><div class="sec-line"></div></div>';
-  h+='<table><thead><tr><th class="elh">El&#232;ve</th><th>Pr&#233;s.</th><th>Abs.</th><th>Disp.</th><th>Qte /4</th><th>Maitrise auto-eval</th><th>Note /20</th></tr></thead><tbody>';
-  for(var ei=0;ei<sorted.length;ei++){
-    var e=sorted[ei];var pres=0,abs=0,disp=0,qtes=[],mts=[];
-    for(var si=0;si<state.seances.length;si++){var st2=(state.presences[state.seances[si].id]||{})[e.id]||'';if(st2==='Present')pres++;else if(st2==='Absent')abs++;else if(st2==='Dispense')disp++;var ae2=(state.autoEval[state.seances[si].id]||{})[e.id]||{};if(ae2.qte!==undefined&&ae2.qte!=='')qtes.push(parseFloat(ae2.qte));if(ae2.maitrise1&&nmv[ae2.maitrise1])mts.push(nmv[ae2.maitrise1]);if(ae2.maitrise2&&nmv[ae2.maitrise2])mts.push(nmv[ae2.maitrise2]);}
-    var mQ=qtes.length?(qtes.reduce(function(a,b){return a+b;},0)/qtes.length).toFixed(1):'—';
-    var mAvg2=mts.length?mts.reduce(function(a,b){return a+b;},0)/mts.length:null;
-    var mLbl2=mAvg2?MAITRISE[Math.round(mAvg2)-1]:'—';
-    var mC2=mAvg2?(mAvg2>=3?COLS_PDF['Maitrise satisfaisante']:mAvg2>=2?COLS_PDF['Maitrise fragile']:COLS_PDF['Maitrise insuffisante']):'#9ca3af';
-    var mB2=mAvg2?(mAvg2>=3?BGLBL['Maitrise satisfaisante']:mAvg2>=2?BGLBL['Maitrise fragile']:BGLBL['Maitrise insuffisante']):'#f9fafb';
-    h+='<tr style="background:'+(ei%2?'#f8f8fc':'#fff')+'"><td class="elt">'+esc(e.nom)+'</td>';
-    h+='<td style="color:#047857;font-weight:700">'+pres+'</td><td style="color:#dc2626">'+abs+'</td><td style="color:#b45309">'+disp+'</td>';
-    h+='<td>'+(mQ!=='—'?'<span class="niv" style="background:#f8f8fc;color:#374151">'+mQ+'</span>':'—')+'</td>';
-    h+='<td>'+(mLbl2!=='—'?'<span class="niv" style="background:'+mB2+';color:'+mC2+'">'+esc(mLbl2)+'</span>':'—')+'</td>';
-    h+='<td>'+(function(){var gn=(typeof geCalcNote==='function')?geCalcNote(e.id):0;return gn>0?'<strong style="font-size:11px;color:'+clsColor+'">'+gn+'/20</strong>':(e.noteFinale!=null?'<strong style="font-size:11px;color:'+clsColor+'">'+e.noteFinale+'/20</strong>':'—');}())+'</td></tr>';
-  }
-  h+='</tbody></table></div>';
-  h+='</div>';
-  h+='<div class="footer"><span>'+esc(clsLabel)+(apsaLabel?' &bull; '+esc(apsaLabel):'')+'</span><span>EPS &bull; MALLET Lucas &bull; '+new Date().toLocaleDateString('fr-FR')+'</span></div>';
-  h+='</body></html>';
-  openPdfWindow(h,'Bilan-'+clsLabel+'.pdf');
+  var win=window.open('','_blank');
+  if(win){win.document.write(h);win.document.close();setTimeout(function(){win.print();},400);}
 }
 function renderNotes(){
   var tb=ge('nt-tbody');
@@ -4465,7 +4425,57 @@ function renderNotes(){
     tb.appendChild(tr);
   })(sorted[i]);}
 }
-function exportCSV(){var nmv={'Maitrise insuffisante':1,'Maitrise fragile':2,'Maitrise satisfaisante':3,'Tres bonne maitrise':4};var h='Eleve;Amenagement;Presences;Absences;Dispenses;Moy.Qte/4;Maitrise;Note/20';var rows=[];var sorted=state.eleves.slice().sort(function(a,b){return a.nom.localeCompare(b.nom);});for(var i=0;i<sorted.length;i++){var e=sorted[i];var p=0,ab=0,d=0,q=[],mts=[];for(var j=0;j<state.seances.length;j++){var st=(state.presences[state.seances[j].id]||{})[e.id]||'';if(st==='Present')p++;else if(st==='Absent')ab++;else if(st==='Dispense')d++;var ae=(state.autoEval[state.seances[j].id]||{})[e.id]||{};if(ae.qte!==undefined&&ae.qte!=='')q.push(parseFloat(ae.qte));if(ae.maitrise1&&nmv[ae.maitrise1])mts.push(nmv[ae.maitrise1]);if(ae.maitrise2&&nmv[ae.maitrise2])mts.push(nmv[ae.maitrise2]);}var mM=mts.length?MAITRISE[Math.round(mts.reduce(function(a,b){return a+b;},0)/mts.length)-1]:'';rows.push([e.nom,e.amenagement||'',p,ab,d,q.length?(q.reduce(function(a,b){return a+b;},0)/q.length).toFixed(1):'',mM,e.noteFinale!=null?e.noteFinale:''].join(';'));}var a=document.createElement('a');a.href='data:text/csv;charset=utf-8,\uFEFF'+encodeURIComponent([h].concat(rows).join('\n'));a.download='eval_'+(CTX.cls?CTX.cls.id:'eps')+'.csv';a.click();}
+function exportCSV(){
+  var autreEvals=state.autreEvals||[];
+  var coeffQte=parseFloat((ge('coeff-qte')&&ge('coeff-qte').value)||1)||1;
+  var coeffFps=parseFloat((ge('coeff-fps')&&ge('coeff-fps').value)||1)||1;
+
+  // En-têtes
+  var headers=['Eleve','Amenagement','Presences','Absences','Dispenses','Qte travail /10'];
+  autreEvals.forEach(function(ev){headers.push(esc(ev.objet||ev.date||'Eval'));});
+  headers.push('Note FPS /20','Moyenne /20');
+  var rows=[headers];
+
+  // Ligne coefficients
+  var coeffRow=['Coefficients','','','','',coeffQte];
+  autreEvals.forEach(function(ev){coeffRow.push(ev.coeff||1);});
+  coeffRow.push(coeffFps,'');
+  rows.push(coeffRow);
+
+  var sorted=state.eleves.slice().sort(function(a,b){return a.nom.localeCompare(b.nom);});
+  sorted.forEach(function(e){
+    var pres=0,abs=0,disp=0,qtes=[];
+    for(var j=0;j<state.seances.length;j++){
+      var st=(state.presences[state.seances[j].id]||{})[e.id]||'';
+      if(st==='Present')pres++;else if(st==='Absent')abs++;else if(st==='Dispense')disp++;
+      var ae=(state.autoEval&&state.autoEval[state.seances[j].id]||{})[e.id]||{};
+      if(ae.qte!==undefined&&ae.qte!=='')qtes.push(parseFloat(ae.qte));
+    }
+    var mQraw=qtes.length>0?(qtes.reduce(function(a,b){return a+b;},0)/qtes.length*10/4):null;
+    var mQ=mQraw!==null?mQraw.toFixed(1):null;
+    var fpsnote=(typeof geCalcNote==='function')?geCalcNote(e.id):0;
+    var totalPts=0,totalCoeff=0;
+    if(mQ!==null){totalPts+=parseFloat(mQ)*coeffQte;totalCoeff+=coeffQte;}
+
+    var row=[e.nom,e.amenagement||'',pres,abs,disp,mQ!==null?mQ:''];
+    autreEvals.forEach(function(ev){
+      var note=(ev.notes&&ev.notes[e.id]!=null&&ev.notes[e.id]!=='')?parseFloat(ev.notes[e.id]):null;
+      var coeff=parseFloat(ev.coeff||1)||1;
+      if(note!==null){totalPts+=note*coeff;totalCoeff+=coeff;}
+      row.push(note!==null?note:'');
+    });
+    if(fpsnote>0){totalPts+=fpsnote*coeffFps;totalCoeff+=coeffFps;}
+    var moy=totalCoeff>0?(totalPts/totalCoeff).toFixed(1):'';
+    row.push(fpsnote>0?fpsnote:'',moy);
+    rows.push(row);
+  });
+
+  var csv=rows.map(function(r){return r.map(function(c){return '"'+String(c).replace(/"/g,'""')+'"';}).join(';');}).join('\n');
+  var a=document.createElement('a');
+  a.href='data:text/csv;charset=utf-8,\uFEFF'+encodeURIComponent(csv);
+  a.download='bilan_'+((CTX.cls?CTX.cls.label:'classe')+'_'+(CTX.apsa?CTX.apsa.name:'')).replace(/\s+/g,'_')+'.csv';
+  a.click();
+}
 function saveEleve(){var n=ge('en').value.trim();if(!n){alert('Nom requis');return;}state.eleves.push({id:'e'+Date.now(),nom:n,amenagement:ge('ea').value,fiche:null,noteFinale:null});save();closeM('m-eleve');ge('en').value='';ge('ea').value='';renderAll();}
 function openEditE(id){var e=null;for(var i=0;i<state.eleves.length;i++){if(state.eleves[i].id===id){e=state.eleves[i];break;}}if(!e)return;ge('ee-id').value=id;ge('ee-n').value=e.nom;ge('ee-a').value=e.amenagement||'';ge('ee-note').value=e.noteFinale!=null?e.noteFinale:'';openM('m-edit-e');}
 function updEleve(){var id=ge('ee-id').value;var e=null;for(var i=0;i<state.eleves.length;i++){if(state.eleves[i].id===id){e=state.eleves[i];break;}}if(!e)return;e.nom=ge('ee-n').value;e.amenagement=ge('ee-a').value;var n=ge('ee-note').value;e.noteFinale=n===''?null:parseFloat(n);save();closeM('m-edit-e');renderAll();}
