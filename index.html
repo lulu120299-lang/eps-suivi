@@ -872,7 +872,7 @@ textarea{resize:vertical;min-height:70px}
             <div class="acc-sum-lbl">Sélection</div>
             <div class="acc-sum-val" id="acc-sum">Choisissez une classe, une APSA et un trimestre</div>
           </div>
-          <button class="acc-btn" id="acc-btn" disabled>Ouvrir le suivi</button>
+          <button class="acc-btn" id="acc-btn" disabled onclick="accLaunch()">Ouvrir le suivi</button>
         </div>
       </div>
     </div>
@@ -2731,7 +2731,7 @@ function accInit(){
   if(pullBtn)pullBtn.onclick=function(){ghPullClasses(function(){accRenderClsGrid();toast('Classes importees !','ok');});};
   // Binder trim clicks (au cas où pas encore bindés)
   var accBtn=ge('acc-btn');
-  if(accBtn)accBtn.onclick=function(){if(selCls&&selApsa&&selTrim)accLaunch(selCls,selApsa,selTrim);};
+  if(accBtn)accBtn.onclick=function(){accLaunch();};
   // Custom APSA
   var ci=ge('acc-custom-input');
   if(ci){ci.addEventListener('change',function(){
@@ -2741,7 +2741,7 @@ function accInit(){
     }
   });}
   // Sessions récentes ancien format (chips)
-  accRenderChips();
+  accRenderRecent();
 }
 function accPickCls(id){if(window.accIsScrolling&&window.accIsScrolling())return;selCls=null;for(var i=0;i<CLASSES.length;i++){if(CLASSES[i].id===id){selCls=CLASSES[i];break;}}var els=document.querySelectorAll('.acc-cls');for(var i=0;i<els.length;i++)els[i].classList.remove('sel');ge('cl-'+id).classList.add('sel');accUpd();}
 function accPickApsa(id){if(window.accIsScrolling&&window.accIsScrolling())return;selApsa=null;for(var i=0;i<APSA_FLAT.length;i++){if(APSA_FLAT[i].id===id){selApsa=APSA_FLAT[i];break;}}ge('acc-custom-input').value='';var els=document.querySelectorAll('.acc-apsa');for(var i=0;i<els.length;i++)els[i].classList.remove('sel');ge('ap-'+id).classList.add('sel');accUpd();showAccAflp(selApsa);}
@@ -2795,7 +2795,7 @@ function accLaunchWithoutSync(){
 }
 function accRenderRecent(){var sessions=[];try{sessions=JSON.parse(localStorage.getItem('eps-recent')||'[]');}catch(e){}var zone=ge('acc-recent');if(!sessions.length){zone.style.display='none';return;}zone.style.display='block';var chips=ge('acc-chips');chips.innerHTML='';for(var i=0;i<sessions.length;i++){(function(s){var cls=null;for(var j=0;j<CLASSES.length;j++){if(CLASSES[j].id===s.cls.id){cls=CLASSES[j];break;}}if(!cls)cls=s.cls;var d=new Date(s.ts);var chip=document.createElement('div');chip.className='acc-chip';chip.innerHTML='<div class="dot" style="background:'+(cls.color||'#888')+'"></div><span>'+s.cls.label+'</span><span style="color:#9a9080">-</span><span>'+s.apsa.name+'</span>'+(s.trim?'<span style="font-weight:800;color:#4f8aff">T'+s.trim+'</span>':'')+'<span style="color:#9a9080;font-size:.68rem">'+d.getDate()+'/'+(d.getMonth()+1)+'</span><span class="x">x</span>';chip.querySelector('.x').addEventListener('click',function(e){e.stopPropagation();var ss=[];try{ss=JSON.parse(localStorage.getItem('eps-recent')||'[]');}catch(err){}for(var k=ss.length-1;k>=0;k--){if(ss[k].key===s.key)ss.splice(k,1);}localStorage.setItem('eps-recent',JSON.stringify(ss));accRenderRecent();});chip.addEventListener('click',function(){accLaunch(s.cls,s.apsa,s.trim||1);});chips.appendChild(chip);})(sessions[i]);}}
 function openSuivi(cls,apsa,key,trim){CTX={cls:cls,apsa:apsa,key:key,trim:trim};STORAGE_KEY=key;loadState();ge('s-logo').innerHTML=apsa.emoji+' '+apsa.name+' <span class="s-badge">'+apsa.ca+'</span>';var ctx=ge('s-ctx');ctx.textContent=cls.label+(trim?' - T'+trim:'');ctx.style.display='inline';ge('s-pg-title').textContent=apsa.ca+' - '+apsa.name;var f=cls.filiere||'bacpro';var fil=FILIERES[f];ge('eval-filiere-sub').textContent='Filiere : '+fil.label+' - T'+(trim||'');var badge=ge('eval-filiere-badge');badge.textContent=fil.label;badge.style.background=fil.color+'22';badge.style.color=fil.color;var aflpData=(AFLP[f]||AFLP.bacpro)[apsa.caFull];if(aflpData){ge('eval-aflp-ca-title').textContent=aflpData.titre;var h='';for(var i=0;i<aflpData.items.length;i++)h+='<div class="eval-aflp-item"><span class="eval-n">'+aflpData.items[i].n+'</span><span class="eval-t">'+aflpData.items[i].t+'</span></div>';ge('eval-aflp-list').innerHTML=h;}ge('pg-acc').style.display='none';ge('pg-suivi').style.display='block';showView('v-accueil');renderAll();initNotesRapides();initWidgets();bibRenderList('bib-list-seq');bibRenderFilters('bib-filters-seq');}
-function goAcc(){ge('pg-suivi').style.display='none';ge('pg-acc').style.display='block';accRenderRecent();}
+function goAcc(){ge('pg-suivi').style.display='none';ge('pg-acc').style.display='block';accRenderRecent();accRenderRecentCards();accRenderClsGrid();}
 function loadState(){
   try{
     var s=localStorage.getItem(STORAGE_KEY);
