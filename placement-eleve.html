@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>Placement élève — EPS</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+body{font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display',sans-serif;background:#0a0c10;color:#e4e6ef;min-height:100vh;padding:0}
+.screen{display:none;flex-direction:column;min-height:100vh}
+.screen.active{display:flex}
+
+/* Header */
+.hdr{background:#13161f;border-bottom:0.5px solid rgba(255,255,255,.08);padding:14px 16px;display:flex;align-items:center;gap:10px}
+.hdr-icon{width:36px;height:36px;border-radius:9px;background:rgba(79,138,255,.2);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.hdr-title{font-size:16px;font-weight:600;color:#e4e6ef}
+.hdr-sub{font-size:12px;color:#6b7280;margin-top:1px}
+
+/* Écran choix élève */
+.choose-wrap{padding:20px 16px;flex:1}
+.section-label{font-size:11px;font-weight:600;color:#636366;text-transform:uppercase;letter-spacing:.06em;margin-bottom:12px}
+.eleve-list{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.eleve-item{background:#1c1f2c;border:0.5px solid rgba(255,255,255,.08);border-radius:12px;padding:13px 12px;font-size:14px;font-weight:500;color:#e4e6ef;cursor:pointer;transition:all .12s;text-align:center}
+.eleve-item:active{transform:scale(.96)}
+.eleve-item.placed{opacity:.4;pointer-events:none}
+.eleve-item.me{background:rgba(79,138,255,.2);border-color:rgba(79,138,255,.4);color:#4f8aff}
+
+/* Écran placement */
+.place-wrap{padding:16px;flex:1;display:flex;flex-direction:column;gap:12px}
+.selected-badge{background:rgba(79,138,255,.15);border:0.5px solid rgba(79,138,255,.3);border-radius:10px;padding:10px 14px;display:flex;align-items:center;gap:10px}
+.selected-name{font-size:16px;font-weight:600;color:#4f8aff}
+.cases-label{font-size:11px;font-weight:600;color:#636366;text-transform:uppercase;letter-spacing:.06em;margin-top:4px}
+.cases-grid{display:flex;flex-direction:column;gap:8px;flex:1}
+.case-btn{border-radius:14px;padding:18px 16px;font-size:15px;font-weight:600;color:#fff;cursor:pointer;border:none;text-align:left;transition:transform .1s,opacity .1s;display:flex;align-items:center;gap:10px}
+.case-btn:active{transform:scale(.97)}
+.case-btn .case-count{margin-left:auto;font-size:12px;opacity:.7;font-weight:400;background:rgba(0,0,0,.2);padding:3px 9px;border-radius:20px}
+.btn-retour{background:rgba(255,255,255,.06);border:0.5px solid rgba(255,255,255,.12);border-radius:10px;padding:12px;font-size:14px;color:#9aa0b8;cursor:pointer;text-align:center;margin-top:4px}
+
+/* Écran confirmation */
+.confirm-wrap{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px;text-align:center;gap:16px}
+.confirm-icon{font-size:56px;line-height:1}
+.confirm-title{font-size:22px;font-weight:700;color:#e4e6ef}
+.confirm-sub{font-size:14px;color:#9aa0b8;line-height:1.5}
+.confirm-case{font-size:18px;font-weight:600;color:#4f8aff;margin-top:4px}
+.btn-modifier{background:rgba(255,255,255,.06);border:0.5px solid rgba(255,255,255,.12);border-radius:10px;padding:12px 24px;font-size:14px;color:#9aa0b8;cursor:pointer;margin-top:8px}
+
+/* Chargement */
+.loading{flex:1;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:12px}
+.spinner{width:32px;height:32px;border:3px solid rgba(255,255,255,.1);border-top-color:#4f8aff;border-radius:50%;animation:spin .8s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.error-msg{color:#ff6b6b;font-size:14px;text-align:center;padding:20px}
+</style>
+</head>
+<body>
+
+<!-- Écran chargement -->
+<div class="screen active" id="scr-loading">
+  <div class="hdr">
+    <div class="hdr-icon">📋</div>
+    <div><div class="hdr-title">Placement EPS</div><div class="hdr-sub">Chargement...</div></div>
+  </div>
+  <div class="loading">
+    <div class="spinner"></div>
+    <div style="font-size:13px;color:#6b7280">Connexion au tableau...</div>
+  </div>
+</div>
+
+<!-- Écran choix élève -->
+<div class="screen" id="scr-choose">
+  <div class="hdr">
+    <div class="hdr-icon">📋</div>
+    <div><div class="hdr-title" id="choose-title">Placement EPS</div><div class="hdr-sub" id="choose-sub">Choisis ton prénom</div></div>
+  </div>
+  <div class="choose-wrap">
+    <div class="section-label">Je suis...</div>
+    <div class="eleve-list" id="eleve-list"></div>
+  </div>
+</div>
+
+<!-- Écran choix case -->
+<div class="screen" id="scr-place">
+  <div class="hdr">
+    <div class="hdr-icon">📋</div>
+    <div><div class="hdr-title">Où veux-tu aller ?</div><div class="hdr-sub" id="place-sub"></div></div>
+  </div>
+  <div class="place-wrap">
+    <div class="selected-badge">
+      <div style="font-size:24px">👤</div>
+      <div>
+        <div style="font-size:12px;color:#9aa0b8">Tu es</div>
+        <div class="selected-name" id="selected-name"></div>
+      </div>
+    </div>
+    <div class="cases-label">Choisir une case</div>
+    <div class="cases-grid" id="cases-grid"></div>
+    <div class="btn-retour" onclick="goChoose()">← Retour</div>
+  </div>
+</div>
+
+<!-- Écran confirmation -->
+<div class="screen" id="scr-confirm">
+  <div class="hdr">
+    <div class="hdr-icon">✅</div>
+    <div><div class="hdr-title">C'est noté !</div><div class="hdr-sub">Ton placement est enregistré</div></div>
+  </div>
+  <div class="confirm-wrap">
+    <div class="confirm-icon">✅</div>
+    <div class="confirm-title" id="confirm-name"></div>
+    <div class="confirm-sub">Tu es placé dans<div class="confirm-case" id="confirm-case"></div></div>
+    <button class="btn-modifier" onclick="goChoose()">Modifier mon choix</button>
+  </div>
+</div>
+
+<script type="module">
+import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
+import { getDatabase, ref, onValue, set, get } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js';
+
+const FB = {
+  apiKey:"AIzaSyChXOB82mEoXCX1YU_4uC5FR9-FO0nk3f8",
+  authDomain:"eps-suivi-debfa.firebaseapp.com",
+  databaseURL:"https://eps-suivi-debfa-default-rtdb.europe-west1.firebasedatabase.app",
+  projectId:"eps-suivi-debfa",
+  storageBucket:"eps-suivi-debfa.firebasestorage.app",
+  messagingSenderId:"688408210698",
+  appId:"1:688408210698:web:ab82bb1397a43336f01ef3"
+};
+
+const app = initializeApp(FB);
+const db = getDatabase(app);
+
+// Récupérer sessionId depuis URL
+const params = new URLSearchParams(location.search);
+const sessionId = params.get('s') || 'default';
+
+let sessionData = null;
+let selectedEleve = null;
+
+function show(id){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+}
+
+function goChoose(){
+  selectedEleve = null;
+  renderEleveList();
+  show('scr-choose');
+}
+
+function renderEleveList(){
+  if(!sessionData) return;
+  const {eleves, placement, titre} = sessionData;
+  document.getElementById('choose-title').textContent = titre || 'Placement EPS';
+  const list = document.getElementById('eleve-list');
+  list.innerHTML = '';
+  (eleves||[]).forEach(e => {
+    const div = document.createElement('div');
+    div.className = 'eleve-item';
+    div.textContent = e;
+    const placedIn = placement && Object.entries(placement).find(([k,v])=>v===e);
+    if(placedIn) div.classList.add('placed');
+    div.onclick = () => selectEleve(e);
+    list.appendChild(div);
+  });
+}
+
+function selectEleve(name){
+  selectedEleve = name;
+  document.getElementById('selected-name').textContent = name;
+  document.getElementById('place-sub').textContent = 'Glisse-toi dans une case';
+  renderCases();
+  show('scr-place');
+}
+
+function renderCases(){
+  if(!sessionData) return;
+  const {cases, placement} = sessionData;
+  const grid = document.getElementById('cases-grid');
+  grid.innerHTML = '';
+  (cases||[]).forEach(c => {
+    const count = Object.values(placement||{}).filter(v=>v&&v.caseId===c.id).length;
+    const btn = document.createElement('button');
+    btn.className = 'case-btn';
+    btn.style.background = c.color || '#1c1f2c';
+    btn.innerHTML = `<span style="font-size:20px">${c.emoji||'📌'}</span><span>${c.label}</span><span class="case-count">${count} élève(s)</span>`;
+    btn.onclick = () => placerEleve(c);
+    grid.appendChild(btn);
+  });
+}
+
+async function placerEleve(cas){
+  if(!selectedEleve) return;
+  const placRef = ref(db, `sessions/${sessionId}/placement/${selectedEleve}`);
+  await set(placRef, {caseId: cas.id, caseLabel: cas.label, ts: Date.now()});
+  document.getElementById('confirm-name').textContent = selectedEleve;
+  document.getElementById('confirm-case').textContent = cas.label;
+  show('scr-confirm');
+}
+
+// Écouter les mises à jour en temps réel
+const sessRef = ref(db, `sessions/${sessionId}`);
+onValue(sessRef, snap => {
+  const data = snap.val();
+  if(!data){
+    document.querySelector('#scr-loading .loading').innerHTML = '<div class="error-msg">Session introuvable.<br>Demande à ton prof le bon QR code.</div>';
+    return;
+  }
+  sessionData = data;
+  if(document.getElementById('scr-loading').classList.contains('active')){
+    goChoose();
+  } else if(document.getElementById('scr-choose').classList.contains('active')){
+    renderEleveList();
+  } else if(document.getElementById('scr-place').classList.contains('active')){
+    renderCases();
+  }
+});
+</script>
+</body>
+</html>
