@@ -1727,11 +1727,11 @@ window._fbReady = true;
   <div id="pl-live" style="display:none;flex:1;overflow:hidden;display:none;flex-direction:column">
     <!-- QR code bar -->
     <div style="background:#13161f;border-bottom:0.5px solid rgba(255,255,255,.08);padding:10px 16px;display:flex;align-items:center;gap:12px;flex-shrink:0">
-      <div id="pl-qr" style="width:64px;height:64px;background:#fff;border-radius:8px;flex-shrink:0;display:flex;align-items:center;justify-content:center;overflow:hidden"></div>
+      <div id="pl-qr" style="width:120px;height:120px;background:#fff;border-radius:10px;flex-shrink:0;display:flex;align-items:center;justify-content:center;overflow:hidden"></div>
       <div>
         <div style="font-size:12px;font-weight:600;color:#e4e6ef;margin-bottom:2px">Élèves → scanner ce QR code</div>
         <div id="pl-url" style="font-size:10px;color:#6b7280;word-break:break-all"></div>
-        <button onclick="plReset()" style="margin-top:4px;background:rgba(255,107,107,.1);border:0.5px solid rgba(255,107,107,.3);border-radius:6px;padding:3px 10px;color:#ff6b6b;font-size:11px;cursor:pointer">Réinitialiser</button>
+        <div style="display:flex;gap:6px;margin-top:4px"><button onclick="plReset()" style="background:rgba(255,107,107,.1);border:0.5px solid rgba(255,107,107,.3);border-radius:6px;padding:3px 10px;color:#ff6b6b;font-size:11px;cursor:pointer">Réinitialiser</button><button onclick="plCopyResults()" style="background:rgba(86,207,178,.1);border:0.5px solid rgba(86,207,178,.3);border-radius:6px;padding:3px 10px;color:#56cfb2;font-size:11px;cursor:pointer">📋 Copier résultats</button></div>
       </div>
     </div>
     <!-- Colonnes -->
@@ -2719,8 +2719,8 @@ function _plShowLive(sid){
   var qrEl=ge('pl-qr');
   if(qrEl){
     var img=document.createElement('img');
-    img.src='https://api.qrserver.com/v1/create-qr-code/?size=64x64&data='+encodeURIComponent(eleveUrl);
-    img.style.cssText='width:64px;height:64px;border-radius:6px';
+    img.src='https://api.qrserver.com/v1/create-qr-code/?size=300x300&margin=10&data='+encodeURIComponent(eleveUrl);
+    img.style.cssText='width:120px;height:120px;border-radius:8px';
     qrEl.innerHTML='';qrEl.appendChild(img);
   }
 
@@ -2732,22 +2732,54 @@ function _plShowLive(sid){
   });
 }
 
+var _plDragging=null;
+var _plCurrentPlacement={};
+
 function _plRenderBoard(placement){
+  _plCurrentPlacement=placement||{};
   var board=ge('pl-board');if(!board)return;
   board.innerHTML='';
+
   _plCases.forEach(function(c){
     var eleves=[];
     Object.entries(placement).forEach(function(kv){
       if(kv[1]&&kv[1].caseId===c.id)eleves.push(kv[0]);
     });
     var col=document.createElement('div');
-    col.style.cssText='min-width:150px;max-width:180px;border:0.5px solid rgba(255,255,255,.1);border-radius:12px;overflow:hidden;flex-shrink:0;border-top:3px solid '+c.color;
-    col.innerHTML='<div style="background:#1c1f2c;padding:9px 11px;border-bottom:0.5px solid rgba(255,255,255,.08);display:flex;align-items:center;gap:6px">'+
-      '<div style="font-size:12px;font-weight:600;color:#e4e6ef;flex:1">'+esc(c.label)+'</div>'+
-      '<span style="font-size:11px;color:#6b7280;background:#13161f;padding:1px 7px;border-radius:20px">'+eleves.length+'</span></div>'+
-      '<div style="padding:8px;min-height:70px;display:flex;flex-wrap:wrap;gap:5px;align-content:flex-start">'+
-      eleves.map(function(e){return '<span style="background:'+c.color+'33;border:0.5px solid '+c.color+'66;border-radius:20px;padding:4px 10px;font-size:12px;font-weight:500;color:#e4e6ef">'+esc(e)+'</span>';}).join('')+
-      '</div>';
+    col.style.cssText='min-width:160px;max-width:200px;border:0.5px solid rgba(255,255,255,.1);border-radius:12px;overflow:hidden;flex-shrink:0;border-top:3px solid '+c.color;
+    var head=document.createElement('div');
+    head.style.cssText='background:#1c1f2c;padding:9px 11px;border-bottom:0.5px solid rgba(255,255,255,.08);display:flex;align-items:center;gap:6px';
+    head.innerHTML='<div style="font-size:12px;font-weight:600;color:#e4e6ef;flex:1">'+esc(c.label)+'</div>'+
+      '<span style="font-size:11px;color:#6b7280;background:#13161f;padding:1px 7px;border-radius:20px">'+eleves.length+'</span>';
+    var dz=document.createElement('div');
+    dz.style.cssText='padding:8px;min-height:70px;display:flex;flex-wrap:wrap;gap:5px;align-content:flex-start;transition:background .1s';
+    dz.dataset.caseid=c.id;
+    dz.dataset.caselabel=c.label;
+    // Drop zone
+    dz.addEventListener('dragover',function(ev){ev.preventDefault();dz.style.background='rgba(255,255,255,.06)';});
+    dz.addEventListener('dragleave',function(){dz.style.background='';});
+    dz.addEventListener('drop',function(ev){
+      ev.preventDefault();dz.style.background='';
+      if(!_plDragging||!_plSession)return;
+      window._fbSet(window._fbRef(window._fbDb,'sessions/'+_plSession+'/placement/'+_plDragging),
+        {caseId:c.id,caseLabel:c.label,ts:Date.now()});
+      _plDragging=null;
+    });
+    eleves.forEach(function(e){
+      var chip=document.createElement('span');
+      chip.style.cssText='background:'+c.color+'44;border:0.5px solid '+c.color+'88;border-radius:20px;padding:5px 10px;font-size:12px;font-weight:500;color:#e4e6ef;cursor:grab;user-select:none;display:inline-flex;align-items:center;gap:5px';
+      chip.draggable=true;
+      chip.innerHTML=esc(e)+'<span data-eleve="'+esc(e)+'" title="Retirer" style="font-size:11px;color:rgba(255,255,255,.4);cursor:pointer;margin-left:2px">✕</span>';
+      chip.querySelector('span').addEventListener('click',function(ev){
+        ev.stopPropagation();
+        var name=this.dataset.eleve;
+        if(_plSession)window._fbRemove(window._fbRef(window._fbDb,'sessions/'+_plSession+'/placement/'+name));
+      });
+      chip.addEventListener('dragstart',function(){_plDragging=e;setTimeout(function(){chip.style.opacity='.4';},0);});
+      chip.addEventListener('dragend',function(){chip.style.opacity='1';_plDragging=null;});
+      dz.appendChild(chip);
+    });
+    col.appendChild(head);col.appendChild(dz);
     board.appendChild(col);
   });
 
@@ -2756,10 +2788,43 @@ function _plRenderBoard(placement){
   var placed=Object.keys(placement);
   var unplaced=allEleves.filter(function(e){return !placed.includes(e);});
   var up=ge('pl-unplaced');if(up){
-    up.innerHTML=unplaced.map(function(e){
-      return '<span style="background:#1c1f2c;border:0.5px solid rgba(255,255,255,.08);border-radius:20px;padding:4px 10px;font-size:12px;color:#9aa0b8">'+esc(e)+'</span>';
-    }).join('');
+    up.innerHTML='';
+    unplaced.forEach(function(e){
+      var chip=document.createElement('span');
+      chip.style.cssText='background:#1c1f2c;border:0.5px solid rgba(255,255,255,.1);border-radius:20px;padding:5px 10px;font-size:12px;color:#9aa0b8;cursor:grab;user-select:none';
+      chip.textContent=e;chip.draggable=true;
+      chip.addEventListener('dragstart',function(){_plDragging=e;setTimeout(function(){chip.style.opacity='.4';},0);});
+      chip.addEventListener('dragend',function(){chip.style.opacity='1';_plDragging=null;});
+      up.appendChild(chip);
+    });
+    // Drop zone sur non-placés aussi
+    up.addEventListener('dragover',function(ev){ev.preventDefault();up.style.background='rgba(255,255,255,.04)';});
+    up.addEventListener('dragleave',function(){up.style.background='';});
+    up.addEventListener('drop',function(ev){
+      ev.preventDefault();up.style.background='';
+      if(!_plDragging||!_plSession)return;
+      window._fbRemove(window._fbRef(window._fbDb,'sessions/'+_plSession+'/placement/'+_plDragging));
+      _plDragging=null;
+    });
   }
+}
+
+function plCopyResults(){
+  var placement=_plCurrentPlacement;
+  if(!Object.keys(placement).length){toast('Aucun placement à copier','warn');return;}
+  var lines=[];
+  _plCases.forEach(function(c){
+    var eleves=[];
+    Object.entries(placement).forEach(function(kv){if(kv[1]&&kv[1].caseId===c.id)eleves.push(kv[0]);});
+    if(eleves.length)lines.push(c.label+' : '+eleves.join(', '));
+  });
+  var allEleves=state.eleves.map(function(e){return e.nom;});
+  var unplaced=allEleves.filter(function(e){return !Object.keys(placement).includes(e);});
+  if(unplaced.length)lines.push('Non placés : '+unplaced.join(', '));
+  var txt=((CTX.cls?CTX.cls.label:'')+' — '+(CTX.apsa?CTX.apsa.name:'')+'\n'+new Date().toLocaleDateString('fr-FR')+'\n\n'+lines.join('\n'));
+  navigator.clipboard.writeText(txt).then(function(){toast('Résultats copiés !','ok');}).catch(function(){
+    var ta=document.createElement('textarea');ta.value=txt;document.body.appendChild(ta);ta.select();document.execCommand('copy');document.body.removeChild(ta);toast('Résultats copiés !','ok');
+  });
 }
 
 function plReset(){
