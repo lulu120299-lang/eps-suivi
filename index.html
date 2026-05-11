@@ -4784,7 +4784,7 @@ function exportBilanPDF(){
     var mQ=mQraw!==null?mQraw.toFixed(1):null;
     var fpsnote=geCalcNote(e.id);
     var totalPts=0,totalCoeff=0;
-    if(mQ!==null){totalPts+=parseFloat(mQ)*coeffQte;totalCoeff+=coeffQte;}
+    if(mQ!==null){totalPts+=parseFloat(mQ)*2*coeffQte;totalCoeff+=coeffQte;}
     h+='<tr><td><strong>'+esc(e.nom)+'</strong></td>';
     h+='<td style="text-align:center">'+pres+'</td><td style="text-align:center">'+abs+'</td><td style="text-align:center">'+disp+'</td>';
     h+='<td style="text-align:center">'+(mQ!==null?mQ+'/10':'—')+'</td>';
@@ -4864,7 +4864,7 @@ function renderNotes(){
 
     // Calcul moyenne ponderee
     var totalPts=0,totalCoeff=0;
-    if(mQ!==null){totalPts+=parseFloat(mQ)*coeffQte;totalCoeff+=coeffQte;}
+    if(mQ!==null){totalPts+=parseFloat(mQ)*2*coeffQte;totalCoeff+=coeffQte;}
 
     var autreEvalCols='';
     autreEvals.forEach(function(ev){
@@ -4923,7 +4923,7 @@ function exportCSV(){
     var mQ=mQraw!==null?mQraw.toFixed(1):null;
     var fpsnote=(typeof geCalcNote==='function')?geCalcNote(e.id):0;
     var totalPts=0,totalCoeff=0;
-    if(mQ!==null){totalPts+=parseFloat(mQ)*coeffQte;totalCoeff+=coeffQte;}
+    if(mQ!==null){totalPts+=parseFloat(mQ)*2*coeffQte;totalCoeff+=coeffQte;}
 
     var row=[e.nom,e.amenagement||'',pres,abs,disp,mQ!==null?mQ:''];
     autreEvals.forEach(function(ev){
