@@ -3038,6 +3038,9 @@ function trombiDeletePhoto(el){
   delete _trombiPhotos[eid];
   _trombiSavePhotos();
   _trombiRenderCurrent();
+  var elvDel=state.eleves.find(function(e){return e.id===eid;});
+  if(elvDel)elvDel.trombiPhoto=null;
+  try{renderEleves();}catch(ex){}
   toast('Photo supprimee','ok');
 }
 
@@ -3050,7 +3053,12 @@ function trombiInit(cb){
   if(!window._fbReady){if(cb)cb();return;}
   window._fbGet(window._fbRef(window._fbDb,'trombi/'+STORAGE_KEY)).then(function(snap){
     _trombiPhotos=snap.val()||{};
+    // Injecter les photos dans state.eleves pour renderEleves
+    state.eleves.forEach(function(e){
+      e.trombiPhoto=_trombiPhotos[e.id]?_trombiPhotos[e.id].data:null;
+    });
     if(cb)cb();
+    else try{renderEleves();}catch(ex){}
   }).catch(function(){if(cb)cb();});
 }
 
@@ -3065,10 +3073,15 @@ async function trombiLoadImage(input){
     var canvas=ge('trombi-canvas');
     var maxW=Math.max(canvas.parentElement.clientWidth||600,300);
     var scale=Math.min(1,maxW/img.width);
+    // Taille réelle du canvas = taille image * scale
     canvas.width=img.width*scale;canvas.height=img.height*scale;
+    // Forcer la taille CSS = taille réelle pour éviter tout décalage
+    canvas.style.width=canvas.width+'px';canvas.style.height=canvas.height+'px';
+    canvas.style.maxWidth='100%';
     canvas.getContext('2d').drawImage(img,0,0,canvas.width,canvas.height);
     var overlay=ge('trombi-overlay');
     overlay.width=canvas.width;overlay.height=canvas.height;
+    overlay.style.width=canvas.width+'px';overlay.style.height=canvas.height+'px';
     if(!_faceApiReady)await _trombiLoadModels();
     if(_faceApiReady){
       try{
@@ -3155,6 +3168,10 @@ function trombiSaveFace(eid,dataUrl){
     _trombiPhotos[eid]={data:compressed};
     _trombiSavePhotos();
     _trombiRenderCurrent();
+    // Màj photo dans state.eleves
+    var elv=state.eleves.find(function(e){return e.id===eid;});
+    if(elv)elv.trombiPhoto=compressed;
+    try{renderEleves();}catch(ex){}
     var elv=state.eleves.find(function(e){return e.id===eid;});
     console.log('photo saved:',(elv?elv.nom:'?'),Math.round(compressed.length/1024)+'KB');
   };
