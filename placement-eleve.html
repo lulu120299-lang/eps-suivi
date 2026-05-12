@@ -114,7 +114,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display',sans-serif;ba
 
 <script type="module">
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
-import { getDatabase, ref, onValue, set, get } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js';
+import { getDatabase, ref, onValue, set, get, remove } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js';
 
 const FB = {
   apiKey:"AIzaSyChXOB82mEoXCX1YU_4uC5FR9-FO0nk3f8",
@@ -128,13 +128,12 @@ const FB = {
 
 const app = initializeApp(FB);
 const db = getDatabase(app);
-
-// Récupérer sessionId depuis URL
 const params = new URLSearchParams(location.search);
 const sessionId = params.get('s') || 'default';
 
 let sessionData = null;
 let selectedEleve = null;
+let currentQIdx = 0;
 
 function show(id){
   document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
@@ -143,13 +142,14 @@ function show(id){
 
 function goChoose(){
   selectedEleve = null;
+  currentQIdx = 0;
   renderEleveList();
   show('scr-choose');
 }
 
 function renderEleveList(){
   if(!sessionData) return;
-  const {eleves, placement, titre} = sessionData;
+  const {eleves, titre} = sessionData;
   document.getElementById('choose-title').textContent = titre || 'Placement EPS';
   const list = document.getElementById('eleve-list');
   list.innerHTML = '';
@@ -157,8 +157,6 @@ function renderEleveList(){
     const div = document.createElement('div');
     div.className = 'eleve-item';
     div.textContent = e;
-    const placedIn = placement && Object.entries(placement).find(([k,v])=>v===e);
-    if(placedIn) div.classList.add('placed');
     div.onclick = () => selectEleve(e);
     list.appendChild(div);
   });
@@ -166,43 +164,77 @@ function renderEleveList(){
 
 function selectEleve(name){
   selectedEleve = name;
-  document.getElementById('selected-name').textContent = name;
-  document.getElementById('place-sub').textContent = 'Glisse-toi dans une case';
-  renderCases();
-  show('scr-place');
+  currentQIdx = 0;
+  showQuestion();
 }
 
-function renderCases(){
-  if(!sessionData) return;
-  const {cases, placement} = sessionData;
+function showQuestion(){
+  const questions = sessionData.questions || [];
+  if(currentQIdx >= questions.length){
+    showFinalConfirm();
+    return;
+  }
+  const q = questions[currentQIdx];
+  document.getElementById('selected-name').textContent = selectedEleve;
+  document.getElementById('place-sub').textContent = 'Question '+(currentQIdx+1)+'/'+questions.length;
+
+  // Titre question
+  let qTitle = document.getElementById('q-title');
+  if(!qTitle){ qTitle=document.createElement('div'); qTitle.id='q-title'; qTitle.style.cssText='font-size:16px;font-weight:600;color:#e4e6ef;margin-bottom:14px;padding:0 2px'; document.getElementById('cases-grid').parentNode.insertBefore(qTitle, document.getElementById('cases-grid')); }
+  qTitle.textContent = q.label;
+
+  // Bouton retour
+  const backBtn = document.querySelector('.btn-retour');
+  if(backBtn) backBtn.style.display = currentQIdx===0 ? '' : 'none';
+
+  // Cases
   const grid = document.getElementById('cases-grid');
   grid.innerHTML = '';
-  (cases||[]).forEach(c => {
-    const count = Object.values(placement||{}).filter(v=>v&&v.caseId===c.id).length;
+  (q.cases||[]).forEach(c => {
     const btn = document.createElement('button');
     btn.className = 'case-btn';
     btn.style.background = c.color || '#1c1f2c';
-    btn.innerHTML = `<span style="font-size:20px">${c.emoji||'📌'}</span><span>${c.label}</span><span class="case-count">${count} élève(s)</span>`;
-    btn.onclick = () => placerEleve(c);
+    btn.innerHTML = '<span style="font-size:20px">'+(c.emoji||'📌')+'</span><span>'+c.label+'</span><span class="case-count">'+(currentQIdx+1)+'/'+questions.length+'</span>';
+    btn.onclick = () => placerEleve(c, q);
     grid.appendChild(btn);
   });
+  show('scr-place');
 }
 
-function reselect(){
-  if(selectedEleve) selectEleve(selectedEleve);
-  else goChoose();
-}
-
-async function placerEleve(cas){
+async function placerEleve(cas, q){
   if(!selectedEleve) return;
-  const placRef = ref(db, `sessions/${sessionId}/placement/${selectedEleve}`);
+  const placRef = ref(db, `sessions/${sessionId}/placement/${selectedEleve}/${q.id}`);
   await set(placRef, {caseId: cas.id, caseLabel: cas.label, ts: Date.now()});
+  currentQIdx++;
+  const questions = sessionData.questions || [];
+  if(currentQIdx < questions.length){
+    showQuestion();
+  } else {
+    showFinalConfirm();
+  }
+}
+
+function showFinalConfirm(){
+  const questions = sessionData.questions || [];
+  const placement = sessionData.placement || {};
+  let summary = '';
+  questions.forEach(q => {
+    const myAnswer = placement[selectedEleve] && placement[selectedEleve][q.id];
+    if(myAnswer) summary += '<div style="margin-bottom:6px"><span style="font-size:12px;color:#9aa0b8">'+ q.label +'</span><div style="font-size:15px;font-weight:600;color:#4f8aff;margin-top:2px">'+ myAnswer.caseLabel +'</div></div>';
+  });
   document.getElementById('confirm-name').textContent = selectedEleve;
-  document.getElementById('confirm-case').textContent = cas.label;
+  document.getElementById('confirm-case').innerHTML = summary || '';
   show('scr-confirm');
 }
 
-// Écouter les mises à jour en temps réel
+function reselect(){
+  if(selectedEleve){ currentQIdx=0; showQuestion(); }
+  else goChoose();
+}
+window.reselect = reselect;
+window.goChoose = goChoose;
+
+// Écouter les mises à jour
 const sessRef = ref(db, `sessions/${sessionId}`);
 onValue(sessRef, snap => {
   const data = snap.val();
@@ -213,12 +245,7 @@ onValue(sessRef, snap => {
   sessionData = data;
   if(document.getElementById('scr-loading').classList.contains('active')){
     goChoose();
-  } else if(document.getElementById('scr-choose').classList.contains('active')){
-    renderEleveList();
-  } else if(document.getElementById('scr-place').classList.contains('active')){
-    renderCases();
   }
 });
 </script>
 </body>
-</html>
