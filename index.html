@@ -4971,15 +4971,7 @@ if(_appelMode!=='appel'){h+='<div class="obj-box">'+'<div style="display:flex;al
   var _gpZone=ge('ap-ph-groupes');
   if(_gpZone)_gpZone.innerHTML='<button class="btn-groupes" id="btn-open-groupes" data-sid="'+sid+'" style="font-size:.75rem;padding:5px 12px">&#127922; Groupes</button>';
   if(_appelMode==='eval'){appelRenderCritConfig();ge('appel-eval-table').innerHTML=appelBuildEvalTable(sid,sorted);}
-  ap.querySelectorAll('.appel-stat-btn').forEach(function(btn){
-    btn.addEventListener('click',function(){
-      appelToggleStatut(this.dataset.sid,this.dataset.eid,this.dataset.st);
-    });
-  });
-  var _tousBtn=ap.querySelector('.appel-tous-btn');
-  if(_tousBtn)_tousBtn.addEventListener('click',function(){appelTousPresents(this.dataset.sid);});
-  var _rstBtn=ap.querySelector('.appel-reset-btn');
-  if(_rstBtn)_rstBtn.addEventListener('click',function(){appelReset(this.dataset.sid);});
+  // listeners via event delegation sur ap
   // Boutons statut mode appel
   ap.querySelectorAll('.appel-stat-btn').forEach(function(btn){
     btn.addEventListener('click',function(){
@@ -4987,6 +4979,14 @@ if(_appelMode!=='appel'){h+='<div class="obj-box">'+'<div style="display:flex;al
     });
   });ge('obj1-inp').addEventListener('change',function(){if(!state.seanceObjectifs[sid])state.seanceObjectifs[sid]={};state.seanceObjectifs[sid].obj1=this.value;save();renderSeances();});ge('obj2-inp').addEventListener('change',function(){if(!state.seanceObjectifs[sid])state.seanceObjectifs[sid]={};state.seanceObjectifs[sid].obj2=this.value;save();renderSeances();});var btnGrp=ge('btn-open-groupes');
   if(btnGrp)btnGrp.addEventListener('click',function(){openGroupes(this.dataset.sid);});
+  ap.addEventListener('click',function(e){
+    var btn=e.target.closest('.appel-stat-btn');
+    if(btn)appelToggleStatut(btn.dataset.sid,btn.dataset.eid,btn.dataset.st);
+    var tb=e.target.closest('.appel-tous-btn');
+    if(tb)appelTousPresents(tb.dataset.sid);
+    var rb=e.target.closest('.appel-reset-btn');
+    if(rb)appelReset(rb.dataset.sid);
+  });
   ap.addEventListener('change',function(e){var el=e.target;if(!el.dataset.sid)return;var s2=el.dataset.sid,eid=el.dataset.eid,f=el.dataset.f;if(f==='pres'){if(!state.presences[s2])state.presences[s2]={};state.presences[s2][eid]=el.value;save();renderStats();
   // Mettre à jour juste le compteur présences sans reconstruire tout le tableau
   var presMap2=state.presences[s2]||{};var nbPres=0;
