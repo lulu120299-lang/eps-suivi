@@ -1162,7 +1162,7 @@ window._fbReady = true;
           <button class="btn btn-g" id="btn-pdf-eleves">&#128196; Export PDF</button>
           <button class="btn btn-g" id="btn-export-eleves-json" title="Exporter la liste pour la réutiliser">&#8595; Export classe</button>
           <label class="btn btn-g" style="cursor:pointer;margin:0" title="Importer une liste depuis une autre séquence">&#8593; Import classe<input type="file" id="btn-import-eleves-json" accept=".json" style="display:none"></label>
-          <label class="btn btn-g" style="cursor:pointer;margin:0" title="Importer trombinoscope PDF École Direct"><input type="file" id="btn-import-trombi" accept=".pdf" style="display:none" onchange="if(this.files[0])importTrombiPDF(this.files[0]);this.value=''">📷 Trombi PDF</label><button class="btn btn-p" id="btn-new-eleve">+ Ajouter</button>
+          <button class="btn btn-p" id="btn-new-eleve">+ Ajouter</button>
         </div>
       </div>
       <div id="profil-zone" style="display:none;margin-bottom:1.25rem">
@@ -3175,25 +3175,32 @@ function _trombiManualMode(canvas,img,scale,overlay){
     list.insertBefore(floatDiv,list.firstChild);
   }
   var drawing=false,sx,sy;
+  function _evToCanvas(ev,r){
+    // Ratio entre taille affichée et taille réelle du canvas
+    var ratioX=overlay.width/r.width;
+    var ratioY=overlay.height/r.height;
+    return {x:(ev.clientX-r.left)*ratioX, y:(ev.clientY-r.top)*ratioY};
+  }
   overlay.onmousedown=function(ev){
     var ms=ge('trombi-manual-sel');if(!ms||!ms.value){toast('Choisis un eleve dabord','warn');return;}
     drawing=true;var r=canvas.getBoundingClientRect();
-    sx=(ev.clientX-r.left)*(canvas.width/r.width);sy=(ev.clientY-r.top)*(canvas.height/r.height);
+    var p=_evToCanvas(ev,r);sx=p.x;sy=p.y;
   };
   overlay.onmousemove=function(ev){
     if(!drawing)return;var r=canvas.getBoundingClientRect();
-    var x=(ev.clientX-r.left)*(canvas.width/r.width),y=(ev.clientY-r.top)*(canvas.height/r.height);
+    var p=_evToCanvas(ev,r);
     var ctx=overlay.getContext('2d');ctx.clearRect(0,0,overlay.width,overlay.height);
     ctx.strokeStyle='#56cfb2';ctx.lineWidth=2;ctx.setLineDash([5,3]);
-    ctx.strokeRect(sx,sy,x-sx,y-sy);ctx.fillStyle='rgba(86,207,178,.1)';ctx.fillRect(sx,sy,x-sx,y-sy);
+    ctx.strokeRect(sx,sy,p.x-sx,p.y-sy);ctx.fillStyle='rgba(86,207,178,.1)';ctx.fillRect(sx,sy,p.x-sx,p.y-sy);
   };
   overlay.onmouseup=function(ev){
     if(!drawing)return;drawing=false;
     var ms=ge('trombi-manual-sel');if(!ms||!ms.value)return;
     var r=canvas.getBoundingClientRect();
-    var ex=(ev.clientX-r.left)*(canvas.width/r.width),ey=(ev.clientY-r.top)*(canvas.height/r.height);
-    var x=Math.min(sx,ex),y=Math.min(sy,ey),w=Math.abs(ex-sx),h=Math.abs(ey-sy);
+    var p=_evToCanvas(ev,r);
+    var x=Math.min(sx,p.x),y=Math.min(sy,p.y),w=Math.abs(p.x-sx),h=Math.abs(p.y-sy);
     if(w<10||h<10)return;
+    // Convertir coords canvas -> coords image originale
     var vc=document.createElement('canvas');vc.width=80;vc.height=80;
     vc.getContext('2d').drawImage(img,x/scale,y/scale,w/scale,h/scale,0,0,80,80);
     trombiSaveFace(ms.value,vc.toDataURL('image/jpeg',0.85));
@@ -3206,21 +3213,21 @@ function _trombiManualMode(canvas,img,scale,overlay){
   overlay.ontouchstart=function(ev){
     var ms=ge('trombi-manual-sel');if(!ms||!ms.value){toast('Choisis un eleve dabord','warn');return;}
     drawing=true;var r=canvas.getBoundingClientRect();var t=ev.touches[0];
-    sx=(t.clientX-r.left)*(canvas.width/r.width);sy=(t.clientY-r.top)*(canvas.height/r.height);
+    var p=_evToCanvas({clientX:t.clientX,clientY:t.clientY},r);sx=p.x;sy=p.y;
   };
   overlay.ontouchmove=function(ev){
     ev.preventDefault();if(!drawing)return;var r=canvas.getBoundingClientRect();var t=ev.touches[0];
-    var x=(t.clientX-r.left)*(canvas.width/r.width),y=(t.clientY-r.top)*(canvas.height/r.height);
+    var p=_evToCanvas({clientX:t.clientX,clientY:t.clientY},r);
     var ctx=overlay.getContext('2d');ctx.clearRect(0,0,overlay.width,overlay.height);
     ctx.strokeStyle='#56cfb2';ctx.lineWidth=3;ctx.setLineDash([5,3]);
-    ctx.strokeRect(sx,sy,x-sx,y-sy);ctx.fillStyle='rgba(86,207,178,.1)';ctx.fillRect(sx,sy,x-sx,y-sy);
+    ctx.strokeRect(sx,sy,p.x-sx,p.y-sy);ctx.fillStyle='rgba(86,207,178,.1)';ctx.fillRect(sx,sy,p.x-sx,p.y-sy);
   };
   overlay.ontouchend=function(ev){
     if(!drawing)return;drawing=false;
     var ms=ge('trombi-manual-sel');if(!ms||!ms.value)return;
     var r=canvas.getBoundingClientRect();var t=ev.changedTouches[0];
-    var ex=(t.clientX-r.left)*(canvas.width/r.width),ey=(t.clientY-r.top)*(canvas.height/r.height);
-    var x=Math.min(sx,ex),y=Math.min(sy,ey),w=Math.abs(ex-sx),h=Math.abs(ey-sy);
+    var p=_evToCanvas({clientX:t.clientX,clientY:t.clientY},r);
+    var x=Math.min(sx,p.x),y=Math.min(sy,p.y),w=Math.abs(p.x-sx),h=Math.abs(p.y-sy);
     if(w<10||h<10)return;
     var vc=document.createElement('canvas');vc.width=80;vc.height=80;
     vc.getContext('2d').drawImage(img,x/scale,y/scale,w/scale,h/scale,0,0,80,80);
