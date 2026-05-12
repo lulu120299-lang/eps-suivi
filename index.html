@@ -783,6 +783,8 @@ window._fbGet = get;
 window._fbRemove = remove;
 window._fbReady = true;
 </script>
+<script defer src="https://cdn.jsdelivr.net/npm/face-api.js@0.22.2/dist/face-api.min.js"></script>
+
 </head><body>
 <div id="pg-acc">
   <div class="acc-header">
@@ -1156,6 +1158,7 @@ window._fbReady = true;
         <div><div class="ph-title">Classe</div><div class="ph-sub">Profil, am&#233;nagements, PAP, dispenses</div></div>
         <div style="display:flex;gap:8px;flex-wrap:wrap">
           <button class="btn btn-g" id="btn-profil-classe">Profil de classe</button>
+          <button class="btn btn-p" onclick="openTrombi()" style="display:flex;align-items:center;gap:5px">&#128100; Trombinoscope</button>
           <button class="btn btn-g" id="btn-pdf-eleves">&#128196; Export PDF</button>
           <button class="btn btn-g" id="btn-export-eleves-json" title="Exporter la liste pour la réutiliser">&#8595; Export classe</button>
           <label class="btn btn-g" style="cursor:pointer;margin:0" title="Importer une liste depuis une autre séquence">&#8593; Import classe<input type="file" id="btn-import-eleves-json" accept=".json" style="display:none"></label>
@@ -1749,6 +1752,62 @@ window._fbReady = true;
       <div style="font-size:11px;font-weight:600;color:#636366;text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px" id="pl-unplaced-label">Non placés</div>
       <div id="pl-unplaced" data-caseid="" style="display:flex;flex-wrap:wrap;gap:7px;min-height:40px;border-radius:8px;transition:background .15s;padding:4px"></div>
     </div>
+  </div>
+</div>
+
+<!-- Modale Trombinoscope -->
+<div id="m-trombi" style="display:none;position:fixed;inset:0;background:#0a0c10;z-index:9000;flex-direction:column;overflow:hidden">
+
+  <!-- Header -->
+  <div style="background:#13161f;border-bottom:0.5px solid rgba(255,255,255,.08);padding:12px 20px;display:flex;align-items:center;gap:12px;flex-shrink:0">
+    <button onclick="closeTrombi()" style="background:rgba(255,255,255,.06);border:0.5px solid rgba(255,255,255,.12);border-radius:8px;padding:7px 14px;color:#9aa0b8;font-size:13px;cursor:pointer">✕ Fermer</button>
+    <div style="flex:1;text-align:center">
+      <div style="font-size:16px;font-weight:600;color:#e4e6ef">Trombinoscope</div>
+      <div style="font-size:12px;color:#6b7280" id="trombi-sub">Importer un trombinoscope</div>
+    </div>
+    <label style="background:rgba(79,138,255,.15);border:0.5px solid rgba(79,138,255,.35);border-radius:8px;padding:7px 14px;color:#4f8aff;font-size:13px;font-weight:600;cursor:pointer;white-space:nowrap">
+      &#128247; Importer photo
+      <input type="file" accept="image/*" id="trombi-file-input" style="display:none" onchange="trombiLoadImage(this)">
+    </label>
+  </div>
+
+  <!-- Vue principale -->
+  <div style="flex:1;overflow-y:auto;padding:16px">
+
+    <!-- Zone import -->
+    <div id="trombi-import-zone">
+      <div style="text-align:center;padding:3rem;background:rgba(255,255,255,.03);border:1.5px dashed rgba(255,255,255,.1);border-radius:16px;margin-bottom:16px">
+        <div style="font-size:3rem;margin-bottom:12px">🖼️</div>
+        <div style="font-size:15px;font-weight:500;color:#e4e6ef;margin-bottom:6px">Importer une photo de trombinoscope</div>
+        <div style="font-size:13px;color:#6b7280;margin-bottom:20px">Pronote, photo de classe, liste papier scannée...</div>
+        <label style="background:rgba(79,138,255,.15);border:0.5px solid rgba(79,138,255,.35);border-radius:10px;padding:10px 24px;color:#4f8aff;font-size:14px;font-weight:600;cursor:pointer">
+          Choisir une image
+          <input type="file" accept="image/*" style="display:none" onchange="trombiLoadImage(this)">
+        </label>
+      </div>
+      <!-- Trombinoscope actuel si des photos existent -->
+      <div id="trombi-current-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:12px"></div>
+    </div>
+
+    <!-- Zone découpage -->
+    <div id="trombi-crop-zone" style="display:none">
+      <div style="font-size:13px;color:#9aa0b8;margin-bottom:12px">
+        Clique sur chaque visage pour l'associer à un élève. Utilise les poignées pour ajuster le cadre.
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 280px;gap:16px;align-items:start">
+        <!-- Image avec canvas -->
+        <div style="position:relative">
+          <canvas id="trombi-canvas" style="width:100%;border-radius:12px;cursor:crosshair;max-height:60vh;object-fit:contain"></canvas>
+          <canvas id="trombi-overlay" style="position:absolute;top:0;left:0;width:100%;height:100%;border-radius:12px;pointer-events:none"></canvas>
+        </div>
+        <!-- Panel association -->
+        <div>
+          <div style="font-size:11px;font-weight:600;color:#636366;text-transform:uppercase;letter-spacing:.06em;margin-bottom:10px">Visages détectés</div>
+          <div id="trombi-faces-list" style="display:flex;flex-direction:column;gap:8px;max-height:55vh;overflow-y:auto"></div>
+        </div>
+      </div>
+    </div>
+
   </div>
 </div>
 <script>
@@ -2929,6 +2988,250 @@ function plCopyResults(){
     var ta=document.createElement('textarea');ta.value=txt;document.body.appendChild(ta);ta.select();document.execCommand('copy');document.body.removeChild(ta);toast('Résultats copiés !','ok');
   });
 }
+// ── TROMBINOSCOPE ──
+var _trombiPhotos={};
+var _faceApiReady=false;
+
+function openTrombi(){
+  var m=ge('m-trombi');if(!m)return;
+  m.style.display='flex';
+  ge('trombi-import-zone').style.display='block';
+  ge('trombi-crop-zone').style.display='none';
+  trombiInit(function(){_trombiRenderCurrent();});
+  _trombiLoadModels();
+}
+
+function closeTrombi(){
+  var m=ge('m-trombi');if(m)m.style.display='none';
+}
+
+async function _trombiLoadModels(){
+  if(_faceApiReady||typeof faceapi==='undefined')return;
+  try{
+    await faceapi.nets.tinyFaceDetector.loadFromUri('https://cdn.jsdelivr.net/npm/face-api.js@0.22.2/weights');
+    _faceApiReady=true;
+  }catch(e){console.log('face-api:',e);}
+}
+
+function _trombiRenderCurrent(){
+  var grid=ge('trombi-current-grid');if(!grid)return;
+  grid.innerHTML='';
+  var sub=ge('trombi-sub');
+  if(!state.eleves.length){grid.innerHTML='<div style="color:#6b7280;font-size:13px">Aucun eleve.</div>';return;}
+  if(sub)sub.textContent=state.eleves.length+' eleves - '+Object.keys(_trombiPhotos).length+' photos';
+  state.eleves.forEach(function(e){
+    var card=document.createElement('div');
+    card.style.cssText='display:flex;flex-direction:column;align-items:center;gap:6px;background:#1c1f2c;border:0.5px solid rgba(255,255,255,.08);border-radius:12px;padding:10px;text-align:center';
+    var photo=_trombiPhotos[e.id];
+    card.innerHTML=(photo&&photo.data
+      ?'<img src="'+photo.data+'" style="width:72px;height:72px;border-radius:50%;object-fit:cover;border:2px solid #4f8aff">'
+      :'<div style="width:72px;height:72px;border-radius:50%;background:#252836;border:2px dashed rgba(255,255,255,.12);display:flex;align-items:center;justify-content:center;font-size:26px">&#128100;</div>')+
+      '<div style="font-size:11px;font-weight:500;color:#e4e6ef;line-height:1.3">'+esc(e.nom)+'</div>'+
+      (photo?'<span data-eid="'+e.id+'" onclick="trombiDeletePhoto(this)" style="font-size:10px;color:#ff6b6b;cursor:pointer">Supprimer</span>':'');
+    grid.appendChild(card);
+  });
+}
+
+function trombiDeletePhoto(el){
+  var eid=el.dataset.eid;
+  if(!confirm('Supprimer la photo ?'))return;
+  delete _trombiPhotos[eid];
+  _trombiSavePhotos();
+  _trombiRenderCurrent();
+  toast('Photo supprimee','ok');
+}
+
+function _trombiSavePhotos(){
+  if(!window._fbReady)return;
+  window._fbSet(window._fbRef(window._fbDb,'trombi/'+STORAGE_KEY),_trombiPhotos);
+}
+
+function trombiInit(cb){
+  if(!window._fbReady){if(cb)cb();return;}
+  window._fbGet(window._fbRef(window._fbDb,'trombi/'+STORAGE_KEY)).then(function(snap){
+    _trombiPhotos=snap.val()||{};
+    if(cb)cb();
+  }).catch(function(){if(cb)cb();});
+}
+
+async function trombiLoadImage(input){
+  var file=input.files[0];if(!file)return;
+  ge('trombi-import-zone').style.display='none';
+  ge('trombi-crop-zone').style.display='block';
+  var sub=ge('trombi-sub');if(sub)sub.textContent='Detection des visages...';
+  var url=URL.createObjectURL(file);
+  var img=new Image();
+  img.onload=async function(){
+    var canvas=ge('trombi-canvas');
+    var maxW=Math.max(canvas.parentElement.clientWidth||600,300);
+    var scale=Math.min(1,maxW/img.width);
+    canvas.width=img.width*scale;canvas.height=img.height*scale;
+    canvas.getContext('2d').drawImage(img,0,0,canvas.width,canvas.height);
+    var overlay=ge('trombi-overlay');
+    overlay.width=canvas.width;overlay.height=canvas.height;
+    if(!_faceApiReady)await _trombiLoadModels();
+    if(_faceApiReady){
+      try{
+        var dets=await faceapi.detectAllFaces(canvas,new faceapi.TinyFaceDetectorOptions({scoreThreshold:0.3}));
+        if(sub)sub.textContent=dets.length+' visage(s) detecte(s) - associe chaque visage a un eleve';
+        _trombiDrawBoxes(dets,overlay);
+        _trombiRenderFacesList(dets,img,canvas,scale);
+        return;
+      }catch(ex){console.log('detection err:',ex);}
+    }
+    if(sub)sub.textContent='Mode manuel - trace un rectangle autour de chaque visage';
+    _trombiManualMode(canvas,img,scale,overlay);
+  };
+  img.src=url;
+}
+
+function _trombiDrawBoxes(dets,overlay){
+  var ctx=overlay.getContext('2d');ctx.clearRect(0,0,overlay.width,overlay.height);
+  dets.forEach(function(d,i){
+    var b=d.box,pad=Math.max(b.width,b.height)*0.2;
+    ctx.strokeStyle='#4f8aff';ctx.lineWidth=2;
+    ctx.strokeRect(b.x-pad,b.y-pad,b.width+pad*2,b.height+pad*2);
+    ctx.fillStyle='rgba(79,138,255,.12)';
+    ctx.fillRect(b.x-pad,b.y-pad,b.width+pad*2,b.height+pad*2);
+    ctx.fillStyle='#fff';ctx.font='bold 13px sans-serif';
+    ctx.fillText(i+1,b.x-pad+4,b.y-pad+15);
+  });
+}
+
+function _trombiRenderFacesList(dets,img,canvas,scale){
+  var list=ge('trombi-faces-list');if(!list)return;
+  list.innerHTML='';
+  var usedEids=Object.keys(_trombiPhotos);
+  dets.forEach(function(d,i){
+    var b=d.box,pad=Math.max(b.width,b.height)*0.25;
+    var sx=Math.max(0,b.x-pad),sy=Math.max(0,b.y-pad);
+    var sw=Math.min(b.width+pad*2,canvas.width-sx),sh=Math.min(b.height+pad*2,canvas.height-sy);
+    var vc=document.createElement('canvas');vc.width=80;vc.height=80;
+    vc.getContext('2d').drawImage(img,sx/scale,sy/scale,sw/scale,sh/scale,0,0,80,80);
+    var thumb=vc.toDataURL('image/jpeg',0.75);
+    var row=document.createElement('div');
+    row.style.cssText='display:flex;align-items:center;gap:8px;background:#1c1f2c;border-radius:10px;padding:8px;margin-bottom:6px';
+    var imgEl=document.createElement('img');
+    imgEl.src=thumb;imgEl.style.cssText='width:44px;height:44px;border-radius:8px;object-fit:cover;flex-shrink:0';
+    var numBadge=document.createElement('span');
+    numBadge.style.cssText='background:#4f8aff;color:#fff;border-radius:50%;width:20px;height:20px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0';
+    numBadge.textContent=i+1;
+    var sel=document.createElement('select');
+    sel.style.cssText='flex:1;background:#13161f;border:0.5px solid rgba(255,255,255,.1);border-radius:7px;color:#e4e6ef;font-size:12px;padding:4px 8px;outline:none';
+    sel.innerHTML='<option value="">-- Choisir --</option>';
+    state.eleves.forEach(function(e){
+      var opt=document.createElement('option');opt.value=e.id;opt.textContent=e.nom;
+      if(usedEids.indexOf(e.id)>=0)opt.style.color='#636366';
+      sel.appendChild(opt);
+    });
+    var btn=document.createElement('button');
+    btn.textContent='OK';
+    btn.style.cssText='background:rgba(86,207,178,.15);border:0.5px solid rgba(86,207,178,.3);border-radius:7px;padding:6px 12px;color:#56cfb2;font-size:13px;font-weight:600;cursor:pointer;flex-shrink:0';
+    btn.onclick=function(){
+      var eid=sel.value;if(!eid){toast('Choisis un eleve','warn');return;}
+      trombiSaveFace(eid,thumb);
+      row.style.opacity='.4';row.style.pointerEvents='none';
+      var elv=state.eleves.find(function(e){return e.id===eid;});
+      toast((elv?elv.nom:'Eleve')+' associe','ok');
+      usedEids.push(eid);
+    };
+    row.appendChild(numBadge);row.appendChild(imgEl);row.appendChild(sel);row.appendChild(btn);
+    list.appendChild(row);
+  });
+  if(!dets.length){
+    list.innerHTML='<div style="color:#9aa0b8;font-size:13px;padding:8px;background:#1c1f2c;border-radius:10px">Aucun visage detecte automatiquement. Mode manuel ci-dessous.</div>';
+    _trombiManualMode(canvas,img,scale,ge('trombi-overlay'));
+  }
+}
+
+function trombiSaveFace(eid,dataUrl){
+  // Compresser en 80x80 JPEG qualite 0.7 -> ~3-5KB par photo
+  var vc=document.createElement('canvas');vc.width=80;vc.height=80;
+  var vctx=vc.getContext('2d');
+  var tmpImg=new Image();
+  tmpImg.onload=function(){
+    vctx.drawImage(tmpImg,0,0,80,80);
+    var compressed=vc.toDataURL('image/jpeg',0.7);
+    _trombiPhotos[eid]={data:compressed};
+    _trombiSavePhotos();
+    _trombiRenderCurrent();
+    var elv=state.eleves.find(function(e){return e.id===eid;});
+    console.log('photo saved:',(elv?elv.nom:'?'),Math.round(compressed.length/1024)+'KB');
+  };
+  tmpImg.src=dataUrl;
+}
+
+function _trombiManualMode(canvas,img,scale,overlay){
+  overlay.style.pointerEvents='auto';overlay.style.cursor='crosshair';
+  var list=ge('trombi-faces-list');
+  if(list&&!document.getElementById('trombi-manual-sel')){
+    var floatDiv=document.createElement('div');
+    floatDiv.style.cssText='background:#1c1f2c;border-radius:10px;padding:10px;margin-bottom:8px';
+    floatDiv.innerHTML='<div style="font-size:12px;color:#9aa0b8;margin-bottom:6px">Eleve a selectionner :</div>'+
+      '<select id="trombi-manual-sel" style="width:100%;background:#13161f;border:0.5px solid rgba(255,255,255,.1);border-radius:7px;color:#e4e6ef;font-size:13px;padding:6px 8px;outline:none">'+
+      '<option value="">-- Choisir --</option>'+
+      state.eleves.map(function(e){return '<option value="'+e.id+'">'+esc(e.nom)+'</option>';}).join('')+
+      '</select><div style="font-size:11px;color:#636366;margin-top:6px">Puis trace un rectangle autour du visage sur la photo</div>';
+    list.insertBefore(floatDiv,list.firstChild);
+  }
+  var drawing=false,sx,sy;
+  overlay.onmousedown=function(ev){
+    var ms=ge('trombi-manual-sel');if(!ms||!ms.value){toast('Choisis un eleve dabord','warn');return;}
+    drawing=true;var r=canvas.getBoundingClientRect();
+    sx=(ev.clientX-r.left)*(canvas.width/r.width);sy=(ev.clientY-r.top)*(canvas.height/r.height);
+  };
+  overlay.onmousemove=function(ev){
+    if(!drawing)return;var r=canvas.getBoundingClientRect();
+    var x=(ev.clientX-r.left)*(canvas.width/r.width),y=(ev.clientY-r.top)*(canvas.height/r.height);
+    var ctx=overlay.getContext('2d');ctx.clearRect(0,0,overlay.width,overlay.height);
+    ctx.strokeStyle='#56cfb2';ctx.lineWidth=2;ctx.setLineDash([5,3]);
+    ctx.strokeRect(sx,sy,x-sx,y-sy);ctx.fillStyle='rgba(86,207,178,.1)';ctx.fillRect(sx,sy,x-sx,y-sy);
+  };
+  overlay.onmouseup=function(ev){
+    if(!drawing)return;drawing=false;
+    var ms=ge('trombi-manual-sel');if(!ms||!ms.value)return;
+    var r=canvas.getBoundingClientRect();
+    var ex=(ev.clientX-r.left)*(canvas.width/r.width),ey=(ev.clientY-r.top)*(canvas.height/r.height);
+    var x=Math.min(sx,ex),y=Math.min(sy,ey),w=Math.abs(ex-sx),h=Math.abs(ey-sy);
+    if(w<10||h<10)return;
+    var vc=document.createElement('canvas');vc.width=80;vc.height=80;
+    vc.getContext('2d').drawImage(img,x/scale,y/scale,w/scale,h/scale,0,0,80,80);
+    trombiSaveFace(ms.value,vc.toDataURL('image/jpeg',0.85));
+    var opt=ms.querySelector('option[value="'+ms.value+'"]');if(opt)opt.disabled=true;
+    var elv=state.eleves.find(function(e){return e.id===ms.value;});
+    toast((elv?elv.nom:'Eleve')+' associe','ok');ms.value='';
+    overlay.getContext('2d').clearRect(0,0,overlay.width,overlay.height);
+  };
+  // Touch support
+  overlay.ontouchstart=function(ev){
+    var ms=ge('trombi-manual-sel');if(!ms||!ms.value){toast('Choisis un eleve dabord','warn');return;}
+    drawing=true;var r=canvas.getBoundingClientRect();var t=ev.touches[0];
+    sx=(t.clientX-r.left)*(canvas.width/r.width);sy=(t.clientY-r.top)*(canvas.height/r.height);
+  };
+  overlay.ontouchmove=function(ev){
+    ev.preventDefault();if(!drawing)return;var r=canvas.getBoundingClientRect();var t=ev.touches[0];
+    var x=(t.clientX-r.left)*(canvas.width/r.width),y=(t.clientY-r.top)*(canvas.height/r.height);
+    var ctx=overlay.getContext('2d');ctx.clearRect(0,0,overlay.width,overlay.height);
+    ctx.strokeStyle='#56cfb2';ctx.lineWidth=3;ctx.setLineDash([5,3]);
+    ctx.strokeRect(sx,sy,x-sx,y-sy);ctx.fillStyle='rgba(86,207,178,.1)';ctx.fillRect(sx,sy,x-sx,y-sy);
+  };
+  overlay.ontouchend=function(ev){
+    if(!drawing)return;drawing=false;
+    var ms=ge('trombi-manual-sel');if(!ms||!ms.value)return;
+    var r=canvas.getBoundingClientRect();var t=ev.changedTouches[0];
+    var ex=(t.clientX-r.left)*(canvas.width/r.width),ey=(t.clientY-r.top)*(canvas.height/r.height);
+    var x=Math.min(sx,ex),y=Math.min(sy,ey),w=Math.abs(ex-sx),h=Math.abs(ey-sy);
+    if(w<10||h<10)return;
+    var vc=document.createElement('canvas');vc.width=80;vc.height=80;
+    vc.getContext('2d').drawImage(img,x/scale,y/scale,w/scale,h/scale,0,0,80,80);
+    trombiSaveFace(ms.value,vc.toDataURL('image/jpeg',0.85));
+    var opt=ms.querySelector('option[value="'+ms.value+'"]');if(opt)opt.disabled=true;
+    var elv=state.eleves.find(function(e){return e.id===ms.value;});
+    toast((elv?elv.nom:'Eleve')+' associe','ok');ms.value='';
+    overlay.getContext('2d').clearRect(0,0,overlay.width,overlay.height);
+  };
+}
+
 function accRenderSqGrid(){
   var grid=ge('acc-sq-grid');if(!grid)return;
   grid.innerHTML='';
