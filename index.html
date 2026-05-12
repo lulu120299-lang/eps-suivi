@@ -3192,20 +3192,20 @@ function _trombiManualMode(canvas,img,scale,overlay){
     list.insertBefore(floatDiv,list.firstChild);
   }
   var drawing=false,sx,sy;
-  function _evToCanvas(ev,r){
-    // Ratio entre taille affichée et taille réelle du canvas
-    var ratioX=overlay.width/r.width;
-    var ratioY=overlay.height/r.height;
-    return {x:(ev.clientX-r.left)*ratioX, y:(ev.clientY-r.top)*ratioY};
+  function _evToCanvas(ev){
+    var r=canvas.getBoundingClientRect();
+    var ratioX=canvas.width/r.width;
+    var ratioY=canvas.height/r.height;
+    var cx=ev.clientX!==undefined?ev.clientX:(ev.touches?ev.touches[0].clientX:ev.changedTouches[0].clientX);
+    var cy=ev.clientY!==undefined?ev.clientY:(ev.touches?ev.touches[0].clientY:ev.changedTouches[0].clientY);
+    return {x:(cx-r.left)*ratioX, y:(cy-r.top)*ratioY};
   }
   overlay.onmousedown=function(ev){
     var ms=ge('trombi-manual-sel');if(!ms||!ms.value){toast('Choisis un eleve dabord','warn');return;}
-    drawing=true;var r=canvas.getBoundingClientRect();
-    var p=_evToCanvas(ev,r);sx=p.x;sy=p.y;
+    drawing=true;var p=_evToCanvas(ev);sx=p.x;sy=p.y;
   };
   overlay.onmousemove=function(ev){
-    if(!drawing)return;var r=canvas.getBoundingClientRect();
-    var p=_evToCanvas(ev,r);
+    if(!drawing)return;var p=_evToCanvas(ev);
     var ctx=overlay.getContext('2d');ctx.clearRect(0,0,overlay.width,overlay.height);
     ctx.strokeStyle='#56cfb2';ctx.lineWidth=2;ctx.setLineDash([5,3]);
     ctx.strokeRect(sx,sy,p.x-sx,p.y-sy);ctx.fillStyle='rgba(86,207,178,.1)';ctx.fillRect(sx,sy,p.x-sx,p.y-sy);
@@ -3213,8 +3213,7 @@ function _trombiManualMode(canvas,img,scale,overlay){
   overlay.onmouseup=function(ev){
     if(!drawing)return;drawing=false;
     var ms=ge('trombi-manual-sel');if(!ms||!ms.value)return;
-    var r=canvas.getBoundingClientRect();
-    var p=_evToCanvas(ev,r);
+    var p=_evToCanvas(ev);
     var x=Math.min(sx,p.x),y=Math.min(sy,p.y),w=Math.abs(p.x-sx),h=Math.abs(p.y-sy);
     if(w<10||h<10)return;
     // Convertir coords canvas -> coords image originale
@@ -3229,12 +3228,12 @@ function _trombiManualMode(canvas,img,scale,overlay){
   // Touch support
   overlay.ontouchstart=function(ev){
     var ms=ge('trombi-manual-sel');if(!ms||!ms.value){toast('Choisis un eleve dabord','warn');return;}
-    drawing=true;var r=canvas.getBoundingClientRect();var t=ev.touches[0];
-    var p=_evToCanvas({clientX:t.clientX,clientY:t.clientY},r);sx=p.x;sy=p.y;
+    drawing=true;var t=ev.touches[0];
+    var p=_evToCanvas({clientX:t.clientX,clientY:t.clientY});sx=p.x;sy=p.y;
   };
   overlay.ontouchmove=function(ev){
-    ev.preventDefault();if(!drawing)return;var r=canvas.getBoundingClientRect();var t=ev.touches[0];
-    var p=_evToCanvas({clientX:t.clientX,clientY:t.clientY},r);
+    ev.preventDefault();if(!drawing)return;var t=ev.touches[0];
+    var p=_evToCanvas({clientX:t.clientX,clientY:t.clientY});
     var ctx=overlay.getContext('2d');ctx.clearRect(0,0,overlay.width,overlay.height);
     ctx.strokeStyle='#56cfb2';ctx.lineWidth=3;ctx.setLineDash([5,3]);
     ctx.strokeRect(sx,sy,p.x-sx,p.y-sy);ctx.fillStyle='rgba(86,207,178,.1)';ctx.fillRect(sx,sy,p.x-sx,p.y-sy);
@@ -3242,8 +3241,8 @@ function _trombiManualMode(canvas,img,scale,overlay){
   overlay.ontouchend=function(ev){
     if(!drawing)return;drawing=false;
     var ms=ge('trombi-manual-sel');if(!ms||!ms.value)return;
-    var r=canvas.getBoundingClientRect();var t=ev.changedTouches[0];
-    var p=_evToCanvas({clientX:t.clientX,clientY:t.clientY},r);
+    var t=ev.changedTouches[0];
+    var p=_evToCanvas({clientX:t.clientX,clientY:t.clientY});
     var x=Math.min(sx,p.x),y=Math.min(sy,p.y),w=Math.abs(p.x-sx),h=Math.abs(p.y-sy);
     if(w<10||h<10)return;
     var vc=document.createElement('canvas');vc.width=80;vc.height=80;
