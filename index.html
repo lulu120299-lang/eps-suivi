@@ -3104,16 +3104,22 @@ function _trombiSetupDrag(){
   var display=ge('trombi-img-display');
   if(!wrap||!selBox||!display)return;
 
-  var dragging=false,startX,startY;
+  var dragging=false,startX,startY,startIX=0,startIY=0;
 
   function getPos(ev){
-    var r=display.getBoundingClientRect(); // coords de l'IMAGE affichée
+    // Utiliser wrap (le container) pour le positionnement du selBox
+    var wr=wrap.getBoundingClientRect();
+    // Utiliser display (l'image) pour la conversion vers coords originales
+    var dr=display.getBoundingClientRect();
     var clientX=ev.touches?ev.touches[0].clientX:(ev.changedTouches?ev.changedTouches[0].clientX:ev.clientX);
     var clientY=ev.touches?ev.touches[0].clientY:(ev.changedTouches?ev.changedTouches[0].clientY:ev.clientY);
-    // Clamp dans les limites de l'image
-    var x=Math.max(0,Math.min(clientX-r.left,r.width));
-    var y=Math.max(0,Math.min(clientY-r.top,r.height));
-    return {x:x,y:y,r:r};
+    // Position par rapport au wrap pour le selBox CSS
+    var x=Math.max(0,Math.min(clientX-wr.left,wr.width));
+    var y=Math.max(0,Math.min(clientY-wr.top,wr.height));
+    // Position par rapport à l'image pour le crop
+    var ix=Math.max(0,Math.min(clientX-dr.left,dr.width));
+    var iy=Math.max(0,Math.min(clientY-dr.top,dr.height));
+    return {x:x,y:y,ix:ix,iy:iy,dr:dr};
   }
 
   function startDrag(ev){
@@ -3123,6 +3129,7 @@ function _trombiSetupDrag(){
     dragging=true;
     var p=getPos(ev);
     startX=p.x;startY=p.y;
+    startIX=p.ix;startIY=p.iy;
     selBox.style.display='block';
     selBox.style.left=startX+'px';selBox.style.top=startY+'px';
     selBox.style.width='0';selBox.style.height='0';
@@ -3149,11 +3156,14 @@ function _trombiSetupDrag(){
     var ms=ge('trombi-manual-sel');
     if(!ms||!ms.value)return;
     var eid=ms.value;
-    // Convertir coords CSS affichées → coords image originale
-    var r=display.getBoundingClientRect();
-    var scaleX=_trombiOrigImg.naturalWidth/r.width;
-    var scaleY=_trombiOrigImg.naturalHeight/r.height;
-    var ix=x*scaleX, iy=y*scaleY, iw=w*scaleX, ih=h*scaleY;
+    // Utiliser directement les coords image calculées dans getPos
+    var p2=getPos(ev);
+    var imgX=Math.min(startIX,p2.ix), imgY=Math.min(startIY,p2.iy);
+    var imgW=Math.abs(p2.ix-startIX), imgH=Math.abs(p2.iy-startIY);
+    var dr=p2.dr;
+    var scaleX=_trombiOrigImg.naturalWidth/dr.width;
+    var scaleY=_trombiOrigImg.naturalHeight/dr.height;
+    var ix=imgX*scaleX, iy=imgY*scaleY, iw=imgW*scaleX, ih=imgH*scaleY;
     // Extraire et sauvegarder
     var vc=document.createElement('canvas');vc.width=80;vc.height=80;
     vc.getContext('2d').drawImage(_trombiOrigImg,ix,iy,iw,ih,0,0,80,80);
