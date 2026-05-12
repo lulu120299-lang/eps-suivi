@@ -2094,6 +2094,11 @@ function ghPushFileSilent(fn,data){
 }
 function ghPushFile(fn,data,onOk){
   var encoded=ghEncode(data);
+  // Vérifier taille (GitHub limite à ~1MB via API)
+  if(encoded.length>900000){
+    toast('Fichier trop volumineux pour GitHub ('+Math.round(encoded.length/1024)+'KB)','warn');
+    if(onOk)onOk();return;
+  }
   // Toujours récupérer le SHA actuel avant de pusher
   function doPut(sha){
     var body={message:'EPS save',content:encoded};
@@ -2117,23 +2122,20 @@ function ghPushFile(fn,data,onOk){
       } else {
         if(onOk)onOk();
         r.json().then(function(d){
-          toast('Erreur GitHub: '+(d&&d.message?d.message:r.status),'warn');
+          console.error('GitHub error:',r.status,d);
+          toast('Erreur GitHub '+r.status+': '+(d&&d.message?d.message:''),'warn');
         }).catch(function(){toast('Erreur GitHub ('+r.status+')','warn');});
       }
     }).catch(function(e){if(onOk)onOk();toast('Erreur reseau','warn');});
   }
-  // Si on a un SHA en cache, l'utiliser directement
-  if(GH_SHA[fn]){doPut(GH_SHA[fn]);}
-  else{
-    // Récupérer le SHA depuis GitHub
-    fetch('https://api.github.com/repos/'+GH.repo+'/contents/'+fn,{headers:ghHeaders()})
-    .then(function(r){return r.ok?r.json():null;})
-    .then(function(d){
-      var sha=d&&d.sha?d.sha:null;
-      if(sha)GH_SHA[fn]=sha;
-      doPut(sha);
-    }).catch(function(){doPut(null);});
-  }
+  // Toujours récupérer le SHA frais depuis GitHub (évite les 409)
+  fetch('https://api.github.com/repos/'+GH.repo+'/contents/'+fn,{headers:ghHeaders()})
+  .then(function(r){return r.ok?r.json():null;})
+  .then(function(d){
+    var sha=d&&d.sha?d.sha:null;
+    if(sha)GH_SHA[fn]=sha;
+    doPut(sha);
+  }).catch(function(){doPut(null);});
 }
 
 function ghPush(){
@@ -2384,7 +2386,7 @@ function saveNewCls(){
   var nom=ge('cls-nom').value.trim();
   if(!nom){toast('Entrez un nom de classe','warn');return;}
   var sub=ge('cls-sub').value.trim();
-  var id='cls-'+Date.now();
+  var id='cls-'+nom.toLowerCase().replace(/[^a-z0-9]/g,'-').replace(/-+/g,'-').substring(0,20)+'-'+Date.now().toString().slice(-4);
   var col=CLS_SEL_COLOR;
   var newCls={
     id:id,
