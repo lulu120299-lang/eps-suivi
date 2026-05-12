@@ -4812,11 +4812,30 @@ function appelToggleStatut(sid,eid,statut){
 function appelTousPresents(sid){
   if(!state.presences[sid])state.presences[sid]={};
   state.eleves.forEach(function(e){state.presences[sid][e.id]='Present';});
-  save();showAppel(sid);
+  saveLater();
+  // Mettre à jour visuellement
+  var _ABTS={'Present':{bg:'#56cfb2',fg:'#0d1018'},'Absent':{bg:'#ff6b6b',fg:'#fff'},'Dispense':{bg:'#6393ff',fg:'#fff'},'Pas tenue':{bg:'#ff9f0a',fg:'#0d1018'}};
+  var _rowBg={'Present':'rgba(86,207,178,.06)'};
+  document.querySelectorAll('[data-row-eid]').forEach(function(row){row.style.background='rgba(86,207,178,.06)';row.style.borderColor='rgba(86,207,178,.2)';});
+  document.querySelectorAll('.appel-stat-btn').forEach(function(btn){
+    var sel=btn.dataset.st==='Present';
+    var info=_ABTS[btn.dataset.st];
+    btn.style.background=sel?'#56cfb2':'rgba(255,255,255,.06)';
+    btn.style.color=sel?'#0d1018':'#636366';
+    btn.style.opacity=sel?'1':'0.6';
+    btn.style.transform=sel?'scale(1.06)':'scale(1)';
+  });
+  appelUpdateStats(sid);
 }
 function appelReset(sid){
-  state.presences[sid]={};
-  save();showAppel(sid);
+  if(!state.presences[sid])state.presences[sid]={};
+  state.eleves.forEach(function(e){state.presences[sid][e.id]='';});
+  saveLater();
+  document.querySelectorAll('[data-row-eid]').forEach(function(row){row.style.background='#13161f';row.style.borderColor='rgba(255,255,255,.06)';});
+  document.querySelectorAll('.appel-stat-btn').forEach(function(btn){
+    btn.style.background='rgba(255,255,255,.06)';btn.style.color='#636366';btn.style.opacity='0.6';btn.style.transform='scale(1)';
+  });
+  appelUpdateStats(sid);
 }
 
 function appelUpdateStats(sid){
@@ -4846,6 +4865,7 @@ function appelSetMode(m){
   // Recharger le contenu de la séance active
   var active=document.querySelector('.ap-scard.active');
   if(active)showAppel(active.dataset.sid);
+  else{var _apC=ge('ap-content');if(_apC&&_apC.innerHTML==='<div class="empty">Selectionnez une seance</div>'){}}
 }
 
 function appelRenderCritConfig(){
@@ -4969,7 +4989,13 @@ if(_appelMode!=='appel'){h+='<div class="obj-box">'+'<div style="display:flex;al
   }
   var ap=ge('ap-content');ap.innerHTML=h;
   var _gpZone=ge('ap-ph-groupes');
-  if(_gpZone)_gpZone.innerHTML='<button class="btn-groupes" id="btn-open-groupes" data-sid="'+sid+'" style="font-size:.75rem;padding:5px 12px">&#127922; Groupes</button>';
+  if(_gpZone){
+    var _gpBtn=document.createElement('button');
+    _gpBtn.className='btn-groupes';_gpBtn.style.cssText='font-size:.75rem;padding:5px 12px';
+    _gpBtn.innerHTML='&#127922; Groupes';
+    _gpBtn.addEventListener('click',function(){openGroupes(sid);});
+    _gpZone.innerHTML='';_gpZone.appendChild(_gpBtn);
+  }
   if(_appelMode==='eval'){appelRenderCritConfig();ge('appel-eval-table').innerHTML=appelBuildEvalTable(sid,sorted);}
   // listeners via event delegation sur ap
   // Boutons statut mode appel
