@@ -1706,40 +1706,47 @@ window._fbReady = true;
 
 <!-- Modale tableau de placement -->
 <div id="m-placement" style="display:none;position:fixed;inset:0;background:#0a0c10;z-index:9000;flex-direction:column;overflow:hidden">
+
   <!-- Header -->
-  <div style="background:#13161f;border-bottom:0.5px solid rgba(255,255,255,.08);padding:12px 16px;display:flex;align-items:center;gap:10px;flex-shrink:0">
-    <button onclick="closePlacement()" style="background:rgba(255,255,255,.06);border:0.5px solid rgba(255,255,255,.12);border-radius:8px;padding:6px 12px;color:#9aa0b8;font-size:13px;cursor:pointer">✕ Fermer</button>
+  <div style="background:#13161f;border-bottom:0.5px solid rgba(255,255,255,.08);padding:12px 20px;display:flex;align-items:center;gap:12px;flex-shrink:0">
+    <button onclick="closePlacement()" style="background:rgba(255,255,255,.06);border:0.5px solid rgba(255,255,255,.12);border-radius:8px;padding:7px 14px;color:#9aa0b8;font-size:13px;cursor:pointer;white-space:nowrap">✕ Fermer</button>
     <div style="flex:1;text-align:center">
-      <div style="font-size:15px;font-weight:600;color:#e4e6ef">Tableau de placement</div>
-      <div style="font-size:11px;color:#6b7280" id="pl-session-info">Session inactive</div>
+      <div style="font-size:16px;font-weight:600;color:#e4e6ef">Tableau de placement</div>
+      <div style="font-size:12px;color:#6b7280" id="pl-session-info">Session inactive</div>
     </div>
-    <button onclick="plStartSession()" id="pl-start-btn" style="background:rgba(86,207,178,.12);border:0.5px solid rgba(86,207,178,.3);border-radius:8px;padding:6px 12px;color:#56cfb2;font-size:13px;font-weight:600;cursor:pointer">▶ Démarrer</button>
+    <button onclick="plStartSession()" id="pl-start-btn" style="background:rgba(86,207,178,.15);border:0.5px solid rgba(86,207,178,.35);border-radius:8px;padding:7px 16px;color:#56cfb2;font-size:13px;font-weight:600;cursor:pointer;white-space:nowrap">▶ Démarrer</button>
   </div>
 
-  <!-- Config cases (avant démarrage) -->
-  <div id="pl-config" style="padding:16px;overflow-y:auto;flex:1">
-    <div style="font-size:11px;font-weight:600;color:#636366;text-transform:uppercase;letter-spacing:.06em;margin-bottom:12px">Configuration des cases</div>
-    <div id="pl-cases-config" style="display:flex;flex-direction:column;gap:8px;margin-bottom:12px"></div>
-    <button onclick="plAddCase()" style="display:flex;align-items:center;gap:6px;background:rgba(255,255,255,.04);border:1.5px dashed rgba(255,255,255,.15);border-radius:10px;padding:10px 14px;color:#9aa0b8;font-size:13px;cursor:pointer;width:100%">+ Ajouter une case</button>
+  <!-- Config cases -->
+  <div id="pl-config" style="padding:20px;overflow-y:auto;flex:1;max-width:600px;margin:0 auto;width:100%">
+    <div style="font-size:11px;font-weight:600;color:#636366;text-transform:uppercase;letter-spacing:.06em;margin-bottom:14px">Configuration des cases</div>
+    <div id="pl-cases-config" style="display:flex;flex-direction:column;gap:10px;margin-bottom:14px"></div>
+    <button onclick="plAddCase()" style="display:flex;align-items:center;justify-content:center;gap:8px;background:rgba(255,255,255,.04);border:1.5px dashed rgba(255,255,255,.15);border-radius:12px;padding:14px;color:#9aa0b8;font-size:14px;cursor:pointer;width:100%">+ Ajouter une case</button>
   </div>
 
-  <!-- Tableau live (après démarrage) -->
-  <div id="pl-live" style="display:none;flex:1;overflow:hidden;display:none;flex-direction:column">
-    <!-- QR code bar -->
-    <div style="background:#13161f;border-bottom:0.5px solid rgba(255,255,255,.08);padding:10px 16px;display:flex;align-items:center;gap:12px;flex-shrink:0">
-      <div id="pl-qr" style="width:120px;height:120px;background:#fff;border-radius:10px;flex-shrink:0;display:flex;align-items:center;justify-content:center;overflow:hidden"></div>
-      <div>
-        <div style="font-size:12px;font-weight:600;color:#e4e6ef;margin-bottom:2px">Élèves → scanner ce QR code</div>
-        <div id="pl-url" style="font-size:10px;color:#6b7280;word-break:break-all"></div>
-        <div style="display:flex;gap:6px;margin-top:4px"><button onclick="plReset()" style="background:rgba(255,107,107,.1);border:0.5px solid rgba(255,107,107,.3);border-radius:6px;padding:3px 10px;color:#ff6b6b;font-size:11px;cursor:pointer">Réinitialiser</button><button onclick="plCopyResults()" style="background:rgba(86,207,178,.1);border:0.5px solid rgba(86,207,178,.3);border-radius:6px;padding:3px 10px;color:#56cfb2;font-size:11px;cursor:pointer">📋 Copier résultats</button></div>
+  <!-- Live board -->
+  <div id="pl-live" style="display:none;flex:1;flex-direction:column;overflow:hidden;min-height:0">
+
+    <!-- QR + actions -->
+    <div style="background:#13161f;border-bottom:0.5px solid rgba(255,255,255,.08);padding:12px 20px;display:flex;align-items:center;gap:16px;flex-shrink:0">
+      <div id="pl-qr" style="width:90px;height:90px;background:#fff;border-radius:10px;flex-shrink:0;overflow:hidden;display:flex;align-items:center;justify-content:center"></div>
+      <div style="flex:1;min-width:0">
+        <div style="font-size:13px;font-weight:600;color:#e4e6ef;margin-bottom:3px">📱 Élèves → scanner ce QR code</div>
+        <div id="pl-url" style="font-size:10px;color:#4f8aff;word-break:break-all;margin-bottom:8px"></div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap">
+          <button onclick="plCopyResults()" style="background:rgba(86,207,178,.12);border:0.5px solid rgba(86,207,178,.3);border-radius:7px;padding:5px 12px;color:#56cfb2;font-size:12px;font-weight:600;cursor:pointer">📋 Copier résultats</button>
+          <button onclick="plReset()" style="background:rgba(255,107,107,.08);border:0.5px solid rgba(255,107,107,.25);border-radius:7px;padding:5px 12px;color:#ff6b6b;font-size:12px;cursor:pointer">Réinitialiser</button>
+        </div>
       </div>
     </div>
+
     <!-- Colonnes -->
-    <div id="pl-board" style="display:flex;gap:10px;overflow-x:auto;padding:12px;flex:1;align-items:flex-start"></div>
-    <!-- Élèves non placés -->
-    <div style="background:#13161f;border-top:0.5px solid rgba(255,255,255,.08);padding:10px 16px;flex-shrink:0">
-      <div style="font-size:11px;color:#636366;text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px">Non placés</div>
-      <div id="pl-unplaced" style="display:flex;flex-wrap:wrap;gap:5px"></div>
+    <div id="pl-board" style="display:grid;gap:12px;padding:14px;overflow-y:auto;flex:1;align-content:start"></div>
+
+    <!-- Non placés -->
+    <div style="background:#13161f;border-top:0.5px solid rgba(255,255,255,.08);padding:12px 20px;flex-shrink:0">
+      <div style="font-size:11px;font-weight:600;color:#636366;text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px" id="pl-unplaced-label">Non placés</div>
+      <div id="pl-unplaced" data-caseid="" style="display:flex;flex-wrap:wrap;gap:7px;min-height:40px;border-radius:8px;transition:background .15s;padding:4px"></div>
     </div>
   </div>
 </div>
@@ -2710,53 +2717,61 @@ function _plShowLive(sid){
   var startBtn=ge('pl-start-btn');if(startBtn)startBtn.style.display='none';
   ge('pl-session-info').textContent='Session active';
 
-  // URL page élève
   var baseUrl=location.origin+location.pathname.replace('index.html','')+'placement-eleve.html';
   var eleveUrl=baseUrl+'?s='+encodeURIComponent(sid);
   var urlEl=ge('pl-url');if(urlEl)urlEl.textContent=eleveUrl;
 
-  // QR code via API externe
   var qrEl=ge('pl-qr');
   if(qrEl){
     var img=document.createElement('img');
-    img.src='https://api.qrserver.com/v1/create-qr-code/?size=300x300&margin=10&data='+encodeURIComponent(eleveUrl);
-    img.style.cssText='width:120px;height:120px;border-radius:8px';
+    img.src='https://api.qrserver.com/v1/create-qr-code/?size=400x400&margin=10&data='+encodeURIComponent(eleveUrl);
+    img.style.cssText='width:90px;height:90px';
     qrEl.innerHTML='';qrEl.appendChild(img);
   }
 
-  // Écouter le placement en temps réel
   if(_plListener){_plListener();_plListener=null;}
   _plListener=window._fbOnValue(window._fbRef(window._fbDb,'sessions/'+sid+'/placement'), function(snap){
-    var placement=snap.val()||{};
-    _plRenderBoard(placement);
+    _plRenderBoard(snap.val()||{});
   });
 }
 
 var _plDragging=null;
 var _plCurrentPlacement={};
+var _plTouchClone=null;
 
 function _plRenderBoard(placement){
   _plCurrentPlacement=placement||{};
   var board=ge('pl-board');if(!board)return;
   board.innerHTML='';
 
+  // Grille responsive : nb colonnes selon nb cases
+  var n=_plCases.length;
+  var cols=n<=2?n:n<=4?2:n<=6?3:4;
+  board.style.gridTemplateColumns='repeat('+cols+',1fr)';
+
   _plCases.forEach(function(c){
     var eleves=[];
     Object.entries(placement).forEach(function(kv){
       if(kv[1]&&kv[1].caseId===c.id)eleves.push(kv[0]);
     });
+
     var col=document.createElement('div');
-    col.style.cssText='min-width:160px;max-width:200px;border:0.5px solid rgba(255,255,255,.1);border-radius:12px;overflow:hidden;flex-shrink:0;border-top:3px solid '+c.color;
+    col.style.cssText='border:0.5px solid rgba(255,255,255,.1);border-radius:14px;overflow:hidden;border-top:4px solid '+c.color+';background:#13161f;display:flex;flex-direction:column';
+
+    // Header colonne
     var head=document.createElement('div');
-    head.style.cssText='background:#1c1f2c;padding:9px 11px;border-bottom:0.5px solid rgba(255,255,255,.08);display:flex;align-items:center;gap:6px';
-    head.innerHTML='<div style="font-size:12px;font-weight:600;color:#e4e6ef;flex:1">'+esc(c.label)+'</div>'+
-      '<span style="font-size:11px;color:#6b7280;background:#13161f;padding:1px 7px;border-radius:20px">'+eleves.length+'</span>';
+    head.style.cssText='background:#1c1f2c;padding:12px 14px;display:flex;align-items:center;gap:8px;flex-shrink:0';
+    head.innerHTML='<div style="width:10px;height:10px;border-radius:50%;background:'+c.color+';flex-shrink:0"></div>'+
+      '<div style="font-size:14px;font-weight:600;color:#e4e6ef;flex:1">'+esc(c.label)+'</div>'+
+      '<span style="font-size:12px;color:#6b7280;background:#0d1018;padding:2px 9px;border-radius:20px;font-weight:600">'+eleves.length+'</span>';
+
+    // Zone de drop
     var dz=document.createElement('div');
-    dz.style.cssText='padding:8px;min-height:70px;display:flex;flex-wrap:wrap;gap:5px;align-content:flex-start;transition:background .1s';
-    dz.dataset.caseid=c.id;
-    dz.dataset.caselabel=c.label;
-    // Drop zone
-    dz.addEventListener('dragover',function(ev){ev.preventDefault();dz.style.background='rgba(255,255,255,.06)';});
+    dz.style.cssText='padding:10px;min-height:100px;flex:1;display:flex;flex-wrap:wrap;gap:7px;align-content:flex-start;transition:background .15s;cursor:default';
+    dz.dataset.caseid=c.id;dz.dataset.caselabel=c.label;
+
+    // Drag events (desktop)
+    dz.addEventListener('dragover',function(ev){ev.preventDefault();dz.style.background='rgba(255,255,255,.05)';});
     dz.addEventListener('dragleave',function(){dz.style.background='';});
     dz.addEventListener('drop',function(ev){
       ev.preventDefault();dz.style.background='';
@@ -2765,20 +2780,11 @@ function _plRenderBoard(placement){
         {caseId:c.id,caseLabel:c.label,ts:Date.now()});
       _plDragging=null;
     });
+
     eleves.forEach(function(e){
-      var chip=document.createElement('span');
-      chip.style.cssText='background:'+c.color+'44;border:0.5px solid '+c.color+'88;border-radius:20px;padding:5px 10px;font-size:12px;font-weight:500;color:#e4e6ef;cursor:grab;user-select:none;display:inline-flex;align-items:center;gap:5px';
-      chip.draggable=true;
-      chip.innerHTML=esc(e)+'<span data-eleve="'+esc(e)+'" title="Retirer" style="font-size:11px;color:rgba(255,255,255,.4);cursor:pointer;margin-left:2px">✕</span>';
-      chip.querySelector('span').addEventListener('click',function(ev){
-        ev.stopPropagation();
-        var name=this.dataset.eleve;
-        if(_plSession)window._fbRemove(window._fbRef(window._fbDb,'sessions/'+_plSession+'/placement/'+name));
-      });
-      chip.addEventListener('dragstart',function(){_plDragging=e;setTimeout(function(){chip.style.opacity='.4';},0);});
-      chip.addEventListener('dragend',function(){chip.style.opacity='1';_plDragging=null;});
-      dz.appendChild(chip);
+      dz.appendChild(_plMakeChip(e,c.color,c.id,c.label));
     });
+
     col.appendChild(head);col.appendChild(dz);
     board.appendChild(col);
   });
@@ -2786,29 +2792,83 @@ function _plRenderBoard(placement){
   // Non placés
   var allEleves=state.eleves.map(function(e){return e.nom;});
   var placed=Object.keys(placement);
-  var unplaced=allEleves.filter(function(e){return !placed.includes(e);});
-  var up=ge('pl-unplaced');if(up){
-    up.innerHTML='';
-    unplaced.forEach(function(e){
-      var chip=document.createElement('span');
-      chip.style.cssText='background:#1c1f2c;border:0.5px solid rgba(255,255,255,.1);border-radius:20px;padding:5px 10px;font-size:12px;color:#9aa0b8;cursor:grab;user-select:none';
-      chip.textContent=e;chip.draggable=true;
-      chip.addEventListener('dragstart',function(){_plDragging=e;setTimeout(function(){chip.style.opacity='.4';},0);});
-      chip.addEventListener('dragend',function(){chip.style.opacity='1';_plDragging=null;});
-      up.appendChild(chip);
-    });
-    // Drop zone sur non-placés aussi
-    up.addEventListener('dragover',function(ev){ev.preventDefault();up.style.background='rgba(255,255,255,.04)';});
-    up.addEventListener('dragleave',function(){up.style.background='';});
-    up.addEventListener('drop',function(ev){
-      ev.preventDefault();up.style.background='';
-      if(!_plDragging||!_plSession)return;
-      window._fbRemove(window._fbRef(window._fbDb,'sessions/'+_plSession+'/placement/'+_plDragging));
-      _plDragging=null;
-    });
-  }
+  var unplaced=allEleves.filter(function(e){return placed.indexOf(e)<0;});
+  var lbl=ge('pl-unplaced-label');
+  if(lbl)lbl.textContent='Non placés ('+unplaced.length+'/'+allEleves.length+')';
+  var up=ge('pl-unplaced');if(!up)return;
+  up.innerHTML='';
+  // Drop zone non-placés (desktop)
+  up.addEventListener('dragover',function(ev){ev.preventDefault();up.style.background='rgba(255,255,255,.04)';});
+  up.addEventListener('dragleave',function(){up.style.background='';});
+  up.addEventListener('drop',function(ev){
+    ev.preventDefault();up.style.background='';
+    if(!_plDragging||!_plSession)return;
+    window._fbRemove(window._fbRef(window._fbDb,'sessions/'+_plSession+'/placement/'+_plDragging));
+    _plDragging=null;
+  });
+  unplaced.forEach(function(e){
+    up.appendChild(_plMakeChip(e,null,null,null));
+  });
 }
 
+function _plMakeChip(name,color,caseId,caseLabel){
+  var chip=document.createElement('span');
+  var bg=color?color+'33':'#1c1f2c';
+  var border=color?color+'77':'rgba(255,255,255,.12)';
+  chip.style.cssText='background:'+bg+';border:0.5px solid '+border+';border-radius:22px;padding:7px 13px;font-size:13px;font-weight:500;color:#e4e6ef;cursor:grab;user-select:none;display:inline-flex;align-items:center;gap:7px;touch-action:none;white-space:nowrap';
+  chip.innerHTML=esc(name);
+  if(caseId){
+    var x=document.createElement('span');
+    x.textContent='✕';x.dataset.eleve=name;
+    x.style.cssText='font-size:12px;color:rgba(255,255,255,.35);cursor:pointer;padding:1px 2px';
+    x.addEventListener('click',function(ev){
+      ev.stopPropagation();
+      if(_plSession)window._fbRemove(window._fbRef(window._fbDb,'sessions/'+_plSession+'/placement/'+name));
+    });
+    chip.appendChild(x);
+  }
+  // Desktop drag
+  chip.draggable=true;
+  chip.addEventListener('dragstart',function(){_plDragging=name;setTimeout(function(){chip.style.opacity='.35';},0);});
+  chip.addEventListener('dragend',function(){chip.style.opacity='1';_plDragging=null;});
+  // Touch (iPad)
+  chip.addEventListener('touchstart',function(ev){
+    _plDragging=name;
+    var t=ev.touches[0];
+    _plTouchClone=chip.cloneNode(true);
+    _plTouchClone.style.cssText+=';position:fixed;z-index:9999;pointer-events:none;opacity:.85;transform:scale(1.08)';
+    _plTouchClone.style.left=(t.clientX-60)+'px';
+    _plTouchClone.style.top=(t.clientY-20)+'px';
+    document.body.appendChild(_plTouchClone);
+  },{passive:true});
+  chip.addEventListener('touchmove',function(ev){
+    ev.preventDefault();
+    var t=ev.touches[0];
+    if(_plTouchClone){
+      _plTouchClone.style.left=(t.clientX-60)+'px';
+      _plTouchClone.style.top=(t.clientY-20)+'px';
+    }
+    // Highlight drop zone sous le doigt
+    document.querySelectorAll('[data-caseid]').forEach(function(dz){dz.style.background='';});
+    var el=document.elementFromPoint(t.clientX,t.clientY);
+    var dz=el&&(el.dataset.caseid?el:el.closest('[data-caseid]'));
+    if(dz)dz.style.background='rgba(255,255,255,.07)';
+  },{passive:false});
+  chip.addEventListener('touchend',function(ev){
+    if(_plTouchClone){document.body.removeChild(_plTouchClone);_plTouchClone=null;}
+    document.querySelectorAll('[data-caseid]').forEach(function(dz){dz.style.background='';});
+    var t=ev.changedTouches[0];
+    var el=document.elementFromPoint(t.clientX,t.clientY);
+    var dz=el&&(el.dataset.caseid?el:el.closest('[data-caseid]'));
+    if(dz&&_plSession){
+      var cid=dz.dataset.caseid;var clbl=dz.dataset.caselabel;
+      if(cid){window._fbSet(window._fbRef(window._fbDb,'sessions/'+_plSession+'/placement/'+_plDragging),{caseId:cid,caseLabel:clbl,ts:Date.now()});}
+      else{window._fbRemove(window._fbRef(window._fbDb,'sessions/'+_plSession+'/placement/'+_plDragging));}
+    }
+    _plDragging=null;
+  });
+  return chip;
+}
 function plCopyResults(){
   var placement=_plCurrentPlacement;
   if(!Object.keys(placement).length){toast('Aucun placement à copier','warn');return;}
