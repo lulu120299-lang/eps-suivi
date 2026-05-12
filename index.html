@@ -1791,21 +1791,23 @@ window._fbReady = true;
 
     <!-- Zone découpage -->
     <div id="trombi-crop-zone" style="display:none">
-      <div style="font-size:13px;color:#9aa0b8;margin-bottom:12px">
-        Clique sur chaque visage pour l'associer à un élève. Utilise les poignées pour ajuster le cadre.
-      </div>
-      <div style="display:grid;grid-template-columns:1fr 280px;gap:16px;align-items:start">
-        <!-- Image avec canvas -->
-        <div style="position:relative">
-          <canvas id="trombi-canvas" style="width:100%;border-radius:12px;cursor:crosshair;max-height:60vh;object-fit:contain"></canvas>
-          <canvas id="trombi-overlay" style="position:absolute;top:0;left:0;width:100%;height:100%;border-radius:12px;pointer-events:none"></canvas>
-        </div>
-        <!-- Panel association -->
+      <div style="display:grid;grid-template-columns:1fr 300px;gap:16px;align-items:start">
+        <!-- Image avec sélection -->
         <div>
-          <div style="font-size:11px;font-weight:600;color:#636366;text-transform:uppercase;letter-spacing:.06em;margin-bottom:10px">Visages détectés</div>
-          <div id="trombi-faces-list" style="display:flex;flex-direction:column;gap:8px;max-height:55vh;overflow-y:auto"></div>
+          <div style="font-size:12px;color:#9aa0b8;margin-bottom:8px">Choisis l'élève à droite puis trace un rectangle autour de son visage</div>
+          <div id="trombi-img-wrap" style="position:relative;display:inline-block;cursor:crosshair;user-select:none;-webkit-user-select:none;line-height:0">
+            <img id="trombi-img-display" style="max-width:100%;border-radius:10px;display:block;pointer-events:none" draggable="false">
+            <div id="trombi-sel-box" style="display:none;position:absolute;border:2px solid #56cfb2;background:rgba(86,207,178,.15);pointer-events:none;box-sizing:border-box"></div>
+          </div>
+        </div>
+        <!-- Panel -->
+        <div>
+          <div style="font-size:11px;font-weight:600;color:#636366;text-transform:uppercase;letter-spacing:.06em;margin-bottom:10px">Élèves à associer</div>
+          <div id="trombi-faces-list" style="display:flex;flex-direction:column;gap:8px;max-height:60vh;overflow-y:auto"></div>
         </div>
       </div>
+      <canvas id="trombi-canvas" style="display:none"></canvas>
+      <canvas id="trombi-overlay" style="display:none"></canvas>
     </div>
 
   </div>
@@ -2991,6 +2993,7 @@ function plCopyResults(){
 // ── TROMBINOSCOPE ──
 var _trombiPhotos={};
 var _faceApiReady=false;
+var _trombiOrigImg=null; // image originale pour le crop
 
 function openTrombi(){
   var m=ge('m-trombi');if(!m)return;
@@ -2998,19 +3001,10 @@ function openTrombi(){
   ge('trombi-import-zone').style.display='block';
   ge('trombi-crop-zone').style.display='none';
   trombiInit(function(){_trombiRenderCurrent();});
-  _trombiLoadModels();
 }
 
 function closeTrombi(){
   var m=ge('m-trombi');if(m)m.style.display='none';
-}
-
-async function _trombiLoadModels(){
-  if(_faceApiReady||typeof faceapi==='undefined')return;
-  try{
-    await faceapi.nets.tinyFaceDetector.loadFromUri('https://cdn.jsdelivr.net/npm/face-api.js@0.22.2/weights');
-    _faceApiReady=true;
-  }catch(e){console.log('face-api:',e);}
 }
 
 function _trombiRenderCurrent(){
@@ -3053,7 +3047,6 @@ function trombiInit(cb){
   if(!window._fbReady){if(cb)cb();return;}
   window._fbGet(window._fbRef(window._fbDb,'trombi/'+STORAGE_KEY)).then(function(snap){
     _trombiPhotos=snap.val()||{};
-    // Injecter les photos dans state.eleves pour renderEleves
     state.eleves.forEach(function(e){
       e.trombiPhoto=_trombiPhotos[e.id]?_trombiPhotos[e.id].data:null;
     });
@@ -3062,197 +3055,144 @@ function trombiInit(cb){
   }).catch(function(){if(cb)cb();});
 }
 
-async function trombiLoadImage(input){
+function trombiLoadImage(input){
   var file=input.files[0];if(!file)return;
   ge('trombi-import-zone').style.display='none';
   ge('trombi-crop-zone').style.display='block';
-  var sub=ge('trombi-sub');if(sub)sub.textContent='Detection des visages...';
+  var sub=ge('trombi-sub');if(sub)sub.textContent='Trace un rectangle autour de chaque visage';
   var url=URL.createObjectURL(file);
   var img=new Image();
-  img.onload=async function(){
-    var canvas=ge('trombi-canvas');
-    var maxW=Math.max(canvas.parentElement.clientWidth||600,300);
-    var scale=Math.min(1,maxW/img.width);
-    // Taille réelle du canvas = taille image * scale
-    canvas.width=img.width*scale;canvas.height=img.height*scale;
-    // Forcer la taille CSS = taille réelle pour éviter tout décalage
-    canvas.style.width=canvas.width+'px';canvas.style.height=canvas.height+'px';
-    canvas.style.maxWidth='100%';
-    canvas.getContext('2d').drawImage(img,0,0,canvas.width,canvas.height);
-    var overlay=ge('trombi-overlay');
-    overlay.width=canvas.width;overlay.height=canvas.height;
-    overlay.style.width=canvas.width+'px';overlay.style.height=canvas.height+'px';
-    if(!_faceApiReady)await _trombiLoadModels();
-    if(_faceApiReady){
-      try{
-        var dets=await faceapi.detectAllFaces(canvas,new faceapi.TinyFaceDetectorOptions({scoreThreshold:0.3}));
-        if(sub)sub.textContent=dets.length+' visage(s) detecte(s) - associe chaque visage a un eleve';
-        _trombiDrawBoxes(dets,overlay);
-        _trombiRenderFacesList(dets,img,canvas,scale);
-        return;
-      }catch(ex){console.log('detection err:',ex);}
-    }
-    if(sub)sub.textContent='Mode manuel - trace un rectangle autour de chaque visage';
-    _trombiManualMode(canvas,img,scale,overlay);
+  img.onload=function(){
+    _trombiOrigImg=img;
+    var display=ge('trombi-img-display');
+    if(display)display.src=url;
+    _trombiRenderManualList();
+    _trombiSetupDrag();
   };
   img.src=url;
 }
 
-function _trombiDrawBoxes(dets,overlay){
-  var ctx=overlay.getContext('2d');ctx.clearRect(0,0,overlay.width,overlay.height);
-  dets.forEach(function(d,i){
-    var b=d.box,pad=Math.max(b.width,b.height)*0.2;
-    ctx.strokeStyle='#4f8aff';ctx.lineWidth=2;
-    ctx.strokeRect(b.x-pad,b.y-pad,b.width+pad*2,b.height+pad*2);
-    ctx.fillStyle='rgba(79,138,255,.12)';
-    ctx.fillRect(b.x-pad,b.y-pad,b.width+pad*2,b.height+pad*2);
-    ctx.fillStyle='#fff';ctx.font='bold 13px sans-serif';
-    ctx.fillText(i+1,b.x-pad+4,b.y-pad+15);
-  });
-}
-
-function _trombiRenderFacesList(dets,img,canvas,scale){
+function _trombiRenderManualList(){
   var list=ge('trombi-faces-list');if(!list)return;
   list.innerHTML='';
   var usedEids=Object.keys(_trombiPhotos);
-  dets.forEach(function(d,i){
-    var b=d.box,pad=Math.max(b.width,b.height)*0.25;
-    var sx=Math.max(0,b.x-pad),sy=Math.max(0,b.y-pad);
-    var sw=Math.min(b.width+pad*2,canvas.width-sx),sh=Math.min(b.height+pad*2,canvas.height-sy);
-    var vc=document.createElement('canvas');vc.width=80;vc.height=80;
-    vc.getContext('2d').drawImage(img,sx/scale,sy/scale,sw/scale,sh/scale,0,0,80,80);
-    var thumb=vc.toDataURL('image/jpeg',0.75);
+  var selDiv=document.createElement('div');
+  selDiv.style.cssText='background:#1c1f2c;border-radius:10px;padding:10px;margin-bottom:10px';
+  selDiv.innerHTML='<div style="font-size:12px;color:#9aa0b8;margin-bottom:6px">Selectionner un eleve :</div>'+
+    '<select id="trombi-manual-sel" style="width:100%;background:#13161f;border:0.5px solid rgba(255,255,255,.1);border-radius:7px;color:#e4e6ef;font-size:13px;padding:6px 8px;outline:none">'+
+    '<option value="">-- Choisir --</option>'+
+    state.eleves.map(function(e){
+      var done=usedEids.indexOf(e.id)>=0;
+      return '<option value="'+e.id+'"'+(done?' style="color:#56cfb2"':'')+'>'+esc(e.nom)+(done?' ✓':'')+' </option>';
+    }).join('')+
+    '</select><div style="font-size:11px;color:#636366;margin-top:6px">Puis trace un rectangle sur la photo</div>';
+  list.appendChild(selDiv);
+  // Résumé des photos déjà associées
+  state.eleves.filter(function(e){return _trombiPhotos[e.id];}).forEach(function(e){
     var row=document.createElement('div');
-    row.style.cssText='display:flex;align-items:center;gap:8px;background:#1c1f2c;border-radius:10px;padding:8px;margin-bottom:6px';
-    var imgEl=document.createElement('img');
-    imgEl.src=thumb;imgEl.style.cssText='width:44px;height:44px;border-radius:8px;object-fit:cover;flex-shrink:0';
-    var numBadge=document.createElement('span');
-    numBadge.style.cssText='background:#4f8aff;color:#fff;border-radius:50%;width:20px;height:20px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0';
-    numBadge.textContent=i+1;
-    var sel=document.createElement('select');
-    sel.style.cssText='flex:1;background:#13161f;border:0.5px solid rgba(255,255,255,.1);border-radius:7px;color:#e4e6ef;font-size:12px;padding:4px 8px;outline:none';
-    sel.innerHTML='<option value="">-- Choisir --</option>';
-    state.eleves.forEach(function(e){
-      var opt=document.createElement('option');opt.value=e.id;opt.textContent=e.nom;
-      if(usedEids.indexOf(e.id)>=0)opt.style.color='#636366';
-      sel.appendChild(opt);
-    });
-    var btn=document.createElement('button');
-    btn.textContent='OK';
-    btn.style.cssText='background:rgba(86,207,178,.15);border:0.5px solid rgba(86,207,178,.3);border-radius:7px;padding:6px 12px;color:#56cfb2;font-size:13px;font-weight:600;cursor:pointer;flex-shrink:0';
-    btn.onclick=function(){
-      var eid=sel.value;if(!eid){toast('Choisis un eleve','warn');return;}
-      trombiSaveFace(eid,thumb);
-      row.style.opacity='.4';row.style.pointerEvents='none';
-      var elv=state.eleves.find(function(e){return e.id===eid;});
-      toast((elv?elv.nom:'Eleve')+' associe','ok');
-      usedEids.push(eid);
-    };
-    row.appendChild(numBadge);row.appendChild(imgEl);row.appendChild(sel);row.appendChild(btn);
+    row.style.cssText='display:flex;align-items:center;gap:8px;padding:6px 8px;background:#13161f;border-radius:8px;margin-bottom:4px';
+    row.innerHTML='<img src="'+_trombiPhotos[e.id].data+'" style="width:36px;height:36px;border-radius:50%;object-fit:cover;border:1.5px solid #56cfb2">'+
+      '<span style="font-size:12px;color:#56cfb2;flex:1">'+esc(e.nom)+'</span>'+
+      '<span data-eid="'+e.id+'" onclick="trombiDeletePhoto(this);_trombiRenderManualList();" style="font-size:12px;color:#ff6b6b;cursor:pointer">✕</span>';
     list.appendChild(row);
   });
-  if(!dets.length){
-    list.innerHTML='<div style="color:#9aa0b8;font-size:13px;padding:8px;background:#1c1f2c;border-radius:10px">Aucun visage detecte automatiquement. Mode manuel ci-dessous.</div>';
-    _trombiManualMode(canvas,img,scale,ge('trombi-overlay'));
+}
+
+function _trombiSetupDrag(){
+  var wrap=ge('trombi-img-wrap');
+  var selBox=ge('trombi-sel-box');
+  var display=ge('trombi-img-display');
+  if(!wrap||!selBox||!display)return;
+
+  var dragging=false,startX,startY;
+
+  function getPos(ev){
+    var r=display.getBoundingClientRect(); // coords de l'IMAGE affichée
+    var clientX=ev.touches?ev.touches[0].clientX:(ev.changedTouches?ev.changedTouches[0].clientX:ev.clientX);
+    var clientY=ev.touches?ev.touches[0].clientY:(ev.changedTouches?ev.changedTouches[0].clientY:ev.clientY);
+    // Clamp dans les limites de l'image
+    var x=Math.max(0,Math.min(clientX-r.left,r.width));
+    var y=Math.max(0,Math.min(clientY-r.top,r.height));
+    return {x:x,y:y,r:r};
   }
+
+  function startDrag(ev){
+    var ms=ge('trombi-manual-sel');
+    if(!ms||!ms.value){toast('Choisis un eleve dabord','warn');return;}
+    ev.preventDefault();
+    dragging=true;
+    var p=getPos(ev);
+    startX=p.x;startY=p.y;
+    selBox.style.display='block';
+    selBox.style.left=startX+'px';selBox.style.top=startY+'px';
+    selBox.style.width='0';selBox.style.height='0';
+  }
+
+  function moveDrag(ev){
+    if(!dragging)return;
+    ev.preventDefault();
+    var p=getPos(ev);
+    var x=Math.min(startX,p.x),y=Math.min(startY,p.y);
+    var w=Math.abs(p.x-startX),h=Math.abs(p.y-startY);
+    selBox.style.left=x+'px';selBox.style.top=y+'px';
+    selBox.style.width=w+'px';selBox.style.height=h+'px';
+  }
+
+  function endDrag(ev){
+    if(!dragging)return;
+    dragging=false;
+    var p=getPos(ev);
+    var x=Math.min(startX,p.x),y=Math.min(startY,p.y);
+    var w=Math.abs(p.x-startX),h=Math.abs(p.y-startY);
+    selBox.style.display='none';
+    if(w<10||h<10)return;
+    var ms=ge('trombi-manual-sel');
+    if(!ms||!ms.value)return;
+    var eid=ms.value;
+    // Convertir coords CSS affichées → coords image originale
+    var r=display.getBoundingClientRect();
+    var scaleX=_trombiOrigImg.naturalWidth/r.width;
+    var scaleY=_trombiOrigImg.naturalHeight/r.height;
+    var ix=x*scaleX, iy=y*scaleY, iw=w*scaleX, ih=h*scaleY;
+    // Extraire et sauvegarder
+    var vc=document.createElement('canvas');vc.width=80;vc.height=80;
+    vc.getContext('2d').drawImage(_trombiOrigImg,ix,iy,iw,ih,0,0,80,80);
+    var data=vc.toDataURL('image/jpeg',0.8);
+    _trombiPhotos[eid]={data:data};
+    _trombiSavePhotos();
+    var elv=state.eleves.find(function(e){return e.id===eid;});
+    if(elv)elv.trombiPhoto=data;
+    try{renderEleves();}catch(ex){}
+    toast((elv?elv.nom:'Eleve')+' associe','ok');
+    ms.value='';
+    _trombiRenderManualList();
+    _trombiRenderCurrent();
+  }
+
+  // Mouse events
+  wrap.addEventListener('mousedown',startDrag);
+  wrap.addEventListener('mousemove',moveDrag);
+  wrap.addEventListener('mouseup',endDrag);
+  // Touch events
+  wrap.addEventListener('touchstart',startDrag,{passive:false});
+  wrap.addEventListener('touchmove',moveDrag,{passive:false});
+  wrap.addEventListener('touchend',endDrag,{passive:false});
 }
 
 function trombiSaveFace(eid,dataUrl){
-  // Compresser en 80x80 JPEG qualite 0.7 -> ~3-5KB par photo
   var vc=document.createElement('canvas');vc.width=80;vc.height=80;
-  var vctx=vc.getContext('2d');
   var tmpImg=new Image();
   tmpImg.onload=function(){
-    vctx.drawImage(tmpImg,0,0,80,80);
+    vc.getContext('2d').drawImage(tmpImg,0,0,80,80);
     var compressed=vc.toDataURL('image/jpeg',0.7);
     _trombiPhotos[eid]={data:compressed};
     _trombiSavePhotos();
     _trombiRenderCurrent();
-    // Màj photo dans state.eleves
     var elv=state.eleves.find(function(e){return e.id===eid;});
     if(elv)elv.trombiPhoto=compressed;
     try{renderEleves();}catch(ex){}
-    var elv=state.eleves.find(function(e){return e.id===eid;});
-    console.log('photo saved:',(elv?elv.nom:'?'),Math.round(compressed.length/1024)+'KB');
   };
   tmpImg.src=dataUrl;
-}
-
-function _trombiManualMode(canvas,img,scale,overlay){
-  overlay.style.pointerEvents='auto';overlay.style.cursor='crosshair';
-  var list=ge('trombi-faces-list');
-  if(list&&!document.getElementById('trombi-manual-sel')){
-    var floatDiv=document.createElement('div');
-    floatDiv.style.cssText='background:#1c1f2c;border-radius:10px;padding:10px;margin-bottom:8px';
-    floatDiv.innerHTML='<div style="font-size:12px;color:#9aa0b8;margin-bottom:6px">Eleve a selectionner :</div>'+
-      '<select id="trombi-manual-sel" style="width:100%;background:#13161f;border:0.5px solid rgba(255,255,255,.1);border-radius:7px;color:#e4e6ef;font-size:13px;padding:6px 8px;outline:none">'+
-      '<option value="">-- Choisir --</option>'+
-      state.eleves.map(function(e){return '<option value="'+e.id+'">'+esc(e.nom)+'</option>';}).join('')+
-      '</select><div style="font-size:11px;color:#636366;margin-top:6px">Puis trace un rectangle autour du visage sur la photo</div>';
-    list.insertBefore(floatDiv,list.firstChild);
-  }
-  var drawing=false,sx,sy;
-  function _evToCanvas(ev){
-    var r=canvas.getBoundingClientRect();
-    var ratioX=canvas.width/r.width;
-    var ratioY=canvas.height/r.height;
-    var cx=ev.clientX!==undefined?ev.clientX:(ev.touches?ev.touches[0].clientX:ev.changedTouches[0].clientX);
-    var cy=ev.clientY!==undefined?ev.clientY:(ev.touches?ev.touches[0].clientY:ev.changedTouches[0].clientY);
-    return {x:(cx-r.left)*ratioX, y:(cy-r.top)*ratioY};
-  }
-  overlay.onmousedown=function(ev){
-    var ms=ge('trombi-manual-sel');if(!ms||!ms.value){toast('Choisis un eleve dabord','warn');return;}
-    drawing=true;var p=_evToCanvas(ev);sx=p.x;sy=p.y;
-  };
-  overlay.onmousemove=function(ev){
-    if(!drawing)return;var p=_evToCanvas(ev);
-    var ctx=overlay.getContext('2d');ctx.clearRect(0,0,overlay.width,overlay.height);
-    ctx.strokeStyle='#56cfb2';ctx.lineWidth=2;ctx.setLineDash([5,3]);
-    ctx.strokeRect(sx,sy,p.x-sx,p.y-sy);ctx.fillStyle='rgba(86,207,178,.1)';ctx.fillRect(sx,sy,p.x-sx,p.y-sy);
-  };
-  overlay.onmouseup=function(ev){
-    if(!drawing)return;drawing=false;
-    var ms=ge('trombi-manual-sel');if(!ms||!ms.value)return;
-    var p=_evToCanvas(ev);
-    var x=Math.min(sx,p.x),y=Math.min(sy,p.y),w=Math.abs(p.x-sx),h=Math.abs(p.y-sy);
-    if(w<10||h<10)return;
-    // Convertir coords canvas -> coords image originale
-    var vc=document.createElement('canvas');vc.width=80;vc.height=80;
-    vc.getContext('2d').drawImage(img,x/scale,y/scale,w/scale,h/scale,0,0,80,80);
-    trombiSaveFace(ms.value,vc.toDataURL('image/jpeg',0.85));
-    var opt=ms.querySelector('option[value="'+ms.value+'"]');if(opt)opt.disabled=true;
-    var elv=state.eleves.find(function(e){return e.id===ms.value;});
-    toast((elv?elv.nom:'Eleve')+' associe','ok');ms.value='';
-    overlay.getContext('2d').clearRect(0,0,overlay.width,overlay.height);
-  };
-  // Touch support
-  overlay.ontouchstart=function(ev){
-    var ms=ge('trombi-manual-sel');if(!ms||!ms.value){toast('Choisis un eleve dabord','warn');return;}
-    drawing=true;var t=ev.touches[0];
-    var p=_evToCanvas({clientX:t.clientX,clientY:t.clientY});sx=p.x;sy=p.y;
-  };
-  overlay.ontouchmove=function(ev){
-    ev.preventDefault();if(!drawing)return;var t=ev.touches[0];
-    var p=_evToCanvas({clientX:t.clientX,clientY:t.clientY});
-    var ctx=overlay.getContext('2d');ctx.clearRect(0,0,overlay.width,overlay.height);
-    ctx.strokeStyle='#56cfb2';ctx.lineWidth=3;ctx.setLineDash([5,3]);
-    ctx.strokeRect(sx,sy,p.x-sx,p.y-sy);ctx.fillStyle='rgba(86,207,178,.1)';ctx.fillRect(sx,sy,p.x-sx,p.y-sy);
-  };
-  overlay.ontouchend=function(ev){
-    if(!drawing)return;drawing=false;
-    var ms=ge('trombi-manual-sel');if(!ms||!ms.value)return;
-    var t=ev.changedTouches[0];
-    var p=_evToCanvas({clientX:t.clientX,clientY:t.clientY});
-    var x=Math.min(sx,p.x),y=Math.min(sy,p.y),w=Math.abs(p.x-sx),h=Math.abs(p.y-sy);
-    if(w<10||h<10)return;
-    var vc=document.createElement('canvas');vc.width=80;vc.height=80;
-    vc.getContext('2d').drawImage(img,x/scale,y/scale,w/scale,h/scale,0,0,80,80);
-    trombiSaveFace(ms.value,vc.toDataURL('image/jpeg',0.85));
-    var opt=ms.querySelector('option[value="'+ms.value+'"]');if(opt)opt.disabled=true;
-    var elv=state.eleves.find(function(e){return e.id===ms.value;});
-    toast((elv?elv.nom:'Eleve')+' associe','ok');ms.value='';
-    overlay.getContext('2d').clearRect(0,0,overlay.width,overlay.height);
-  };
 }
 
 function accRenderSqGrid(){
