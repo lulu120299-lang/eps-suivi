@@ -4764,6 +4764,7 @@ openPdfWindow(h,'S'+s.num+' - '+(s.objectif||'Seance').substring(0,40)+'.pdf');
 function renderApList(){var el=ge('ap-slist');var sorted=state.seances.slice().sort(function(a,b){return a.num-b.num;});if(!sorted.length){el.innerHTML='<div style="color:#6b7280;font-size:.82rem">Aucune seance.</div>';return;}el.innerHTML='';for(var i=0;i<sorted.length;i++){(function(s){var d=document.createElement('div');d.className='ap-scard';d.id='ab-'+s.id;d.dataset.sid=s.id;d.innerHTML='<div class="ap-snum">S'+s.num+'</div><div><div style="font-size:.83rem;font-weight:500">'+esc(s.objectif||'Sans titre')+'</div><div style="font-size:.72rem;color:#6b7280">'+(s.date?fmtDate(s.date):'')+'</div></div>';el.appendChild(d);})(sorted[i]);}el.onclick=function(e){var card=e.target.closest('.ap-scard');if(!card)return;var cards=document.querySelectorAll('.ap-scard');for(var i=0;i<cards.length;i++)cards[i].classList.remove('act');card.classList.add('act');showAppel(card.dataset.sid);};}
 // ── MODE APPEL / AUTO-EVAL ──
 var _appelMode='appel';
+var _appelCurrentSid=null;
 var _appelCriterias=[
   {id:'qte',label:'Quantite de travail',on:true},
   {id:'auto',label:'Auto-evaluation',on:true}
@@ -4863,9 +4864,7 @@ function appelSetMode(m){
   if(btnA){btnA.style.background=m==='appel'?'#252836':'transparent';btnA.style.color=m==='appel'?'#e4e6ef':'#636366';}
   if(btnE){btnE.style.background=m==='eval'?'#252836':'transparent';btnE.style.color=m==='eval'?'#e4e6ef':'#636366';}
   // Recharger le contenu de la séance active
-  var active=document.querySelector('.ap-scard.active');
-  if(active)showAppel(active.dataset.sid);
-  else{var _apC=ge('ap-content');if(_apC&&_apC.innerHTML==='<div class="empty">Selectionnez une seance</div>'){}}
+  if(_appelCurrentSid)showAppel(_appelCurrentSid);
 }
 
 function appelRenderCritConfig(){
@@ -4938,7 +4937,7 @@ function appelSetCrit(sid,eid,cid,val){
   showAppel(sid);
 }
 
-function showAppel(sid){initAppelMeteo(sid);var s=null;for(var i=0;i<state.seances.length;i++){if(state.seances[i].id===sid){s=state.seances[i];break;}}if(!s)return;if(!state.presences[sid])state.presences[sid]={};if(!state.autoEval[sid])state.autoEval[sid]={};if(!state.seanceObjectifs[sid])state.seanceObjectifs[sid]={};var sorted=state.eleves.slice().sort(function(a,b){return a.nom.localeCompare(b.nom);});var nbP=0;for(var i=0;i<sorted.length;i++){if((state.presences[sid][sorted[i].id]||'')==='Present')nbP++;}var objData=state.seanceObjectifs[sid];var _aflpChips='';if(s.aflpTravailles&&s.aflpTravailles.length)s.aflpTravailles.forEach(function(a){_aflpChips+='<span class="chip c-bl">'+a+'</span>';});var h='<div class="card" style="margin-bottom:.75rem;padding:.9rem 1.1rem"><div style="display:flex;align-items:center;justify-content:space-between;gap:8px"><div style="flex:1"><div style="font-family:DM Serif Display,serif;font-size:1.05rem">S'+s.num+' - '+esc(s.objectif||'')+'</div><div style="color:#6b7280;font-size:.75rem;margin-top:2px">'+(s.date?fmtDate(s.date):'')+(_aflpChips?'</div><div style="margin-top:5px;display:flex;gap:4px;flex-wrap:wrap">'+_aflpChips:'')+'</div></div><span class="chip c-gr">'+nbP+'/'+state.eleves.length+'</span></div>'+(s.autreobj?'<div style="margin-top:6px;font-size:.78rem;color:#9aa0b8;border-top:1px solid #1e2438;padding-top:6px">'+esc(s.autreobj)+'</div>':'')+'</div>';
+function showAppel(sid){_appelCurrentSid=sid;initAppelMeteo(sid);var s=null;for(var i=0;i<state.seances.length;i++){if(state.seances[i].id===sid){s=state.seances[i];break;}}if(!s)return;if(!state.presences[sid])state.presences[sid]={};if(!state.autoEval[sid])state.autoEval[sid]={};if(!state.seanceObjectifs[sid])state.seanceObjectifs[sid]={};var sorted=state.eleves.slice().sort(function(a,b){return a.nom.localeCompare(b.nom);});var nbP=0;for(var i=0;i<sorted.length;i++){if((state.presences[sid][sorted[i].id]||'')==='Present')nbP++;}var objData=state.seanceObjectifs[sid];var _aflpChips='';if(s.aflpTravailles&&s.aflpTravailles.length)s.aflpTravailles.forEach(function(a){_aflpChips+='<span class="chip c-bl">'+a+'</span>';});var h='<div class="card" style="margin-bottom:.75rem;padding:.9rem 1.1rem"><div style="display:flex;align-items:center;justify-content:space-between;gap:8px"><div style="flex:1"><div style="font-family:DM Serif Display,serif;font-size:1.05rem">S'+s.num+' - '+esc(s.objectif||'')+'</div><div style="color:#6b7280;font-size:.75rem;margin-top:2px">'+(s.date?fmtDate(s.date):'')+(_aflpChips?'</div><div style="margin-top:5px;display:flex;gap:4px;flex-wrap:wrap">'+_aflpChips:'')+'</div></div><span class="chip c-gr">'+nbP+'/'+state.eleves.length+'</span></div>'+(s.autreobj?'<div style="margin-top:6px;font-size:.78rem;color:#9aa0b8;border-top:1px solid #1e2438;padding-top:6px">'+esc(s.autreobj)+'</div>':'')+'</div>';
 if(_appelMode!=='appel'){h+='<div class="obj-box">'+'<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:.6rem">'+'<button class="btn-groupes" id="btn-open-groupes" data-sid='+sid+'>&#127922; Groupes</button>'+'</div>'+'<div class="obj-inputs"><div><label class="obj-lbl">Objectif 1 (pour tous)</label><input class="obj-inp" type="text" id="obj1-inp" value="'+esc(objData.obj1||'')+'" placeholder="Ex: Orienter la carte au nord"></div><div><label class="obj-lbl">Objectif 2 (optionnel)</label><input class="obj-inp" type="text" id="obj2-inp" value="'+esc(objData.obj2||'')+'" placeholder="Ex: Utiliser un point d appui"></div></div></div>';}if(_appelMode==='appel'){
     // Mode appel : liste avec gros boutons tactiles
     var _ABTS=[
