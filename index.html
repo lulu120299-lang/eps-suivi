@@ -3584,6 +3584,11 @@ function loadState(){
   }
   state={seances:[],eleves:[],presences:{},autoEval:{},seanceObjectifs:{},profil:{},comp:{},seq:{},grilleNotes:{},grille:null};
 }
+var _saveTimer=null;
+function saveLater(){
+  if(_saveTimer)clearTimeout(_saveTimer);
+  _saveTimer=setTimeout(function(){save();},400);
+}
 function save(){
   // Exclure les photos trombi du state principal pour éviter les ralentissements
   var stateLight=JSON.parse(JSON.stringify(state));
@@ -4770,7 +4775,7 @@ function appelToggleStatut(sid,eid,statut){
   var cur=state.presences[sid][eid]||'';
   var newVal=cur===statut?'':statut;
   state.presences[sid][eid]=newVal;
-  save();
+  saveLater();
   // Mettre à jour visuellement sans reconstruire
   var _ABTS={
     'Present':  {bg:'#56cfb2',fg:'#0d1018'},
