@@ -4767,10 +4767,70 @@ var _appelCritCount=10;
 
 function appelToggleStatut(sid,eid,statut){
   if(!state.presences[sid])state.presences[sid]={};
-  // Toggle : si déjà sélectionné, désélectionner
-  state.presences[sid][eid]=state.presences[sid][eid]===statut?'':statut;
+  var cur=state.presences[sid][eid]||'';
+  var newVal=cur===statut?'':statut;
+  state.presences[sid][eid]=newVal;
   save();
-  showAppel(sid);
+  // Mettre à jour visuellement sans reconstruire
+  var _ABTS={
+    'Present':  {bg:'#56cfb2',fg:'#0d1018'},
+    'Absent':   {bg:'#ff6b6b',fg:'#ffffff'},
+    'Dispense': {bg:'#6393ff',fg:'#ffffff'},
+    'Pas tenue':{bg:'#ff9f0a',fg:'#0d1018'}
+  };
+  var _rowBg={'Present':'rgba(86,207,178,.06)','Absent':'rgba(255,107,107,.06)','Dispense':'rgba(99,147,255,.06)','Pas tenue':'rgba(255,159,10,.06)'};
+  var _rowBorder={'Present':'rgba(86,207,178,.2)','Absent':'rgba(255,107,107,.2)','Dispense':'rgba(99,147,255,.2)','Pas tenue':'rgba(255,159,10,.2)'};
+  // Mettre à jour la ligne (parent du bouton)
+  var row=document.querySelector('.appel-stat-btn[data-eid="'+eid+'"][data-sid="'+sid+'"]');
+  if(row){
+    var parentRow=row.closest('[data-row-eid]');
+    if(parentRow){
+      parentRow.style.background=_rowBg[newVal]||'#13161f';
+      parentRow.style.borderColor=_rowBorder[newVal]||'rgba(255,255,255,.06)';
+    }
+    // Mettre à jour tous les boutons de cette ligne
+    var allBtns=document.querySelectorAll('.appel-stat-btn[data-eid="'+eid+'"][data-sid="'+sid+'"]');
+    allBtns.forEach(function(btn){
+      var bSt=btn.dataset.st;
+      var bInfo=_ABTS[bSt];
+      var sel=bSt===newVal;
+      btn.style.background=sel?(bInfo?bInfo.bg:'#4f8aff'):'rgba(255,255,255,.06)';
+      btn.style.color=sel?(bInfo?bInfo.fg:'#fff'):'#636366';
+      btn.style.opacity=sel?'1':'0.6';
+      btn.style.transform=sel?'scale(1.06)':'scale(1)';
+    });
+  }
+  // Mettre à jour les stats
+  appelUpdateStats(sid);
+}
+
+function appelTousPresents(sid){
+  if(!state.presences[sid])state.presences[sid]={};
+  state.eleves.forEach(function(e){state.presences[sid][e.id]='Present';});
+  save();showAppel(sid);
+}
+function appelReset(sid){
+  state.presences[sid]={};
+  save();showAppel(sid);
+}
+
+function appelUpdateStats(sid){
+  var sorted=state.eleves;
+  var np=0,na=0,nd=0,nt=0;
+  for(var i=0;i<sorted.length;i++){
+    var p=state.presences[sid][sorted[i].id]||'';
+    if(p==='Present'||p==='Pas tenue')np++;
+    else if(p==='Absent')na++;
+    else if(p==='Dispense')nd++;
+    if(p==='Pas tenue')nt++;
+  }
+  var statsEl=ge('appel-stats-bar');
+  if(!statsEl)return;
+  var pLabel='✓ '+np+' présent'+(np>1?'s':'')+(nt>0?' (dont '+nt+' 👕)':'');
+  statsEl.innerHTML=
+    '<span style="background:rgba(86,207,178,.12);color:#56cfb2;padding:4px 12px;border-radius:20px;font-size:.75rem;font-weight:600">'+pLabel+'</span>'+
+    '<span style="background:rgba(255,107,107,.12);color:#ff6b6b;padding:4px 12px;border-radius:20px;font-size:.75rem;font-weight:600">✗ '+na+' absent'+(na>1?'s':'')+'</span>'+
+    (nd>0?'<span style="background:rgba(99,147,255,.12);color:#6393ff;padding:4px 12px;border-radius:20px;font-size:.75rem;font-weight:600">🩺 '+nd+' dispensé'+(nd>1?'s':'')+'</span>':'');
 }
 
 function appelSetMode(m){
@@ -4871,7 +4931,7 @@ if(_appelMode!=='appel'){h+='<div class="obj-box">'+'<div style="display:flex;al
       var _amenag=_ae.amenagement?'<span style="font-size:.7rem;color:#ffd166;display:block;margin-top:1px">'+esc(_ae.amenagement)+'</span>':'';
       var _rb=_rowBg[_pres]||'#13161f';
       var _rbd=_rowBorder[_pres]||'rgba(255,255,255,.06)';
-      h+='<div style="display:flex;align-items:center;gap:8px;padding:10px 12px;border-radius:12px;background:'+_rb+';border:0.5px solid '+_rbd+'">';
+      h+='<div data-row-eid="'+_ae.id+'" style="display:flex;align-items:center;gap:8px;padding:10px 12px;border-radius:12px;background:'+_rb+';border:0.5px solid '+_rbd+';transition:background .15s,border-color .15s">';
       h+='<div style="flex:1;font-size:.88rem;font-weight:500;color:#e4e6ef">'+esc(_ae.nom)+_amenag+'</div>';
       h+='<div style="display:flex;gap:5px">';
       for(var _bi=0;_bi<_ABTS.length;_bi++){
@@ -4885,7 +4945,13 @@ if(_appelMode!=='appel'){h+='<div class="obj-box">'+'<div style="display:flex;al
     // Stats rapides
     var _np=0,_na=0,_nd=0,_nt=0;
     for(var _si2=0;_si2<sorted.length;_si2++){var _sp=state.presences[sid][sorted[_si2].id]||'';if(_sp==='Present'||_sp==='Pas tenue')_np++;else if(_sp==='Absent')_na++;else if(_sp==='Dispense')_nd++;if(_sp==='Pas tenue')_nt++;}
-    h+='<div style="display:flex;gap:8px;padding:8px 12px 10px;flex-wrap:wrap">';
+    // Barre d'actions rapides
+    h+='<div style="display:flex;gap:8px;padding:8px 12px 4px;flex-wrap:wrap">';
+    h+='<button data-sid="'+sid+'" class="appel-tous-btn" style="background:rgba(86,207,178,.12);border:0.5px solid rgba(86,207,178,.25);border-radius:8px;padding:5px 14px;color:#56cfb2;font-size:.75rem;font-weight:600;cursor:pointer">✓ Tous présents</button>';
+    h+='<button data-sid="'+sid+'" class="appel-reset-btn" style="background:rgba(255,255,255,.05);border:0.5px solid rgba(255,255,255,.1);border-radius:8px;padding:5px 14px;color:#9aa0b8;font-size:.75rem;font-weight:600;cursor:pointer">↺ Réinitialiser</button>';
+    h+='</div>';
+    // Stats bar avec id pour màj dynamique
+    h+='<div id="appel-stats-bar" style="display:flex;gap:8px;padding:4px 12px 10px;flex-wrap:wrap">';
     h+='<span style="background:rgba(86,207,178,.12);color:#56cfb2;padding:4px 12px;border-radius:20px;font-size:.75rem;font-weight:600">✓ '+_np+' présent'+(_np>1?'s':'')+(_nt>0?' (dont '+_nt+' 👕)':'')+' </span>';
     h+='<span style="background:rgba(255,107,107,.12);color:#ff6b6b;padding:4px 12px;border-radius:20px;font-size:.75rem;font-weight:600">✗ '+_na+' absent'+(_na>1?'s':'')+' </span>';
     if(_nd>0)h+='<span style="background:rgba(99,147,255,.12);color:#6393ff;padding:4px 12px;border-radius:20px;font-size:.75rem;font-weight:600">🩺 '+_nd+' dispensé'+(_nd>1?'s':'')+' </span>';
@@ -4905,6 +4971,10 @@ if(_appelMode!=='appel'){h+='<div class="obj-box">'+'<div style="display:flex;al
       appelToggleStatut(this.dataset.sid,this.dataset.eid,this.dataset.st);
     });
   });
+  var _tousBtn=ap.querySelector('.appel-tous-btn');
+  if(_tousBtn)_tousBtn.addEventListener('click',function(){appelTousPresents(this.dataset.sid);});
+  var _rstBtn=ap.querySelector('.appel-reset-btn');
+  if(_rstBtn)_rstBtn.addEventListener('click',function(){appelReset(this.dataset.sid);});
   // Boutons statut mode appel
   ap.querySelectorAll('.appel-stat-btn').forEach(function(btn){
     btn.addEventListener('click',function(){
