@@ -7617,7 +7617,7 @@ s('btn-profil-pdf','click',exportElevesPDF);
 qsa('[data-close]',function(btn){btn.addEventListener('click',function(){closeM(this.dataset.close);});});
 }
 
-document.addEventListener('DOMContentLoaded',function(){accInit();initEvents();});
+document.addEventListener('DOMContentLoaded',function(){accInit();initEvents();if('serviceWorker' in navigator)navigator.serviceWorker.register('./sw.js');});
 </script>
 <div class="mb" id="m-sync-confirm"><div class="modal">
   <div class="modal-title">Ouvrir la séquence</div>
