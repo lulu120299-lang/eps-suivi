@@ -957,6 +957,7 @@ window._fbReady = true;
     </div>
     <div style="display:flex;align-items:center;gap:8px">
       <span class="s-ctx" id="s-ctx" style="display:none"></span>
+      <button onclick="openGhConfig()" style="background:rgba(255,255,255,.08);border:none;border-radius:6px;padding:5px 8px;color:#9aa0b8;cursor:pointer;font-size:14px" title="Configuration GitHub">⚙️</button>
       <button class="s-sync-btn" id="btn-push" style="background:#ffffff;border:none;color:#000000;font-weight:700">&#8593;<span> Sauvegarder</span></button>
       <button class="s-sync-btn" id="btn-pull" style="background:#3a3a3c;border:none;color:#f5f5f7;font-weight:600">&#8595;<span> Synchroniser</span></button>
     </div>
@@ -1838,6 +1839,26 @@ window._fbReady = true;
 </div>
 ```
 
+  </div>
+</div>
+
+<!-- Modale config GitHub -->
+
+<div id="m-gh-config" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:9999;align-items:center;justify-content:center">
+  <div style="background:#1c1f2c;border:0.5px solid rgba(255,255,255,.12);border-radius:16px;padding:20px;width:340px;max-width:90vw">
+    <div style="font-size:15px;font-weight:600;color:#e4e6ef;margin-bottom:16px">⚙️ Configuration GitHub</div>
+    <div style="margin-bottom:10px">
+      <div style="font-size:12px;color:#9aa0b8;margin-bottom:5px">Token GitHub (ghp_...)</div>
+      <input id="m-gh-token" type="password" placeholder="ghp_xxxxxxxxxxxx" style="width:100%;background:#13161f;border:0.5px solid rgba(255,255,255,.1);border-radius:8px;padding:8px 10px;color:#e4e6ef;font-size:13px;outline:none">
+    </div>
+    <div style="margin-bottom:16px">
+      <div style="font-size:12px;color:#9aa0b8;margin-bottom:5px">Repo (user/repo)</div>
+      <input id="m-gh-repo" type="text" placeholder="utilisateur/mon-repo" style="width:100%;background:#13161f;border:0.5px solid rgba(255,255,255,.1);border-radius:8px;padding:8px 10px;color:#e4e6ef;font-size:13px;outline:none">
+    </div>
+    <div style="display:flex;gap:8px;justify-content:flex-end">
+      <button onclick="ge('m-gh-config').style.display='none'" style="background:rgba(255,255,255,.06);border:none;border-radius:8px;padding:8px 16px;color:#9aa0b8;cursor:pointer;font-size:13px">Annuler</button>
+      <button onclick="ghSaveConfigModal()" style="background:#4f8aff;border:none;border-radius:8px;padding:8px 16px;color:#fff;cursor:pointer;font-size:13px;font-weight:600">Enregistrer</button>
+    </div>
   </div>
 </div>
 <script>
@@ -3239,6 +3260,21 @@ if(elv)elv.trombiPhoto=compressed;
 try{renderEleves();}catch(ex){}
 };
 tmpImg.src=dataUrl;
+}
+
+function openGhConfig(){
+var m=ge(‘m-gh-config’);if(!m)return;
+ge(‘m-gh-token’).value=GH.token||’’;
+ge(‘m-gh-repo’).value=GH.repo||’’;
+m.style.display=‘flex’;
+}
+function ghSaveConfigModal(){
+GH.token=ge(‘m-gh-token’).value.trim();
+GH.repo=ge(‘m-gh-repo’).value.trim();
+localStorage.setItem(‘eps-gh’,JSON.stringify(GH));
+ge(‘m-gh-config’).style.display=‘none’;
+ghLoadConfig();
+toast(‘GitHub enregistre !’,‘ok’);
 }
 
 function accRenderSqGrid(){
