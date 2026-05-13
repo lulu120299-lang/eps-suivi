@@ -4997,12 +4997,6 @@ function showAppel(sid){
   if(_appelMode==='appel'){
     h+=appelBuildModeAppel(sid,sorted);
   } else {
-    // Objectifs (mode eval uniquement)
-    h+='<div class="obj-box">';
-    h+='<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:.6rem">';
-    h+='<div class="obj-box-title" style="margin-bottom:0">⚡ Auto-évaluation</div>';
-    h+='</div>';
-    h+='<div class="obj-inputs"><div><label class="obj-lbl">Objectif 1 (pour tous)</label><input class="obj-inp" type="text" id="obj1-inp" value="'+esc(objData.obj1||'')+'" placeholder="Ex: Orienter la carte au nord"></div><div><label class="obj-lbl">Objectif 2 (optionnel)</label><input class="obj-inp" type="text" id="obj2-inp" value="'+esc(objData.obj2||'')+'" placeholder="Ex: Utiliser un point d appui"></div></div></div>';
     h+=appelBuildModeEval(sid,sorted);
   }
 
