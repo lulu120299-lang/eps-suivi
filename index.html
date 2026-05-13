@@ -957,7 +957,6 @@ window._fbReady = true;
     </div>
     <div style="display:flex;align-items:center;gap:8px">
       <span class="s-ctx" id="s-ctx" style="display:none"></span>
-      <button onclick="openGhConfig()" style="background:rgba(255,255,255,.08);border:none;border-radius:6px;padding:5px 8px;color:#9aa0b8;cursor:pointer;font-size:14px" title="Configuration GitHub">⚙️</button>
       <button class="s-sync-btn" id="btn-push" style="background:#ffffff;border:none;color:#000000;font-weight:700">&#8593;<span> Sauvegarder</span></button>
       <button class="s-sync-btn" id="btn-pull" style="background:#3a3a3c;border:none;color:#f5f5f7;font-weight:600">&#8595;<span> Synchroniser</span></button>
     </div>
@@ -1128,17 +1127,8 @@ window._fbReady = true;
 </div>
 <div id="v-appel" class="view">
   <div class="ph">
-    <div>
-      <div class="ph-title">Appel</div>
-      <div class="ph-sub">Presences, objectifs, maitrise par eleve</div>
-    </div>
-    <div style="display:flex;align-items:center;gap:8px">
-      <div style="display:flex;background:#1c1f2c;border-radius:20px;padding:3px;gap:2px">
-        <button id="appel-mode-btn-appel" onclick="appelSetMode('appel')" style="padding:5px 14px;border-radius:16px;font-size:.75rem;font-weight:600;cursor:pointer;border:none;background:#252836;color:#e4e6ef">📋 Appel</button>
-        <button id="appel-mode-btn-eval" onclick="appelSetMode('eval')" style="padding:5px 14px;border-radius:16px;font-size:.75rem;font-weight:600;cursor:pointer;border:none;background:transparent;color:#636366">⭐ Auto-éval</button>
-      </div>
-      <div id="ap-ph-groupes"></div><button class="btn btn-g" id="btn-recap-presences" style="font-family:'DM Mono',monospace;font-size:.68rem">&#128202; Recap</button>
-    </div>
+    <div><div class="ph-title">Appel</div><div class="ph-sub">Presences, objectifs, maitrise par eleve</div></div>
+    <button class="btn btn-g" id="btn-recap-presences" style="font-family:'DM Mono',monospace;font-size:.68rem">&#128202; Recap presences</button>
   </div>
   <div class="appel-lay">
     <div><div class="slbl">Seance</div><div id="ap-slist"></div></div>
@@ -1841,26 +1831,6 @@ window._fbReady = true;
 
   </div>
 </div>
-
-<!-- Modale config GitHub -->
-
-<div id="m-gh-config" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:9999;align-items:center;justify-content:center">
-  <div style="background:#1c1f2c;border:0.5px solid rgba(255,255,255,.12);border-radius:16px;padding:20px;width:340px;max-width:90vw">
-    <div style="font-size:15px;font-weight:600;color:#e4e6ef;margin-bottom:16px">⚙️ Configuration GitHub</div>
-    <div style="margin-bottom:10px">
-      <div style="font-size:12px;color:#9aa0b8;margin-bottom:5px">Token GitHub (ghp_...)</div>
-      <input id="m-gh-token" type="password" placeholder="ghp_xxxxxxxxxxxx" style="width:100%;background:#13161f;border:0.5px solid rgba(255,255,255,.1);border-radius:8px;padding:8px 10px;color:#e4e6ef;font-size:13px;outline:none">
-    </div>
-    <div style="margin-bottom:16px">
-      <div style="font-size:12px;color:#9aa0b8;margin-bottom:5px">Repo (user/repo)</div>
-      <input id="m-gh-repo" type="text" placeholder="utilisateur/mon-repo" style="width:100%;background:#13161f;border:0.5px solid rgba(255,255,255,.1);border-radius:8px;padding:8px 10px;color:#e4e6ef;font-size:13px;outline:none">
-    </div>
-    <div style="display:flex;gap:8px;justify-content:flex-end">
-      <button onclick="ge('m-gh-config').style.display='none'" style="background:rgba(255,255,255,.06);border:none;border-radius:8px;padding:8px 16px;color:#9aa0b8;cursor:pointer;font-size:13px">Annuler</button>
-      <button onclick="ghSaveConfigModal()" style="background:#4f8aff;border:none;border-radius:8px;padding:8px 16px;color:#fff;cursor:pointer;font-size:13px;font-weight:600">Enregistrer</button>
-    </div>
-  </div>
-</div>
 <script>
 var CLASSES_DEFAULT=[{id:'2nde-ener-b',label:'2NDE ENER B',level:'2NDE',sub:'Energie Gr. B',color:'#c8400a',light:'#c8400a0d',filiere:'bacpro',heure:'10h00'},{id:'2nde-mrc-b',label:'2NDE MRC B',level:'2NDE',sub:'MRC Gr. B',color:'#1a6b3a',light:'#1a6b3a0d',filiere:'bacpro',heure:'08h05'},{id:'cap-epc-1',label:'CAP EPC 1',level:'CAP',sub:'Equipier polyvalent de commerce',color:'#1e4fa0',light:'#1e4fa00d',filiere:'cap',heure:'10h00'},{id:'cap-elec-2',label:'CAP ELEC 2',level:'CAP',sub:'Electricite',color:'#7c28b8',light:'#7c28b80d',filiere:'cap',heure:'08h05'},{id:'3e-pm',label:'3e PM',level:'3e',sub:'Prepa Metiers',color:'#a07800',light:'#a078000d',filiere:'col4',heure:'10h00'}];
 var CLASSES=[];
@@ -2143,11 +2113,6 @@ method:‘PUT’,headers:objAssign({‘Content-Type’:‘application/json’},g
 }
 function ghPushFile(fn,data,onOk){
 var encoded=ghEncode(data);
-// Vérifier taille (GitHub limite à ~1MB via API)
-if(encoded.length>900000){
-toast(‘Fichier trop volumineux pour GitHub (’+Math.round(encoded.length/1024)+‘KB)’,‘warn’);
-if(onOk)onOk();return;
-}
 // Toujours récupérer le SHA actuel avant de pusher
 function doPut(sha){
 var body={message:‘EPS save’,content:encoded};
@@ -2171,13 +2136,15 @@ else if(onOk)onOk();
 } else {
 if(onOk)onOk();
 r.json().then(function(d){
-console.error(‘GitHub error:’,r.status,d);
-toast(‘Erreur GitHub ‘+r.status+’: ‘+(d&&d.message?d.message:’’),‘warn’);
+toast(‘Erreur GitHub: ‘+(d&&d.message?d.message:r.status),‘warn’);
 }).catch(function(){toast(‘Erreur GitHub (’+r.status+’)’,‘warn’);});
 }
 }).catch(function(e){if(onOk)onOk();toast(‘Erreur reseau’,‘warn’);});
 }
-// Toujours récupérer le SHA frais depuis GitHub (évite les 409)
+// Si on a un SHA en cache, l’utiliser directement
+if(GH_SHA[fn]){doPut(GH_SHA[fn]);}
+else{
+// Récupérer le SHA depuis GitHub
 fetch(‘https://api.github.com/repos/’+GH.repo+’/contents/’+fn,{headers:ghHeaders()})
 .then(function(r){return r.ok?r.json():null;})
 .then(function(d){
@@ -2185,6 +2152,7 @@ var sha=d&&d.sha?d.sha:null;
 if(sha)GH_SHA[fn]=sha;
 doPut(sha);
 }).catch(function(){doPut(null);});
+}
 }
 
 function ghPush(){
@@ -2435,7 +2403,7 @@ function saveNewCls(){
 var nom=ge(‘cls-nom’).value.trim();
 if(!nom){toast(‘Entrez un nom de classe’,‘warn’);return;}
 var sub=ge(‘cls-sub’).value.trim();
-var id=‘cls-’+nom.toLowerCase().replace(/[^a-z0-9]/g,’-’).replace(/-+/g,’-’).substring(0,20)+’-’+Date.now().toString().slice(-4);
+var id=‘cls-’+Date.now();
 var col=CLS_SEL_COLOR;
 var newCls={
 id:id,
@@ -3262,21 +3230,6 @@ try{renderEleves();}catch(ex){}
 tmpImg.src=dataUrl;
 }
 
-function openGhConfig(){
-var m=ge(‘m-gh-config’);if(!m)return;
-ge(‘m-gh-token’).value=GH.token||’’;
-ge(‘m-gh-repo’).value=GH.repo||’’;
-m.style.display=‘flex’;
-}
-function ghSaveConfigModal(){
-GH.token=ge(‘m-gh-token’).value.trim();
-GH.repo=ge(‘m-gh-repo’).value.trim();
-localStorage.setItem(‘eps-gh’,JSON.stringify(GH));
-ge(‘m-gh-config’).style.display=‘none’;
-ghLoadConfig();
-toast(‘GitHub enregistre !’,‘ok’);
-}
-
 function accRenderSqGrid(){
 var grid=ge(‘acc-sq-grid’);if(!grid)return;
 grid.innerHTML=’’;
@@ -3647,11 +3600,6 @@ save();
 return;
 }
 state={seances:[],eleves:[],presences:{},autoEval:{},seanceObjectifs:{},profil:{},comp:{},seq:{},grilleNotes:{},grille:null};
-}
-var _saveTimer=null;
-function saveLater(){
-if(_saveTimer)clearTimeout(_saveTimer);
-_saveTimer=setTimeout(function(){save();},400);
 }
 function save(){
 // Exclure les photos trombi du state principal pour éviter les ralentissements
@@ -4826,255 +4774,19 @@ openPdfWindow(h,‘S’+s.num+’ - ‘+(s.objectif||‘Seance’).substring(0,4
 }
 
 function renderApList(){var el=ge(‘ap-slist’);var sorted=state.seances.slice().sort(function(a,b){return a.num-b.num;});if(!sorted.length){el.innerHTML=’<div style="color:#6b7280;font-size:.82rem">Aucune seance.</div>’;return;}el.innerHTML=’’;for(var i=0;i<sorted.length;i++){(function(s){var d=document.createElement(‘div’);d.className=‘ap-scard’;d.id=‘ab-’+s.id;d.dataset.sid=s.id;d.innerHTML=’<div class="ap-snum">S’+s.num+’</div><div><div style="font-size:.83rem;font-weight:500">’+esc(s.objectif||‘Sans titre’)+’</div><div style="font-size:.72rem;color:#6b7280">’+(s.date?fmtDate(s.date):’’)+’</div></div>’;el.appendChild(d);})(sorted[i]);}el.onclick=function(e){var card=e.target.closest(’.ap-scard’);if(!card)return;var cards=document.querySelectorAll(’.ap-scard’);for(var i=0;i<cards.length;i++)cards[i].classList.remove(‘act’);card.classList.add(‘act’);showAppel(card.dataset.sid);};}
-// ── MODE APPEL / AUTO-EVAL ──
-var _appelMode=‘appel’;
-var _appelCurrentSid=null;
-var _appelCriterias=[
-{id:‘qte’,label:‘Quantite de travail’,on:true},
-{id:‘auto’,label:‘Auto-evaluation’,on:true}
-];
-var _appelCritCount=10;
-
-function appelToggleStatut(sid,eid,statut){
-if(!state.presences[sid])state.presences[sid]={};
-var cur=state.presences[sid][eid]||’’;
-var newVal=cur===statut?’’:statut;
-state.presences[sid][eid]=newVal;
-saveLater();
-// Mettre à jour visuellement sans reconstruire
-var _ABTS={
-‘Present’:  {bg:’#56cfb2’,fg:’#0d1018’},
-‘Absent’:   {bg:’#ff6b6b’,fg:’#ffffff’},
-‘Dispense’: {bg:’#6393ff’,fg:’#ffffff’},
-‘Pas tenue’:{bg:’#ff9f0a’,fg:’#0d1018’}
-};
-var _rowBg={‘Present’:‘rgba(86,207,178,.06)’,‘Absent’:‘rgba(255,107,107,.06)’,‘Dispense’:‘rgba(99,147,255,.06)’,‘Pas tenue’:‘rgba(255,159,10,.06)’};
-var _rowBorder={‘Present’:‘rgba(86,207,178,.2)’,‘Absent’:‘rgba(255,107,107,.2)’,‘Dispense’:‘rgba(99,147,255,.2)’,‘Pas tenue’:‘rgba(255,159,10,.2)’};
-// Mettre à jour la ligne (parent du bouton)
-var row=document.querySelector(’.appel-stat-btn[data-eid=”’+eid+’”][data-sid=”’+sid+’”]’);
-if(row){
-var parentRow=row.closest(’[data-row-eid]’);
-if(parentRow){
-parentRow.style.background=_rowBg[newVal]||’#13161f’;
-parentRow.style.borderColor=_rowBorder[newVal]||‘rgba(255,255,255,.06)’;
+function showAppel(sid){initAppelMeteo(sid);var s=null;for(var i=0;i<state.seances.length;i++){if(state.seances[i].id===sid){s=state.seances[i];break;}}if(!s)return;if(!state.presences[sid])state.presences[sid]={};if(!state.autoEval[sid])state.autoEval[sid]={};if(!state.seanceObjectifs[sid])state.seanceObjectifs[sid]={};var sorted=state.eleves.slice().sort(function(a,b){return a.nom.localeCompare(b.nom);});var nbP=0;for(var i=0;i<sorted.length;i++){if((state.presences[sid][sorted[i].id]||’’)===‘Present’)nbP++;}var objData=state.seanceObjectifs[sid];var _aflpChips=’’;if(s.aflpTravailles&&s.aflpTravailles.length)s.aflpTravailles.forEach(function(a){_aflpChips+=’<span class="chip c-bl">’+a+’</span>’;});var h=’<div class="card" style="margin-bottom:.75rem;padding:.9rem 1.1rem"><div style="display:flex;align-items:center;justify-content:space-between;gap:8px"><div style="flex:1"><div style="font-family:DM Serif Display,serif;font-size:1.05rem">S’+s.num+’ - ‘+esc(s.objectif||’’)+’</div><div style="color:#6b7280;font-size:.75rem;margin-top:2px">’+(s.date?fmtDate(s.date):’’)+(_aflpChips?’</div><div style="margin-top:5px;display:flex;gap:4px;flex-wrap:wrap">’+_aflpChips:’’)+’</div></div><span class="chip c-gr">’+nbP+’/’+state.eleves.length+’</span></div>’+(s.autreobj?’<div style="margin-top:6px;font-size:.78rem;color:#9aa0b8;border-top:1px solid #1e2438;padding-top:6px">’+esc(s.autreobj)+’</div>’:’’)+’</div>’;
+h+=’<div class="obj-box">’+’<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:.6rem">’+’<div class="obj-box-title" style="margin-bottom:0">✋ Auto-evaluation</div>’+’<button class="btn-groupes" id="btn-open-groupes" data-sid='+sid+'>🎲 Groupes</button>’+’</div>’+’<div class="obj-inputs"><div><label class="obj-lbl">Objectif 1 (pour tous)</label><input class="obj-inp" type="text" id="obj1-inp" value="'+esc(objData.obj1||'')+'" placeholder="Ex: Orienter la carte au nord"></div><div><label class="obj-lbl">Objectif 2 (optionnel)</label><input class="obj-inp" type="text" id="obj2-inp" value="'+esc(objData.obj2||'')+'" placeholder="Ex: Utiliser un point d appui"></div></div></div>’;h+=’<div class="card"><div class="tw"><table><thead><tr><th>Eleve</th><th>Statut</th><th>Obj. 1 - Maitrise</th><th>Obj. 2 - Maitrise</th><th>Qte travail /4</th></tr></thead><tbody>’;for(var i=0;i<sorted.length;i++){var e=sorted[i];var pres=state.presences[sid][e.id]||’’;var ae=state.autoEval[sid][e.id]||{};var dis=pres===‘Absent’||pres===‘Dispense’;var hasObj2=objData.obj2&&objData.obj2.trim();var mOpts=’<option value="">- Maitrise -</option>’;for(var k=0;k<MAITRISE.length;k++)mOpts+=’<option’+(ae.maitrise1===MAITRISE[k]?’ selected’:’’)+’>’+MAITRISE[k]+’</option>’;var mOpts2=’<option value="">- Maitrise -</option>’;for(var k=0;k<MAITRISE.length;k++)mOpts2+=’<option’+(ae.maitrise2===MAITRISE[k]?’ selected’:’’)+’>’+MAITRISE[k]+’</option>’;h+=’<tr><td><span style="font-size:.82rem;font-weight:500">’+esc(e.nom)+’</span>’+(e.amenagement?’<br><span style="font-size:.7rem;color:#ffd166">’+esc(e.amenagement)+’</span>’:’’)+’</td><td><select class="ss" data-sid="'+sid+'" data-eid="'+e.id+'" data-f="pres">’+(function(){
+var opts=’’;
+var allOpts=[’’].concat(STATUTS);
+for(var _si=0;_si<allOpts.length;_si++){
+var _st=allOpts[_si];
+var _sel=(_st===pres)?‘selected’:’’;
+var _lbl=_st===’’?’– Statut –’:_st;
+opts+=’<option value=”’+_st+’” ‘+_sel+’>’+_lbl+’</option>’;
 }
-// Mettre à jour tous les boutons de cette ligne
-var allBtns=document.querySelectorAll(’.appel-stat-btn[data-eid=”’+eid+’”][data-sid=”’+sid+’”]’);
-allBtns.forEach(function(btn){
-var bSt=btn.dataset.st;
-var bInfo=_ABTS[bSt];
-var sel=bSt===newVal;
-btn.style.background=sel?(bInfo?bInfo.bg:’#4f8aff’):‘rgba(255,255,255,.06)’;
-btn.style.color=sel?(bInfo?bInfo.fg:’#fff’):’#636366’;
-btn.style.opacity=sel?‘1’:‘0.6’;
-btn.style.transform=sel?‘scale(1.06)’:‘scale(1)’;
-});
-}
-// Mettre à jour les stats
-appelUpdateStats(sid);
-}
-
-function appelTousPresents(sid){
-if(!state.presences[sid])state.presences[sid]={};
-state.eleves.forEach(function(e){state.presences[sid][e.id]=‘Present’;});
-saveLater();
-// Mettre à jour visuellement
-var _ABTS={‘Present’:{bg:’#56cfb2’,fg:’#0d1018’},‘Absent’:{bg:’#ff6b6b’,fg:’#fff’},‘Dispense’:{bg:’#6393ff’,fg:’#fff’},‘Pas tenue’:{bg:’#ff9f0a’,fg:’#0d1018’}};
-var _rowBg={‘Present’:‘rgba(86,207,178,.06)’};
-document.querySelectorAll(’[data-row-eid]’).forEach(function(row){row.style.background=‘rgba(86,207,178,.06)’;row.style.borderColor=‘rgba(86,207,178,.2)’;});
-document.querySelectorAll(’.appel-stat-btn’).forEach(function(btn){
-var sel=btn.dataset.st===‘Present’;
-var info=_ABTS[btn.dataset.st];
-btn.style.background=sel?’#56cfb2’:‘rgba(255,255,255,.06)’;
-btn.style.color=sel?’#0d1018’:’#636366’;
-btn.style.opacity=sel?‘1’:‘0.6’;
-btn.style.transform=sel?‘scale(1.06)’:‘scale(1)’;
-});
-appelUpdateStats(sid);
-}
-function appelReset(sid){
-if(!state.presences[sid])state.presences[sid]={};
-state.eleves.forEach(function(e){state.presences[sid][e.id]=’’;});
-saveLater();
-document.querySelectorAll(’[data-row-eid]’).forEach(function(row){row.style.background=’#13161f’;row.style.borderColor=‘rgba(255,255,255,.06)’;});
-document.querySelectorAll(’.appel-stat-btn’).forEach(function(btn){
-btn.style.background=‘rgba(255,255,255,.06)’;btn.style.color=’#636366’;btn.style.opacity=‘0.6’;btn.style.transform=‘scale(1)’;
-});
-appelUpdateStats(sid);
-}
-
-function appelUpdateStats(sid){
-var sorted=state.eleves;
-var np=0,na=0,nd=0,nt=0;
-for(var i=0;i<sorted.length;i++){
-var p=state.presences[sid][sorted[i].id]||’’;
-if(p===‘Present’||p===‘Pas tenue’)np++;
-else if(p===‘Absent’)na++;
-else if(p===‘Dispense’)nd++;
-if(p===‘Pas tenue’)nt++;
-}
-var statsEl=ge(‘appel-stats-bar’);
-if(!statsEl)return;
-var pLabel=‘✓ ‘+np+’ présent’+(np>1?‘s’:’’)+(nt>0?’ (dont ‘+nt+’ 👕)’:’’);
-statsEl.innerHTML=
-‘<span style="background:rgba(86,207,178,.12);color:#56cfb2;padding:4px 12px;border-radius:20px;font-size:.75rem;font-weight:600">’+pLabel+’</span>’+
-‘<span style="background:rgba(255,107,107,.12);color:#ff6b6b;padding:4px 12px;border-radius:20px;font-size:.75rem;font-weight:600">✗ ‘+na+’ absent’+(na>1?‘s’:’’)+’</span>’+
-(nd>0?’<span style="background:rgba(99,147,255,.12);color:#6393ff;padding:4px 12px;border-radius:20px;font-size:.75rem;font-weight:600">🩺 ‘+nd+’ dispensé’+(nd>1?‘s’:’’)+’</span>’:’’);
-}
-
-function appelSetMode(m){
-_appelMode=m;
-var btnA=ge(‘appel-mode-btn-appel’);var btnE=ge(‘appel-mode-btn-eval’);
-if(btnA){btnA.style.background=m===‘appel’?’#252836’:‘transparent’;btnA.style.color=m===‘appel’?’#e4e6ef’:’#636366’;}
-if(btnE){btnE.style.background=m===‘eval’?’#252836’:‘transparent’;btnE.style.color=m===‘eval’?’#e4e6ef’:’#636366’;}
-// Recharger le contenu de la séance active
-if(_appelCurrentSid)showAppel(_appelCurrentSid);
-}
-
-function appelRenderCritConfig(){
-var wrap=ge(‘appel-crit-config’);if(!wrap)return;
-wrap.innerHTML=’’;
-_appelCriterias.forEach(function(c,i){
-var row=document.createElement(‘div’);
-row.style.cssText=‘display:flex;align-items:center;gap:8px;margin-bottom:6px’;
-row.innerHTML=
-‘<button onclick="_appelCriterias['+i+'].on=!_appelCriterias['+i+'].on;appelRenderCritConfig();var a=document.querySelector(\'.ap-scard.active\');if(a)showAppel(a.dataset.sid);" style="width:26px;height:26px;border-radius:6px;border:none;cursor:pointer;font-size:13px;'+(c.on?'background:rgba(79,138,255,.2);color:#4f8aff':'background:rgba(255,255,255,.06);color:#636366')+'">’+(c.on?‘✓’:‘○’)+’</button>’+
-‘<input value="'+c.label+'" onchange="_appelCriterias['+i+'].label=this.value;var a=document.querySelector(\'.ap-scard.active\');if(a)showAppel(a.dataset.sid);" style="flex:1;background:#1c1f2c;border:0.5px solid rgba(255,255,255,.1);border-radius:7px;padding:5px 9px;color:#e4e6ef;font-size:12px;outline:none">’+
-‘<button onclick="_appelCriterias.splice('+i+',1);appelRenderCritConfig();var a=document.querySelector(\'.ap-scard.active\');if(a)showAppel(a.dataset.sid);" style="background:none;border:none;color:#636366;cursor:pointer;font-size:13px;padding:2px 4px">✕</button>’;
-wrap.appendChild(row);
-});
-var addBtn=document.createElement(‘button’);
-addBtn.style.cssText=‘display:flex;align-items:center;gap:6px;background:transparent;border:1px dashed rgba(255,255,255,.12);border-radius:8px;padding:7px 12px;color:#636366;font-size:12px;cursor:pointer;width:100%;justify-content:center;margin-top:4px’;
-addBtn.innerHTML=’+ Ajouter un critère’;
-addBtn.onclick=function(){
-_appelCriterias.push({id:‘c’+(_appelCritCount++),label:‘Nouveau critere’,on:true});
-appelRenderCritConfig();
-var a=document.querySelector(’.ap-scard.active’);if(a)showAppel(a.dataset.sid);
-};
-wrap.appendChild(addBtn);
-}
-
-function appelBuildEvalTable(sid,sorted){
-var active=_appelCriterias.filter(function(c){return c.on;});
-if(!active.length)return ‘<div style="color:#6b7280;font-size:13px;padding:1rem">Aucun critere actif. Clique sur “Modifier” pour en ajouter.</div>’;
-var h=’<table style="width:100%;border-collapse:collapse">’;
-h+=’<thead><tr><th style="text-align:left;padding:7px 12px;font-size:.72rem;color:#636366;font-weight:600;border-bottom:0.5px solid rgba(255,255,255,.06)">Eleve</th>’;
-active.forEach(function(c){
-h+=’<th style="text-align:center;padding:7px 8px;font-size:.72rem;color:#636366;font-weight:600;border-bottom:0.5px solid rgba(255,255,255,.06)">’+esc(c.label)+’</th>’;
-});
-h+=’</tr></thead><tbody>’;
-sorted.forEach(function(e){
-var pres=state.presences[sid][e.id]||’’;
-var ae=state.autoEval[sid][e.id]||{};
-var disabled=pres===‘Absent’||pres===‘Dispense’;
-var trStyle=disabled?‘opacity:.4’:’’;
-h+=’<tr style="'+trStyle+'"><td style="padding:7px 12px;font-size:.83rem;font-weight:500;color:#e4e6ef;border-bottom:0.5px solid rgba(255,255,255,.04)">’+esc(e.nom)+’</td>’;
-active.forEach(function(c){
-var val=parseInt(ae[c.id])||0;
-h+=’<td style="text-align:center;padding:6px 4px;border-bottom:0.5px solid rgba(255,255,255,.04)"><div style="display:flex;gap:2px;justify-content:center">’;
-for(var v=1;v<=4;v++){
-var colors=[’’,’#ff6b6b’,’#ffd166’,’#4f8aff’,’#56cfb2’];
-var textColors=[’’,’#fff’,’#0d1018’,’#fff’,’#0d1018’];
-var sel=val===v;
-h+=’<button ‘+(disabled?‘disabled’:’’)+’ onclick=“appelSetCrit('’+sid+’','’+e.id+’','’+c.id+’',’+v+’)” style=“width:26px;height:26px;border-radius:5px;border:none;font-size:11px;font-weight:700;cursor:’+(disabled?‘default’:‘pointer’)+’;transition:all .1s;background:’+(sel?colors[v]:‘rgba(255,255,255,.06)’)+’;color:’+(sel?textColors[v]:’#636366’)+’”>’+v+’</button>’;
-}
-h+=’</div></td>’;
-});
-h+=’</tr>’;
-});
-h+=’</tbody></table>’;
-h+=’<div style="display:flex;gap:10px;padding:8px 12px;border-top:0.5px solid rgba(255,255,255,.06);flex-wrap:wrap">’;
-[‘1 — Insuffisant’,‘2 — Fragile’,‘3 — Satisfaisant’,‘4 — Très bien’].forEach(function(l,i){
-var cols=[’#ff6b6b’,’#ffd166’,’#4f8aff’,’#56cfb2’];
-h+=’<div style="display:flex;align-items:center;gap:4px;font-size:11px;color:#636366"><div style="width:8px;height:8px;border-radius:2px;background:'+cols[i]+'"></div>’+l+’</div>’;
-});
-h+=’</div>’;
-return h;
-}
-
-function appelSetCrit(sid,eid,cid,val){
-if(!state.autoEval[sid])state.autoEval[sid]={};
-if(!state.autoEval[sid][eid])state.autoEval[sid][eid]={};
-var cur=parseInt(state.autoEval[sid][eid][cid])||0;
-state.autoEval[sid][eid][cid]=cur===val?’’:val;
-save();
-showAppel(sid);
-}
-
-function showAppel(sid){_appelCurrentSid=sid;initAppelMeteo(sid);var s=null;for(var i=0;i<state.seances.length;i++){if(state.seances[i].id===sid){s=state.seances[i];break;}}if(!s)return;if(!state.presences[sid])state.presences[sid]={};if(!state.autoEval[sid])state.autoEval[sid]={};if(!state.seanceObjectifs[sid])state.seanceObjectifs[sid]={};var sorted=state.eleves.slice().sort(function(a,b){return a.nom.localeCompare(b.nom);});var nbP=0;for(var i=0;i<sorted.length;i++){if((state.presences[sid][sorted[i].id]||’’)===‘Present’)nbP++;}var objData=state.seanceObjectifs[sid];var _aflpChips=’’;if(s.aflpTravailles&&s.aflpTravailles.length)s.aflpTravailles.forEach(function(a){_aflpChips+=’<span class="chip c-bl">’+a+’</span>’;});var h=’<div class="card" style="margin-bottom:.75rem;padding:.9rem 1.1rem"><div style="display:flex;align-items:center;justify-content:space-between;gap:8px"><div style="flex:1"><div style="font-family:DM Serif Display,serif;font-size:1.05rem">S’+s.num+’ - ‘+esc(s.objectif||’’)+’</div><div style="color:#6b7280;font-size:.75rem;margin-top:2px">’+(s.date?fmtDate(s.date):’’)+(_aflpChips?’</div><div style="margin-top:5px;display:flex;gap:4px;flex-wrap:wrap">’+_aflpChips:’’)+’</div></div><span class="chip c-gr">’+nbP+’/’+state.eleves.length+’</span></div>’+(s.autreobj?’<div style="margin-top:6px;font-size:.78rem;color:#9aa0b8;border-top:1px solid #1e2438;padding-top:6px">’+esc(s.autreobj)+’</div>’:’’)+’</div>’;
-if(_appelMode!==‘appel’){h+=’<div class="obj-box">’+’<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:.6rem">’+’<button class="btn-groupes" id="btn-open-groupes" data-sid='+sid+'>🎲 Groupes</button>’+’</div>’+’<div class="obj-inputs"><div><label class="obj-lbl">Objectif 1 (pour tous)</label><input class="obj-inp" type="text" id="obj1-inp" value="'+esc(objData.obj1||'')+'" placeholder="Ex: Orienter la carte au nord"></div><div><label class="obj-lbl">Objectif 2 (optionnel)</label><input class="obj-inp" type="text" id="obj2-inp" value="'+esc(objData.obj2||'')+'" placeholder="Ex: Utiliser un point d appui"></div></div></div>’;}if(_appelMode===‘appel’){
-// Mode appel : liste avec gros boutons tactiles
-var _ABTS=[
-{s:‘Present’,   label:‘✓’,  bg:’#56cfb2’, fg:’#0d1018’},
-{s:‘Absent’,    label:‘✗’,  bg:’#ff6b6b’, fg:’#ffffff’},
-{s:‘Dispense’,  label:‘🩺’, bg:’#6393ff’, fg:’#ffffff’},
-{s:‘Pas tenue’, label:‘👕’, bg:’#ff9f0a’, fg:’#0d1018’}
-];
-var _rowBg={‘Present’:‘rgba(86,207,178,.06)’,‘Absent’:‘rgba(255,107,107,.06)’,‘Dispense’:‘rgba(99,147,255,.06)’,‘Pas tenue’:‘rgba(255,159,10,.06)’};
-var _rowBorder={‘Present’:‘rgba(86,207,178,.2)’,‘Absent’:‘rgba(255,107,107,.2)’,‘Dispense’:‘rgba(99,147,255,.2)’,‘Pas tenue’:‘rgba(255,159,10,.2)’};
-h+=’<div style="padding:8px;display:flex;flex-direction:column;gap:6px">’;
-for(var _ai=0;_ai<sorted.length;_ai++){
-var _ae=sorted[_ai];
-var _pres=state.presences[sid][_ae.id]||’’;
-var _amenag=_ae.amenagement?’<span style="font-size:.7rem;color:#ffd166;display:block;margin-top:1px">’+esc(_ae.amenagement)+’</span>’:’’;
-var _rb=_rowBg[_pres]||’#13161f’;
-var _rbd=_rowBorder[_pres]||‘rgba(255,255,255,.06)’;
-h+=’<div data-row-eid="'+_ae.id+'" style="display:flex;align-items:center;gap:8px;padding:10px 12px;border-radius:12px;background:'+_rb+';border:0.5px solid '+_rbd+';transition:background .15s,border-color .15s">’;
-h+=’<div style="flex:1;font-size:.88rem;font-weight:500;color:#e4e6ef">’+esc(_ae.nom)+_amenag+’</div>’;
-h+=’<div style="display:flex;gap:5px">’;
-for(var _bi=0;_bi<_ABTS.length;_bi++){
-var _bt=_ABTS[_bi];
-var _sel=_pres===_bt.s;
-h+=’<button data-sid="'+sid+'" data-eid="'+_ae.id+'" data-st="'+_bt.s+'" class="appel-stat-btn" style="width:42px;height:38px;border-radius:9px;border:none;font-size:16px;cursor:pointer;font-weight:700;transition:all .12s;'+(_sel?'background:'+_bt.bg+';color:'+_bt.fg+';transform:scale(1.06)':'background:rgba(255,255,255,.06);color:#636366;opacity:.6')+'">’+_bt.label+’</button>’;
-}
-h+=’</div></div>’;
-}
-h+=’</div>’;
-// Stats rapides
-var _np=0,_na=0,_nd=0,_nt=0;
-for(var _si2=0;_si2<sorted.length;_si2++){var _sp=state.presences[sid][sorted[_si2].id]||’’;if(_sp===‘Present’||_sp===‘Pas tenue’)_np++;else if(_sp===‘Absent’)_na++;else if(_sp===‘Dispense’)_nd++;if(_sp===‘Pas tenue’)_nt++;}
-// Barre d’actions rapides
-h+=’<div style="display:flex;gap:8px;padding:8px 12px 4px;flex-wrap:wrap">’;
-h+=’<button data-sid="'+sid+'" class="appel-tous-btn" style="background:rgba(86,207,178,.12);border:0.5px solid rgba(86,207,178,.25);border-radius:8px;padding:5px 14px;color:#56cfb2;font-size:.75rem;font-weight:600;cursor:pointer">✓ Tous présents</button>’;
-h+=’<button data-sid="'+sid+'" class="appel-reset-btn" style="background:rgba(255,255,255,.05);border:0.5px solid rgba(255,255,255,.1);border-radius:8px;padding:5px 14px;color:#9aa0b8;font-size:.75rem;font-weight:600;cursor:pointer">↺ Réinitialiser</button>’;
-h+=’</div>’;
-// Stats bar avec id pour màj dynamique
-h+=’<div id="appel-stats-bar" style="display:flex;gap:8px;padding:4px 12px 10px;flex-wrap:wrap">’;
-h+=’<span style="background:rgba(86,207,178,.12);color:#56cfb2;padding:4px 12px;border-radius:20px;font-size:.75rem;font-weight:600">✓ ‘+_np+’ présent’+(_np>1?‘s’:’’)+(_nt>0?’ (dont ‘+_nt+’ 👕)’:’’)+’ </span>’;
-h+=’<span style="background:rgba(255,107,107,.12);color:#ff6b6b;padding:4px 12px;border-radius:20px;font-size:.75rem;font-weight:600">✗ ‘+_na+’ absent’+(_na>1?‘s’:’’)+’ </span>’;
-if(_nd>0)h+=’<span style="background:rgba(99,147,255,.12);color:#6393ff;padding:4px 12px;border-radius:20px;font-size:.75rem;font-weight:600">🩺 ‘+_nd+’ dispensé’+(_nd>1?‘s’:’’)+’ </span>’;
-h+=’</div>’;
-}
-// Mode auto-eval : remplacer la partie tableau
-if(_appelMode===‘eval’){
-var _evalDiv=’<div class="card" style="margin-top:.75rem;padding:0;overflow:hidden"><div style="display:flex;align-items:center;justify-content:space-between;padding:.75rem 1rem;border-bottom:0.5px solid rgba(255,255,255,.06)"><div style="font-size:.8rem;font-weight:600;color:#e4e6ef">Auto-evaluation</div><button onclick="var aw=ge(\'appel-crit-wrap\');aw.style.display=aw.style.display===\'none\'?\'block\':\'none\'" style="font-size:.72rem;background:rgba(79,138,255,.12);border:0.5px solid rgba(79,138,255,.3);border-radius:6px;padding:3px 10px;color:#4f8aff;cursor:pointer">✏️ Modifier criteres</button></div><div id="appel-crit-wrap" style="display:none;padding:10px;border-bottom:0.5px solid rgba(255,255,255,.06)"><div id="appel-crit-config"></div></div><div id="appel-eval-table"></div></div>’;
-h+=_evalDiv;
-}
-var ap=ge(‘ap-content’);ap.innerHTML=h;
-var _gpZone=ge(‘ap-ph-groupes’);
-if(_gpZone){
-var _gpBtn=document.createElement(‘button’);
-_gpBtn.className=‘btn-groupes’;_gpBtn.style.cssText=‘font-size:.75rem;padding:5px 12px’;
-_gpBtn.innerHTML=’🎲 Groupes’;
-_gpBtn.addEventListener(‘click’,function(){openGroupes(sid);});
-_gpZone.innerHTML=’’;_gpZone.appendChild(_gpBtn);
-}
-if(_appelMode===‘eval’){appelRenderCritConfig();ge(‘appel-eval-table’).innerHTML=appelBuildEvalTable(sid,sorted);}
-// listeners via event delegation sur ap
-// Boutons statut mode appel
-ap.querySelectorAll(’.appel-stat-btn’).forEach(function(btn){
-btn.addEventListener(‘click’,function(){
-appelToggleStatut(this.dataset.sid,this.dataset.eid,this.dataset.st);
-});
-});ge(‘obj1-inp’).addEventListener(‘change’,function(){if(!state.seanceObjectifs[sid])state.seanceObjectifs[sid]={};state.seanceObjectifs[sid].obj1=this.value;save();renderSeances();});ge(‘obj2-inp’).addEventListener(‘change’,function(){if(!state.seanceObjectifs[sid])state.seanceObjectifs[sid]={};state.seanceObjectifs[sid].obj2=this.value;save();renderSeances();});// groupes handled via ap-ph-groupes direct listener
-if(!ap._appelListened){ap._appelListened=true;ap.addEventListener(‘click’,function(e){
-var btn=e.target.closest(’.appel-stat-btn’);
-if(btn)appelToggleStatut(btn.dataset.sid,btn.dataset.eid,btn.dataset.st);
-var tb=e.target.closest(’.appel-tous-btn’);
-if(tb)appelTousPresents(tb.dataset.sid);
-var rb=e.target.closest(’.appel-reset-btn’);
-if(rb)appelReset(rb.dataset.sid);
-});}
+return opts;
+})()+’</select></td><td><select class=“ss” data-sid=”’+sid+’” data-eid=”’+e.id+’” data-f=“maitrise1”’+(dis?’ disabled’:’’)+’>’+mOpts+’</select></td><td><select class=“ss” data-sid=”’+sid+’” data-eid=”’+e.id+’” data-f=“maitrise2”’+(dis||!hasObj2?’ disabled’:’’)+’>’+mOpts2+’</select></td><td><input class=“ni” type=“number” min=“0” max=“4” step=“1” value=”’+(ae.qte!==undefined?ae.qte:’’)+’” placeholder=”-”’+(dis?’ disabled’:’’)+’ data-sid=”’+sid+’” data-eid=”’+e.id+’” data-f=“qte” style=“width:55px”></td></tr>’;}h+=’</tbody></table></div></div>’;var ap=ge(‘ap-content’);ap.innerHTML=h;ge(‘obj1-inp’).addEventListener(‘change’,function(){if(!state.seanceObjectifs[sid])state.seanceObjectifs[sid]={};state.seanceObjectifs[sid].obj1=this.value;save();renderSeances();});ge(‘obj2-inp’).addEventListener(‘change’,function(){if(!state.seanceObjectifs[sid])state.seanceObjectifs[sid]={};state.seanceObjectifs[sid].obj2=this.value;save();renderSeances();});var btnGrp=ge(‘btn-open-groupes’);
+if(btnGrp)btnGrp.addEventListener(‘click’,function(){openGroupes(this.dataset.sid);});
 ap.addEventListener(‘change’,function(e){var el=e.target;if(!el.dataset.sid)return;var s2=el.dataset.sid,eid=el.dataset.eid,f=el.dataset.f;if(f===‘pres’){if(!state.presences[s2])state.presences[s2]={};state.presences[s2][eid]=el.value;save();renderStats();
 // Mettre à jour juste le compteur présences sans reconstruire tout le tableau
 var presMap2=state.presences[s2]||{};var nbPres=0;
