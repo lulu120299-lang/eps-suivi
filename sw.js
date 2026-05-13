@@ -1,4 +1,4 @@
-const CACHE = 'eps-carnet-v1';
+const CACHE = 'eps-carnet-v2';
 const ASSETS = [
   './',
   './index.html',
