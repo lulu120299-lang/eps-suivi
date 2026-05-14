@@ -3154,12 +3154,12 @@ function trombiDeletePhoto(el){
 
 function _trombiSavePhotos(){
   if(!window._fbReady)return;
-  window._fbSet(window._fbRef(window._fbDb,'trombi/'+STORAGE_KEY),_trombiPhotos);
+  var _trombiKey='trombi-cls-'+(CTX.cls?CTX.cls.id:STORAGE_KEY);window._fbSet(window._fbRef(window._fbDb,_trombiKey),_trombiPhotos);
 }
 
 function trombiInit(cb){
   if(!window._fbReady){if(cb)cb();return;}
-  window._fbGet(window._fbRef(window._fbDb,'trombi/'+STORAGE_KEY)).then(function(snap){
+  var _trombiKey='trombi-cls-'+(CTX.cls?CTX.cls.id:STORAGE_KEY);window._fbGet(window._fbRef(window._fbDb,_trombiKey)).then(function(snap){
     _trombiPhotos=snap.val()||{};
     state.eleves.forEach(function(e){
       e.trombiPhoto=_trombiPhotos[e.id]?_trombiPhotos[e.id].data:null;
