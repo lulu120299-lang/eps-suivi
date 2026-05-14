@@ -480,6 +480,20 @@ textarea{resize:vertical;min-height:70px}
   .g4{grid-template-columns:1fr 1fr}
   .scard-body{grid-template-columns:1fr}
   .trim-grid{flex-wrap:wrap}
+  /* ACCUEIL MOBILE */
+  #acc2-stats-grid{grid-template-columns:1fr 1fr!important}
+  #acc2-main-cols{grid-template-columns:1fr!important}
+  /* Trame séquence : blocs plus grands */
+  .acc2-trame-bloc{font-size:13px!important;padding:6px 10px!important;min-width:44px}
+  .acc2-sbox{padding:8px 6px!important}
+  .acc2-sbox-num{font-size:14px!important}
+  .acc2-sbox-lbl{font-size:10px!important}
+  /* Boutons accueil */
+  .s-main{padding:.6rem!important}
+  /* Nav onglets desktop cachée sur mobile */
+  .s-nav{display:none!important}
+  /* Header mobile */
+  #pg-hdr{padding:8px 12px!important}
 }
 
 
@@ -1069,13 +1083,13 @@ window._fbReady = true;
     </div></div>
 
       <div id="acc2-wrapper">
-        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:10px">
+        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:10px" id="acc2-stats-grid">
           <div style="background:rgba(255,255,255,.05);border:0.5px solid rgba(255,255,255,.1);border-radius:12px;padding:14px;backdrop-filter:blur(10px)"><div style="font-size:10px;color:#636366;text-transform:uppercase;letter-spacing:.04em;margin-bottom:4px">Séances</div><div style="font-size:26px;font-weight:600;color:#f5f5f7" id="acc2-ss-s">0</div><div style="font-size:10px;color:#48484a;margin-top:2px">programmées</div><div style="height:2px;background:#2c2c2e;border-radius:1px;margin-top:7px"><div id="acc2-bar-s" style="height:100%;background:#30d158;width:0%"></div></div></div>
           <div style="background:rgba(255,255,255,.05);border:0.5px solid rgba(255,255,255,.1);border-radius:12px;padding:14px;backdrop-filter:blur(10px)"><div style="font-size:10px;color:#636366;text-transform:uppercase;letter-spacing:.04em;margin-bottom:4px">Élèves</div><div style="font-size:26px;font-weight:600;color:#f5f5f7" id="acc2-ss-e">0</div><div style="font-size:10px;color:#48484a;margin-top:2px">dans la classe</div><div style="height:2px;background:#2c2c2e;border-radius:1px;margin-top:7px"><div style="height:100%;background:#0a84ff;width:100%"></div></div></div>
           <div style="background:rgba(255,255,255,.05);border:0.5px solid rgba(255,255,255,.1);border-radius:12px;padding:14px;backdrop-filter:blur(10px)"><div style="font-size:10px;color:#636366;text-transform:uppercase;letter-spacing:.04em;margin-bottom:4px">Présence</div><div style="font-size:26px;font-weight:600;color:#ff9f0a" id="acc2-ss-p">—</div><div style="font-size:10px;color:#48484a;margin-top:2px">sur les séances</div><div style="height:2px;background:#2c2c2e;border-radius:1px;margin-top:7px"><div id="acc2-bar-p" style="height:100%;background:#ff9f0a;width:0%"></div></div></div>
           <div style="background:rgba(255,255,255,.05);border:0.5px solid rgba(255,255,255,.1);border-radius:12px;padding:14px;backdrop-filter:blur(10px)"><div style="font-size:10px;color:#636366;text-transform:uppercase;letter-spacing:.04em;margin-bottom:4px">Avancement</div><div style="font-size:26px;font-weight:600;color:#0a84ff" id="acc2-ss-n">0/0</div><div style="font-size:10px;color:#48484a;margin-top:2px" id="acc2-ss-n-sub">restantes</div><div style="height:2px;background:#2c2c2e;border-radius:1px;margin-top:7px"><div id="acc2-bar-n" style="height:100%;background:#0a84ff;width:0%"></div></div></div>
         </div>
-        <div style="display:grid;grid-template-columns:200px 1fr;gap:10px">
+        <div style="display:grid;grid-template-columns:200px 1fr;gap:10px" id="acc2-main-cols">
           <div style="display:flex;flex-direction:column;gap:8px">
             <div style="background:rgba(255,255,255,.05);border:0.5px solid rgba(255,255,255,.1);border-radius:12px;padding:14px;backdrop-filter:blur(10px)"><div style="font-size:10px;font-weight:600;color:#636366;text-transform:uppercase;letter-spacing:.06em;margin-bottom:9px">⛅ Météo — Lyon</div><div style="display:flex;align-items:center;gap:8px"><div style="font-size:22px" id="acc2-meteo-icon">⛅</div><div><div style="font-size:22px;font-weight:600;color:#f5f5f7" id="acc2-meteo-temp">--°</div><div style="font-size:10px;color:#48484a" id="acc2-meteo-sub">...</div></div></div></div>
             <div style="background:rgba(255,255,255,.05);border:0.5px solid rgba(255,255,255,.1);border-radius:12px;padding:14px;backdrop-filter:blur(10px)">
@@ -1694,15 +1708,19 @@ window._fbReady = true;
     <div class="s-bnav-more-grid">
       <div class="s-bnav-more-item" data-view="v-comp">
         <span class="mi-icon">&#128200;</span>
-        <span class="mi-label">Comp&eacute;tences</span>
+        <span class="mi-label">Comp&eacute;t.</span>
+      </div>
+      <div class="s-bnav-more-item" data-view="v-grille">
+        <span class="mi-icon">&#128221;</span>
+        <span class="mi-label">Grille FPS</span>
+      </div>
+      <div class="s-bnav-more-item" data-view="v-autre-eval">
+        <span class="mi-icon">&#11088;</span>
+        <span class="mi-label">Autre &eacute;val</span>
       </div>
       <div class="s-bnav-more-item" data-view="v-eval">
         <span class="mi-icon">&#128202;</span>
         <span class="mi-label">Bilan</span>
-      </div>
-      <div class="s-bnav-more-item" data-view="v-grille">
-        <span class="mi-icon">&#128221;</span>
-        <span class="mi-label">Grille</span>
       </div>
     </div>
   </div>
