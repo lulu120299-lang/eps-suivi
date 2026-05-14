@@ -2348,8 +2348,30 @@ function ghPush(){
   ghPushFileSilent('data/bibliotheque.json',bibLoad());
 }
 
+function ghPullAccueil(){
+  toast('Synchronisation...','info');
+  var h=ghHeaders();
+  Promise.all([
+    fetch('https://api.github.com/repos/'+GH.repo+'/contents/data/classes.json',{headers:h}).then(function(r){return r.ok?r.json():null;}).catch(function(){return null;}),
+    fetch('https://api.github.com/repos/'+GH.repo+'/contents/data/sessions.json',{headers:h}).then(function(r){return r.ok?r.json():null;}).catch(function(){return null;})
+  ]).then(function(results){
+    var clsData=results[0];var sessData=results[1];
+    var ok=false;
+    if(clsData&&clsData.content){
+      try{var cls=ghDecode(clsData.content);if(cls&&cls.length){CLASSES=cls;classesSave();accRenderClsGrid();ok=true;}}catch(e){}
+    }
+    if(sessData&&sessData.content){
+      try{var sess=ghDecode(sessData.content);if(sess&&Array.isArray(sess)){localStorage.setItem('eps-recent',JSON.stringify(sess));accRenderSqGrid();ok=true;}}catch(e){}
+    }
+    if(ok){toast('Synchronisé !','ok');}
+    else{toast('Aucune donnée GitHub','warn');}
+  }).catch(function(e){toast('Erreur: '+e.message,'err');});
+}
 function ghPull(){
   if(!GH.token||!GH.repo){toast('Configurez GitHub','warn');return;}
+  // Sur la page d'accueil, on tire seulement classes + sessions
+  var onAccueil=ge('pg-acc')&&ge('pg-acc').style.display!=='none';
+  if(onAccueil){ghPullAccueil();return;}
   toast('Synchronisation...','info');
   var h=ghHeaders();
   // Tirer classes et state EN PARALLELE
