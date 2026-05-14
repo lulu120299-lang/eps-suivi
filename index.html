@@ -687,6 +687,9 @@ textarea{resize:vertical;min-height:70px}
 .s-bnav-btn.active{color:#4f8aff;}
 .s-bnav-btn .bnav-icon{font-size:1.3rem;line-height:1;}
 .s-bnav-btn .bnav-label{font-size:.55rem;font-weight:600;text-transform:uppercase;letter-spacing:.04em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:52px;}
+.dd-eleves-item{display:flex;align-items:center;gap:8px;width:100%;padding:10px 14px;font-size:12px;color:#e4e6ef;background:none;border:none;border-bottom:0.5px solid #2a2f42;text-align:left;cursor:pointer}
+.dd-eleves-item:last-child{border-bottom:none}
+.dd-eleves-item:hover{background:#252836}
 /* Bouton "Plus" pour les onglets secondaires */
 .s-bnav-more-panel{
   display:none;position:fixed;bottom:calc(56px + env(safe-area-inset-bottom));left:0;right:0;
@@ -1168,14 +1171,14 @@ window._fbReady = true;
         <div style="display:flex;gap:8px;align-items:center">
           <button class="btn btn-p" id="btn-new-eleve" style="background:#a78bfa;border:none;color:#fff;font-weight:600">+ Ajouter</button>
           <button class="btn btn-p" id="btn-profil-classe" style="background:#4f8aff;border:none;color:#fff;font-weight:600">&#128101; Profil de classe</button>
-          <div style="position:relative;margin-left:auto">
-            <button class="btn btn-g" id="btn-more-eleves" onclick="document.getElementById('dd-eleves').classList.toggle('show')" style="display:flex;align-items:center;gap:5px">&#8943; Plus &#9660;</button>
-            <div id="dd-eleves" style="display:none;position:absolute;top:calc(100% + 6px);right:0;background:#1c1f2c;border:0.5px solid #2a2f42;border-radius:10px;min-width:180px;overflow:hidden;z-index:100;box-shadow:0 8px 24px rgba(0,0,0,.4)">
-              <button onclick="openTrombi();document.getElementById('dd-eleves').classList.remove('show')" style="width:100%;padding:10px 14px;font-size:12px;color:#e4e6ef;background:none;border:none;border-bottom:0.5px solid #2a2f42;text-align:left;cursor:pointer;display:flex;align-items:center;gap:8px">&#128100; Trombinoscope</button>
-              <label style="width:100%;padding:10px 14px;font-size:12px;color:#56cfb2;background:none;border:none;border-bottom:0.5px solid #2a2f42;text-align:left;cursor:pointer;display:flex;align-items:center;gap:8px">&#128202; Ecole Direct<input type="file" id="btn-import-ecoledirect" accept=".xlsx,.xls" style="display:none"></label>
-              <button id="btn-pdf-eleves" onclick="document.getElementById('dd-eleves').classList.remove('show')" style="width:100%;padding:10px 14px;font-size:12px;color:#e4e6ef;background:none;border:none;border-bottom:0.5px solid #2a2f42;text-align:left;cursor:pointer;display:flex;align-items:center;gap:8px">&#128196; Export PDF</button>
-              <button id="btn-export-eleves-json" onclick="document.getElementById('dd-eleves').classList.remove('show')" style="width:100%;padding:10px 14px;font-size:12px;color:#e4e6ef;background:none;border:none;border-bottom:0.5px solid #2a2f42;text-align:left;cursor:pointer;display:flex;align-items:center;gap:8px">&#8595; Export classe</button>
-              <label style="width:100%;padding:10px 14px;font-size:12px;color:#e4e6ef;background:none;border:none;text-align:left;cursor:pointer;display:flex;align-items:center;gap:8px">&#8593; Import classe<input type="file" id="btn-import-eleves-json" accept=".json" style="display:none"></label>
+          <div style="position:relative;margin-left:auto" id="more-eleves-wrap">
+            <button class="btn btn-g" id="btn-more-eleves" style="display:flex;align-items:center;gap:5px">&#8943; Plus &#9660;</button>
+            <div id="dd-eleves" style="display:none;position:absolute;top:calc(100% + 6px);right:0;background:#1c1f2c;border:0.5px solid #2a2f42;border-radius:10px;min-width:180px;overflow:hidden;z-index:999;box-shadow:0 8px 24px rgba(0,0,0,.4)">
+              <button class="dd-eleves-item" onclick="openTrombi();document.getElementById('dd-eleves').style.display='none'">&#128100; Trombinoscope</button>
+              <label class="dd-eleves-item" style="color:#56cfb2;cursor:pointer">&#128202; Ecole Direct<input type="file" id="btn-import-ecoledirect" accept=".xlsx,.xls" style="display:none"></label>
+              <button id="btn-pdf-eleves" class="dd-eleves-item" onclick="document.getElementById('dd-eleves').style.display='none'">&#128196; Export PDF</button>
+              <button id="btn-export-eleves-json" class="dd-eleves-item" onclick="document.getElementById('dd-eleves').style.display='none'">&#8595; Export classe</button>
+              <label class="dd-eleves-item" style="cursor:pointer">&#8593; Import classe<input type="file" id="btn-import-eleves-json" accept=".json" style="display:none"></label>
             </div>
           </div>
         </div>
@@ -1258,11 +1261,16 @@ window._fbReady = true;
     <div id="v-grille" class="view">
       <div class="ph">
         <div><div class="ph-title">Grille FPS</div><div class="ph-sub">Cliquez sur un &#233;l&#232;ve pour noter</div></div>
-        <div style="display:flex;gap:8px">
-          <button class="btn btn-g" id="btn-grille-cfg" onclick="openGrilleConfig()">Configurer</button>
-          <button class="btn btn-g" id="btn-grille-csv" onclick="exportGrilleCSV()">Export CSV</button>
-          <button class="btn btn-g" id="btn-grille-export-json" onclick="exportGrilleJSON()">Export JSON</button>
-          <label class="btn btn-g" style="cursor:pointer"><input type="file" id="btn-grille-import-json" accept=".json" style="display:none" onchange="importGrilleJSON(this.files[0]);this.value=''">Import JSON</label>
+        <div style="display:flex;gap:8px;align-items:center">
+          <button class="btn btn-p" id="btn-grille-cfg" style="background:#ffd166;border:none;color:#1a1000;font-weight:600;display:flex;align-items:center;gap:6px">&#9998; Modifier la grille</button>
+          <div style="position:relative;margin-left:auto" id="more-grille-wrap">
+            <button class="btn btn-g" id="btn-more-grille" style="display:flex;align-items:center;gap:5px">&#8943; Plus &#9660;</button>
+            <div id="dd-grille" style="display:none;position:absolute;top:calc(100% + 6px);right:0;background:#1c1f2c;border:0.5px solid #2a2f42;border-radius:10px;min-width:180px;overflow:hidden;z-index:999;box-shadow:0 8px 24px rgba(0,0,0,.4)">
+              <button id="btn-grille-csv" class="dd-eleves-item" onclick="exportGrilleCSV();document.getElementById('dd-grille').style.display='none'">&#128202; Export Excel</button>
+              <button id="btn-grille-export-json" class="dd-eleves-item" onclick="exportGrilleJSON();document.getElementById('dd-grille').style.display='none'">&#8595; Export JSON</button>
+              <label class="dd-eleves-item" style="cursor:pointer">&#8593; Import JSON<input type="file" id="btn-grille-import-json" accept=".json" style="display:none" onchange="importGrilleJSON(this.files[0]);this.value=''"></label>
+            </div>
+          </div>
         </div>
       </div>
       <div id="ge-grille-recap" style="margin-bottom:20px"></div>
@@ -7739,7 +7747,8 @@ s('btn-pdf-bilan','click',exportBilanPDF);
 s('btn-profil-classe','click',toggleProfilZone);
 s('btn-save-profil-plan','click',saveProfilPlan);
 s('btn-new-eleve','click',function(){openM('m-eleve');});
-document.addEventListener('click',function(e){var dd=ge('dd-eleves');var btn=ge('btn-more-eleves');if(dd&&btn&&!btn.contains(e.target)&&!dd.contains(e.target))dd.classList.remove('show');});
+s('btn-more-eleves','click',function(e){e.stopPropagation();var dd=ge('dd-eleves');dd.style.display=dd.style.display==='none'?'block':'none';});
+document.addEventListener('click',function(e){var wrap=ge('more-eleves-wrap');if(wrap&&!wrap.contains(e.target)){var dd=ge('dd-eleves');if(dd)dd.style.display='none';}});
 s('btn-save-eleve','click',saveEleve);
 s('btn-upd-eleve','click',updEleve);
 s('btn-del-eleve','click',delEleve);
@@ -7781,6 +7790,8 @@ if(bnavMoreBtn&&bnavMorePanel){
 // Bouton récap présences
 s('btn-recap-presences','click',openRecapPresences);
 s('btn-grille-cfg','click',openGrilleConfig);
+s('btn-more-grille','click',function(e){e.stopPropagation();var dd=ge('dd-grille');dd.style.display=dd.style.display==='none'?'block':'none';});
+document.addEventListener('click',function(e){var wrap=ge('more-grille-wrap');if(wrap&&!wrap.contains(e.target)){var dd=ge('dd-grille');if(dd)dd.style.display='none';}});
 s('acc-next-seance','click',function(){
   var sid=this.dataset.sid;
   if(sid){showView('v-seances');openEditS(sid);}
