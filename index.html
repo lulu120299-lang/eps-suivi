@@ -4935,7 +4935,18 @@ function archiveOpen(idx){
   var s=arr[idx];
   if(!s)return;
   closeArchiveModal();
-  accLaunch(s.cls,s.apsa,s.trim);
+  // Ouvrir sans sessionsAdd pour ne pas remettre dans le planning
+  var key='eps-'+s.cls.id+'-'+s.apsa.id+'-t'+s.trim;
+  window._pendingLaunch={cls:s.cls,apsa:s.apsa,key:key,trim:s.trim};
+  if(GH.token&&GH.repo){
+    var modal=ge('m-sync-launch');
+    var lbl=ge('m-sync-launch-lbl');
+    if(lbl)lbl.textContent=s.cls.label+' — '+s.apsa.name+' T'+s.trim;
+    if(modal)modal.classList.add('open');
+    else openSuivi(s.cls,s.apsa,key,s.trim);
+  } else {
+    openSuivi(s.cls,s.apsa,key,s.trim);
+  }
 }
 function archiveRestore(idx){
   var arr=archiveGet();
