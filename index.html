@@ -786,6 +786,7 @@ window._fbReady = true;
 </script>
 <script defer src="https://cdn.jsdelivr.net/npm/face-api.js@0.22.2/dist/face-api.min.js"></script>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 </head><body>
 <div id="pg-acc">
   <div class="acc-header">
@@ -1170,6 +1171,7 @@ window._fbReady = true;
           <button class="btn btn-g" id="btn-pdf-eleves">&#128196; Export PDF</button>
           <button class="btn btn-g" id="btn-export-eleves-json" title="Exporter la liste pour la réutiliser">&#8595; Export classe</button>
           <label class="btn btn-g" style="cursor:pointer;margin:0" title="Importer une liste depuis une autre séquence">&#8593; Import classe<input type="file" id="btn-import-eleves-json" accept=".json" style="display:none"></label>
+          <label class="btn btn-p" style="cursor:pointer;margin:0;background:rgba(86,207,178,.15);border:0.5px solid rgba(86,207,178,.3);color:#56cfb2" title="Importer depuis un fichier Ecole Direct (.xlsx)">&#128202; Ecole Direct<input type="file" id="btn-import-ecoledirect" accept=".xlsx,.xls" style="display:none"></label>
           <button class="btn btn-p" id="btn-new-eleve">+ Ajouter</button>
         </div>
       </div>
@@ -7424,6 +7426,65 @@ function exportElevesJSON(){
   a.click();
   toast('Liste exportee ('+state.eleves.length+' eleves)');
 }
+function importEcoleDirectXLSX(file){
+  if(!file)return;
+  if(typeof XLSX==='undefined'){toast('Chargement en cours, réessaie...','warn');return;}
+  var reader=new FileReader();
+  reader.onload=function(e){
+    try{
+      var wb=XLSX.read(e.target.result,{type:'array'});
+      var ws=wb.Sheets[wb.SheetNames[0]];
+      var rows=XLSX.utils.sheet_to_json(ws,{header:1,defval:''});
+      // Extraire le nom de classe depuis la ligne 3 (index 2)
+      var nomClasse='';
+      for(var i=0;i<rows.length;i++){
+        var cell=String(rows[i][1]||'');
+        if(cell.indexOf('Classe :')>-1){nomClasse=cell.replace('Classe :','').trim();break;}
+      }
+      // Trouver la ligne header "Nom" puis lire les élèves
+      var startIdx=-1;
+      for(var i=0;i<rows.length;i++){
+        if(String(rows[i][0]||'').trim()==='Nom'){startIdx=i+1;break;}
+      }
+      if(startIdx===-1){toast('Format Ecole Direct non reconnu','err');return;}
+      var noms=[];
+      for(var i=startIdx;i<rows.length;i++){
+        var nom=String(rows[i][0]||'').trim();
+        if(!nom)continue;
+        // Convertir NOM Prénom → Prénom NOM
+        var parts=nom.split(/\s+/);
+        var prenom='',nomFamille='';
+        for(var j=0;j<parts.length;j++){
+          if(parts[j]===parts[j].toUpperCase()&&parts[j].length>1&&!/^--$/.test(parts[j])){
+            nomFamille+=parts[j]+' ';
+          } else {
+            prenom+=parts[j]+' ';
+          }
+        }
+        var nomFinal=(prenom.trim()+' '+nomFamille.trim()).trim();
+        if(nomFinal)noms.push(nomFinal);
+      }
+      if(!noms.length){toast('Aucun élève trouvé','warn');return;}
+      var msg=nomClasse?'Importer '+noms.length+' élève(s) de "'+nomClasse+'" ?':'Importer '+noms.length+' élève(s) ?';
+      if(confirm(msg)){
+        var added=0;
+        for(var i=0;i<noms.length;i++){
+          var exists=false;
+          for(var j=0;j<state.eleves.length;j++){
+            if(state.eleves[j].nom.toLowerCase()===noms[i].toLowerCase()){exists=true;break;}
+          }
+          if(!exists){
+            state.eleves.push({id:'e'+Date.now()+Math.random().toString(36).slice(2,5),nom:noms[i],amenagement:'',fiche:null,noteFinale:null});
+            added++;
+          }
+        }
+        save();renderAll();
+        toast(added+' élève(s) importé(s) depuis Ecole Direct','ok');
+      }
+    }catch(err){toast('Erreur lecture fichier: '+err.message,'err');}
+  };
+  reader.readAsArrayBuffer(file);
+}
 function importElevesJSON(file){
   if(!file)return;
   var reader=new FileReader();
@@ -7665,6 +7726,7 @@ s('btn-del-eleve','click',delEleve);
 s('btn-import-pdf','click',function(){openM('m-pdf');});
 s('btn-export-eleves-json','click',exportElevesJSON);
 s('btn-import-eleves-json','change',function(){importElevesJSON(this.files[0]);this.value='';});
+s('btn-import-ecoledirect','change',function(){importEcoleDirectXLSX(this.files[0]);this.value='';});
 s('btn-csv','click',exportCSV);
 s('btn-save-fiche','click',saveFicheAmen);
 s('photo-drop','click',function(){var pi=ge('photo-input');if(pi)pi.click();});
