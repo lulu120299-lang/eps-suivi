@@ -3686,6 +3686,16 @@ function loadState(){
     return;
   }
   state={seances:[],eleves:[],presences:{},autoEval:{},seanceObjectifs:{},profil:{},comp:{},seq:{},grilleNotes:{},grille:null};
+  // Charger les eleves de la classe si deja connus
+  if(CTX.cls){
+    try{
+      var clsEleves=localStorage.getItem('eps-cls-'+CTX.cls.id+'-eleves');
+      if(clsEleves){
+        state.eleves=JSON.parse(clsEleves);
+        toast('Eleves de la classe chargés automatiquement','ok');
+      }
+    }catch(e){}
+  }
 }
 function save(){
   // Exclure les photos trombi du state principal pour éviter les ralentissements
@@ -3698,6 +3708,10 @@ function save(){
     }
   }
   localStorage.setItem(STORAGE_KEY,JSON.stringify(stateLight));
+  // Sauvegarder les eleves au niveau classe (persistance inter-sequences)
+  if(CTX.cls&&stateLight.eleves&&stateLight.eleves.length){
+    localStorage.setItem('eps-cls-'+CTX.cls.id+'-eleves',JSON.stringify(stateLight.eleves));
+  }
   // Sauvegarder les photos séparément (moins souvent modifiées)
   if(Object.keys(photosMap).length){
     localStorage.setItem(STORAGE_KEY+'-photos',JSON.stringify(photosMap));
