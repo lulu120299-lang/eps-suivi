@@ -299,7 +299,7 @@ input[type=text],input[type=date],input[type=number],textarea{background:#13161f
 input:focus,textarea:focus{border-color:#4f8aff}
 textarea{resize:vertical;min-height:70px}
 .partie-block{background:#13161f;border:1px solid #2a2f42;border-radius:12px;padding:1.25rem 1.4rem;margin-bottom:1rem;box-shadow:0 2px 8px rgba(0,0,0,.25)}
-.partie-header{display:flex;align-items:center;gap:10px;margin-bottom:1rem;padding-bottom:.75rem;border-bottom:1px solid #1e2235;cursor:pointer;user-select:none}.partie-header:hover{opacity:.85}.partie-toggle-btn{background:none;border:none;color:#6b7280;font-size:1rem;cursor:pointer;padding:0 2px;margin-left:auto;flex-shrink:0;transition:transform .2s}.partie-block.collapsed .partie-toggle-btn{transform:rotate(-90deg)}.partie-block.collapsed .partie-grid,.partie-block.collapsed .partie-extras{display:none!important}.partie-block.collapsed .partie-header{margin-bottom:0;border-bottom:none;padding-bottom:0}
+.partie-header{display:flex;align-items:center;gap:10px;margin-bottom:1rem;padding-bottom:.75rem;border-bottom:1px solid #1e2235}
 .partie-num-badge{background:linear-gradient(135deg,#4f8aff,#7b6fff);color:#fff;font-family:"DM Mono",monospace;font-size:.68rem;padding:4px 12px;border-radius:20px;font-weight:700;white-space:nowrap;flex-shrink:0;letter-spacing:.04em}
 .partie-title-input{flex:1;background:rgba(255,255,255,.04);border:1px solid #2a2f42;border-radius:7px;color:#e4e6ef;font-family:"DM Serif Display",serif;font-size:1.05rem;padding:6px 10px;outline:none;transition:border-color .15s}
 .partie-title-input:focus{border-color:#4f8aff;background:rgba(79,138,255,.06)}
@@ -1300,37 +1300,12 @@ window._fbReady = true;
       <button class="btn btn-p" id="btn-save-profil-plan">Enregistrer</button>
     </div>
   </div></div>
-  <div class="mb" id="m-seance"><div class="modal modal-xl" style="padding:0;overflow:hidden;display:flex;flex-direction:column;max-height:90vh">
-    <!-- HEADER -->
-    <div style="background:#0f1118;padding:12px 16px;border-bottom:0.5px solid #2a2f42;display:flex;align-items:center;gap:10px;flex-shrink:0">
-      <span style="font-size:.9rem;font-weight:600;color:#e4e6ef;flex:1">Nouvelle s&#233;ance</span>
-      <span id="ns-date-display" style="font-size:.75rem;color:#9aa0b8;background:#1c1f2c;border:0.5px solid #2a2f42;border-radius:20px;padding:3px 10px;flex-shrink:0"></span>
-      <button class="btn-ia" id="btn-ia-toggle-new" title="Generateur IA" style="flex-shrink:0">&#10024; IA</button>
+  <div class="mb" id="m-seance"><div class="modal modal-xl">
+    <div class="modal-title" style="display:flex;align-items:center;gap:10px">
+      <span>Nouvelle seance</span>
+      <button class="btn-ia" id="btn-ia-toggle-new" title="Generateur de situations IA">&#10024; IA</button>
     </div>
-    <!-- STEPPER -->
-    <div style="background:#0a0c10;padding:10px 16px;border-bottom:0.5px solid #2a2f42;display:flex;align-items:center;flex-shrink:0">
-      <div style="display:flex;align-items:center;gap:6px;cursor:pointer" onclick="nsGoStep(0)">
-        <div id="ns-sc0" style="width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;background:#a78bfa;color:#fff">1</div>
-        <span id="ns-sl0" style="font-size:11px;color:#e4e6ef;font-weight:600;white-space:nowrap">G&#233;n&#233;ral</span>
-      </div>
-      <div style="flex:1;height:1px;background:#2a2f42;margin:0 6px"></div>
-      <div style="display:flex;align-items:center;gap:6px;cursor:pointer" onclick="nsGoStep(1)">
-        <div id="ns-sc1" style="width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;background:#1c1f2c;border:0.5px solid #2a2f42;color:#48484a">2</div>
-        <span id="ns-sl1" style="font-size:11px;color:#6b7280;white-space:nowrap">AFLP</span>
-      </div>
-      <div style="flex:1;height:1px;background:#2a2f42;margin:0 6px"></div>
-      <div style="display:flex;align-items:center;gap:6px;cursor:pointer" onclick="nsGoStep(2)">
-        <div id="ns-sc2" style="width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;background:#1c1f2c;border:0.5px solid #2a2f42;color:#48484a">3</div>
-        <span id="ns-sl2" style="font-size:11px;color:#6b7280;white-space:nowrap">Parties</span>
-      </div>
-      <div style="flex:1;height:1px;background:#2a2f42;margin:0 6px"></div>
-      <div style="display:flex;align-items:center;gap:6px;cursor:pointer" onclick="nsGoStep(3)">
-        <div id="ns-sc3" style="width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;background:#1c1f2c;border:0.5px solid #2a2f42;color:#48484a">4</div>
-        <span id="ns-sl3" style="font-size:11px;color:#6b7280;white-space:nowrap">Bilan</span>
-      </div>
-    </div>
-    <!-- IA PANEL -->
-    <div class="ia-panel" id="ia-panel-new" style="flex-shrink:0;margin:0;border-radius:0;border-bottom:0.5px solid #2a2f42">
+    <div class="ia-panel" id="ia-panel-new">
       <div class="ia-panel-title">&#10024; Generateur de situations d apprentissage</div>
       <div class="ia-field">
         <label>Contraintes / contexte du jour</label>
@@ -1338,101 +1313,51 @@ window._fbReady = true;
       </div>
       <div style="display:flex;gap:7px;margin-bottom:.5rem">
         <button class="ia-btn" id="btn-ia-gen-new" style="flex:1">&#10024; Generer via IA</button>
-        <button class="ia-btn" id="btn-ia-copy-new" style="flex:1;background:rgba(79,138,255,.12);border-color:rgba(79,138,255,.3);color:#4f8aff">&#128203; Copier le prompt</button>
+        <button class="ia-btn" id="btn-ia-copy-new" style="flex:1;background:rgba(79,138,255,.12);border-color:rgba(79,138,255,.3);color:#4f8aff" title="Copier le prompt pour le coller dans Claude.ai">&#128203; Copier le prompt</button>
       </div>
       <textarea id="ia-prompt-display-new" style="display:none;width:100%;height:80px;background:#0d1018;border:1px solid #252836;border-radius:8px;color:#9aa0b8;font-size:.68rem;padding:8px;resize:none;margin-bottom:8px" readonly></textarea>
-      <div id="ia-paste-zone-new" style="display:none;margin-bottom:.5rem">
+          <div id="ia-paste-zone-new" style="display:none;margin-bottom:.5rem">
         <div style="font-family:DM Mono,monospace;font-size:.62rem;text-transform:uppercase;letter-spacing:.1em;color:#ffd166;margin-bottom:.4rem">Coller la reponse de Claude.ai</div>
         <textarea id="ia-paste-text-new" placeholder="Colle ici la reponse JSON de Claude..." style="width:100%;background:#0d1018;border:1px solid #1e2438;border-radius:6px;color:#d4d8eb;font-size:.75rem;padding:.6rem .75rem;resize:vertical;outline:none;min-height:70px;line-height:1.5"></textarea>
         <button class="ia-sit-btn" style="margin-top:.4rem;width:100%;background:rgba(255,209,102,.1);border-color:rgba(255,209,102,.3);color:#ffd166" onclick="iaCollerReponse('new')">+ Charger les situations</button>
       </div>
       <div id="ia-result-zone-new"></div>
     </div>
-    <!-- PAGES -->
-    <div style="flex:1;overflow-y:auto;padding:14px 16px" id="ns-pages">
-      <!-- PAGE 0 : GÉNÉRAL -->
-      <div id="ns-pg0">
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:.75rem;margin-bottom:.75rem">
-          <div class="fgrp"><label>Num&#233;ro</label><input type="number" id="fn" min="1" max="30"></div>
-          <div class="fgrp"><label>Date</label><input type="date" id="fd" oninput="nsUpdateHeader()"></div>
-          <div class="fgrp full"><label>Titre de la s&#233;ance</label><input type="text" id="fo" placeholder="Ex: D&#233;couverte CO..."></div>
-        </div>
-        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:.75rem">
-          <div class="fgrp"><label>Objet n&#176;1</label><input type="text" id="fo2" placeholder="Ex: Conduire..."></div>
-          <div class="fgrp"><label>Objet n&#176;2</label><input type="text" id="fo3" placeholder="Ex: Lire la l&#233;gende..."></div>
-          <div class="fgrp"><label>Objet n&#176;3</label><input type="text" id="fo4" placeholder="Ex: S&#233;curit&#233;..."></div>
-        </div>
-        <div class="fg">
-          <div class="fgrp full"><label>Autres objectifs de la seance</label><textarea id="fn-autreobj" style="min-height:48px" placeholder="Ex: Cooperation, gestion effort, securite..."></textarea></div>
-          <div class="fgrp full"><label>Contenus d enseignement a aborder</label><textarea id="fn-contenus" style="min-height:48px" placeholder="Ex: Lecture de carte, orientation au nord..."></textarea></div>
-          <div class="fgrp full"><label>Parties de la FPS abordees</label><textarea id="fn-fps" style="min-height:48px" placeholder="Ex: Echauffement specifique, situation de reference..."></textarea></div>
-        </div>
+    <div class="fg" style="margin-bottom:1rem">
+      <div class="fgrp"><label>Numero</label><input type="number" id="fn" min="1" max="30"></div>
+      <div class="fgrp"><label>Date</label><input type="date" id="fd"></div>
+      <div class="fgrp full"><label>Titre de la s&#233;ance</label><input type="text" id="fo" placeholder="Ex: D&#233;couverte CO..."></div>
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px">
+        <div class="fgrp"><label>Objet n&#176;1</label><input type="text" id="fo2" placeholder="Ex: Conduire..."></div>
+        <div class="fgrp"><label>Objet n&#176;2</label><input type="text" id="fo3" placeholder="Ex: Lire la l&#233;gende..."></div>
+        <div class="fgrp"><label>Objet n&#176;3</label><input type="text" id="fo4" placeholder="Ex: S&#233;curit&#233;..."></div>
       </div>
-      <!-- PAGE 1 : AFLP -->
-      <div id="ns-pg1" style="display:none">
-        <div style="font-size:.72rem;color:#6b7280;font-weight:600;text-transform:uppercase;letter-spacing:.06em;margin-bottom:.5rem;display:flex;align-items:center;justify-content:space-between">
-          <span>AFLP travailles cette seance</span>
-          <span id="ns-aflp-count" style="font-size:.7rem;color:#a78bfa;background:#a78bfa14;padding:2px 8px;border-radius:20px">0 / 6 coch&#233;s</span>
-        </div>
-        <div id="aflp-check-new" class="aflp-check-grid"></div>
-      </div>
-      <!-- PAGE 2 : PARTIES -->
-      <div id="ns-pg2" style="display:none">
-        <div style="font-size:.72rem;color:#6b7280;font-weight:600;text-transform:uppercase;letter-spacing:.06em;margin-bottom:.75rem;display:flex;align-items:center;justify-content:space-between">
-          <span>Parties de la seance</span>
-          <button class="btn-ia" onclick="openBiblioForSeance('new')" style="opacity:.7;font-size:.72rem">&#128218; Depuis bibliotheque</button>
-        </div>
-        <div id="parties-new"></div>
-        <button class="add-partie-btn" id="btn-add-partie-new">+ Ajouter une partie</button>
-      </div>
-      <!-- PAGE 3 : BILAN -->
-      <div id="ns-pg3" style="display:none">
-        <div class="fgrp full"><label>Bilan g&#233;n&#233;ral</label><textarea id="fb" style="min-height:90px" placeholder="Observations globales..."></textarea></div>
-      </div>
+      
+      <div class="fgrp full"><label>Autres objectifs de la seance</label><textarea id="fn-autreobj" style="min-height:48px" placeholder="Ex: Cooperation, gestion effort, securite..."></textarea></div>
+      <div class="fgrp full"><label>Contenus d enseignement a aborder</label><textarea id="fn-contenus" style="min-height:48px" placeholder="Ex: Lecture de carte, orientation au nord..."></textarea></div>
+      <div class="fgrp full"><label>Parties de la FPS abordees</label><textarea id="fn-fps" style="min-height:48px" placeholder="Ex: Echauffement specifique, situation de reference..."></textarea></div>
+      <div class="fgrp full"><label>Bilan general</label><textarea id="fb" style="min-height:55px" placeholder="Observations globales..."></textarea></div>
     </div>
-    <!-- BARRE BAS -->
-    <div style="background:#0a0c10;border-top:0.5px solid #2a2f42;padding:10px 16px;display:flex;align-items:center;justify-content:space-between;gap:8px;flex-shrink:0">
+    <div class="sec-title">AFLP travailles cette seance</div>
+    <div id="aflp-check-new" class="aflp-check-grid"></div>
+    <div class="sec-title" style="margin-top:1.2rem;display:flex;align-items:center;justify-content:space-between">
+      <span>Parties de la seance</span>
+      <button class="btn-ia" onclick="openBiblioForSeance('new')" style="opacity:.7;font-size:.72rem">&#128218; Depuis bibliotheque</button>
+    </div>
+    <div id="parties-new"></div>
+    <button class="add-partie-btn" id="btn-add-partie-new">+ Ajouter une partie</button>
+    <div class="modal-acts">
       <button class="btn btn-g" data-close="m-seance">Annuler</button>
-      <div style="display:flex;gap:6px">
-        <button class="btn btn-g" id="ns-btn-prev" onclick="nsPrevStep()" style="display:none">&#8592; Retour</button>
-        <button class="btn btn-p" id="ns-btn-next" onclick="nsNextStep()">Suivant &#8594;</button>
-        <button class="btn btn-p" id="btn-save-seance" style="display:none">Cr&#233;er la s&#233;ance</button>
-      </div>
+      <button class="btn btn-p" id="btn-save-seance">Creer la seance</button>
     </div>
   </div></div>
-  <div class="mb" id="m-edit-s"><div class="modal modal-xl" style="padding:0;overflow:hidden;display:flex;flex-direction:column;max-height:90vh">
-    <input type="hidden" id="es-id">
-    <!-- HEADER -->
-    <div style="background:#0f1118;padding:12px 16px;border-bottom:0.5px solid #2a2f42;display:flex;align-items:center;gap:10px;flex-shrink:0">
-      <span id="es-badge" style="font-family:'DM Mono',monospace;font-size:.75rem;background:#a78bfa22;color:#a78bfa;padding:3px 10px;border-radius:20px;border:0.5px solid #a78bfa44;font-weight:700;flex-shrink:0"></span>
-      <span id="es-title-display" style="font-size:.9rem;font-weight:600;color:#e4e6ef;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap"></span>
-      <span id="es-date-display" style="font-size:.75rem;color:#9aa0b8;background:#1c1f2c;border:0.5px solid #2a2f42;border-radius:20px;padding:3px 10px;flex-shrink:0"></span>
-      <button class="btn-ia" id="btn-ia-toggle" title="Generateur IA" style="flex-shrink:0">&#10024; IA</button>
+  <div class="mb" id="m-edit-s"><div class="modal modal-xl">
+    <div class="modal-title" style="display:flex;align-items:center;gap:10px">
+      <span>Modifier la seance</span>
+      <span id="es-badge" style="font-family:'DM Mono',monospace;font-size:.9rem;background:#4f8aff;color:#fff;padding:2px 9px;border-radius:5px"></span>
+      <button class="btn-ia" id="btn-ia-toggle" title="Generateur de situations IA">&#10024; IA</button>
     </div>
-    <!-- STEPPER -->
-    <div style="background:#0a0c10;padding:10px 16px;border-bottom:0.5px solid #2a2f42;display:flex;align-items:center;flex-shrink:0" id="es-stepper">
-      <div style="display:flex;align-items:center;gap:6px;cursor:pointer" onclick="esGoStep(0)">
-        <div class="es-sc" id="es-sc0" style="width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;flex-shrink:0;background:#56cfb2;color:#04342C">&#10003;</div>
-        <span class="es-sl" id="es-sl0" style="font-size:11px;color:#56cfb2;white-space:nowrap">G&#233;n&#233;ral</span>
-      </div>
-      <div style="flex:1;height:1px;background:#2a2f42;margin:0 6px"></div>
-      <div style="display:flex;align-items:center;gap:6px;cursor:pointer" onclick="esGoStep(1)">
-        <div class="es-sc" id="es-sc1" style="width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;flex-shrink:0;background:#a78bfa;color:#fff">2</div>
-        <span class="es-sl" id="es-sl1" style="font-size:11px;color:#e4e6ef;font-weight:600;white-space:nowrap">AFLP</span>
-      </div>
-      <div style="flex:1;height:1px;background:#2a2f42;margin:0 6px"></div>
-      <div style="display:flex;align-items:center;gap:6px;cursor:pointer" onclick="esGoStep(2)">
-        <div class="es-sc" id="es-sc2" style="width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;flex-shrink:0;background:#1c1f2c;border:0.5px solid #2a2f42;color:#48484a">3</div>
-        <span class="es-sl" id="es-sl2" style="font-size:11px;color:#6b7280;white-space:nowrap">Parties</span>
-      </div>
-      <div style="flex:1;height:1px;background:#2a2f42;margin:0 6px"></div>
-      <div style="display:flex;align-items:center;gap:6px;cursor:pointer" onclick="esGoStep(3)">
-        <div class="es-sc" id="es-sc3" style="width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;flex-shrink:0;background:#1c1f2c;border:0.5px solid #2a2f42;color:#48484a">4</div>
-        <span class="es-sl" id="es-sl3" style="font-size:11px;color:#6b7280;white-space:nowrap">Bilan</span>
-      </div>
-    </div>
-    <!-- IA PANEL -->
-    <div class="ia-panel" id="ia-panel" style="flex-shrink:0;margin:0;border-radius:0;border-bottom:0.5px solid #2a2f42">
+    <div class="ia-panel" id="ia-panel">
       <div class="ia-panel-title">&#10024; Generateur de situations d apprentissage</div>
       <div class="ia-field">
         <label>Contraintes / contexte du jour</label>
@@ -1440,71 +1365,46 @@ window._fbReady = true;
       </div>
       <div style="display:flex;gap:7px;margin-bottom:.5rem">
         <button class="ia-btn" id="btn-ia-gen" style="flex:1">&#10024; Generer via IA</button>
-        <button class="ia-btn" id="btn-ia-copy-edit" style="flex:1;background:rgba(79,138,255,.12);border-color:rgba(79,138,255,.3);color:#4f8aff" title="Copier le prompt">&#128203; Copier le prompt</button>
+        <button class="ia-btn" id="btn-ia-copy-edit" style="flex:1;background:rgba(79,138,255,.12);border-color:rgba(79,138,255,.3);color:#4f8aff" title="Copier le prompt pour le coller dans Claude.ai">&#128203; Copier le prompt</button>
       </div>
       <textarea id="ia-prompt-display-edit" style="display:none;width:100%;height:80px;background:#0d1018;border:1px solid #252836;border-radius:8px;color:#9aa0b8;font-size:.68rem;padding:8px;resize:none;margin-bottom:8px" readonly></textarea>
-      <div id="ia-paste-zone-edit" style="display:none;margin-bottom:.5rem">
+          <div id="ia-paste-zone-edit" style="display:none;margin-bottom:.5rem">
         <div style="font-family:DM Mono,monospace;font-size:.62rem;text-transform:uppercase;letter-spacing:.1em;color:#ffd166;margin-bottom:.4rem">Coller la reponse de Claude.ai</div>
         <textarea id="ia-paste-text-edit" placeholder="Colle ici la reponse JSON de Claude..." style="width:100%;background:#0d1018;border:1px solid #1e2438;border-radius:6px;color:#d4d8eb;font-size:.75rem;padding:.6rem .75rem;resize:vertical;outline:none;min-height:70px;line-height:1.5"></textarea>
         <button class="ia-sit-btn" style="margin-top:.4rem;width:100%;background:rgba(255,209,102,.1);border-color:rgba(255,209,102,.3);color:#ffd166" onclick="iaCollerReponse('edit')">+ Charger les situations</button>
       </div>
       <div id="ia-result-zone"></div>
     </div>
-    <!-- PAGES -->
-    <div style="flex:1;overflow-y:auto;padding:14px 16px" id="es-pages">
-      <!-- PAGE 0 : GÉNÉRAL -->
-      <div id="es-pg0">
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:.75rem;margin-bottom:.75rem">
-          <div class="fgrp"><label>Num&#233;ro</label><input type="number" id="es-n" min="1" max="30"></div>
-          <div class="fgrp"><label>Date</label><input type="date" id="es-d"></div>
-          <div class="fgrp full"><label>Titre de la s&#233;ance</label><input type="text" id="es-o" oninput="esUpdateHeader()"></div>
-        </div>
-        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:.75rem">
-          <div class="fgrp"><label>Objet n&#176;1</label><input type="text" id="es-o2"></div>
-          <div class="fgrp"><label>Objet n&#176;2</label><input type="text" id="es-o3"></div>
-          <div class="fgrp"><label>Objet n&#176;3</label><input type="text" id="es-o4"></div>
-        </div>
-        <div class="fg">
-          <div class="fgrp full"><label>Autres objectifs de la seance</label><textarea id="es-autreobj" style="min-height:48px" placeholder="Ex: Cooperation, gestion effort, securite..."></textarea></div>
-          <div class="fgrp full"><label>Contenus d enseignement a aborder</label><textarea id="es-contenus" style="min-height:48px" placeholder="Ex: Lecture de carte, orientation au nord..."></textarea></div>
-          <div class="fgrp full"><label>Parties de la FPS abordees</label><textarea id="es-fps" style="min-height:48px" placeholder="Ex: Echauffement specifique, situation de reference..."></textarea></div>
-        </div>
+    <input type="hidden" id="es-id">
+    <div class="fg" style="margin-bottom:1rem">
+      <div class="fgrp"><label>Numero</label><input type="number" id="es-n"></div>
+      <div class="fgrp"><label>Date</label><input type="date" id="es-d"></div>
+      <div class="fgrp full"><label>Titre de la s&#233;ance</label><input type="text" id="es-o"></div>
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px">
+        <div class="fgrp"><label>Objet n&#176;1</label><input type="text" id="es-o2"></div>
+        <div class="fgrp"><label>Objet n&#176;2</label><input type="text" id="es-o3"></div>
+        <div class="fgrp"><label>Objet n&#176;3</label><input type="text" id="es-o4"></div>
       </div>
-      <!-- PAGE 1 : AFLP -->
-      <div id="es-pg1" style="display:none">
-        <div style="font-size:.72rem;color:#6b7280;font-weight:600;text-transform:uppercase;letter-spacing:.06em;margin-bottom:.5rem;display:flex;align-items:center;justify-content:space-between">
-          <span>AFLP travailles cette seance</span>
-          <span id="es-aflp-count" style="font-size:.7rem;color:#a78bfa;background:#a78bfa14;padding:2px 8px;border-radius:20px"></span>
-        </div>
-        <div id="aflp-check-edit" class="aflp-check-grid"></div>
-      </div>
-      <!-- PAGE 2 : PARTIES -->
-      <div id="es-pg2" style="display:none">
-        <div style="font-size:.72rem;color:#6b7280;font-weight:600;text-transform:uppercase;letter-spacing:.06em;margin-bottom:.75rem;display:flex;align-items:center;justify-content:space-between">
-          <span>Parties de la seance</span>
-          <button class="btn-ia" onclick="openBiblioForSeance('edit')" style="opacity:.7;font-size:.72rem">&#128218; Depuis bibliotheque</button>
-        </div>
-        <div id="parties-edit"></div>
-        <button class="add-partie-btn" id="btn-add-partie-edit">+ Ajouter une partie</button>
-      </div>
-      <!-- PAGE 3 : BILAN -->
-      <div id="es-pg3" style="display:none">
-        <div class="fgrp full"><label>Bilan g&#233;n&#233;ral</label><textarea id="es-b" style="min-height:90px" placeholder="Observations globales sur la seance..."></textarea></div>
-      </div>
+      <div class="fgrp full"><label>Autres objectifs de la seance</label><textarea id="es-autreobj" style="min-height:48px" placeholder="Ex: Cooperation, gestion effort, securite..."></textarea></div>
+      <div class="fgrp full"><label>Contenus d enseignement a aborder</label><textarea id="es-contenus" style="min-height:48px" placeholder="Ex: Lecture de carte, orientation au nord..."></textarea></div>
+      <div class="fgrp full"><label>Parties de la FPS abordees</label><textarea id="es-fps" style="min-height:48px" placeholder="Ex: Echauffement specifique, situation de reference..."></textarea></div>
+      <div class="fgrp full"><label>Bilan general</label><textarea id="es-b" style="min-height:55px"></textarea></div>
     </div>
-    <!-- BARRE BAS -->
-    <div style="background:#0a0c10;border-top:0.5px solid #2a2f42;padding:10px 16px;display:flex;align-items:center;justify-content:space-between;gap:8px;flex-shrink:0">
-      <div style="display:flex;gap:6px">
-        <button class="btn btn-d btn-sm" id="btn-del-seance">Supprimer</button>
-        <button class="btn btn-g btn-sm" id="btn-pdf-seance">PDF</button>
-        <button class="btn btn-g btn-sm" id="btn-export-seance-json" title="Copier seance">&#8595; Copier</button>
-      </div>
-      <div style="display:flex;gap:6px">
-        <button class="btn btn-g" id="es-btn-prev" onclick="esPrevStep()" style="display:none">&#8592; Retour</button>
-        <button class="btn btn-g" data-close="m-edit-s">Annuler</button>
-        <button class="btn btn-p" id="es-btn-next" onclick="esNextStep()">Suivant &#8594;</button>
-        <button class="btn btn-p" id="btn-upd-seance" style="display:none">Enregistrer</button>
-      </div>
+    <div class="sec-title">AFLP travailles cette seance</div>
+    <div id="aflp-check-edit" class="aflp-check-grid"></div>
+    <div class="sec-title" style="margin-top:1.2rem;display:flex;align-items:center;justify-content:space-between">
+      <span>Parties de la seance</span>
+      <button class="btn-ia" onclick="openBiblioForSeance('edit')" style="opacity:.7;font-size:.72rem">&#128218; Depuis bibliotheque</button>
+    </div>
+    <div id="parties-edit"></div>
+    <button class="add-partie-btn" id="btn-add-partie-edit">+ Ajouter une partie</button>
+    <div class="modal-acts">
+      <button class="btn btn-d btn-sm" id="btn-del-seance">Supprimer</button>
+      <button class="btn btn-g btn-sm" id="btn-pdf-seance">Export PDF</button>
+      <button class="btn btn-g btn-sm" id="btn-export-seance-json" title="Exporter cette seance pour la reutiliser dans une autre classe">&#8595; Copier seance</button>
+      <div style="flex:1"></div>
+      <button class="btn btn-g" data-close="m-edit-s">Annuler</button>
+      <button class="btn btn-p" id="btn-upd-seance">Enregistrer</button>
     </div>
   </div></div>
   <div class="mb" id="m-eleve"><div class="modal">
@@ -4475,10 +4375,10 @@ function saveProfilPlan(){var planKey=ge('profil-plan-key').value;var obs=ge('pr
 function renderSeances(){var el=ge('slist');var q=(ge('srch').value||'').toLowerCase();var sorted=state.seances.slice().sort(function(a,b){return a.num-b.num;});var filtered=[];for(var i=0;i<sorted.length;i++){if((sorted[i].objectif||'').toLowerCase().indexOf(q)>=0||String(sorted[i].num).indexOf(q)>=0)filtered.push(sorted[i]);}if(!filtered.length){el.innerHTML='<div class="empty">Aucune seance. Creez la premiere !</div>';return;}var f=CTX.cls?CTX.cls.filiere:'bacpro';var aflpData=CTX.apsa?(AFLP[f]||AFLP.bacpro)[CTX.apsa.caFull]:null;var caColor=CTX.apsa?CTX.apsa.caColor:'#4f8aff';el.innerHTML='';for(var i=0;i<filtered.length;i++){(function(s){var presMap=state.presences[s.id]||{};var nbP=0;for(var k in presMap){if((presMap[k]||'')==='Present')nbP++;}var np=(s.parties||[]).length;var aflpT=s.aflpTravailles||[];var objData=state.seanceObjectifs[s.id]||{};var sp=null;if(s.parties){for(var j=0;j<s.parties.length;j++){if(s.parties[j].titre&&s.parties[j].titre.toLowerCase().indexOf('sit')>=0){sp=s.parties[j];break;}}if(!sp&&s.parties.length)sp=s.parties[0];}var div=document.createElement('div');div.className='scard';div.dataset.sid=s.id;var h='<div class="scard-head"><div class="scard-num" style="background:'+caColor+'"><span class="scard-num-label">Seance</span>'+s.num+'</div><div class="scard-main"><div class="scard-title">'+esc(s.objectif||'Sans titre')+'</div><div class="scard-date">'+(s.date?fmtDate(s.date):'Date non definie')+'</div><div class="scard-chips"><span class="chip c-gr">'+nbP+'/'+state.eleves.length+'</span>';if(np)h+='<span class="chip c-pu">'+np+' partie'+(np>1?'s':'')+'</span>';if(s.bilan)h+='<span class="chip c-bl">Bilan</span>';if(aflpT.length)h+='<span class="chip c-bl">'+aflpT.length+' AFLP</span>';h+='</div></div></div>';if(sp&&(sp.objectif||sp.criteres||sp.contenus)){h+='<div class="scard-body">';if(sp.objectif)h+='<div><div class="scard-sec-lbl">Objectif situation</div><div class="scard-sec-val">'+esc(sp.objectif)+'</div></div>';if(sp.criteres)h+='<div><div class="scard-sec-lbl">Criteres</div><div class="scard-sec-val">'+esc(sp.criteres)+'</div></div>';if(sp.contenus)h+='<div><div class="scard-sec-lbl">Contenus</div><div class="scard-sec-val">'+esc(sp.contenus)+'</div></div>';h+='</div>';}if(objData.obj1)h+='<div class="scard-body" style="border-top:1px solid #1a1d2a"><div><div class="scard-sec-lbl">Objectif eleves</div><div class="scard-sec-val">'+esc(objData.obj1)+(objData.obj2?' / '+esc(objData.obj2):'')+'</div></div></div>';if(np){h+='<div class="scard-parts">';for(var j=0;j<s.parties.length;j++)h+='<span class="scard-part-pill">Partie '+(j+1)+(s.parties[j].titre?' - '+esc(s.parties[j].titre):'')+'</span>';h+='</div>';}if(aflpT.length&&aflpData){h+='<div class="scard-aflp-row"><span class="scard-aflp-lbl">AFLP :</span>';for(var j=0;j<aflpT.length;j++)h+='<span class="scard-aflp-tag">'+aflpT[j]+'</span>';h+='</div>';}div.innerHTML=h;el.appendChild(div);})(filtered[i]);}el.onclick=function(e){var card=e.target.closest('.scard');if(card)openSeanceMenu(card.dataset.sid);};}
 function mkPid(){return'p'+Date.now()+Math.random().toString(36).slice(2,5);}
 function addPartie(mode){var p={id:mkPid(),titre:'',objectif:'',consignes:'',criteres:'',contenus:'',realisation:'',remediation:'',bilan:'',photos:[],tableaux:[],fichiers:[]};if(mode==='new')partiesNew.push(p);else partiesEdit.push(p);var arr=mode==='new'?partiesNew:partiesEdit;renderPartieBlock(mode==='new'?'parties-new':'parties-edit',p,arr.length-1,mode);}
-function renderPartieBlock(cid,p,idx,mode){var c=ge(cid);var div=document.createElement('div');div.className='partie-block';div.id='pb-'+p.id;div.innerHTML='<div class="partie-header" onclick="togglePartieBlock(this)"><span class="partie-num-badge">Partie '+(idx+1)+'</span><input class="partie-title-input" type="text" placeholder="Titre de la partie..." value="'+esc(p.titre)+'" onclick="event.stopPropagation()"><button class="btn-bib-save-partie" data-pid="'+p.id+'" title="Sauvegarder dans la bibliotheque" style="background:rgba(167,139,250,.12);border:1px solid rgba(167,139,250,.25);border-radius:6px;color:#a78bfa;font-size:.62rem;padding:3px 7px;cursor:pointer;white-space:nowrap" onclick="event.stopPropagation()">&#128218;</button><button class="partie-del" data-pid="'+p.id+'" data-mode="'+mode+'" onclick="event.stopPropagation()">&#128465;</button><button class="partie-toggle-btn" onclick="event.stopPropagation();togglePartieBlock(this.closest(\'.partie-block\').querySelector(\'.partie-header\')">&#9660;</button></div>'+'<div class="partie-grid">'+'<div class="pf obj" style="grid-column:1/-1"><label>&#127919; Objectif</label><textarea rows="2" placeholder="Quel est le but de cette partie pour l eleve ?">'+esc(p.objectif)+'</textarea></div>'+'<div class="pf cons" style="grid-column:1/-1"><label>&#128221; Consignes</label><div class="pf-cons-hint">Ecrivez chaque consigne sur une nouvelle ligne pour plus de lisibilite</div><textarea rows="5" placeholder="- Consigne 1&#10;- Consigne 2&#10;- Consigne 3...">'+esc(p.consignes)+'</textarea></div>'+'<div class="pf crit"><label>&#9989; Criteres de reussite</label><textarea rows="3" placeholder="Ce que l eleve doit reussir pour valider la partie...">'+esc(p.criteres)+'</textarea></div>'+'<div class="pf cont"><label>&#127891; Contenus d enseignement</label><textarea rows="3" placeholder="Ce que j enseigne / Points cles...">'+esc(p.contenus||'')+'</textarea></div>'+'<div class="pf real"><label>&#128269; Criteres de realisation</label><textarea rows="3" placeholder="Les indicateurs observables pour l enseignant (ce que je vois chez l eleve qui fait bien)...">'+esc(p.realisation||'')+'</textarea></div>'+'<div class="pf rem"><label>&#128260; Remediations</label><textarea rows="3" placeholder="Pour les eleves en difficulte : adaptations, simplifications, aides...">'+esc(p.remediation||'')+'</textarea></div>'+'<div class="pf bil" style="grid-column:1/-1"><label>&#128203; Bilan de partie</label><textarea rows="2" placeholder="Observations apres la seance...">'+esc(p.bilan)+'</textarea></div>'+'</div>';
+function renderPartieBlock(cid,p,idx,mode){var c=ge(cid);var div=document.createElement('div');div.className='partie-block';div.id='pb-'+p.id;div.innerHTML='<div class="partie-header"><span class="partie-num-badge">&#9654; Partie '+(idx+1)+'</span><input class="partie-title-input" type="text" placeholder="Titre de la partie (Echauffement, Situation principale...)" value="'+esc(p.titre)+'"><button class="btn-bib-save-partie" data-pid="'+p.id+'" title="Sauvegarder dans la bibliotheque" style="background:rgba(167,139,250,.12);border:1px solid rgba(167,139,250,.25);border-radius:6px;color:#a78bfa;font-size:.62rem;padding:3px 7px;cursor:pointer;white-space:nowrap">&#128218;</button><button class="partie-del" data-pid="'+p.id+'" data-mode="'+mode+'">&#128465;</button></div>'+'<div class="partie-grid">'+'<div class="pf obj" style="grid-column:1/-1"><label>&#127919; Objectif</label><textarea rows="2" placeholder="Quel est le but de cette partie pour l eleve ?">'+esc(p.objectif)+'</textarea></div>'+'<div class="pf cons" style="grid-column:1/-1"><label>&#128221; Consignes</label><div class="pf-cons-hint">Ecrivez chaque consigne sur une nouvelle ligne pour plus de lisibilite</div><textarea rows="5" placeholder="- Consigne 1&#10;- Consigne 2&#10;- Consigne 3...">'+esc(p.consignes)+'</textarea></div>'+'<div class="pf crit"><label>&#9989; Criteres de reussite</label><textarea rows="3" placeholder="Ce que l eleve doit reussir pour valider la partie...">'+esc(p.criteres)+'</textarea></div>'+'<div class="pf cont"><label>&#127891; Contenus d enseignement</label><textarea rows="3" placeholder="Ce que j enseigne / Points cles...">'+esc(p.contenus||'')+'</textarea></div>'+'<div class="pf real"><label>&#128269; Criteres de realisation</label><textarea rows="3" placeholder="Les indicateurs observables pour l enseignant (ce que je vois chez l eleve qui fait bien)...">'+esc(p.realisation||'')+'</textarea></div>'+'<div class="pf rem"><label>&#128260; Remediations</label><textarea rows="3" placeholder="Pour les eleves en difficulte : adaptations, simplifications, aides...">'+esc(p.remediation||'')+'</textarea></div>'+'<div class="pf bil" style="grid-column:1/-1"><label>&#128203; Bilan de partie</label><textarea rows="2" placeholder="Observations apres la seance...">'+esc(p.bilan)+'</textarea></div>'+'</div>';
 // Zone extras en grille 2x2
 var extras=document.createElement('div');
-extras.className='partie-extras';extras.style.cssText='display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px';
+extras.style.cssText='display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px';
 
 // 1. Photos
 var photosWrap=document.createElement('div');
@@ -4591,15 +4491,9 @@ div.querySelector('.btn-bib-save-partie').addEventListener('click',function(){
   }
 });
 div.querySelector('.partie-del').addEventListener('click',function(){var pid=this.dataset.pid,m=this.dataset.mode;if(m==='new'){for(var i=partiesNew.length-1;i>=0;i--){if(partiesNew[i].id===pid){partiesNew.splice(i,1);break;}}}else{for(var i=partiesEdit.length-1;i>=0;i--){if(partiesEdit[i].id===pid){partiesEdit.splice(i,1);break;}}}div.remove();renumParties(m==='new'?'parties-new':'parties-edit');});c.appendChild(div);}
-function togglePartieBlock(header){var block=header.closest('.partie-block');if(block)block.classList.toggle('collapsed');}
 function renumParties(cid){var badges=ge(cid).querySelectorAll('.partie-num-badge');for(var i=0;i<badges.length;i++)badges[i].textContent='Partie '+(i+1);}
 function readParties(cid,arr){var result=[];for(var i=0;i<arr.length;i++){var b=ge('pb-'+arr[i].id);if(!b){result.push(arr[i]);continue;}var ti=b.querySelector('.partie-title-input');var ta=b.querySelectorAll('textarea');var ph=arr[i].photos||[];var fi=arr[i].fichiers||[];var tbl=[];var tblWrap=b.querySelector('.extra-table-wrap');if(tblWrap){var rows=tblWrap.querySelectorAll('tr');var tblData=[];for(var r=0;r<rows.length;r++){var cells=rows[r].querySelectorAll('th,td');var row=[];for(var c2=0;c2<cells.length;c2++)row.push(cells[c2].textContent);tblData.push(row);}if(tblData.length)tbl=[tblData];}result.push({id:arr[i].id,titre:ti?ti.value:'',objectif:ta[0]?ta[0].value:'',consignes:ta[1]?ta[1].value:'',criteres:ta[2]?ta[2].value:'',contenus:ta[3]?ta[3].value:'',realisation:ta[4]?ta[4].value:'',remediation:ta[5]?ta[5].value:'',bilan:ta[6]?ta[6].value:'',photos:ph,tableaux:tbl,fichiers:fi,liens:arr[i].liens||[]});}return result;}
 function renderAflpChecks(cid,selArr){var c=ge(cid);if(!c)return;var f=CTX.cls?CTX.cls.filiere:'bacpro';var aflpData=CTX.apsa?(AFLP[f]||AFLP.bacpro)[CTX.apsa.caFull]:null;if(!aflpData){c.innerHTML='<div style="color:#6b7280;font-size:.78rem">Ouvrez d\'abord un suivi APSA.</div>';return;}c.innerHTML='';for(var i=0;i<aflpData.items.length;i++){(function(item){var checked=selArr.indexOf(item.n)>=0;var lbl=document.createElement('label');lbl.className='aflp-check-item'+(checked?' checked-item':'');lbl.innerHTML='<input type="checkbox" '+(checked?'checked':'')+'><span class="aflp-check-num">'+item.n+'</span><span class="aflp-check-text">'+item.t+'</span>';lbl.querySelector('input').addEventListener('change',function(){if(this.checked){if(selArr.indexOf(item.n)<0)selArr.push(item.n);}else{var idx=selArr.indexOf(item.n);if(idx>=0)selArr.splice(idx,1);}lbl.className='aflp-check-item'+(selArr.indexOf(item.n)>=0?' checked-item':'');});c.appendChild(lbl);})(aflpData.items[i]);}}
-var _nsStep=0;
-function nsUpdateHeader(){var d=ge('fd')?ge('fd').value:'';if(ge('ns-date-display')&&d){var p=d.split('-');ge('ns-date-display').textContent=p[2]+'/'+p[1]+'/'+p[0];}else if(ge('ns-date-display'))ge('ns-date-display').textContent='';}
-function nsGoStep(n){_nsStep=n;for(var i=0;i<4;i++){var sc=ge('ns-sc'+i);var sl=ge('ns-sl'+i);var pg=ge('ns-pg'+i);if(!sc)continue;if(i<n){sc.style.background='#56cfb2';sc.style.color='#04342C';sc.style.border='none';sc.innerHTML='&#10003;';sl.style.color='#56cfb2';sl.style.fontWeight='400';}else if(i===n){sc.style.background='#a78bfa';sc.style.color='#fff';sc.style.border='none';sc.innerHTML=String(i+1);sl.style.color='#e4e6ef';sl.style.fontWeight='600';}else{sc.style.background='#1c1f2c';sc.style.color='#48484a';sc.style.border='0.5px solid #2a2f42';sc.innerHTML=String(i+1);sl.style.color='#6b7280';sl.style.fontWeight='400';}if(pg)pg.style.display=(i===n)?'block':'none';}if(ge('ns-btn-prev'))ge('ns-btn-prev').style.display=n>0?'':'none';if(ge('ns-btn-next'))ge('ns-btn-next').style.display=n<3?'':'none';if(ge('btn-save-seance'))ge('btn-save-seance').style.display=n===3?'':'none';if(n===1){var cnt=aflpNewSel.length;if(ge('ns-aflp-count'))ge('ns-aflp-count').textContent=cnt+' / 6 coch\u00e9'+(cnt>1?'s':'');}nsUpdateHeader();}
-function nsNextStep(){if(_nsStep<3)nsGoStep(_nsStep+1);}
-function nsPrevStep(){if(_nsStep>0)nsGoStep(_nsStep-1);}
 function saveSeance(){var o=ge('fo').value.trim();if(!o){alert('Titre requis');return;}state.seances.push({id:'s'+Date.now(),num:parseInt(ge('fn').value)||(state.seances.length+1),date:ge('fd').value,objectif:o,obj1:ge('fo2').value.trim(),obj2:ge('fo3').value.trim(),obj3:ge('fo4').value.trim(),autreobj:ge('fn-autreobj').value,contenus:ge('fn-contenus').value,fps:ge('fn-fps').value,bilan:ge('fb').value,aflpTravailles:aflpNewSel.slice(),parties:readParties('parties-new',partiesNew)});save();closeM('m-seance');ge('fn').value='';ge('fd').value='';ge('fo').value='';ge('fo2').value='';ge('fo3').value='';ge('fo4').value='';ge('fn-autreobj').value='';ge('fn-contenus').value='';ge('fn-fps').value='';ge('fb').value='';ge('parties-new').innerHTML='';partiesNew=[];aflpNewSel=[];renderAll();}
 function openSeanceMenu(sid){
   var s=null;
@@ -4680,12 +4574,7 @@ function openViewS(sid){
   openM('m-view-s');
 }
 
-var _esStep=0;
-function esUpdateHeader(){var t=ge('es-o')?ge('es-o').value:'';var d=ge('es-d')?ge('es-d').value:'';if(ge('es-title-display'))ge('es-title-display').textContent=t||'Sans titre';if(ge('es-date-display')&&d){var p=d.split('-');ge('es-date-display').textContent=p[2]+'/'+p[1]+'/'+p[0];}else if(ge('es-date-display'))ge('es-date-display').textContent='';}
-function esGoStep(n){_esStep=n;for(var i=0;i<4;i++){var sc=ge('es-sc'+i);var sl=ge('es-sl'+i);var pg=ge('es-pg'+i);if(!sc)continue;if(i<n){sc.style.background='#56cfb2';sc.style.color='#04342C';sc.style.border='none';sc.innerHTML='&#10003;';sl.style.color='#56cfb2';sl.style.fontWeight='400';}else if(i===n){sc.style.background='#a78bfa';sc.style.color='#fff';sc.style.border='none';sc.innerHTML=String(i+1);sl.style.color='#e4e6ef';sl.style.fontWeight='600';}else{sc.style.background='#1c1f2c';sc.style.color='#48484a';sc.style.border='0.5px solid #2a2f42';sc.innerHTML=String(i+1);sl.style.color='#6b7280';sl.style.fontWeight='400';}if(pg)pg.style.display=(i===n)?'block':'none';}if(ge('es-btn-prev'))ge('es-btn-prev').style.display=n>0?'':'none';if(ge('es-btn-next'))ge('es-btn-next').style.display=n<3?'':'none';if(ge('btn-upd-seance'))ge('btn-upd-seance').style.display=n===3?'':'none';if(n===1){var cnt=aflpEditSel.length;if(ge('es-aflp-count'))ge('es-aflp-count').textContent=cnt+' / 6 coch\u00e9'+(cnt>1?'s':'');}esUpdateHeader();}
-function esNextStep(){if(_esStep<3)esGoStep(_esStep+1);}
-function esPrevStep(){if(_esStep>0)esGoStep(_esStep-1);}
-function openEditS(id){var s=null;for(var i=0;i<state.seances.length;i++){if(state.seances[i].id===id){s=state.seances[i];break;}}if(!s)return;ge('es-id').value=id;ge('es-badge').textContent='S'+s.num;ge('es-n').value=s.num;ge('es-d').value=s.date||'';ge('es-o').value=s.objectif||'';ge('es-o2').value=s.obj1||'';ge('es-o3').value=s.obj2||'';ge('es-o4').value=s.obj3||'';ge('es-autreobj').value=s.autreobj||'';ge('es-contenus').value=s.contenus||'';ge('es-fps').value=s.fps||'';ge('es-b').value=s.bilan||'';ge('parties-edit').innerHTML='';partiesEdit=JSON.parse(JSON.stringify(s.parties||[]));for(var i=0;i<partiesEdit.length;i++)renderPartieBlock('parties-edit',partiesEdit[i],i,'edit');aflpEditSel=(s.aflpTravailles||[]).slice();renderAflpChecks('aflp-check-edit',aflpEditSel);esGoStep(0);esUpdateHeader();iaReset();openM('m-edit-s');}
+function openEditS(id){var s=null;for(var i=0;i<state.seances.length;i++){if(state.seances[i].id===id){s=state.seances[i];break;}}if(!s)return;ge('es-id').value=id;ge('es-badge').textContent='S'+s.num;ge('es-n').value=s.num;ge('es-d').value=s.date||'';ge('es-o').value=s.objectif||'';ge('es-o2').value=s.obj1||'';ge('es-o3').value=s.obj2||'';ge('es-o4').value=s.obj3||'';ge('es-autreobj').value=s.autreobj||'';ge('es-contenus').value=s.contenus||'';ge('es-fps').value=s.fps||'';ge('es-b').value=s.bilan||'';ge('parties-edit').innerHTML='';partiesEdit=JSON.parse(JSON.stringify(s.parties||[]));for(var i=0;i<partiesEdit.length;i++)renderPartieBlock('parties-edit',partiesEdit[i],i,'edit');aflpEditSel=(s.aflpTravailles||[]).slice();renderAflpChecks('aflp-check-edit',aflpEditSel);iaReset();openM('m-edit-s');}
 function updSeance(){var id=ge('es-id').value;var s=null;for(var i=0;i<state.seances.length;i++){if(state.seances[i].id===id){s=state.seances[i];break;}}if(!s)return;s.num=parseInt(ge('es-n').value)||s.num;s.date=ge('es-d').value;s.objectif=ge('es-o').value;s.obj1=ge('es-o2').value;s.obj2=ge('es-o3').value;s.obj3=ge('es-o4').value;s.autreobj=ge('es-autreobj').value;s.contenus=ge('es-contenus').value;s.fps=ge('es-fps').value;s.bilan=ge('es-b').value;s.parties=readParties('parties-edit',partiesEdit);s.aflpTravailles=aflpEditSel.slice();save();closeM('m-edit-s');renderAll();}
 function delSeance(){var id=ge('es-id').value;if(!confirm('Supprimer cette seance ?'))return;for(var i=state.seances.length-1;i>=0;i--){if(state.seances[i].id===id){state.seances.splice(i,1);break;}}delete state.presences[id];delete state.autoEval[id];delete state.seanceObjectifs[id];save();closeM('m-edit-s');renderAll();}
 
@@ -7637,7 +7526,7 @@ s('btn-gh-save','click',ghSaveConfig);
 s('btn-pdf-sequence','click',exportSequencePDF);
 s('btn-save-seq','click',saveSeq);
 s('btn-add-trame-seance','click',addTrameSeance);
-s('btn-new-seance','click',function(){iaReset();nsGoStep(0);openM('m-seance');});
+s('btn-new-seance','click',function(){iaReset();openM('m-seance');});
 s('btn-save-seance','click',saveSeance);
 s('btn-add-partie-new','click',function(){addPartie('new');});
 s('btn-upd-seance','click',updSeance);
