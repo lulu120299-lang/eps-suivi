@@ -2373,7 +2373,7 @@ function ghPull(){
     .then(function(bd){
       if(bd&&bd.content){try{var bib=ghDecode(bd.content);if(bib&&bib.length)bibSave(bib);}catch(e){}}
     });
-    if(!stateData){toast('Aucune donnee GitHub','warn');return;}
+    if(!stateData){if(sessData||clsData){toast('Synchronisé !','ok');}else{toast('Aucune donnée GitHub','warn');}return;}
     state=ghDecode(stateData.content);
     GH_SHA['data/'+STORAGE_KEY+'.json']=stateData.sha;
     if(clsData&&clsData.sha)GH_SHA['data/classes.json']=clsData.sha;
