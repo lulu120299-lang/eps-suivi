@@ -7461,7 +7461,7 @@ function importEcoleDirectXLSX(file){
             prenom+=parts[j]+' ';
           }
         }
-        var nomFinal=(prenom.trim()+' '+nomFamille.trim()).trim();
+        var nomFinal=(nomFamille.trim()+' '+prenom.trim()).trim();
         if(nomFinal)noms.push(nomFinal);
       }
       if(!noms.length){toast('Aucun élève trouvé','warn');return;}
