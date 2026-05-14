@@ -2221,13 +2221,13 @@ function ghPushFile(fn,data,onOk){
         r.json().then(function(d){if(d&&d.content&&d.content.sha)GH_SHA[fn]=d.content.sha;});
         if(onOk)onOk();
       } else if(r&&r.status===409){
-        // SHA périmé - récupérer le bon et réessayer une fois
+        // SHA périmé OU fichier inexistant - récupérer le bon SHA et réessayer
         fetch('https://api.github.com/repos/'+GH.repo+'/contents/'+fn,{headers:ghHeaders()})
-        .then(function(r2){return r2.ok?r2.json():null;})
+        .then(function(r2){return r2.ok?r2.json():(r2.status===404?{sha:null}:null);})
         .then(function(d){
           if(d&&d.sha){GH_SHA[fn]=d.sha;doPut(d.sha);}
-          else if(onOk)onOk();
-        }).catch(function(){if(onOk)onOk();});
+          else{doPut(null);}// fichier vraiment inexistant, on push sans SHA
+        }).catch(function(){doPut(null);});
       } else {
         if(onOk)onOk();
         r.json().then(function(d){
