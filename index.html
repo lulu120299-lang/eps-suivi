@@ -2363,8 +2363,14 @@ function ghPullAccueil(){
     if(sessData&&sessData.content){
       try{var sess=ghDecode(sessData.content);if(sess&&Array.isArray(sess)){localStorage.setItem('eps-recent',JSON.stringify(sess));accRenderSqGrid();ok=true;}}catch(e){}
     }
-    if(ok){toast('Synchronisé !','ok');}
-    else{toast('Aucune donnée GitHub','warn');}
+    // Tirer aussi les archives
+    fetch('https://api.github.com/repos/'+GH.repo+'/contents/data/archive.json',{headers:h})
+    .then(function(r){return r.ok?r.json():null;}).catch(function(){return null;})
+    .then(function(ad){
+      if(ad&&ad.content){try{var arr=ghDecode(ad.content);if(arr&&Array.isArray(arr)){localStorage.setItem('eps-archive',JSON.stringify(arr));archiveUpdateCount();}}catch(e){}}
+      if(ok){toast('Synchronisé !','ok');}
+      else{toast('Aucune donnée GitHub','warn');}
+    });
   }).catch(function(e){toast('Erreur: '+e.message,'err');});
 }
 function ghPull(){
