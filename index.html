@@ -1165,14 +1165,19 @@ window._fbReady = true;
     <div id="v-eleves" class="view">
       <div class="ph">
         <div><div class="ph-title">Classe</div><div class="ph-sub">Profil, am&#233;nagements, PAP, dispenses</div></div>
-        <div style="display:flex;gap:8px;flex-wrap:wrap">
-          <button class="btn btn-g" id="btn-profil-classe">Profil de classe</button>
-          <button class="btn btn-p" onclick="openTrombi()" style="display:flex;align-items:center;gap:5px">&#128100; Trombinoscope</button>
-          <button class="btn btn-g" id="btn-pdf-eleves">&#128196; Export PDF</button>
-          <button class="btn btn-g" id="btn-export-eleves-json" title="Exporter la liste pour la réutiliser">&#8595; Export classe</button>
-          <label class="btn btn-g" style="cursor:pointer;margin:0" title="Importer une liste depuis une autre séquence">&#8593; Import classe<input type="file" id="btn-import-eleves-json" accept=".json" style="display:none"></label>
-          <label class="btn btn-p" style="cursor:pointer;margin:0;background:rgba(86,207,178,.15);border:0.5px solid rgba(86,207,178,.3);color:#56cfb2" title="Importer depuis un fichier Ecole Direct (.xlsx)">&#128202; Ecole Direct<input type="file" id="btn-import-ecoledirect" accept=".xlsx,.xls" style="display:none"></label>
-          <button class="btn btn-p" id="btn-new-eleve">+ Ajouter</button>
+        <div style="display:flex;gap:8px;align-items:center">
+          <button class="btn btn-p" id="btn-new-eleve" style="background:#a78bfa;border:none;color:#fff;font-weight:600">+ Ajouter</button>
+          <button class="btn btn-p" id="btn-profil-classe" style="background:#4f8aff;border:none;color:#fff;font-weight:600">&#128101; Profil de classe</button>
+          <div style="position:relative;margin-left:auto">
+            <button class="btn btn-g" id="btn-more-eleves" onclick="document.getElementById('dd-eleves').classList.toggle('show')" style="display:flex;align-items:center;gap:5px">&#8943; Plus &#9660;</button>
+            <div id="dd-eleves" style="display:none;position:absolute;top:calc(100% + 6px);right:0;background:#1c1f2c;border:0.5px solid #2a2f42;border-radius:10px;min-width:180px;overflow:hidden;z-index:100;box-shadow:0 8px 24px rgba(0,0,0,.4)">
+              <button onclick="openTrombi();document.getElementById('dd-eleves').classList.remove('show')" style="width:100%;padding:10px 14px;font-size:12px;color:#e4e6ef;background:none;border:none;border-bottom:0.5px solid #2a2f42;text-align:left;cursor:pointer;display:flex;align-items:center;gap:8px">&#128100; Trombinoscope</button>
+              <label style="width:100%;padding:10px 14px;font-size:12px;color:#56cfb2;background:none;border:none;border-bottom:0.5px solid #2a2f42;text-align:left;cursor:pointer;display:flex;align-items:center;gap:8px">&#128202; Ecole Direct<input type="file" id="btn-import-ecoledirect" accept=".xlsx,.xls" style="display:none"></label>
+              <button id="btn-pdf-eleves" onclick="document.getElementById('dd-eleves').classList.remove('show')" style="width:100%;padding:10px 14px;font-size:12px;color:#e4e6ef;background:none;border:none;border-bottom:0.5px solid #2a2f42;text-align:left;cursor:pointer;display:flex;align-items:center;gap:8px">&#128196; Export PDF</button>
+              <button id="btn-export-eleves-json" onclick="document.getElementById('dd-eleves').classList.remove('show')" style="width:100%;padding:10px 14px;font-size:12px;color:#e4e6ef;background:none;border:none;border-bottom:0.5px solid #2a2f42;text-align:left;cursor:pointer;display:flex;align-items:center;gap:8px">&#8595; Export classe</button>
+              <label style="width:100%;padding:10px 14px;font-size:12px;color:#e4e6ef;background:none;border:none;text-align:left;cursor:pointer;display:flex;align-items:center;gap:8px">&#8593; Import classe<input type="file" id="btn-import-eleves-json" accept=".json" style="display:none"></label>
+            </div>
+          </div>
         </div>
       </div>
       <div id="profil-zone" style="display:none;margin-bottom:1.25rem">
@@ -7734,6 +7739,7 @@ s('btn-pdf-bilan','click',exportBilanPDF);
 s('btn-profil-classe','click',toggleProfilZone);
 s('btn-save-profil-plan','click',saveProfilPlan);
 s('btn-new-eleve','click',function(){openM('m-eleve');});
+document.addEventListener('click',function(e){var dd=ge('dd-eleves');var btn=ge('btn-more-eleves');if(dd&&btn&&!btn.contains(e.target)&&!dd.contains(e.target))dd.classList.remove('show');});
 s('btn-save-eleve','click',saveEleve);
 s('btn-upd-eleve','click',updEleve);
 s('btn-del-eleve','click',delEleve);
