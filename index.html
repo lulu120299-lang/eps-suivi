@@ -6387,42 +6387,66 @@ function conseilStats(e){
   var fps=(typeof geCalcNote==='function')?geCalcNote(e.id):0;
   if(fps>0){totalPts+=fps*coeffFps;totalCoeff+=coeffFps;}
   var moy=totalCoeff>0?totalPts/totalCoeff:null;
-  // Courbe : moyenne des niveaux AFLP (1-4) de l'eleve, par seance
+  // Courbes : une par AFLP, niveaux (1-4) de l'eleve par seance
   var comp=state.comp||{};
   var seances=state.seances.slice().sort(function(a,b){return a.num-b.num;});
-  var curve=[];
-  for(var i2=0;i2<seances.length;i2++){
-    var s2=seances[i2];var t=s2.aflpTravailles||[];
-    if(!t.length)continue;
-    var vals=[];
-    for(var j2=0;j2<t.length;j2++){var v=comp[s2.id+'__'+t[j2]+'__'+e.id];if(v>0)vals.push(v);}
-    curve.push({num:s2.num,val:vals.length?vals.reduce(function(x,y){return x+y;},0)/vals.length:null});
+  var sWith=[];
+  for(var i2=0;i2<seances.length;i2++){if(seances[i2].aflpTravailles&&seances[i2].aflpTravailles.length)sWith.push(seances[i2]);}
+  var aflpMap={};
+  for(var i3=0;i3<sWith.length;i3++){var tt=sWith[i3].aflpTravailles;for(var j3=0;j3<tt.length;j3++)aflpMap[tt[j3]]=true;}
+  var aflpList=Object.keys(aflpMap).sort();
+  var curves=[];
+  for(var a2=0;a2<aflpList.length;a2++){
+    var aflpN=aflpList[a2];
+    var points=[];
+    for(var i4=0;i4<sWith.length;i4++){
+      var s4=sWith[i4];
+      var v4=null;
+      if(s4.aflpTravailles.indexOf(aflpN)>=0){var cv=comp[s4.id+'__'+aflpN+'__'+e.id];if(cv>0)v4=cv;}
+      points.push({num:s4.num,val:v4});
+    }
+    curves.push({aflp:aflpN,points:points});
   }
-  return {pres:pres,abs:abs,disp:disp,txPres:txPres,qte:mQ,aeNotes:aeNotes,fps:fps,moy:moy,curve:curve};
+  return {pres:pres,abs:abs,disp:disp,txPres:txPres,qte:mQ,aeNotes:aeNotes,fps:fps,moy:moy,curves:curves};
 }
-function conseilSvgCurve(curve){
-  if(!curve.length)return '<div style="color:#6b7280;font-size:.8rem;padding:.5rem 0">Aucun AFLP coch\u00e9 sur les s\u00e9ances.</div>';
-  var pts=curve.filter(function(p){return p.val!==null;});
-  if(!pts.length)return '<div style="color:#6b7280;font-size:.8rem;padding:.5rem 0">Aucune comp\u00e9tence \u00e9valu\u00e9e pour cet \u00e9l\u00e8ve.</div>';
-  var W=Math.max(300,curve.length*60+75),H=160,pL=52,pR=20,pT=14,pB=28,gW=W-pL-pR,gH=H-pT-pB;
+function conseilSvgCurve(curves){
+  if(!curves.length||!curves[0].points.length)return '<div style="color:#6b7280;font-size:.8rem;padding:.5rem 0">Aucun AFLP coch\u00e9 sur les s\u00e9ances.</div>';
+  var hasVal=false;
+  for(var c=0;c<curves.length&&!hasVal;c++){for(var p=0;p<curves[c].points.length;p++){if(curves[c].points[p].val!==null){hasVal=true;break;}}}
+  if(!hasVal)return '<div style="color:#6b7280;font-size:.8rem;padding:.5rem 0">Aucune comp\u00e9tence \u00e9valu\u00e9e pour cet \u00e9l\u00e8ve.</div>';
+  var COLS=['#4f8aff','#ff6b6b','#56cfb2','#ffd166','#a78bfa','#fb923c','#f472b6'];
+  var nX=curves[0].points.length;
+  var W=Math.max(300,nX*60+75),H=170,pL=52,pR=20,pT=16,pB=28,gW=W-pL-pR,gH=H-pT-pB;
   var lL=['','Insuf','Fragile','Satisf','Tr\u00e8s B'];
-  function xAt(i){return curve.length>1?pL+i*gW/(curve.length-1):pL+gW/2;}
-  function yAt(v){return pT+gH-(v-1)*gH/3;}
+  function xAt(i){return nX>1?pL+i*gW/(nX-1):pL+gW/2;}
+  function yAt(v,ci){return pT+gH-(v-1)*gH/3+(ci-(curves.length-1)/2)*2.5;}
   var h='<svg width="'+W+'" height="'+H+'" xmlns="http://www.w3.org/2000/svg" style="display:block">';
   h+='<rect width="'+W+'" height="'+H+'" fill="#13161f" rx="6"/>';
-  for(var nv=1;nv<=4;nv++){var yy=yAt(nv);h+='<line x1="'+pL+'" y1="'+yy+'" x2="'+(pL+gW)+'" y2="'+yy+'" stroke="#1e2130"/><text x="'+(pL-5)+'" y="'+(yy+3)+'" fill="#3a4060" font-size="8" text-anchor="end">'+lL[nv]+'</text>';}
-  var d='',started=false;
-  for(var i=0;i<curve.length;i++){
-    if(curve[i].val===null)continue;
-    d+=(started?' L':'M ')+xAt(i).toFixed(1)+' '+yAt(curve[i].val).toFixed(1);started=true;
-  }
-  h+='<path d="'+d+'" fill="none" stroke="#a78bfa" stroke-width="2"/>';
-  for(var i=0;i<curve.length;i++){
-    h+='<text x="'+xAt(i).toFixed(1)+'" y="'+(H-8)+'" fill="#6b7280" font-size="8" text-anchor="middle">S'+curve[i].num+'</text>';
-    if(curve[i].val!==null)h+='<circle cx="'+xAt(i).toFixed(1)+'" cy="'+yAt(curve[i].val).toFixed(1)+'" r="3.5" fill="#a78bfa"/>';
+  for(var nv=1;nv<=4;nv++){var yy=pT+gH-(nv-1)*gH/3;h+='<line x1="'+pL+'" y1="'+yy+'" x2="'+(pL+gW)+'" y2="'+yy+'" stroke="#1e2130"/><text x="'+(pL-5)+'" y="'+(yy+3)+'" fill="#3a4060" font-size="8" text-anchor="end">'+lL[nv]+'</text>';}
+  for(var i=0;i<nX;i++){h+='<text x="'+xAt(i).toFixed(1)+'" y="'+(H-8)+'" fill="#6b7280" font-size="8" text-anchor="middle">S'+curves[0].points[i].num+'</text>';}
+  for(var ci=0;ci<curves.length;ci++){
+    var col=COLS[ci%COLS.length];
+    var d='',started=false;
+    for(var i=0;i<nX;i++){
+      var v=curves[ci].points[i].val;
+      if(v===null)continue;
+      d+=(started?' L':'M ')+xAt(i).toFixed(1)+' '+yAt(v,ci).toFixed(1);started=true;
+    }
+    if(d)h+='<path d="'+d+'" fill="none" stroke="'+col+'" stroke-width="2"/>';
+    for(var i=0;i<nX;i++){
+      var v=curves[ci].points[i].val;
+      if(v!==null)h+='<circle cx="'+xAt(i).toFixed(1)+'" cy="'+yAt(v,ci).toFixed(1)+'" r="3.2" fill="'+col+'"/>';
+    }
   }
   h+='</svg>';
-  return '<div style="background:#13161f;border:1px solid #252836;border-radius:10px;padding:.75rem;overflow-x:auto">'+h+'</div>';
+  // Legende a droite du graphique
+  var leg='<div style="display:flex;flex-direction:column;gap:7px;min-width:80px;padding-top:6px">';
+  for(var ci=0;ci<curves.length;ci++){
+    var col=COLS[ci%COLS.length];
+    leg+='<div style="display:flex;align-items:center;gap:7px;white-space:nowrap"><span style="width:14px;height:3px;border-radius:2px;background:'+col+';display:inline-block"></span><span style="font-family:\'DM Mono\',monospace;font-size:.68rem;color:#9aa0b8">'+esc(curves[ci].aflp)+'</span></div>';
+  }
+  leg+='</div>';
+  return '<div style="background:#13161f;border:1px solid #252836;border-radius:10px;padding:.75rem;display:flex;gap:14px;align-items:flex-start"><div style="overflow-x:auto;flex:1;min-width:0">'+h+'</div>'+leg+'</div>';
 }
 function conseilOpen(){
   if(!state.eleves.length){toast('Aucun \u00e9l\u00e8ve dans la s\u00e9quence','err');return;}
@@ -6483,8 +6507,8 @@ function conseilRenderEleve(){
     }
     html+='</div>';
   }
-  html+='<div style="font-family:\'DM Mono\',monospace;font-size:.62rem;text-transform:uppercase;letter-spacing:.08em;color:#6b7280;margin-bottom:.4rem">\u00c9volution des acquisitions (moyenne des AFLP par s\u00e9ance)</div>';
-  html+=conseilSvgCurve(st.curve);
+  html+='<div style="font-family:\'DM Mono\',monospace;font-size:.62rem;text-transform:uppercase;letter-spacing:.08em;color:#6b7280;margin-bottom:.4rem">\u00c9volution des acquisitions par AFLP</div>';
+  html+=conseilSvgCurve(st.curves);
   var opts='<option value="">\u2014 Aucune mention \u2014</option>';
   for(var m=0;m<CONSEIL_MENTIONS.length;m++){opts+='<option value="'+CONSEIL_MENTIONS[m]+'"'+(cd.mention===CONSEIL_MENTIONS[m]?' selected':'')+'>'+CONSEIL_MENTIONS[m]+'</option>';}
   html+='<div class="fg" style="margin-top:1.1rem">';
