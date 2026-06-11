@@ -1312,15 +1312,8 @@ window._fbReady = true;
       <div style="font-family:'DM Mono',monospace;font-size:.65rem;text-transform:uppercase;letter-spacing:.1em;color:#4f8aff;margin-bottom:.75rem">&#128203; Notes et pr&#233;sences</div>
       <div class="card"><div class="tw"><table>
         <thead>
-          <tr id="nt-coeff-row">
-            <th style="background:#0d1018;padding:6px 12px;font-size:.65rem;color:#636366;text-transform:uppercase">Coefficient</th>
-            <th style="background:#0d1018;padding:6px 10px;text-align:center" colspan="3"></th>
-            <th style="background:#0d1018;padding:6px 10px;text-align:center"><input type="number" id="coeff-qte" min="0" max="10" step="0.5" value="1" style="width:44px;background:#1c1f2c;border:1px solid #2a2d3e;border-radius:5px;padding:3px 5px;color:#ffd166;font-size:.75rem;text-align:center" onchange="state.coeffQte=parseFloat(this.value)||1;save();renderNotes()"></th>
-            <th id="coeff-autre-cells" style="background:#0d1018;padding:6px 10px;text-align:center"></th>
-            <th style="background:#0d1018;padding:6px 10px;text-align:center"><input type="number" id="coeff-fps" min="0" max="10" step="0.5" value="1" style="width:44px;background:#1c1f2c;border:1px solid #2a2d3e;border-radius:5px;padding:3px 5px;color:#4f8aff;font-size:.75rem;text-align:center" onchange="state.coeffFps=parseFloat(this.value)||1;save();renderNotes()"></th>
-            <th style="background:#0d1018;padding:6px 10px;text-align:center"></th>
-          </tr>
-          <tr><th>Eleve</th><th>Presences</th><th>Absences</th><th>Dispense</th><th>Qte travail /10</th><th id="autre-eval-cols-header"></th><th>Note FPS /20</th><th style="color:#56cfb2">Moyenne /20</th></tr>
+          <tr id="nt-coeff-row"></tr>
+          <tr id="nt-header-row"></tr>
         </thead>
         <tbody id="nt-tbody"></tbody>
       </table></div></div>
@@ -6257,30 +6250,37 @@ function renderNotes(){
   for(var i=0;i<state.seances.length;i++){var t=state.seances[i].aflpTravailles||[];for(var j=0;j<t.length;j++)worked[t[j]]=true;}
   var items=document.querySelectorAll('.eval-aflp-item');
   for(var i=0;i<items.length;i++){var n=items[i].querySelector('.eval-n');if(n)items[i].classList.toggle('worked',!!worked[n.textContent]);}
-  if(!state.eleves.length){if(tb)tb.innerHTML='<tr><td colspan="8" style="text-align:center;color:#6b7280;padding:2rem">Aucun eleve.</td></tr>';return;}
-
   var autreEvals=state.autreEvals||[];
-  // Charger coefficients depuis state et sync inputs
-  var elQte=ge('coeff-qte');var elFps=ge('coeff-fps');
-  if(elQte&&state.coeffQte&&elQte.value!=state.coeffQte)elQte.value=state.coeffQte;
-  if(elFps&&state.coeffFps&&elFps.value!=state.coeffFps)elFps.value=state.coeffFps;
-  var coeffQte=parseFloat(state.coeffQte||(elQte&&elQte.value)||1)||1;
-  var coeffFps=parseFloat(state.coeffFps||(elFps&&elFps.value)||1)||1;
+  var coeffQte=parseFloat(state.coeffQte||1)||1;
+  var coeffFps=parseFloat(state.coeffFps||1)||1;
+  var nbCols=7+autreEvals.length;
 
-  // Header autre eval
-  var hdrCell=ge('autre-eval-cols-header');
-  var coeffCells=ge('coeff-autre-cells');
-  if(hdrCell){
-    hdrCell.colSpan=autreEvals.length||1;
-    hdrCell.innerHTML=autreEvals.map(function(ev){return '<span style="display:inline-block;padding:0 8px;font-size:.65rem;white-space:nowrap">'+esc(ev.objet||ev.date||'Eval')+'</span>';}).join('')||'';
+  // Reconstruction des en-têtes : un vrai <th> par colonne (alignement garanti avec le tbody)
+  var thS='background:#0d1018;padding:6px 10px;text-align:center';
+  var inS='width:44px;background:#1c1f2c;border:1px solid #2a2d3e;border-radius:5px;padding:3px 5px;font-size:.75rem;text-align:center';
+  var coeffRow=ge('nt-coeff-row');
+  if(coeffRow){
+    var hc='<th style="background:#0d1018;padding:6px 12px;font-size:.65rem;color:#636366;text-transform:uppercase">Coefficient</th>';
+    hc+='<th style="'+thS+'" colspan="3"></th>';
+    hc+='<th style="'+thS+'"><input type="number" id="coeff-qte" min="0" max="10" step="0.5" value="'+coeffQte+'" style="'+inS+';color:#ffd166" onchange="state.coeffQte=parseFloat(this.value)||1;save();renderNotes()"></th>';
+    autreEvals.forEach(function(ev){
+      hc+='<th style="'+thS+'"><input type="number" id="coeff-ae-'+ev.id+'" min="0" max="10" step="0.5" value="'+(ev.coeff||1)+'" style="'+inS+';color:#56cfb2" onchange="autreEvalSetCoeff(\''+ev.id+'\',this.value);renderNotes()"></th>';
+    });
+    hc+='<th style="'+thS+'"><input type="number" id="coeff-fps" min="0" max="10" step="0.5" value="'+coeffFps+'" style="'+inS+';color:#4f8aff" onchange="state.coeffFps=parseFloat(this.value)||1;save();renderNotes()"></th>';
+    hc+='<th style="'+thS+'"></th>';
+    coeffRow.innerHTML=hc;
   }
-  if(coeffCells){
-    coeffCells.colSpan=autreEvals.length||1;
-    coeffCells.innerHTML=autreEvals.map(function(ev){
-      return '<input type="number" id="coeff-ae-'+ev.id+'" min="0" max="10" step="0.5" value="'+(ev.coeff||1)+'" style="width:44px;background:#1c1f2c;border:1px solid #2a2d3e;border-radius:5px;padding:3px 5px;color:#56cfb2;font-size:.75rem;text-align:center" onchange="autreEvalSetCoeff(\''+ev.id+'\',this.value);renderNotes()">';
-    }).join('')||'';
+  var hdrRow=ge('nt-header-row');
+  if(hdrRow){
+    var hh='<th>Eleve</th><th>Presences</th><th>Absences</th><th>Dispense</th><th>Qte travail /10</th>';
+    autreEvals.forEach(function(ev){
+      hh+='<th style="color:#56cfb2;white-space:nowrap;max-width:120px;overflow:hidden;text-overflow:ellipsis" title="'+esc(ev.objet||ev.date||'Eval')+'">'+esc(ev.objet||ev.date||'Eval')+'</th>';
+    });
+    hh+='<th>Note FPS /20</th><th style="color:#56cfb2">Moyenne /20</th>';
+    hdrRow.innerHTML=hh;
   }
 
+  if(!state.eleves.length){if(tb)tb.innerHTML='<tr><td colspan="'+nbCols+'" style="text-align:center;color:#6b7280;padding:2rem">Aucun eleve.</td></tr>';return;}
   if(!tb)return;
   tb.innerHTML='';
   var sorted=state.eleves.slice().sort(function(a,b){return a.nom.localeCompare(b.nom);});
