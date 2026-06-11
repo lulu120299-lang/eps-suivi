@@ -1297,7 +1297,8 @@ window._fbReady = true;
     <div id="v-eval" class="view">
       <div class="ph">
         <div><div class="ph-title">Bilan</div><div class="ph-sub" id="eval-filiere-sub"></div></div>
-        <div style="display:flex;gap:8px">
+        <div style="display:flex;gap:8px;flex-wrap:wrap">
+          <button class="btn btn-p" id="btn-conseil" style="background:#a78bfa;border:none;color:#14081f;font-weight:600">&#127891; Conseil de classe</button>
           <button class="btn btn-g" id="btn-pdf-bilan">&#128196; Export PDF</button>
           <button class="btn btn-g" id="btn-csv">Export CSV</button>
         </div>
@@ -1361,6 +1362,31 @@ window._fbReady = true;
 
       
     
+  </div></div>
+  <div class="mb" id="m-conseil"><div class="modal modal-xl" style="padding:0;overflow:hidden;display:flex;flex-direction:column;max-height:92vh">
+    <div style="display:flex;align-items:center;justify-content:space-between;padding:1rem 1.25rem;border-bottom:1px solid #252836;background:#0d1018">
+      <div style="display:flex;align-items:baseline;gap:10px;flex-wrap:wrap">
+        <div class="modal-title" style="margin:0">&#127891; Conseil de classe</div>
+        <span id="conseil-titre-sub" style="font-size:.72rem;color:#6b7280"></span>
+      </div>
+      <button class="btn btn-g" data-close="m-conseil">&#10005; Fermer</button>
+    </div>
+    <div style="overflow-y:auto;-webkit-overflow-scrolling:touch;padding:1.25rem">
+      <div class="card" style="margin-bottom:1.5rem;border:1px solid rgba(79,138,255,.35)">
+        <div style="font-family:'DM Mono',monospace;font-size:.65rem;text-transform:uppercase;letter-spacing:.1em;color:#4f8aff;margin-bottom:.75rem">&#127979; Bilan de la classe</div>
+        <div id="conseil-cls-head" style="margin-bottom:1rem"></div>
+        <div class="fg">
+          <div class="fgrp full"><label>Appr&#233;ciation g&#233;n&#233;rale de la classe</label><textarea id="conseil-cls-appr" style="min-height:80px" placeholder="Climat de travail, dynamique du groupe, investissement en EPS..."></textarea></div>
+          <div class="fgrp full"><label>Objectifs pour le prochain trimestre</label><textarea id="conseil-cls-obj" style="min-height:60px" placeholder="Objectifs &#224; fixer pour la classe au prochain trimestre..."></textarea></div>
+        </div>
+      </div>
+      <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:.75rem">
+        <button class="btn btn-g" id="conseil-prev" style="font-size:1rem;padding:.5rem 1rem">&#9664;</button>
+        <div id="conseil-counter" style="font-family:'DM Mono',monospace;font-size:.75rem;color:#9aa0b8;text-align:center"></div>
+        <button class="btn btn-g" id="conseil-next" style="font-size:1rem;padding:.5rem 1rem">&#9654;</button>
+      </div>
+      <div id="conseil-eleve-zone"></div>
+    </div>
   </div></div>
   <div class="mb" id="m-profil-plan"><div class="modal">
     <div class="modal-title" id="profil-plan-title">Profil de classe</div>
@@ -6327,6 +6353,154 @@ function renderNotes(){
     tb.appendChild(tr);
   })(sorted[i]);}
 }
+// ══════════════════════════════════════════
+// CONSEIL DE CLASSE
+// ══════════════════════════════════════════
+var conseilIdx=0;
+var CONSEIL_MENTIONS=['F\u00e9licitations','Compliments','Encouragements','Mise en garde (travail)','Mise en garde (comportement)'];
+function conseilEnsure(){if(!state.conseil)state.conseil={};if(!state.conseil.classe)state.conseil.classe={};if(!state.conseil.eleves)state.conseil.eleves={};}
+function conseilSorted(){return state.eleves.slice().sort(function(a,b){return a.nom.localeCompare(b.nom);});}
+function conseilStats(e){
+  var autreEvals=state.autreEvals||[];
+  var coeffQte=parseFloat(state.coeffQte||1)||1;
+  var coeffFps=parseFloat(state.coeffFps||1)||1;
+  var pres=0,abs=0,disp=0,qtes=[];
+  for(var j=0;j<state.seances.length;j++){
+    var st=(state.presences[state.seances[j].id]||{})[e.id]||'';
+    if(st==='Present')pres++;else if(st==='Absent')abs++;else if(st==='Dispense')disp++;
+    var ae=(state.autoEval&&state.autoEval[state.seances[j].id]||{})[e.id]||{};
+    if(ae.qte!==undefined&&ae.qte!=='')qtes.push(parseFloat(ae.qte));
+  }
+  var tot=pres+abs+disp;
+  var txPres=tot>0?Math.round(pres/tot*100):null;
+  var mQ=qtes.length?(qtes.reduce(function(a,b){return a+b;},0)/qtes.length*10/4):null;
+  var totalPts=0,totalCoeff=0;
+  if(mQ!==null){totalPts+=mQ*2*coeffQte;totalCoeff+=coeffQte;}
+  var aeNotes=[];
+  for(var k=0;k<autreEvals.length;k++){
+    var ev=autreEvals[k];
+    var note=(ev.notes&&ev.notes[e.id]!=null&&ev.notes[e.id]!=='')?parseFloat(ev.notes[e.id]):null;
+    var c=parseFloat(ev.coeff||1)||1;
+    if(note!==null){totalPts+=note*c;totalCoeff+=c;}
+    aeNotes.push({label:ev.objet||ev.date||'Eval',note:note});
+  }
+  var fps=(typeof geCalcNote==='function')?geCalcNote(e.id):0;
+  if(fps>0){totalPts+=fps*coeffFps;totalCoeff+=coeffFps;}
+  var moy=totalCoeff>0?totalPts/totalCoeff:null;
+  // Courbe : moyenne des niveaux AFLP (1-4) de l'eleve, par seance
+  var comp=state.comp||{};
+  var seances=state.seances.slice().sort(function(a,b){return a.num-b.num;});
+  var curve=[];
+  for(var i2=0;i2<seances.length;i2++){
+    var s2=seances[i2];var t=s2.aflpTravailles||[];
+    if(!t.length)continue;
+    var vals=[];
+    for(var j2=0;j2<t.length;j2++){var v=comp[s2.id+'__'+t[j2]+'__'+e.id];if(v>0)vals.push(v);}
+    curve.push({num:s2.num,val:vals.length?vals.reduce(function(x,y){return x+y;},0)/vals.length:null});
+  }
+  return {pres:pres,abs:abs,disp:disp,txPres:txPres,qte:mQ,aeNotes:aeNotes,fps:fps,moy:moy,curve:curve};
+}
+function conseilSvgCurve(curve){
+  if(!curve.length)return '<div style="color:#6b7280;font-size:.8rem;padding:.5rem 0">Aucun AFLP coch\u00e9 sur les s\u00e9ances.</div>';
+  var pts=curve.filter(function(p){return p.val!==null;});
+  if(!pts.length)return '<div style="color:#6b7280;font-size:.8rem;padding:.5rem 0">Aucune comp\u00e9tence \u00e9valu\u00e9e pour cet \u00e9l\u00e8ve.</div>';
+  var W=Math.max(300,curve.length*60+75),H=160,pL=52,pR=20,pT=14,pB=28,gW=W-pL-pR,gH=H-pT-pB;
+  var lL=['','Insuf','Fragile','Satisf','Tr\u00e8s B'];
+  function xAt(i){return curve.length>1?pL+i*gW/(curve.length-1):pL+gW/2;}
+  function yAt(v){return pT+gH-(v-1)*gH/3;}
+  var h='<svg width="'+W+'" height="'+H+'" xmlns="http://www.w3.org/2000/svg" style="display:block">';
+  h+='<rect width="'+W+'" height="'+H+'" fill="#13161f" rx="6"/>';
+  for(var nv=1;nv<=4;nv++){var yy=yAt(nv);h+='<line x1="'+pL+'" y1="'+yy+'" x2="'+(pL+gW)+'" y2="'+yy+'" stroke="#1e2130"/><text x="'+(pL-5)+'" y="'+(yy+3)+'" fill="#3a4060" font-size="8" text-anchor="end">'+lL[nv]+'</text>';}
+  var d='',started=false;
+  for(var i=0;i<curve.length;i++){
+    if(curve[i].val===null)continue;
+    d+=(started?' L':'M ')+xAt(i).toFixed(1)+' '+yAt(curve[i].val).toFixed(1);started=true;
+  }
+  h+='<path d="'+d+'" fill="none" stroke="#a78bfa" stroke-width="2"/>';
+  for(var i=0;i<curve.length;i++){
+    h+='<text x="'+xAt(i).toFixed(1)+'" y="'+(H-8)+'" fill="#6b7280" font-size="8" text-anchor="middle">S'+curve[i].num+'</text>';
+    if(curve[i].val!==null)h+='<circle cx="'+xAt(i).toFixed(1)+'" cy="'+yAt(curve[i].val).toFixed(1)+'" r="3.5" fill="#a78bfa"/>';
+  }
+  h+='</svg>';
+  return '<div style="background:#13161f;border:1px solid #252836;border-radius:10px;padding:.75rem;overflow-x:auto">'+h+'</div>';
+}
+function conseilOpen(){
+  if(!state.eleves.length){toast('Aucun \u00e9l\u00e8ve dans la s\u00e9quence','err');return;}
+  conseilEnsure();conseilIdx=0;
+  var sub=ge('conseil-titre-sub');
+  if(sub)sub.textContent=(CTX.cls?CTX.cls.label:'')+(CTX.apsa?' \u2022 '+CTX.apsa.name:'');
+  // Carte classe : stats globales
+  var sorted=conseilSorted();
+  var moys=[],presSum=0,presN=0;
+  for(var i=0;i<sorted.length;i++){
+    var st=conseilStats(sorted[i]);
+    if(st.moy!==null)moys.push(st.moy);
+    if(st.txPres!==null){presSum+=st.txPres;presN++;}
+  }
+  var moyCls=moys.length?(moys.reduce(function(a,b){return a+b;},0)/moys.length).toFixed(1):'\u2014';
+  var presCls=presN?Math.round(presSum/presN)+' %':'\u2014';
+  function cbox(label,val,color){return '<div style="background:#13161f;border:1px solid #252836;border-radius:10px;padding:.7rem;text-align:center"><div style="font-size:.6rem;text-transform:uppercase;letter-spacing:.08em;color:#6b7280;margin-bottom:4px">'+label+'</div><div style="font-family:monospace;font-weight:700;font-size:1.15rem;color:'+color+'">'+val+'</div></div>';}
+  var head=ge('conseil-cls-head');
+  if(head)head.innerHTML='<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:10px">'
+    +cbox('Effectif',sorted.length,'#e4e6ef')
+    +cbox('S\u00e9ances',state.seances.length,'#e4e6ef')
+    +cbox('Pr\u00e9sence moy.',presCls,'#56cfb2')
+    +cbox('Moyenne classe',moyCls!=='\u2014'?moyCls+' /20':'\u2014','#4f8aff')
+    +'</div>';
+  ge('conseil-cls-appr').value=state.conseil.classe.appr||'';
+  ge('conseil-cls-obj').value=state.conseil.classe.obj||'';
+  conseilRenderEleve();
+  openM('m-conseil');
+}
+function conseilRenderEleve(){
+  var sorted=conseilSorted();
+  if(!sorted.length)return;
+  if(conseilIdx<0)conseilIdx=sorted.length-1;
+  if(conseilIdx>=sorted.length)conseilIdx=0;
+  var e=sorted[conseilIdx];
+  var cnt=ge('conseil-counter');
+  if(cnt)cnt.textContent='\u00c9l\u00e8ve '+(conseilIdx+1)+' / '+sorted.length;
+  conseilEnsure();
+  var st=conseilStats(e);
+  var cd=state.conseil.eleves[e.id]||{};
+  function f1(v){return Math.round(v*10)/10;}
+  function box(label,val,color){return '<div style="background:#13161f;border:1px solid #252836;border-radius:10px;padding:.7rem;text-align:center"><div style="font-size:.6rem;text-transform:uppercase;letter-spacing:.08em;color:#6b7280;margin-bottom:4px">'+label+'</div><div style="font-family:monospace;font-weight:700;font-size:1.15rem;color:'+color+'">'+val+'</div></div>';}
+  var moyColor=st.moy!==null?(st.moy>=14?'#56cfb2':st.moy>=10?'#4f8aff':st.moy>=6?'#ffd166':'#ff6b6b'):'#6b7280';
+  var html='<div class="card" style="border:1px solid rgba(167,139,250,.35)">';
+  html+='<div style="display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;margin-bottom:1rem"><div style="font-family:\'DM Serif Display\',serif;font-size:1.3rem">'+esc(e.nom)+'</div>'+(e.amenagement?'<span style="font-size:.72rem;color:#ffd166">'+esc(e.amenagement)+'</span>':'')+'</div>';
+  html+='<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(115px,1fr));gap:10px;margin-bottom:1rem">';
+  html+=box('Moyenne EPS',st.moy!==null?f1(st.moy)+' /20':'\u2014',moyColor);
+  html+=box('Note FPS',st.fps>0?st.fps+' /20':'\u2014','#4f8aff');
+  html+=box('Qt\u00e9 travail',st.qte!==null?f1(st.qte)+' /10':'\u2014','#ffd166');
+  html+=box('Pr\u00e9sence',st.txPres!==null?st.txPres+' %':'\u2014','#56cfb2');
+  html+=box('Abs / Disp',st.abs+' / '+st.disp,'#ff6b6b');
+  html+='</div>';
+  if(st.aeNotes.length){
+    html+='<div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:1rem">';
+    for(var k=0;k<st.aeNotes.length;k++){
+      var an=st.aeNotes[k];
+      html+='<span style="background:rgba(86,207,178,.12);border:1px solid rgba(86,207,178,.3);color:#56cfb2;border-radius:6px;padding:4px 10px;font-size:.72rem">'+esc(an.label)+' : <strong>'+(an.note!==null?an.note+' /20':'\u2014')+'</strong></span>';
+    }
+    html+='</div>';
+  }
+  html+='<div style="font-family:\'DM Mono\',monospace;font-size:.62rem;text-transform:uppercase;letter-spacing:.08em;color:#6b7280;margin-bottom:.4rem">\u00c9volution des acquisitions (moyenne des AFLP par s\u00e9ance)</div>';
+  html+=conseilSvgCurve(st.curve);
+  var opts='<option value="">\u2014 Aucune mention \u2014</option>';
+  for(var m=0;m<CONSEIL_MENTIONS.length;m++){opts+='<option value="'+CONSEIL_MENTIONS[m]+'"'+(cd.mention===CONSEIL_MENTIONS[m]?' selected':'')+'>'+CONSEIL_MENTIONS[m]+'</option>';}
+  html+='<div class="fg" style="margin-top:1.1rem">';
+  html+='<div class="fgrp full"><label>Appr\u00e9ciation g\u00e9n\u00e9rale du conseil</label><textarea id="conseil-e-appr" style="min-height:70px" placeholder="Appr\u00e9ciation pour le bulletin...">'+esc(cd.appr||'')+'</textarea></div>';
+  html+='<div class="fgrp full"><label>Mention obtenue</label><select id="conseil-e-mention" style="background:#13161f;border:1px solid #2a2d3e;border-radius:8px;padding:9px 10px;color:#e4e6ef;font-size:.85rem">'+opts+'</select></div>';
+  html+='</div></div>';
+  var zone=ge('conseil-eleve-zone');
+  if(!zone)return;
+  zone.innerHTML=html;
+  var eid=e.id;
+  var ta=ge('conseil-e-appr');
+  if(ta)ta.addEventListener('change',function(){conseilEnsure();if(!state.conseil.eleves[eid])state.conseil.eleves[eid]={};state.conseil.eleves[eid].appr=this.value;save();});
+  var sel=ge('conseil-e-mention');
+  if(sel)sel.addEventListener('change',function(){conseilEnsure();if(!state.conseil.eleves[eid])state.conseil.eleves[eid]={};state.conseil.eleves[eid].mention=this.value;save();});
+}
+function conseilNav(d){conseilIdx+=d;conseilRenderEleve();}
 function exportCSV(){
   var autreEvals=state.autreEvals||[];
   var coeffQte=parseFloat((ge('coeff-qte')&&ge('coeff-qte').value)||1)||1;
@@ -8103,6 +8277,11 @@ s('btn-import-seance-json','change',function(){importSeanceJSON(this.files[0]);t
 s('srch','input',renderSeances);
 s('btn-pdf-eleves','click',exportElevesPDF);
 s('btn-pdf-bilan','click',exportBilanPDF);
+s('btn-conseil','click',conseilOpen);
+s('conseil-prev','click',function(){conseilNav(-1);});
+s('conseil-next','click',function(){conseilNav(1);});
+s('conseil-cls-appr','change',function(){conseilEnsure();state.conseil.classe.appr=this.value;save();});
+s('conseil-cls-obj','change',function(){conseilEnsure();state.conseil.classe.obj=this.value;save();});
 s('btn-profil-classe','click',toggleProfilZone);
 s('btn-save-profil-plan','click',saveProfilPlan);
 s('btn-new-eleve','click',function(){openM('m-eleve');});
