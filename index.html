@@ -5466,8 +5466,10 @@ function appelReset(){
 }
 
 function appelHeadCardHTML(s){
+  var dt='';
+  if(s.date){var p=String(s.date).split('-');dt=p.length===3?p[2]+'/'+p[1]+'/'+p[0]:s.date;}
   return '<div class="card" style="margin-bottom:.6rem;padding:.65rem 1.1rem;display:flex;align-items:center;justify-content:space-between;gap:8px">'
-    +'<div style="font-size:.85rem;font-weight:700;color:#e4e6ef">S'+s.num+' &mdash; '+esc(s.date||'')+' <span style="color:#4f8aff;font-size:.64rem;text-transform:uppercase;letter-spacing:.06em;font-weight:600">\u2022 s\u00e9ance active</span></div>'
+    +'<div style="font-size:.85rem;font-weight:700;color:#e4e6ef">S'+s.num+' &mdash; '+esc(dt)+' <span style="color:#4f8aff;font-size:.64rem;text-transform:uppercase;letter-spacing:.06em;font-weight:600">\u2022 s\u00e9ance active</span></div>'
     +'<span class="chip c-gr" id="ap-head-chip"></span></div>';
 }
 
