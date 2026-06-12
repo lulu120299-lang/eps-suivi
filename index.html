@@ -296,6 +296,31 @@ html,body{overflow-x:hidden;max-width:100vw}body{font-family:"DM Sans",sans-seri
 .ap-scard:hover,.ap-scard.act{border-color:#4f8aff;background:#1c1f2c}
 .ap-snum{width:32px;height:32px;background:#1c1f2c;border:1px solid #252836;border-radius:7px;display:flex;align-items:center;justify-content:center;font-family:"DM Mono",monospace;font-size:.78rem;flex-shrink:0}
 .ap-scard.act .ap-snum{background:#4f8aff;color:#fff;border-color:#4f8aff}
+.apx-wrap{overflow:auto;border:1px solid #252836;border-radius:12px;max-height:62vh;-webkit-overflow-scrolling:touch;background:#0d1018;margin-top:.6rem}
+.apx-table{border-collapse:separate;border-spacing:0;width:max-content;min-width:100%}
+.apx-table th,.apx-table td{border-bottom:1px solid #1c1f2c;border-right:1px solid #1c1f2c}
+.apx-table thead th{position:sticky;top:0;background:#13161f;z-index:3;padding:8px 6px;font-size:.66rem;color:#6b7280;text-transform:uppercase;font-weight:600;text-align:center;min-width:46px;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.apx-table thead th .sd{display:block;font-size:.56rem;color:#3a4060;font-weight:400;text-transform:none;margin-top:1px}
+.apx-table thead th.cur{background:rgba(79,138,255,.18);color:#4f8aff}
+.apx-table thead th.cur .sd{color:#4f8aff;opacity:.7}
+.apx-table thead th:first-child{left:0;z-index:5;text-align:left;min-width:128px;padding-left:12px;cursor:default}
+.apx-table thead th:last-child{min-width:54px;cursor:default}
+.apx-table tbody th{position:sticky;left:0;background:#0d1018;z-index:2;text-align:left;padding:7px 8px 7px 12px;font-size:.74rem;font-weight:600;min-width:128px;max-width:155px}
+.apx-table tbody th .am{display:inline-block;width:14px;height:14px;border-radius:50%;background:#ffd166;color:#1a1000;font-size:9px;line-height:14px;text-align:center;font-weight:700;margin-left:4px;vertical-align:1px}
+.apx-table tbody tr:nth-child(even) th{background:#0f121b}
+.apx-table tbody tr:nth-child(even) td{background:rgba(255,255,255,.012)}
+.apx-table td{padding:3px;text-align:center}
+.apx-table td.pc{font-family:'DM Mono',monospace;font-size:.7rem;font-weight:700;min-width:54px}
+.apx-cell{width:38px;height:34px;border-radius:8px;border:none;cursor:pointer;font-size:14px;line-height:1;display:inline-flex;align-items:center;justify-content:center;background:rgba(255,255,255,.04);color:#3a4060;transition:all .1s;-webkit-tap-highlight-color:transparent;user-select:none;-webkit-user-select:none;font-weight:700}
+.apx-cell:active{transform:scale(.88)}
+.apx-cell.dis{opacity:.25;pointer-events:none}
+.apx-table td.curcol .apx-cell{box-shadow:0 0 0 1px rgba(79,138,255,.25)}
+.apx-table tfoot td{position:sticky;bottom:0;background:#13161f;z-index:2;padding:6px;font-family:'DM Mono',monospace;font-size:.66rem;font-weight:700;color:#56cfb2;text-align:center}
+.apx-table tfoot td:first-child{left:0;z-index:4;text-align:left;padding-left:12px;color:#6b7280;text-transform:uppercase;font-size:.6rem}
+.apx-legend{display:flex;gap:10px;flex-wrap:wrap;padding:10px 2px;font-size:.7rem;color:#9aa0b8;align-items:center}
+.apx-legend .sq{width:18px;height:18px;border-radius:5px;display:inline-flex;align-items:center;justify-content:center;font-size:11px;font-weight:700}
+.ae-chip{background:#13161f;border:1px solid #252836;border-radius:16px;padding:5px 13px;font-size:.7rem;color:#9aa0b8;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.ae-chip.on{background:rgba(79,138,255,.15);border-color:rgba(79,138,255,.5);color:#4f8aff;font-weight:600}
 .obj-box{background:#13161f;border:1px solid #252836;border-radius:10px;padding:1rem 1.2rem;margin-bottom:1rem}
 .obj-box-title{font-family:"DM Mono",monospace;font-size:.63rem;text-transform:uppercase;letter-spacing:.1em;color:#ffd166;margin-bottom:.6rem}
 .obj-inputs{display:grid;grid-template-columns:1fr 1fr;gap:.75rem}
@@ -1207,10 +1232,7 @@ window._fbReady = true;
           <button class="btn btn-g" id="btn-recap-presences" style="font-family:'DM Mono',monospace;font-size:.68rem">&#128202; Recap</button>
         </div>
       </div>
-      <div class="appel-lay">
-        <div><div class="slbl">Seance</div><div id="ap-slist"></div></div>
-        <div id="ap-content"><div class="empty">Selectionnez une seance</div></div>
-      </div>
+      <div id="ap-content"><div class="empty">Selectionnez une seance</div></div>
       <div id="appel-meteo-zone" style="margin-top:1.5rem;display:none">
         <div class="meteo-card">
           <div class="meteo-lbl">&#127781; M&#233;t&#233;o de la s&#233;ance <span id="appel-meteo-seance-lbl" style="color:#56cfb2;font-weight:700"></span></div>
@@ -4021,6 +4043,7 @@ function showView(id){
   var tab=document.querySelector('.s-tab[data-view="'+id+'"]');
   if(tab)tab.classList.add('active');
   if(id==='v-eval'){highlightEvalAflp();renderBilanComp();}
+  if(id==='v-appel')renderApList();
   // Mettre a jour barre bas
   var bnavBtns=document.querySelectorAll('.s-bnav-btn[data-view]');
   for(var i=0;i<bnavBtns.length;i++)bnavBtns[i].classList.remove('active');
@@ -5275,8 +5298,16 @@ h+='</div></body></html>';
 openPdfWindow(h,'S'+s.num+' - '+(s.objectif||'Seance').substring(0,40)+'.pdf');
 }
 
-function renderApList(){var el=ge('ap-slist');var sorted=state.seances.slice().sort(function(a,b){return a.num-b.num;});if(!sorted.length){el.innerHTML='<div style="color:#6b7280;font-size:.82rem">Aucune seance.</div>';return;}el.innerHTML='';for(var i=0;i<sorted.length;i++){(function(s){var d=document.createElement('div');d.className='ap-scard';d.id='ab-'+s.id;d.dataset.sid=s.id;d.innerHTML='<div class="ap-snum">S'+s.num+'</div><div><div style="font-size:.83rem;font-weight:500">'+esc(s.objectif||'Sans titre')+'</div><div style="font-size:.72rem;color:#6b7280">'+(s.date?fmtDate(s.date):'')+'</div></div>';el.appendChild(d);})(sorted[i]);}el.onclick=function(e){var card=e.target.closest('.ap-scard');if(!card)return;var cards=document.querySelectorAll('.ap-scard');for(var i=0;i<cards.length;i++)cards[i].classList.remove('act');card.classList.add('act');showAppel(card.dataset.sid);};}
-// ── MODE APPEL REFONTE ──
+function renderApList(){
+  var v=ge('v-appel');
+  if(!v||!v.classList.contains('active'))return;
+  if(!state.seances.length){var ap0=ge('ap-content');if(ap0)ap0.innerHTML='<div class="empty">Aucune seance.</div>';_appelCurrentSid=null;return;}
+  var exists=false;
+  for(var i=0;i<state.seances.length;i++){if(state.seances[i].id===_appelCurrentSid){exists=true;break;}}
+  if(!exists){var so=state.seances.slice().sort(function(a,b){return a.num-b.num;});_appelCurrentSid=so[so.length-1].id;}
+  showAppel(_appelCurrentSid);
+}
+// ── MODE APPEL GRILLE (eleves x seances) ──
 var _appelMode='appel';
 var _appelCurrentSid=null;
 var _appelCriterias=[
@@ -5284,6 +5315,7 @@ var _appelCriterias=[
   {id:'auto',label:'Auto-evaluation globale',on:true}
 ];
 var _appelCritCount=10;
+var _appelCurCrit='qte';
 var _saveTimer=null;
 
 function saveLater(){
@@ -5300,200 +5332,237 @@ function appelSetMode(m){
   if(_appelCurrentSid)showAppel(_appelCurrentSid);
 }
 
-function appelToggleStatut(sid,eid,statut){
+var APPEL_ST={
+  'Present':{bg:'#56cfb2',fg:'#0d1018',i:'\u2713'},
+  'Absent':{bg:'#ff6b6b',fg:'#fff',i:'\u2717'},
+  'Dispense':{bg:'#6393ff',fg:'#fff',i:'\ud83e\ude7a'},
+  'Pas tenue':{bg:'#ff9f0a',fg:'#0d1018',i:'\ud83d\udc55'}
+};
+var APPEL_CYCLE=['','Present','Absent','Dispense','Pas tenue'];
+var APPEL_NOTES={1:{bg:'#ff6b6b',fg:'#fff'},2:{bg:'#ffd166',fg:'#0d1018'},3:{bg:'#4f8aff',fg:'#fff'},4:{bg:'#56cfb2',fg:'#0d1018'}};
+
+function appelSeancesSorted(){return state.seances.slice().sort(function(a,b){return a.num-b.num;});}
+function appelElevesSorted(){return state.eleves.slice().sort(function(a,b){return a.nom.localeCompare(b.nom);});}
+function appelActiveCrit(){
+  var act=_appelCriterias.filter(function(c){return c.on;});
+  for(var i=0;i<act.length;i++){if(act[i].id===_appelCurCrit)return act[i];}
+  if(act.length){_appelCurCrit=act[0].id;return act[0];}
+  return null;
+}
+
+function appelPaintCell(sid,eid){
+  var btn=document.querySelector('.apx-cell[data-sid="'+sid+'"][data-eid="'+eid+'"]');
+  if(!btn)return;
+  if(_appelMode==='appel'){
+    var st=APPEL_ST[(state.presences[sid]||{})[eid]||''];
+    if(st){btn.style.background=st.bg;btn.style.color=st.fg;btn.textContent=st.i;}
+    else{btn.style.background='rgba(255,255,255,.04)';btn.style.color='#3a4060';btn.textContent='\u00b7';}
+  } else {
+    var crit=appelActiveCrit();if(!crit)return;
+    var v=parseInt(((state.autoEval[sid]||{})[eid]||{})[crit.id])||0;
+    var n=APPEL_NOTES[v];
+    if(n){btn.style.background=n.bg;btn.style.color=n.fg;btn.textContent=v;}
+    else{btn.style.background='rgba(255,255,255,.04)';btn.style.color='#3a4060';btn.textContent='\u00b7';}
+  }
+}
+
+function appelRefreshTotals(){
+  var seances=appelSeancesSorted();
+  var eleves=appelElevesSorted();
+  var crit=appelActiveCrit();
+  for(var si=0;si<seances.length;si++){
+    var sid=seances[si].id;
+    var ft=ge('apx-ft-'+sid);
+    if(!ft)continue;
+    if(_appelMode==='appel'){
+      var np=0,marked=0;
+      for(var ei=0;ei<eleves.length;ei++){
+        var v=(state.presences[sid]||{})[eleves[ei].id]||'';
+        if(v)marked++;
+        if(v==='Present'||v==='Pas tenue')np++;
+      }
+      ft.textContent=marked?np+'/'+eleves.length:'\u2014';
+    } else {
+      var sum=0,n=0;
+      for(var ei=0;ei<eleves.length;ei++){
+        var v=crit?parseInt(((state.autoEval[sid]||{})[eleves[ei].id]||{})[crit.id])||0:0;
+        if(v){sum+=v;n++;}
+      }
+      ft.textContent=n?(sum/n).toFixed(1):'\u2014';
+    }
+  }
+  for(var ei=0;ei<eleves.length;ei++){
+    var eid=eleves[ei].id;
+    var pc=ge('apx-pc-'+eid);
+    if(!pc)continue;
+    if(_appelMode==='appel'){
+      var np=0,marked=0;
+      for(var si=0;si<seances.length;si++){
+        var v=(state.presences[seances[si].id]||{})[eid]||'';
+        if(v)marked++;
+        if(v==='Present'||v==='Pas tenue')np++;
+      }
+      var pct=marked?Math.round(np/marked*100):null;
+      pc.textContent=pct!==null?pct+'%':'\u2014';
+      pc.style.color=pct===null?'#3a4060':pct>=80?'#56cfb2':pct>=60?'#ffd166':'#ff6b6b';
+    } else {
+      var sum=0,n=0;
+      for(var si=0;si<seances.length;si++){
+        var v=crit?parseInt(((state.autoEval[seances[si].id]||{})[eid]||{})[crit.id])||0:0;
+        if(v){sum+=v;n++;}
+      }
+      var m=n?sum/n:null;
+      pc.textContent=m!==null?(Math.round(m*10)/10).toFixed(1):'\u2014';
+      pc.style.color=m===null?'#3a4060':m>=3?'#56cfb2':m>=2?'#ffd166':'#ff6b6b';
+    }
+  }
+  // Chip de la seance active
+  if(_appelCurrentSid){
+    var np2=0;
+    for(var ei=0;ei<eleves.length;ei++){
+      var v=(state.presences[_appelCurrentSid]||{})[eleves[ei].id]||'';
+      if(v==='Present'||v==='Pas tenue')np2++;
+    }
+    var hc=ge('ap-head-chip');if(hc)hc.textContent=np2+'/'+eleves.length;
+  }
+}
+
+function appelCycleCell(sid,eid){
+  if(_appelMode==='appel'){
+    if(!state.presences[sid])state.presences[sid]={};
+    var cur=state.presences[sid][eid]||'';
+    state.presences[sid][eid]=APPEL_CYCLE[(APPEL_CYCLE.indexOf(cur)+1)%APPEL_CYCLE.length];
+  } else {
+    var crit=appelActiveCrit();if(!crit)return;
+    if(!state.autoEval[sid])state.autoEval[sid]={};
+    if(!state.autoEval[sid][eid])state.autoEval[sid][eid]={};
+    var cv=parseInt(state.autoEval[sid][eid][crit.id])||0;
+    var nv=(cv+1)%5;
+    state.autoEval[sid][eid][crit.id]=nv===0?'':nv;
+  }
+  saveLater();
+  appelPaintCell(sid,eid);
+  appelRefreshTotals();
+}
+
+function appelTousPresents(){
+  var sid=_appelCurrentSid;if(!sid)return;
   if(!state.presences[sid])state.presences[sid]={};
-  var cur=state.presences[sid][eid]||'';
-  var newVal=cur===statut?'':statut;
-  state.presences[sid][eid]=newVal;
+  var eleves=appelElevesSorted();
+  for(var i=0;i<eleves.length;i++){state.presences[sid][eleves[i].id]='Present';appelPaintCell(sid,eleves[i].id);}
   saveLater();
-  // Mise à jour visuelle directe
-  var _C={Present:{bg:'#56cfb2',fg:'#0d1018'},Absent:{bg:'#ff6b6b',fg:'#fff'},Dispense:{bg:'#6393ff',fg:'#fff'},'Pas tenue':{bg:'#ff9f0a',fg:'#0d1018'}};
-  var _RB={Present:'rgba(86,207,178,.06)',Absent:'rgba(255,107,107,.06)',Dispense:'rgba(99,147,255,.06)','Pas tenue':'rgba(255,159,10,.06)'};
-  var _RBD={Present:'rgba(86,207,178,.2)',Absent:'rgba(255,107,107,.2)',Dispense:'rgba(99,147,255,.2)','Pas tenue':'rgba(255,159,10,.2)'};
-  var row=document.querySelector('[data-row-eid="'+eid+'"]');
-  if(row){row.style.background=_RB[newVal]||'#13161f';row.style.borderColor=_RBD[newVal]||'rgba(255,255,255,.06)';}
-  document.querySelectorAll('.appel-stat-btn[data-eid="'+eid+'"]').forEach(function(btn){
-    var s=btn.dataset.st;var c=_C[s];var sel=s===newVal;
-    btn.style.background=sel&&c?c.bg:'rgba(255,255,255,.06)';
-    btn.style.color=sel&&c?c.fg:'#636366';
-    btn.style.opacity=sel?'1':'0.6';
-    btn.style.transform=sel?'scale(1.06)':'scale(1)';
-  });
-  appelUpdateStats(sid);
+  appelRefreshTotals();
 }
 
-function appelUpdateStats(sid){
-  var eleves=state.eleves;var np=0,na=0,nd=0,nt=0;
-  eleves.forEach(function(e){
-    var p=state.presences[sid][e.id]||'';
-    if(p==='Present'||p==='Pas tenue')np++;
-    else if(p==='Absent')na++;
-    else if(p==='Dispense')nd++;
-    if(p==='Pas tenue')nt++;
-  });
-  var el=ge('appel-stats-bar');if(!el)return;
-  el.innerHTML=
-    '<span style="background:rgba(86,207,178,.12);color:#56cfb2;padding:4px 12px;border-radius:20px;font-size:.75rem;font-weight:600">✓ '+np+' présent'+(np>1?'s':'')+(nt>0?' (dont '+nt+' 👕)':'')+'</span> '+
-    '<span style="background:rgba(255,107,107,.12);color:#ff6b6b;padding:4px 12px;border-radius:20px;font-size:.75rem;font-weight:600">✗ '+na+' absent'+(na>1?'s':'')+'</span>'+
-    (nd>0?' <span style="background:rgba(99,147,255,.12);color:#6393ff;padding:4px 12px;border-radius:20px;font-size:.75rem;font-weight:600">🩺 '+nd+' dispensé'+(nd>1?'s':'')+'</span>':'');
-}
-
-function appelTousPresents(sid){
+function appelReset(){
+  var sid=_appelCurrentSid;if(!sid)return;
+  var s=null;for(var i=0;i<state.seances.length;i++)if(state.seances[i].id===sid)s=state.seances[i];
+  if(!confirm('Effacer l\u0027appel de la s\u00e9ance S'+(s?s.num:'')+' ?'))return;
   if(!state.presences[sid])state.presences[sid]={};
-  state.eleves.forEach(function(e){state.presences[sid][e.id]='Present';});
+  var eleves=appelElevesSorted();
+  for(var i=0;i<eleves.length;i++){state.presences[sid][eleves[i].id]='';appelPaintCell(sid,eleves[i].id);}
   saveLater();
-  document.querySelectorAll('[data-row-eid]').forEach(function(r){r.style.background='rgba(86,207,178,.06)';r.style.borderColor='rgba(86,207,178,.2)';});
-  document.querySelectorAll('.appel-stat-btn').forEach(function(btn){
-    var sel=btn.dataset.st==='Present';
-    btn.style.background=sel?'#56cfb2':'rgba(255,255,255,.06)';
-    btn.style.color=sel?'#0d1018':'#636366';
-    btn.style.opacity=sel?'1':'0.6';
-    btn.style.transform=sel?'scale(1.06)':'scale(1)';
-  });
-  appelUpdateStats(sid);
+  appelRefreshTotals();
 }
 
-function appelReset(sid){
-  if(!state.presences[sid])state.presences[sid]={};
-  state.eleves.forEach(function(e){state.presences[sid][e.id]='';});
-  saveLater();
-  document.querySelectorAll('[data-row-eid]').forEach(function(r){r.style.background='#13161f';r.style.borderColor='rgba(255,255,255,.06)';});
-  document.querySelectorAll('.appel-stat-btn').forEach(function(btn){
-    btn.style.background='rgba(255,255,255,.06)';btn.style.color='#636366';
-    btn.style.opacity='0.6';btn.style.transform='scale(1)';
-  });
-  appelUpdateStats(sid);
-}
-
-function appelSetNote(sid,eid,cid,v){
-  if(!state.autoEval[sid])state.autoEval[sid]={};
-  if(!state.autoEval[sid][eid])state.autoEval[sid][eid]={};
-  var cur=parseInt(state.autoEval[sid][eid][cid])||0;
-  state.autoEval[sid][eid][cid]=cur===v?'':v;
-  saveLater();
-  // Mise à jour visuelle
-  var cols={1:'#ff6b6b',2:'#ffd166',3:'#4f8aff',4:'#56cfb2'};
-  var txts={1:'#fff',2:'#0d1018',3:'#fff',4:'#0d1018'};
-  document.querySelectorAll('.ae-nb[data-eid="'+eid+'"][data-cid="'+cid+'"]').forEach(function(btn){
-    var bv=parseInt(btn.dataset.v);var sel=bv===v&&cur!==v;
-    btn.style.background=sel?cols[bv]:'rgba(255,255,255,.06)';
-    btn.style.color=sel?txts[bv]:'#636366';
-  });
-}
-
-function appelBuildModeAppel(sid,sorted){
-  var h='';
-  var _C={Present:{bg:'#56cfb2',fg:'#0d1018'},Absent:{bg:'#ff6b6b',fg:'#fff'},Dispense:{bg:'#6393ff',fg:'#fff'},'Pas tenue':{bg:'#ff9f0a',fg:'#0d1018'}};
-  var _RB={Present:'rgba(86,207,178,.06)',Absent:'rgba(255,107,107,.06)',Dispense:'rgba(99,147,255,.06)','Pas tenue':'rgba(255,159,10,.06)'};
-  var _RBD={Present:'rgba(86,207,178,.2)',Absent:'rgba(255,107,107,.2)',Dispense:'rgba(99,147,255,.2)','Pas tenue':'rgba(255,159,10,.2)'};
-  var _BTNS=[{s:'Present',l:'✓'},{s:'Absent',l:'✗'},{s:'Dispense',l:'🩺'},{s:'Pas tenue',l:'👕'}];
-  h+='<div style="display:flex;gap:8px;padding:8px 4px 4px;flex-wrap:wrap">';
-  h+='<button class="appel-tous-btn" data-sid="'+sid+'" style="background:rgba(86,207,178,.12);border:0.5px solid rgba(86,207,178,.25);border-radius:8px;padding:6px 14px;color:#56cfb2;font-size:.78rem;font-weight:600;cursor:pointer">✓ Tous présents</button>';
-  h+='<button class="appel-reset-btn" data-sid="'+sid+'" style="background:rgba(255,255,255,.05);border:0.5px solid rgba(255,255,255,.1);border-radius:8px;padding:6px 14px;color:#9aa0b8;font-size:.78rem;font-weight:600;cursor:pointer">↺ Réinitialiser</button>';
-  h+='</div>';
-  h+='<div style="display:flex;flex-direction:column;gap:6px;padding:4px 0">';
-  sorted.forEach(function(e){
-    var pres=state.presences[sid][e.id]||'';
-    var rb=_RB[pres]||'#13161f';var rbd=_RBD[pres]||'rgba(255,255,255,.06)';
-    var amenag=e.amenagement?'<span style="font-size:.7rem;color:#ffd166;display:block;margin-top:1px">'+esc(e.amenagement)+'</span>':'';
-    var photo=e.trombiPhoto?'<img src="'+e.trombiPhoto+'" style="width:34px;height:34px;border-radius:50%;object-fit:cover;flex-shrink:0">':'<div style="width:34px;height:34px;border-radius:50%;background:#252836;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0">👤</div>';
-    h+='<div data-row-eid="'+e.id+'" style="display:flex;align-items:center;gap:8px;padding:9px 10px;border-radius:11px;background:'+rb+';border:0.5px solid '+rbd+';transition:background .12s,border-color .12s">';
-    h+=photo;
-    h+='<div style="flex:1;min-width:0"><div style="font-size:.85rem;font-weight:500;color:#e4e6ef">'+esc(e.nom)+'</div>'+amenag+'</div>';
-    h+='<div style="display:flex;gap:4px">';
-    _BTNS.forEach(function(bt){
-      var c=_C[bt.s];var sel=pres===bt.s;
-      h+='<button class="appel-stat-btn" data-eid="'+e.id+'" data-sid="'+sid+'" data-st="'+bt.s+'" style="width:40px;height:36px;border-radius:8px;border:none;font-size:15px;cursor:pointer;transition:all .1s;background:'+(sel&&c?c.bg:'rgba(255,255,255,.06)')+';color:'+(sel&&c?c.fg:'#636366')+';opacity:'+(sel?'1':'0.6')+';transform:'+(sel?'scale(1.06)':'scale(1)')+'">'+bt.l+'</button>';
-    });
-    h+='</div></div>';
-  });
-  h+='</div>';
-  var np=0,na=0,nd=0,nt=0;
-  sorted.forEach(function(e){var p=state.presences[sid][e.id]||'';if(p==='Present'||p==='Pas tenue')np++;else if(p==='Absent')na++;else if(p==='Dispense')nd++;if(p==='Pas tenue')nt++;});
-  h+='<div id="appel-stats-bar" style="display:flex;gap:8px;padding:8px 4px;flex-wrap:wrap">';
-  h+='<span style="background:rgba(86,207,178,.12);color:#56cfb2;padding:4px 12px;border-radius:20px;font-size:.75rem;font-weight:600">✓ '+np+' présent'+(np>1?'s':'')+(nt>0?' (dont '+nt+' 👕)':'')+'</span>';
-  h+='<span style="background:rgba(255,107,107,.12);color:#ff6b6b;padding:4px 12px;border-radius:20px;font-size:.75rem;font-weight:600">✗ '+na+' absent'+(na>1?'s':'')+'</span>';
-  if(nd>0)h+='<span style="background:rgba(99,147,255,.12);color:#6393ff;padding:4px 12px;border-radius:20px;font-size:.75rem;font-weight:600">🩺 '+nd+' dispensé'+(nd>1?'s':'')+'</span>';
+function appelHeadCardHTML(s){
+  var objData=state.seanceObjectifs[s.id]||{};
+  var _aflpChips='';
+  if(s.aflpTravailles&&s.aflpTravailles.length)s.aflpTravailles.forEach(function(a){_aflpChips+='<span class="chip c-bl">'+a+'</span>';});
+  var h='<div class="card" style="margin-bottom:.6rem;padding:.9rem 1.1rem"><div style="display:flex;align-items:flex-start;justify-content:space-between;gap:8px"><div><div style="font-size:.78rem;font-weight:700;color:#9aa0b8;margin-bottom:3px">S'+s.num+' &mdash; '+esc(s.date||'')+' <span style="color:#4f8aff;font-size:.66rem;text-transform:uppercase;letter-spacing:.06em">\u2022 s\u00e9ance active</span></div><div style="font-size:.92rem;font-weight:600;color:#e4e6ef;margin-bottom:6px">'+esc(s.objectif||'')+'</div>'+(_aflpChips?'<div style="display:flex;gap:4px;flex-wrap:wrap">'+_aflpChips+'</div>':'')+'</div><span class="chip c-gr" id="ap-head-chip"></span></div>';
+  if(s.bilan)h+='<div style="margin-top:6px;font-size:.78rem;color:#9aa0b8;border-top:1px solid #1e2438;padding-top:6px">'+esc(s.bilan)+'</div>';
   h+='</div>';
   return h;
 }
 
-function appelBuildModeEval(sid,sorted){
-  var active=_appelCriterias.filter(function(c){return c.on;});
+function appelSetActive(sid){
+  _appelCurrentSid=sid;
+  initAppelMeteo(sid);
+  var s=null;
+  for(var i=0;i<state.seances.length;i++){if(state.seances[i].id===sid){s=state.seances[i];break;}}
+  if(!s)return;
+  if(!state.presences[sid])state.presences[sid]={};
+  var hd=ge('ap-head-card');if(hd)hd.innerHTML=appelHeadCardHTML(s);
+  document.querySelectorAll('.apx-th').forEach(function(th){th.classList.toggle('cur',th.dataset.sid===sid);});
+  document.querySelectorAll('.apx-table td[data-col]').forEach(function(td){td.classList.toggle('curcol',td.dataset.col===sid);});
+  var tl=ge('apx-tous-lbl');if(tl)tl.textContent='S'+s.num;
+  var gl=ge('apx-grp-lbl');if(gl)gl.textContent='S'+s.num;
+  appelRefreshTotals();
+}
+
+function appelGridHTML(){
+  var seances=appelSeancesSorted();
+  var eleves=appelElevesSorted();
+  var crit=appelActiveCrit();
   var h='';
-  // Config critères
-  h+='<div style="background:#13161f;border-radius:10px;padding:10px;margin-bottom:10px">';
-  h+='<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">';
-  h+='<div style="font-size:.75rem;font-weight:600;color:#636366;text-transform:uppercase;letter-spacing:.05em">Critères</div>';
-  h+='<button class="appel-edit-crit-btn" style="font-size:.72rem;background:rgba(79,138,255,.12);border:0.5px solid rgba(79,138,255,.3);border-radius:6px;padding:3px 10px;color:#4f8aff;cursor:pointer">✏️ Modifier</button>';
+  // Barre outils
+  h+='<div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;padding:2px">';
+  if(_appelMode==='appel'){
+    h+='<button class="appel-tous-btn" style="background:rgba(86,207,178,.12);border:0.5px solid rgba(86,207,178,.25);border-radius:8px;padding:7px 13px;color:#56cfb2;font-size:.76rem;font-weight:600;cursor:pointer">\u2713 Tous pr\u00e9sents <span id="apx-tous-lbl"></span></button>';
+    h+='<button class="appel-reset-btn" style="background:rgba(255,255,255,.05);border:0.5px solid rgba(255,255,255,.1);border-radius:8px;padding:7px 13px;color:#9aa0b8;font-size:.76rem;font-weight:600;cursor:pointer">\u21ba R\u00e9initialiser</button>';
+  }
   h+='</div>';
-  h+='<div id="appel-crit-edit" style="display:none;margin-bottom:8px"></div>';
-  h+='<div style="display:flex;gap:6px;flex-wrap:wrap" id="appel-crit-chips">';
-  active.forEach(function(c){h+='<span style="background:rgba(79,138,255,.12);color:#4f8aff;padding:3px 10px;border-radius:20px;font-size:.72rem;font-weight:600">'+esc(c.label)+'</span>';});
-  if(!active.length)h+='<span style="color:#636366;font-size:.75rem">Aucun critère actif</span>';
-  h+='</div></div>';
-  // Tableau élèves
-  if(active.length){
-    h+='<div style="background:#13161f;border-radius:10px;overflow:hidden">';
-    h+='<div style="display:flex;padding:7px 10px;border-bottom:0.5px solid rgba(255,255,255,.06)">';
-    h+='<div style="width:130px;flex-shrink:0;font-size:.7rem;color:#636366;text-transform:uppercase;letter-spacing:.05em">Élève</div>';
-    active.forEach(function(c){h+='<div style="flex:1;font-size:.7rem;color:#636366;text-transform:uppercase;letter-spacing:.05em;text-align:center">'+esc(c.label)+'</div>';});
+  // Mode auto-eval : chips criteres + config
+  if(_appelMode==='eval'){
+    var active=_appelCriterias.filter(function(c){return c.on;});
+    h+='<div style="background:#13161f;border-radius:10px;padding:10px;margin:6px 0 2px">';
+    h+='<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">';
+    h+='<div style="font-size:.72rem;font-weight:600;color:#636366;text-transform:uppercase;letter-spacing:.05em">Crit\u00e8re affich\u00e9</div>';
+    h+='<button class="appel-edit-crit-btn" style="font-size:.72rem;background:rgba(79,138,255,.12);border:0.5px solid rgba(79,138,255,.3);border-radius:6px;padding:3px 10px;color:#4f8aff;cursor:pointer">\u270f\ufe0f Modifier</button>';
     h+='</div>';
-    sorted.forEach(function(e){
-      var pres=state.presences[sid][e.id]||'';
-      var ae=state.autoEval[sid][e.id]||{};
-      var dis=pres==='Absent'||pres==='Dispense';
-      h+='<div style="display:flex;align-items:center;padding:8px 10px;border-bottom:0.5px solid rgba(255,255,255,.04);'+(dis?'opacity:.35':'')+'">';
-      h+='<div style="width:130px;flex-shrink:0;font-size:.82rem;font-weight:500;color:#e4e6ef;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">'+esc(e.nom)+'</div>';
-      active.forEach(function(c){
-        var val=parseInt(ae[c.id])||0;
-        var cols={1:'#ff6b6b',2:'#ffd166',3:'#4f8aff',4:'#56cfb2'};
-        var txts={1:'#fff',2:'#0d1018',3:'#fff',4:'#0d1018'};
-        h+='<div style="flex:1;display:flex;gap:2px;justify-content:center">';
-        [1,2,3,4].forEach(function(v){
-          var sel=val===v;
-          h+='<button class="ae-nb" data-eid="'+e.id+'" data-cid="'+c.id+'" data-v="'+v+'" '+(dis?'disabled':'')+' style="width:26px;height:26px;border-radius:5px;border:none;font-size:11px;font-weight:700;cursor:'+(dis?'default':'pointer')+';background:'+(sel?cols[v]:'rgba(255,255,255,.06)')+';color:'+(sel?txts[v]:'#636366')+'">'+v+'</button>';
-        });
-        h+='</div>';
-      });
-      h+='</div>';
+    h+='<div id="appel-crit-edit" style="display:none;margin-bottom:8px"></div>';
+    h+='<div style="display:flex;gap:6px;flex-wrap:wrap" id="appel-crit-chips">';
+    if(active.length){
+      active.forEach(function(c){h+='<span class="ae-chip'+(crit&&crit.id===c.id?' on':'')+'" data-cid="'+c.id+'">'+esc(c.label)+'</span>';});
+    } else h+='<span style="color:#636366;font-size:.75rem">Aucun crit\u00e8re actif</span>';
+    h+='</div></div>';
+  }
+  // Hint
+  h+='<div style="font-size:.64rem;color:#6b7280;padding:6px 2px 0">'+(_appelMode==='appel'
+    ?'Touchez une case : <span style="color:#56cfb2">\u2713</span> \u2192 <span style="color:#ff6b6b">\u2717</span> \u2192 <span style="color:#6393ff">\ud83e\ude7a</span> \u2192 <span style="color:#ff9f0a">\ud83d\udc55</span> \u2192 vide. Touchez un en-t\u00eate S1, S2... pour changer de s\u00e9ance active.'
+    :'Touchez une case pour noter de 1 \u00e0 4 (1 \u2192 2 \u2192 3 \u2192 4 \u2192 vide). Cases gris\u00e9es : \u00e9l\u00e8ve absent ou dispens\u00e9.')+'</div>';
+  // Tableau
+  if(!seances.length||!eleves.length){
+    h+='<div class="empty" style="margin-top:1rem">'+(!seances.length?'Aucune seance.':'Aucun eleve.')+'</div>';
+    return h;
+  }
+  h+='<div class="apx-wrap"><table class="apx-table"><thead><tr><th>\u00c9l\u00e8ve</th>';
+  seances.forEach(function(s){
+    h+='<th class="apx-th'+(s.id===_appelCurrentSid?' cur':'')+'" data-sid="'+s.id+'" title="'+esc(s.objectif||'')+'">S'+s.num+'<span class="sd">'+(s.date?fmtDate(s.date):'\u2014')+'</span></th>';
+  });
+  h+='<th>'+(_appelMode==='appel'?'% pr\u00e9s.':'Moy.')+'</th></tr></thead><tbody>';
+  eleves.forEach(function(e){
+    h+='<tr><th>'+esc(e.nom)+(e.amenagement?'<span class="am" title="'+esc(e.amenagement)+'">!</span>':'')+'</th>';
+    seances.forEach(function(s){
+      var dis=false;
+      if(_appelMode==='eval'){
+        var p=(state.presences[s.id]||{})[e.id]||'';
+        dis=(p==='Absent'||p==='Dispense');
+      }
+      h+='<td data-col="'+s.id+'"'+(s.id===_appelCurrentSid?' class="curcol"':'')+'><button class="apx-cell'+(dis?' dis':'')+'" data-sid="'+s.id+'" data-eid="'+e.id+'">\u00b7</button></td>';
     });
-    h+='</div>';
-    h+='<div style="display:flex;gap:10px;padding:8px 4px;flex-wrap:wrap">';
-    [{c:'#ff6b6b',l:'1 — Insuffisant'},{c:'#ffd166',l:'2 — Fragile'},{c:'#4f8aff',l:'3 — Satisfaisant'},{c:'#56cfb2',l:'4 — Très bien'}].forEach(function(x){
-      h+='<div style="display:flex;align-items:center;gap:4px;font-size:.72rem;color:#636366"><div style="width:8px;height:8px;border-radius:2px;background:'+x.c+'"></div>'+x.l+'</div>';
-    });
-    h+='</div>';
+    h+='<td class="pc" id="apx-pc-'+e.id+'">\u2014</td></tr>';
+  });
+  h+='</tbody><tfoot><tr><td>'+(_appelMode==='appel'?'Pr\u00e9sents':'Moy. s\u00e9ance')+'</td>';
+  seances.forEach(function(s){h+='<td id="apx-ft-'+s.id+'">\u2014</td>';});
+  h+='<td></td></tr></tfoot></table></div>';
+  // Legende
+  if(_appelMode==='appel'){
+    h+='<div class="apx-legend">'
+      +'<span style="display:inline-flex;align-items:center;gap:5px"><span class="sq" style="background:#56cfb2;color:#0d1018">\u2713</span> Pr\u00e9sent</span>'
+      +'<span style="display:inline-flex;align-items:center;gap:5px"><span class="sq" style="background:#ff6b6b;color:#fff">\u2717</span> Absent</span>'
+      +'<span style="display:inline-flex;align-items:center;gap:5px"><span class="sq" style="background:#6393ff;color:#fff">\ud83e\ude7a</span> Dispens\u00e9</span>'
+      +'<span style="display:inline-flex;align-items:center;gap:5px"><span class="sq" style="background:#ff9f0a;color:#0d1018">\ud83d\udc55</span> Pas tenue</span>'
+      +'</div>';
+  } else {
+    h+='<div class="apx-legend">'
+      +'<span style="display:inline-flex;align-items:center;gap:5px"><span class="sq" style="background:#ff6b6b;color:#fff">1</span> Insuffisant</span>'
+      +'<span style="display:inline-flex;align-items:center;gap:5px"><span class="sq" style="background:#ffd166;color:#0d1018">2</span> Fragile</span>'
+      +'<span style="display:inline-flex;align-items:center;gap:5px"><span class="sq" style="background:#4f8aff;color:#fff">3</span> Satisfaisant</span>'
+      +'<span style="display:inline-flex;align-items:center;gap:5px"><span class="sq" style="background:#56cfb2;color:#0d1018">4</span> Tr\u00e8s bien</span>'
+      +'</div>';
   }
   return h;
-}
-
-function appelRenderCritConfig(){
-  var el=ge('appel-crit-edit');if(!el)return;
-  el.innerHTML='';
-  _appelCriterias.forEach(function(c,i){
-    var row=document.createElement('div');
-    row.style.cssText='display:flex;align-items:center;gap:6px;margin-bottom:5px';
-    var tog=document.createElement('button');
-    tog.style.cssText='width:24px;height:24px;border-radius:5px;border:none;cursor:pointer;font-size:12px;'+(c.on?'background:rgba(79,138,255,.2);color:#4f8aff':'background:rgba(255,255,255,.06);color:#636366');
-    tog.textContent=c.on?'✓':'○';
-    tog.addEventListener('click',function(){_appelCriterias[i].on=!_appelCriterias[i].on;appelRenderCritConfig();if(_appelCurrentSid)showAppel(_appelCurrentSid);});
-    var inp=document.createElement('input');
-    inp.value=c.label;
-    inp.style.cssText='flex:1;background:#0d1018;border:0.5px solid rgba(255,255,255,.1);border-radius:6px;padding:4px 8px;color:#e4e6ef;font-size:.8rem;outline:none';
-    inp.addEventListener('change',function(){_appelCriterias[i].label=this.value;if(_appelCurrentSid)showAppel(_appelCurrentSid);});
-    var del=document.createElement('button');
-    del.style.cssText='background:none;border:none;color:#636366;cursor:pointer;font-size:13px;padding:2px 4px';
-    del.textContent='✕';
-    del.addEventListener('click',function(){_appelCriterias.splice(i,1);if(_appelCurrentSid)showAppel(_appelCurrentSid);});
-    row.appendChild(tog);row.appendChild(inp);row.appendChild(del);
-    el.appendChild(row);
-  });
-  var addBtn=document.createElement('button');
-  addBtn.style.cssText='display:flex;align-items:center;gap:5px;background:transparent;border:1px dashed rgba(255,255,255,.12);border-radius:7px;padding:5px 10px;color:#636366;font-size:.78rem;cursor:pointer;width:100%;justify-content:center;margin-top:4px';
-  addBtn.textContent='+ Ajouter un critère';
-  addBtn.addEventListener('click',function(){_appelCriterias.push({id:'c'+(_appelCritCount++),label:'Nouveau critère',on:true});appelRenderCritConfig();if(_appelCurrentSid)showAppel(_appelCurrentSid);});
-  el.appendChild(addBtn);
 }
 
 function showAppel(sid){
@@ -5505,48 +5574,45 @@ function showAppel(sid){
   if(!state.presences[sid])state.presences[sid]={};
   if(!state.autoEval[sid])state.autoEval[sid]={};
   if(!state.seanceObjectifs[sid])state.seanceObjectifs[sid]={};
-  var sorted=state.eleves.slice().sort(function(a,b){return a.nom.localeCompare(b.nom);});
 
-  // Header séance
-  var objData=state.seanceObjectifs[sid];
-  var _aflpChips='';
-  if(s.aflpTravailles&&s.aflpTravailles.length)s.aflpTravailles.forEach(function(a){_aflpChips+='<span class="chip c-bl">'+a+'</span>';});
-  var nbPres=Object.values(state.presences[sid]).filter(function(p){return p==='Present'||p==='Pas tenue';}).length;
-  var h='<div class="card" style="margin-bottom:.75rem;padding:.9rem 1.1rem"><div style="display:flex;align-items:flex-start;justify-content:space-between;gap:8px"><div><div style="font-size:.78rem;font-weight:700;color:#9aa0b8;margin-bottom:3px">S'+s.num+' &mdash; '+esc(s.date)+'</div><div style="font-size:.92rem;font-weight:600;color:#e4e6ef;margin-bottom:6px">'+esc(s.objectif)+'</div>'+(_aflpChips?'<div style="display:flex;gap:4px;flex-wrap:wrap">'+_aflpChips+'</div>':'' )+'</div><span class="chip c-gr" id="ap-head-chip">'+nbPres+'/'+state.eleves.length+'</span></div>';
-  if(s.bilan)h+='<div style="margin-top:6px;font-size:.78rem;color:#9aa0b8;border-top:1px solid #1e2438;padding-top:6px">'+esc(s.bilan)+'</div>';
-  h+='</div>';
-
-  // Contenu selon mode
-  if(_appelMode==='appel'){
-    h+=appelBuildModeAppel(sid,sorted);
-  } else {
-    h+=appelBuildModeEval(sid,sorted);
-  }
+  var h='<div id="ap-head-card">'+appelHeadCardHTML(s)+'</div>';
+  h+=appelGridHTML();
 
   var ap=ge('ap-content');ap.innerHTML=h;
 
-  // Bouton Groupes dans ph
+  // Peindre toutes les cases + totaux
+  var seances=appelSeancesSorted();
+  var eleves=appelElevesSorted();
+  for(var si=0;si<seances.length;si++)for(var ei=0;ei<eleves.length;ei++)appelPaintCell(seances[si].id,eleves[ei].id);
+  appelRefreshTotals();
+  var tl=ge('apx-tous-lbl');if(tl)tl.textContent='S'+s.num;
+
+  // Bouton Groupes dans ph (agit sur la seance active au moment du clic)
   var gpZone=ge('ap-ph-groupes');
-  if(gpZone){
-    gpZone.innerHTML='';
+  if(gpZone&&!gpZone._built){
+    gpZone._built=true;
     var gpBtn=document.createElement('button');
-    gpBtn.className='btn btn-g';gpBtn.innerHTML='🎲 Groupes';gpBtn.style.fontSize='.75rem';
-    gpBtn.addEventListener('click',function(){openGroupes(sid);});
+    gpBtn.className='btn btn-g';gpBtn.style.fontSize='.75rem';
+    gpBtn.innerHTML='\ud83c\udfb2 Groupes <span id="apx-grp-lbl"></span>';
+    gpBtn.addEventListener('click',function(){if(_appelCurrentSid)openGroupes(_appelCurrentSid);});
     gpZone.appendChild(gpBtn);
   }
+  var gl=ge('apx-grp-lbl');if(gl)gl.textContent='S'+s.num;
 
-  // Event delegation unique sur ap-content
+  // Delegation unique sur ap-content
   if(!ap._appelListened){
     ap._appelListened=true;
     ap.addEventListener('click',function(e){
-      var btn=e.target.closest('.appel-stat-btn');
-      if(btn){appelToggleStatut(btn.dataset.sid,btn.dataset.eid,btn.dataset.st);return;}
+      var c=e.target.closest('.apx-cell');
+      if(c){appelCycleCell(c.dataset.sid,c.dataset.eid);return;}
+      var th=e.target.closest('.apx-th');
+      if(th){appelSetActive(th.dataset.sid);return;}
       var tb=e.target.closest('.appel-tous-btn');
-      if(tb){appelTousPresents(tb.dataset.sid);return;}
+      if(tb){appelTousPresents();return;}
       var rb=e.target.closest('.appel-reset-btn');
-      if(rb){appelReset(rb.dataset.sid);return;}
-      var eb=e.target.closest('.ae-nb');
-      if(eb&&!eb.disabled){appelSetNote(sid,eb.dataset.eid,eb.dataset.cid,parseInt(eb.dataset.v));return;}
+      if(rb){appelReset();return;}
+      var chip=e.target.closest('.ae-chip');
+      if(chip){_appelCurCrit=chip.dataset.cid;showAppel(_appelCurrentSid);return;}
       var edit=e.target.closest('.appel-edit-crit-btn');
       if(edit){
         var editDiv=ge('appel-crit-edit');
@@ -5566,15 +5632,34 @@ function showAppel(sid){
       else if(f==='obj2'){if(!state.seanceObjectifs[s2])state.seanceObjectifs[s2]={};state.seanceObjectifs[s2].obj2=el.value;save();}
     });
   }
+}
 
-  // Listeners obj1/obj2
-  var o1=ge('obj1-inp');if(o1){o1.dataset.sid=sid;o1.dataset.f='obj1';}
-  var o2=ge('obj2-inp');if(o2){o2.dataset.sid=sid;o2.dataset.f='obj2';}
-
-  // Mettre à jour compteur séance
-  var nbP2=Object.values(state.presences[sid]).filter(function(p){return p==='Present'||p==='Pas tenue';}).length;
-  var cntEl=ge('ap-pres-count-'+sid);if(cntEl)cntEl.textContent=nbP2+'/'+state.eleves.length;
-  var headChip=ge('ap-head-chip');if(headChip)headChip.textContent=nbP2+'/'+state.eleves.length;
+function appelRenderCritConfig(){
+  var el=ge('appel-crit-edit');if(!el)return;
+  el.innerHTML='';
+  _appelCriterias.forEach(function(c,i){
+    var row=document.createElement('div');
+    row.style.cssText='display:flex;align-items:center;gap:6px;margin-bottom:5px';
+    var tog=document.createElement('button');
+    tog.style.cssText='width:24px;height:24px;border-radius:5px;border:none;cursor:pointer;font-size:12px;'+(c.on?'background:rgba(79,138,255,.2);color:#4f8aff':'background:rgba(255,255,255,.06);color:#636366');
+    tog.textContent=c.on?'\u2713':'\u25cb';
+    tog.addEventListener('click',function(){_appelCriterias[i].on=!_appelCriterias[i].on;appelRenderCritConfig();if(_appelCurrentSid)showAppel(_appelCurrentSid);});
+    var inp=document.createElement('input');
+    inp.value=c.label;
+    inp.style.cssText='flex:1;background:#0d1018;border:0.5px solid rgba(255,255,255,.1);border-radius:6px;padding:4px 8px;color:#e4e6ef;font-size:.8rem;outline:none';
+    inp.addEventListener('change',function(){_appelCriterias[i].label=this.value;if(_appelCurrentSid)showAppel(_appelCurrentSid);});
+    var del=document.createElement('button');
+    del.style.cssText='background:none;border:none;color:#636366;cursor:pointer;font-size:13px;padding:2px 4px';
+    del.textContent='\u2715';
+    del.addEventListener('click',function(){_appelCriterias.splice(i,1);if(_appelCurrentSid)showAppel(_appelCurrentSid);});
+    row.appendChild(tog);row.appendChild(inp);row.appendChild(del);
+    el.appendChild(row);
+  });
+  var addBtn=document.createElement('button');
+  addBtn.style.cssText='display:flex;align-items:center;gap:5px;background:transparent;border:1px dashed rgba(255,255,255,.12);border-radius:7px;padding:5px 10px;color:#636366;font-size:.78rem;cursor:pointer;width:100%;justify-content:center;margin-top:4px';
+  addBtn.textContent='+ Ajouter un crit\u00e8re';
+  addBtn.addEventListener('click',function(){_appelCriterias.push({id:'c'+(_appelCritCount++),label:'Nouveau crit\u00e8re',on:true});appelRenderCritConfig();if(_appelCurrentSid)showAppel(_appelCurrentSid);});
+  el.appendChild(addBtn);
 }
 
 function ndsp(n){var p=n/20;return'<span class="nd '+(p>=.7?'nh':p>=.5?'nm':'nl')+'">'+n+'/20</span>';}
