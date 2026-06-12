@@ -5466,13 +5466,9 @@ function appelReset(){
 }
 
 function appelHeadCardHTML(s){
-  var objData=state.seanceObjectifs[s.id]||{};
-  var _aflpChips='';
-  if(s.aflpTravailles&&s.aflpTravailles.length)s.aflpTravailles.forEach(function(a){_aflpChips+='<span class="chip c-bl">'+a+'</span>';});
-  var h='<div class="card" style="margin-bottom:.6rem;padding:.9rem 1.1rem"><div style="display:flex;align-items:flex-start;justify-content:space-between;gap:8px"><div><div style="font-size:.78rem;font-weight:700;color:#9aa0b8;margin-bottom:3px">S'+s.num+' &mdash; '+esc(s.date||'')+' <span style="color:#4f8aff;font-size:.66rem;text-transform:uppercase;letter-spacing:.06em">\u2022 s\u00e9ance active</span></div><div style="font-size:.92rem;font-weight:600;color:#e4e6ef;margin-bottom:6px">'+esc(s.objectif||'')+'</div>'+(_aflpChips?'<div style="display:flex;gap:4px;flex-wrap:wrap">'+_aflpChips+'</div>':'')+'</div><span class="chip c-gr" id="ap-head-chip"></span></div>';
-  if(s.bilan)h+='<div style="margin-top:6px;font-size:.78rem;color:#9aa0b8;border-top:1px solid #1e2438;padding-top:6px">'+esc(s.bilan)+'</div>';
-  h+='</div>';
-  return h;
+  return '<div class="card" style="margin-bottom:.6rem;padding:.65rem 1.1rem;display:flex;align-items:center;justify-content:space-between;gap:8px">'
+    +'<div style="font-size:.85rem;font-weight:700;color:#e4e6ef">S'+s.num+' &mdash; '+esc(s.date||'')+' <span style="color:#4f8aff;font-size:.64rem;text-transform:uppercase;letter-spacing:.06em;font-weight:600">\u2022 s\u00e9ance active</span></div>'
+    +'<span class="chip c-gr" id="ap-head-chip"></span></div>';
 }
 
 function appelSetActive(sid){
