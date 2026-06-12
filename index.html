@@ -885,10 +885,15 @@ window._fbReady = true;
       <div class="plan-col"><div class="plan-head" id="plan-h4">Vendredi</div><div class="plan-zone" id="plan-4"></div></div>
     </div>
     <div id="acc-sq-grid" style="display:none"></div>
-    <div style="padding:0 0 1.5rem;display:flex;gap:10px;flex-wrap:wrap">
+    <div style="padding:0 0 1.5rem;display:flex;gap:10px;flex-wrap:wrap;justify-content:space-between">
       <div class="plan-add" id="btn-planning-new" onclick="nsOpenModal()" style="max-width:180px">
         <div style="font-size:28px;color:#4f8aff;line-height:1">+</div>
         <div style="font-size:12px;color:#9aa0b8;text-align:center;font-weight:500">Nouvelle s&#233;quence</div>
+      </div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap">
+      <div class="plan-add" id="btn-new-year" onclick="openNewYearModal()" style="max-width:180px;border-color:rgba(255,107,107,.3);background:rgba(255,107,107,.04)">
+        <div style="font-size:28px;line-height:1">&#127891;</div>
+        <div style="font-size:12px;color:#ff6b6b;text-align:center;font-weight:500">Nouvelle ann&#233;e<br>scolaire</div>
       </div>
       <div class="plan-add" id="btn-archive-open" onclick="openArchiveModal()" style="max-width:180px;border-color:rgba(251,146,60,.3);background:rgba(251,146,60,.04)"
         ondragover="event.preventDefault();this.style.borderColor='#fb923c';this.style.background='rgba(251,146,60,.12)'"
@@ -897,6 +902,30 @@ window._fbReady = true;
         <div style="font-size:28px;line-height:1">&#128230;</div>
         <div style="font-size:12px;color:#fb923c;text-align:center;font-weight:500">Anciennes<br>s&#233;quences</div>
         <div id="arch-count" style="font-size:10px;color:#9aa0b8;background:#1c1f2c;padding:1px 8px;border-radius:20px;display:none">0</div>
+      </div>
+      </div>
+    </div>
+    <!-- Modale nouvelle annee scolaire -->
+    <div id="m-new-year" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:9999;align-items:center;justify-content:center;padding:16px">
+      <div style="background:#13161f;border:0.5px solid rgba(255,107,107,.35);border-radius:16px;width:100%;max-width:520px;overflow:hidden">
+        <div style="background:#0f1118;padding:12px 16px;border-bottom:0.5px solid #2a2f42;display:flex;align-items:center;gap:8px">
+          <div style="font-size:18px">&#127891;</div>
+          <div style="font-size:14px;font-weight:600;color:#e4e6ef;flex:1">Nouvelle ann&#233;e scolaire</div>
+          <div onclick="closeNewYearModal()" style="width:26px;height:26px;border-radius:50%;background:#1c1f2c;border:0.5px solid #2a2f42;color:#9aa0b8;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:12px">&#10005;</div>
+        </div>
+        <div style="padding:16px;max-height:70vh;overflow-y:auto">
+          <div style="background:rgba(255,107,107,.08);border:1px solid rgba(255,107,107,.25);border-radius:10px;padding:10px 12px;font-size:.78rem;color:#ff9d9d;line-height:1.6;margin-bottom:12px">
+            <strong style="color:#ff6b6b">&#9888;&#65039; Action irr&#233;versible.</strong> Seront supprim&#233;s :
+            toutes les s&#233;quences (planning et donn&#233;es), les archives, les classes et listes d'&#233;l&#232;ves, les photos de trombinoscope (Firebase), et les fichiers <code>data/eps-*.json</code> sur GitHub.
+          </div>
+          <div style="background:rgba(86,207,178,.08);border:1px solid rgba(86,207,178,.2);border-radius:10px;padding:10px 12px;font-size:.78rem;color:#9fe8d6;line-height:1.6;margin-bottom:14px">
+            <strong style="color:#56cfb2">&#10003; Conserv&#233;s :</strong> la biblioth&#232;que de situations et la configuration GitHub.
+          </div>
+          <div style="font-size:.78rem;color:#9aa0b8;margin-bottom:6px">Pour confirmer, tapez <strong style="color:#ff6b6b;font-family:monospace">NOUVELLE ANNEE</strong> :</div>
+          <input id="ny-confirm-input" autocomplete="off" style="width:100%;background:#0d1018;border:1px solid rgba(255,107,107,.3);border-radius:8px;padding:10px 12px;color:#e4e6ef;font-size:.9rem;font-family:monospace;outline:none;margin-bottom:12px" placeholder="NOUVELLE ANNEE">
+          <button id="ny-go-btn" disabled style="width:100%;padding:11px;border-radius:9px;border:none;font-size:.85rem;font-weight:700;cursor:pointer;background:rgba(255,107,107,.15);color:#7a3a3a">&#128465;&#65039; Lancer la remise &#224; z&#233;ro</button>
+          <div id="ny-log" style="display:none;margin-top:12px;background:#0d1018;border:1px solid #252836;border-radius:8px;padding:10px 12px;font-family:'DM Mono',monospace;font-size:.68rem;color:#9aa0b8;line-height:1.8;max-height:180px;overflow-y:auto"></div>
+        </div>
       </div>
     </div>
     <!-- Modale archive -->
@@ -4924,6 +4953,99 @@ div.querySelector('.btn-bib-save-partie').addEventListener('click',function(){
 });
 div.querySelector('.partie-del').addEventListener('click',function(){var pid=this.dataset.pid,m=this.dataset.mode;if(m==='new'){for(var i=partiesNew.length-1;i>=0;i--){if(partiesNew[i].id===pid){partiesNew.splice(i,1);break;}}}else{for(var i=partiesEdit.length-1;i>=0;i--){if(partiesEdit[i].id===pid){partiesEdit.splice(i,1);break;}}}div.remove();renumParties(m==='new'?'parties-new':'parties-edit');});c.appendChild(div);}
 function archiveGet(){try{return JSON.parse(localStorage.getItem('eps-archive')||'[]');}catch(e){return[];}}
+// ══════════════════════════════════════════
+// NOUVELLE ANNEE SCOLAIRE
+// ══════════════════════════════════════════
+function openNewYearModal(){
+  var m=ge('m-new-year');if(!m)return;
+  m.style.display='flex';
+  var inp=ge('ny-confirm-input');var btn=ge('ny-go-btn');var log=ge('ny-log');
+  if(inp){inp.value='';inp.disabled=false;}
+  if(log){log.style.display='none';log.innerHTML='';}
+  if(btn){btn.disabled=true;btn.style.background='rgba(255,107,107,.15)';btn.style.color='#7a3a3a';btn.textContent='\ud83d\uddd1\ufe0f Lancer la remise \u00e0 z\u00e9ro';}
+  if(inp&&!inp._wired){
+    inp._wired=true;
+    inp.addEventListener('input',function(){
+      var ok=nyNorm(this.value)==='NOUVELLE ANNEE';
+      var b=ge('ny-go-btn');
+      b.disabled=!ok;
+      b.style.background=ok?'#ff6b6b':'rgba(255,107,107,.15)';
+      b.style.color=ok?'#fff':'#7a3a3a';
+    });
+    ge('ny-go-btn').addEventListener('click',newYearRun);
+  }
+}
+function closeNewYearModal(){var m=ge('m-new-year');if(m)m.style.display='none';}
+function nyNorm(s){try{return (s||'').toUpperCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/\s+/g,' ').trim();}catch(e){return (s||'').toUpperCase().trim();}}
+function nyLog(msg){var l=ge('ny-log');if(!l)return;l.style.display='block';l.innerHTML+=msg+'<br>';l.scrollTop=l.scrollHeight;}
+
+function newYearRun(){
+  var btn=ge('ny-go-btn');if(btn){btn.disabled=true;btn.textContent='\u23f3 Remise \u00e0 z\u00e9ro en cours...';}
+  var inp=ge('ny-confirm-input');if(inp)inp.disabled=true;
+  classesLoad();
+  var clsIds=[];
+  try{for(var i=0;i<CLASSES.length;i++)clsIds.push(CLASSES[i].id);}catch(e){}
+
+  // 1. Photos trombinoscope Firebase
+  var pFb=Promise.resolve();
+  if(window._fbReady&&window._fbRemove&&clsIds.length){
+    nyLog('\ud83d\udd25 Suppression des photos Firebase ('+clsIds.length+' classes)...');
+    var fbProms=clsIds.map(function(id){
+      return window._fbRemove(window._fbRef(window._fbDb,'trombi-cls-'+id)).catch(function(){});
+    });
+    pFb=Promise.all(fbProms).then(function(){nyLog('&nbsp;&nbsp;\u2713 Photos Firebase supprim\u00e9es');});
+  } else nyLog('\u2014 Firebase non disponible, photos ignor\u00e9es');
+
+  pFb.then(function(){
+    // 2. Fichiers GitHub data/eps-*.json
+    if(!GH.token||!GH.repo){nyLog('\u2014 GitHub non configur\u00e9, fichiers distants ignor\u00e9s');return Promise.resolve();}
+    nyLog('\ud83d\udcc2 Lecture du dossier data/ sur GitHub...');
+    return fetch('https://api.github.com/repos/'+GH.repo+'/contents/data',{headers:ghHeaders()})
+      .then(function(r){return r.ok?r.json():[];})
+      .catch(function(){return [];})
+      .then(function(files){
+        if(!Array.isArray(files))files=[];
+        var targets=files.filter(function(f){return f.type==='file'&&/^eps-.*\.json$/.test(f.name)&&f.name!=='eps-bibliotheque.json';});
+        nyLog('&nbsp;&nbsp;'+targets.length+' fichier(s) eps-*.json \u00e0 supprimer');
+        // Suppression sequentielle pour eviter les conflits de SHA
+        var chain=Promise.resolve();
+        targets.forEach(function(f){
+          chain=chain.then(function(){
+            return fetch('https://api.github.com/repos/'+GH.repo+'/contents/data/'+f.name,{
+              method:'DELETE',
+              headers:Object.assign({'Content-Type':'application/json'},ghHeaders()),
+              body:JSON.stringify({message:'Nouvelle annee scolaire - suppression '+f.name,sha:f.sha})
+            }).then(function(r){nyLog('&nbsp;&nbsp;'+(r.ok?'\u2713':'\u2717')+' '+f.name);}).catch(function(){nyLog('&nbsp;&nbsp;\u2717 '+f.name);});
+          });
+        });
+        // Vider classes.json, sessions.json, archive.json
+        chain=chain.then(function(){
+          nyLog('\ud83d\udce4 R\u00e9initialisation de classes.json, sessions.json, archive.json...');
+          ghPushFileSilent('data/classes.json',[]);
+          ghPushFileSilent('data/sessions.json',[]);
+          ghPushFileSilent('data/archive.json',[]);
+        });
+        return chain;
+      });
+  }).then(function(){
+    // 3. localStorage : tout eps-* sauf config GitHub, bibliotheque et notes
+    nyLog('\ud83e\uddf9 Nettoyage du stockage local...');
+    var keep=['eps-gh','eps-bibliotheque'];
+    var toDel=[];
+    for(var i=0;i<localStorage.length;i++){
+      var k=localStorage.key(i);
+      if(k&&k.indexOf('eps-')===0&&keep.indexOf(k)<0&&k.indexOf('eps-notes')!==0)toDel.push(k);
+    }
+    toDel.forEach(function(k){localStorage.removeItem(k);});
+    nyLog('&nbsp;&nbsp;\u2713 '+toDel.length+' cl\u00e9(s) locale(s) supprim\u00e9e(s)');
+    nyLog('<span style="color:#56cfb2;font-weight:700">\u2713 Nouvelle ann\u00e9e pr\u00eate. Rechargement...</span>');
+    setTimeout(function(){location.reload();},1600);
+  }).catch(function(e){
+    nyLog('<span style="color:#ff6b6b">\u2717 Erreur : '+esc(e&&e.message||'inconnue')+'</span>');
+    var b=ge('ny-go-btn');if(b){b.disabled=false;b.textContent='\ud83d\uddd1\ufe0f R\u00e9essayer';}
+  });
+}
+
 function archiveSave(arr){localStorage.setItem('eps-archive',JSON.stringify(arr));if(GH.token&&GH.repo)ghPushFileSilent('data/archive.json',arr);}
 function archiveUpdateCount(){var arr=archiveGet();var el=ge('arch-count');if(!el)return;if(arr.length>0){el.style.display='block';el.textContent=arr.length+' archivée'+(arr.length>1?'s':'');}else{el.style.display='none';}}
 function onDropArchive(e){
@@ -5427,6 +5549,30 @@ function appelRefreshTotals(){
   }
 }
 
+var APPEL_ROLES=['Juge','Chronom\u00e9treur','Coach','Observateur','Arbitre','Secr\u00e9taire'];
+function appelRenderRoles(){
+  var zone=ge('apx-roles');if(!zone)return;
+  if(_appelMode!=='appel'||!_appelCurrentSid){zone.innerHTML='';return;}
+  if(!state.rolesDispenses)state.rolesDispenses={};
+  var sid=_appelCurrentSid;
+  var eleves=appelElevesSorted();
+  var disp=[];
+  for(var i=0;i<eleves.length;i++){if(((state.presences[sid]||{})[eleves[i].id]||'')==='Dispense')disp.push(eleves[i]);}
+  if(!disp.length){zone.innerHTML='';return;}
+  var roles=state.rolesDispenses[sid]||{};
+  var h='<div class="card" style="margin-top:.75rem;padding:.8rem 1rem;border:1px solid rgba(99,147,255,.3)">';
+  h+='<div style="font-family:\'DM Mono\',monospace;font-size:.62rem;text-transform:uppercase;letter-spacing:.08em;color:#6393ff;margin-bottom:.6rem">\ud83e\ude7a R\u00f4les des dispens\u00e9s \u2014 s\u00e9ance active</div>';
+  disp.forEach(function(e){
+    h+='<div style="display:flex;align-items:center;gap:10px;margin-bottom:6px;flex-wrap:wrap"><div style="flex:1;min-width:120px;font-size:.8rem;font-weight:600;color:#e4e6ef">'+esc(e.nom)+'</div>';
+    h+='<select class="apx-role-sel" data-sid="'+sid+'" data-eid="'+e.id+'" data-f="role" style="background:#13161f;border:1px solid #2a2d3e;border-radius:7px;padding:6px 10px;color:#e4e6ef;font-size:.76rem">';
+    h+='<option value="">\u2014 Aucun r\u00f4le \u2014</option>';
+    APPEL_ROLES.forEach(function(r){h+='<option value="'+r+'"'+(roles[e.id]===r?' selected':'')+'>'+r+'</option>';});
+    h+='</select></div>';
+  });
+  h+='<div style="font-size:.62rem;color:#6b7280;margin-top:4px">Valorise les AFLP 5-6 et documente la participation des dispens\u00e9s.</div></div>';
+  zone.innerHTML=h;
+}
+
 function appelCycleCell(sid,eid){
   if(_appelMode==='appel'){
     if(!state.presences[sid])state.presences[sid]={};
@@ -5443,6 +5589,7 @@ function appelCycleCell(sid,eid){
   saveLater();
   appelPaintCell(sid,eid);
   appelRefreshTotals();
+  if(_appelMode==='appel'&&sid===_appelCurrentSid)appelRenderRoles();
 }
 
 function appelTousPresents(){
@@ -5452,6 +5599,7 @@ function appelTousPresents(){
   for(var i=0;i<eleves.length;i++){state.presences[sid][eleves[i].id]='Present';appelPaintCell(sid,eleves[i].id);}
   saveLater();
   appelRefreshTotals();
+  appelRenderRoles();
 }
 
 function appelReset(){
@@ -5463,6 +5611,7 @@ function appelReset(){
   for(var i=0;i<eleves.length;i++){state.presences[sid][eleves[i].id]='';appelPaintCell(sid,eleves[i].id);}
   saveLater();
   appelRefreshTotals();
+  appelRenderRoles();
 }
 
 function appelHeadCardHTML(s){
@@ -5486,6 +5635,7 @@ function appelSetActive(sid){
   var tl=ge('apx-tous-lbl');if(tl)tl.textContent='S'+s.num;
   var gl=ge('apx-grp-lbl');if(gl)gl.textContent='S'+s.num;
   appelRefreshTotals();
+  appelRenderRoles();
 }
 
 function appelGridHTML(){
@@ -5544,6 +5694,7 @@ function appelGridHTML(){
   h+='</tbody><tfoot><tr><td>'+(_appelMode==='appel'?'Pr\u00e9sents':'Moy. s\u00e9ance')+'</td>';
   seances.forEach(function(s){h+='<td id="apx-ft-'+s.id+'">\u2014</td>';});
   h+='<td></td></tr></tfoot></table></div>';
+  if(_appelMode==='appel')h+='<div id="apx-roles"></div>';
   // Legende
   if(_appelMode==='appel'){
     h+='<div class="apx-legend">'
@@ -5583,6 +5734,7 @@ function showAppel(sid){
   var eleves=appelElevesSorted();
   for(var si=0;si<seances.length;si++)for(var ei=0;ei<eleves.length;ei++)appelPaintCell(seances[si].id,eleves[ei].id);
   appelRefreshTotals();
+  appelRenderRoles();
   var tl=ge('apx-tous-lbl');if(tl)tl.textContent='S'+s.num;
 
   // Bouton Groupes dans ph (agit sur la seance active au moment du clic)
@@ -5628,6 +5780,7 @@ function showAppel(sid){
       var s2=el.dataset.sid,eid=el.dataset.eid,f=el.dataset.f;
       if(f==='obj1'){if(!state.seanceObjectifs[s2])state.seanceObjectifs[s2]={};state.seanceObjectifs[s2].obj1=el.value;save();renderSeances();}
       else if(f==='obj2'){if(!state.seanceObjectifs[s2])state.seanceObjectifs[s2]={};state.seanceObjectifs[s2].obj2=el.value;save();}
+      else if(f==='role'){if(!state.rolesDispenses)state.rolesDispenses={};if(!state.rolesDispenses[s2])state.rolesDispenses[s2]={};state.rolesDispenses[s2][eid]=el.value;saveLater();}
     });
   }
 }
@@ -6595,7 +6748,7 @@ function conseilRenderEleve(){
   var opts='<option value="">\u2014 Aucune mention \u2014</option>';
   for(var m=0;m<CONSEIL_MENTIONS.length;m++){opts+='<option value="'+CONSEIL_MENTIONS[m]+'"'+(cd.mention===CONSEIL_MENTIONS[m]?' selected':'')+'>'+CONSEIL_MENTIONS[m]+'</option>';}
   html+='<div class="fg" style="margin-top:1.1rem">';
-  html+='<div class="fgrp full"><label>Appr\u00e9ciation g\u00e9n\u00e9rale du conseil</label><textarea id="conseil-e-appr" style="min-height:70px" placeholder="Appr\u00e9ciation pour le bulletin...">'+esc(cd.appr||'')+'</textarea></div>';
+  html+='<div class="fgrp full"><div style="display:flex;align-items:center;justify-content:space-between;gap:8px"><label>Appr\u00e9ciation g\u00e9n\u00e9rale du conseil</label><button id="conseil-e-draft" style="background:rgba(167,139,250,.12);border:1px solid rgba(167,139,250,.3);border-radius:7px;padding:4px 11px;color:#a78bfa;font-size:.7rem;font-weight:600;cursor:pointer">\u2728 Pr\u00e9-remplir</button></div><textarea id="conseil-e-appr" style="min-height:70px" placeholder="Appr\u00e9ciation pour le bulletin...">'+esc(cd.appr||'')+'</textarea></div>';
   html+='<div class="fgrp full"><label>Mention obtenue</label><select id="conseil-e-mention" style="background:#13161f;border:1px solid #2a2d3e;border-radius:8px;padding:9px 10px;color:#e4e6ef;font-size:.85rem">'+opts+'</select></div>';
   html+='</div></div>';
   var zone=ge('conseil-eleve-zone');
@@ -6606,6 +6759,64 @@ function conseilRenderEleve(){
   if(ta)ta.addEventListener('change',function(){conseilEnsure();if(!state.conseil.eleves[eid])state.conseil.eleves[eid]={};state.conseil.eleves[eid].appr=this.value;save();});
   var sel=ge('conseil-e-mention');
   if(sel)sel.addEventListener('change',function(){conseilEnsure();if(!state.conseil.eleves[eid])state.conseil.eleves[eid]={};state.conseil.eleves[eid].mention=this.value;save();});
+  var db=ge('conseil-e-draft');
+  if(db)db.addEventListener('click',function(){
+    var ta2=ge('conseil-e-appr');if(!ta2)return;
+    if(ta2.value.trim()&&!confirm('Remplacer l\u0027appr\u00e9ciation existante ?'))return;
+    var draft=conseilDraftAppr(st);
+    ta2.value=draft;
+    conseilEnsure();if(!state.conseil.eleves[eid])state.conseil.eleves[eid]={};
+    state.conseil.eleves[eid].appr=draft;save();
+  });
+}
+function conseilProgression(curves){
+  if(!curves||!curves.length)return null;
+  var sum=0,n=0;
+  for(var c=0;c<curves.length;c++){
+    var pts=[];
+    for(var p=0;p<curves[c].points.length;p++)if(curves[c].points[p].val!==null)pts.push(curves[c].points[p].val);
+    if(pts.length>=2){sum+=pts[pts.length-1]-pts[0];n++;}
+  }
+  return n?sum/n:null;
+}
+function conseilDraftAppr(st){
+  var parts=[];
+  if(st.moy!==null){
+    if(st.moy>=14)parts.push('Tr\u00e8s bon trimestre');
+    else if(st.moy>=10)parts.push('Trimestre satisfaisant');
+    else if(st.moy>=6)parts.push('R\u00e9sultats fragiles');
+    else parts.push('R\u00e9sultats insuffisants');
+  }
+  if(st.txPres!==null){
+    if(st.txPres>=90)parts.push('pr\u00e9sence assidue');
+    else if(st.txPres>=75)parts.push('pr\u00e9sence r\u00e9guli\u00e8re');
+    else if(st.txPres>=60)parts.push('pr\u00e9sence irr\u00e9guli\u00e8re');
+    else parts.push('absences trop nombreuses');
+  }
+  if(st.qte!==null){
+    if(st.qte>=8)parts.push('tr\u00e8s bon investissement en cours');
+    else if(st.qte>=6)parts.push('investissement s\u00e9rieux');
+    else if(st.qte>=4)parts.push('investissement \u00e0 renforcer');
+    else parts.push('investissement insuffisant');
+  }
+  var prog=conseilProgression(st.curves);
+  if(prog!==null){
+    if(prog>=0.5)parts.push('nette progression sur les comp\u00e9tences');
+    else if(prog>=0.15)parts.push('progression r\u00e9elle sur les comp\u00e9tences');
+    else if(prog>-0.15)parts.push('niveau stable sur les comp\u00e9tences');
+    else parts.push('acquis \u00e0 consolider');
+  }
+  var closing=((st.moy!==null&&st.moy>=10)||(st.moy===null&&st.qte!==null&&st.qte>=6))?'Poursuivre ainsi.':'Des efforts sont attendus au prochain trimestre.';
+  function assemble(arr){
+    if(!arr.length)return 'Donn\u00e9es insuffisantes sur la s\u00e9quence pour pr\u00e9-remplir une appr\u00e9ciation.';
+    var t=arr[0];
+    for(var i=1;i<arr.length;i++)t+=(i===1?' : ':', ')+arr[i];
+    return t+'. '+closing;
+  }
+  var txt=assemble(parts);
+  while(parts.length>2&&txt.length>200){parts.pop();txt=assemble(parts);}
+  if(txt.length>200)txt=txt.slice(0,197)+'...';
+  return txt;
 }
 function conseilNav(d){conseilIdx+=d;conseilRenderEleve();}
 function exportCSV(){
