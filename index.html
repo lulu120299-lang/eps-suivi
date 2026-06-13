@@ -311,8 +311,8 @@ html,body{overflow-x:hidden;max-width:100vw}body{font-family:var(--font-body)}
 .apx-table th,.apx-table td{border-bottom:1px solid var(--card3);border-right:1px solid var(--card3)}
 .apx-table thead th{position:sticky;top:0;background:var(--card);z-index:3;padding:8px 6px;font-size:.66rem;color:var(--mut);text-transform:uppercase;font-weight:600;text-align:center;min-width:46px;cursor:pointer;-webkit-tap-highlight-color:transparent}
 .apx-table thead th .sd{display:block;font-size:.56rem;color:var(--faint);font-weight:400;text-transform:none;margin-top:1px}
-.apx-table thead th.cur{background:color-mix(in srgb,var(--ac) 18%,transparent);color:var(--ac)}
-.apx-table thead th.cur .sd{color:var(--ac);opacity:.7}
+.apx-table thead th.cur{background:var(--ac);color:var(--bg)}
+.apx-table thead th.cur .sd{color:var(--bg);opacity:.8}
 .apx-table thead th:first-child{left:0;z-index:5;text-align:left;min-width:128px;padding-left:12px;cursor:default}
 .apx-table thead th:last-child{min-width:54px;cursor:default}
 .apx-table tbody th{position:sticky;left:0;background:var(--card2);z-index:2;text-align:left;padding:7px 8px 7px 12px;font-size:.74rem;font-weight:600;min-width:128px;max-width:155px}
@@ -874,9 +874,9 @@ window._fbReady = true;
       <div class="acc-meta" id="acc-date"></div>
       <div style="margin-top:10px;display:flex;gap:6px;align-items:center;justify-content:flex-end;flex-wrap:wrap">
         <button onclick="openSettingsModal()" title="R&#233;glages" style="width:30px;height:30px;border-radius:50%;border:0.5px solid color-mix(in srgb,var(--tx) 12%,transparent);background:color-mix(in srgb,var(--tx) 6%,transparent);color:var(--tx2);font-size:14px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex:0 0 auto">&#9881;&#65039;</button>
-        <div style="display:flex;align-items:center;gap:6px;background:color-mix(in srgb,var(--tx) 6%,transparent);border:0.5px solid color-mix(in srgb,var(--tx) 10%,transparent);border-radius:8px;padding:4px 10px">
-          <div style="width:7px;height:7px;border-radius:50%;background:var(--ok);box-shadow:0 0 5px #56cfb2aa" id="gh-dot"></div>
-          <div id="gh-status" style="font-size:.7rem;color:var(--tx2);max-width:140px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">Non synchronisé</div>
+        <div onclick="openSettingsModal()" title="Configurer GitHub" style="display:flex;align-items:center;gap:6px;background:color-mix(in srgb,var(--tx) 6%,transparent);border:0.5px solid color-mix(in srgb,var(--tx) 10%,transparent);border-radius:8px;padding:4px 10px;cursor:pointer">
+          <div style="width:7px;height:7px;border-radius:50%;background:var(--ok);box-shadow:0 0 5px color-mix(in srgb,var(--ok) 67%,transparent)" id="gh-dot"></div>
+          <div id="gh-status" style="font-size:.7rem;color:var(--tx2);max-width:160px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">Non synchronisé</div>
         </div>
         <button onclick="ghPull()" style="display:flex;align-items:center;gap:5px;font-size:.7rem;font-weight:600;background:color-mix(in srgb,var(--ok) 15%,transparent);border:0.5px solid color-mix(in srgb,var(--ok) 30%,transparent);border-radius:8px;padding:5px 12px;color:var(--ok);cursor:pointer;white-space:nowrap">
           <span style="font-size:13px">&#8645;</span> Sync
@@ -923,14 +923,13 @@ window._fbReady = true;
           <div onclick="closeSettingsModal()" style="width:26px;height:26px;border-radius:50%;background:var(--card3);border:0.5px solid var(--bd2);color:var(--tx2);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:12px">&#10005;</div>
         </div>
         <div style="padding:16px;overflow-y:auto">
-        <div style="font-family:var(--font-mono);font-size:.6rem;text-transform:uppercase;letter-spacing:.12em;color:var(--mut);margin-bottom:10px">&#65039; Configuration GitHub </div>
-        <input class="gh-input" type="password" id="gh-token" placeholder="Token GitHub (ghp_...)" style="width:240px;font-size:.65rem;padding:5px 8px" >
-        <input class="gh-input" type="text" id="gh-repo" placeholder="user/repo" style="width:240px;font-size:.65rem;padding:5px 8px" >
-        <div style="font-family:var(--font-mono);font-size:.6rem;text-transform:uppercase;letter-spacing:.12em;color:var(--mut);margin-bottom:10px"></div>
-        <button class="gh-btn" id="btn-gh-save" style="width:484px;padding:5px 10px;font-size:.7rem">Enregistrer la configuration</button>
-          <div style="font-family:var(--font-mono);font-size:.6rem;text-transform:uppercase;letter-spacing:.12em;color:var(--mut);margin-bottom:10px"></div>
-          <div id="sw-knob" style="position:absolute;top:3px;left:3px;width:20px;height:20px;border-radius:50%;background:var(--tx);transition:left .2s"></div>
-          <div style="font-family:var(--font-mono);font-size:.6rem;text-transform:uppercase;letter-spacing:.12em;color:var(--mut);margin-bottom:10px">&#127912; Apparence</div>
+          <div style="font-family:var(--font-mono);font-size:.6rem;text-transform:uppercase;letter-spacing:.12em;color:var(--mut);margin-bottom:8px;padding-top:6px;border-top:1px solid var(--bd)">&#9881;&#65039; Configuration GitHub</div>
+          <div style="display:flex;flex-direction:column;gap:8px">
+            <div><label style="font-size:.66rem;color:var(--mut);display:block;margin-bottom:3px">Token GitHub</label><input class="gh-input" type="password" id="gh-token" placeholder="ghp_..." autocomplete="off" style="width:100%;font-size:.78rem;padding:8px 10px"></div>
+            <div><label style="font-size:.66rem;color:var(--mut);display:block;margin-bottom:3px">D&#233;p&#244;t (user/repo)</label><input class="gh-input" type="text" id="gh-repo" placeholder="lulu120299-lang/eps-suivi" autocomplete="off" style="width:100%;font-size:.78rem;padding:8px 10px"></div>
+            <button class="gh-btn" id="btn-gh-save" style="padding:8px 10px;font-size:.78rem;width:100%">Enregistrer la configuration</button>
+          </div>
+          <div style="font-family:var(--font-mono);font-size:.6rem;text-transform:uppercase;letter-spacing:.12em;color:var(--mut);margin:20px 0 10px;padding-top:16px;border-top:1px solid var(--bd)">&#127912; Apparence</div>
           <div id="theme-cards" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(112px,1fr));gap:10px"></div>
           <div style="display:flex;align-items:center;gap:10px;justify-content:space-between;padding:13px 0 2px">
             <div><div style="font-size:.8rem;font-weight:600;color:var(--tx)">Bascule automatique jour / nuit</div><div style="font-size:.64rem;color:var(--mut);margin-top:2px">Plein jour de 8h &#224; 18h, th&#232;me choisi le soir</div></div>
@@ -2350,7 +2349,7 @@ function esc(s){if(s===null||s===undefined)return'';s=String(s);return s.replace
 function fmtDate(d){if(!d)return'';var p=d.split('-');var M=['jan.','fev.','mars','avr.','mai','juin','juil.','aout','sept.','oct.','nov.','dec.'];return parseInt(p[2])+' '+M[parseInt(p[1])-1]+' '+p[0];}
 function toast(msg,type){type=type||'ok';var t=ge('_toast');if(!t){t=document.createElement('div');t.id='_toast';t.style.cssText='position:fixed;bottom:24px;right:24px;z-index:9999;padding:10px 18px;border-radius:9px;font-size:.85rem;font-weight:500;pointer-events:none;transition:opacity .3s;opacity:0';document.body.appendChild(t);}var c={ok:'var(--ok)',err:'var(--ko)',warn:'var(--warn)',info:'var(--ac)'};var col=c[type]||c.ok;t.style.background=col+'20';t.style.border='1px solid '+col;t.style.color=col;t.textContent=msg;t.style.opacity='1';clearTimeout(t._t);t._t=setTimeout(function(){t.style.opacity='0';},3400);}
 function ghLoadConfig(){try{var s=localStorage.getItem('eps-gh');if(s)GH=JSON.parse(s);}catch(e){}if(GH.token)ge('gh-token').value=GH.token;if(GH.repo)ge('gh-repo').value=GH.repo;var _dot=ge('gh-dot');var _st=ge('gh-status');if(GH.token&&GH.repo){if(_dot)_dot.style.background='var(--ok)';if(_st)_st.textContent=GH.repo;}else{if(_dot){_dot.style.background='var(--warn)';_dot.style.boxShadow='0 0 6px #ffd166aa';}if(_st)_st.textContent='GitHub non configuré';}}
-function ghSaveConfig(){GH.token=ge('gh-token').value.trim();GH.repo=ge('gh-repo').value.trim();localStorage.setItem('eps-gh',JSON.stringify(GH));ghLoadConfig();toast('GitHub enregistre');}
+function ghSaveConfig(){GH.token=ge('gh-token').value.trim();GH.repo=ge('gh-repo').value.trim();localStorage.setItem('eps-gh',JSON.stringify(GH));ghLoadConfig();toast('GitHub enregistre');var ms=ge('m-settings');if(ms&&ms.style.display!=='none')closeSettingsModal();}
 function ghPushClasses(){
   if(!GH.token||!GH.repo){toast('GitHub non configuré - classes sauvegardées localement','warn');return;}
   ghPushFile('data/classes.json',CLASSES,function(){
@@ -5026,6 +5025,9 @@ function openSettingsModal(){
   m.style.display='flex';
   settingsRenderThemes();
   settingsRenderAuto();
+  var t=ge('gh-token');var r=ge('gh-repo');
+  if(t&&GH&&GH.token)t.value=GH.token;
+  if(r&&GH&&GH.repo)r.value=GH.repo;
 }
 function closeSettingsModal(){var m=ge('m-settings');if(m)m.style.display='none';}
 function settingsRenderThemes(){
