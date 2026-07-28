@@ -65,6 +65,7 @@ html,body{overflow-x:hidden;max-width:100vw}body{font-family:var(--font-body)}
 .plan-card-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}
 .plan-card-ca{font-size:9px;font-weight:700;background:color-mix(in srgb,var(--tx) 22%,transparent);color:#fff;padding:2px 7px;border-radius:5px;letter-spacing:.04em}
 .plan-card-del{font-size:14px;color:color-mix(in srgb,var(--tx) 45%,transparent);cursor:pointer;padding:2px 4px;border-radius:4px;line-height:1}
+.plan-card-dup{font-size:13px;color:color-mix(in srgb,var(--tx) 35%,transparent);cursor:pointer;padding:2px 4px;border-radius:4px;transition:color .1s}
 .plan-card-emoji{font-size:30px;line-height:1;margin-bottom:8px}
 .plan-card-name{font-size:13px;font-weight:700;color:#fff;line-height:1.3;margin-bottom:8px;flex:1}
 .plan-card-bottom{display:flex;align-items:center;gap:4px;background:rgba(0,0,0,.25);border-radius:6px;padding:4px 7px}
@@ -2124,6 +2125,8 @@ var CLS_SEL_FILIERE='bacpro';
 var CA_GROUPS=[
   {ca:'CA1',caFull:'CA1',color:'var(--ko)',desc:'Realiser sa performance motrice maximale',apsa:[
     {id:'vitesse',name:'Course de vitesse',emoji:'&#127939;'},
+    {id:'haies',name:'Haies',emoji:'&#127939;'},
+    {id:'biathlon',name:'Biathlon',emoji:'&#127936;'},
     {id:'natation',name:'Natation vitesse',emoji:'&#127946;'},
     {id:'athle',name:'Athletisme multi-activité',emoji:'&#127947;'}
   ]},
@@ -3565,6 +3568,7 @@ function accRenderSqGrid(){
       card.innerHTML=
         '<div class="plan-card-top">'+
           '<span class="plan-card-ca">'+(s.apsa&&s.apsa.ca||'')+'</span>'+
+          '<span class="plan-card-dup" data-key="'+(s.key||'')+'">&#10064;</span>'+
           '<span class="plan-card-del" data-key="'+(s.key||'')+'">&#10005;</span>'+
         '</div>'+
         '<div class="plan-card-emoji">'+(s.apsa&&s.apsa.emoji||'')+'</div>'+
@@ -3576,6 +3580,10 @@ function accRenderSqGrid(){
       card.querySelector('.plan-card-del').addEventListener('click',function(e){
         e.stopPropagation();
         if(confirm('Supprimer cette séquence ?'))sessionsDelete(this.dataset.key);
+      });
+      card.querySelector('.plan-card-dup').addEventListener('click',function(e){
+        e.stopPropagation();
+        sessionsDuplicate(this.dataset.key);
       });
       card.addEventListener('dragstart',function(e){
         e.dataTransfer.setData('text/plain',s.key);
@@ -3919,6 +3927,24 @@ function sessionsAdd(cls,apsa,trim,key){
   // Nouvelle séquence → ajouter à la fin
   if(!found)sessions.push({key:key,cls:cls,apsa:apsa,trim:trim,ts:Date.now()});
   sessionsSave(sessions.slice(0,20));
+}
+
+function sessionsDuplicate(key){
+  var sessions=sessionsGet();
+  var orig=sessions.find(function(s){return s.key===key;});
+  if(!orig)return;
+  // Ouvrir modale pour choisir le trimestre de la copie
+  var trim=prompt('Dupliquer vers quel trimestre ? (1, 2 ou 3)', orig.trim||'1');
+  if(!trim||!['1','2','3'].includes(trim.trim()))return;
+  trim=trim.trim();
+  var newKey='eps-'+(orig.cls&&orig.cls.id||'cls')+'-'+(orig.apsa&&orig.apsa.id||'apsa')+'-t'+trim+'-'+Date.now().toString().slice(-4);
+  // Eviter doublon exact
+  if(sessions.find(function(s){return s.key===newKey;}))newKey+='b';
+  var newSess={key:newKey,cls:orig.cls,apsa:orig.apsa,trim:trim,ts:Date.now()};
+  sessions.push(newSess);
+  sessionsSave(sessions);
+  accRenderSqGrid();
+  toast('Séquence dupliquée → T'+trim,'ok');
 }
 
 function sessionsDelete(key){
