@@ -1,12 +1,6 @@
 <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;flex-wrap:wrap;gap:8px">
       <!-- Toggle semaine -->
-      <div style="display:flex;align-items:center;gap:8px">
-        <span style="font-size:.75rem;color:var(--tx2);font-weight:500">Semaine :</span>
-        <div style="display:flex;background:var(--bg2);border-radius:20px;padding:3px;gap:2px" id="sem-toggle">
-          <button id="btn-sem-paire" style="padding:4px 14px;border-radius:16px;font-size:.72rem;font-weight:600;border:none;cursor:pointer;background:var(--ac);color:#fff;transition:all .15s">Paire</button>
-          <button id="btn-sem-impaire" style="padding:4px 14px;border-radius:16px;font-size:.72rem;font-weight:600;border:none;cursor:pointer;background:transparent;color:var(--tx2);transition:all .15s">Impaire</button>
-        </div>
-      </div>
+
       <!-- Sync -->
       <div style="display:flex;align-items:center;gap:10px">
         <div style="display:flex;align-items:center;gap:6px">
@@ -935,33 +929,7 @@ window._fbReady = true;
       </div>
       </div>
     </div>
-    <!-- Modale reglages -->
-    <div id="m-settings" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.65);z-index:9998;align-items:center;justify-content:center;padding:16px">
-      <div style="background:var(--card);border:0.5px solid var(--bd2);border-radius:16px;width:100%;max-width:540px;max-height:88vh;display:flex;flex-direction:column;overflow:hidden">
-        <div style="background:var(--card2);padding:12px 16px;border-bottom:0.5px solid var(--bd2);display:flex;align-items:center;gap:8px">
-          <div style="font-size:17px">&#9881;&#65039;</div>
-          <div style="font-size:14px;font-weight:600;color:var(--tx);flex:1">R&#233;glages</div>
-          <div onclick="closeSettingsModal()" style="width:26px;height:26px;border-radius:50%;background:var(--card3);border:0.5px solid var(--bd2);color:var(--tx2);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:12px">&#10005;</div>
-        </div>
-        <div style="padding:16px;overflow-y:auto">
-          <div style="font-family:var(--font-mono);font-size:.6rem;text-transform:uppercase;letter-spacing:.12em;color:var(--mut);margin-bottom:8px;padding-top:6px;border-top:1px solid var(--bd)">&#9881;&#65039; Configuration GitHub</div>
-          <div style="display:flex;flex-direction:column;gap:8px">
-            <div><label style="font-size:.66rem;color:var(--mut);display:block;margin-bottom:3px">Token GitHub</label><input class="gh-input" type="password" id="gh-token" placeholder="ghp_..." autocomplete="off" style="width:100%;font-size:.78rem;padding:8px 10px"></div>
-            <div><label style="font-size:.66rem;color:var(--mut);display:block;margin-bottom:3px">D&#233;p&#244;t (user/repo)</label><input class="gh-input" type="text" id="gh-repo" placeholder="lulu120299-lang/eps-suivi" autocomplete="off" style="width:100%;font-size:.78rem;padding:8px 10px"></div>
-            <button class="gh-btn" id="btn-gh-save" style="padding:8px 10px;font-size:.78rem;width:100%">Enregistrer la configuration</button>
-          </div>
-          <div style="font-family:var(--font-mono);font-size:.6rem;text-transform:uppercase;letter-spacing:.12em;color:var(--mut);margin:20px 0 10px;padding-top:16px;border-top:1px solid var(--bd)">&#127912; Apparence</div>
-          <div id="theme-cards" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(112px,1fr));gap:10px"></div>
-          <div style="display:flex;align-items:center;gap:10px;justify-content:space-between;padding:13px 0 2px">
-            <div><div style="font-size:.8rem;font-weight:600;color:var(--tx)">Bascule automatique jour / nuit</div><div style="font-size:.64rem;color:var(--mut);margin-top:2px">Plein jour de 8h &#224; 18h, th&#232;me choisi le soir</div></div>
-            <div id="sw-theme-auto" onclick="settingsToggleAuto()" style="width:46px;height:26px;border-radius:14px;background:var(--bd);position:relative;cursor:pointer;flex:0 0 auto;transition:background .2s"><div id="sw-knob" style="position:absolute;top:3px;left:3px;width:20px;height:20px;border-radius:50%;background:var(--tx);transition:left .2s"></div></div>
-          </div>
-          <div style="font-family:var(--font-mono);font-size:.6rem;text-transform:uppercase;letter-spacing:.12em;color:var(--mut);margin:20px 0 8px;padding-top:16px;border-top:1px solid var(--bd)">&#128230; Donn&#233;es</div>
-          <div onclick="settingsExportBackup()" style="display:flex;align-items:center;gap:10px;padding:11px 0;border-bottom:1px solid var(--bd);font-size:.8rem;color:var(--tx2);cursor:pointer"><div style="width:30px;height:30px;border-radius:8px;background:var(--card2);display:flex;align-items:center;justify-content:center;font-size:14px;border:0.5px solid var(--bd)">&#128190;</div>Exporter une sauvegarde compl&#232;te (.json)<span style="margin-left:auto;color:var(--mut)">&#8250;</span></div>
-          <div onclick="closeSettingsModal();openNewYearModal()" style="display:flex;align-items:center;gap:10px;padding:11px 0;font-size:.8rem;color:var(--tx2);cursor:pointer"><div style="width:30px;height:30px;border-radius:8px;background:var(--card2);display:flex;align-items:center;justify-content:center;font-size:14px;border:0.5px solid var(--bd)">&#127891;</div>Nouvelle ann&#233;e scolaire<span style="margin-left:auto;color:var(--mut)">&#8250;</span></div>
-        </div>
-      </div>
-    </div>
+    
     <!-- Modale nouvelle annee scolaire -->
     <div id="m-new-year" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:9999;align-items:center;justify-content:center;padding:16px">
       <div style="background:var(--card);border:0.5px solid color-mix(in srgb,var(--ko) 35%,transparent);border-radius:16px;width:100%;max-width:520px;overflow:hidden">
@@ -3567,18 +3535,15 @@ function accInitSemaine(){
   accSetSemaine(_accSemaine,true);
   var btnSync=ge('btn-acc-sync');
   if(btnSync)btnSync.addEventListener('click',function(){ghPull();});
-  var btnPaire=ge('btn-sem-paire');
-  var btnImpaire=ge('btn-sem-impaire');
-  if(btnPaire)btnPaire.addEventListener('click',function(){accSetSemaine('paire');});
-  if(btnImpaire)btnImpaire.addEventListener('click',function(){accSetSemaine('impaire');});
 }
 
 function accSetSemaine(sem,silent){
   _accSemaine=sem;
   localStorage.setItem('acc-semaine',sem);
-  var btnP=ge('btn-sem-paire');var btnI=ge('btn-sem-impaire');
-  if(btnP){btnP.style.background=sem==='paire'?'var(--ac)':'transparent';btnP.style.color=sem==='paire'?'#fff':'var(--tx2)';}
-  if(btnI){btnI.style.background=sem==='impaire'?'var(--ac)':'transparent';btnI.style.color=sem==='impaire'?'#fff':'var(--tx2)';}
+  // Mettre à jour boutons dans settings
+  var btnP=ge('settings-sem-paire');var btnI=ge('settings-sem-impaire');
+  if(btnP){btnP.style.background=sem==='paire'?'var(--ac)':'var(--bg2)';btnP.style.color=sem==='paire'?'#fff':'var(--tx2)';}
+  if(btnI){btnI.style.background=sem==='impaire'?'var(--ac)':'var(--bg2)';btnI.style.color=sem==='impaire'?'#fff':'var(--tx2)';}
   if(!silent)accRenderSqGrid();
 }
 
@@ -5114,6 +5079,7 @@ function openSettingsModal(){
   var t=ge('gh-token');var r=ge('gh-repo');
   if(t&&GH&&GH.token)t.value=GH.token;
   if(r&&GH&&GH.repo)r.value=GH.repo;
+  accSetSemaine(_accSemaine,true);
 }
 function closeSettingsModal(){var m=ge('m-settings');if(m)m.style.display='none';}
 function settingsRenderThemes(){
@@ -8911,5 +8877,39 @@ document.addEventListener('DOMContentLoaded',function(){accInit();initEvents();i
   </div>
 </div></div>
 
+<!-- Modale reglages -->
+    <div id="m-settings" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.65);z-index:9998;align-items:center;justify-content:center;padding:16px">
+      <div style="background:var(--card);border:0.5px solid var(--bd2);border-radius:16px;width:100%;max-width:540px;max-height:88vh;display:flex;flex-direction:column;overflow:hidden">
+        <div style="background:var(--card2);padding:12px 16px;border-bottom:0.5px solid var(--bd2);display:flex;align-items:center;gap:8px">
+          <div style="font-size:17px">&#9881;&#65039;</div>
+          <div style="font-size:14px;font-weight:600;color:var(--tx);flex:1">R&#233;glages</div>
+          <div onclick="closeSettingsModal()" style="width:26px;height:26px;border-radius:50%;background:var(--card3);border:0.5px solid var(--bd2);color:var(--tx2);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:12px">&#10005;</div>
+        </div>
+        <div style="padding:16px;overflow-y:auto">
+          <div style="font-family:var(--font-mono);font-size:.6rem;text-transform:uppercase;letter-spacing:.12em;color:var(--mut);margin-bottom:8px;padding-top:6px;border-top:1px solid var(--bd)">&#9881;&#65039; Configuration GitHub</div>
+          <div style="display:flex;flex-direction:column;gap:8px">
+            <div><label style="font-size:.66rem;color:var(--mut);display:block;margin-bottom:3px">Token GitHub</label><input class="gh-input" type="password" id="gh-token" placeholder="ghp_..." autocomplete="off" style="width:100%;font-size:.78rem;padding:8px 10px"></div>
+            <div><label style="font-size:.66rem;color:var(--mut);display:block;margin-bottom:3px">D&#233;p&#244;t (user/repo)</label><input class="gh-input" type="text" id="gh-repo" placeholder="lulu120299-lang/eps-suivi" autocomplete="off" style="width:100%;font-size:.78rem;padding:8px 10px"></div>
+            <button class="gh-btn" id="btn-gh-save" style="padding:8px 10px;font-size:.78rem;width:100%">Enregistrer la configuration</button>
+          </div>
+          <div style="margin-top:16px;padding-top:16px;border-top:0.5px solid var(--bord)">
+            <div style="font-size:.72rem;font-weight:600;color:var(--mut);text-transform:uppercase;letter-spacing:.1em;margin-bottom:10px">Semaine en cours</div>
+            <div style="display:flex;gap:8px">
+              <button id="settings-sem-paire" onclick="accSetSemaine('paire')" style="flex:1;padding:8px;border-radius:8px;border:0.5px solid var(--bord);font-size:.8rem;font-weight:600;cursor:pointer;background:var(--ac);color:#fff;transition:all .15s">Paire</button>
+              <button id="settings-sem-impaire" onclick="accSetSemaine('impaire')" style="flex:1;padding:8px;border-radius:8px;border:0.5px solid var(--bord);font-size:.8rem;font-weight:600;cursor:pointer;background:var(--bg2);color:var(--tx2);transition:all .15s">Impaire</button>
+            </div>
+          </div>
+          <div style="font-family:var(--font-mono);font-size:.6rem;text-transform:uppercase;letter-spacing:.12em;color:var(--mut);margin:20px 0 10px;padding-top:16px;border-top:1px solid var(--bd)">&#127912; Apparence</div>
+          <div id="theme-cards" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(112px,1fr));gap:10px"></div>
+          <div style="display:flex;align-items:center;gap:10px;justify-content:space-between;padding:13px 0 2px">
+            <div><div style="font-size:.8rem;font-weight:600;color:var(--tx)">Bascule automatique jour / nuit</div><div style="font-size:.64rem;color:var(--mut);margin-top:2px">Plein jour de 8h &#224; 18h, th&#232;me choisi le soir</div></div>
+            <div id="sw-theme-auto" onclick="settingsToggleAuto()" style="width:46px;height:26px;border-radius:14px;background:var(--bd);position:relative;cursor:pointer;flex:0 0 auto;transition:background .2s"><div id="sw-knob" style="position:absolute;top:3px;left:3px;width:20px;height:20px;border-radius:50%;background:var(--tx);transition:left .2s"></div></div>
+          </div>
+          <div style="font-family:var(--font-mono);font-size:.6rem;text-transform:uppercase;letter-spacing:.12em;color:var(--mut);margin:20px 0 8px;padding-top:16px;border-top:1px solid var(--bd)">&#128230; Donn&#233;es</div>
+          <div onclick="settingsExportBackup()" style="display:flex;align-items:center;gap:10px;padding:11px 0;border-bottom:1px solid var(--bd);font-size:.8rem;color:var(--tx2);cursor:pointer"><div style="width:30px;height:30px;border-radius:8px;background:var(--card2);display:flex;align-items:center;justify-content:center;font-size:14px;border:0.5px solid var(--bd)">&#128190;</div>Exporter une sauvegarde compl&#232;te (.json)<span style="margin-left:auto;color:var(--mut)">&#8250;</span></div>
+          <div onclick="closeSettingsModal();openNewYearModal()" style="display:flex;align-items:center;gap:10px;padding:11px 0;font-size:.8rem;color:var(--tx2);cursor:pointer"><div style="width:30px;height:30px;border-radius:8px;background:var(--card2);display:flex;align-items:center;justify-content:center;font-size:14px;border:0.5px solid var(--bd)">&#127891;</div>Nouvelle ann&#233;e scolaire<span style="margin-left:auto;color:var(--mut)">&#8250;</span></div>
+        </div>
+      </div>
+    </div>
 </body>
 </html>
