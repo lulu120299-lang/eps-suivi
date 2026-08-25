@@ -65,6 +65,7 @@ html,body{overflow-x:hidden;max-width:100vw}body{font-family:var(--font-body)}
 .plan-card-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}
 .plan-card-ca{font-size:9px;font-weight:700;background:color-mix(in srgb,var(--tx) 22%,transparent);color:#fff;padding:2px 7px;border-radius:5px;letter-spacing:.04em}
 .plan-card-del{font-size:14px;color:color-mix(in srgb,var(--tx) 45%,transparent);cursor:pointer;padding:2px 4px;border-radius:4px;line-height:1}
+.plan-card-par{font-size:10px;font-weight:700;color:color-mix(in srgb,var(--ac) 80%,transparent);cursor:pointer;padding:2px 5px;border-radius:4px;transition:color .1s;margin-right:2px}
 .plan-card-dup{font-size:13px;color:color-mix(in srgb,var(--tx) 30%,transparent);cursor:pointer;padding:2px 4px;border-radius:4px;transition:color .1s;margin-right:2px}
 .plan-card-dup:hover{color:var(--ac)}
 .plan-card-horaire{font-size:10px;color:rgba(255,255,255,.5);background:rgba(0,0,0,.2);border-radius:5px;padding:3px 7px;margin-top:5px;cursor:pointer;text-align:center;transition:background .1s}
@@ -940,13 +941,7 @@ window._fbReady = true;
               <button id="settings-sem-impaire" onclick="accSetSemaine('impaire')" style="flex:1;padding:8px;border-radius:8px;border:0.5px solid var(--bord);font-size:.8rem;font-weight:600;cursor:pointer;background:var(--bg2);color:var(--tx2)">Impaire</button>
             </div>
           </div>
-          <div style="margin-top:16px;padding-top:16px;border-top:0.5px solid var(--bord)">
-            <div style="font-size:.72rem;font-weight:600;color:var(--mut);text-transform:uppercase;letter-spacing:.1em;margin-bottom:10px">Semaine en cours</div>
-            <div style="display:flex;gap:8px">
-              <button id="settings-sem-paire" style="flex:1;padding:8px;border-radius:8px;border:0.5px solid var(--bord);font-size:.8rem;font-weight:600;cursor:pointer;background:var(--ac);color:#fff;transition:all .15s">Paire</button>
-              <button id="settings-sem-impaire" style="flex:1;padding:8px;border-radius:8px;border:0.5px solid var(--bord);font-size:.8rem;font-weight:600;cursor:pointer;background:var(--bg2);color:var(--tx2);transition:all .15s">Impaire</button>
-            </div>
-          </div>
+          
           <div style="font-family:var(--font-mono);font-size:.6rem;text-transform:uppercase;letter-spacing:.12em;color:var(--mut);margin:20px 0 10px;padding-top:16px;border-top:1px solid var(--bd)">&#127912; Apparence</div>
           <div id="theme-cards" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(112px,1fr));gap:10px"></div>
           <div style="display:flex;align-items:center;gap:10px;justify-content:space-between;padding:13px 0 2px">
@@ -3599,6 +3594,19 @@ function sessionsDuplicate(key) {
 }
 
 // ── CRENEAU HORAIRE ──
+function accToggleParity(key){
+  var sessions=sessionsGet();
+  var s=sessions.find(function(x){return x.key===key;});
+  if(!s)return;
+  var order=['les-deux','paire','impaire'];
+  var cur=order.indexOf(s.parity||'les-deux');
+  s.parity=order[(cur+1)%3];
+  var labels={'les-deux':'∞ (les deux)','paire':'P (paire)','impaire':'I (impaire)'};
+  sessionsSave(sessions);
+  accRenderSqGrid();
+  toast('Semaine : '+labels[s.parity],'ok');
+}
+
 function accSetHoraire(key) {
   var sessions = sessionsGet();
   var s = sessions.find(function(x) { return x.key === key; });
@@ -3617,7 +3625,14 @@ function accRenderSqGrid(){
   var col=_CA_C;
   var sessions=sessionsGet();
   // Init jour par défaut si absent
-  sessions.forEach(function(s,si){if(s.day===undefined||s.day===null)s.day=-1;});
+  sessions.forEach(function(s,si){
+    if(s.day===undefined||s.day===null)s.day=-1;
+    if(!s.parity)s.parity='les-deux';
+  });
+  // Filtrer par semaine paire/impaire
+  var sessionsFiltered=sessions.filter(function(s){
+    return s.parity==='les-deux'||s.parity===_accSemaine;
+  });
   // Rendre les 5 colonnes
   for(var d=0;d<5;d++){
     var zone=ge('plan-'+d);
@@ -3641,6 +3656,7 @@ function accRenderSqGrid(){
       card.innerHTML=
         '<div class="plan-card-top">'+
           '<span class="plan-card-ca">'+(s.apsa&&s.apsa.ca||'')+'</span>'+
+          '<span class="plan-card-par" data-key="'+(s.key||'')+'">'+((s.parity==='paire')?'P':(s.parity==='impaire')?'I':'&#8734;')+'</span>'+
           '<span class="plan-card-dup" data-key="'+(s.key||'')+'">&#9633;</span>'+
           '<span class="plan-card-del" data-key="'+(s.key||'')+'">&#10005;</span>'+
         '</div>'+
@@ -3657,6 +3673,10 @@ function accRenderSqGrid(){
       card.querySelector('.plan-card-dup').addEventListener('click',function(e){
         e.stopPropagation();
         sessionsDuplicate(this.dataset.key);
+      });
+      card.querySelector('.plan-card-par').addEventListener('click',function(e){
+        e.stopPropagation();
+        accToggleParity(this.dataset.key);
       });
       var hEl=card.querySelector('.plan-card-horaire');
       if(hEl)hEl.addEventListener('click',function(e){
@@ -3676,7 +3696,7 @@ function accRenderSqGrid(){
     });
   }
   // Carte non assignée (day=-1) → colonne 0 par défaut + bouton + dans chaque colonne
-  var unassigned=sessions.filter(function(s){return s.day===-1;});
+  var unassigned=sessionsFiltered.filter(function(s){return s.day===-1;});
   if(unassigned.length>0){
     var zone0=ge('plan-0');
     if(zone0){
