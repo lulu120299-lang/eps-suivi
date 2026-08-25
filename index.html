@@ -3575,7 +3575,7 @@ function accSetSemaine(sem, silent) {
   var btnI = ge('settings-sem-impaire');
   if (btnP) { btnP.style.background = sem === 'paire' ? 'var(--ac)' : 'var(--bg2)'; btnP.style.color = sem === 'paire' ? '#fff' : 'var(--tx2)'; }
   if (btnI) { btnI.style.background = sem === 'impaire' ? 'var(--ac)' : 'var(--bg2)'; btnI.style.color = sem === 'impaire' ? '#fff' : 'var(--tx2)'; }
-  if (!silent) accRenderSqGrid();
+  if (!silent) { closeSettingsModal(); accRenderSqGrid(); }
 }
 
 // ── DUPLICATE SEQUENCE ──
@@ -3638,7 +3638,7 @@ function accRenderSqGrid(){
     var zone=ge('plan-'+d);
     if(!zone)continue;
     zone.innerHTML='';
-    var daySessions=sessions.filter(function(s){return s.day===d;});
+    var daySessions=sessionsFiltered.filter(function(s){return s.day===d;});
     if(daySessions.length===0){
       var hint=document.createElement('div');
       hint.className='plan-zone-hint';
