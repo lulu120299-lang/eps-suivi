@@ -65,7 +65,7 @@ html,body{overflow-x:hidden;max-width:100vw}body{font-family:var(--font-body)}
 .plan-card-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}
 .plan-card-ca{font-size:9px;font-weight:700;background:color-mix(in srgb,var(--tx) 22%,transparent);color:#fff;padding:2px 7px;border-radius:5px;letter-spacing:.04em}
 .plan-card-del{font-size:14px;color:color-mix(in srgb,var(--tx) 45%,transparent);cursor:pointer;padding:2px 4px;border-radius:4px;line-height:1}
-.plan-card-par{font-size:10px;font-weight:700;color:color-mix(in srgb,var(--ac) 80%,transparent);cursor:pointer;padding:2px 5px;border-radius:4px;transition:color .1s;margin-right:2px}
+.plan-card-par{font-size:9px;font-weight:700;cursor:pointer;padding:2px 5px;border-radius:4px;transition:all .1s;margin-right:2px;border:1px solid currentColor}
 .plan-card-dup{font-size:13px;color:color-mix(in srgb,var(--tx) 30%,transparent);cursor:pointer;padding:2px 4px;border-radius:4px;transition:color .1s;margin-right:2px}
 .plan-card-dup:hover{color:var(--ac)}
 .plan-card-horaire{font-size:10px;color:rgba(255,255,255,.5);background:rgba(0,0,0,.2);border-radius:5px;padding:3px 7px;margin-top:5px;cursor:pointer;text-align:center;transition:background .1s}
@@ -3656,8 +3656,8 @@ function accRenderSqGrid(){
       card.innerHTML=
         '<div class="plan-card-top">'+
           '<span class="plan-card-ca">'+(s.apsa&&s.apsa.ca||'')+'</span>'+
-          '<span class="plan-card-par" data-key="'+(s.key||'')+'">'+((s.parity==='paire')?'P':(s.parity==='impaire')?'I':'&#8734;')+'</span>'+
-          '<span class="plan-card-dup" data-key="'+(s.key||'')+'">&#9633;</span>'+
+          '<span class="plan-card-par" data-key="'+(s.key||'')+'" style="color:'+(s.parity==='paire'?'#4f8aff':s.parity==='impaire'?'#ff9f0a':'#56cfb2')+';border-color:'+(s.parity==='paire'?'#4f8aff':s.parity==='impaire'?'#ff9f0a':'#56cfb2')+'">'+(s.parity==='paire'?'S.P':s.parity==='impaire'?'S.I':'S.2')+'</span>'+
+          '<span class="plan-card-dup" data-key="'+(s.key||'')+'">&#8853;</span>'+
           '<span class="plan-card-del" data-key="'+(s.key||'')+'">&#10005;</span>'+
         '</div>'+
         '<div class="plan-card-emoji">'+(s.apsa&&s.apsa.emoji||'')+'</div>'+
