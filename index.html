@@ -1918,7 +1918,13 @@ window._fbReady = true;
   <div class="fgrp"><label class="flbl">AFLP prioritaires</label><div id="seq-aflp-checks" class="aflp-check-grid"></div></div>
   <div class="sec-title" style="margin-top:1.2rem">Trame de s&#233;quence</div>
   <div id="seq-trame-container"></div>
-  <button class="add-partie-btn" id="btn-add-trame-seance">+ Ajouter une s&#233;ance au planning</button>
+  <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:6px">
+    <button class="add-partie-btn" id="btn-add-trame-seance">+ Ajouter une séance</button>
+    <label style="display:flex;align-items:center;gap:6px;background:rgba(79,138,255,.1);border:0.5px solid rgba(79,138,255,.3);border-radius:8px;padding:6px 12px;cursor:pointer;font-size:.78rem;font-weight:600;color:#4f8aff">
+      &#8659; Importer une trame JSON
+      <input type="file" accept=".json" id="input-import-trame" style="display:none">
+    </label>
+  </div>
   <div class="modal-acts">
     <button class="btn btn-g" data-close="m-seq">Annuler</button>
     <button class="btn btn-p" onclick="saveSeq()">Enregistrer</button>
@@ -4833,7 +4839,11 @@ if(hasDetails){
 h+='</div>';}trameEl.innerHTML=h;}
   try{acc2Init();}catch(ex){}
 }
-function openSeqModal(){var seq=seqGet();ge('seq-objet').value=seq.objet||'';ge('seq-objectifs').value=seq.objectifs||'';var f=CTX.cls?CTX.cls.filiere:'bacpro';var aflpData=CTX.apsa?(AFLP[f]||AFLP.bacpro)[CTX.apsa.caFull]:null;var c=ge('seq-aflp-checks');c.innerHTML='';if(aflpData){for(var i=0;i<aflpData.items.length;i++){(function(item){var prio=seq.aflpPrio||[];var checked=prio.indexOf(item.n)>=0;var lbl=document.createElement('label');lbl.className='aflp-check-item'+(checked?' checked-item':'');lbl.innerHTML='<input type="checkbox" '+(checked?'checked':'')+'><span class="aflp-check-num">'+item.n+'</span><span class="aflp-check-text">'+item.t+'</span>';lbl.querySelector('input').addEventListener('change',function(){lbl.className='aflp-check-item'+(this.checked?' checked-item':'');});c.appendChild(lbl);})(aflpData.items[i]);}}var tc=ge('seq-trame-container');tc.innerHTML='';var trame=seq.trame||[];for(var i=0;i<trame.length;i++)renderTrameRow(trame[i]);openM('m-seq');}
+function openSeqModal(){var seq=seqGet();ge('seq-objet').value=seq.objet||'';ge('seq-objectifs').value=seq.objectifs||'';var f=CTX.cls?CTX.cls.filiere:'bacpro';var aflpData=CTX.apsa?(AFLP[f]||AFLP.bacpro)[CTX.apsa.caFull]:null;var c=ge('seq-aflp-checks');c.innerHTML='';if(aflpData){for(var i=0;i<aflpData.items.length;i++){(function(item){var prio=seq.aflpPrio||[];var checked=prio.indexOf(item.n)>=0;var lbl=document.createElement('label');lbl.className='aflp-check-item'+(checked?' checked-item':'');lbl.innerHTML='<input type="checkbox" '+(checked?'checked':'')+'><span class="aflp-check-num">'+item.n+'</span><span class="aflp-check-text">'+item.t+'</span>';lbl.querySelector('input').addEventListener('change',function(){lbl.className='aflp-check-item'+(this.checked?' checked-item':'');});c.appendChild(lbl);})(aflpData.items[i]);}}var tc=ge('seq-trame-container');tc.innerHTML='';var trame=seq.trame||[];for(var i=0;i<trame.length;i++)renderTrameRow(trame[i]);openM('m-seq');
+  // Attacher listener import trame
+  var _it=ge('input-import-trame');
+  if(_it&&!_it._listened){_it._listened=true;_it.addEventListener('change',function(){importTrameJSON(this.files[0]);this.value='';});}
+}
 function renderTrameRow(t){
   var c=ge('seq-trame-container');
   var row=document.createElement('div');
@@ -4868,6 +4878,26 @@ function renderTrameRow(t){
 }
 function renumTrameRows(){var rows=document.querySelectorAll('.trame-row');for(var i=0;i<rows.length;i++)rows[i].querySelector('.trame-num-badge').textContent='S'+(i+1);}
 function addTrameSeance(){var rows=document.querySelectorAll('.trame-row');renderTrameRow({num:rows.length+1,objectif:'',date:''});}
+function importTrameJSON(file){
+  if(!file)return;
+  var reader=new FileReader();
+  reader.onload=function(e){
+    try{
+      var data=JSON.parse(e.target.result);
+      var trame=data.trame;
+      if(!trame||!Array.isArray(trame)||!trame.length){toast('Fichier invalide — clé trame[] manquante','warn');return;}
+      if(!confirm('Importer '+trame.length+' séances ? La trame actuelle sera remplacée.')){return;}
+      // Vider la trame actuelle
+      var tc=ge('seq-trame-container');
+      tc.innerHTML='';
+      // Remplir avec les nouvelles séances
+      trame.forEach(function(t){renderTrameRow(t);});
+      toast('Trame importée — '+trame.length+' séances !','ok');
+    }catch(err){toast('Fichier invalide','warn');}
+  };
+  reader.readAsText(file);
+}
+
 function saveSeq(){var objet=ge('seq-objet').value.trim();var objectifs=ge('seq-objectifs').value.trim();var cbs=document.querySelectorAll('#seq-aflp-checks input[type=checkbox]:checked');var aflpPrio=[];for(var i=0;i<cbs.length;i++){var num=cbs[i].parentElement.querySelector('.aflp-check-num');if(num)aflpPrio.push(num.textContent);}var rows=document.querySelectorAll('.trame-row');var trame=[];for(var i=0;i<rows.length;i++){var r=rows[i];var aflpRaw=r.querySelector('.tr-aflp')?r.querySelector('.tr-aflp').value:'';var aflpArr=aflpRaw.split(',').map(function(s){return s.trim();}).filter(function(s){return s.length>0;});trame.push({num:i+1,objectif:r.querySelector('.tr-obj').value,date:r.querySelector('.tr-date').value,aflp:aflpArr,autreobj:r.querySelector('.tr-autreobj')?r.querySelector('.tr-autreobj').value:'',contenus:r.querySelector('.tr-contenus')?r.querySelector('.tr-contenus').value:'',fps:r.querySelector('.tr-fps')?r.querySelector('.tr-fps').value:''});}seqSave({objet:objet,objectifs:objectifs,aflpPrio:aflpPrio,trame:trame});closeM('m-seq');renderAccueilSuivi();toast('Sequence enregistree');}
 function profilGet(){return state.profil||{};}
 function profilSave(d){state.profil=d;save();}
@@ -8801,6 +8831,8 @@ s('btn-gh-save','click',ghSaveConfig);
 s('btn-pdf-sequence','click',exportSequencePDF);
 s('btn-save-seq','click',saveSeq);
 s('btn-add-trame-seance','click',addTrameSeance);
+  var _itInput=ge('input-import-trame');
+  if(_itInput)_itInput.addEventListener('change',function(){importTrameJSON(this.files[0]);this.value='';});
 s('btn-new-seance','click',function(){iaReset();nsGoStep(0);openM('m-seance');});
 s('btn-save-seance','click',saveSeance);
 s('btn-add-partie-new','click',function(){addPartie('new');});
