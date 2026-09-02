@@ -8870,6 +8870,12 @@ s('btn-import-eleves-json','change',function(){importElevesJSON(this.files[0]);t
 s('btn-import-ecoledirect','change',function(){importEcoleDirectXLSX(this.files[0]);this.value='';});
 s('btn-csv','click',exportCSV);
 s('btn-save-fiche','click',saveFicheAmen);
+  document.querySelectorAll('.disp-type-btn').forEach(function(btn){
+    btn.addEventListener('click',function(){
+      document.querySelectorAll('.disp-type-btn').forEach(function(b){b.classList.remove('sel');});
+      this.classList.add('sel');
+    });
+  });
 s('photo-drop','click',function(){var pi=ge('photo-input');if(pi)pi.click();});
 s('photo-input','change',function(){handlePhoto(this);});
 s('photo-del-btn','click',function(){fichePhotoData=null;var t=ge('photo-thumb');if(t)t.style.display='none';this.style.display='none';var pi=ge('photo-input');if(pi)pi.value='';});
